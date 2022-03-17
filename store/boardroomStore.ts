@@ -93,15 +93,19 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 				if (onCallback) onCallback(err);
 			});
 	},
-	async stake(ctx: any, {amount, onConfirm, onReject}) {
+	stake(ctx: any, {amount, onConfirm, onError, onComplete}) {
 		const accountAddress = ctx.rootState.web3Store.account;
 		const weiAmount = toWei(amount);
-		return await ctx.getters.contract.methods.stake(weiAmount).send({from: accountAddress})
+		ctx.getters.contract.methods.stake(weiAmount).send({from: accountAddress})
 			.on("transactionHash", (hash: string) => {
 				if (onConfirm) onConfirm(hash);
 			})
 			.on("error", (err: string) => {
-				if (onReject) onReject(err);
+				if (onError) onError(err);
+			})
+			.then((_res: any) => {
+				ctx.dispatch("erc20Store/initializeBalance", {address: accountAddress}, {root: true});
+				if (onComplete) onComplete();
 			});
 	},
 	claimReward(ctx: any, {onConfirm, onReject}) {
@@ -129,15 +133,19 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 				if (onReject) onReject();
 			});
 	},
-	async withdraw(ctx: any, {amount, onConfirm, onReject}) {
+	withdraw(ctx: any, {amount, onConfirm, onError, onComplete}) {
 		const accountAddress = ctx.rootState.web3Store.account;
 		const weiAmount = toWei(amount);
-		return await ctx.getters.contract.methods.withdraw(weiAmount).send({from: accountAddress})
+		ctx.getters.contract.methods.withdraw(weiAmount).send({from: accountAddress})
 			.on("transactionHash", (hash: string) => {
 				if (onConfirm) onConfirm(hash);
 			})
 			.on("error", (err: string) => {
-				if (onReject) onReject(err);
+				if (onError) onError(err);
+			})
+			.then((_res: any) => {
+				ctx.dispatch("erc20Store/initializeBalance", {address: accountAddress}, {root: true});
+				if (onComplete) onComplete();
 			});
 	},
 	async claimRewardsAndWithdraw(ctx:any, {onConfirm, onReject}) {

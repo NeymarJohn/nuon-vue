@@ -121,39 +121,47 @@ export const actions: ActionTree<StabilityState, StabilityState> = {
 		return await ctx.getters.contract.methods.viewEarned(address).call();
 	},
 
-	async burnHydro(ctx: any, { address, amount, successCallback, failureCallback }) {
+	burnHydro(ctx: any, { address, amount, onConfirm, onError, onComplete }) {
 		const web3 = ctx.rootGetters["web3Store/instance"]();
 		
 		try {
-			await ctx.getters.contract.methods.burnHYDRO(
+			ctx.getters.contract.methods.burnHYDRO(
 				web3.utils.toWei(amount, "ether")
 			).send({from: address})
 			 .on("error", function() {
-				 failureCallback();
+				 	onError();
 			 })
 			 .on("transactionHash", function(hash: string) {
-				 successCallback(hash);
+					onConfirm(hash);
+			 })
+			 .then((_res:any) => {
+				 	ctx.dispatch("erc20Store/initializeBalance", {address}, {root:true});
+				 	onComplete();
 			 });
 		} catch (e) {
-			failureCallback(e);
+			onError(e);
 		}
 	},
 
-	async burnUsx(ctx: any, { address, amount, successCallback, failureCallback }) {
+	burnUsx(ctx: any, { address, amount, onConfirm, onError, onComplete }) {
 		const web3 = ctx.rootGetters["web3Store/instance"]();
 		
 		try {
-			await ctx.getters.contract.methods.burnUSX(
+			ctx.getters.contract.methods.burnUSX(
 				web3.utils.toWei(amount, "ether")
 			).send({from: address})
 			 .on("error", function() {
-				 failureCallback();
+				 	onError();
 			 })
 			 .on("transactionHash", function(hash: string) {
-				 successCallback(hash);
+				 	onConfirm(hash);
+			 })
+			 .then((_res: any) => {
+					ctx.dispatch("erc20Store/initializeBalance", {address}, {root:true});
+				 	onComplete();
 			 });
 		} catch (e) {
-			failureCallback(e);
+			onError(e);
 		}
 	},
 
