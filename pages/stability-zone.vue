@@ -206,7 +206,7 @@ export default {
 	},
 	head() {
 		return {
-			title: "Stability Zone | Ultrastable Money"
+			title: "Stability Zone | Nuon"
 		};
 	},
 	computed: {

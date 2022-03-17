@@ -121,7 +121,7 @@
 			<LayoutFlex direction="row-space-between" class="u-mb-xs u-m-mb-sm l-m-flex--column">
 				<LayoutFlex direction="column" class="u-m-mb-xs">
 					<h2 class="u-mb-xs u-flex-row-center">Proposals <TooltipIcon v-tooltip="'Enter proposals tooltip content here.'" /></h2>
-					<p>Create proposals and vote to improve the Ultrastable Money protocol.</p>
+					<p>Create proposals and vote to improve the Nuon protocol.</p>
 				</LayoutFlex>
 				<DataCard align="end">
 					<NuxtLink :disabled="!isConnectedWallet" :event="!isConnectedWallet ? '' : 'click'" class="btn btn--md" to="/boardroom/create-new-proposal" title="Click to create a new proposal">Create New Proposal</NuxtLink>
@@ -198,7 +198,7 @@ export default {
 	},
 	head() {
 		return {
-			title: "Boardroom | Ultrastable Money"
+			title: "Boardroom | Nuon"
 		};
 	},
 	computed: {

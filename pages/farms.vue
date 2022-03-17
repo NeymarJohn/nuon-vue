@@ -13,7 +13,7 @@ export default {
 	name: "TheFarms",
 	head () {
 		return {
-			title: "Farms | Ultrastable Money"
+			title: "Farms | Nuon"
 		};
 	}
 };

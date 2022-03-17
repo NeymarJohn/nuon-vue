@@ -4,7 +4,7 @@ export default {
 	target: "static",
 	// Global page headers: https://go.nuxtjs.dev/config-head
 	head: {
-		title: "Hydro Ultrastable",
+		title: "Nuon",
 		htmlAttrs: {
 			lang: "en"
 		},

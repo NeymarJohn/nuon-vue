@@ -69,7 +69,7 @@ export default {
 	},
 	head () {
 		return {
-			title: "Dashboard | Ultrastable Money"
+			title: "Dashboard | Nuon"
 		};
 	},
 	async mounted () {

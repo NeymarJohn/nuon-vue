@@ -119,7 +119,7 @@ export default {
 	},
 	head() {
 		return {
-			title: "Create New Proposal - Boardroom | Ultrastable Money"
+			title: "Create New Proposal - Boardroom | Nuon"
 		};
 	},
 	computed: {

@@ -210,7 +210,7 @@ export default {
 	},
 	head() {
 		return {
-			title: `${this.pageTitle} - Boardroom | Ultrastable Money`
+			title: `${this.pageTitle} - Boardroom | Nuon`
 		};
 	},
 	computed: {

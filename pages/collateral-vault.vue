@@ -108,7 +108,7 @@ export default {
 	},
 	head () {
 		return {
-			title: "Caldron | Ultrastable Money"
+			title: "Caldron | Nuon"
 		};
 	},
 	computed: {

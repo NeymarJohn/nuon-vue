@@ -220,7 +220,7 @@ export default {
 	},
 	head () {
 		return {
-			title: "Swap | Ultrastable Money"
+			title: "Swap | Nuon"
 		};
 	},
 	computed: {
