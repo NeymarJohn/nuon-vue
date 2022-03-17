@@ -108,7 +108,7 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 				if (onComplete) onComplete();
 			});
 	},
-	claimReward(ctx: any, {onConfirm, onReject}) {
+	claimReward(ctx: any, {onConfirm, onError, onComplete}) {
 		const accountAddress = ctx.rootState.web3Store.account;
 		return ctx.getters.contract.methods.claimReward(
 			true, 
@@ -119,7 +119,10 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 				if (onConfirm) onConfirm(hash);
 			})
 			.on("error", (err: string) => {
-				if (onReject) onReject(err);
+				if (onError) onError(err);
+			})
+			.then((_res: any) => {
+				if (onComplete) onComplete();
 			});
 	},
 	async reward(ctx: any, {amount, onConfirm, onReject}) {

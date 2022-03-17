@@ -179,7 +179,6 @@ export default {
 		submitTransaction() {
 			if (this.account !== "") {
 				this.activeStep = "loading";
-				const _this = this;
 				if (this.action === "stake") {
 					this.$store.dispatch("boardroomStore/stake", {
 						amount: this.inputValue,
@@ -203,10 +202,11 @@ export default {
 				} else if (this.action === "claim") {
 					this.$store.dispatch("boardroomStore/claimReward", {
 						onConfirm: (txHash) => this.successToast(() => {this.activeStep = 1;}, null, txHash),
-						onReject: (e) => this.failureToast(() => {this.activeStep = 1;}, e)
-					}).then(()=>{
-						_this.$store.dispatch("boardroomStore/updateStatus");
-					}).catch(()=>{});
+						onError: (e) => this.failureToast(() => {this.activeStep = 1;}, e),
+						onComplete: () => {
+							this.$store.dispatch("boardroomStore/updateStatus");
+						}
+					});
 				}
 			}
 		},
