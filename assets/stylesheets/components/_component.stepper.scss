@@ -1,0 +1,104 @@
+/* #COMPONENT - STEPPER */
+.stepper {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: 3rem;
+	position: relative;
+	z-index: 0;
+}
+.stepper__progress {
+	position: absolute;
+	background: $GREY;
+	height: 4px;
+	z-index: -1;
+	left: 0;
+	right: 0;
+	margin: 0 auto;
+}
+.stepper__progress-bar {
+	position: absolute;
+	left: 0;
+	height: 100%;
+	width: 0%;
+	background: $GREEN;
+	transition: all 0.3s ease;
+}
+.stepper__panel {
+	display: flex;
+	flex-direction: column;
+}
+.stepper__item {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	transition: all 0.3s ease;
+}
+.stepper__counter {
+	height: 40px;
+	width: 40px;
+	display: grid;
+	place-items: center;
+	background: $WHITE;
+	border-radius: 50%;
+	border: 1px solid $GREY;
+	position: relative;
+}
+.stepper__counter svg {
+	position: absolute;
+	opacity: 0;
+	transform: scale(0);
+	transition: all 0.3s ease;
+}
+.stepper__number {
+	transition: all 0.3s ease;
+	opacity: 0;
+	transform: scale(0);
+}
+.stepper__title {
+	font-family: $FONT_HEADING_SEMIBOLD;
+	position: absolute;
+	bottom: -25px;
+	font-size: 12px;
+}
+.stepper__loading {
+	text-align: center;
+}
+.stepper__loading h2 {
+	margin-bottom: $SPACING_XXXS;
+}
+.stepper__loading p {
+	margin-bottom: 0;
+}
+.stepper__loading svg {
+	display: block;
+	position: relative;
+	width: 80px;
+	height: 80px;
+	margin: 2rem auto;
+}
+.stepper__item.active .stepper__number {
+	background: $GREEN;
+	height: 16px;
+	width: 16px;
+	border-radius: 50%;
+	opacity: 1;
+	transform: scale(1);
+}
+.stepper__item.success .stepper__counter {
+	border-color: $GREEN;
+	background-color: $GREEN;
+	color: $WHITE;
+}
+.stepper__item.success .stepper__counter svg {
+	opacity: 1;
+	transform: scale(1);
+}
+.stepper__item.success .stepper__number {
+	opacity: 0;
+	transform: scale(0);
+}
+.stepper__item.success .stepper__title {
+	color: $GREEN;
+}

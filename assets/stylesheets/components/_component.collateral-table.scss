@@ -1,0 +1,38 @@
+/* #COMPONENT - COLLATERAL TABLE */
+.collateral-table {
+	width: 100%;
+}
+.collateral-table h4 {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+.collateral-table h4 svg {
+	margin-right: $SPACING_XXXS;
+}
+.collateral-table__container {
+	display: block;
+	width: 100%;
+}
+.collateral-table__row {
+	display: flex;
+	flex-flow: row wrap;
+	border-bottom: 1px solid $GREY;
+}
+.collateral-table__row:first-child {
+	font-family: $FONT_HEADING_SEMIBOLD;
+	font-size: $BODY_TEXT_SM;
+}
+.collateral-table__row:first-child .collateral-table__cell {
+	padding: $SPACING_XXXS $SPACING_SM;
+}
+.collateral-table__cell {
+	width: calc(100% / 3);
+	padding: $SPACING_XS $SPACING_SM;
+}
+.data-card .collateral-table__cell h4 {
+	font-size: $HEADING_FOUR;
+}
+.collateral-table__cell:nth-child(3) {
+	text-align: right;
+}

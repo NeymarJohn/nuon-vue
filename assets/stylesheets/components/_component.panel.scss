@@ -1,0 +1,46 @@
+/* #COMPONENT - PANEL */
+.panel,
+.panel__row {
+	display: flex;
+}
+.panel {
+	flex-direction: column;
+	align-items: flex-start;
+	background: $WHITE;
+	padding: $SPACING_SM;
+	border-radius: 8px;
+	position: relative;
+	border: 1px solid $GREY;
+}
+.panel h3 {
+	margin-bottom: $SPACING_XXS;
+}
+.panel__row {
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: $SPACING_XXXXS;
+	width: 100%;
+	position: relative;
+}
+.panel__row:last-child,
+.panel__row p {
+	margin-bottom: 0;
+}
+.panel__row span {
+	font-size: $BODY_TEXT_SM;
+}
+.panel__row span,
+.panel__row span a {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+.panel__row span svg,
+.panel__row span a svg {
+	margin-left: $SPACING_XXXS;
+	cursor: pointer;
+}
+.panel__row span a svg {
+	height: 1rem;
+}

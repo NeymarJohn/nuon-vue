@@ -1,0 +1,24 @@
+/* #COMPONENT - BADGE */
+.badge {
+	font-family: $FONT_HEADING_SEMIBOLD;
+	border-radius: 8px;
+	padding: 0.1875rem 0.813rem;
+	font-size: $BODY_TEXT_SM;
+	color: $WHITE;
+	text-transform: uppercase;
+}
+.badge--green {
+	background: $GREEN;
+}
+.badge--red {
+	background: $RED;
+}
+.badge--grey {
+	background: $GREY_DARK;
+}
+.badge--blue {
+	background: $BLUE;
+}
+.badge--teal {
+	background: $TEAL;
+}

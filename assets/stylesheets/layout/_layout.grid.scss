@@ -1,0 +1,51 @@
+/* #LAYOUT - GRID */
+.l-grid {
+	display: grid;
+}
+.l-grid--column-4 {
+	grid-template-columns: repeat(4, minmax(0, 1fr));
+	column-gap: $SPACING_MD;
+}
+.l-grid--column-3 {
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	column-gap: $SPACING_MD;
+}
+.l-grid--column-3-stretch {
+	grid-template-columns: repeat(4, minmax(0, 1fr));
+	column-gap: $SPACING_MD;
+}
+.l-grid--column-3-stretch .stat-card:nth-child(1) {
+	grid-area: 1 / 1 / 2 / 2;
+}
+.l-grid--column-3-stretch .stat-card:nth-child(2) {
+	grid-area: 1 / 2 / 2 / 3;
+}
+.l-grid--column-3-stretch .stat-card:nth-child(3) {
+	grid-area: 1 / 3 / 2 / 5;
+}
+@media screen and (max-width: 990px) {
+	.l-m-grid--column-1 {
+		grid-template-columns: repeat(1, minmax(0, 1fr));
+	}
+}
+// Grid with side panel
+.l-grid-side-panel {
+	display: grid;
+	grid-template-columns: calc(60% - 16px) calc(40% - 16px);
+	grid-template-rows: repeat(3, 1fr);
+	grid-column-gap: 32px;
+	grid-row-gap: 16px;
+	max-height: 0;
+}
+.proposal-details {
+	grid-area: 1 / 1 / 4 / 2;
+}
+.panel:nth-child(2) {
+	grid-area: 1 / 2 / 2 / 3;
+}
+.panel:nth-child(3) {
+	grid-area: 2 / 2 / 3 / 3;
+}
+.panel:nth-child(1) {
+	grid-area: 3 / 2 / 4 / 3;
+}

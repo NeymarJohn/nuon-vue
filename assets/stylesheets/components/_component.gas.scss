@@ -1,0 +1,12 @@
+/* #COMPONENT - GAS */
+.gas {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	background: $GREY;
+	padding: $SPACING_XXXXS;
+	border-radius: 4px;
+}
+.gas p {
+	margin-bottom: 0;
+}

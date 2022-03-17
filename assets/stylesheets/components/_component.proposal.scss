@@ -1,0 +1,67 @@
+/* #COMPONENT - PROPOSAL */
+.proposal,
+.proposal__left,
+.proposal__right {
+	display: flex;
+}
+.proposal {
+	width: 100%;
+	background: $WHITE;
+	border-radius: 4px;
+	position: relative;
+	border: 1px solid $GREY;
+	margin-bottom: $SPACING_XS;
+}
+.proposal:last-child {
+	margin-bottom: 0;
+}
+.proposal a {
+	display: grid;
+	grid-template-columns: calc(70% - 20px) 30%;
+	grid-gap: 20px;
+	width: 100%;
+	padding: $SPACING_XS;
+	border-radius: 4px;
+	transition: background-color 0.3s ease;
+}
+.proposal a:hover {
+	background-color: $GREY_LIGHT;
+}
+.proposal__left {
+	flex-direction: column;
+}
+.proposal__right {
+	flex-direction: row;
+	align-items: center;
+	justify-content: flex-end;
+}
+.proposal__right p,
+.proposal__right time {
+	margin-bottom: 0;
+	font-size: $BODY_TEXT_SM;
+	text-transform: uppercase;
+	color: $GREY_DARKER;
+}
+.proposal__right time {
+	margin-right: $SPACING_LG;
+}
+.proposal__right .badge {
+	min-width: 80px;
+	text-align: center;
+}
+.proposal__address {
+	margin-bottom: 0;
+	font-size: $BODY_TEXT_SM;
+}
+// Proposal details
+.proposal-details {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+}
+.proposal-details h2 {
+	margin-bottom: $SPACING_XS;
+}
+.proposal-details .btn {
+	align-self: center;
+}

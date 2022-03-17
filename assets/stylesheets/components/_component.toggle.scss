@@ -1,0 +1,61 @@
+/* #COMPONENT - TOGGLE */
+.toggle,
+.toggle__buttons,
+.toggle__content {
+	display: flex;
+}
+.toggle,
+.toggle__content {
+	flex-direction: column;
+}
+.toggle {
+	align-items: center;
+	background: $GREY_LIGHT;
+	border-radius: 24px;
+	padding: $SPACING_LG;
+}
+.toggle__buttons {
+	flex-direction: row;
+}
+.toggle__buttons {
+	margin-bottom: $SPACING_MD;
+}
+.toggle__buttons .btn {
+	background-color: $GREY;
+	color: $BLACK_LIGHTER;
+}
+.toggle__buttons .btn.active {
+	background-color: $TEAL;
+	color: $WHITE;
+}
+.toggle__buttons .btn[disabled] {
+	opacity: 1;
+}
+.toggle__buttons .btn:first-child {
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
+}
+.toggle__buttons .btn:last-child {
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
+}
+.toggle__content,
+.toggle__transaction {
+	width: 100%;
+}
+.toggle__content {
+	align-items: flex-start;
+}
+.toggle__content h4 {
+	margin-bottom: $SPACING_XS;
+}
+.toggle__content .accordion {
+	margin-bottom: $SPACING_MD;
+}
+.toggle__content .accordion {
+	background: $WHITE;
+}
+.toggle__transaction {
+	display: flex;
+	flex-direction: row;
+}

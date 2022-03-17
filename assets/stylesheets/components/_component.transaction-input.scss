@@ -1,0 +1,37 @@
+/* #COMPONENT - TRANSACTION INPUT */
+.transaction-input .input {
+	margin-bottom: $SPACING_XXS;
+}
+.transaction-input__price {
+	margin-bottom: $SPACING_MD;
+	min-height: 55px;
+}
+.data-card .transaction-input__price p {
+	color: $BLACK;
+}
+.transaction-input__buttons {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+.transaction-input__buttons .btn {
+	text-transform: capitalize;
+}
+.transaction-input__buttons .btn:first-child {
+	margin-right: $SPACING_XXS;
+}
+.transaction-input__buttons .btn:last-child {
+	flex: 1;
+}
+@media screen and (max-width: 990px) {
+	.transaction-input__buttons {
+		flex-direction: column;
+	}
+	.transaction-input__buttons .btn {
+		width: 100%;
+	}
+	.transaction-input__buttons .btn:first-child {
+		margin-right: 0;
+		margin-bottom: $SPACING_XS;
+	}
+}

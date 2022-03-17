@@ -1,0 +1,43 @@
+/* #BASE - BASE */
+html {
+	@include font-smoothing(antialiased);
+	font-family: $FONT_BODY;
+	font-size: $BODY_TEXT;
+}
+body {
+	color: $BLACK;
+	background: $WHITE;
+	text-rendering: optimizeLegibility;
+}
+body.is-active {
+	overflow: hidden;
+}
+*,
+:after,
+:before {
+	box-sizing: border-box;
+}
+a {
+	text-decoration: none;
+	color: $BLACK;
+	cursor: pointer;
+}
+a:hover {
+	color: $BLACK;
+	text-decoration: none;
+}
+a:focus {
+	outline: none;
+	text-decoration: none;
+}
+a.btn:hover {
+	color: $WHITE;
+}
+::selection {
+	background: $BLACK;
+	color: $WHITE;
+}
+::-moz-selection {
+	background: $BLACK;
+	color: $WHITE;
+}

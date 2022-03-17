@@ -1,0 +1,40 @@
+/* #COMPONENT - INPUT */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+input[type="number"] {
+	-moz-appearance: textfield;
+}
+input {
+	font-family: $FONT_BODY;
+	font-size: $BODY_TEXT;
+	appearance: none;
+	width: 100%;
+	padding-right: $SPACING_XS;
+	border: 0;
+	line-height: 24px;
+}
+input:focus {
+	outline: 0;
+}
+input::placeholder {
+	color: $BLACK;
+}
+.input {
+	width: 100%;
+	border-radius: 8px;
+	background: $WHITE;
+	border: 1px solid $GREY_DARK;
+}
+.input:hover {
+	border: 1px solid $BLACK;
+}
+.input__container {
+	display: flex;
+	flex-flow: row nowrap;
+	align-items: center;
+	justify-content: space-between;
+	padding: $SPACING_XXXS $SPACING_XS;
+}

@@ -1,0 +1,34 @@
+/* #COMPONENT - STAT CARD */
+.stat-card {
+	display: flex;
+	flex-direction: column;
+	background: $WHITE;
+	padding: $SPACING_SM;
+	border-radius: 8px;
+	position: relative;
+	border: 1px solid $GREY;
+}
+.stat-card h4,
+.stat-card ul {
+	font-size: $BODY_TEXT;
+}
+.stat-card ul {
+	display: flex;
+	flex-direction: row;
+	margin-bottom: 0;
+}
+.stat-card ul li {
+	margin-right: $SPACING_MD;
+}
+.stat-card ul li:last-child {
+	margin-right: 0;
+}
+@media screen and (max-width: 990px) {
+	.stat-card {
+		padding: $SPACING_XS $SPACING_SM;
+		margin-bottom: $SPACING_XXS;
+	}
+	.stat-card:last-child {
+		margin-bottom: 0;
+	}
+}

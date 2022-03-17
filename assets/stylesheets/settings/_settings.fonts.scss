@@ -1,0 +1,54 @@
+/* #SETTINGS - FONTS */
+@font-face {
+	font-family: "Archia Bold";
+	src: url("~/assets/fonts/Archia-Bold.woff2") format("woff2"),
+		url("~/assets/fonts/Archia-Bold.woff") format("woff");
+	font-weight: bold;
+	font-style: normal;
+	font-display: swap;
+}
+@font-face {
+	font-family: "Archia Regular";
+	src: url("~/assets/fonts/Archia-Regular.woff2") format("woff2"),
+		url("~/assets/fonts/Archia-Regular.woff") format("woff");
+	font-weight: normal;
+	font-style: normal;
+	font-display: swap;
+}
+@font-face {
+	font-family: "Archia SemiBold";
+	src: url("~/assets/fonts/Archia-SemiBold.woff2") format("woff2"),
+		url("~/assets/fonts/Archia-SemiBold.woff") format("woff");
+	font-weight: 600;
+	font-style: normal;
+	font-display: swap;
+}
+@font-face {
+	font-family: "Geomanist";
+	src: url("~/assets/fonts/Geomanist.woff2") format("woff2"),
+		url("~/assets/fonts/Geomanist.woff") format("woff");
+	font-weight: normal;
+	font-style: normal;
+	font-display: swap;
+}
+@font-face {
+	font-family: "Geomanist Bold";
+	src: url("~/assets/fonts/Geomanist-Bold.woff2") format("woff2"),
+		url("~/assets/fonts/Geomanist-Bold.woff") format("woff");
+	font-weight: normal;
+	font-style: normal;
+	font-display: swap;
+}
+
+$HEADING_ONE: 2.25rem;
+$HEADING_TWO: 1.5rem;
+$HEADING_THREE: 1.25rem;
+$HEADING_FOUR: 1rem;
+$BODY_TEXT: 1rem;
+$BODY_TEXT_SM: 0.75rem;
+
+$FONT_BODY: "Geomanist";
+$FONT_BODY_BOLD: "Geomanist Bold";
+$FONT_HEADING_BOLD: "Archia Bold";
+$FONT_HEADING_SEMIBOLD: "Archia SemiBold";
+$FONT_LABEL: "Archia Regular";

@@ -1,0 +1,32 @@
+/* #COMPONENT - TOAST */
+.toast {
+	position: fixed;
+	top: $SPACING_MD;
+	right: $SPACING_MD;
+	border-radius: 6px;
+	z-index: 4;
+	padding: $SPACING_XXS $SPACING_SM;
+	min-width: 300px;
+}
+.toast a,
+.toast p,
+.toast h3 {
+	color: $WHITE;
+	margin-bottom: 0;
+}
+.toast-slide-enter-active {
+	transition: all 0.3s ease;
+}
+.toast-slide-leave-active {
+	transition: all 0.3s cubic-bezier(1, 0.5, 0.8, 1);
+}
+.toast-slide-enter,
+.toast-slide-leave-to {
+	transform: translateX(10px);
+	opacity: 0;
+}
+.external-link-icon {
+	fill: $WHITE;
+	height: 12px;
+	margin-left: 5px;
+}

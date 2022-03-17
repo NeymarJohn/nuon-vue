@@ -1,0 +1,27 @@
+/* #COMPONENT - TOOLTIP */
+.tooltip {
+	opacity: 0;
+	transition: opacity 0.3s ease-in-out;
+	position: absolute;
+	right: 0;
+	background: $GREEN;
+	color: $WHITE;
+	font-size: $BODY_TEXT_SM;
+	padding: $SPACING_XXXS;
+	border-radius: 8px;
+	top: -48px;
+}
+.tooltip.visible {
+	opacity: 1;
+}
+.tooltip--icon {
+	height: 18px;
+	width: 18px;
+	margin-left: $SPACING_XXXXS;
+}
+.tooltip--icon:focus {
+	outline: 0;
+}
+.tooltip--icon path {
+	fill: #9e9db3;
+}

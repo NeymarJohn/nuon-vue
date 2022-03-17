@@ -1,0 +1,43 @@
+/* #COMPONENT - SWAP */
+.swap {
+	display: flex;
+	flex-direction: column;
+	padding: $SPACING_SM;
+	border-radius: 8px;
+	border: 1px solid $GREY;
+}
+.swap .modal__container {
+	max-width: 575px;
+}
+.swap__title p {
+	margin-bottom: 0;
+}
+.swap__container {
+	padding: $SPACING_MD 0;
+	border: 1px solid $GREY;
+	border-radius: 8px;
+	position: relative;
+}
+.swap .btn--icon {
+	padding: 0;
+}
+.swap__balance {
+	margin-bottom: $SPACING_XS;
+	padding: 0 $SPACING_MD;
+}
+.swap__balance label {
+	color: $GREY_DARK;
+}
+.swap__balance p {
+	margin-bottom: 0;
+}
+.swap__output {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	border: 1px solid $GREY;
+	border-radius: 8px;
+	padding: $SPACING_XS $SPACING_MD;
+	margin-bottom: $SPACING_MD;
+}

@@ -1,0 +1,61 @@
+/* #COMPONENT - VOTES TABLE */
+.votes-table {
+	width: 100%;
+	margin-top: $SPACING_MD;
+}
+.votes-table h4 {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+.votes-table h4 svg {
+	margin-right: $SPACING_XXXS;
+}
+.votes-table__container {
+	display: block;
+	width: 100%;
+}
+.votes-table__row {
+	display: flex;
+	flex-flow: row wrap;
+	border-left: 1px solid $GREY;
+	border-right: 1px solid $GREY;
+}
+.votes-table__row:first-child {
+	border-top: 1px solid $GREY;
+	border-top-left-radius: 8px;
+	border-top-right-radius: 8px;
+	font-size: $BODY_TEXT_SM;
+}
+.votes-table__row:first-child .votes-table__cell {
+	padding: $SPACING_XXXS $SPACING_SM;
+}
+.votes-table__row:last-child {
+	border-bottom-left-radius: 8px;
+	border-bottom-right-radius: 8px;
+}
+.votes-table__cell {
+	width: calc(100% / 3);
+	padding: $SPACING_SM;
+	border-bottom: 1px solid $GREY;
+}
+.votes-table__cell:nth-child(1),
+.votes-table__cell:nth-child(3) {
+	font-size: $BODY_TEXT_SM;
+}
+.votes-table__cell:nth-child(3) {
+	text-align: right;
+}
+.votes-table__cell .btn {
+	font-size: $BODY_TEXT;
+}
+.votes-table__cell--full {
+	width: 100%;
+	text-align: center;
+	border-bottom-left-radius: 8px;
+	border-bottom-right-radius: 8px;
+}
+.votes-table__cell--full p {
+	margin-bottom: 0;
+	font-size: $BODY_TEXT;
+}

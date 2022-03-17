@@ -1,0 +1,83 @@
+/* #COMPONENT - LOADER */
+.loader {
+	width: 100%;
+	background: $GREY_RGBA;
+	position: relative;
+	overflow: hidden;
+	border-radius: 5px;
+}
+.loader:before {
+	content: "";
+	animation: loading 1s infinite;
+	animation-timing-function: ease-in-out;
+	background-image: linear-gradient(
+		to left,
+		rgba(251, 251, 251, 0.1),
+		rgba(251, 251, 251, 0.2),
+		rgba(251, 251, 251, 0.3),
+		rgba(251, 251, 251, 0.2),
+		rgba(251, 251, 251, 0.1)
+	);
+	position: absolute;
+	left: 0;
+	transform: translateX(-150%);
+	height: 100%;
+	width: 50%;
+}
+@keyframes loading {
+	0% {
+		transform: translateX(-150%);
+	}
+	100% {
+		transform: translateX(200%);
+	}
+}
+// Loader H2
+.loader--h2 {
+	height: 36px;
+	width: 497px;
+	margin-bottom: $SPACING_XS;
+}
+// Loader H3
+.loader--h3 {
+	height: 54px;
+	width: 215px;
+	margin-bottom: $SPACING_XXXXS;
+}
+// Loader H4
+.loader--h4 {
+	height: 24px;
+	width: 35px;
+}
+.loader--h4-long {
+	height: 24px;
+}
+// Loader p
+.loader--p {
+	height: 24px;
+	width: 85px;
+}
+// Loader button
+.loader--button {
+	height: 36px;
+	width: 165px;
+}
+// Loader badge
+.loader--badge {
+	width: 72px;
+	height: 24px;
+}
+// Loader burn
+.loader--burn {
+	height: 250px;
+}
+// Loader list
+.loader--list {
+	height: 26px;
+	width: 115px;
+}
+// Loader proposals
+.loader--proposals {
+	height: 250px;
+	width: 100%;
+}

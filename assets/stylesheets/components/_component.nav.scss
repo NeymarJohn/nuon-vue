@@ -1,0 +1,39 @@
+/* #COMPONENT - NAV */
+.nav {
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 0;
+}
+.nav li {
+	margin-bottom: 2rem;
+}
+.nav a,
+.nav svg {
+	transition: 0.3s ease;
+}
+.nav a {
+	font-family: $FONT_HEADING_BOLD;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	color: $GREY_RGBA;
+	text-decoration: none;
+	font-size: $BODY_TEXT;
+}
+.nav a:hover {
+	color: $WHITE;
+}
+.nav a:hover svg {
+	fill: $WHITE;
+}
+.nav a .external-link-icon {
+	fill: $GREY_RGBA;
+	height: 12px;
+	margin-left: 5px;
+}
+.nav .active-link {
+	color: $WHITE;
+}
+.nav a svg {
+	margin-right: 0.5rem;
+}

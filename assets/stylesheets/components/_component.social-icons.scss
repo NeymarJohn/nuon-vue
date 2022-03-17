@@ -1,0 +1,16 @@
+/* #COMPONENT - SOCIAL ICONS */
+.social-icons {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	margin-bottom: 0;
+}
+.social-icons li {
+	margin-right: 1rem;
+}
+.social-icons li:last-child {
+	margin-right: 0;
+}
+.social-icons svg {
+	height: 1.728rem;
+}

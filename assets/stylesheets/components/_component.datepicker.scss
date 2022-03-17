@@ -1,0 +1,22 @@
+/* #COMPONENT - DATEPICKER */
+.datepicker {
+	width: 50% !important;
+	margin-bottom: $SPACING_XXS;
+}
+.datepicker i {
+	color: $BLACK;
+}
+.mx-table {
+	color: $BLACK;
+}
+.mx-calendar-content .cell.active {
+	background-color: $BLACK !important;
+}
+.mx-table-date .today {
+	background: $GREY_LIGHT;
+	color: $BLACK !important;
+}
+.mx-calendar-content .cell:hover {
+	color: $BLACK !important;
+	background-color: $GREY_LIGHT !important;
+}

@@ -1,0 +1,167 @@
+/* #LAYOUT - UTILITIES */
+
+// Margin top
+.u-mt-xxs {
+	margin-top: $SPACING_XXS !important;
+}
+.u-mt-xs {
+	margin-top: $SPACING_XS !important;
+}
+// Margin right
+.u-mr-xxxs {
+	margin-right: $SPACING_XXXS !important;
+}
+.u-mr-xxs {
+	margin-right: $SPACING_XXS !important;
+}
+.u-mr-xs {
+	margin-right: $SPACING_XS !important;
+}
+.u-mr-sm {
+	margin-right: $SPACING_SM !important;
+}
+.u-mr-md {
+	margin-right: $SPACING_MD !important;
+}
+.u-mr-lg {
+	margin-right: $SPACING_LG !important;
+}
+@media screen and (max-width: 990px) {
+	.u-m-mr-none {
+		margin-right: 0 !important;
+	}
+	.u-m-mr-xs {
+		margin-right: $SPACING_XS !important;
+	}
+}
+// Margin bottom
+.u-mb-0 {
+	margin-bottom: 0 !important;
+}
+.u-mb-xxxs {
+	margin-bottom: $SPACING_XXXS !important;
+}
+.u-mb-xxs {
+	margin-bottom: $SPACING_XXS !important;
+}
+.u-mb-xs {
+	margin-bottom: $SPACING_XS !important;
+}
+.u-mb-sm {
+	margin-bottom: $SPACING_SM !important;
+}
+.u-mb-md {
+	margin-bottom: $SPACING_MD !important;
+}
+.u-mb-lg {
+	margin-bottom: $SPACING_LG !important;
+}
+@media screen and (max-width: 990px) {
+	.u-m-mb-sm {
+		margin-bottom: $SPACING_SM !important;
+	}
+	.u-m-mb-xs {
+		margin-bottom: $SPACING_XS !important;
+	}
+	.u-m-mb-xxs {
+		margin-bottom: $SPACING_XXS !important;
+	}
+}
+// Margin left
+.u-ml-xxs {
+	margin-left: $SPACING_XXS !important;
+}
+.u-ml-xs {
+	margin-left: $SPACING_XS !important;
+}
+// Padding
+.u-p-0 {
+	padding: 0 !important;
+}
+// Padding bottom
+.u-pb-xs {
+	padding-bottom: $SPACING_XS !important;
+}
+.u-pb-md {
+	padding-bottom: $SPACING_MD !important;
+}
+.u-pb-xl {
+	padding-bottom: $SPACING_XLG !important;
+}
+// Width
+.u-w-115 {
+	width: 115.36px !important;
+}
+.u-w-254 {
+	width: 254px !important;
+}
+.u-half-width {
+	width: 50% !important;
+}
+.u-full-width {
+	width: 100% !important;
+}
+// Display
+.u-display-desktop {
+	display: none !important;
+}
+@media screen and (max-width: 990px) {
+	.u-display-desktop {
+		display: block !important;
+	}
+}
+// Validation
+.u-is-warning {
+	color: $RED !important;
+	font-family: $FONT_HEADING_SEMIBOLD !important;
+}
+.u-is-success {
+	color: $GREEN !important;
+	font-family: $FONT_HEADING_SEMIBOLD !important;
+}
+// Border
+.u-bb-black {
+	border-bottom: 1px solid $BLACK !important;
+}
+// Position
+.u-position-sticky {
+	position: sticky !important;
+	top: 0 !important;
+	background: $WHITE !important;
+	z-index: 2 !important;
+}
+// Transition
+.u-no-transition {
+	transition: none !important;
+}
+.u-no-transition:hover {
+	transform: none !important;
+}
+// Text alignment
+.u-text-center {
+	text-align: center !important;
+}
+.u-text-right {
+	text-align: right !important;
+}
+// Flex
+.u-flex-row-center {
+	display: flex !important;
+	flex-direction: row !important;
+	align-items: center !important;
+}
+// White space
+.u-white-space-pre {
+	white-space: pre-line !important;
+}
+// Colour
+.u-colour-grey-dark {
+	color: $GREY_DARK !important;
+}
+// Prompt
+.u-green-prompt {
+	background: $GREEN !important;
+}
+.u-green-prompt p {
+	color: $WHITE !important;
+}

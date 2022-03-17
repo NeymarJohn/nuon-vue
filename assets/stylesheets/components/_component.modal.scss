@@ -1,0 +1,157 @@
+/* #COMPONENT - MODAL */
+// Modal default
+.modal {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	overflow: hidden;
+	z-index: 2;
+}
+.modal,
+.modal__overlay {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background-color: $BLACK_OPACITY;
+	z-index: 3;
+}
+.modal__container {
+	display: flex;
+	flex-direction: column;
+	margin: 0px;
+	background-color: $WHITE;
+	border: 1px solid $BLACK_LIGHT;
+	box-shadow: $BOX_SHADOW_MODAL;
+	padding: $SPACING_MD;
+	width: 50vw;
+	overflow: hidden auto;
+	align-self: center;
+	max-height: 80vh;
+	min-height: auto;
+	border-radius: 24px;
+	z-index: 4;
+}
+.modal__header {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: flex-start;
+	margin-bottom: $SPACING_MD;
+}
+.modal__header .btn--icon {
+	color: $BLACK;
+	padding: 0;
+}
+.modal__header p {
+	color: $GREY_DARK;
+	margin-bottom: 0;
+}
+// Modal claim tokens
+.modal--claim .modal__container {
+	overflow: scroll;
+	min-height: 85vh;
+}
+.modal__info--lower {
+	border: 1px solid $GREY;
+	border-radius: 8px;
+	padding: $SPACING_XS $SPACING_MD;
+}
+.modal__info--lower p {
+	margin-bottom: 0;
+}
+.modal__info h4 {
+	font-size: $BODY_TEXT;
+}
+.modal__info p {
+	color: $BLACK;
+}
+.modal-fade-enter,
+.modal-fade-leave-to {
+	opacity: 0;
+}
+.modal-fade-enter-active,
+.modal-fade-leave-active {
+	transition: opacity 0.5s ease;
+}
+// Modal boardroom
+.modal--boardroom .modal__container {
+	min-height: auto;
+}
+// Modal states
+.modal__confirm {
+	display: flex;
+	flex-direction: column;
+}
+.modal__confirm--panel {
+	padding: $SPACING_XS $SPACING_MD;
+	border: 1px solid $GREY;
+	border-radius: 8px;
+	margin-bottom: $SPACING_MD;
+}
+.modal__confirm--row,
+.modal__confirm--buttons {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+.modal__confirm--row {
+	justify-content: space-between;
+	margin-bottom: $SPACING_XS;
+}
+.modal__confirm--row:last-child,
+.modal__confirm--row p {
+	margin-bottom: 0;
+}
+.modal__confirm--buttons .btn:first-child {
+	margin-right: $SPACING_XXS;
+}
+.modal__confirm--buttons .btn:last-child {
+	flex: 1;
+}
+// Modal states
+.modal.is-confirming .modal__header,
+.modal.is-confirmed .modal__header {
+	justify-content: flex-end;
+	margin-bottom: 0;
+}
+.modal.is-confirming .modal__header div,
+.modal.is-confirmed .modal__header div {
+	display: none;
+}
+.modal__body a {
+	color: $BLACK !important;
+	font-size: $BODY_TEXT !important;
+}
+.modal__body label {
+	font-family: $FONT_HEADING_SEMIBOLD;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	margin-bottom: $SPACING_XXS;
+}
+@media screen and (max-width: 990px) {
+	.modal__container {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		border-radius: 0;
+		max-height: 100%;
+		width: 100%;
+		height: 100%;
+		padding: $SPACING_XS;
+		border: 0;
+	}
+	.modal-fade-enter,
+	.modal-fade-leave-to {
+		transform: translateX(-100%);
+		opacity: 1;
+	}
+	.modal-fade-enter-active,
+	.modal-fade-leave-active {
+		transition: transform 0.5s ease-in-out;
+	}
+}

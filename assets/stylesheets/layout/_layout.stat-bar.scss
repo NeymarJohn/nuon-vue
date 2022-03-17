@@ -1,0 +1,13 @@
+/* #LAYOUT - STAT BAR */
+.l-stat-bar {
+	display: grid;
+	grid-gap: 1rem;
+	padding: 1rem 2.5rem;
+	background: $GREY_LIGHT;
+}
+.l-stat-bar--3 {
+	grid-template-columns: repeat(3, 1fr);
+}
+.l-stat-bar--4 {
+	grid-template-columns: repeat(4, 1fr);
+}

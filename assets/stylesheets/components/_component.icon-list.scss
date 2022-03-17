@@ -1,0 +1,27 @@
+/* #COMPONENT - ICON LIST */
+.icon-list,
+.icon-list li {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+.icon-list {
+	list-style: none;
+	padding: 0;
+	margin-bottom: 0;
+}
+.icon-list li {
+	font-family: $FONT_HEADING_SEMIBOLD;
+	font-size: $BODY_TEXT_SM;
+}
+.icon-list li {
+	margin-right: $SPACING_XS;
+}
+.icon-list li:last-child {
+	margin-right: 0;
+}
+.icon-list li .badge {
+	border-radius: 13px;
+	padding: $SPACING_XXXXS 0.813rem;
+	margin-left: $SPACING_XXXXS;
+}

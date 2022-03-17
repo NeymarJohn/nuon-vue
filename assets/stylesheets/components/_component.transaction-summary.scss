@@ -1,0 +1,32 @@
+/* #COMPONENT - TRANSACTION SUMMARY */
+.transaction-summary {
+	border: 1px solid $GREY;
+	border-radius: 8px;
+	padding: $SPACING_XS $SPACING_MD;
+	margin-bottom: $SPACING_MD;
+}
+.transaction-summary img {
+	height: 56px;
+	width: 56px;
+	border-radius: 50%;
+	margin-right: $SPACING_XS;
+}
+.transaction-summary p {
+	font-family: $FONT_LABEL;
+	color: $BLACK;
+	margin-bottom: 0;
+}
+.transaction-summary .svg-arrow-down {
+	margin: 0 1rem;
+}
+.transaction__update {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	padding: $SPACING_XS $SPACING_SM;
+	border: 1px solid $GREY;
+	background: $GREY_LIGHT;
+	border-radius: 8px;
+	margin-bottom: $SPACING_MD;
+}

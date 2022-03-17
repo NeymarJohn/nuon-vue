@@ -1,0 +1,63 @@
+/* #COMPONENT - SELECT */
+.select {
+	position: relative;
+	max-width: 200px;
+	width: 100%;
+	height: 70px;
+	z-index: 1;
+}
+.select,
+.select label {
+	cursor: pointer;
+}
+.select label {
+	display: block;
+	margin-bottom: $SPACING_XXXXS;
+}
+.select.active .select__selected {
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
+}
+.select__selected {
+	display: flex;
+	justify-content: space-between;
+	flex-direction: row;
+	align-items: center;
+	padding: $SPACING_XXXS $SPACING_XXS;
+	border: 1px solid $GREY;
+	border-radius: 12px;
+	color: $GREY_DARK;
+}
+.select__selected svg {
+	height: 24px;
+	width: 24px;
+	margin-left: $SPACING_XS;
+}
+.select__options {
+	background: $WHITE;
+	display: none;
+	border-bottom-left-radius: 12px;
+	border-bottom-right-radius: 12px;
+	border-top: none;
+	border-left: 1px solid $GREY;
+	border-right: 1px solid $GREY;
+	border-bottom: 1px solid $GREY;
+}
+.select.active .select__options {
+	display: block;
+}
+.select__option {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	padding: $SPACING_XXXS $SPACING_XXS;
+	border-bottom: 1px solid $GREY;
+	transition: background-color 0.3s ease;
+}
+.select__option:hover {
+	background-color: $GREY_LIGHT;
+}
+.select__option:last-child {
+	border-bottom: 0;
+}

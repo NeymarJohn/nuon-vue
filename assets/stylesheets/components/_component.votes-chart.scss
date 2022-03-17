@@ -1,0 +1,57 @@
+/* #COMPONENT - VOTES TABLE */
+.votes-chart,
+.votes-chart__row,
+.votes-chart__labels {
+	display: flex;
+}
+.votes-chart,
+.votes-chart__row,
+.votes-chart__labels,
+.votes-chart__chart {
+	width: 100%;
+}
+.votes-chart,
+.votes-chart__row {
+	flex-direction: column;
+}
+.votes-chart__row {
+	margin-bottom: $SPACING_SM;
+}
+.votes-chart__row:last-child {
+	margin-bottom: 0;
+}
+.votes-chart__labels {
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+}
+.votes-chart__labels p {
+	margin-bottom: 0;
+	width: calc(100% / 3);
+}
+.votes-chart__labels p:nth-child(2),
+.votes-chart__labels p:nth-child(3) {
+	font-size: $BODY_TEXT_SM;
+}
+.votes-chart__labels p:nth-child(2) {
+	text-align: center;
+}
+.votes-chart__labels p:nth-child(3) {
+	text-align: right;
+}
+.votes-chart__chart,
+.votes-chart__chart--fill {
+	height: 4px;
+	border-radius: 4px;
+}
+.votes-chart__chart {
+	background: $GREY;
+	position: relative;
+}
+.votes-chart__chart--fill {
+	position: absolute;
+	left: 0;
+	top: 0;
+	right: 0;
+	background: #9d3fe7;
+}

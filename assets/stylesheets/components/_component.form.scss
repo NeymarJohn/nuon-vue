@@ -1,0 +1,73 @@
+/* #COMPONENT - FORM */
+.form,
+.form__block {
+	display: flex;
+	flex-direction: column;
+}
+.form .btn {
+	align-self: center;
+	max-width: 400px;
+	width: 100%;
+}
+.form__block {
+	border-radius: 8px;
+	background: $WHITE;
+	border: 1px solid $GREY_DARK;
+	padding: $SPACING_XXS;
+	margin-bottom: $SPACING_MD;
+}
+.form__block h4 {
+	margin-bottom: $SPACING_XXS;
+}
+.form__block label {
+	font-family: $FONT_HEADING_SEMIBOLD;
+	font-size: $BODY_TEXT_SM;
+	margin-bottom: $SPACING_XXXXS;
+	text-transform: uppercase;
+	color: $GREY_DARK;
+}
+.form__block sup {
+	color: $RED;
+	top: -3px;
+}
+.form__block input,
+.form__block textarea {
+	width: 100%;
+	border: 0;
+	padding: 0;
+	line-height: 24px;
+}
+.form__block input,
+.form__block textarea,
+.form__block input::placeholder,
+.form__block textarea::placeholder {
+	color: $BLACK;
+}
+.form__block input {
+	font-size: $HEADING_TWO;
+	font-family: $FONT_HEADING_BOLD;
+}
+.form__block input::placeholder {
+	font-family: $FONT_BODY;
+	font-size: $BODY_TEXT;
+}
+.form__block .datepicker input,
+.form__block .datepicker input::placeholder {
+	font-size: $BODY_TEXT_SM;
+}
+.form__block .datepicker input {
+	border: 1px solid $GREY_DARK;
+	padding: $SPACING_XXS;
+}
+.form__block textarea {
+	font-family: $FONT_BODY;
+	resize: vertical;
+}
+.form__block textarea:focus {
+	outline: none;
+}
+// Form proposal
+.form--proposal {
+	margin-top: -2.625rem;
+	padding: 0 2.1875rem 2.1875rem;
+}

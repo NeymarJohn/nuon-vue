@@ -1,0 +1,26 @@
+/* #COMPONENT - COUNTDOWN */
+.countdown {
+	display: flex;
+	flex-direction: row;
+}
+.countdown h3 {
+	font-size: $HEADING_THREE;
+}
+.countdown__block {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	margin-right: 0.25rem;
+}
+.countdown__block:last-child {
+	margin-right: 0;
+}
+.countdown__block h3 {
+	margin-right: 0.25rem;
+}
+.countdown__block p {
+	text-transform: uppercase;
+	background: $GREY_DARKER;
+	padding: 0 0.375rem;
+	border-radius: 4px;
+}

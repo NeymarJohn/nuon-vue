@@ -1,0 +1,58 @@
+/* #COMPONENT - DATA CARD */
+.data-card {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+}
+.data-card p,
+.data-card h5 {
+	color: $GREY_DARK;
+}
+.data-card h3 {
+	font-size: $HEADING_ONE;
+	line-height: 3.375rem;
+	margin-bottom: $SPACING_XXXXS;
+}
+.data-card h4 {
+	font-size: $HEADING_THREE;
+}
+.data-card .countdown__block h3 {
+	font-size: $HEADING_ONE;
+	margin-bottom: 0;
+}
+.data-card .countdown__block:last-child h3 {
+	min-width: 55px;
+	margin-right: 0;
+}
+.data-card .countdown__block p {
+	color: $BLACK;
+}
+.data-card h5 {
+	font-size: $BODY_TEXT;
+	margin-top: 0.3rem;
+}
+.data-card p {
+	margin-bottom: 0.25rem;
+}
+.data-card p:last-child {
+	margin-bottom: 0;
+}
+.data-card sup {
+	top: -1.4em;
+	position: relative;
+	font-size: 0.75rem;
+	margin-left: 0.3rem;
+}
+.data-card--start {
+	align-items: flex-start;
+}
+.data-card--end,
+.data-card--end .btn {
+	align-items: flex-end;
+}
+@media screen and (max-width: 990px) {
+	.data-card--end,
+	.data-card--end .btn {
+		align-items: flex-start;
+	}
+}

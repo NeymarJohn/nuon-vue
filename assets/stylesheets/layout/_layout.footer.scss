@@ -1,0 +1,19 @@
+/* #LAYOUT - FOOTER */
+.l-footer {
+	background: $BLACK;
+	display: flex;
+	flex-direction: column;
+}
+.l-footer p,
+.l-footer a {
+	color: $WHITE;
+	margin-bottom: 0;
+	font-size: 12px;
+}
+.l-footer .block-number {
+	display: flex;
+	flex-direction: row;
+}
+.l-footer .block-number a {
+	margin-left: 0.2rem;
+}

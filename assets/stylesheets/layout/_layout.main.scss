@@ -1,0 +1,11 @@
+/* #LAYOUT - MAIN */
+.l-main {
+	flex: 1;
+	background: $WHITE;
+	margin-left: 260px;
+}
+@media screen and (max-width: 990px) {
+	.l-main {
+		margin-left: 0;
+	}
+}

@@ -1,0 +1,46 @@
+.radio-button {
+	font-size: $BODY_TEXT;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	margin-bottom: $SPACING_XS;
+}
+.radio-button,
+input[type="radio"] {
+	cursor: pointer;
+}
+input[type="radio"] {
+	appearance: none;
+	background-color: $WHITE;
+	margin: 0;
+	color: $BLACK;
+	width: 1.125rem;
+	height: 1.125rem;
+	border: 1px solid $GREY;
+	border-radius: 50%;
+	display: grid;
+	place-content: center;
+	margin-right: $SPACING_XXS;
+}
+input[type="radio"]::before {
+	content: "";
+	width: 0.65rem;
+	height: 0.65rem;
+	border-radius: 50%;
+	transform: scale(0);
+	transition: 120ms transform ease-in-out;
+	background-color: CanvasText;
+}
+input[type="radio"]:checked::before {
+	transform: scale(1);
+}
+label[disabled],
+label[disabled]input[type="radio"] {
+	cursor: not-allowed;
+}
+label[disabled] {
+	color: $GREY;
+}
+label[disabled]input[type="radio"] {
+	background-color: $GREY_LIGHT;
+}
