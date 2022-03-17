@@ -30,8 +30,8 @@ export default {
 					url: "/"
 				},
 				{
-					name: "Caldron",
-					url: "/caldron"
+					name: "Collateral Vault",
+					url: "/collateral-vault"
 				},
 				{
 					name: "Stability Zone",

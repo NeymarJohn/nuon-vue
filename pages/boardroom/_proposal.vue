@@ -33,9 +33,9 @@
 					<TheBadge :color="proposalStatesToColor[details.state]">{{ capitalize(details.state) }}</TheBadge>
 					<ShareNetwork
 						network="twitter"
-						:url="`https://www.caldron.fi${socialUrl}`"
+						:url="`https://www.nuon.fi${socialUrl}`"
 						:title="socialTitle || ''"
-						hashtags="ultrastable,vote">
+						hashtags="nuon,vote">
 						<TwitterIcon />
 					</ShareNetwork>
 				</ComponentLoader>
