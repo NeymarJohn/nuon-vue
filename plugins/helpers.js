@@ -1,28 +1,6 @@
 import Vue from "vue";
 import Web3 from "web3";
 
-export function successToast(turnPageCallback, msg, txHash) {
-	this.$store.commit("rootStore/setToast", {show: true, message: msg, txHash});
-	if (turnPageCallback) turnPageCallback();
-	setTimeout(() => {
-		this.$store.commit("rootStore/setToast", {...this.$store.state.rootStore.toast, show: false});
-	}, 5000);
-}
-
-export function failureToast(turnPageCallback, e, title) {
-	if (e) {
-		let err = e;
-		if (typeof(e) === "object") {
-			err = e.code === 4001 ? "Transaction failed because you rejected the transaction." : e.message;
-		}
-		this.$store.commit("rootStore/setToast", {show: true, kind: "failure", message: err, title});
-	}
-	if (turnPageCallback) turnPageCallback();
-	setTimeout(() => {
-		this.$store.commit("rootStore/setToast", {...this.$store.state.rootStore.toast, show: false});
-	}, 5000);
-}
-
 Vue.mixin({
 	computed: {
 		isLoaded() {
@@ -89,7 +67,25 @@ Vue.mixin({
 			if (!x) return;
 			return x === 0;
 		},
-		successToast,
-		failureToast
+		successToast(turnPageCallback, msg, txHash) {
+			this.$store.commit("rootStore/setToast", {show: true, message: msg, txHash});
+			if (turnPageCallback) turnPageCallback();
+			setTimeout(() => {
+				this.$store.commit("rootStore/setToast", {...this.$store.state.rootStore.toast, show: false});
+			}, 5000);
+		},
+		failureToast(turnPageCallback, e, title) {
+			if (e) {
+				let err = e;
+				if (typeof(e) === "object") {
+					err = e.code === 4001 ? "Transaction failed because you rejected the transaction." : e.message;
+				}
+				this.$store.commit("rootStore/setToast", {show: true, kind: "failure", message: err, title});
+			}
+			if (turnPageCallback) turnPageCallback();
+			setTimeout(() => {
+				this.$store.commit("rootStore/setToast", {...this.$store.state.rootStore.toast, show: false});
+			}, 5000);
+		},
 	}
 });

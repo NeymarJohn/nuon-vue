@@ -1,0 +1,25 @@
+.icon-container {
+	cursor: pointer;
+	&:hover {
+		transform: scale(0.9);
+		transition: 0.2s ease;
+		opacity: 0.6;
+	}
+}
+
+.solid-border {
+	border-radius: 50%;
+	border: 1px solid black;
+}
+
+.icon {
+	height: 70px;
+	width: 70px;
+}
+
+.icon-title {
+	font-size: 16px !important;
+	color: black !important;
+	font-weight: bold;
+	margin-top: 10px;
+}

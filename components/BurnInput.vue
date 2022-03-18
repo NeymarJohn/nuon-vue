@@ -226,8 +226,8 @@ export default {
 				onConfirm: () => {
 					this.activeStep = 1;
 				},
-				onReject: (err) => {
-					this.failureToast(() => {this.activeStep = 1;}, err);
+				onReject: () => {
+					this.activeStep = 1;
 				},
 				onCallback: () => {
 				}

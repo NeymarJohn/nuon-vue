@@ -2,7 +2,7 @@ import { GetterTree, ActionTree, MutationTree } from "vuex";
 import Web3 from "web3";
 import WalletConnectProvider from "@walletconnect/web3-provider";
 import { VALID_NETWORKS } from "~/constants/addresses";
-import { failureToast } from "~/plugins/helpers.js";
+
 
 declare let window: any;
 declare let ethereum: any;
@@ -49,6 +49,7 @@ export const actions: ActionTree<Web3State, Web3State> = {
 		commit("setChainId", chainId);
 
 		if (window.ethereum) {
+			
 			if (localStorage.getItem(WALLET_CONNECTED)) {
 				dispatch("connect");
 			}
@@ -59,7 +60,7 @@ export const actions: ActionTree<Web3State, Web3State> = {
 	},
 
 	async connect (ctx: any, wallet) {
-		const {commit, dispatch, state} = ctx;
+		const {commit, dispatch, state, rootState} = ctx;
 		if (wallet === "metamask") {
 			if (window.ethereum) {
 				try {
@@ -93,21 +94,17 @@ export const actions: ActionTree<Web3State, Web3State> = {
 						dispatch("updateChain", chainIdHex);
 					});
 				} catch (e) {
-					failureToast(null, e, "Wallet connection failed");
 				} finally {
 					commit("modalStore/setModalVisibility", {name: "connectWalletModal", visibility: false}, {root:true});
 				}
 			} else {
-				commit("modalStore/setModalInfo",{name: "alertModal", info: {title:"Connect Wallet", htmlContent: "Please install <a href='https://metamask.io/' target='_blank'><strong>MetaMask</strong></a>"}}, {root: true});
+				commit("modalStore/setModalInfo",{name: "alertModal", info: {title:"Connect Wallet", htmlContent: "Please install <a href='https://metamask.io/' target='_blank'><b>MetaMask</b></a>"}}, {root: true});
 				commit("modalStore/setModalVisibility", {name: "alertModal", visibility: true}, {root:true});
 			}
 		} else {
 			try {
 				const provider = new WalletConnectProvider({
-					rpc: {
-						[DEFAULT_CHAIN_ID]: "https://eth-private-testnet-poa.hydrogenx.tk/"
-					},
-					chainId: DEFAULT_CHAIN_ID,
+					infuraId: rootState.rootStore.infuraId,
 					qrcode: true
 				});
 
@@ -143,7 +140,6 @@ export const actions: ActionTree<Web3State, Web3State> = {
 					dispatch("disconnect");
 				});
 			} catch (e) {
-				failureToast(null, e, "Wallet connection failed");
 			} finally {
 				commit("modalStore/setModalVisibility", {name: "connectWalletModal", visibility: false}, {root:true});
 			}
