@@ -13,9 +13,10 @@
 	flex-direction: row;
 	align-items: center;
 }
-.l-flex--row-space-between {
+
+.l-flex--row-space-around {
 	flex-direction: row;
-	justify-content: space-between;
+	justify-content: space-around;
 }
 .l-flex--row-center-space-between {
 	flex-direction: row;
@@ -42,6 +43,9 @@
 }
 .l-flex--align-self-start {
 	align-self: flex-start;
+}
+.l-flex--align-items-center {
+	align-items: center;
 }
 @media screen and (max-width: 990px) {
 	.l-m-flex--column {

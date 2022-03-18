@@ -76,6 +76,7 @@ export default {
 		this.price.usx = parseFloat(await this.$store.getters["stabilityFlashStore/getUSXPriceInDAI"]);
 		this.price.hx = parseFloat(await this.$store.getters["stabilityFlashStore/getHydroPriceInDAI"]);
 		this.$store.commit("rootStore/setIsLoaded", true);
+		this.$store.commit("rootStore/setInfuraId", this.$config.infuraId);
 	},
 	methods: {
 		/**

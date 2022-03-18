@@ -2,13 +2,12 @@
 	<div class="l-footer">
 		<slot />
 		<AlertModal/>
+		<ConnectWalletModal />
 	</div>
 </template>
 
 <script>
-import AlertModal from "../AlertModal.vue";
 export default {
-	name: "LayoutFooter",
-	components: { AlertModal }
+	name: "LayoutFooter"
 };
 </script>

@@ -1,6 +1,8 @@
 import { GetterTree, ActionTree, MutationTree } from "vuex";
 import Web3 from "web3";
+import WalletConnectProvider from "@walletconnect/web3-provider";
 import { VALID_NETWORKS } from "~/constants/addresses";
+
 
 declare let window: any;
 declare let ethereum: any;
@@ -57,22 +59,67 @@ export const actions: ActionTree<Web3State, Web3State> = {
 		}
 	},
 
-	async connect ({ commit, dispatch, state }) {
-		if (window.ethereum) {
+	async connect (ctx: any, wallet) {
+		const {commit, dispatch, state, rootState} = ctx;
+		if (wallet === "metamask") {
+			if (window.ethereum) {
+				try {
+					const [account] = await window.ethereum.request({ method: "eth_requestAccounts" });
+					const chainId = Web3.utils.hexToNumber(await window.ethereum.request({ method: "eth_chainId" }));
+					const web3 = new Web3(Web3.givenProvider);
+					commit("setAccount", account);
+					commit("setWeb3", () => web3);
+					dispatch("updateChain", chainId);
+					localStorage.setItem(WALLET_CONNECTED, "connected");
+					// Dispatch other modules actions
+					dispatch("initializeAllStore", {address: state.account, chainId: state.chainId, web3});
+
+					// Handling events on ethereum provider
+					ethereum.on("accountsChanged", async (accounts: string[]) => {
+						if (accounts.length > 0) {
+							const balance = await web3.eth.getBalance(accounts[0]);
+							commit("setAccount", accounts[0]);
+							commit("setBalance", balance);
+							dispatch("initializeAllStore", {address: state.account, chainId: state.chainId, web3});
+						} else {
+							dispatch("disconnect");
+						}
+					});
+
+					ethereum.on("disconnect", () => {
+						dispatch("disconnect");
+					});
+
+					ethereum.on("chainChanged", (chainIdHex: string) => {
+						dispatch("updateChain", chainIdHex);
+					});
+				} catch (e) {
+				} finally {
+					commit("modalStore/setModalVisibility", {name: "connectWalletModal", visibility: false}, {root:true});
+				}
+			} else {
+				commit("modalStore/setModalInfo",{name: "alertModal", info: {title:"Connect Wallet", htmlContent: "Please install <a href='https://metamask.io/' target='_blank'><b>MetaMask</b></a>"}}, {root: true});
+				commit("modalStore/setModalVisibility", {name: "alertModal", visibility: true}, {root:true});
+			}
+		} else {
 			try {
-				const [account] = await window.ethereum.request({ method: "eth_requestAccounts" });
-				const chainId = Web3.utils.hexToNumber(await window.ethereum.request({ method: "eth_chainId" }));
-				const web3 = new Web3(Web3.givenProvider);
+				const provider = new WalletConnectProvider({
+					infuraId: rootState.rootStore.infuraId,
+					qrcode: true
+				});
+
+				await provider.enable();
+				const web3 = new Web3(provider as unknown as string);
+				const [account] = await web3.eth.getAccounts();
+				const chainId = await web3.eth.net.getId();
+
 				commit("setAccount", account);
 				commit("setWeb3", () => web3);
 				dispatch("updateChain", chainId);
 				localStorage.setItem(WALLET_CONNECTED, "connected");
-				// Dispatch other modules actions
 				dispatch("initializeAllStore", {address: state.account, chainId: state.chainId, web3});
 
-
-				// Handling events on ethereum provider
-				ethereum.on("accountsChanged", async (accounts: string[]) => {
+				provider.on("accountsChanged", async (accounts: string[]) => {
 					if (accounts.length > 0) {
 						const balance = await web3.eth.getBalance(accounts[0]);
 						commit("setAccount", accounts[0]);
@@ -83,18 +130,19 @@ export const actions: ActionTree<Web3State, Web3State> = {
 					}
 				});
 
-				ethereum.on("disconnect", () => {
-					dispatch("disconnect");
+				// Subscribe to chainId change
+				provider.on("chainChanged", (chainId: number) => {
+					dispatch("updateChain", chainId);
 				});
 
-				ethereum.on("chainChanged", (chainIdHex: string) => {
-					dispatch("updateChain", chainIdHex);
+				// Subscribe to session disconnection
+				provider.on("disconnect", () => { // code: number, reason: string
+					dispatch("disconnect");
 				});
 			} catch (e) {
+			} finally {
+				commit("modalStore/setModalVisibility", {name: "connectWalletModal", visibility: false}, {root:true});
 			}
-		} else {
-			commit("modalStore/setModalInfo",{name: "alertModal", info: {title:"Connect Wallet", htmlContent: "Please install <a href='https://metamask.io/' target='_blank'><b>MetaMask</b></a>"}}, {root: true});
-			commit("modalStore/setModalVisibility", {name: "alertModal", visibility: true}, {root:true});
 		}
 	},
 

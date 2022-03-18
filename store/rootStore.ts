@@ -8,7 +8,8 @@ export const state = () => ({
 		kind: "",
 		txHash: "",
 		title: ""
-	}
+	},
+	infuraId: ""
 });
 
 export type RootState = ReturnType<typeof state>
@@ -19,10 +20,14 @@ export const mutations: MutationTree<RootState> = {
 	},
 	setToast(state, payload) {
 		state.toast = payload;
+	},
+	setInfuraId(state, payload) {
+		state.infuraId = payload;
 	}
 };
 
 export const getters: GetterTree<RootState, RootState> = {
 	getIsLoaded: state => state.isLoaded,
-	getToast: state => state.toast
+	getToast: state => state.toast,
+	getInfuraId: state => state.infuraId
 };

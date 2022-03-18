@@ -44,8 +44,8 @@ export default {
 	},
 
 	methods: {
-		async connect () {
-			await this.$store.dispatch("web3Store/connect");
+		connect () {
+			this.$store.commit("modalStore/setModalVisibility", {name: "connectWalletModal", visibility: true});
 		},
 		disconnect () {
 			this.$store.dispatch("web3Store/disconnect");
