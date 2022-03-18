@@ -108,7 +108,7 @@ export default {
 	},
 	head () {
 		return {
-			title: "Caldron | Nuon"
+			title: "Collateral Vault | Nuon"
 		};
 	},
 	computed: {

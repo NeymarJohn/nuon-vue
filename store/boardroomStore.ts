@@ -93,22 +93,18 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 				if (onCallback) onCallback(err);
 			});
 	},
-	stake(ctx: any, {amount, onConfirm, onError, onComplete}) {
+	async stake(ctx: any, {amount, onConfirm, onReject}) {
 		const accountAddress = ctx.rootState.web3Store.account;
 		const weiAmount = toWei(amount);
-		ctx.getters.contract.methods.stake(weiAmount).send({from: accountAddress})
+		return await ctx.getters.contract.methods.stake(weiAmount).send({from: accountAddress})
 			.on("transactionHash", (hash: string) => {
 				if (onConfirm) onConfirm(hash);
 			})
 			.on("error", (err: string) => {
-				if (onError) onError(err);
-			})
-			.then((_res: any) => {
-				ctx.dispatch("erc20Store/initializeBalance", {address: accountAddress}, {root: true});
-				if (onComplete) onComplete();
+				if (onReject) onReject(err);
 			});
 	},
-	claimReward(ctx: any, {onConfirm, onError, onComplete}) {
+	claimReward(ctx: any, {onConfirm, onReject}) {
 		const accountAddress = ctx.rootState.web3Store.account;
 		return ctx.getters.contract.methods.claimReward(
 			true, 
@@ -119,10 +115,7 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 				if (onConfirm) onConfirm(hash);
 			})
 			.on("error", (err: string) => {
-				if (onError) onError(err);
-			})
-			.then((_res: any) => {
-				if (onComplete) onComplete();
+				if (onReject) onReject(err);
 			});
 	},
 	async reward(ctx: any, {amount, onConfirm, onReject}) {
@@ -136,19 +129,15 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 				if (onReject) onReject();
 			});
 	},
-	withdraw(ctx: any, {amount, onConfirm, onError, onComplete}) {
+	async withdraw(ctx: any, {amount, onConfirm, onReject}) {
 		const accountAddress = ctx.rootState.web3Store.account;
 		const weiAmount = toWei(amount);
-		ctx.getters.contract.methods.withdraw(weiAmount).send({from: accountAddress})
+		return await ctx.getters.contract.methods.withdraw(weiAmount).send({from: accountAddress})
 			.on("transactionHash", (hash: string) => {
 				if (onConfirm) onConfirm(hash);
 			})
 			.on("error", (err: string) => {
-				if (onError) onError(err);
-			})
-			.then((_res: any) => {
-				ctx.dispatch("erc20Store/initializeBalance", {address: accountAddress}, {root: true});
-				if (onComplete) onComplete();
+				if (onReject) onReject(err);
 			});
 	},
 	async claimRewardsAndWithdraw(ctx:any, {onConfirm, onReject}) {

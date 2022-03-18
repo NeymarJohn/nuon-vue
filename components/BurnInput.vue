@@ -204,18 +204,16 @@ export default {
 				await this.$store.dispatch("stabilityFlashStore/burnHydro", {
 					address: this.account,
 					amount: this.burningValue,
-					onConfirm: (txHash) => this.successToast(() => {this.activeStep = 1;}, null, txHash),
-					onError: (e) => this.failureToast(() => {this.activeStep = 1;}, e),
-					onComplete: () => {}
+					successCallback: (txHash) => this.successToast(() => {this.activeStep = 1;}, null, txHash),
+					failureCallback: (e) => this.failureToast(() => {this.activeStep = 1;}, e)
 				});
 			}
 			if (this.tokenBurn === "USX" && this.account !== "") {
 				await this.$store.dispatch("stabilityFlashStore/burnUsx", {
 					address: this.account,
 					amount: this.burningValue,
-					onConfirm: (txHash) => this.successToast(() => {this.activeStep = 1;}, null, txHash),
-					onError: (e) => this.failureToast(() => {this.activeStep = 1;}, e),
-					onComplete: () => {}
+					successCallback: (txHash) => this.successToast(() => {this.activeStep = 1;}, null, txHash),
+					failureCallback: (e) => this.failureToast(() => {this.activeStep = 1;}, e)
 				});
 			}
 		},

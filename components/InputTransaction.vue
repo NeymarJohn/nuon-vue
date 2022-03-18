@@ -179,34 +179,30 @@ export default {
 		submitTransaction() {
 			if (this.account !== "") {
 				this.activeStep = "loading";
+				const _this = this;
 				if (this.action === "stake") {
 					this.$store.dispatch("boardroomStore/stake", {
 						amount: this.inputValue,
 						onConfirm: (txHash) => this.successToast(() => {this.activeStep = 1;}, null, txHash),
-						onError: (e) => this.failureToast(() => {this.activeStep = 1;}, e),
-						onComplete: () => {
-							this.inputValue = "";
-							this.$store.dispatch("boardroomStore/updateStatus");
-						}
+						onReject: (e) => this.failureToast(() => {this.activeStep = 1;}, e)
+					}).then(() => {
+						_this.$store.dispatch("boardroomStore/updateStatus");
 					});
 				} else if (this.action === "withdraw") {
 					this.$store.dispatch("boardroomStore/withdraw", {
 						amount: this.inputValue,
 						onConfirm: (txHash) => this.successToast(() => {this.activeStep = 1;}, null, txHash),
-						onError: (e) => this.failureToast(() => {this.activeStep = 1;}, e),
-						onComplete: () => {
-							this.inputValue = "";
-							this.$store.dispatch("boardroomStore/updateStatus");
-						}
-					});
+						onReject: (e) => this.failureToast(() => {this.activeStep = 1;}, e)
+					}).then(()=>{
+						_this.$store.dispatch("boardroomStore/updateStatus");
+					}).catch(()=>{});;
 				} else if (this.action === "claim") {
 					this.$store.dispatch("boardroomStore/claimReward", {
 						onConfirm: (txHash) => this.successToast(() => {this.activeStep = 1;}, null, txHash),
-						onError: (e) => this.failureToast(() => {this.activeStep = 1;}, e),
-						onComplete: () => {
-							this.$store.dispatch("boardroomStore/updateStatus");
-						}
-					});
+						onReject: (e) => this.failureToast(() => {this.activeStep = 1;}, e)
+					}).then(()=>{
+						_this.$store.dispatch("boardroomStore/updateStatus");
+					}).catch(()=>{});
 				}
 			}
 		},
