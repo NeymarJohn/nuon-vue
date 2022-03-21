@@ -4,19 +4,17 @@
 		title="Choose a wallet to connect"
 		@close-modal="setModalVisibility('connectWalletModal', false)"
 	>
-		<div class="l-flex l-flex--row-space-around parent-container">
-			<div
+		<LayoutFlex direction="row-space-around">
+			<LayoutFlex
 				v-for="(wallet, index) in wallets"
 				:key="index"
-				class="l-flex l-flex--column l-flex--align-items-center icon-container"
+				class="icon-container"
+				direction="column l-flex--align-items-center"
 				@click="walletClicked(wallet)">
-				<img
-					:class="`icon ${index === 1 && 'solid-border'}`"
-					:src="require(`~/assets/images/wallets/${wallet}-icon.png`)"
-					alt="metamask icon" />
+				<component :is="require(`~/assets/images/svg/svg-${wallet}.svg`)" />
 				<p class="icon-title">{{capitalize(wallet)}}</p>
-			</div>
-		</div>
+			</LayoutFlex>
+		</LayoutFlex>
 	</DefaultModal>
 </template>
 

@@ -1,0 +1,15 @@
+.icon-container {
+	cursor: pointer;
+	&:hover {
+		transform: scale(0.9);
+		transition: 0.3s ease;
+		opacity: 0.6;
+	}
+}
+
+.icon-title {
+	font-size: $BODY_TEXT !important;
+	color: $BLACK !important;
+	font-weight: bold;
+	margin-top: $SPACING_XXS;
+}
