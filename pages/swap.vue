@@ -419,11 +419,12 @@ export default {
 				this.input.value = parseFloat(fromWei(this.$store.getters["web3Store/balance"])).toFixed(3);
 			};
 			if(this.input.token === "USX") {
-				this.input.value = this.$store.getters["erc20Store/usxBalance"];
+				this.input.value = parseFloat(this.$store.getters["erc20Store/usxBalance"]).toFixed(2);
 			};
 			if(this.input.token === "HX") {
-				this.input.value = this.$store.getters["erc20Store/hxBalance"];
+				this.input.value = parseFloat(this.$store.getters["erc20Store/hxBalance"]).toFixed(2);
 			};
+			this.getMaxOutput();
 		},
 		showSettingsModal() {
 			this.isSettingsModalVisible = true;
