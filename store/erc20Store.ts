@@ -48,8 +48,8 @@ export const actions: ActionTree<Erc20State, Erc20State> = {
 			.send({from: accountAddress
 			}).on("transactionHash", function() {
 				if (onConfirm) onConfirm();
-			}).on("error", function() {
-				if (onReject) onReject();
+			}).on("error", function(err: string) {
+				if (onReject) onReject(err);
 			});
 	}
 };
