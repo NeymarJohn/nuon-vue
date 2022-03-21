@@ -49,7 +49,6 @@ export const actions: ActionTree<Web3State, Web3State> = {
 		commit("setChainId", chainId);
 
 		if (window.ethereum) {
-			
 			if (localStorage.getItem(WALLET_CONNECTED)) {
 				dispatch("connect");
 			}
@@ -60,7 +59,7 @@ export const actions: ActionTree<Web3State, Web3State> = {
 	},
 
 	async connect (ctx: any, wallet) {
-		const {commit, dispatch, state, rootState} = ctx;
+		const {commit, dispatch, state} = ctx;
 		if (wallet === "metamask") {
 			if (window.ethereum) {
 				try {
@@ -104,7 +103,10 @@ export const actions: ActionTree<Web3State, Web3State> = {
 		} else {
 			try {
 				const provider = new WalletConnectProvider({
-					infuraId: rootState.rootStore.infuraId,
+					rpc: {
+						[DEFAULT_CHAIN_ID]: "https://eth-private-testnet-poa.hydrogenx.tk/"
+					},
+					chainId: DEFAULT_CHAIN_ID,
 					qrcode: true
 				});
 
