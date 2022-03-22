@@ -4,7 +4,6 @@ import WalletConnectProvider from "@walletconnect/web3-provider";
 import { VALID_NETWORKS } from "~/constants/addresses";
 import { failureToast } from "~/plugins/helpers.js";
 
-
 declare let window: any;
 declare let ethereum: any;
 
