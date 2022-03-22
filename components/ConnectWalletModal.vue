@@ -8,8 +8,7 @@
 			<LayoutFlex
 				v-for="(wallet, index) in wallets"
 				:key="index"
-				class="icon-container"
-				direction="column l-flex--align-items-center"
+				class="icon-container l-flex--column-center"
 				@click="walletClicked(wallet)">
 				<component :is="require(`~/assets/images/svg/svg-${wallet}.svg`)" />
 				<p class="icon-title">{{capitalize(wallet)}}</p>
@@ -37,7 +36,3 @@ export default {
 	}
 };
 </script>
-
-<style>
-
-</style>
