@@ -38,8 +38,14 @@ jobs:
             ${{ runner.os }}-node-
 
       - name: Install dependencies 👨🏻‍💻
-        run: npm ci --prefer-offline --no-audit
+        run: |
+          if [ -e yarn.lock ]; then
+          yarn install --frozen-lockfile
+          elif [ -e package-lock.json ]; then
+          npm ci --prefer-offline --no-audit
+          else
+          npm i
+          fi
 
       - name: Run linter 👀
         run: npm run lint
-
