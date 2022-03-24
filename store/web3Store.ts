@@ -1,8 +1,8 @@
+import Vue from "vue";
 import { GetterTree, ActionTree, MutationTree } from "vuex";
 import Web3 from "web3";
 import WalletConnectProvider from "@walletconnect/web3-provider";
 import { VALID_NETWORKS } from "~/constants/addresses";
-import { failureToast } from "~/plugins/helpers.js";
 
 declare let window: any;
 declare let ethereum: any;
@@ -57,7 +57,7 @@ export const actions: ActionTree<Web3State, Web3State> = {
 		}
 	},
 
-	async connect (ctx: any, wallet) {
+	async connect (ctx: any, {wallet, onSuccess, onError}) {
 		const {commit, dispatch, state} = ctx;
 		localStorage.setItem("nuon-wallet", wallet);
 		if (wallet === "metamask") {
@@ -93,7 +93,7 @@ export const actions: ActionTree<Web3State, Web3State> = {
 						dispatch("updateChain", chainIdHex);
 					});
 				} catch (e) {
-					failureToast(null, e, "Wallet connection failed");
+					if (onError) onError(e);
 				} finally {
 					commit("modalStore/setModalVisibility", {name: "connectWalletModal", visibility: false}, {root:true});
 				}
@@ -143,7 +143,7 @@ export const actions: ActionTree<Web3State, Web3State> = {
 					dispatch("disconnect");
 				});
 			} catch (e) {
-				failureToast(null, e, "Wallet connection failed");
+				if (onError) onError(e);
 			} finally {
 				commit("modalStore/setModalVisibility", {name: "connectWalletModal", visibility: false}, {root:true});
 			}

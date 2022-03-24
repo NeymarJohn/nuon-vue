@@ -31,7 +31,13 @@ export default {
 	},
 	methods: {
 		async walletClicked(wallet) {
-			await this.$store.dispatch("web3Store/connect", wallet);
+			await this.$store.dispatch("web3Store/connect", 
+				{
+					wallet, 
+					onError: (e) => {
+						this.failureToast(null, e, "Wallet connection failed");
+					}
+				});
 		}
 	}
 };
