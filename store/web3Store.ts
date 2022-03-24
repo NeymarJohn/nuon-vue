@@ -47,19 +47,19 @@ export const actions: ActionTree<Web3State, Web3State> = {
 
 		commit("setWeb3", () => web3);
 		commit("setChainId", chainId);
-
-		if (window.ethereum) {
-			if (localStorage.getItem(WALLET_CONNECTED)) {
-				dispatch("connect");
+		if (localStorage.getItem(WALLET_CONNECTED)) {
+			const wallet = localStorage.getItem("nuon-wallet");
+			if (wallet === "metamask") {
+				dispatch("connect", "metamask");
+			} else {
+				dispatch("connect", "walletconnect");
 			}
-		} else {
-			commit("modalStore/setModalInfo",{name: "alertModal", info: {title:"Connect Wallet", htmlContent: "Please install <a href='https://metamask.io/' target='_blank'><b>MetaMask</b></a>"}}, {root: true});
-			commit("modalStore/setModalVisibility", {name: "alertModal", visibility: true}, {root:true});
 		}
 	},
 
 	async connect (ctx: any, wallet) {
 		const {commit, dispatch, state} = ctx;
+		localStorage.setItem("nuon-wallet", wallet);
 		if (wallet === "metamask") {
 			if (window.ethereum) {
 				try {
