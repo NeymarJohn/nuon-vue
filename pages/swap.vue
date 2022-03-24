@@ -383,7 +383,7 @@ export default {
 			});
 		},
 		connectWallet() {
-			this.$store.dispatch("web3Store/connect");
+			this.$store.commit("modalStore/setModalVisibility", {name: "connectWalletModal", visibility: true});
 		},
 		swap() {
 			if (this.changedValue === "input") {

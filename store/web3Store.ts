@@ -50,9 +50,9 @@ export const actions: ActionTree<Web3State, Web3State> = {
 		if (localStorage.getItem(WALLET_CONNECTED)) {
 			const wallet = localStorage.getItem("nuon-wallet");
 			if (wallet === "metamask") {
-				dispatch("connect", "metamask");
+				dispatch("connect", {wallet: "metamask"});
 			} else {
-				dispatch("connect", "walletconnect");
+				dispatch("connect", {wallet: "walletconnect"});
 			}
 		}
 	},
