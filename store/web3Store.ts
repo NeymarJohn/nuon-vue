@@ -1,4 +1,3 @@
-import Vue from "vue";
 import { GetterTree, ActionTree, MutationTree } from "vuex";
 import Web3 from "web3";
 import WalletConnectProvider from "@walletconnect/web3-provider";
@@ -57,7 +56,7 @@ export const actions: ActionTree<Web3State, Web3State> = {
 		}
 	},
 
-	async connect (ctx: any, {wallet, onSuccess, onError}) {
+	async connect (ctx: any, {wallet, onError}) {
 		const {commit, dispatch, state} = ctx;
 		localStorage.setItem("nuon-wallet", wallet);
 		if (wallet === "metamask") {
