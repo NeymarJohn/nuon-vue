@@ -58,7 +58,6 @@ export const actions: ActionTree<Web3State, Web3State> = {
 
 	async connect (ctx: any, {wallet, onError}) {
 		const {commit, dispatch, state} = ctx;
-		localStorage.setItem("nuon-wallet", wallet);
 		if (wallet === "metamask") {
 			if (window.ethereum) {
 				try {
@@ -69,6 +68,7 @@ export const actions: ActionTree<Web3State, Web3State> = {
 					commit("setWeb3", () => web3);
 					dispatch("updateChain", chainId);
 					localStorage.setItem(WALLET_CONNECTED, "connected");
+					localStorage.setItem("nuon-wallet", wallet);
 					// Dispatch other modules actions
 					dispatch("initializeAllStore", {address: state.account, chainId: state.chainId, web3});
 
@@ -97,6 +97,7 @@ export const actions: ActionTree<Web3State, Web3State> = {
 					commit("modalStore/setModalVisibility", {name: "connectWalletModal", visibility: false}, {root:true});
 				}
 			} else {
+				commit("modalStore/setModalVisibility", {name: "connectWalletModal", visibility: false}, {root:true});
 				commit("modalStore/setModalInfo",{name: "alertModal", info: {title:"Connect Wallet", htmlContent: "Please install <a href='https://metamask.io/' target='_blank'><strong>MetaMask</strong></a>"}}, {root: true});
 				commit("modalStore/setModalVisibility", {name: "alertModal", visibility: true}, {root:true});
 			}
@@ -119,6 +120,7 @@ export const actions: ActionTree<Web3State, Web3State> = {
 				commit("setWeb3", () => web3);
 				dispatch("updateChain", chainId);
 				localStorage.setItem(WALLET_CONNECTED, "connected");
+				localStorage.setItem("nuon-wallet", wallet);
 				dispatch("initializeAllStore", {address: state.account, chainId: state.chainId, web3});
 
 				provider.on("accountsChanged", async (accounts: string[]) => {
@@ -141,10 +143,10 @@ export const actions: ActionTree<Web3State, Web3State> = {
 				provider.on("disconnect", () => { // code: number, reason: string
 					dispatch("disconnect");
 				});
+
+				commit("modalStore/setModalVisibility", {name: "connectWalletModal", visibility: false}, {root:true});
 			} catch (e) {
 				if (onError) onError(e);
-			} finally {
-				commit("modalStore/setModalVisibility", {name: "connectWalletModal", visibility: false}, {root:true});
 			}
 		}
 	},
