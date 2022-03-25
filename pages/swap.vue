@@ -65,7 +65,7 @@
 											autocorrect="off"
 											spellcheck="false"
 											inputmode="decimal"
-											@keyup="getMaxOutput" />
+											@keyup="onInputKeyUp('input')" />
 										<TheButton
 											size="sm"
 											title="Click to input your max balance"
@@ -101,7 +101,7 @@
 											autocorrect="off"
 											spellcheck="false"
 											inputmode="decimal"
-											@keyup="getMinInput" />
+											@keyup="onInputKeyUp('output')" />
 									</div>
 								</div>
 								<LayoutFlex direction="row-justify-end">
@@ -109,7 +109,7 @@
 								</LayoutFlex>
 							</SwapAccordion>
 						</div>
-						<div v-if="loadedPrice && input.value">
+						<div v-if="output.value && input.value">
 							<div class="swap__output">
 								<LayoutFlex direction="row-center">
 									<h4 class="u-mr-xxxs">1 {{ output.token }} = {{ input.value / output.value }} {{ input.token }}</h4>
@@ -124,6 +124,7 @@
 								</div>
 							</div>
 							<p v-if="loadingPrice">Get best price</p>
+
 						</div>
 						<div class="transaction-input__buttons">
 							<TheButton
@@ -300,9 +301,11 @@ export default {
 				this.getMinInput();
 			}
 		},
+		onInputKeyUp(changedValue) {
+			this.changedValue = changedValue;
+			this.calculate();
+		},
 		getMaxOutput() {
-			this.changedValue = "input";
-			this.output.value = "";
 			if (!this.input.value || !this.output.token) return;
 			this.loadingPrice = true;
 			this.loadedPrice = false;
@@ -323,8 +326,6 @@ export default {
 			});
 		},
 		getMinInput() {
-			this.changedValue = "output";
-			this.input.value = "";
 			if (!this.output.value || !this.output.token) return;
 			this.loadingPrice = true;
 			this.loadedPrice = false;
@@ -383,7 +384,7 @@ export default {
 			});
 		},
 		connectWallet() {
-			this.$store.dispatch("web3Store/connect");
+			this.$store.commit("modalStore/setModalVisibility", {name: "connectWalletModal", visibility: true});
 		},
 		swap() {
 			if (this.changedValue === "input") {
@@ -461,7 +462,7 @@ export default {
 				});
 		},
 		refreshPrice() {
-			console.log("Refresh price");
+			this.calculate();
 		}
 	}
 };
