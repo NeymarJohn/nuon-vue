@@ -123,8 +123,6 @@
 									<p>~ ${{ swapFee.toFixed(2) }}</p>
 								</div>
 							</div>
-							<p v-if="loadingPrice">Get best price</p>
-
 						</div>
 						<div class="transaction-input__buttons">
 							<TheButton
