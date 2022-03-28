@@ -35,7 +35,6 @@ export default {
 			isMintView: true,
 			isWithdrawView: false,
 			hxPrice: 0,
-			isApproving: false,
 			claimRewardsToken: {
 				symbol: HX.symbol,
 				price: 0,
@@ -81,25 +80,6 @@ export default {
 				this.claimRewardsToken = {...token, price: 0, balance: 0};
 			}
 		},
-		successCallback() {
-			this.$store.commit("modalStore/setModalStatus", "is-confirmed");
-			setTimeout(() => {
-				this.$store.commit("modalStore/setModalStatus", "is-active");
-			}, 3000);
-		},
-		failureCallback(e) {
-			this.$store.commit("modalStore/setModalStatus", "is-active");
-			if (e) {
-				let err = e;
-				if (typeof(e) === "object") {
-					err = e.code === 4001 ? "Transaction failed because you rejected the transaction." : e.message;
-				}
-				this.$store.commit("modalStore/setModalError", err);
-			}
-			setTimeout(() => {
-				this.$store.commit("modalStore/setModalError", "");
-			}, 3000);
-		},
 		submitTransaction() {
 			this.$store.commit("modalStore/setModalStatus", "is-confirming");
 			if (this.modalError) this.$store.commit("modalStore/setModalError", "");
@@ -108,23 +88,23 @@ export default {
 				if (this.action === "stake") {
 					this.$store.dispatch("boardroomStore/stake", {
 						amount: this.inputValue,
-						onConfirm: () => this.successCallback(),
-						onReject: (e) => this.failureCallback(e)
+						onConfirm: () => this.successToast(),
+						onReject: (e) => this.failureToast(null, e)
 					}).then(() => {
 						_this.$store.dispatch("boardroomStore/updateStatus");
 					});
 				} else if (this.action === "withdraw") {
 					this.$store.dispatch("boardroomStore/withdraw", {
 						amount: this.inputValue,
-						onConfirm: () => this.successCallback(),
-						onReject: (e) => this.failureCallback(e)
+						onConfirm: () => this.successToast(),
+						onReject: (e) => this.failureToast(null, e)
 					}).then(()=>{
 						_this.$store.dispatch("boardroomStore/updateStatus");
 					}).catch(()=>{});;
 				} else if (this.action === "claim") {
 					this.$store.dispatch("boardroomStore/claimReward", {
-						onConfirm: () => this.successCallback(),
-						onReject: (e) => this.failureCallback(e)
+						onConfirm: () => this.successToast(),
+						onReject: (e) => this.failureToast(null, e)
 					}).then(()=>{
 						_this.$store.dispatch("boardroomStore/updateStatus");
 					}).catch(()=>{});
@@ -135,13 +115,9 @@ export default {
 			this.$store.dispatch("boardroomStore/approveToken",
 				{
 					token: HX.symbol,
-					onConfirm:  () =>{
-						this.isApproving = true;
-					},
+					onConfirm:  () => {},
 					onReject: () => {},
-					onCallback: () => {
-						this.isApproving = false;
-					}
+					onCallback: () => {}
 				});
 		},
 	}
