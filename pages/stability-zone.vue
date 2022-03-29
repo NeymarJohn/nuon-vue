@@ -174,12 +174,12 @@
 				</LayoutFlex>
 			</TheLoader>
 		</LayoutContainer>
-		<DefaultModal
+		<TransactionModal
 			v-show="isClaimResultModalVisible"
 			title="Success"
 			@close-modal="setModalVisibility('claimResultModal', false)">
 			{{ claimResultModalInfo }}
-		</DefaultModal>
+		</TransactionModal>
 	</div>
 </template>
 

@@ -13,7 +13,7 @@
 						@click="setModalVisibility('settingsModal', true)">
 						<SettingsIcon />
 					</TheButton>
-					<DefaultModal
+					<TransactionModal
 						v-show="isSettingsModalVisible"
 						title="Transaction Settings"
 						@close-modal="setModalVisibility('settingsModal', false)">
@@ -37,7 +37,7 @@
 									@change="calculateSlippage" />
 							</div>
 						</div>
-					</DefaultModal>
+					</TransactionModal>
 				</LayoutFlex>
 				<TheStepper :active-step="activeStep" :steps="['Token', 'Confirm']">
 					<template #step-one>
@@ -271,7 +271,7 @@ export default {
 
 		const routeQuery = this.$route.query;
 		if (routeQuery.inputToken) this.input.token = routeQuery.inputToken;
-		if (routeQuery.outputToken) this.output.token = routeQuery.outputToken;  
+		if (routeQuery.outputToken) this.output.token = routeQuery.outputToken;
 	},
 	methods: {
 		initialize() {

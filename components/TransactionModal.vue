@@ -6,7 +6,7 @@
 				<header id="transactionModalTitle" class="modal__header">
 					<div>
 						<h2>{{ title }}</h2>
-						<p>{{ subtitle }}</p>
+						<p v-if="subtitle">{{ subtitle }}</p>
 					</div>
 					<TheButton
 						title="Click to close modal"
@@ -39,7 +39,7 @@ export default {
 		},
 		subtitle: {
 			type: String,
-			required: true
+			required: false
 		},
 	},
 	mounted () {
