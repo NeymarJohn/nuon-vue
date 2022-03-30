@@ -42,9 +42,11 @@ a.btn:hover,
 .btn--unstyled:focus {
 	box-shadow: none;
 }
-.btn[disabled] {
+.btn[disabled],
+.btn[disabled]:hover {
+	background: $MEDIUM_GREY;
+	color: $WHITE;
 	cursor: not-allowed;
-	opacity: 0.4;
 }
 .btn[readonly] {
 	pointer-events: none;
