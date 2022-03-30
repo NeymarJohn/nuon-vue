@@ -1,12 +1,14 @@
 <template>
 	<div>
+		<LayoutContainer color="grey">
+			<PageTitle>
+				<h4>Swap</h4>
+				<h1>Trade tokens in an instant</h1>
+			</PageTitle>
+		</LayoutContainer>
 		<LayoutContainer size="sm">
 			<div class="swap">
 				<LayoutFlex direction="row-center-space-between" class="u-mb-md">
-					<div class="swap__title">
-						<h1>Swap</h1>
-						<p>Trade tokens in an instant.</p>
-					</div>
 					<TheButton
 						size="icon"
 						title="Click to open settings"

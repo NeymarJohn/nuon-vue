@@ -1,10 +1,11 @@
 <template>
 	<div>
 		<LayoutContainer color="grey">
-			<LayoutFlex
-				class="u-mb-md u-m-mb-xs l-m-flex--column"
-				direction="row-center-space-between">
-				<h1 class="u-m-mb-xs">Stability Zone</h1>
+			<LayoutFlex class="u-mb-md u-m-mb-xs l-m-flex--column" direction="row-center-space-between">
+				<PageTitle>
+					<h4>Stability Zone</h4>
+					<h1>My Token</h1>
+				</PageTitle>
 				<LayoutFlex>
 					<NuxtLink
 						class="btn btn--md u-mr-sm u-m-mr-xs"

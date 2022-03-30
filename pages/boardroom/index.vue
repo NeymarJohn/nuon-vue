@@ -2,7 +2,10 @@
 	<div>
 		<LayoutContainer color="grey">
 			<LayoutFlex class="u-mb-md u-m-mb-xs l-m-flex--column" direction="row-center-space-between">
-				<h1 class="u-m-mb-xs">Boardroom</h1>
+				<PageTitle>
+					<h4>Boardroom</h4>
+					<h1>Stake - Vote - Earn Rewards</h1>
+				</PageTitle>
 				<LayoutFlex>
 					<TheButton
 						:disabled="!isConnectedWallet"
