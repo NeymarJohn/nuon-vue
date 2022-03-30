@@ -28,7 +28,7 @@
 import CloseIcon from "@/assets/images/svg/svg-close.svg";
 
 export default {
-	name: "TransactionModal",
+	name: "TheModal",
 	components: {
 		CloseIcon
 	},

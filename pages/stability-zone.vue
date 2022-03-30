@@ -102,14 +102,14 @@
 								:disabled="connectedAccount === ''"
 								title="Click to start burning"
 								@click="setModalVisibility('burnModal', true)">Start Burning</TheButton>
-							<TransactionModal
+							<TheModal
 								v-show="isBurnModalVisible"
 								title="Burn HX token"
 								subtitle="Submit HX amount, burn and bring peg zone back in range."
 								:class="modalStatus"
 								@close-modal="setModalVisibility('burnModal', false)">
 								<BurnInput token-burn="HX" token-receive="USX" :token-balance="numberWithCommas(hxBalance.toFixed(2))" />
-							</TransactionModal>
+							</TheModal>
 						</DataCard>
 					</LayoutFlex>
 					<LayoutFlex direction="row-space-between" class="l-m-flex--column">
@@ -131,14 +131,14 @@
 								title="Click to start claiming"
 								@click="setModalVisibility('claimModal', true)">Start Claiming</TheButton>
 						</DataCard>
-						<TransactionModal
+						<TheModal
 							v-show="isClaimModalVisible"
 							title="Claim Reward Tokens"
 							subtitle="Time to claim your rewards!"
 							@close-modal="setModalVisibility('claimModal', false)"
 							@claim="claim">
 							<ClaimAccordion from="stabilityZone"/>
-						</TransactionModal>
+						</TheModal>
 					</LayoutFlex>
 				</LayoutFlex>
 				<LayoutFlex v-else-if="price.usx < tolerance.low" direction="column">
@@ -153,7 +153,7 @@
 							<TheButton
 								title="Click to start burning"
 								@click="setModalVisibility('burnModal', true)">Start Burning</TheButton>
-							<TransactionModal
+							<TheModal
 								v-show="isBurnModalVisible"
 								title="Burn USX token"
 								subtitle="Submit USX amount, burn and bring peg zone back in range."
@@ -162,7 +162,7 @@
 									token-burn="USX"
 									token-receive="HX"
 									:token-balance="numberWithCommas(usxBalance.toFixed(2))" />
-							</TransactionModal>
+							</TheModal>
 						</DataCard>
 					</LayoutFlex>
 				</LayoutFlex>
@@ -174,12 +174,12 @@
 				</LayoutFlex>
 			</TheLoader>
 		</LayoutContainer>
-		<TransactionModal
+		<TheModal
 			v-show="isClaimResultModalVisible"
 			title="Success"
 			@close-modal="setModalVisibility('claimResultModal', false)">
 			{{ claimResultModalInfo }}
-		</TransactionModal>
+		</TheModal>
 	</div>
 </template>
 

@@ -13,7 +13,7 @@
 						@click="setModalVisibility('settingsModal', true)">
 						<SettingsIcon />
 					</TheButton>
-					<TransactionModal
+					<TheModal
 						v-show="isSettingsModalVisible"
 						title="Transaction Settings"
 						@close-modal="setModalVisibility('settingsModal', false)">
@@ -37,7 +37,7 @@
 									@change="calculateSlippage" />
 							</div>
 						</div>
-					</TransactionModal>
+					</TheModal>
 				</LayoutFlex>
 				<TheStepper :active-step="activeStep" :steps="['Token', 'Confirm']">
 					<template #step-one>

@@ -1,5 +1,5 @@
 <template>
-	<TransactionModal
+	<TheModal
 		v-show="isAlertModalVisible"
 		:title="title"
 		@close-modal="setModalVisibility('alertModal', false)">
@@ -8,7 +8,7 @@
 		</div>
 		<div v-if="htmlContent" v-html="htmlContent" >
 		</div>
-	</TransactionModal>
+	</TheModal>
 </template>
 <script>
 export default {

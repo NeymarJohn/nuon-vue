@@ -17,12 +17,12 @@
 						size="unstyled"
 						title="Click to view the token list"
 						@click="setModalVisibility('collateralModal', true)">Token List</TheButton>
-					<TransactionModal
+					<TheModal
 						v-show="isCollateralModalVisible"
 						title="Locked Collateral"
 						@close-modal="setModalVisibility('collateralModal', false)">
 						<CollateralTable />
-					</TransactionModal>
+					</TheModal>
 				</DataCard>
 				<DataCard class="u-mr-lg u-mb-xs u-m-mr-none">
 					<p>My Minted Tokens</p>
