@@ -5,34 +5,38 @@
 	margin-bottom: 0;
 }
 .nav li {
-	margin-bottom: 2rem;
+	margin-bottom: $SPACING_36;
 }
 .nav a,
-.nav svg {
+.nav svg path {
 	transition: 0.3s ease;
 }
 .nav a {
-	font-family: $FONT_HEADING_BOLD;
+	font-weight: 600;
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-	color: $GREY_RGBA;
+	color: $MEDIUM_PURPLE_GREY;
 	text-decoration: none;
 	font-size: $BODY_TEXT;
+	padding: $SPACING_24;
+	border-radius: $BORDER_RADIUS;
 }
 .nav a:hover {
-	color: $WHITE;
-}
-.nav a:hover svg {
-	fill: $WHITE;
+	background: $LIGHT_PURPLE_GREY;
 }
 .nav a .external-link-icon {
-	fill: $GREY_RGBA;
+	fill: $MEDIUM_PURPLE_GREY;
 	height: 12px;
 	margin-left: 5px;
 }
-.nav .active-link {
+.nav .active-link,
+.nav .active-link:hover {
 	color: $WHITE;
+	background: $PURPLE;
+}
+.nav .active-link svg path {
+	fill: $WHITE;
 }
 .nav a svg {
 	margin-right: 0.5rem;

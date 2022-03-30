@@ -1,6 +1,4 @@
 /* #SETTINGS - COLOURS */
-$WHITE: #ffffff;
-$BLACK: #191b1f;
 $BLACK_LIGHT: #2c2f36;
 $BLACK_LIGHTER: #40444f;
 $BLACK_OPACITY: rgba(0, 0, 0, 0.5);
@@ -9,14 +7,46 @@ $GREY_LIGHT: #f1f3f7;
 $GREY_DARK: #9e9db3;
 $GREY_DARKER: #aba8bd;
 $GREY_RGBA: rgba(195, 197, 203, 0.5);
-$TRANSPARENT: transparent;
 
 $TEAL: #2c7c7d;
 $TEAL_DARK: #2c7a7b;
 $TEAL_DARKER: #285e61;
 
-$GREEN: #2ecc71;
 $GREEN_DARK: #c1deb6;
 
 $RED: #e74c3c;
-$BLUE: blue;
+
+/* NEW */
+$WHITE: #ffffff;
+$DEEP_BLUE: #1f2c3f;
+
+$PURPLE: #d397f8;
+$LIGHT_PURPLE: #f2e0fd;
+
+$GREEN: #b7ded9;
+$LIGHT_GREEN: #e9f3f1;
+
+$BLUE: #b7ded9;
+$LIGHT_BLUE: #e2f0f8;
+
+$PINK: #fbe5e6;
+$LIGHT_PINK: #f9eff0;
+
+$YELLOW: #fbe5e6;
+$LIGHT_YELLOW: #fffedc;
+
+$DARK_GREY: #595959;
+$MEDIUM_GREY: #bababa;
+$MEDIUM_LIGHT_GREY: #f2f3f4;
+$LIGHT_GREY: #f8f8f8;
+
+$MEDIUM_PURPLE_GREY: #a99db2;
+$LIGHT_PURPLE_GREY: #f2f0f3;
+
+$DARK_YELLOW_GREY: #b19810;
+
+$ERROR: #fc7878;
+$SUCCESS: #89d382;
+$WARNING: #f0d780;
+
+$TRANSPARENT: transparent;

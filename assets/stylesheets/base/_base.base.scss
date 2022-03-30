@@ -2,10 +2,11 @@
 html {
 	@include font-smoothing(antialiased);
 	font-family: $FONT_BODY;
+	font-weight: 400;
 	font-size: $BODY_TEXT;
 }
 body {
-	color: $BLACK;
+	color: $DEEP_BLUE;
 	background: $WHITE;
 	text-rendering: optimizeLegibility;
 }
@@ -19,11 +20,11 @@ body.is-active {
 }
 a {
 	text-decoration: none;
-	color: $BLACK;
+	color: $DEEP_BLUE;
 	cursor: pointer;
 }
 a:hover {
-	color: $BLACK;
+	color: $DEEP_BLUE;
 	text-decoration: none;
 }
 a:focus {
@@ -34,10 +35,10 @@ a.btn:hover {
 	color: $WHITE;
 }
 ::selection {
-	background: $BLACK;
+	background: $DEEP_BLUE;
 	color: $WHITE;
 }
 ::-moz-selection {
-	background: $BLACK;
+	background: $DEEP_BLUE;
 	color: $WHITE;
 }

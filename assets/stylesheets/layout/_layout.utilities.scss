@@ -113,15 +113,15 @@
 // Validation
 .u-is-warning {
 	color: $RED !important;
-	font-family: $FONT_HEADING_SEMIBOLD !important;
+	font-weight: 600 !important;
 }
 .u-is-success {
 	color: $GREEN !important;
-	font-family: $FONT_HEADING_SEMIBOLD !important;
+	font-weight: 600 !important;
 }
 // Border
 .u-bb-black {
-	border-bottom: 1px solid $BLACK !important;
+	border-bottom: 1px solid $DEEP_BLUE !important;
 }
 // Position
 .u-position-sticky {

@@ -7,9 +7,9 @@
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
-	padding: $SPACING_XS;
-	background: $BLACK;
-	width: 260px;
+	padding: $SPACING_72 $SPACING_36;
+	background: $WHITE;
+	width: 328px;
 	overflow-y: auto;
 	transition: transform 0.3s ease-in-out;
 	z-index: 3;

@@ -1,15 +1,14 @@
 .icon-container {
 	cursor: pointer;
-	&:hover {
-		transform: scale(0.9);
-		transition: 0.3s ease;
-		opacity: 0.6;
-	}
 }
-
+.icon-container:hover {
+	transform: scale(0.9);
+	transition: 0.3s ease;
+	opacity: 0.6;
+}
 .icon-title {
 	font-size: $BODY_TEXT !important;
-	color: $BLACK !important;
-	font-family: $FONT_HEADING_BOLD;
+	color: $DEEP_BLUE !important;
+	font-family: 600;
 	margin-top: $SPACING_XXS;
 }

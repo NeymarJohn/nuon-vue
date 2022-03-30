@@ -1,12 +1,11 @@
 /* #LAYOUT - FOOTER */
 .l-footer {
-	background: $BLACK;
 	display: flex;
 	flex-direction: column;
 }
 .l-footer p,
 .l-footer a {
-	color: $WHITE;
+	color: $DEEP_BLUE;
 	margin-bottom: 0;
 	font-size: 12px;
 }

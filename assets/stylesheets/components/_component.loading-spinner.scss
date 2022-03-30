@@ -12,10 +12,10 @@
 	position: absolute;
 	width: 83px;
 	height: 83px;
-	border: 1px solid $BLACK;
+	border: 1px solid $DEEP_BLUE;
 	border-radius: 50%;
 	animation: loading-spinner 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-	border-color: $BLACK transparent transparent transparent;
+	border-color: $DEEP_BLUE transparent transparent transparent;
 }
 .loading-spinner div:nth-child(1) {
 	animation-delay: -0.45s;

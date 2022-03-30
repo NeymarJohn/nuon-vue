@@ -41,7 +41,7 @@
 	margin-bottom: $SPACING_MD;
 }
 .modal__header .btn--icon {
-	color: $BLACK;
+	color: $DEEP_BLUE;
 	padding: 0;
 }
 .modal__header p {
@@ -65,7 +65,7 @@
 	font-size: $BODY_TEXT;
 }
 .modal__info p {
-	color: $BLACK;
+	color: $DEEP_BLUE;
 }
 .modal-fade-enter,
 .modal-fade-leave-to {
@@ -121,11 +121,11 @@
 	display: none;
 }
 .modal__body a {
-	color: $BLACK !important;
+	color: $DEEP_BLUE !important;
 	font-size: $BODY_TEXT !important;
 }
 .modal__body label {
-	font-family: $FONT_HEADING_SEMIBOLD;
+	font-weight: 400;
 	display: flex;
 	flex-direction: row;
 	align-items: center;
