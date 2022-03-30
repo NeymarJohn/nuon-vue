@@ -5,6 +5,9 @@
 	justify-content: flex-start;
 }
 .data-card label {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
 	font-size: $HEADING_FIVE;
 	color: $MEDIUM_PURPLE_GREY;
 	font-weight: 400;
@@ -18,6 +21,9 @@
 .data-card h4 {
 	font-size: $HEADING_THREE;
 }
+.data-card .tooltip--icon {
+	margin-left: $SPACING_8;
+}
 .data-card .countdown__block h3 {
 	font-size: $HEADING_ONE;
 	margin-bottom: 0;
@@ -27,7 +33,7 @@
 	margin-right: 0;
 }
 .data-card .countdown__block p {
-	color: $DEEP_BLUE;
+	color: $DARK_BLUE;
 }
 .data-card p {
 	margin-bottom: $SPACING_4;

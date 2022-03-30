@@ -58,7 +58,7 @@
 			<LayoutInfo>
 				<DataCard>
 					<label>My Stake</label>
-					<TheLoader component="h3">
+					<TheLoader component="h1">
 						<h3>{{ numberWithCommas(myStake.toFixed(2)) }}<sup>HX</sup></h3>
 					</TheLoader>
 					<TheLoader component="h5">
@@ -67,7 +67,7 @@
 				</DataCard>
 				<DataCard>
 					<label>My Rewards</label>
-					<TheLoader component="h3">
+					<TheLoader component="h1">
 						<h3>{{ numberWithCommas(myRewards.toFixed(2)) }}<sup>HX</sup></h3>
 					</TheLoader>
 					<TheLoader component="h5">
@@ -76,13 +76,13 @@
 				</DataCard>
 				<DataCard>
 					<label>Next Reward Distribution</label>
-					<TheLoader component="h3">
+					<TheLoader component="h1">
 						<TheCountdown :visible="isConnectedWallet" :next-claim-date="nextEpochPoint" />
 					</TheLoader>
 				</DataCard>
 				<DataCard>
-					<label class="u-flex-row-center">Voting Power <TooltipIcon v-tooltip="'Calculation: My Stake / Total Staked'" /></label>
-					<TheLoader component="h3">
+					<label>Voting Power <TooltipIcon v-tooltip="'Calculation: My Stake / Total Staked'" /></label>
+					<TheLoader component="h1">
 						<h3>{{ numberWithCommas(votingPower.toFixed(2)) }}<sup>%</sup></h3>
 					</TheLoader>
 				</DataCard>
@@ -90,30 +90,30 @@
 		</LayoutContainer>
 		<LayoutContainer>
 			<h2 class="u-mb-20">Hydro Stake Status</h2>
-			<LayoutGrid class="u-mb-md u-m-mb-xs l-m-grid--column-1" :size="'3-stretch'">
+			<LayoutGrid class="u-mb-64" :size="'3-stretch'">
 				<StatCard>
-					<h3>Total Staked</h3>
-					<TheLoader component="h4">
-						<h4>{{ numberWithCommas(totalStaked.toFixed(2)) }}</h4>
+					<label>Total Staked <TooltipIcon v-tooltip="'Enter Total Staked tooltip content here'" /></label>
+					<TheLoader component="h3">
+						<h3>{{ numberWithCommas(totalStaked.toFixed(2)) }}</h3>
 					</TheLoader>
 				</StatCard>
-				<StatCard>
-					<h3>HX Price</h3>
-					<TheLoader component="h4">
-						<h4>{{ numberWithCommas(hxPrice.toFixed(2)) }}</h4>
+				<StatCard color="green">
+					<label>HX Price <TooltipIcon v-tooltip="'Enter HX Price tooltip content here'" /></label>
+					<TheLoader component="h3">
+						<h3>{{ numberWithCommas(hxPrice.toFixed(2)) }}</h3>
 					</TheLoader>
 				</StatCard>
-				<StatCard>
-					<h3>Reward Info</h3>
+				<StatCard color="blue">
+					<label>Reward Info <TooltipIcon v-tooltip="'Enter Reward Info tooltip content here'" /></label>
 					<LayoutFlex>
-						<TheLoader component="h4-long u-mr-xs">
-							<h4 class="u-mr-xs">APR {{ numberWithCommas(apr.toFixed(2)) }}%</h4>
+						<TheLoader component="h3">
+							<h3 class="u-mr-32">APR {{ numberWithCommas(apr.toFixed(2)) }}%</h3>
 						</TheLoader>
-						<TheLoader component="h4-long u-mr-xs">
-							<h4 class="u-mr-xs">TVL ${{ numberWithCommas(tvl.toFixed(2)) }}</h4>
+						<TheLoader component="h3">
+							<h3 class="u-mr-32">TVL ${{ numberWithCommas(tvl.toFixed(2)) }}</h3>
 						</TheLoader>
-						<TheLoader component="h4-long">
-							<h4>Day {{ daysFromEpoch }}</h4>
+						<TheLoader component="h3">
+							<h3>Day {{ daysFromEpoch }}</h3>
 						</TheLoader>
 					</LayoutFlex>
 				</StatCard>

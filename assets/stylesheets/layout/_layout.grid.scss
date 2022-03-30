@@ -12,7 +12,7 @@
 }
 .l-grid--column-3-stretch {
 	grid-template-columns: repeat(4, minmax(0, 1fr));
-	column-gap: $SPACING_MD;
+	column-gap: $SPACING_24;
 }
 .l-grid--column-3-stretch .stat-card:nth-child(1) {
 	grid-area: 1 / 1 / 2 / 2;

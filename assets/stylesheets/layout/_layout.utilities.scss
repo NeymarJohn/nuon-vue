@@ -7,6 +7,9 @@
 .u-mb-64 {
 	margin-bottom: $SPACING_64 !important;
 }
+.u-mr-32 {
+	margin-right: $SPACING_32 !important;
+}
 
 // Margin top
 .u-mt-xxs {
@@ -129,7 +132,7 @@
 }
 // Border
 .u-bb-black {
-	border-bottom: 1px solid $DEEP_BLUE !important;
+	border-bottom: 1px solid $DARK_BLUE !important;
 }
 // Position
 .u-position-sticky {

@@ -20,7 +20,7 @@ input:focus {
 	outline: 0;
 }
 input::placeholder {
-	color: $DEEP_BLUE;
+	color: $DARK_BLUE;
 }
 .input {
 	width: 100%;
@@ -29,7 +29,7 @@ input::placeholder {
 	border: 1px solid $GREY_DARK;
 }
 .input:hover {
-	border: 1px solid $DEEP_BLUE;
+	border: 1px solid $DARK_BLUE;
 }
 .input__container {
 	display: flex;

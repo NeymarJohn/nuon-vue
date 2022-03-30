@@ -32,17 +32,21 @@
 		transform: translateX(200%);
 	}
 }
+// Loader H1
+.loader--h1 {
+	height: 72px;
+	width: 215px;
+	margin-bottom: $SPACING_4;
+}
 // Loader H2
 .loader--h2 {
 	height: 36px;
 	width: 497px;
-	margin-bottom: $SPACING_XS;
 }
 // Loader H3
 .loader--h3 {
-	height: 72px;
+	height: 45px;
 	width: 215px;
-	margin-bottom: $SPACING_XXXXS;
 }
 // Loader H4
 .loader--h4 {

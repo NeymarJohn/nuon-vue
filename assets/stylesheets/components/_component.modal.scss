@@ -41,7 +41,7 @@
 	margin-bottom: $SPACING_MD;
 }
 .modal__header .btn--icon {
-	color: $DEEP_BLUE;
+	color: $DARK_BLUE;
 	padding: 0;
 }
 .modal__header p {
@@ -65,7 +65,7 @@
 	font-size: $BODY_TEXT;
 }
 .modal__info p {
-	color: $DEEP_BLUE;
+	color: $DARK_BLUE;
 }
 .modal-fade-enter,
 .modal-fade-leave-to {
@@ -121,7 +121,7 @@
 	display: none;
 }
 .modal__body a {
-	color: $DEEP_BLUE !important;
+	color: $DARK_BLUE !important;
 	font-size: $BODY_TEXT !important;
 }
 .modal__body label {

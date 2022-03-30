@@ -2,33 +2,31 @@
 .stat-card {
 	display: flex;
 	flex-direction: column;
-	background: $WHITE;
-	padding: $SPACING_SM;
-	border-radius: 8px;
+	color: $WHITE;
+	padding: $SPACING_40;
+	border-radius: $BORDER_RADIUS_SM;
 	position: relative;
-	border: 1px solid $GREY;
 }
-.stat-card h4,
-.stat-card ul {
-	font-size: $BODY_TEXT;
-}
-.stat-card ul {
+.stat-card label {
 	display: flex;
 	flex-direction: row;
-	margin-bottom: 0;
+	align-items: center;
+	font-size: $HEADING_FIVE;
+	font-weight: 500;
+	margin-bottom: $SPACING_4;
 }
-.stat-card ul li {
-	margin-right: $SPACING_MD;
+.stat-card .tooltip--icon {
+	margin-left: $SPACING_8;
 }
-.stat-card ul li:last-child {
-	margin-right: 0;
+.stat-card .tooltip--icon path {
+	fill: $WHITE;
 }
-@media screen and (max-width: 990px) {
-	.stat-card {
-		padding: $SPACING_XS $SPACING_SM;
-		margin-bottom: $SPACING_XXS;
-	}
-	.stat-card:last-child {
-		margin-bottom: 0;
-	}
+.stat-card--dark-blue {
+	background: $DARK_BLUE;
+}
+.stat-card--blue {
+	background: $BLUE;
+}
+.stat-card--green {
+	background: $GREEN;
 }

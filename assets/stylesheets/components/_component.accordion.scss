@@ -64,7 +64,7 @@
 	background: none;
 	outline: none;
 	border-radius: 20px;
-	color: $DEEP_BLUE;
+	color: $DARK_BLUE;
 	border: 1px solid $BLACK_LIGHTER;
 	appearance: none;
 	font-size: $BODY_TEXT;
@@ -76,7 +76,7 @@
 }
 .accordion__results {
 	text-align: center;
-	color: $DEEP_BLUE;
+	color: $DARK_BLUE;
 	padding: 1rem;
 	font-size: 16px;
 }
@@ -90,7 +90,7 @@
 	border-radius: 8px;
 }
 .accordion__tokens::-webkit-scrollbar-thumb {
-	background: $DEEP_BLUE;
+	background: $DARK_BLUE;
 	height: 1rem;
 	border-radius: 8px;
 }

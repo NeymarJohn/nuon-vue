@@ -6,7 +6,7 @@ html {
 	font-size: $BODY_TEXT;
 }
 body {
-	color: $DEEP_BLUE;
+	color: $DARK_BLUE;
 	background: $WHITE;
 	text-rendering: optimizeLegibility;
 }
@@ -20,11 +20,11 @@ body.is-active {
 }
 a {
 	text-decoration: none;
-	color: $DEEP_BLUE;
+	color: $DARK_BLUE;
 	cursor: pointer;
 }
 a:hover {
-	color: $DEEP_BLUE;
+	color: $DARK_BLUE;
 	text-decoration: none;
 }
 a:focus {
@@ -32,10 +32,10 @@ a:focus {
 	text-decoration: none;
 }
 ::selection {
-	background: $DEEP_BLUE;
+	background: $DARK_BLUE;
 	color: $WHITE;
 }
 ::-moz-selection {
-	background: $DEEP_BLUE;
+	background: $DARK_BLUE;
 	color: $WHITE;
 }
