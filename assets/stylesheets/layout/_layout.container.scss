@@ -4,14 +4,9 @@
 	margin: 0 auto;
 }
 .l-container--md {
-	padding: $SPACING_72;
+	padding: $SPACING_72 $SPACING_72 0;
 }
 .l-container--sm {
 	max-width: 660px;
 	padding: 3rem 0;
-}
-@media screen and (max-width: 990px) {
-	.l-container--md {
-		padding: 1rem;
-	}
 }

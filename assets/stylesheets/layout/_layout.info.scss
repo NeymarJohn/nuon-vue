@@ -1,0 +1,9 @@
+/* #LAYOUT - INFO */
+.l-info {
+	display: grid;
+	grid-template-columns: repeat(4, minmax(0, 1fr));
+	column-gap: $SPACING_72;
+	background: $WHITE;
+	border-radius: $BORDER_RADIUS_LG;
+	padding: $SPACING_64;
+}

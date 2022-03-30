@@ -4,14 +4,16 @@
 	flex-direction: column;
 	justify-content: flex-start;
 }
-.data-card p,
-.data-card h5 {
-	color: $GREY_DARK;
+.data-card label {
+	font-size: $HEADING_FIVE;
+	color: $MEDIUM_PURPLE_GREY;
+	font-weight: 400;
+	margin-bottom: $SPACING_4;
 }
 .data-card h3 {
 	font-size: $HEADING_ONE;
-	line-height: 3.375rem;
-	margin-bottom: $SPACING_XXXXS;
+	margin-bottom: $SPACING_4;
+	line-height: $SPACING_72;
 }
 .data-card h4 {
 	font-size: $HEADING_THREE;
@@ -27,21 +29,17 @@
 .data-card .countdown__block p {
 	color: $DEEP_BLUE;
 }
-.data-card h5 {
-	font-size: $BODY_TEXT;
-	margin-top: 0.3rem;
-}
 .data-card p {
-	margin-bottom: 0.25rem;
+	margin-bottom: $SPACING_4;
 }
 .data-card p:last-child {
 	margin-bottom: 0;
 }
 .data-card sup {
-	top: -1.4em;
+	top: -1.6rem;
 	position: relative;
-	font-size: 0.75rem;
-	margin-left: 0.3rem;
+	font-size: $BODY_TEXT_SM;
+	margin-left: $SPACING_4;
 }
 .data-card--start {
 	align-items: flex-start;

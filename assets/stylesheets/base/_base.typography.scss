@@ -5,7 +5,6 @@ h3,
 h4,
 h5 {
 	font-family: $FONT_BODY;
-	color: $DEEP_BLUE;
 	word-break: break-word;
 	word-wrap: break-word;
 	margin-top: 0;
@@ -26,22 +25,24 @@ h5 {
 h1 {
 	font-size: $HEADING_ONE;
 	line-height: 4.5rem;
+	color: $DEEP_BLUE;
 }
 h2 {
 	font-size: $HEADING_TWO;
-	line-height: 2rem;
+	line-height: 3rem;
+	color: $DARK_GREY;
 }
 h3 {
 	font-size: $HEADING_THREE;
-	line-height: 1.875rem;
+	line-height: 2.813rem;
 }
 h4 {
 	font-size: $HEADING_FOUR;
-	line-height: 1.5rem;
+	line-height: 2.25rem;
 }
 h5 {
-	font-size: $BODY_TEXT;
-	line-height: 1.25rem;
+	font-size: $HEADING_FIVE;
+	line-height: 1.875rem;
 }
 p,
 blockquote,

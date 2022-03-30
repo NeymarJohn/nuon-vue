@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<LayoutContainer>
-			<LayoutFlex class="u-mb-md u-m-mb-xs l-m-flex--column" direction="row-center-space-between">
+			<LayoutFlex class="u-mb-64" direction="row-center-space-between">
 				<PageTitle>
 					<h4>Boardroom</h4>
 					<h1>Stake - Vote - Earn Rewards</h1>
@@ -55,44 +55,41 @@
 					</TheModal>
 				</LayoutFlex>
 			</LayoutFlex>
-			<LayoutFlex class="l-m-flex--column u-mb-md" direction="row-space-between">
-				<DataCard class="u-mr-lg u-m-mb-xs u-m-mr-none">
-					<p>My Stake</p>
+			<LayoutInfo>
+				<DataCard>
+					<label>My Stake</label>
 					<TheLoader component="h3">
 						<h3>{{ numberWithCommas(myStake.toFixed(2)) }}<sup>HX</sup></h3>
 					</TheLoader>
-					<TheLoader component="p">
-						<p>${{ numberWithCommas(getDollarValue(myStake, hxPrice).toFixed(2)) }}</p>
-					</TheLoader>
-				</DataCard>
-				<DataCard class="u-mr-lg u-m-mr-none">
-					<p>My Rewards</p>
-					<TheLoader component="h3">
-						<h3>{{ numberWithCommas(myRewards.toFixed(2)) }}<sup>HX</sup></h3>
-					</TheLoader>
-					<TheLoader component="p">
-						<p>${{ numberWithCommas(getDollarValue(myRewards, hxPrice).toFixed(2)) }}</p>
+					<TheLoader component="h5">
+						<h5>${{ numberWithCommas(getDollarValue(myStake, hxPrice).toFixed(2)) }}</h5>
 					</TheLoader>
 				</DataCard>
 				<DataCard>
-					<p>Next Reward Distribution</p>
+					<label>My Rewards</label>
+					<TheLoader component="h3">
+						<h3>{{ numberWithCommas(myRewards.toFixed(2)) }}<sup>HX</sup></h3>
+					</TheLoader>
+					<TheLoader component="h5">
+						<h5>${{ numberWithCommas(getDollarValue(myRewards, hxPrice).toFixed(2)) }}</h5>
+					</TheLoader>
+				</DataCard>
+				<DataCard>
+					<label>Next Reward Distribution</label>
 					<TheLoader component="h3">
 						<TheCountdown :visible="isConnectedWallet" :next-claim-date="nextEpochPoint" />
 					</TheLoader>
 				</DataCard>
 				<DataCard>
-					<p class="u-flex-row-center">Voting Power <TooltipIcon v-tooltip="'Enter voting power tooltip content here.'" /></p>
+					<label class="u-flex-row-center">Voting Power <TooltipIcon v-tooltip="'Calculation: My Stake / Total Staked'" /></label>
 					<TheLoader component="h3">
 						<h3>{{ numberWithCommas(votingPower.toFixed(2)) }}<sup>%</sup></h3>
 					</TheLoader>
-					<TheLoader component="p">
-						<p>My Stake / Total Staked</p>
-					</TheLoader>
 				</DataCard>
-			</LayoutFlex>
+			</LayoutInfo>
 		</LayoutContainer>
 		<LayoutContainer>
-			<h2 class="u-mb-xs u-m-mb-xs">Hydro Stake Status</h2>
+			<h2 class="u-mb-20">Hydro Stake Status</h2>
 			<LayoutGrid class="u-mb-md u-m-mb-xs l-m-grid--column-1" :size="'3-stretch'">
 				<StatCard>
 					<h3>Total Staked</h3>
