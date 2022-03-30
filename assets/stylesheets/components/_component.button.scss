@@ -12,17 +12,19 @@
 	outline: transparent solid 2px;
 	outline-offset: 2px;
 	width: auto;
-	border-radius: 8px;
+	border-radius: $BORDER_RADIUS;
 	transition-property: background-color, border-color, color, fill, stroke,
 		opacity, box-shadow, transform;
 	transition-duration: 0.2s;
-	background: $TEAL;
+	background: $PURPLE;
 	color: $WHITE;
 	cursor: pointer;
 	border: none;
 }
+a.btn:hover,
 .btn:hover {
-	background: $TEAL_DARK;
+	background: $WHITE;
+	color: $PURPLE;
 }
 .btn:active {
 	background: $TEAL_DARKER;
@@ -58,14 +60,11 @@
 	padding: 0 10px;
 }
 .btn--md {
-	height: 36px;
-	line-height: 22px;
+	height: 48px;
+	line-height: 24px;
 	min-width: 40px;
 	font-size: $BODY_TEXT;
-	padding-top: 0.4375rem;
-	padding-bottom: 0.4375rem;
-	padding-left: 1.375rem;
-	padding-right: 1.375rem;
+	padding: $SPACING_12 $SPACING_32;
 }
 .btn--lg {
 	font-size: $HEADING_THREE;
