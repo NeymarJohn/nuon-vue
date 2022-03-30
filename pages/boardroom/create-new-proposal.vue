@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<LayoutContainer color="grey" class="u-pb-xl">
+		<LayoutContainer class="u-pb-xl">
 			<LayoutFlex class="u-mb-md u-m-mb-xs l-m-flex--column">
 				<TheButton
 					size="icon"

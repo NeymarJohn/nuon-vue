@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<LayoutContainer color="grey">
+		<LayoutContainer>
 			<LayoutFlex class="u-mb-md u-m-mb-xs l-m-flex--column" direction="row-center-space-between">
 				<PageTitle>
 					<h4>Stability Zone</h4>
@@ -46,8 +46,6 @@
 					</TheLoader>
 				</DataCard>
 			</LayoutFlex>
-		</LayoutContainer>
-		<LayoutContainer>
 			<h2 class="u-mb-xs u-m-mb-xs">Token State</h2>
 			<LayoutGrid
 				class="u-mb-md u-m-mb-xs l-m-grid--column-1"

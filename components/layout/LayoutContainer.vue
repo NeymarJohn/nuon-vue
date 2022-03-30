@@ -1,5 +1,5 @@
 <template>
-	<div :class="`l-container l-container--${ size } l-container--${ color }`">
+	<div :class="`l-container l-container--${ size }`">
 		<slot />
 	</div>
 </template>
@@ -11,10 +11,6 @@ export default {
 		size: {
 			type: String,
 			default: "md",
-		},
-		color: {
-			type: String,
-			default: "white",
 		},
 	},
 };

@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<LayoutContainer color="grey">
+		<LayoutContainer>
 			<LayoutFlex class="u-mb-md u-m-mb-xs l-m-flex--column" direction="row-center-space-between">
 				<PageTitle>
 					<h4>Farms</h4>

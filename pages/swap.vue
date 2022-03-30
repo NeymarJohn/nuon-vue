@@ -1,12 +1,10 @@
 <template>
 	<div>
-		<LayoutContainer color="grey">
+		<LayoutContainer>
 			<PageTitle>
 				<h4>Swap</h4>
 				<h1>Trade tokens in an instant</h1>
 			</PageTitle>
-		</LayoutContainer>
-		<LayoutContainer size="sm">
 			<div class="swap">
 				<LayoutFlex direction="row-center-space-between" class="u-mb-md">
 					<TheButton

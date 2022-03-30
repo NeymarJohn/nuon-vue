@@ -1,6 +1,6 @@
 <template>
 	<main class="l-main">
-		<LayoutContainer color="grey" class="u-display-desktop u-position-sticky">
+		<LayoutContainer class="u-display-desktop u-position-sticky">
 			<LayoutFlex direction="row-center-space-between">
 				<TheLogo />
 				<TheHamburger />
