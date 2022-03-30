@@ -1,4 +1,14 @@
 /* #COMPONENT - PAGE TITLE */
+.page-title h2 {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	margin-bottom: $SPACING_16;
+}
+.page-title h5,
 .page-title h4 {
 	color: $MEDIUM_PURPLE_GREY;
+}
+.page-title h5 {
+	font-weight: 400;
 }

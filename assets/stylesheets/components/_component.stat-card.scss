@@ -4,7 +4,7 @@
 	flex-direction: column;
 	color: $WHITE;
 	padding: $SPACING_40;
-	border-radius: $BORDER_RADIUS_SM;
+	border-radius: $BORDER_RADIUS_16;
 	position: relative;
 }
 .stat-card label {
@@ -14,9 +14,6 @@
 	font-size: $HEADING_FIVE;
 	font-weight: 500;
 	margin-bottom: $SPACING_4;
-}
-.stat-card .tooltip--icon {
-	margin-left: $SPACING_8;
 }
 .stat-card .tooltip--icon path {
 	fill: $WHITE;

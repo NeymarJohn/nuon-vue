@@ -118,23 +118,23 @@
 					</LayoutFlex>
 				</StatCard>
 			</LayoutGrid>
-			<LayoutFlex direction="row-space-between" class="u-mb-xs u-m-mb-sm l-m-flex--column">
-				<LayoutFlex direction="column" class="u-m-mb-xs">
-					<h2 class="u-mb-xs u-flex-row-center">Proposals <TooltipIcon v-tooltip="'Enter proposals tooltip content here.'" /></h2>
-					<p>Create proposals and vote to improve the Nuon protocol.</p>
-				</LayoutFlex>
+			<LayoutFlex class="u-mb-36" direction="row-space-between">
+				<PageTitle>
+					<h2>Proposals <TooltipIcon v-tooltip="'Enter proposals tooltip content here.'" /></h2>
+					<h5>Create proposals and vote to improve the Nuon protocol.</h5>
+				</PageTitle>
 				<DataCard align="end">
 					<NuxtLink :disabled="!isConnectedWallet" :event="!isConnectedWallet ? '' : 'click'" class="btn btn--md" to="/boardroom/create-new-proposal" title="Click to create a new proposal">Create New Proposal</NuxtLink>
 				</DataCard>
 			</LayoutFlex>
-			<LayoutFlex direction="row-center-space-between" class="u-mb-sm">
+			<LayoutFlex class="u-mb-36" direction="row-center-space-between">
 				<LayoutFlex>
 					<ul class="icon-list">
-						<li v-if="totalProposals !== null">Total Proposals <TheBadge color="grey">{{ totalProposals }}</TheBadge></li>
+						<li v-if="totalProposals !== null">Total Proposals <TheBadge color="blue">{{ totalProposals }}</TheBadge></li>
 						<li v-if="totalProposals === null"><TheLoader component="list" /></li>
-						<li v-if="totalVotes !== null">Total Votes <TheBadge color="grey">{{ totalVotes }}</TheBadge></li>
+						<li v-if="totalVotes !== null">Total Votes <TheBadge color="pink">{{ totalVotes }}</TheBadge></li>
 						<li v-if="totalVotes === null"><TheLoader component="list" /></li>
-						<li v-if="numberOfUniqueVoters !== null">Total Voters <TheBadge color="grey">{{ numberOfUniqueVoters }}</TheBadge></li>
+						<li v-if="numberOfUniqueVoters !== null">Total Voters <TheBadge color="green">{{ numberOfUniqueVoters }}</TheBadge></li>
 						<li v-if="numberOfUniqueVoters === null"><TheLoader component="list" /></li>
 					</ul>
 				</LayoutFlex>
@@ -145,10 +145,10 @@
 					<NuxtLink :to="{name: 'boardroom-proposal', params: { proposal: item.id }}">
 						<div class="proposal__left">
 							<h4># {{ item.snapshot }} {{ item.title }}</h4>
-							<p class="proposal__address">{{ shortAddress(item.id) }}</p>
+							<p>{{ shortAddress(item.id) }}</p>
 						</div>
 						<div class="proposal__right">
-							<time :datetime="item.end">{{ formatDate(new Date(item.end * 1000)) }}</time>
+							<time :datetime="formatDate(new Date(item.end * 1000))">{{ formatDate(new Date(item.end * 1000)) }}</time>
 							<TheBadge :color="proposalStatesToColor[item.state]">{{ capitalize(item.state) }}</TheBadge>
 						</div>
 					</NuxtLink>
@@ -179,10 +179,9 @@ export default {
 			hxPrice: 0,
 			filterOption: "All",
 			proposalStatesToColor: {
-				active: "green",
+				active: "blue",
 				closed: "grey",
-				pending: "blue",
-				core: "teal"
+				pending: "yellow",
 			},
 			isLoading: true,
 			totalProposals: null,

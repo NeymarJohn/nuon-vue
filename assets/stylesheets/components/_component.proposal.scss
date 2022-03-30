@@ -7,10 +7,9 @@
 .proposal {
 	width: 100%;
 	background: $WHITE;
-	border-radius: 4px;
+	border-radius: $BORDER_RADIUS_16;
 	position: relative;
-	border: 1px solid $GREY;
-	margin-bottom: $SPACING_XS;
+	margin-bottom: $SPACING_32;
 }
 .proposal:last-child {
 	margin-bottom: 0;
@@ -18,40 +17,43 @@
 .proposal a {
 	display: grid;
 	grid-template-columns: calc(70% - 20px) 30%;
-	grid-gap: 20px;
+	grid-gap: $SPACING_32;
 	width: 100%;
-	padding: $SPACING_XS;
-	border-radius: 4px;
+	padding: $SPACING_32;
+	border-radius: $BORDER_RADIUS_16;
 	transition: background-color 0.3s ease;
 }
 .proposal a:hover {
 	background-color: $GREY_LIGHT;
 }
+.proposal h4 {
+	color: $DARK_GREY;
+	margin-bottom: $SPACING_4;
+}
 .proposal__left {
 	flex-direction: column;
+}
+.proposal__left p {
+	margin-bottom: 0;
+	font-size: $BODY_TEXT_SM;
+	line-height: 1.3rem;
+	color: $MEDIUM_PURPLE_GREY;
 }
 .proposal__right {
 	flex-direction: row;
 	align-items: center;
 	justify-content: flex-end;
 }
-.proposal__right p,
 .proposal__right time {
 	margin-bottom: 0;
 	font-size: $BODY_TEXT_SM;
 	text-transform: uppercase;
-	color: $GREY_DARKER;
-}
-.proposal__right time {
-	margin-right: $SPACING_LG;
+	color: $DARK_GREY;
+	margin-right: $SPACING_72;
 }
 .proposal__right .badge {
-	min-width: 80px;
+	min-width: 82px;
 	text-align: center;
-}
-.proposal__address {
-	margin-bottom: 0;
-	font-size: $BODY_TEXT_SM;
 }
 // Proposal details
 .proposal-details {

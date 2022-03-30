@@ -1,10 +1,9 @@
 /* #COMPONENT - BADGE */
 .badge {
 	font-weight: 500;
-	border-radius: 8px;
-	padding: 0.1875rem 0.813rem;
+	border-radius: $BORDER_RADIUS_4;
+	padding: $SPACING_6 $SPACING_16;
 	font-size: $BODY_TEXT_SM;
-	color: $WHITE;
 	text-transform: uppercase;
 }
 .badge--green {
@@ -13,12 +12,18 @@
 .badge--red {
 	background: $RED;
 }
-.badge--grey {
-	background: $GREY_DARK;
-}
 .badge--blue {
-	background: $BLUE;
+	background: $LIGHT_BLUE;
+	color: $BLUE;
 }
-.badge--teal {
-	background: $TEAL;
+.badge--pink {
+	background: $PINK;
+}
+.badge--grey {
+	background: $MEDIUM_LIGHT_GREY;
+	color: $DARK_GREY;
+}
+.badge--yellow {
+	background: $LIGHT_YELLOW;
+	color: $WARNING;
 }

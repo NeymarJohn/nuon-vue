@@ -11,17 +11,20 @@
 	margin-bottom: 0;
 }
 .icon-list li {
-	font-weight: 600;
-	font-size: $BODY_TEXT_SM;
-}
-.icon-list li {
-	margin-right: $SPACING_XS;
+	font-weight: 500;
+	font-size: $BODY_TEXT;
+	color: $MEDIUM_GREY;
+	margin-right: $SPACING_14;
 }
 .icon-list li:last-child {
 	margin-right: 0;
 }
 .icon-list li .badge {
-	border-radius: 13px;
-	padding: $SPACING_XXXXS 0.813rem;
-	margin-left: $SPACING_XXXXS;
+	border-radius: $BORDER_RADIUS_32;
+	padding: $SPACING_4 $SPACING_16;
+	margin-left: $SPACING_8;
+	color: $DARK_BLUE;
+}
+.icon-list li .badge--blue {
+	background: $BLUE;
 }
