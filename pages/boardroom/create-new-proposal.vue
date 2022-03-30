@@ -7,7 +7,7 @@
 					class="u-mr-xxs u-no-transition u-p-0"
 					title="Click to go back"
 					@click="getPreviousPage"><ChevronLeftIcon /></TheButton>
-				<h2 class="u-m-mb-xs">Create New Proposal</h2>
+				<h1 class="u-m-mb-xs">Create New Proposal</h1>
 			</LayoutFlex>
 			<LayoutFlex
 				class="l-m-flex--column"

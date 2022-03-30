@@ -4,7 +4,7 @@
 			<div class="swap">
 				<LayoutFlex direction="row-center-space-between" class="u-mb-md">
 					<div class="swap__title">
-						<h2>Swap</h2>
+						<h1>Swap</h1>
 						<p>Trade tokens in an instant.</p>
 					</div>
 					<TheButton

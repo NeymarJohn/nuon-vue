@@ -12,7 +12,7 @@
 					<ChevronLeftIcon />
 				</TheButton>
 				<ComponentLoader :loaded="!!details.snapshot" width="u-w-254">
-					<h2 class="u-m-mb-xs">Proposal #{{ details.snapshot }}</h2>
+					<h1 class="u-m-mb-xs">Proposal #{{ details.snapshot }}</h1>
 				</ComponentLoader>
 			</LayoutFlex>
 			<LayoutFlex

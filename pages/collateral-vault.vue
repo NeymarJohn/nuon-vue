@@ -2,7 +2,7 @@
 	<div>
 		<LayoutContainer color="grey">
 			<LayoutFlex class="u-mb-md u-m-mb-xs l-m-flex--column" direction="row-center-space-between">
-				<h2 class="u-m-mb-xs">Collateral Vault</h2>
+				<h1 class="u-m-mb-xs">Collateral Vault</h1>
 				<LayoutFlex>
 					<NuxtLink class="btn btn--md" to="/swap?outputToken=HX" title="Click to buy HX">Buy HX</NuxtLink>
 				</LayoutFlex>

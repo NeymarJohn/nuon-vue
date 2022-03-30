@@ -4,7 +4,7 @@
 			<LayoutFlex
 				class="u-mb-md u-m-mb-xs l-m-flex--column"
 				direction="row-center-space-between">
-				<h2 class="u-m-mb-xs">Stability Zone</h2>
+				<h1 class="u-m-mb-xs">Stability Zone</h1>
 				<LayoutFlex>
 					<NuxtLink
 						class="btn btn--md u-mr-sm u-m-mr-xs"
