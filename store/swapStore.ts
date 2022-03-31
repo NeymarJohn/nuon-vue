@@ -3,7 +3,7 @@ import Web3 from "web3";
 import { Web3State } from "./web3Store";
 import router from "./abi/router.json";
 import { fromWei, toWei } from "~/utils/bnTools";
-import { getPath, HX, USX } from "~/constants/tokens";
+import { getPath } from "~/constants/tokens";
 import { ROUTER_ADDRESS , tokenPairs } from "~/constants/addresses";
 
 type SwapStateType = {

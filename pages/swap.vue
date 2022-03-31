@@ -395,8 +395,6 @@ export default {
 			};
 			const oldPrice = prices[this.input.token] / prices[this.output.token];
 			const newPrice = this.swapPrice;
-			console.log("hxPrice", hxPrice);
-			console.log("usxPrice", usxPrice);
 			this.priceImpact = (newPrice - oldPrice) / oldPrice * 100;
 		},
 		connectWallet() {

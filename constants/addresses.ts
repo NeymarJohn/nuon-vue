@@ -1,5 +1,3 @@
-import { DAI, HX, USX } from "./tokens";
-
 export const BOARDROOM_ADDRESS  =  "0xB2dc4BC72deF42A2c256560e2A51C6Efe1b258cf";  // BoardroomV2.sol (Proxy)
 export const STABILITYFLASH_ADDRESS = "0x62e53eD7c403245a7F5E44C5F2cCb3b2bF61F562"; // TransparentUpgradeableProxy.sol
 export const ROUTER_ADDRESS = "0x758B96462006cAa45A0cf2F68C9408E5077Ae459"; // UniswapV2Router02.sol
