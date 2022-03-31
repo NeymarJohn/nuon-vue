@@ -1,10 +1,13 @@
 <template>
 	<Transition name="modal-fade">
-		<div class="modal" role="dialog" aria-labelledby="defaultModalTitle" aria-describedby="defaultModalDescription">
+		<div class="modal" role="dialog" aria-labelledby="transactionModalTitle" aria-describedby="transactionModalDescription">
 			<div class="modal__overlay" @click="closeModal"></div>
 			<div class="modal__container">
-				<header id="defaultModalTitle" class="modal__header">
-					<h2>{{ title }}</h2>
+				<header id="transactionModalTitle" class="modal__header">
+					<div>
+						<h2>{{ title }}</h2>
+						<p v-if="subtitle">{{ subtitle }}</p>
+					</div>
 					<TheButton
 						title="Click to close modal"
 						size="icon"
@@ -13,7 +16,7 @@
 						<CloseIcon />
 					</TheButton>
 				</header>
-				<section id="defaultModalDescription" class="modal__body">
+				<section id="transactionModalDescription" class="modal__body">
 					<slot />
 				</section>
 			</div>
@@ -25,7 +28,7 @@
 import CloseIcon from "@/assets/images/svg/svg-close.svg";
 
 export default {
-	name: "DefaultModal",
+	name: "TheModal",
 	components: {
 		CloseIcon
 	},
@@ -33,6 +36,10 @@ export default {
 		title: {
 			type: String,
 			required: true
+		},
+		subtitle: {
+			type: String,
+			required: false
 		},
 	},
 	mounted () {

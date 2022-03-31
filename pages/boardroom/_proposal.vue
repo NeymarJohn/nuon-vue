@@ -126,7 +126,7 @@
 							class="l-flex--align-self-start"
 							@click="setModalVisibility('voteModal', true)">Vote</TheButton>
 					</ComponentLoader>
-					<TransactionModal
+					<TheModal
 						v-show="isVoteModalVisible"
 						title="Confirm Vote"
 						subtitle="Are you sure you want to cast this vote? This action cannot be undone."
@@ -162,7 +162,7 @@
 								</div>
 							</template>
 						</TheStepper>
-					</TransactionModal>
+					</TheModal>
 				</ThePanel>
 			</LayoutGridSidePanel>
 		</LayoutContainer>

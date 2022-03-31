@@ -1,3 +1,5 @@
+import { DAI, HX, USX } from "./tokens";
+
 export const BOARDROOM_ADDRESS  =  "0xB2dc4BC72deF42A2c256560e2A51C6Efe1b258cf";  // BoardroomV2.sol (Proxy)
 export const STABILITYFLASH_ADDRESS = "0x62e53eD7c403245a7F5E44C5F2cCb3b2bF61F562"; // TransparentUpgradeableProxy.sol
 export const ROUTER_ADDRESS = "0x758B96462006cAa45A0cf2F68C9408E5077Ae459"; // UniswapV2Router02.sol
@@ -15,3 +17,19 @@ export const HX_DAI_PAIR_ADDRESS = "0x33937796BdE80b6D8DE91590AC606Ba13E3A6DDA";
 export const EPOCH_PERIOD = 6; // 6 hours from Treasury.sol
 
 export const VALID_NETWORKS = [31010];
+
+export const tokenPairs = [
+	{
+		address: "0x6FD805518e7a9cC7660bd723eec425060fE9193d",
+		pairName: "USX_HX",
+		pairs: ["USX", "HX"]
+	}, {
+		address: "0x558BEa220FEE4Dc2B2adD92AE79600032EB2372E",
+		pairName: "DAI_USX",
+		pairs: ["USX", "DAI"]
+	}, {
+		address: "0x33937796BdE80b6D8DE91590AC606Ba13E3A6DDA",
+		pairName: "DAI_HX",
+		pairs: ["DAI", "HX"]
+	}
+];

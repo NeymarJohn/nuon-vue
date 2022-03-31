@@ -13,7 +13,7 @@
 						@click="setModalVisibility('settingsModal', true)">
 						<SettingsIcon />
 					</TheButton>
-					<DefaultModal
+					<TheModal
 						v-show="isSettingsModalVisible"
 						title="Transaction Settings"
 						@close-modal="setModalVisibility('settingsModal', false)">
@@ -37,7 +37,7 @@
 									@change="calculateSlippage" />
 							</div>
 						</div>
-					</DefaultModal>
+					</TheModal>
 				</LayoutFlex>
 				<TheStepper :active-step="activeStep" :steps="['Token', 'Confirm']">
 					<template #step-one>
@@ -155,7 +155,7 @@
 						</div>
 					</template>
 					<template #step-two>
-						<TransactionSummarySwap :values="summary" />
+						<TransactionSummarySwap :values="summary" :input="input" :output="output"/>
 						<p class="u-mb-md">Minimum received is estimated. You will receive at least <strong>{{ calculateSlippage() }} {{ output.token }}</strong> or the transaction will revert.</p>
 						<div class="transaction-input__buttons">
 							<TheButton
@@ -207,7 +207,7 @@ export default {
 				value: "",
 				token: ""
 			},
-			priceImpact: 0.05,
+			priceImpact: 0,
 			swapFee: 44,
 			isActive: false,
 			loadingPrice: false,
@@ -263,6 +263,9 @@ export default {
 				}
 			];
 		},
+		swapPrice() {
+			return this.input.value / this.output.value;
+		}
 	},
 	async mounted () {
 		this.price.usx = parseFloat(await this.$store.getters["stabilityFlashStore/getUSXPriceInDAI"]);
@@ -318,7 +321,7 @@ export default {
 			).then(res => {
 				this.loadingPrice = false;
 				this.loadedPrice = true;
-				this.output.value = fromWei(res[1]);
+				this.output.value = parseFloat(fromWei(res[1])).toFixed(2);
 			}).catch(() => {
 				this.loadedPrice = false;
 				this.loadingPrice = false;
@@ -338,7 +341,7 @@ export default {
 			).then(res => {
 				this.loadingPrice = false;
 				this.loadedPrice = true;
-				this.input.value = fromWei(res[0]);
+				this.input.value = parseFloat(fromWei(res[0])).toFixed(2);
 			}).catch(() => {
 				this.loadingPrice = false;
 				this.loadedPrice = false;
@@ -382,10 +385,19 @@ export default {
 			}).catch(() => {
 			});
 		},
-		calcuatePriceImpact() {
-			this.$store.dispatch("swapStore/calculatePriceImpact").then(res => {
-				console.log("result", res);
-			});
+		async calcuatePriceImpact() {
+			const hxPrice = parseFloat(await this.$store.getters["stabilityFlashStore/getHydroPriceInDAI"]);
+			const usxPrice = parseFloat(await this.$store.getters["stabilityFlashStore/getUSXPriceInDAI"]);
+			const prices = {
+				HX: hxPrice,
+				USX: usxPrice,
+				DAI: 1
+			};
+			const oldPrice = prices[this.input.token] / prices[this.output.token];
+			const newPrice = this.swapPrice;
+			console.log("hxPrice", hxPrice);
+			console.log("usxPrice", usxPrice);
+			this.priceImpact = (newPrice - oldPrice) / oldPrice * 100;
 		},
 		connectWallet() {
 			this.$store.commit("modalStore/setModalVisibility", {name: "connectWalletModal", visibility: true});

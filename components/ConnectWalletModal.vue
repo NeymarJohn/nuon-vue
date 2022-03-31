@@ -1,5 +1,5 @@
 <template>
-	<DefaultModal
+	<TheModal
 		v-show="isConnectWalletVisible"
 		title="Choose a wallet to connect"
 		@close-modal="setModalVisibility('connectWalletModal', false)"
@@ -14,7 +14,7 @@
 				<p class="icon-title">{{capitalize(wallet)}}</p>
 			</LayoutFlex>
 		</LayoutFlex>
-	</DefaultModal>
+	</TheModal>
 </template>
 
 <script>

@@ -3,8 +3,8 @@ import Web3 from "web3";
 import { Web3State } from "./web3Store";
 import router from "./abi/router.json";
 import { fromWei, toWei } from "~/utils/bnTools";
-import { getPath } from "~/constants/tokens";
-import { ROUTER_ADDRESS } from "~/constants/addresses";
+import { getPath, HX, USX } from "~/constants/tokens";
+import { ROUTER_ADDRESS , tokenPairs } from "~/constants/addresses";
 
 type SwapStateType = {
 	allowance: {HX: number, USX: number}
@@ -94,8 +94,13 @@ export const actions: ActionTree<SwapState, SwapState> = {
 			callback();
 		});;
 	},
-	calculatePriceImpact(ctx: any) {
-		console.log("root store", ctx.rootGetters);
-		return ctx.rootGetters["contractStore/uniswapV2Pair"].methods.getReserves().call();
+	async getReserves(ctx: any, pair: Array<string>) {
+		const tokenPair = tokenPairs.find(token => token.pairName.includes(pair[0]) && token.pairName.includes(pair[1]));
+		
+		const result = await ctx.rootGetters["contractStore/uniswapV2Pair"](pair).methods.getReserves().call();
+		return {
+			[tokenPair?.pairs[0] as string]: result[0],
+			[tokenPair?.pairs[1] as string]: result[1]
+		};
 	}
 };

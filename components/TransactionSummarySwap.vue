@@ -5,11 +5,11 @@
 			<LayoutFlex direction="row-center-space-between" class="u-mb-xxxs">
 				<LayoutFlex direction="row-center">
 					<img :src="require(`~/assets/images/tokens/Hydro.png`)" alt="Hydro logo">
-					<h2>HX</h2>
+					<h2>{{input.token}}</h2>
 				</LayoutFlex>
 				<LayoutFlex direction="column-end">
-					<h2>{{ numberWithCommas(tokenInput.in.toFixed(2)) }}</h2>
-					<p class="u-colour-grey-dark">~ ${{ numberWithCommas(tokenInput.dollar.toFixed(2)) }}</p>
+					<h2>{{ numberWithCommas(input.value) }}</h2>
+					<p class="u-colour-grey-dark">~ ${{ numberWithCommas(input.value) }}</p>
 				</LayoutFlex>
 			</LayoutFlex>
 			<LayoutFlex class="u-mb-xxxs">
@@ -18,17 +18,17 @@
 			<LayoutFlex direction="row-center-space-between" class="u-mb-sm">
 				<LayoutFlex direction="row-center">
 					<img :src="require(`~/assets/images/tokens/Ethereum.png`)" alt="Ethereum logo">
-					<h2>ETH</h2>
+					<h2>{{output.token}}</h2>
 				</LayoutFlex>
 				<LayoutFlex direction="column-end">
-					<h2>{{ numberWithCommas(tokenOutput.out.toFixed(2)) }}</h2>
-					<p class="u-colour-grey-dark">~ ${{ numberWithCommas(tokenOutput.dollar.toFixed(2)) }}</p>
+					<h2>{{ numberWithCommas(output.value) }}</h2>
+					<p class="u-colour-grey-dark">~ ${{ numberWithCommas(output.value) }}</p>
 				</LayoutFlex>
 			</LayoutFlex>
 			<div v-if="priceUpdate" class="transaction__update">
 				<LayoutFlex direction="column">
 					<h4>Price Updated</h4>
-					<h4>1 ETH = 2,454.00 HX</h4>
+					<h4>1 {{output.token}} = {{swapPrice}} {{input.token}}</h4>
 				</LayoutFlex>
 				<TheButton
 					size="md"
@@ -36,7 +36,7 @@
 					@click="acceptNewPrice">Accept</TheButton>
 			</div>
 			<LayoutFlex v-else class="u-bb-black u-pb-xs u-mb-xs">
-				<h4>1 ETH = 2,454.00 HX</h4>
+				<h4>1 {{output.token}} = {{swapPrice}} {{input.token}}</h4>
 			</LayoutFlex>
 			<LayoutFlex
 				v-for="(value, index) in values"
@@ -65,6 +65,14 @@ export default {
 		values: {
 			type: Array,
 			required: true
+		},
+		input: {
+			type: Object,
+			required: true
+		},
+		output: {
+			type: Object,
+			required: true
 		}
 	},
 	data() {
@@ -80,10 +88,15 @@ export default {
 			priceUpdate: true
 		};
 	},
+	computed: {
+		swapPrice() {
+			return parseFloat(this.input.value) / parseFloat(this.output.value); 
+		}
+	},
 	methods: {
 		acceptNewPrice() {
 			this.priceUpdate = false;
 		}
-	}
+	},
 };
 </script>

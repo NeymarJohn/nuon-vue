@@ -45,7 +45,7 @@
 				title="Click to publish proposal"
 				:disabled="!isConnectedWallet">Publish</TheButton>
 		</form>
-		<TransactionModal
+		<TheModal
 			v-show="isPublishModalVisible"
 			title="Confirm Publish"
 			subtitle="Are you sure you want to publish the new proposal? This action cannot be undone."
@@ -81,7 +81,7 @@
 					</div>
 				</template>
 			</TheStepper>
-		</TransactionModal>
+		</TheModal>
 	</div>
 </template>
 

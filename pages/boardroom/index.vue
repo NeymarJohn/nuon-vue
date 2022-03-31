@@ -18,7 +18,7 @@
 						:disabled="disabledClaimRewards"
 						title="Click to claim rewards"
 						@click="setModalVisibility('claimRewardsModal', true)">Claim Rewards</TheButton>
-					<TransactionModal
+					<TheModal
 						v-show="isStakeModalVisible"
 						title="Stake HX Token"
 						subtitle="Stake your HX to gain voting power."
@@ -29,8 +29,8 @@
 							subtitle="Available HX tokens"
 							action-plural="staking"
 							action="stake" />
-					</TransactionModal>
-					<TransactionModal
+					</TheModal>
+					<TheModal
 						v-show="isWithdrawModalVisible"
 						title="Withdraw HX Token"
 						:subtitle="`Days before unstake: ${epoch} Days`"
@@ -38,8 +38,8 @@
 						<InputWithdraw
 							action="withdraw"
 							:maximum="myStake" />
-					</TransactionModal>
-					<TransactionModal
+					</TheModal>
+					<TheModal
 						v-show="isClaimRewardsModalVisible"
 						class="modal--boardroom"
 						title="Claim Reward Tokens"
@@ -49,7 +49,7 @@
 						<ClaimAccordionInput
 							:token="claimRewardsToken"
 							@selected-token="selectClaimToken" />
-					</TransactionModal>
+					</TheModal>
 				</LayoutFlex>
 			</LayoutFlex>
 			<LayoutFlex class="l-m-flex--column u-mb-md" direction="row-space-between">
