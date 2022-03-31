@@ -1,5 +1,5 @@
 <template>
-	<TheModal
+	<DefaultModal
 		v-show="isAlertModalVisible"
 		:title="title"
 		@close-modal="setModalVisibility('alertModal', false)">
@@ -8,11 +8,13 @@
 		</div>
 		<div v-if="htmlContent" v-html="htmlContent" >
 		</div>
-	</TheModal>
+	</DefaultModal>
 </template>
 <script>
+import DefaultModal from "./DefaultModal.vue";
 export default {
 	name: "AlertModal",
+	components: { DefaultModal },
 	computed: {
 		isAlertModalVisible() {
 			return this.$store.state.modalStore.modalVisible.alertModal;

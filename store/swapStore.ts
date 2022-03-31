@@ -94,4 +94,8 @@ export const actions: ActionTree<SwapState, SwapState> = {
 			callback();
 		});;
 	},
+	calculatePriceImpact(ctx: any) {
+		console.log("root store", ctx.rootGetters);
+		return ctx.rootGetters["contractStore/uniswapV2Pair"].methods.getReserves().call();
+	}
 };

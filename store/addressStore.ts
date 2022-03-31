@@ -1,6 +1,6 @@
 import { GetterTree } from "vuex";
 import { Web3State } from "./web3Store";
-import { BOARDROOM_ADDRESS, DAI_ADDRESS, HYDRO_ADDRESS, ORACLE_USX_DAI_ADDRESS, ROUTER_ADDRESS, STABILITYFLASH_ADDRESS, TREASURY_ADDRESS, USX_ADDRESS, USX_CONTROLLER_ADDRESS, WETH_ADDRESS } from "~/constants/addresses";
+import { BOARDROOM_ADDRESS, DAI_ADDRESS, HYDRO_ADDRESS, ORACLE_USX_DAI_ADDRESS, ROUTER_ADDRESS, STABILITYFLASH_ADDRESS, TREASURY_ADDRESS, UNISWAP_V2_PAIR_ADDRESS, USX_ADDRESS, USX_CONTROLLER_ADDRESS, WETH_ADDRESS } from "~/constants/addresses";
 
 export const state = () => ({
 	addr: {
@@ -18,6 +18,7 @@ export const state = () => ({
 			usx: USX_ADDRESS,
 			dai: DAI_ADDRESS,
 			treasury: TREASURY_ADDRESS,
+			uniswapV2Pair: UNISWAP_V2_PAIR_ADDRESS
 		},
 	},
 	tokens: {
@@ -68,6 +69,11 @@ export const getters: GetterTree<ContractState, Web3State> = {
 
 	treasury: (state: any, _getters, store: any) => {
 		const addr = state.addr[store.web3Store].treasury;
+		return addr;
+	},
+
+	uniswapV2Pair: (state: any, _getters: any, store: any) => {
+		const addr = state.addr[store.web3Store.chainId as number].uniswapV2Pair;
 		return addr;
 	}
 };

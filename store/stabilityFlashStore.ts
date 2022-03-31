@@ -222,6 +222,7 @@ export const actions: ActionTree<StabilityState, StabilityState> = {
 		if (!transactionReceipt) return true;  // if pending return true;
 		return false;
 	},
+
 	startTrackingTransactions({state, dispatch, commit}, params:TrackingData) {
 		const {key, onStop} = params;
 		if (state.pendingTransactions[key] && !state.trackId) {
@@ -240,6 +241,11 @@ export const actions: ActionTree<StabilityState, StabilityState> = {
 			}, 3000);
 			commit("setTrackId", trackId);
 		}
+	},
+
+	async getReserves({getters}) {
+		const reserves = await getters.contract.getReserves();
+		return reserves;
 	}
 };
 

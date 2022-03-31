@@ -13,7 +13,7 @@
 						@click="setModalVisibility('settingsModal', true)">
 						<SettingsIcon />
 					</TheButton>
-					<TheModal
+					<DefaultModal
 						v-show="isSettingsModalVisible"
 						title="Transaction Settings"
 						@close-modal="setModalVisibility('settingsModal', false)">
@@ -37,7 +37,7 @@
 									@change="calculateSlippage" />
 							</div>
 						</div>
-					</TheModal>
+					</DefaultModal>
 				</LayoutFlex>
 				<TheStepper :active-step="activeStep" :steps="['Token', 'Confirm']">
 					<template #step-one>
@@ -271,7 +271,7 @@ export default {
 
 		const routeQuery = this.$route.query;
 		if (routeQuery.inputToken) this.input.token = routeQuery.inputToken;
-		if (routeQuery.outputToken) this.output.token = routeQuery.outputToken;
+		if (routeQuery.outputToken) this.output.token = routeQuery.outputToken; 
 	},
 	methods: {
 		initialize() {
@@ -298,6 +298,7 @@ export default {
 			} else {
 				this.getMinInput();
 			}
+			this.calcuatePriceImpact();
 		},
 		onInputKeyUp(changedValue) {
 			this.changedValue = changedValue;
@@ -379,6 +380,11 @@ export default {
 			).then(() => {
 				this.initialize();
 			}).catch(() => {
+			});
+		},
+		calcuatePriceImpact() {
+			this.$store.dispatch("swapStore/calculatePriceImpact").then(res => {
+				console.log("result", res);
 			});
 		},
 		connectWallet() {
