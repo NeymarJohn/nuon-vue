@@ -7,10 +7,12 @@ import { getPath } from "~/constants/tokens";
 import { ROUTER_ADDRESS , tokenPairs } from "~/constants/addresses";
 
 type SwapStateType = {
-	allowance: {HX: number, USX: number}
+	allowance: {HX: number, USX: number},
+	swapFee: number
 }
 export const state = (): SwapStateType => ({
-	allowance: {HX:0, USX: 0}
+	allowance: {HX:0, USX: 0},
+	swapFee: 0.25
 });
 
 export type SwapState = ReturnType<typeof state>
@@ -99,8 +101,8 @@ export const actions: ActionTree<SwapState, SwapState> = {
 		
 		const result = await ctx.rootGetters["contractStore/uniswapV2Pair"](pair).methods.getReserves().call();
 		return {
-			[tokenPair?.pairs[0] as string]: result[0],
-			[tokenPair?.pairs[1] as string]: result[1]
+			[tokenPair?.pairs[0] as string]: fromWei(result[0]),
+			[tokenPair?.pairs[1] as string]: fromWei(result[1])
 		};
 	}
 };

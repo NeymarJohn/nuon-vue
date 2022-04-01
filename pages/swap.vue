@@ -73,7 +73,7 @@
 									</div>
 								</div>
 								<LayoutFlex direction="row-justify-end">
-									<p class="u-mb-0">~ ${{ numberWithCommas(getPriceInDAI(input.token, input.value).toFixed(2))}}</p>
+									<p class="u-mb-0">~ ${{ getPriceInDAI(input.token, input.value) | formatPrice}}</p>
 								</LayoutFlex>
 							</SwapAccordion>
 						</div>
@@ -156,7 +156,7 @@
 					</template>
 					<template #step-two>
 						<TransactionSummarySwap :values="summary" :input="input" :output="output"/>
-						<p class="u-mb-md">Minimum received is estimated. You will receive at least <strong>{{ calculateSlippage() }} {{ output.token }}</strong> or the transaction will revert.</p>
+						<p class="u-mb-md">Minimum received is estimated. You will receive at least <strong>{{ calculateSlippage() | formatPrice }} {{ output.token }}</strong> or the transaction will revert.</p>
 						<div class="transaction-input__buttons">
 							<TheButton
 								size="lg"
@@ -208,7 +208,6 @@ export default {
 				token: ""
 			},
 			priceImpact: 0,
-			swapFee: 44,
 			isActive: false,
 			loadingPrice: false,
 			loadedPrice: false,
@@ -247,24 +246,27 @@ export default {
 				{
 					title: "Price Impact",
 					val: `${this.priceImpact}%`,
-					dollar: this.numberWithCommas(this.getDollarValue(10, 1).toFixed(2))
 				},
 				{
 					title: "Fee",
-					val: this.swapFee.toFixed(2),
-					currency: "HX",
-					dollar: this.numberWithCommas(this.getDollarValue(10, 1).toFixed(2))
+					val: this.swapFee,
+					dollar: this.getDollarValue(this.swapFeePrice, 1)
 				},
 				{
 					title: `Minimum received after slippage (${this.maxSlippage}%)`,
-					val: this.calculateSlippage(),
+					val: this.formatPrice(this.calculateSlippage()),
 					currency: this.output.token,
-					dollar: this.numberWithCommas(this.getDollarValue(10, 1).toFixed(2))
 				}
 			];
 		},
 		swapPrice() {
 			return this.input.value / this.output.value;
+		},
+		swapFee() {
+			return this.$store.state.swapStore.swapFee;
+		},
+		swapFeePrice() {
+			return this.output.value * this.swapFee / 100;
 		}
 	},
 	async mounted () {
@@ -385,17 +387,12 @@ export default {
 			}).catch(() => {
 			});
 		},
-		async calcuatePriceImpact() {
-			const hxPrice = parseFloat(await this.$store.getters["stabilityFlashStore/getHydroPriceInDAI"]);
-			const usxPrice = parseFloat(await this.$store.getters["stabilityFlashStore/getUSXPriceInDAI"]);
-			const prices = {
-				HX: hxPrice,
-				USX: usxPrice,
-				DAI: 1
-			};
-			const oldPrice = prices[this.input.token] / prices[this.output.token];
-			const newPrice = this.swapPrice;
-			this.priceImpact = (newPrice - oldPrice) / oldPrice * 100;
+		calcuatePriceImpact() {
+			this.$store.dispatch("swapStore/getReserves", [this.input.token, this.output.token]).then((reserves) => {
+				const oldPrice = reserves[this.input.token] / reserves[this.output.token];
+				const newPrice = (reserves[this.input.token] - this.input.value) / (reserves[this.output.token] + this.output.value);
+				this.priceImpact = (oldPrice - newPrice) / oldPrice * 100;
+			});
 		},
 		connectWallet() {
 			this.$store.commit("modalStore/setModalVisibility", {name: "connectWalletModal", visibility: true});

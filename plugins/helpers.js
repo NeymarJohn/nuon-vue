@@ -2,6 +2,19 @@ import Vue from "vue";
 import Web3 from "web3";
 
 Vue.mixin({
+	filters: {
+		numberWithCommas(x) {
+			if (!x) return 0;
+			return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+		},
+		toFixed(x) {
+			return parseFloat(x).toFixed(2);
+		},
+		formatPrice(x) {
+			if (!x) return 0;
+			return parseFloat(x).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+		}
+	},
 	computed: {
 		isLoaded() {
 			return this.$store.getters["rootStore/getIsLoaded"];
@@ -20,6 +33,10 @@ Vue.mixin({
 		numberWithCommas (x) {
 			if (!x) return 0;
 			return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+		},
+		formatPrice(x) {
+			if (!x) return 0;
+			return parseFloat(x).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 		},
 		abbreviateNumber(x) {
 			if (x < 1e3) return x;

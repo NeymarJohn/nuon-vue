@@ -8,8 +8,8 @@
 					<h2>{{input.token}}</h2>
 				</LayoutFlex>
 				<LayoutFlex direction="column-end">
-					<h2>{{ numberWithCommas(input.value) }}</h2>
-					<p class="u-colour-grey-dark">~ ${{ numberWithCommas(input.value) }}</p>
+					<h2>{{input.value | formatPrice }}</h2>
+					<p class="u-colour-grey-dark">~ ${{ input.value | formatPrice }}</p>
 				</LayoutFlex>
 			</LayoutFlex>
 			<LayoutFlex class="u-mb-xxxs">
@@ -21,8 +21,8 @@
 					<h2>{{output.token}}</h2>
 				</LayoutFlex>
 				<LayoutFlex direction="column-end">
-					<h2>{{ numberWithCommas(output.value) }}</h2>
-					<p class="u-colour-grey-dark">~ ${{ numberWithCommas(output.value) }}</p>
+					<h2>{{ output.value | formatPrice }}</h2>
+					<p class="u-colour-grey-dark">~ ${{ output.value | formatPrice }}</p>
 				</LayoutFlex>
 			</LayoutFlex>
 			<div v-if="priceUpdate" class="transaction__update">
@@ -46,7 +46,7 @@
 				<p>{{ value.title }}</p>
 				<LayoutFlex direction="column-end">
 					<p>{{ value.val }} {{ value.currency && value.currency }}</p>
-					<p class="u-colour-grey-dark">~ ${{ value.dollar }}</p>
+					<p v-if="value.dollar" class="u-colour-grey-dark">~ ${{ value.dollar | formatPrice }}</p>
 				</LayoutFlex>
 			</LayoutFlex>
 		</div>
