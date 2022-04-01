@@ -54,6 +54,7 @@ export const actions: ActionTree<Web3State, Web3State> = {
 				dispatch("connect", {wallet: "walletconnect"});
 			}
 		}
+		dispatch("tokenStore/getTokenPrices",{}, {root:true});
 	},
 
 	async connect (ctx: any, {wallet, onError}) {

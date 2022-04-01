@@ -27,6 +27,9 @@ Vue.mixin({
 		},
 		connectedAccount() {
 			return this.$store.state.web3Store.account;
+		},
+		tokenPrices() {
+			return this.$store.state.tokenStore.price;
 		}
 	},
 	methods: {

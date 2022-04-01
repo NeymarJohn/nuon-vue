@@ -267,7 +267,7 @@ export default {
 		},
 		swapFeePrice() {
 			return this.output.value * this.swapFee / 100;
-		}
+		},
 	},
 	async mounted () {
 		this.price.usx = parseFloat(await this.$store.getters["stabilityFlashStore/getUSXPriceInDAI"]);
