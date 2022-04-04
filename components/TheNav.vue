@@ -1,11 +1,51 @@
 <template>
 	<ul class="nav">
-		<li v-for="(link, index) in links" :key="index">
+		<li>
 			<NuxtLink
-				:to="link.url"
-				:title="`Click to visit the ${link.name}`"
-				:class="{'active-link': isRouteActive(link.url)}">
-				<NavIcon /> {{ link.name }}
+				to="/"
+				title="Click to visit the Dashboard"
+				:class="{'active-link': isRouteActive('/')}">
+				<DashboardIcon /> Dashboard
+			</NuxtLink>
+		</li>
+		<li>
+			<NuxtLink
+				to="/collateral-vault"
+				title="Click to visit the Collateral Vault"
+				:class="{'active-link': isRouteActive('/collateral-vault')}">
+				<CollateralVaultIcon /> Collateral Vault
+			</NuxtLink>
+		</li>
+		<li>
+			<NuxtLink
+				to="/stability-zone"
+				title="Click to visit the Stability Zone"
+				:class="{'active-link': isRouteActive('/stability-zone')}">
+				<StabilityZoneIcon /> Stability Zone
+			</NuxtLink>
+		</li>
+		<li>
+			<NuxtLink
+				to="/boardroom"
+				title="Click to visit the Boardroom"
+				:class="{'active-link': isRouteActive('/boardroom')}">
+				<BoardroomIcon /> Boardroom
+			</NuxtLink>
+		</li>
+		<li>
+			<NuxtLink
+				to="/swap"
+				title="Click to visit the Swap"
+				:class="{'active-link': isRouteActive('/swap')}">
+				<SwapIcon /> Swap
+			</NuxtLink>
+		</li>
+		<li>
+			<NuxtLink
+				to="/farms"
+				title="Click to visit the Farms"
+				:class="{'active-link': isRouteActive('/farms')}">
+				<FarmsIcon /> Farms
 			</NuxtLink>
 		</li>
 		<a href="https://hydrolabs.gitbook.io/inflation-adjusted-algorithmic-stablecoin/" title="Click to visit the documentation" target="_blank" rel="noopener noreferrer"><NavIcon /> Documentation <ExternalLinkIcon /></a>
@@ -14,43 +54,23 @@
 
 <script>
 import ExternalLinkIcon from "@/assets/images/svg/svg-external-link.svg";
-import NavIcon from "@/assets/images/svg/svg-nav.svg";
+import DashboardIcon from "@/assets/images/svg/svg-menu-dashboard.svg";
+import StabilityZoneIcon from "@/assets/images/svg/svg-menu-stability-zone.svg";
+import BoardroomIcon from "@/assets/images/svg/svg-menu-boardroom.svg";
+import CollateralVaultIcon from "@/assets/images/svg/svg-menu-collateral-vault.svg";
+import SwapIcon from "@/assets/images/svg/svg-menu-swap.svg";
+import FarmsIcon from "@/assets/images/svg/svg-menu-swap.svg";
 
 export default {
 	name: "TheNav",
 	components: {
 		ExternalLinkIcon,
-		NavIcon
-	},
-	data() {
-		return {
-			links: [
-				{
-					name: "Dashboard",
-					url: "/"
-				},
-				{
-					name: "Collateral Vault",
-					url: "/collateral-vault"
-				},
-				{
-					name: "Stability Zone",
-					url: "/stability-zone"
-				},
-				{
-					name: "Boardroom",
-					url: "/boardroom"
-				},
-				{
-					name: "Swap",
-					url: "/swap"
-				},
-				{
-					name: "Farms",
-					url: "/farms"
-				}
-			]
-		};
+		DashboardIcon,
+		StabilityZoneIcon,
+		BoardroomIcon,
+		CollateralVaultIcon,
+		SwapIcon,
+		FarmsIcon
 	},
 	watch: {
 		"$route" () {
