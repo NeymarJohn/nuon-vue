@@ -45,10 +45,10 @@
 				to="/farms"
 				title="Click to visit the Farms"
 				:class="{'active-link': isRouteActive('/farms')}">
-				<FarmsIcon /> Farms
+				<SwapIcon /> Farms
 			</NuxtLink>
 		</li>
-		<a href="https://hydrolabs.gitbook.io/inflation-adjusted-algorithmic-stablecoin/" title="Click to visit the documentation" target="_blank" rel="noopener noreferrer"><NavIcon /> Documentation <ExternalLinkIcon /></a>
+		<a href="https://hydrolabs.gitbook.io/inflation-adjusted-algorithmic-stablecoin/" title="Click to visit the documentation" target="_blank" rel="noopener noreferrer"><SwapIcon /> Documentation <ExternalLinkIcon /></a>
 	</ul>
 </template>
 
@@ -59,7 +59,6 @@ import StabilityZoneIcon from "@/assets/images/svg/svg-menu-stability-zone.svg";
 import BoardroomIcon from "@/assets/images/svg/svg-menu-boardroom.svg";
 import CollateralVaultIcon from "@/assets/images/svg/svg-menu-collateral-vault.svg";
 import SwapIcon from "@/assets/images/svg/svg-menu-swap.svg";
-import FarmsIcon from "@/assets/images/svg/svg-menu-swap.svg";
 
 export default {
 	name: "TheNav",
@@ -69,8 +68,7 @@ export default {
 		StabilityZoneIcon,
 		BoardroomIcon,
 		CollateralVaultIcon,
-		SwapIcon,
-		FarmsIcon
+		SwapIcon
 	},
 	watch: {
 		"$route" () {
