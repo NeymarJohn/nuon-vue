@@ -55,7 +55,7 @@
 					</TheModal>
 				</LayoutFlex>
 			</LayoutFlex>
-			<LayoutInfo>
+			<LayoutInfo size="4">
 				<DataCard>
 					<label>My Stake</label>
 					<TheLoader component="h1">
@@ -75,13 +75,13 @@
 					</TheLoader>
 				</DataCard>
 				<DataCard>
-					<label>Next Reward Distribution</label>
+					<label>My Next Reward Distribution</label>
 					<TheLoader component="h1">
 						<TheCountdown :visible="isConnectedWallet" :next-claim-date="nextEpochPoint" />
 					</TheLoader>
 				</DataCard>
 				<DataCard>
-					<label>Voting Power <TooltipIcon v-tooltip="'Calculation: My Stake / Total Staked'" /></label>
+					<label>My Voting Power <TooltipIcon v-tooltip="'Calculation: My Stake / Total Staked'" /></label>
 					<TheLoader component="h1">
 						<h3>{{ numberWithCommas(votingPower.toFixed(2)) }}<sup>%</sup></h3>
 					</TheLoader>

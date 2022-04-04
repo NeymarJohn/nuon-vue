@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<LayoutContainer>
-			<LayoutFlex class="u-mb-md u-m-mb-xs l-m-flex--column" direction="row-center-space-between">
+			<LayoutFlex class="u-mb-64" direction="row-center-space-between">
 				<PageTitle>
 					<h4>Collateral Vault</h4>
 					<h1>My Assets</h1>
@@ -10,10 +10,10 @@
 					<NuxtLink class="btn btn--md" to="/swap?outputToken=HX" title="Click to buy HX">Buy HX</NuxtLink>
 				</LayoutFlex>
 			</LayoutFlex>
-			<LayoutFlex class="l-m-flex--column u-mb-md">
-				<DataCard class="u-mr-lg u-m-mb-xs u-m-mr-none">
-					<p>Locked Collateral</p>
-					<TheLoader component="h3">
+			<LayoutInfo size="3">
+				<DataCard>
+					<label>My Total Locked Collateral</label>
+					<TheLoader component="h1">
 						<h3>${{ numberWithCommas(lockedCollateral.toFixed(2)) }}</h3>
 					</TheLoader>
 					<TheButton
@@ -27,58 +27,60 @@
 						<CollateralTable />
 					</TheModal>
 				</DataCard>
-				<DataCard class="u-mr-lg u-mb-xs u-m-mr-none">
-					<p>My Minted Tokens</p>
-					<TheLoader component="h3">
+				<DataCard>
+					<label>My Minted Tokens</label>
+					<TheLoader component="h1">
 						<h3>{{ numberWithCommas(myMintedTokens.toFixed(2)) }}<sup>USX</sup></h3>
 					</TheLoader>
-					<TheLoader component="p">
-						<p>${{ numberWithCommas(getDollarValue(myMintedTokens, usxPrice).toFixed(2)) }}</p>
+					<TheLoader component="h5">
+						<h5>${{ numberWithCommas(getDollarValue(myMintedTokens, usxPrice).toFixed(2)) }}</h5>
 					</TheLoader>
 				</DataCard>
-				<DataCard class="u-mr-lg u-m-mr-none">
-					<p>My Collateral Ratio</p>
-					<TheLoader component="h3">
+				<DataCard>
+					<label>My Collateral Ratio</label>
+					<TheLoader component="h1">
 						<h3>{{ numberWithCommas(myCollateralRatio.toFixed(2)) }}<sup>%</sup></h3>
 					</TheLoader>
 				</DataCard>
-			</LayoutFlex>
-			<h2 class="u-mb-xs u-m-mb-xs">Ecosystem Status</h2>
-			<LayoutGrid class="u-mb-md u-m-mb-xs l-m-grid--column-1" :size="'3'">
+			</LayoutInfo>
+		</LayoutContainer>
+		<LayoutContainer>
+			<h2 class="u-mb-20">Ecosystem Status</h2>
+			<LayoutGrid class="u-mb-64" :size="'3-stretch-alt'">
 				<StatCard>
-					<h3 class="u-flex-row-center">USX Price <TooltipIcon v-tooltip="'Enter usx price tooltip content here.'" /></h3>
-					<TheLoader component="h4">
-						<h4>{{ numberWithCommas(usxPrice.toFixed(2)) }}</h4>
+					<label>USX Price <TooltipIcon v-tooltip="'Enter usx price tooltip content here.'" /></label>
+					<TheLoader component="h3">
+						<h3>{{ numberWithCommas(usxPrice.toFixed(2)) }}</h3>
 					</TheLoader>
 				</StatCard>
-				<StatCard>
-					<h3 class="u-flex-row-center">Collateralization Ratio <TooltipIcon v-tooltip="'Enter collateralization ratio tooltip content here.'" /></h3>
+				<StatCard color="green">
+					<label>Collateralization Ratio <TooltipIcon v-tooltip="'Enter collateralization ratio tooltip content here.'" /></label>
 					<LayoutFlex>
-						<TheLoader component="h4-long u-mr-xs">
-							<h4 class="u-mr-xs">Target {{ numberWithCommas(targetCollateralizationRatio.toFixed(2)) }}%</h4>
+						<TheLoader component="h3">
+							<h3 class="u-mr-32">Target {{ numberWithCommas(targetCollateralizationRatio.toFixed(2)) }}%</h3>
 						</TheLoader>
-						<TheLoader component="h4-long">
-							<h4>Real {{ numberWithCommas(realCollateralizationRatio.toFixed(2)) }}%</h4>
+						<TheLoader component="h3">
+							<h3>Real {{ numberWithCommas(realCollateralizationRatio.toFixed(2)) }}%</h3>
 						</TheLoader>
 					</LayoutFlex>
 				</StatCard>
-				<StatCard>
-					<h3 class="u-flex-row-center">APR <TooltipIcon v-tooltip="'Enter apr tooltip content here.'" /></h3>
+				<StatCard color="blue">
+					<label>APR <TooltipIcon v-tooltip="'Enter apr tooltip content here.'" /></label>
 					<LayoutFlex>
-						<TheLoader component="h4-long u-mr-xs">
-							<h4 class="u-mr-xs">Inflation {{ numberWithCommas(inflation.toFixed(2)) }}%</h4>
+						<TheLoader component="h3">
+							<h3 class="u-mr-32">Inflation {{ numberWithCommas(inflation.toFixed(2)) }}%</h3>
 						</TheLoader>
-						<TheLoader component="h4-long">
-							<h4>Net {{ numberWithCommas(net.toFixed(2)) }}%</h4>
+						<TheLoader component="h3">
+							<h3>Net {{ numberWithCommas(net.toFixed(2)) }}%</h3>
 						</TheLoader>
 					</LayoutFlex>
 				</StatCard>
 			</LayoutGrid>
-			<LayoutFlex class="u-mb-xs u-m-mb-sm l-m-flex--column">
-				<LayoutFlex direction="column" class="u-m-mb-xs">
-					<h2 class="u-mb-xs u-flex-row-center">Manage Assets <TooltipIcon v-tooltip="'Enter manage assets tooltip content here.'" /></h2>
-					<p>Instanly mint USX by depositing your collateral and redeem anytime.</p>
-				</LayoutFlex>
+			<LayoutFlex class="u-mb-64" direction="row-space-between">
+				<PageTitle>
+					<h2>Manage Assets <TooltipIcon v-tooltip="'Enter manage assets tooltip content here.'" /></h2>
+					<h5>Instanly mint USX by depositing your collateral and redeem anytime.</h5>
+				</PageTitle>
 			</LayoutFlex>
 			<LayoutContainer size="sm">
 				<CaldronToggle :minted-tokens="myMintedTokens" />

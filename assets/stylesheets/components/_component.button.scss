@@ -126,9 +126,10 @@ a.btn:hover,
 	z-index: 2;
 }
 .btn--unstyled {
-	font-family: $FONT_BODY;
+	font-size: $HEADING_FIVE;
+	line-height: 1.875rem;
 	background: $TRANSPARENT;
-	color: $GREY_DARK;
+	color: $DARK_BLUE;
 	padding: 0;
-	line-height: 24px;
+	font-weight: 500;
 }
