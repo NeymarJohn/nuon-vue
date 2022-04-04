@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<LayoutContainer>
-			<LayoutFlex class="u-mb-md u-m-mb-xs l-m-flex--column" direction="row-center-space-between">
+			<LayoutFlex class="u-mb-64" direction="row-center-space-between">
 				<PageTitle>
 					<h4>Stability Zone</h4>
 					<h1>My Token</h1>
@@ -17,42 +17,42 @@
 						title="Click to buy HX">Buy HX</NuxtLink>
 				</LayoutFlex>
 			</LayoutFlex>
-			<LayoutFlex class="l-m-flex--column u-mb-md">
-				<DataCard class="u-mr-lg u-m-mb-xs u-m-mr-none">
-					<p>My USX Balance</p>
-					<TheLoader component="h3">
+			<LayoutInfo size="3">
+				<DataCard>
+					<label>My USX Balance</label>
+					<TheLoader component="h1">
 						<h3>{{ numberWithCommas(usxBalance.toFixed(2)) }}<sup>USX</sup></h3>
 					</TheLoader>
-					<TheLoader component="p">
-						<p>${{ numberWithCommas(getDollarValue(usxBalance, price.usx).toFixed(2)) }}</p>
+					<TheLoader component="h5">
+						<h5>${{ numberWithCommas(getDollarValue(usxBalance, price.usx).toFixed(2)) }}</h5>
 					</TheLoader>
 				</DataCard>
-				<DataCard class="u-mr-lg u-m-mr-none">
-					<p>My HX Balance</p>
-					<TheLoader component="h3">
+				<DataCard>
+					<label>My HX Balance</label>
+					<TheLoader component="h1">
 						<h3>{{ numberWithCommas(hxBalance.toFixed(2)) }}<sup>HX</sup></h3>
 					</TheLoader>
-					<TheLoader component="p">
-						<p>${{ numberWithCommas(getDollarValue(hxBalance, price.hx).toFixed(2)) }}</p>
+					<TheLoader component="h5">
+						<h5>${{ numberWithCommas(getDollarValue(hxBalance, price.hx).toFixed(2)) }}</h5>
 					</TheLoader>
 				</DataCard>
 				<DataCard v-if="price.usx < tolerance.low && connectedAccount !== ''">
-					<p>Staked in vesting</p>
-					<TheLoader component="h3">
+					<label>Staked in vesting</label>
+					<TheLoader component="h1">
 						<h3>{{ numberWithCommas(stakedBalance.toFixed(2)) }}<sup>HX</sup></h3>
 					</TheLoader>
-					<TheLoader component="p">
-						<p>${{ numberWithCommas(getDollarValue(stakedBalance, price.hx).toFixed(2)) }}</p>
+					<TheLoader component="h5">
+						<h5>${{ numberWithCommas(getDollarValue(stakedBalance, price.hx).toFixed(2)) }}</h5>
 					</TheLoader>
 				</DataCard>
-			</LayoutFlex>
-			<h2 class="u-mb-xs u-m-mb-xs">Token State</h2>
-			<LayoutGrid
-				class="u-mb-md u-m-mb-xs l-m-grid--column-1"
-				:size="price.usx < tolerance.low ? '3' : '4'">
+			</LayoutInfo>
+		</LayoutContainer>
+		<LayoutContainer>
+			<h2 class="u-mb-20">Token State</h2>
+			<LayoutGrid class="u-mb-64" :size="price.usx < tolerance.low ? '3' : '4'">
 				<StatCard>
 					<LayoutFlex direction="row-center-space-between">
-						<h3>USX Price</h3>
+						<label>USX Price <TooltipIcon v-tooltip="'Enter usx price tooltip content here.'" /></label>
 						<TheLoader v-if="price.usx > tolerance.high" component="badge">
 							<TheBadge v-if="price.usx" color="green">Above</TheBadge>
 						</TheLoader>
@@ -63,27 +63,27 @@
 							<TheBadge v-if="price.usx" color="grey">In Range</TheBadge>
 						</TheLoader>
 					</LayoutFlex>
-					<TheLoader component="h4">
-						<h4 v-if="price.usx">{{ numberWithCommas(price.usx.toFixed(2)) }}</h4>
+					<TheLoader component="h3">
+						<h3 v-if="price.usx">{{ numberWithCommas(price.usx.toFixed(2)) }}</h3>
 					</TheLoader>
 				</StatCard>
-				<StatCard>
-					<h3>HX Price</h3>
-					<TheLoader component="h4">
-						<h4 v-if="price.hx">{{ numberWithCommas(price.hx.toFixed(2)) }}</h4>
+				<StatCard color="green">
+					<label>HX Price <TooltipIcon v-tooltip="'Enter hx price tooltip content here.'" /></label>
+					<TheLoader component="h3">
+						<h3 v-if="price.hx">{{ numberWithCommas(price.hx.toFixed(2)) }}</h3>
 					</TheLoader>
 				</StatCard>
-				<StatCard>
-					<h3>Rebalance Fee</h3>
-					<TheLoader component="h4">
-						<h4 v-if="rebalanceFee">{{ rebalanceFee }}%</h4>
+				<StatCard color="blue">
+					<label>Rebalance Fee <TooltipIcon v-tooltip="'Enter rebalance fee tooltip content here.'" /></label>
+					<TheLoader component="h3">
+						<h3 v-if="rebalanceFee">{{ rebalanceFee }}%</h3>
 					</TheLoader>
 				</StatCard>
 				<StatCard v-if="price.usx > tolerance.high || price.usx <= tolerance.high && price.usx >= tolerance.low">
-					<h3>Claim Ratio</h3>
-					<TheLoader component="h4">
-						<h4 v-if="connectedAccount !== ''">{{ claimRatio }}%</h4>
-						<h4 v-else>-%</h4>
+					<label>Claim Ratio <TooltipIcon v-tooltip="'Enter claim ratio tooltip content here.'" /></label>
+					<TheLoader component="h3">
+						<h3 v-if="connectedAccount !== ''">{{ claimRatio }}%</h3>
+						<h3 v-else>-%</h3>
 					</TheLoader>
 				</StatCard>
 			</LayoutGrid>
@@ -184,9 +184,13 @@
 
 <script>
 import { fromWei } from "~/utils/bnTools";
+import TooltipIcon from "@/assets/images/svg/svg-tooltip.svg";
 
 export default {
 	name: "TheStabilityZone",
+	components: {
+		TooltipIcon
+	},
 	data () {
 		return {
 			price: {
