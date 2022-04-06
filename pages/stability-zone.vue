@@ -51,20 +51,20 @@
 			<h2 class="u-mb-20">Token State</h2>
 			<LayoutGrid class="u-mb-64" :size="price.usx < tolerance.low ? '3' : '4'">
 				<StatCard>
-					<LayoutFlex direction="row-center-space-between">
-						<label>USX Price <TooltipIcon v-tooltip="'Enter usx price tooltip content here.'" /></label>
-						<TheLoader v-if="price.usx > tolerance.high" component="badge">
-							<TheBadge v-if="price.usx" color="green">Above</TheBadge>
-						</TheLoader>
-						<TheLoader v-else-if="price.usx < tolerance.low" component="badge">
-							<TheBadge v-if="price.usx" color="red">Below</TheBadge>
-						</TheLoader>
-						<TheLoader v-else component="badge">
-							<TheBadge v-if="price.usx" color="grey">In Range</TheBadge>
-						</TheLoader>
-					</LayoutFlex>
+					<label>USX Price <TooltipIcon v-tooltip="'Enter usx price tooltip content here.'" /></label>
 					<TheLoader component="h3">
-						<h3 v-if="price.usx">{{ numberWithCommas(price.usx.toFixed(2)) }}</h3>
+						<LayoutFlex direction="row-center-space-between">
+							<h3 v-if="price.usx">{{ numberWithCommas(price.usx.toFixed(2)) }}</h3>
+							<TheLoader v-if="price.usx > tolerance.high" component="badge">
+								<TheBadge v-if="price.usx" color="purple">Above</TheBadge>
+							</TheLoader>
+							<TheLoader v-else-if="price.usx < tolerance.low" component="badge">
+								<TheBadge v-if="price.usx" color="purple">Below</TheBadge>
+							</TheLoader>
+							<TheLoader v-else component="badge">
+								<TheBadge v-if="price.usx" color="purple">In Range</TheBadge>
+							</TheLoader>
+						</LayoutFlex>
 					</TheLoader>
 				</StatCard>
 				<StatCard color="green">

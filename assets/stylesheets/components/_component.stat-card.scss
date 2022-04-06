@@ -25,5 +25,9 @@
 	background: $BLUE;
 }
 .stat-card--green {
+	color: $DARK_BLUE;
 	background: $GREEN;
+}
+.stat-card--green .tooltip--icon path {
+	fill: $DARK_BLUE;
 }

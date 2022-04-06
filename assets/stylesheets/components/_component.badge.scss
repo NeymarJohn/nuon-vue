@@ -6,6 +6,10 @@
 	font-size: $BODY_TEXT_SM;
 	text-transform: uppercase;
 }
+.badge--purple {
+	background: $WHITE;
+	color: $PURPLE;
+}
 .badge--green {
 	background: $GREEN;
 }
