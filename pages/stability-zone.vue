@@ -61,9 +61,6 @@
 							<TheLoader v-else-if="price.usx < tolerance.low" component="badge">
 								<TheBadge v-if="price.usx" color="purple">Below</TheBadge>
 							</TheLoader>
-							<TheLoader v-else component="badge">
-								<TheBadge v-if="price.usx" color="purple">In Range</TheBadge>
-							</TheLoader>
 						</LayoutFlex>
 					</TheLoader>
 				</StatCard>
@@ -88,12 +85,12 @@
 				</StatCard>
 			</LayoutGrid>
 			<TheLoader component="burn">
-				<LayoutFlex v-if="price.usx > tolerance.high" direction="column">
-					<LayoutFlex direction="row-space-between" class="u-mb-lg u-m-mb-sm l-m-flex--column">
-						<LayoutFlex direction="column" class="u-m-mb-xs">
-							<h2 class="u-mb-xs">Peg Zone: Is Above Range</h2>
+				<LayoutPegZone v-if="price.usx > tolerance.high">
+					<LayoutFlex direction="row-space-between">
+						<PageTitle>
+							<h2>Peg Zone: Is Above Range <TooltipIcon v-tooltip="'Enter above range tooltip content here.'" /></h2>
 							<p>Burn your HX to get the Peg Zone back in range and earn treasury fees.</p>
-						</LayoutFlex>
+						</PageTitle>
 						<DataCard align="end">
 							<p>Available HX Balance</p>
 							<h3>{{ numberWithCommas(hxBalance.toFixed(2)) }}<sup>HX</sup></h3>
@@ -111,10 +108,12 @@
 							</TheModal>
 						</DataCard>
 					</LayoutFlex>
-					<LayoutFlex direction="row-space-between" class="l-m-flex--column">
-						<LayoutFlex direction="column" class="u-m-mb-xs">
-							<h2 class="u-mb-xs">Rewards</h2>
+					<LayoutFlex direction="row-space-between">
+						<PageTitle>
+							<h2>Rewards <TooltipIcon v-tooltip="'Enter rewards tooltip content here.'" /></h2>
 							<p>Claim statement and description (make audience aware of the claim info)</p>
+						</PageTitle>
+						<LayoutFlex direction="column" class="u-m-mb-xs">
 							<LayoutFlex v-if="connectedAccount !== ''">
 								<DataCard>
 									<p>Claim rewards in:</p>
@@ -139,13 +138,13 @@
 							<ClaimAccordion from="stabilityZone"/>
 						</TheModal>
 					</LayoutFlex>
-				</LayoutFlex>
-				<LayoutFlex v-else-if="price.usx < tolerance.low" direction="column">
-					<LayoutFlex direction="row-space-between" class="u-mb-lg">
-						<LayoutFlex direction="column">
-							<h2 class="u-mb-xs">Peg Zone: Is Below Range</h2>
+				</LayoutPegZone>
+				<LayoutPegZone v-else-if="price.usx < tolerance.low">
+					<LayoutFlex direction="row-space-between">
+						<PageTitle>
+							<h2>Peg Zone: Is Below Range <TooltipIcon v-tooltip="'Enter below range tooltip content here.'" /></h2>
 							<p>Burn your USX to get the Peg Zone back in range and earn treasury fees.</p>
-						</LayoutFlex>
+						</PageTitle>
 						<DataCard align="end">
 							<p>Available USX Balance</p>
 							<h3>{{ numberWithCommas(usxBalance.toFixed(2)) }}<sup>USX</sup></h3>
@@ -164,13 +163,13 @@
 							</TheModal>
 						</DataCard>
 					</LayoutFlex>
-				</LayoutFlex>
-				<LayoutFlex v-else>
+				</LayoutPegZone>
+				<LayoutPegZone v-else>
 					<LayoutFlex direction="column">
 						<h2 v-if="price.usx">Peg Zone: Is In Range</h2>
 						<p v-if="price.usx">There is nothing to do.</p>
 					</LayoutFlex>
-				</LayoutFlex>
+				</LayoutPegZone>
 			</TheLoader>
 		</LayoutContainer>
 		<TheModal
