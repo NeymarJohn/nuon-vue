@@ -102,6 +102,10 @@
 	height: 250px;
 	width: 100%;
 }
+// Loader default
+.loader--default {
+	height: 36px;
+}
 @media screen and (max-width: 1440px) {
 	.loader--h1 {
 		width: $SPACING_190;

@@ -131,12 +131,12 @@
 			<LayoutFlex class="u-mb-36 u-mb-md-24 l-flex-column-start-sm" direction="row-center-space-between">
 				<LayoutFlex class="u-full-width-sm">
 					<ul class="icon-list">
-						<li v-if="totalProposals !== null">Total Proposals <TheBadge>{{ totalProposals }}</TheBadge></li>
-						<li v-if="totalProposals === null"><TheLoader component="list" /></li>
-						<li v-if="totalVotes !== null">Total Votes <TheBadge>{{ totalVotes }}</TheBadge></li>
-						<li v-if="totalVotes === null"><TheLoader component="list" /></li>
-						<li v-if="numberOfUniqueVoters !== null">Total Voters <TheBadge>{{ numberOfUniqueVoters }}</TheBadge></li>
-						<li v-if="numberOfUniqueVoters === null"><TheLoader component="list" /></li>
+						<li v-if="totalProposals !== null">Total Proposals <TheBadge color="grey">{{ totalProposals }}</TheBadge></li>
+						<li v-if="totalProposals === null"><ComponentLoader component="list" /></li>
+						<li v-if="totalVotes !== null">Total Votes <TheBadge color="grey">{{ totalVotes }}</TheBadge></li>
+						<li v-if="totalVotes === null"><ComponentLoader component="list" /></li>
+						<li v-if="numberOfUniqueVoters !== null">Total Voters <TheBadge color="grey">{{ numberOfUniqueVoters }}</TheBadge></li>
+						<li v-if="numberOfUniqueVoters === null"><ComponentLoader component="list" /></li>
 					</ul>
 				</LayoutFlex>
 				<TheSelect :options="['All', 'Active', 'Pending', 'Closed']" :default="'All'" label="Filter Proposals" @filter-select="onFilterChange" />
@@ -155,8 +155,8 @@
 					</NuxtLink>
 				</template>
 			</InfiniteScroll>
-			<TheLoader v-if="isLoading" component="proposals" />
-			<p v-if="!isLoading && filteredProposals !== null && filteredProposals.length === 0" class="u-text-center u-mb-56">No proposals to show.</p>
+			<ComponentLoader :loaded="!isLoading" component="proposals" />
+			<p v-if="!isLoading && filteredProposals !== null && filteredProposals.length === 0" class="u-text-center u-mt-xs">No proposals to show.</p>
 		</LayoutContainer>
 	</div>
 </template>
@@ -264,9 +264,6 @@ export default {
 		this.getData();
 	},
 	methods: {
-		shortAddress(address) {
-			return `${address.slice(0, 6)}...${address.slice(36, 42)}`;
-		},
 		onFilterChange(o) {
 			this.filterOption = o;
 		},
