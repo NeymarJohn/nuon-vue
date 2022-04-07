@@ -1,14 +1,14 @@
 <template>
 	<div>
 		<LayoutContainer>
-			<LayoutFlex class="u-mb-64" direction="row-center-space-between">
+			<LayoutFlex class="u-mb-48" direction="row-center-space-between">
 				<PageTitle>
 					<h4>Stability Zone</h4>
 					<h1>My Token</h1>
 				</PageTitle>
 				<LayoutFlex>
 					<NuxtLink
-						class="btn btn--md u-mr-sm u-m-mr-xs"
+						class="btn btn--md u-mr-30"
 						to="/swap?outputToken=USX"
 						title="Click to buy USX">Buy USX</NuxtLink>
 					<NuxtLink
@@ -47,9 +47,9 @@
 				</DataCard>
 			</LayoutInfo>
 		</LayoutContainer>
-		<LayoutContainer>
+		<LayoutContainer class="u-pt-50">
 			<h2 class="u-mb-20">Token State</h2>
-			<LayoutGrid class="u-mb-64" :size="price.usx < tolerance.low ? '3' : '4'">
+			<LayoutGrid class="u-mb-56" :size="price.usx < tolerance.low ? '3' : '4'">
 				<StatCard>
 					<label>USX Price <TooltipIcon v-tooltip="'Enter usx price tooltip content here.'" /></label>
 					<TheLoader component="h3">
@@ -95,6 +95,7 @@
 							<p>Available HX Balance</p>
 							<h3>{{ numberWithCommas(hxBalance.toFixed(2)) }}<sup>HX</sup></h3>
 							<TheButton
+								size="ghost"
 								:disabled="connectedAccount === ''"
 								title="Click to start burning"
 								@click="setModalVisibility('burnModal', true)">Start Burning</TheButton>
@@ -108,23 +109,17 @@
 							</TheModal>
 						</DataCard>
 					</LayoutFlex>
+					<hr>
 					<LayoutFlex direction="row-space-between">
 						<PageTitle>
 							<h2>Rewards <TooltipIcon v-tooltip="'Enter rewards tooltip content here.'" /></h2>
 							<p>Claim statement and description (make audience aware of the claim info)</p>
 						</PageTitle>
-						<LayoutFlex direction="column" class="u-m-mb-xs">
-							<LayoutFlex v-if="connectedAccount !== ''">
-								<DataCard>
-									<p>Claim rewards in:</p>
-									<TheCountdown :visible="isConnectedWallet" :next-claim-date="nextClaimDate" />
-								</DataCard>
-							</LayoutFlex>
-						</LayoutFlex>
 						<DataCard align="end">
 							<h3>{{ numberWithCommas(claimBalance.toFixed(2)) }}<sup>HX</sup></h3>
-							<h5 class="u-mb-xs">${{ numberWithCommas(getDollarValue(claimBalance, price.hx).toFixed(2)) }}</h5>
+							<h5>${{ numberWithCommas(getDollarValue(claimBalance, price.hx).toFixed(2)) }}</h5>
 							<TheButton
+								size="ghost"
 								:disabled="!canClaim"
 								title="Click to start claiming"
 								@click="setModalVisibility('claimModal', true)">Start Claiming</TheButton>
@@ -137,6 +132,12 @@
 							@claim="claim">
 							<ClaimAccordion from="stabilityZone"/>
 						</TheModal>
+					</LayoutFlex>
+					<LayoutFlex v-if="connectedAccount !== ''">
+						<DataCard>
+							<p>Claim rewards in:</p>
+							<TheCountdown :visible="isConnectedWallet" :next-claim-date="nextClaimDate" />
+						</DataCard>
 					</LayoutFlex>
 				</LayoutPegZone>
 				<LayoutPegZone v-else-if="price.usx < tolerance.low">

@@ -12,11 +12,15 @@
 	color: $MEDIUM_PURPLE_GREY;
 	font-weight: 400;
 	margin-bottom: $SPACING_4;
+	line-height: $SPACING_30;
 }
 .data-card h3 {
 	font-size: $HEADING_ONE;
-	margin-bottom: $SPACING_4;
-	line-height: $SPACING_72;
+	margin-bottom: $SPACING_14;
+	line-height: $SPACING_48;
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
 }
 .data-card h4 {
 	font-size: $HEADING_THREE;
@@ -34,15 +38,16 @@
 }
 .data-card p {
 	margin-bottom: $SPACING_4;
+	line-height: $SPACING_30;
+	color: $MEDIUM_PURPLE_GREY;
 }
 .data-card p:last-child {
 	margin-bottom: 0;
 }
 .data-card sup {
-	top: -1.6rem;
 	position: relative;
 	font-size: $BODY_TEXT_SM;
-	margin-left: $SPACING_4;
+	top: 5px;
 }
 .data-card--start {
 	align-items: flex-start;

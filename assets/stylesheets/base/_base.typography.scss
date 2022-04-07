@@ -24,12 +24,12 @@ h5 {
 }
 h1 {
 	font-size: $HEADING_ONE;
-	line-height: 3rem;
+	line-height: $SPACING_48;
 	color: $DARK_BLUE;
 }
 h2 {
 	font-size: $HEADING_TWO;
-	line-height: 3rem;
+	line-height: $SPACING_48;
 	color: $DARK_GREY;
 }
 h3 {
@@ -52,11 +52,16 @@ time,
 sup {
 	font-weight: 400;
 	color: $DARK_BLUE;
-	line-height: 1.875rem;
+	line-height: $SPACING_30;
 	margin-top: 0;
 	margin-bottom: 10px;
 	word-break: break-word;
 	word-wrap: break-word;
+}
+sup {
+	font-weight: 500;
+	line-height: $SPACING_21;
+	margin-bottom: 0;
 }
 ul,
 li {
@@ -73,7 +78,7 @@ strong {
 @media screen and (max-width: 1440px) {
 	h1 {
 		font-size: $HEADING_ONE_1440;
-		line-height: 3rem;
+		line-height: $SPACING_48;
 	}
 	h2 {
 		font-size: $HEADING_TWO_1440;

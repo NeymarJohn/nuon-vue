@@ -4,7 +4,7 @@
 }
 .l-grid--column-4 {
 	grid-template-columns: repeat(4, minmax(0, 1fr));
-	column-gap: $SPACING_MD;
+	column-gap: $SPACING_24;
 }
 .l-grid--column-3 {
 	grid-template-columns: repeat(3, minmax(0, 1fr));

@@ -1,10 +1,10 @@
 /* #LAYOUT - INFO */
 .l-info {
 	display: grid;
-	column-gap: $SPACING_72;
+	column-gap: $SPACING_120;
 	background: $WHITE;
-	border-radius: $BORDER_RADIUS_48;
-	padding: $SPACING_64;
+	border-radius: $BORDER_RADIUS_32;
+	padding: $SPACING_48;
 }
 .l-info--3 {
 	grid-template-columns: repeat(3, minmax(0, 1fr));

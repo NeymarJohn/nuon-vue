@@ -3,12 +3,21 @@
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-	margin-bottom: $SPACING_16;
+	margin-bottom: $SPACING_8;
 }
 .page-title h5,
 .page-title h4 {
 	color: $MEDIUM_PURPLE_GREY;
 }
+.page-title h4 {
+	margin-bottom: $SPACING_10;
+}
 .page-title h5 {
 	font-weight: 400;
+}
+.page-title p {
+	font-size: $BODY_TEXT_XS;
+	line-height: $SPACING_24;
+	margin-bottom: 0;
+	color: $MEDIUM_PURPLE_GREY;
 }
