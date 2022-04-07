@@ -22,15 +22,14 @@
 	flex-direction: column;
 	margin: 0px;
 	background-color: $WHITE;
-	border: 1px solid $BLACK_LIGHT;
 	box-shadow: $BOX_SHADOW_MODAL;
-	padding: $SPACING_MD;
-	width: 50vw;
+	padding: $SPACING_62 $SPACING_40;
+	width: 40.625rem;
 	overflow: hidden auto;
 	align-self: center;
 	max-height: 80vh;
 	min-height: auto;
-	border-radius: 24px;
+	border-radius: $BORDER_RADIUS_32;
 	z-index: 4;
 }
 .modal__header {
@@ -38,15 +37,19 @@
 	flex-direction: row;
 	justify-content: space-between;
 	align-items: flex-start;
-	margin-bottom: $SPACING_MD;
+	margin-bottom: $SPACING_36;
 }
-.modal__header .btn--icon {
-	color: $DARK_BLUE;
-	padding: 0;
+.modal__header h2 {
+	font-size: 1.25rem;
+	line-height: $SPACING_36;
 }
 .modal__header p {
-	color: $GREY_DARK;
+	font-size: $BODY_TEXT_XS;
+	color: $MEDIUM_PURPLE_GREY;
 	margin-bottom: 0;
+}
+.modal__header .btn--icon {
+	padding: 0;
 }
 // Modal claim tokens
 .modal--claim .modal__container {

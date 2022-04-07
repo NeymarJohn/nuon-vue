@@ -39,6 +39,7 @@ export default {
 		},
 		subtitle: {
 			type: String,
+			default: "",
 			required: false
 		},
 	},

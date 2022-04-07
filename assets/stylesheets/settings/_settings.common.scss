@@ -2,10 +2,11 @@
 $BOX_SHADOW_FOCUS: rgba(66, 153, 225, 0.6) 0px 0px 0px 3px;
 $BOX_SHADOW_DEFAULT: rgb(0 0 0 / 1%) 0px 0px 1px, rgb(0 0 0 / 4%) 0px 4px 8px,
 	rgb(0 0 0 / 4%) 0px 16px 24px, rgb(0 0 0 / 1%) 0px 24px 32px;
-$BOX_SHADOW_MODAL: rgb(0 0 0 / 5%) 0px 4px 8px 0px;
+$BOX_SHADOW_MODAL: 0px 0px 150px 10px rgba(0, 0, 0, 0.1);
 
 $BORDER_RADIUS_4: 0.25rem;
 $BORDER_RADIUS_16: 1rem;
 $BORDER_RADIUS_24: 1.5rem;
 $BORDER_RADIUS_32: 2rem;
 $BORDER_RADIUS_48: 3rem;
+$BORDER_RADIUS_50: 3.125rem;
