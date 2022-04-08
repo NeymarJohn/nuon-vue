@@ -65,7 +65,7 @@ import { fromWei } from "~/utils/bnTools";
 import { HX } from "~/constants/tokens";
 
 export default {
-	name: "CaldronClaimAccordion",
+	name: "CollateralClaimAccordion",
 	components: {
 		ChevronDownIcon,
 		ChevronUpIcon,

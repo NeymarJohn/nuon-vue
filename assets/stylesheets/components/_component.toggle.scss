@@ -10,34 +10,38 @@
 }
 .toggle {
 	align-items: center;
-	background: $GREY_LIGHT;
-	border-radius: 24px;
-	padding: $SPACING_LG;
+	background: $WHITE;
+	border-radius: $BORDER_RADIUS_32;
+	padding: $SPACING_72 $SPACING_40;
+	box-shadow: $BOX_SHADOW_CONTAINER;
 }
 .toggle__buttons {
 	flex-direction: row;
-}
-.toggle__buttons {
-	margin-bottom: $SPACING_MD;
+	margin-bottom: $SPACING_56;
 }
 .toggle__buttons .btn {
-	background-color: $GREY;
-	color: $BLACK_LIGHTER;
+	background-color: $MEDIUM_GREY;
+	color: $WHITE;
+	border-top: 4px solid $LIGHT_PURPLE;
+	border-bottom: 4px solid $LIGHT_PURPLE;
+	border-radius: $BORDER_RADIUS_24;
+	padding: $SPACING_14 $SPACING_100;
+	min-height: $SPACING_56;
+	line-height: $SPACING_28;
 }
 .toggle__buttons .btn.active {
-	background-color: $TEAL;
-	color: $WHITE;
-}
-.toggle__buttons .btn[disabled] {
-	opacity: 1;
+	background-color: $LIGHT_PURPLE;
+	color: $PURPLE;
 }
 .toggle__buttons .btn:first-child {
 	border-top-right-radius: 0;
 	border-bottom-right-radius: 0;
+	border-left: 4px solid $LIGHT_PURPLE;
 }
 .toggle__buttons .btn:last-child {
 	border-top-left-radius: 0;
 	border-bottom-left-radius: 0;
+	border-right: 4px solid $LIGHT_PURPLE;
 }
 .toggle__content,
 .toggle__transaction {
@@ -46,14 +50,12 @@
 .toggle__content {
 	align-items: flex-start;
 }
-.toggle__content h4 {
-	margin-bottom: $SPACING_XS;
+.toggle__content h5 {
+	margin-bottom: $SPACING_12;
+	color: $DARK_GREY;
 }
 .toggle__content .accordion {
-	margin-bottom: $SPACING_MD;
-}
-.toggle__content .accordion {
-	background: $WHITE;
+	margin-bottom: $SPACING_48;
 }
 .toggle__transaction {
 	display: flex;

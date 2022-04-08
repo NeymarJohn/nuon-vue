@@ -3,18 +3,16 @@
 		<div class="toggle__buttons">
 			<TheButton
 				title="Click to view mint section"
-				size="lg"
 				:class="{ active: isMintView }"
 				@click="toggleMintView">Mint</TheButton>
 			<TheButton
 				title="Click to view withdraw section"
-				size="lg"
 				:class="{ active: isWithdrawView }"
 				:disabled="isDisabled"
 				@click="toggleRedeemView">Withdraw</TheButton>
 		</div>
-		<CaldronMint v-if="isMintView" />
-		<CaldronWithdraw v-else />
+		<CollateralMint v-if="isMintView" />
+		<CollateralWithdraw v-else />
 	</div>
 </template>
 
@@ -23,7 +21,7 @@ import { fromWei } from "~/utils/bnTools";
 import { HX, USX } from "~/constants/tokens";
 
 export default {
-	name: "CaldronToggle",
+	name: "CollateralToggle",
 	props: {
 		mintedTokens: {
 			type: Number,

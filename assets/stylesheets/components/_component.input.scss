@@ -12,9 +12,9 @@ input {
 	font-size: $BODY_TEXT;
 	appearance: none;
 	width: 100%;
-	padding-right: $SPACING_XS;
+	padding-right: $SPACING_16;
 	border: 0;
-	line-height: 24px;
+	line-height: $SPACING_30;
 }
 input:focus {
 	outline: 0;
@@ -24,17 +24,18 @@ input::placeholder {
 }
 .input {
 	width: 100%;
-	border-radius: 8px;
+	border-radius: $BORDER_RADIUS_16;
 	background: $WHITE;
-	border: 1px solid $GREY_DARK;
-}
-.input:hover {
-	border: 1px solid $DARK_BLUE;
 }
 .input__container {
 	display: flex;
 	flex-flow: row nowrap;
 	align-items: center;
 	justify-content: space-between;
-	padding: $SPACING_XXXS $SPACING_XS;
+	padding: $SPACING_12 $SPACING_8;
+}
+.input__container input {
+	text-align: right;
+	border-right: 2px solid $PURPLE;
+	margin-right: $SPACING_16;
 }

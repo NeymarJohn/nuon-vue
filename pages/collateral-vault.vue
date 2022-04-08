@@ -1,14 +1,12 @@
 <template>
 	<div>
 		<LayoutContainer>
-			<LayoutFlex class="u-mb-64" direction="row-center-space-between">
+			<LayoutFlex class="u-mb-48" direction="row-center-space-between">
 				<PageTitle>
 					<h4>Collateral Vault</h4>
 					<h1>My Assets</h1>
 				</PageTitle>
-				<LayoutFlex>
-					<NuxtLink class="btn btn--md" to="/swap?outputToken=HX" title="Click to buy HX">Buy HX</NuxtLink>
-				</LayoutFlex>
+				<NuxtLink class="btn btn--md" to="/swap?outputToken=HX" title="Click to buy HX">Buy HX</NuxtLink>
 			</LayoutFlex>
 			<LayoutInfo size="3">
 				<DataCard>
@@ -44,9 +42,9 @@
 				</DataCard>
 			</LayoutInfo>
 		</LayoutContainer>
-		<LayoutContainer>
+		<LayoutContainer class="u-pt-50">
 			<h2 class="u-mb-20">Ecosystem Status</h2>
-			<LayoutGrid class="u-mb-64" :size="'3-stretch-alt'">
+			<LayoutGrid class="u-mb-56" :size="'3-stretch-alt'">
 				<StatCard>
 					<label>USX Price <TooltipIcon v-tooltip="'Enter usx price tooltip content here.'" /></label>
 					<TheLoader component="h3">
@@ -76,15 +74,13 @@
 					</LayoutFlex>
 				</StatCard>
 			</LayoutGrid>
-			<LayoutFlex class="u-mb-64" direction="row-space-between">
-				<PageTitle>
-					<h2>Manage Assets <TooltipIcon v-tooltip="'Enter manage assets tooltip content here.'" /></h2>
-					<h5>Instanly mint USX by depositing your collateral and redeem anytime.</h5>
-				</PageTitle>
-			</LayoutFlex>
-			<LayoutContainer size="sm">
-				<CaldronToggle :minted-tokens="myMintedTokens" />
-			</LayoutContainer>
+			<PageTitle>
+				<h2>Manage Assets <TooltipIcon v-tooltip="'Enter manage assets tooltip content here.'" /></h2>
+				<p>Instanly mint USX by depositing your collateral and redeem anytime.</p>
+			</PageTitle>
+		</LayoutContainer>
+		<LayoutContainer size="sm">
+			<CollateralToggle :minted-tokens="myMintedTokens" />
 		</LayoutContainer>
 	</div>
 </template>

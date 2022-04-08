@@ -1,8 +1,8 @@
 /* #COMPONENT - ACCORDION */
 .accordion {
-	border: 1px solid $GREY;
-	border-radius: 8px;
-	padding: $SPACING_XS $SPACING_MD;
+	background: $LIGHT_GREY;
+	border-radius: $BORDER_RADIUS_24;
+	padding: $SPACING_32;
 	position: relative;
 	width: 100%;
 }
