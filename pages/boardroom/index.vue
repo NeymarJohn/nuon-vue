@@ -155,7 +155,7 @@
 				</template>
 			</InfiniteScroll>
 			<TheLoader v-if="isLoading" component="proposals" />
-			<p v-if="!isLoading && filteredProposals !== null && filteredProposals.length === 0" class="u-text-center u-mt-xs">No proposals to show.</p>
+			<p v-if="!isLoading && filteredProposals !== null && filteredProposals.length === 0" class="u-text-center u-mb-56">No proposals to show.</p>
 		</LayoutContainer>
 	</div>
 </template>

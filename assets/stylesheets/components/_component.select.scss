@@ -3,7 +3,7 @@
 	position: relative;
 	max-width: 200px;
 	width: 100%;
-	height: 70px;
+	height: $SPACING_80;
 	z-index: 1;
 }
 .select,
@@ -12,36 +12,41 @@
 }
 .select label {
 	display: block;
-	margin-bottom: $SPACING_XXXXS;
+	margin-bottom: $SPACING_4;
+	line-height: $SPACING_28;
 }
 .select.active .select__selected {
-	border-bottom-left-radius: 0;
-	border-bottom-right-radius: 0;
+	background: $PURPLE;
+	color: $WHITE;
 }
 .select__selected {
+	transition: all 0.3s ease;
 	display: flex;
 	justify-content: space-between;
 	flex-direction: row;
 	align-items: center;
-	padding: $SPACING_XXXS $SPACING_XXS;
-	border: 1px solid $GREY;
-	border-radius: 12px;
-	color: $GREY_DARK;
+	padding: $SPACING_12 $SPACING_24;
+	background: $LIGHT_PURPLE_GREY;
+	border-radius: $BORDER_RADIUS_16;
+	color: $PURPLE;
+	font-size: $BODY_TEXT_SM;
+	line-height: $SPACING_24;
 }
 .select__selected svg {
-	height: 24px;
-	width: 24px;
-	margin-left: $SPACING_XS;
+	height: $SPACING_24;
+	width: $SPACING_24;
+	margin-left: $SPACING_16;
+	fill: $PURPLE;
+}
+.select.active .select__selected svg path {
+	fill: $WHITE;
 }
 .select__options {
 	background: $WHITE;
 	display: none;
-	border-bottom-left-radius: 12px;
-	border-bottom-right-radius: 12px;
-	border-top: none;
-	border-left: 1px solid $GREY;
-	border-right: 1px solid $GREY;
-	border-bottom: 1px solid $GREY;
+	border-radius: $BORDER_RADIUS_8;
+	box-shadow: $BOX_SHADOW_SELECT;
+	margin-top: $SPACING_20;
 }
 .select.active .select__options {
 	display: block;
@@ -51,13 +56,25 @@
 	flex-direction: row;
 	align-items: center;
 	justify-content: space-between;
-	padding: $SPACING_XXXS $SPACING_XXS;
-	border-bottom: 1px solid $GREY;
+	padding: $SPACING_12 $SPACING_24;
 	transition: background-color 0.3s ease;
+	font-size: $BODY_TEXT_SM;
+	line-height: $SPACING_24;
 }
 .select__option:hover {
-	background-color: $GREY_LIGHT;
+	background-color: $LIGHT_PURPLE_GREY;
+}
+.select__option:first-child:hover {
+	border-top-left-radius: $SPACING_8;
+	border-top-right-radius: $SPACING_8;
+}
+.select__option:last-child:hover {
+	border-bottom-left-radius: $SPACING_8;
+	border-bottom-right-radius: $SPACING_8;
 }
 .select__option:last-child {
 	border-bottom: 0;
+}
+.select__option.selected {
+	color: $PURPLE;
 }
