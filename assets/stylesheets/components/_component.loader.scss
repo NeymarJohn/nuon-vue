@@ -34,7 +34,7 @@
 }
 // Loader H1
 .loader--h1 {
-	height: 48px;
+	height: $SPACING_48;
 	width: 215px;
 	margin-bottom: $SPACING_14;
 }
@@ -89,4 +89,10 @@
 .loader--proposals {
 	height: 250px;
 	width: 100%;
+}
+@media screen and (max-width: 1440px) {
+	.loader--h1 {
+		width: $SPACING_190;
+		margin-bottom: $SPACING_2;
+	}
 }

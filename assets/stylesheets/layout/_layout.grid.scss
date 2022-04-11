@@ -27,9 +27,9 @@
 	grid-template-columns: 0.6fr 1.5fr 1.5fr;
 	column-gap: $SPACING_24;
 }
-@media screen and (max-width: 990px) {
-	.l-m-grid--column-1 {
-		grid-template-columns: repeat(1, minmax(0, 1fr));
+@media screen and (max-width: 1440px) {
+	.l-grid--column-3-stretch-alt {
+		column-gap: $SPACING_12;
 	}
 }
 // Grid with side panel

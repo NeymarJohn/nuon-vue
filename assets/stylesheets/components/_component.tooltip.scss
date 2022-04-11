@@ -8,15 +8,15 @@
 	color: $WHITE;
 	font-size: $BODY_TEXT_SM;
 	padding: $SPACING_XXXS;
-	border-radius: 8px;
+	border-radius: $BORDER_RADIUS_8;
 	top: -48px;
 }
 .tooltip.visible {
 	opacity: 1;
 }
 .tooltip--icon {
-	height: 24px;
-	width: 24px;
+	height: $SPACING_24;
+	width: $SPACING_24;
 	margin-left: $SPACING_10;
 }
 .tooltip--icon:focus {
@@ -24,4 +24,11 @@
 }
 .tooltip--icon path {
 	fill: #9e9db3;
+}
+@media screen and (max-width: 1440px) {
+	.tooltip--icon {
+		height: $SPACING_18;
+		width: $SPACING_18;
+		margin-left: $SPACING_8;
+	}
 }

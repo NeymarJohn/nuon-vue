@@ -46,7 +46,11 @@
 .u-color-dark-grey {
 	color: $DARK_GREY !important;
 }
-
+@media screen and (max-width: 1440px) {
+	.u-mb-lg-14 {
+		margin-bottom: $SPACING_14 !important;
+	}
+}
 // Margin top
 .u-mt-xxs {
 	margin-top: $SPACING_XXS !important;

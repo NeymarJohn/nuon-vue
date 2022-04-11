@@ -149,3 +149,15 @@ a.btn:hover,
 	background: $GREY;
 	border-color: $GREY;
 }
+@media screen and (max-width: 1440px) {
+	.btn--md {
+		padding: $SPACING_7 $SPACING_21;
+		height: $SPACING_40;
+		font-size: $BODY_TEXT_SM;
+		line-height: $SPACING_26;
+	}
+	.btn--unstyled {
+		font-size: $BODY_TEXT_SM;
+		line-height: $SPACING_26;
+	}
+}

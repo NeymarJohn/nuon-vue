@@ -10,3 +10,8 @@
 	max-width: 54.375rem;
 	padding: $SPACING_32 0;
 }
+@media screen and (max-width: 1440px) {
+	.l-container--md {
+		padding: $SPACING_72 $SPACING_80 0;
+	}
+}

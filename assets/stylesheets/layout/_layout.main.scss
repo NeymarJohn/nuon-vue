@@ -2,7 +2,12 @@
 .l-main {
 	flex: 1;
 	background: $LIGHT_GREY;
-	margin-left: 328px;
+	margin-left: $SPACING_328;
+}
+@media screen and (max-width: 1440px) {
+	.l-main {
+		margin-left: $SPACING_250;
+	}
 }
 @media screen and (max-width: 990px) {
 	.l-main {

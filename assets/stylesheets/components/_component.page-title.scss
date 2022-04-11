@@ -28,3 +28,8 @@
 	margin-bottom: 0;
 	color: $MEDIUM_PURPLE_GREY;
 }
+@media screen and (max-width: 1440px) {
+	.page-title h4 {
+		margin-bottom: $SPACING_2;
+	}
+}

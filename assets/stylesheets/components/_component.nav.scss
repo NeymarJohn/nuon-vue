@@ -42,3 +42,9 @@
 .nav a svg {
 	margin-right: 0.5rem;
 }
+@media screen and (max-width: 1440px) {
+	.nav a {
+		font-size: $BODY_TEXT_SM;
+		line-height: $SPACING_26;
+	}
+}

@@ -32,3 +32,12 @@
 .stat-card--green .tooltip--icon path {
 	fill: $DARK_BLUE;
 }
+@media screen and (max-width: 1440px) {
+	.stat-card {
+		padding: $SPACING_24 $SPACING_32;
+	}
+	.stat-card label {
+		font-size: $BODY_TEXT_SM;
+		line-height: $SPACING_26;
+	}
+}

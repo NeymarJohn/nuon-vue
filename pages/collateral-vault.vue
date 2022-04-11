@@ -43,8 +43,8 @@
 			</LayoutInfo>
 		</LayoutContainer>
 		<LayoutContainer class="u-pt-48">
-			<h2 class="u-mb-20">Ecosystem Status</h2>
-			<LayoutGrid class="u-mb-56" :size="'3-stretch-alt'">
+			<h2 class="u-mb-20 u-mb-lg-14">Ecosystem Status</h2>
+			<LayoutGrid class="u-mb-48" :size="'3-stretch-alt'">
 				<StatCard>
 					<label>USX Price <TooltipIcon v-tooltip="'Enter usx price tooltip content here.'" /></label>
 					<TheLoader component="h3">

@@ -9,10 +9,16 @@
 	justify-content: space-between;
 	padding: $SPACING_72 $SPACING_36;
 	background: $WHITE;
-	width: 328px;
+	width: $SPACING_328;
 	overflow-y: auto;
 	transition: transform 0.3s ease-in-out;
 	z-index: 3;
+}
+@media screen and (max-width: 1440px) {
+	.l-sidebar {
+		padding: $SPACING_72 $SPACING_24;
+		width: $SPACING_250;
+	}
 }
 @media screen and (max-width: 990px) {
 	.l-sidebar {

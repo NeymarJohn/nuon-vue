@@ -56,6 +56,16 @@
 .data-card--end .btn {
 	align-items: flex-end;
 }
+@media screen and (max-width: 1440px) {
+	.data-card label {
+		font-size: $BODY_TEXT_SM;
+		line-height: $SPACING_30;
+	}
+	.data-card h3 {
+		font-size: $HEADING_ONE_1440;
+		margin-bottom: $SPACING_4;
+	}
+}
 @media screen and (max-width: 990px) {
 	.data-card--end,
 	.data-card--end .btn {
