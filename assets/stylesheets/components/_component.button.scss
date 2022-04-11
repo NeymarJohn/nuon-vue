@@ -111,24 +111,23 @@ a.btn:hover,
 }
 .btn--circle.btn[disabled] {
 	opacity: 1;
-	background: $GREY;
+	background: $MEDIUM_GREY;
+	border: 2px solid $WHITE;
 }
-.btn--circle.btn[disabled] svg {
-	fill: $WHITE;
-	stroke: $GREY;
-}
-.btn--circle svg {
-	fill: $WHITE;
-	stroke: $TEAL;
-	width: 25px;
+.btn--circle.btn[disabled] svg path {
+	fill: $DARK_GREY;
 }
 .btn--circle {
-	width: 48px;
-	height: 48px;
+	background: $DARK_BLUE;
+	width: $SPACING_72;
+	height: $SPACING_72;
 	border-radius: 50%;
 	padding: 0;
-	margin: -15px auto;
+	margin: -$SPACING_20 auto;
 	z-index: 2;
+}
+.btn--circle:hover {
+	background: $PURPLE;
 }
 .btn--unstyled {
 	font-size: $HEADING_FIVE;

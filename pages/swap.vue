@@ -1,15 +1,21 @@
 <template>
 	<div>
-		<LayoutContainer>
+		<LayoutContainer class="u-mb-48">
 			<PageTitle>
 				<h4>Swap</h4>
-				<h1>Trade tokens in an instant</h1>
+				<h1>Lorem ipsum dolor sit amet</h1>
 			</PageTitle>
+		</LayoutContainer>
+		<LayoutContainer size="sm" class="u-pt-0">
 			<div class="swap">
-				<LayoutFlex direction="row-center-space-between" class="u-mb-md">
+				<LayoutFlex direction="row-start-space-between" class="u-mb-48">
+					<PageTitle>
+						<h2>Swap Tokens <TooltipIcon v-tooltip="'Enter swap tokens tooltip content here.'" /></h2>
+						<h6>Trade tokens in an instant</h6>
+					</PageTitle>
 					<TheButton
 						size="icon"
-						title="Click to open settings"
+						title="Click to open swap settings"
 						@click="setModalVisibility('settingsModal', true)">
 						<SettingsIcon />
 					</TheButton>
@@ -17,10 +23,7 @@
 						v-show="isSettingsModalVisible"
 						title="Transaction Settings"
 						@close-modal="setModalVisibility('settingsModal', false)">
-						<label>
-							Slippage Tolerance
-							<TooltipIcon v-tooltip="'Enter slippage tolerance tooltip content here.'" />
-						</label>
+						<label>Slippage Tolerance <TooltipIcon v-tooltip="'Enter slippage tolerance tooltip content here.'" /></label>
 						<div class="input">
 							<div class="input__container">
 								<input
@@ -41,9 +44,9 @@
 				</LayoutFlex>
 				<TheStepper :active-step="activeStep" :steps="['Token', 'Confirm']">
 					<template #step-one>
-						<LayoutFlex direction="row-center-space-between" class="u-mb-xxs">
-							<h4>Select Token To Swap</h4>
-							<h4>Max Slippage {{ maxSlippage }}%</h4>
+						<LayoutFlex direction="row-center-space-between" class="u-mb-12">
+							<h5>Select Token To Swap</h5>
+							<h5>Max Slippage {{ maxSlippage }}%</h5>
 						</LayoutFlex>
 						<div class="swap__container">
 							<SwapBalance
@@ -53,7 +56,7 @@
 								:disabled-tokens="[output.token]"
 								:default-token="input.token"
 								@selected-token="selectInputToken">
-								<div class="input u-mb-xs">
+								<div class="input u-mb-12">
 									<div class="input__container">
 										<input
 											v-model="input.value"
@@ -80,8 +83,10 @@
 						<TheButton
 							class="btn--circle"
 							:disabled="loadingPrice || !output.token"
-							@click="reverseToken"><SwapIcon /></TheButton>
-						<div class="swap__container u-mb-md">
+							@click="reverseToken">
+							<SwapIcon />
+						</TheButton>
+						<div class="swap__container u-mb-36">
 							<SwapBalance
 								label="To"
 								:token="output.token" />
@@ -89,7 +94,7 @@
 								:disabled-tokens="[input.token]"
 								:default-token="output.token"
 								@selected-token="selectOutputToken">
-								<div class="input u-mb-xs">
+								<div class="input u-mb-12">
 									<div class="input__container">
 										<input
 											v-model="output.value"

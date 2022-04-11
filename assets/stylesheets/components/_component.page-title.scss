@@ -5,15 +5,22 @@
 	align-items: center;
 	margin-bottom: $SPACING_8;
 }
+.page-title h4,
 .page-title h5,
-.page-title h4 {
+.page-title h6 {
 	color: $MEDIUM_PURPLE_GREY;
 }
 .page-title h4 {
 	margin-bottom: $SPACING_10;
 }
-.page-title h5 {
+.page-title h5,
+.page-title h6 {
 	font-weight: 400;
+}
+.page-title h6 {
+	font-size: $BODY_TEXT_SM;
+	line-height: $SPACING_24;
+	margin: 0;
 }
 .page-title p {
 	font-size: $BODY_TEXT_XS;

@@ -2,28 +2,32 @@
 .swap {
 	display: flex;
 	flex-direction: column;
-	padding: $SPACING_SM;
-	border-radius: 8px;
-	border: 1px solid $GREY;
+	background: $WHITE;
+	border-radius: $BORDER_RADIUS_32;
+	padding: $SPACING_72 $SPACING_40;
+	box-shadow: $BOX_SHADOW_CONTAINER;
 }
 .swap .modal__container {
 	max-width: 575px;
 }
 .swap__container {
-	padding: $SPACING_MD 0;
-	border: 1px solid $GREY;
-	border-radius: 8px;
+	padding: $SPACING_32;
+	background: $LIGHT_GREY;
+	border-radius: $BORDER_RADIUS_24;
 	position: relative;
+}
+.swap__container .accordion {
+	background: $TRANSPARENT;
 }
 .swap .btn--icon {
 	padding: 0;
 }
 .swap__balance {
-	margin-bottom: $SPACING_XS;
-	padding: 0 $SPACING_MD;
+	margin-bottom: $SPACING_12;
 }
 .swap__balance label {
-	color: $GREY_DARK;
+	color: $DARK_GREY;
+	font-weight: 500;
 }
 .swap__balance p {
 	margin-bottom: 0;

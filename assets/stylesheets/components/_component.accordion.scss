@@ -13,10 +13,10 @@
 	cursor: pointer;
 }
 .accordion__header img {
-	height: 56px;
-	width: 56px;
+	height: $SPACING_48;
+	width: $SPACING_48;
 	border-radius: 50%;
-	margin-right: $SPACING_XS;
+	margin-right: $SPACING_16;
 }
 .accordion__header svg {
 	height: 24px;
@@ -114,8 +114,11 @@
 }
 // Accordion swap
 .accordion--swap {
-	padding: 0 $SPACING_MD;
+	padding: 0;
 	border: 0;
+}
+.accordion--swap .input__container {
+	background: $WHITE;
 }
 .accordion--swap .data-card {
 	width: 50%;
