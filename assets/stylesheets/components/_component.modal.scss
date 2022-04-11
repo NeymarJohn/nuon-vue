@@ -38,14 +38,14 @@
 	flex-direction: row;
 	justify-content: space-between;
 	align-items: flex-start;
-	margin-bottom: $SPACING_36;
+	margin-bottom: $SPACING_24;
 }
-.modal__header h2 {
-	font-size: 1.25rem;
-	line-height: $SPACING_36;
+.modal__header h4 {
+	margin-bottom: $SPACING_8;
 }
 .modal__header p {
-	font-size: $BODY_TEXT_XS;
+	font-size: $BODY_TEXT_SM;
+	line-height: $SPACING_24;
 	color: $MEDIUM_PURPLE_GREY;
 	margin-bottom: 0;
 }
@@ -88,11 +88,15 @@
 	display: flex;
 	flex-direction: column;
 }
+.modal__confirm h5 {
+	margin-bottom: $SPACING_12;
+	color: $DARK_GREY;
+}
 .modal__confirm--panel {
-	padding: $SPACING_XS $SPACING_MD;
-	border: 1px solid $GREY;
-	border-radius: 8px;
-	margin-bottom: $SPACING_MD;
+	padding: $SPACING_32;
+	border-radius: $BORDER_RADIUS_16;
+	margin-bottom: $SPACING_48;
+	background: $LIGHT_GREY;
 }
 .modal__confirm--row,
 .modal__confirm--buttons {
@@ -102,14 +106,20 @@
 }
 .modal__confirm--row {
 	justify-content: space-between;
-	margin-bottom: $SPACING_XS;
+	margin-bottom: $SPACING_8;
 }
 .modal__confirm--row:last-child,
 .modal__confirm--row p {
 	margin-bottom: 0;
 }
+.modal__confirm--row p {
+	line-height: $SPACING_28;
+	color: $DARK_GREY;
+}
 .modal__confirm--buttons .btn:first-child {
-	margin-right: $SPACING_XXS;
+	margin-right: $SPACING_16;
+	background: $DARK_BLUE;
+	color: $PURPLE;
 }
 .modal__confirm--buttons .btn:last-child {
 	flex: 1;

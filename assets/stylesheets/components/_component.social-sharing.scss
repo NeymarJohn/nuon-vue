@@ -1,10 +1,10 @@
 /* #COMPONENT - SOCIAL SHARING */
 .share-network-twitter {
 	display: inherit;
-	margin-left: $SPACING_XXS;
+	margin-left: $SPACING_24;
 }
 .share-network-twitter svg {
-	height: 1.5rem;
+	height: $SPACING_24;
 }
 .share-network-twitter svg path {
 	fill: $DARK_BLUE;

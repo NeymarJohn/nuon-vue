@@ -1,45 +1,35 @@
 <template>
 	<div>
 		<LayoutContainer>
-			<LayoutFlex
-				class="u-mb-md u-m-mb-xs l-m-flex--column"
-				direction="row-center">
-				<TheButton
-					size="icon"
-					class="u-mr-xxs u-no-transition u-p-0"
-					title="Click to go back"
-					@click="getPreviousPage">
-					<ChevronLeftIcon />
-				</TheButton>
-				<ComponentLoader :loaded="!!details.snapshot" width="u-w-254">
-					<h1 class="u-m-mb-xs">Proposal #{{ details.snapshot }}</h1>
-				</ComponentLoader>
-			</LayoutFlex>
-			<LayoutFlex
-				class="l-m-flex--column u-mb-md"
-				direction="row-start-space-between">
-				<DataCard class="u-m-mb-xs u-m-mr-none u-half-width">
-					<ComponentLoader :loaded="!!details.title" width="u-w-254">
-						<h2>{{ details.title }}</h2>
-					</ComponentLoader>
+			<PageTitle class="u-mb-48">
+				<h4>Boardroom</h4>
+				<h1>
+					<TheButton
+						size="icon"
+						class="u-mr-24 u-no-transition u-p-0"
+						title="Click to go back"
+						@click="getPreviousPage"><ChevronLeftIcon /></TheButton>
+					Proposal #{{ details.snapshot }}</h1>
+			</PageTitle>
+			<LayoutInfo size="2">
+				<DataCard>
+					<h2 class="u-mb-24">{{ details.title }}</h2>
+					<LayoutFlex direction="row-center">
+						<TheBadge :color="proposalStatesToColor[details.state]">{{ capitalize(details.state) }}</TheBadge>
+						<ShareNetwork
+							network="twitter"
+							:url="`https://www.nuon.fi${socialUrl}`"
+							:title="socialTitle || ''"
+							hashtags="nuon,vote">
+							<TwitterIcon />
+						</ShareNetwork>
+					</LayoutFlex>
 				</DataCard>
-				<DataCard align="end">
-					<p class="u-flex-row-center">Voting Power <TooltipIcon v-tooltip="'Enter voting power tooltip content here.'" /></p>
+				<DataCard>
+					<label>Voting Power <TooltipIcon v-tooltip="'Enter voting power tooltip content here.'" /></label>
 					<h3>{{ votingPower.toFixed(2) }}<sup>%</sup></h3>
 				</DataCard>
-			</LayoutFlex>
-			<LayoutFlex direction="row-center">
-				<ComponentLoader :loaded="!!details.state" width="u-w-115">
-					<TheBadge :color="proposalStatesToColor[details.state]">{{ capitalize(details.state) }}</TheBadge>
-					<ShareNetwork
-						network="twitter"
-						:url="`https://www.nuon.fi${socialUrl}`"
-						:title="socialTitle || ''"
-						hashtags="nuon,vote">
-						<TwitterIcon />
-					</ShareNetwork>
-				</ComponentLoader>
-			</LayoutFlex>
+			</LayoutInfo>
 		</LayoutContainer>
 		<LayoutContainer>
 			<LayoutGridSidePanel>
@@ -200,10 +190,9 @@ export default {
 			details: {},
 			totalVotesForActive: null,
 			proposalStatesToColor: {
-				active: "green",
+				active: "blue",
 				closed: "grey",
-				pending: "blue",
-				core: "teal"
+				pending: "yellow",
 			},
 			activeStep: 1
 		};

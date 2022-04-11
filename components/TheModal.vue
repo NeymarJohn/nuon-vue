@@ -5,7 +5,7 @@
 			<div class="modal__container">
 				<header id="transactionModalTitle" class="modal__header">
 					<div>
-						<h2>{{ title }}</h2>
+						<h4>{{ title }}</h4>
 						<p v-if="subtitle">{{ subtitle }}</p>
 					</div>
 					<TheButton

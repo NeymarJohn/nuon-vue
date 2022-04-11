@@ -1,18 +1,16 @@
 <template>
 	<div>
 		<LayoutContainer>
-			<LayoutFlex class="u-mb-48" direction="row-center-space-between">
-				<PageTitle>
-					<h4>Boardroom</h4>
-					<h1>
-						<TheButton
-							size="icon"
-							class="u-mr-xxs u-no-transition u-p-0"
-							title="Click to go back"
-							@click="getPreviousPage"><ChevronLeftIcon /></TheButton>
-						Create Proposal</h1>
-				</PageTitle>
-			</LayoutFlex>
+			<PageTitle class="u-mb-48">
+				<h4>Boardroom</h4>
+				<h1>
+					<TheButton
+						size="icon"
+						class="u-mr-24 u-no-transition u-p-0"
+						title="Click to go back"
+						@click="getPreviousPage"><ChevronLeftIcon /></TheButton>
+					Create Proposal</h1>
+			</PageTitle>
 			<LayoutInfo size="2">
 				<DataCard>
 					<label>Minimum Stake Required <TooltipIcon v-tooltip="'Enter minimum stake tooltip content here.'" /></label>
@@ -63,6 +61,7 @@
 			<TheStepper :active-step="activeStep" :stepper="false">
 				<template #step-one>
 					<div class="modal__confirm">
+						<h5>Transaction Summary</h5>
 						<div class="modal__confirm--panel">
 							<div class="modal__confirm--row">
 								<p>Author</p>
