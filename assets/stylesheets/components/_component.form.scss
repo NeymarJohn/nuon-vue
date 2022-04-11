@@ -1,7 +1,7 @@
 /* #COMPONENT - FORM */
 .form {
 	display: grid;
-	grid-template-columns: repeat(2, 1fr);
+	grid-template-columns: 2fr 1fr;
 	grid-template-rows: auto auto 1fr;
 	grid-column-gap: $SPACING_32;
 	grid-row-gap: $SPACING_32;
@@ -15,6 +15,12 @@
 }
 .form__block--three {
 	grid-area: 1 / 2 / 3 / 3;
+}
+.form__block--three p {
+	color: $MEDIUM_GREY;
+	font-size: $BODY_TEXT_SM;
+	line-height: $SPACING_24;
+	margin-bottom: 0;
 }
 .form__button {
 	grid-area: 3 / 1 / 4 / 3;

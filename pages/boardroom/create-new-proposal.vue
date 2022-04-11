@@ -43,7 +43,7 @@
 					<h4>Voting Period <sup>*</sup></h4>
 					<date-picker v-model="proposal.startDate" confirm type="datetime" value-type="date" placeholder="Select start date" class="datepicker" title="Click to select start date"></date-picker>
 					<p v-if="errors.date" class="u-is-warning">{{ errors.date }}</p>
-					<p class="u-mb-0">Voting will be closed 7 days after your chosen start date.</p>
+					<p>Voting will be closed 7 days after your chosen start date.</p>
 				</div>
 				<div class="form__button">
 					<TheButton
