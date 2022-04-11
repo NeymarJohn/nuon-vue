@@ -1,9 +1,9 @@
 /* #COMPONENT - TRANSACTION SUMMARY */
 .transaction-summary {
-	border: 1px solid $GREY;
-	border-radius: 8px;
-	padding: $SPACING_XS $SPACING_MD;
-	margin-bottom: $SPACING_MD;
+	padding: $SPACING_32;
+	border-radius: $BORDER_RADIUS_16;
+	margin-bottom: $SPACING_48;
+	background: $LIGHT_GREY;
 }
 .transaction-summary img {
 	height: 56px;
@@ -12,8 +12,10 @@
 	margin-right: $SPACING_XS;
 }
 .transaction-summary p {
-	font-weight: 400;
-	color: $DARK_BLUE;
+	font-weight: 500;
+	line-height: $SPACING_28;
+	font-size: $BODY_TEXT;
+	color: $DARK_GREY;
 	margin-bottom: 0;
 }
 .transaction-summary .svg-arrow-down {

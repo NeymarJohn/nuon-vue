@@ -18,20 +18,10 @@
 	text-transform: capitalize;
 }
 .transaction-input__buttons .btn:first-child {
-	margin-right: $SPACING_XXS;
+	margin-right: $SPACING_16;
+	background: $DARK_BLUE;
+	color: $PURPLE;
 }
 .transaction-input__buttons .btn:last-child {
 	flex: 1;
-}
-@media screen and (max-width: 990px) {
-	.transaction-input__buttons {
-		flex-direction: column;
-	}
-	.transaction-input__buttons .btn {
-		width: 100%;
-	}
-	.transaction-input__buttons .btn:first-child {
-		margin-right: 0;
-		margin-bottom: $SPACING_XS;
-	}
 }

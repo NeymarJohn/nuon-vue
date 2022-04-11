@@ -1,5 +1,6 @@
 /* #COMPONENT - BUTTON */
 .btn {
+	font-family: $FONT_BODY;
 	font-weight: 500;
 	display: inline-flex;
 	appearance: none;
@@ -15,7 +16,7 @@
 	border-radius: $BORDER_RADIUS_24;
 	transition-property: background-color, border-color, color, fill, stroke,
 		opacity, box-shadow, transform;
-	transition-duration: 0.2s;
+	transition-duration: 0.3s;
 	background: $PURPLE;
 	color: $WHITE;
 	cursor: pointer;
@@ -52,14 +53,14 @@ a.btn:hover,
 	pointer-events: none;
 	background: none;
 	border: none;
-	color: black;
+	color: $DARK_BLUE;
 }
 .btn--sm {
-	font-size: $BODY_TEXT;
-	height: 24px;
-	line-height: 24px;
-	border-radius: 4px;
-	padding: 0 10px;
+	font-size: $BODY_TEXT_SM;
+	height: $SPACING_40;
+	line-height: $SPACING_24;
+	border-radius: $BORDER_RADIUS_12;
+	padding: $SPACING_8 $SPACING_24;
 }
 .btn--md {
 	height: $SPACING_48;
@@ -94,14 +95,14 @@ a.btn:hover,
 }
 .btn[disabled].btn--success {
 	position: relative;
-	background: $WHITE;
-	border: 1px solid $GREEN;
-	color: $GREEN;
+	background: $LIGHT_GREEN !important;
+	border: 4px solid $SUCCESS !important;
+	color: $SUCCESS !important;
 	opacity: 1;
 	justify-content: flex-start;
 }
 .btn[disabled].btn--success:after {
-	content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='64 64 896 896' data-icon='check-circle' width='1.7em' height='1.7em' fill='%232ecc71' aria-hidden='true'%3E%3Cpath d='M699 353h-46.9c-10.2 0-19.9 4.9-25.9 13.3L469 584.3l-71.2-98.8c-6-8.3-15.6-13.3-25.9-13.3H325c-6.5 0-10.3 7.4-6.5 12.7l124.6 172.8a31.8 31.8 0 0 0 51.7 0l210.6-292c3.9-5.3.1-12.7-6.4-12.7z'/%3E%3Cpath d='M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z'/%3E%3C/svg%3E");
+	content: url("data:image/svg+xml,%3Csvg width='20' height='14' viewBox='0 0 20 14' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M19.0455 1.16325C19.4848 1.60258 19.4848 2.3149 19.0455 2.75424L8.5455 13.2542C8.10616 13.6936 7.39384 13.6936 6.9545 13.2542L0.954505 7.25424C0.515165 6.8149 0.515165 6.10259 0.954505 5.66325C1.39384 5.22391 2.10616 5.22391 2.5455 5.66325L7.75 10.8678L17.4545 1.16325C17.8938 0.723905 18.6062 0.723905 19.0455 1.16325Z' fill='%2389D382'/%3E%3C/svg%3E%0A");
 	position: absolute;
 	top: 50%;
 	right: 24px;

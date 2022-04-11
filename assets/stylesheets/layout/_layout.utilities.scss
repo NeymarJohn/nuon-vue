@@ -1,6 +1,12 @@
 /* #LAYOUT - UTILITIES */
 
 // NEW
+.u-mb-8 {
+	margin-bottom: $SPACING_8 !important;
+}
+.u-mb-12 {
+	margin-bottom: $SPACING_12 !important;
+}
 .u-mb-20 {
 	margin-bottom: $SPACING_20 !important;
 }
@@ -30,6 +36,12 @@
 }
 .u-pt-48 {
 	padding-top: $SPACING_48 !important;
+}
+.u-pb-8 {
+	padding-bottom: $SPACING_8 !important;
+}
+.u-color-dark-grey {
+	color: $DARK_GREY !important;
 }
 
 // Margin top
@@ -145,11 +157,11 @@
 // Validation
 .u-is-warning {
 	color: $RED !important;
-	font-weight: 600 !important;
+	font-weight: 500 !important;
 }
 .u-is-success {
-	color: $GREEN !important;
-	font-weight: 600 !important;
+	color: $SUCCESS !important;
+	font-weight: 500 !important;
 }
 // Border
 .u-bb-black {

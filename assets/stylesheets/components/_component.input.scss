@@ -33,9 +33,12 @@ input::placeholder {
 	align-items: center;
 	justify-content: space-between;
 	padding: $SPACING_12 $SPACING_8;
+	background: $LIGHT_GREY;
+	border-radius: $BORDER_RADIUS_16;
 }
 .input__container input {
 	text-align: right;
 	border-right: 2px solid $PURPLE;
 	margin-right: $SPACING_16;
+	background: $TRANSPARENT;
 }
