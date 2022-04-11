@@ -11,7 +11,6 @@ h5 {
 	margin-left: 0;
 	margin-right: 0;
 	margin-bottom: 0;
-	line-height: 1.2;
 }
 h1,
 h3 {
@@ -34,15 +33,15 @@ h2 {
 }
 h3 {
 	font-size: $HEADING_THREE;
-	line-height: 2.813rem;
+	line-height: $SPACING_45;
 }
 h4 {
 	font-size: $HEADING_FOUR;
-	line-height: 2.25rem;
+	line-height: $SPACING_36;
 }
 h5 {
 	font-size: $HEADING_FIVE;
-	line-height: 1.75rem;
+	line-height: $SPACING_28;
 }
 p,
 blockquote,
@@ -54,7 +53,7 @@ sup {
 	color: $DARK_BLUE;
 	line-height: $SPACING_30;
 	margin-top: 0;
-	margin-bottom: 10px;
+	margin-bottom: $SPACING_10;
 	word-break: break-word;
 	word-wrap: break-word;
 }
@@ -74,7 +73,6 @@ ol {
 strong {
 	font-family: 600;
 }
-
 @media screen and (max-width: 1440px) {
 	h1 {
 		font-size: $HEADING_ONE_1440;
@@ -82,62 +80,62 @@ strong {
 	}
 	h2 {
 		font-size: $HEADING_TWO_1440;
-		line-height: 2rem;
+		line-height: $SPACING_32;
 	}
 	h3 {
 		font-size: $HEADING_THREE_1440;
-		line-height: 2.25rem;
+		line-height: $SPACING_36;
 	}
 	h4 {
 		font-size: $HEADING_FOUR_1440;
-		line-height: 1.75rem;
+		line-height: $SPACING_28;
 	}
 	h5 {
 		font-size: $HEADING_FIVE_1440;
-		line-height: 1.625rem;
+		line-height: $SPACING_26;
 	}
 }
 @media screen and (max-width: 990px) {
 	h1 {
 		font-size: $HEADING_ONE_990;
-		line-height: 2.25rem;
+		line-height: $SPACING_36;
 	}
 	h2 {
 		font-size: $HEADING_TWO_990;
-		line-height: 1.75rem;
+		line-height: $SPACING_28;
 	}
 	h3 {
 		font-size: $HEADING_THREE_990;
-		line-height: 2.25rem;
+		line-height: $SPACING_36;
 	}
 	h4 {
 		font-size: $HEADING_FOUR_990;
-		line-height: 1.625rem;
+		line-height: $SPACING_26;
 	}
 	h5 {
 		font-size: $HEADING_FIVE_990;
-		line-height: 1.625rem;
+		line-height: $SPACING_26;
 	}
 }
 @media screen and (max-width: 480px) {
 	h1 {
 		font-size: $HEADING_ONE_480;
-		line-height: 2.25rem;
+		line-height: $SPACING_36;
 	}
 	h2 {
 		font-size: $HEADING_TWO_480;
-		line-height: 1.75rem;
+		line-height: $SPACING_28;
 	}
 	h3 {
 		font-size: $HEADING_THREE_480;
-		line-height: 2.25rem;
+		line-height: $SPACING_36;
 	}
 	h4 {
 		font-size: $HEADING_FOUR_480;
-		line-height: 1.625rem;
+		line-height: $SPACING_26;
 	}
 	h5 {
 		font-size: $HEADING_FIVE_480;
-		line-height: 1.125rem;
+		line-height: $SPACING_18;
 	}
 }
