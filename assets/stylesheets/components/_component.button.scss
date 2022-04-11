@@ -62,19 +62,23 @@ a.btn:hover,
 	padding: 0 10px;
 }
 .btn--md {
-	height: 48px;
-	line-height: 24px;
-	min-width: 40px;
+	height: $SPACING_48;
+	line-height: $SPACING_24;
+	min-width: $SPACING_40;
 	font-size: $BODY_TEXT;
 	padding: $SPACING_12 $SPACING_32;
 }
 .btn--lg {
-	font-size: $HEADING_THREE;
-	height: 60px;
-	line-height: 55px;
+	font-size: $HEADING_FIVE;
+	height: $SPACING_56;
+	line-height: $SPACING_28;
 	min-width: 185px;
-	padding-left: 24px;
-	padding-right: 24px;
+	padding-left: $SPACING_24;
+	padding-right: $SPACING_24;
+	border-radius: $BORDER_RADIUS_32;
+	background: $LIGHT_PURPLE;
+	color: $PURPLE;
+	font-weight: 500;
 }
 .btn--icon {
 	transition: 0.3s ease;

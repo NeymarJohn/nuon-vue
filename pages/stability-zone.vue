@@ -47,7 +47,7 @@
 				</DataCard>
 			</LayoutInfo>
 		</LayoutContainer>
-		<LayoutContainer class="u-pt-50">
+		<LayoutContainer class="u-pt-48">
 			<h2 class="u-mb-20">Token State</h2>
 			<LayoutGrid class="u-mb-56" :size="price.usx < tolerance.low ? '3' : '4'">
 				<StatCard>

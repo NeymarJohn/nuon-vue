@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<LayoutContainer>
-			<LayoutFlex class="u-mb-64" direction="row-center-space-between">
+			<LayoutFlex class="u-mb-48" direction="row-center-space-between">
 				<PageTitle>
 					<h4>Boardroom</h4>
 					<h1>Stake - Vote - Earn Rewards</h1>

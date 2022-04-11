@@ -42,7 +42,7 @@
 				</DataCard>
 			</LayoutInfo>
 		</LayoutContainer>
-		<LayoutContainer class="u-pt-50">
+		<LayoutContainer class="u-pt-48">
 			<h2 class="u-mb-20">Ecosystem Status</h2>
 			<LayoutGrid class="u-mb-56" :size="'3-stretch-alt'">
 				<StatCard>
