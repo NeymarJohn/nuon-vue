@@ -79,7 +79,6 @@ export default {
 			this.farms.push(...this.farms);
 		},
 		viewMoreFn(idx) {
-			console.log(idx);
 			this.farms[idx].viewMore = !this.farms[idx].viewMore;
 		}
 	}
