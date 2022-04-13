@@ -14,6 +14,8 @@
 	display: block;
 	margin-bottom: $SPACING_4;
 	line-height: $SPACING_28;
+	color: $MEDIUM_GREY;
+	font-weight: 500;
 }
 .select.active .select__selected {
 	background: $PURPLE;
@@ -77,4 +79,10 @@
 }
 .select__option.selected {
 	color: $PURPLE;
+}
+@media screen and (max-width: 1440px) {
+	.select label {
+		font-size: $BODY_TEXT_SM;
+		line-height: $SPACING_26;
+	}
 }

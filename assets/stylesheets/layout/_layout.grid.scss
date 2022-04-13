@@ -28,6 +28,9 @@
 	column-gap: $SPACING_24;
 }
 @media screen and (max-width: 1440px) {
+	.l-grid--column-3-stretch {
+		column-gap: $SPACING_12;
+	}
 	.l-grid--column-3-stretch-alt {
 		column-gap: $SPACING_12;
 	}

@@ -11,7 +11,7 @@
 	margin-bottom: 0;
 }
 .icon-list li {
-	font-weight: 500;
+	font-weight: 400;
 	font-size: $BODY_TEXT;
 	color: $MEDIUM_GREY;
 	margin-right: $SPACING_14;
@@ -27,4 +27,13 @@
 }
 .icon-list li .badge--blue {
 	background: $BLUE;
+}
+@media screen and (max-width: 1440px) {
+	.icon-list li {
+		font-size: $BODY_TEXT_SM;
+		line-height: $SPACING_24;
+	}
+	.icon-list li .badge {
+		padding: $SPACING_4 $SPACING_12;
+	}
 }

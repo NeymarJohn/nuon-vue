@@ -16,7 +16,7 @@
 }
 .proposal a {
 	display: grid;
-	grid-template-columns: calc(70% - 20px) 30%;
+	grid-template-columns: calc(60% - 20px) 40%;
 	grid-gap: $SPACING_32;
 	width: 100%;
 	padding: $SPACING_32;
@@ -38,6 +38,8 @@
 	font-size: $BODY_TEXT_SM;
 	line-height: 1.3rem;
 	color: $MEDIUM_PURPLE_GREY;
+	font-weight: 500;
+	text-transform: uppercase;
 }
 .proposal__right {
 	flex-direction: row;
@@ -50,6 +52,7 @@
 	text-transform: uppercase;
 	color: $DARK_GREY;
 	margin-right: $SPACING_72;
+	font-weight: 500;
 }
 .proposal__right .badge {
 	min-width: 82px;
@@ -66,4 +69,14 @@
 }
 .proposal-details .btn {
 	align-self: center;
+}
+@media screen and (max-width: 1440px) {
+	.proposal {
+		margin-bottom: $SPACING_16;
+	}
+	.proposal__left p,
+	.proposal__right time {
+		font-size: $BODY_TEXT_XS;
+		line-height: $SPACING_18;
+	}
 }

@@ -143,6 +143,7 @@ a.btn:hover,
 	border: 4px solid $LIGHT_PURPLE;
 	padding: $SPACING_18 $SPACING_32;
 	border-radius: $BORDER_RADIUS_32;
+	height: $SPACING_64;
 }
 .btn--ghost[disabled],
 .btn--ghost[disabled]:hover {
@@ -159,5 +160,10 @@ a.btn:hover,
 	.btn--unstyled {
 		font-size: $BODY_TEXT_SM;
 		line-height: $SPACING_26;
+	}
+	.btn--ghost {
+		font-size: $BODY_TEXT_SM;
+		padding: $SPACING_12 $SPACING_24;
+		height: $SPACING_50;
 	}
 }

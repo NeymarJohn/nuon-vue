@@ -31,3 +31,9 @@
 	background: $LIGHT_YELLOW;
 	color: $WARNING;
 }
+@media screen and (max-width: 1440px) {
+	.badge {
+		font-size: $BODY_TEXT_XS;
+		line-height: $SPACING_18;
+	}
+}

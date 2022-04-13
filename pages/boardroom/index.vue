@@ -10,12 +10,12 @@
 					<TheButton
 						:disabled="!isConnectedWallet"
 						title="Click to stake"
-						class="u-mr-sm u-m-mr-xs"
+						class="u-mr-30 u-mr-lg-24"
 						@click="setModalVisibility('stakeModal', true)">Stake</TheButton>
 					<TheButton
 						:disabled="disabledWithdraw"
 						title="Click to withdraw"
-						class="u-mr-sm u-m-mr-xs"
+						class="u-mr-30 u-mr-lg-24"
 						@click="setModalVisibility('withdrawModal', true)">Withdraw</TheButton>
 					<TheButton
 						:disabled="disabledClaimRewards"
@@ -88,9 +88,9 @@
 				</DataCard>
 			</LayoutInfo>
 		</LayoutContainer>
-		<LayoutContainer>
-			<h2 class="u-mb-20">Hydro Stake Status</h2>
-			<LayoutGrid class="u-mb-64" :size="'3-stretch'">
+		<LayoutContainer class="u-pt-48">
+			<h2 class="u-mb-20 u-mb-lg-14">Hydro Stake Status</h2>
+			<LayoutGrid class="u-mb-56 u-mb-lg-48" :size="'3-stretch'">
 				<StatCard>
 					<label>Total Staked <TooltipIcon v-tooltip="'Enter Total Staked tooltip content here'" /></label>
 					<TheLoader component="h3">
