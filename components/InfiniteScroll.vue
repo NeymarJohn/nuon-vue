@@ -1,7 +1,7 @@
 <template>
 	<LayoutFlex direction="row-wrap">
-		<div v-for="(item, itemIdx) in items" :key="item.id" :class="className">
-			<slot name="item" :item="item" :idx="itemIdx" />
+		<div v-for="item in items" :key="item.id" :class="className">
+			<slot name="item" :item="item"/>
 		</div>
 		<div v-observe-visibility="handleScroll"></div>
 	</LayoutFlex>
