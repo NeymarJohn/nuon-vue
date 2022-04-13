@@ -2,14 +2,14 @@
 	<LayoutFlex direction="column" class="farm-row-container">
 		<div class="farm-row" @click="clicked(idx)">
 			<div class="farm-row__item">
-				{{item.name}}
+				{{ item.name }}
 			</div>
 			<div class="farm-row__item">
 				<div class="farm-row__item-header">
 					Earned
 				</div>
 				<div>
-					{{item.earned}}
+					{{ item.earned }}
 				</div>
 			</div>
 			<div class="farm-row__item">
@@ -17,7 +17,7 @@
 					APR
 				</div>
 				<div>
-					{{item.apr}}
+					{{ item.apr }}
 				</div>
 			</div>
 			<div class="farm-row__item">
@@ -25,7 +25,7 @@
 					Liquidity
 				</div>
 				<div>
-					{{item.liquidity}}
+					{{ item.liquidity }}
 				</div>
 			</div>
 			<div class="farm-row__item">
@@ -33,7 +33,7 @@
 					Multiplier
 				</div>
 				<div>
-					{{item.multiplier}}
+					{{ item.multiplier }}
 				</div>
 			</div>
 			<ChevronDown v-if="!item.viewMore" class="chevron-down" />
@@ -41,7 +41,7 @@
 		</div>
 		<LayoutFlex v-if="item.viewMore" class="more-info" direction="row-center">
 			<LayoutFlex direction="column" class="more-info__item">
-				<a :href="item.addLPLink" class="text-underline">Get {{item.name}} LP <ExternalLinkIcon /></a>
+				<a :href="item.addLPLink" class="text-underline">Get {{ item.name }} LP <ExternalLinkIcon /></a>
 				<a :href="item.contractAddress" class="text-underline">View Contract <ExternalLinkIcon /></a>
 				<a :href="item.poolInfo" class="text-underline">See Pair Info <ExternalLinkIcon /></a>
 			</LayoutFlex>
@@ -49,7 +49,7 @@
 				<div class="more-info__round-container">
 					<p>Cake earned</p>
 					<LayoutFlex direction="row-space-around">
-						<div>{{item.earned}}</div>
+						<div>{{ item.earned }}</div>
 						<button>Harvest</button>
 					</LayoutFlex>
 				</div>

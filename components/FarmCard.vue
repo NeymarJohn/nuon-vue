@@ -2,21 +2,21 @@
 	<LayoutFlex direction="column" class="farm-card-container">
 		<LayoutFlex direction="row-space-between">
 			<p>test</p>
-			<p>{{item.name}}</p>
+			<p>{{ item.name }}</p>
 		</LayoutFlex>
 		<LayoutFlex direction="row-space-between">
 			<p>APR:</p>
-			<p>{{item.apr}}</p>
+			<p>{{ item.apr }}</p>
 		</LayoutFlex>
 		<LayoutFlex direction="row-space-between">
 			<p>Earn:</p>
-			<p>{{item.earned}}</p>
+			<p>{{ item.earned }}</p>
 		</LayoutFlex>
 		<LayoutFlex>
 			<div class="farm-card__more-info">
 				<p>Cake earned</p>
 				<LayoutFlex direction="row-space-around">
-					<div>{{item.earned}}</div>
+					<div>{{ item.earned }}</div>
 					<button>Harvest</button>
 				</LayoutFlex>
 			</div>
@@ -40,10 +40,10 @@
 		<div v-if="item.viewMore" class="farm-card__details">
 			<LayoutFlex direction="row-space-between">
 				<div>Total liquidity</div>
-				<div>{{item.liquidity}}</div>
+				<div>{{ item.liquidity }}</div>
 			</LayoutFlex>
 			<LayoutFlex direction="column">
-				<a :href="item.addLPLink" class="text-underline">Get {{item.name}} LP <ExternalLinkIcon /></a>
+				<a :href="item.addLPLink" class="text-underline">Get {{ item.name }} LP <ExternalLinkIcon /></a>
 				<a :href="item.contractAddress" class="text-underline">View Contract <ExternalLinkIcon /></a>
 				<a :href="item.poolInfo" class="text-underline">See Pair Info <ExternalLinkIcon /></a>
 			</LayoutFlex>
