@@ -13,7 +13,8 @@
 		</LayoutContainer>
 		<component
 			:is="isTable ? 'LayoutContainer' : 'LayoutFlex'"
-			:direction="!isTable && 'row-wrap l-container l-container--md'">
+			:direction="!isTable && 'row-wrap l-container l-container--md'"
+			:class="[isTable && 'l-flex l-flex--column l-flex--column-center']">
 			<component
 				:is="isTable ? 'FarmRow' : 'FarmCard'"
 				v-for="(item, idx) in farms"
