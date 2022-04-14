@@ -7,15 +7,15 @@
 				title="Click to open token list" @click="triggerAccordion">
 				<img :src="require(`~/assets/images/tokens/${selected.name}.png`)" alt="Hydro logo">
 				<div class="accordion__token">
-					<h4>{{ selected.symbol }}</h4>
+					<h2>{{ selected.symbol }}</h2>
 					<p>{{ selected.name }}</p>
 				</div>
 				<ChevronDownIcon v-if="!isActive" />
 				<ChevronUpIcon v-else />
 			</LayoutFlex>
 			<DataCard align="end" class="u-half-width">
-				<p v-if="token" class="accordion__available">Available {{token.symbol}} tokens: {{ numberWithCommas(token.balance.toFixed(2)) }}</p>
-				<div class="input u-mb-12">
+				<p v-if="token" class="u-mb-xxs">Available {{token.symbol}} tokens: {{ numberWithCommas(token.balance.toFixed(2)) }}</p>
+				<div class="input">
 					<div class="input__container">
 						<input
 							v-model="inputValue"
@@ -30,10 +30,10 @@
 						<TheButton :disabled="isMaxInputDisabled(token.balance)" size="sm" title="Click to input your max balance" @click="inputMaxBalance">Max</TheButton>
 					</div>
 				</div>
-				<h5 v-if="token" class="u-mb-0">~ ${{ numberWithCommas(getDollarValue(inputValue, token.price).toFixed(2)) }}</h5>
+				<h5 v-if="token">~ ${{ numberWithCommas(getDollarValue(inputValue, token.price).toFixed(2)) }}</h5>
 			</DataCard>
 		</LayoutFlex>
-		<p v-if="isMoreThanBalance" class="u-is-warning u-mb-0 u-text-right u-mt-12">Insufficient balance.</p>
+		<p v-if="isMoreThanBalance" class="u-is-warning u-mb-0 u-text-right u-mt-xxs">Insufficient balance.</p>
 		<div class="accordion__body">
 			<div class="accordion__filter">
 				<input ref="searchtoken" v-model="search" type="text" placeholder="Search for your token" autocomplete="off">

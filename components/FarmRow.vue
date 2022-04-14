@@ -17,7 +17,7 @@
 					APR
 				</div>
 				<div>
-					{{ item.apr }}
+					{{ item.apr }}%
 				</div>
 			</div>
 			<div class="farm-row__item">
@@ -33,7 +33,7 @@
 					Multiplier
 				</div>
 				<div>
-					{{ item.multiplier }}
+					{{ item.multiplier }}x
 				</div>
 			</div>
 			<ChevronDown v-if="!item.viewMore" class="chevron-down" />

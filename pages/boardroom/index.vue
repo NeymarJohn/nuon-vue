@@ -138,7 +138,7 @@
 						<li v-if="numberOfUniqueVoters === null"><TheLoader component="list" /></li>
 					</ul>
 				</LayoutFlex>
-				<TheSelect :options="['All', 'Active', 'Pending', 'Closed']" :default="'All'" @filter-select="onFilterChange" />
+				<TheSelect :options="['All', 'Active', 'Pending', 'Closed']" :default="'All'" label="Filter Proposals" @filter-select="onFilterChange" />
 			</LayoutFlex>
 			<InfiniteScroll :items="filteredProposals" class-name="proposal" @fetch="getProposalsFromSnapshot">
 				<template #item="{ item }">

@@ -6,7 +6,7 @@
 		</LayoutFlex>
 		<LayoutFlex direction="row-space-between">
 			<p>APR:</p>
-			<p>{{ item.apr }}</p>
+			<p>{{ item.apr }}%</p>
 		</LayoutFlex>
 		<LayoutFlex direction="row-space-between">
 			<p>Earn:</p>
