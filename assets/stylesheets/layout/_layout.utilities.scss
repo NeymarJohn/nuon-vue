@@ -60,6 +60,15 @@
 		margin-right: $SPACING_24 !important;
 	}
 }
+@media screen and (max-width: 990px) {
+	.u-mb-md-36 {
+		margin-bottom: $SPACING_36 !important;
+	}
+	.u-mr-md-12 {
+		margin-right: $SPACING_12 !important;
+	}
+}
+
 // Margin top
 .u-mt-xxs {
 	margin-top: $SPACING_XXS !important;
@@ -168,6 +177,7 @@
 @media screen and (max-width: 990px) {
 	.u-display-desktop {
 		display: block !important;
+		padding: 0 !important;
 	}
 }
 // Validation

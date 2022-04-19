@@ -33,3 +33,8 @@
 		margin-bottom: $SPACING_2;
 	}
 }
+@media screen and (max-width: 480px) {
+	.page-title {
+		margin-bottom: $SPACING_16;
+	}
+}

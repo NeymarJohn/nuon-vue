@@ -15,3 +15,13 @@
 		padding: $SPACING_72 $SPACING_80 0;
 	}
 }
+@media screen and (max-width: 990px) {
+	.l-container--md {
+		padding: $SPACING_72 $SPACING_50 0;
+	}
+}
+@media screen and (max-width: 480px) {
+	.l-container--md {
+		padding: $SPACING_48 $SPACING_24 0;
+	}
+}

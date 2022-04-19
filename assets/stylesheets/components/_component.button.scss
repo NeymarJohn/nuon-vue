@@ -45,8 +45,8 @@ a.btn:hover,
 }
 .btn[disabled],
 .btn[disabled]:hover {
-	background: $MEDIUM_GREY;
-	color: $WHITE;
+	background: $DARK_GREY;
+	color: $LIGHT_GREY;
 	cursor: not-allowed;
 }
 .btn[readonly] {

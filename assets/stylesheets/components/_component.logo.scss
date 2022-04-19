@@ -2,7 +2,12 @@
 .logo {
 	align-self: flex-start;
 	display: inherit;
-	margin-bottom: $SPACING_72;
-	margin-top: $SPACING_72;
+	margin: $SPACING_72 0;
 	padding: 0 $SPACING_56;
+}
+@media screen and (max-width: 990px) {
+	.logo {
+		margin: $SPACING_24 0;
+		padding: 0 $SPACING_24;
+	}
 }

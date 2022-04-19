@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<LayoutContainer>
-			<LayoutFlex class="u-mb-48" direction="row-center-space-between">
+			<LayoutFlex class="u-mb-48 u-mb-md-36 l-flex-column-sm" direction="row-center-space-between">
 				<PageTitle>
 					<h4>Boardroom</h4>
 					<h1>Stake - Vote - Earn Rewards</h1>
@@ -10,12 +10,12 @@
 					<TheButton
 						:disabled="!isConnectedWallet"
 						title="Click to stake"
-						class="u-mr-30 u-mr-lg-24"
+						class="u-mr-30 u-mr-lg-24 u-mr-md-12"
 						@click="setModalVisibility('stakeModal', true)">Stake</TheButton>
 					<TheButton
 						:disabled="disabledWithdraw"
 						title="Click to withdraw"
-						class="u-mr-30 u-mr-lg-24"
+						class="u-mr-30 u-mr-lg-24 u-mr-md-12"
 						@click="setModalVisibility('withdrawModal', true)">Withdraw</TheButton>
 					<TheButton
 						:disabled="disabledClaimRewards"
@@ -56,7 +56,7 @@
 				</LayoutFlex>
 			</LayoutFlex>
 			<LayoutInfo size="4">
-				<DataCard>
+				<DataCard class="u-mb-md-36">
 					<label>My Stake</label>
 					<TheLoader component="h1">
 						<h3>{{ numberWithCommas(myStake.toFixed(2)) }}<sup>HX</sup></h3>
@@ -65,7 +65,7 @@
 						<h5>${{ numberWithCommas(getDollarValue(myStake, hxPrice).toFixed(2)) }}</h5>
 					</TheLoader>
 				</DataCard>
-				<DataCard>
+				<DataCard class="u-mb-md-36">
 					<label>My Rewards</label>
 					<TheLoader component="h1">
 						<h3>{{ numberWithCommas(myRewards.toFixed(2)) }}<sup>HX</sup></h3>
