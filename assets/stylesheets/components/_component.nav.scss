@@ -16,25 +16,24 @@
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-	color: $MEDIUM_PURPLE_GREY;
+	color: $WHITE;
 	text-decoration: none;
-	font-size: $BODY_TEXT;
+	font-size: $HEADING_FIVE;
 	padding: $SPACING_16 $SPACING_24;
-	border-radius: $BORDER_RADIUS_24;
-	line-height: 1.75rem;
+	border-radius: $BORDER_RADIUS_8;
+	line-height: $SPACING_24;
 }
 .nav a:hover {
-	background: $LIGHT_PURPLE_GREY;
+	background: $MEDIUM_GREY;
 }
 .nav a .external-link-icon {
-	fill: $MEDIUM_PURPLE_GREY;
+	fill: $WHITE;
 	height: 12px;
 	margin-left: 5px;
 }
 .nav .active-link,
 .nav .active-link:hover {
-	color: $WHITE;
-	background: $PURPLE;
+	color: $LIME;
 }
 .nav .active-link svg path {
 	fill: $WHITE;
@@ -44,7 +43,7 @@
 }
 @media screen and (max-width: 1440px) {
 	.nav a {
-		font-size: $BODY_TEXT_SM;
+		font-size: $HEADING_FIVE_1440;
 		line-height: $SPACING_26;
 	}
 }

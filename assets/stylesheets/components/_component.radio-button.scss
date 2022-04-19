@@ -13,10 +13,10 @@ input[type="radio"] {
 	appearance: none;
 	background-color: $WHITE;
 	margin: 0;
-	color: $DARK_BLUE;
+	color: $LIME;
 	width: 1.125rem;
 	height: 1.125rem;
-	border: 1px solid $GREY;
+	border: 1px solid $MEDIUM_LIGHT_GREY;
 	border-radius: 50%;
 	display: grid;
 	place-content: center;
@@ -39,8 +39,8 @@ label[disabled]input[type="radio"] {
 	cursor: not-allowed;
 }
 label[disabled] {
-	color: $GREY;
+	color: $MEDIUM_LIGHT_GREY;
 }
 label[disabled]input[type="radio"] {
-	background-color: $GREY_LIGHT;
+	background-color: $LIGHT_GREY;
 }

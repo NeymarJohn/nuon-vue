@@ -9,7 +9,7 @@
 	flex-direction: row;
 	align-items: center;
 	font-size: $HEADING_FIVE;
-	color: $MEDIUM_PURPLE_GREY;
+	color: $MEDIUM_LIGHT_GREY;
 	font-weight: 400;
 	margin-bottom: $SPACING_4;
 	line-height: $SPACING_30;
@@ -34,12 +34,12 @@
 	margin-right: 0;
 }
 .data-card .countdown__block p {
-	color: $DARK_BLUE;
+	color: $LIME;
 }
 .data-card p {
 	margin-bottom: $SPACING_4;
 	line-height: $SPACING_30;
-	color: $MEDIUM_PURPLE_GREY;
+	color: $MEDIUM_LIGHT_GREY;
 }
 .data-card p:last-child {
 	margin-bottom: 0;

@@ -20,17 +20,17 @@
 	fill: $WHITE;
 }
 .stat-card--dark-blue {
-	background: $DARK_BLUE;
+	background: $LIME;
 }
 .stat-card--blue {
-	background: $BLUE;
+	background: $LIME;
 }
 .stat-card--green {
-	color: $DARK_BLUE;
-	background: $GREEN;
+	color: $LIME;
+	background: $SUCCESS;
 }
 .stat-card--green .tooltip--icon path {
-	fill: $DARK_BLUE;
+	fill: $LIME;
 }
 @media screen and (max-width: 1440px) {
 	.stat-card {

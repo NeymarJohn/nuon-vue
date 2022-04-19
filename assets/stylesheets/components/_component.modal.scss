@@ -14,7 +14,7 @@
 	bottom: 0;
 	left: 0;
 	right: 0;
-	background-color: $WHITE_RGBA;
+	background-color: $WHITE;
 	backdrop-filter: blur(8px);
 	z-index: 3;
 }
@@ -46,7 +46,7 @@
 .modal__header p {
 	font-size: $BODY_TEXT_SM;
 	line-height: $SPACING_24;
-	color: $MEDIUM_PURPLE_GREY;
+	color: $MEDIUM_LIGHT_GREY;
 	margin-bottom: 0;
 }
 .modal__header .btn--icon {
@@ -58,7 +58,7 @@
 	min-height: 85vh;
 }
 .modal__info--lower {
-	border: 1px solid $GREY;
+	border: 1px solid $MEDIUM_LIGHT_GREY;
 	border-radius: 8px;
 	padding: $SPACING_XS $SPACING_MD;
 }
@@ -69,7 +69,7 @@
 	font-size: $BODY_TEXT;
 }
 .modal__info p {
-	color: $DARK_BLUE;
+	color: $LIME;
 }
 .modal-fade-enter,
 .modal-fade-leave-to {
@@ -118,8 +118,8 @@
 }
 .modal__confirm--buttons .btn:first-child {
 	margin-right: $SPACING_16;
-	background: $DARK_BLUE;
-	color: $PURPLE;
+	background: $LIME;
+	color: $LIME;
 }
 .modal__confirm--buttons .btn:last-child {
 	flex: 1;
@@ -135,7 +135,7 @@
 	display: none;
 }
 .modal__body a {
-	color: $DARK_BLUE !important;
+	color: $LIME !important;
 	font-size: $BODY_TEXT !important;
 }
 .modal__body label {

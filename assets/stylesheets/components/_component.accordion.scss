@@ -27,7 +27,7 @@
 	margin-bottom: 0;
 }
 .modal__info .accordion__token p {
-	color: $GREY_DARK;
+	color: $DARK_GREY;
 	font-size: $BODY_TEXT;
 }
 .accordion__body {
@@ -64,8 +64,8 @@
 	background: none;
 	outline: none;
 	border-radius: 20px;
-	color: $DARK_BLUE;
-	border: 1px solid $BLACK_LIGHTER;
+	color: $LIME;
+	border: 1px solid $DARK_GREY;
 	appearance: none;
 	font-size: $BODY_TEXT;
 	transition: border 100ms ease 0s;
@@ -76,7 +76,7 @@
 }
 .accordion__results {
 	text-align: center;
-	color: $DARK_BLUE;
+	color: $LIME;
 	padding: 1rem;
 	font-size: 16px;
 }
@@ -85,12 +85,12 @@
 	overflow-y: scroll;
 }
 .accordion__tokens::-webkit-scrollbar {
-	background: $BLACK_OPACITY;
+	background: $MEDIUM_GREY;
 	width: 0.5rem;
 	border-radius: 8px;
 }
 .accordion__tokens::-webkit-scrollbar-thumb {
-	background: $DARK_BLUE;
+	background: $LIME;
 	height: 1rem;
 	border-radius: 8px;
 }
@@ -106,9 +106,9 @@
 	left: -1px;
 	right: -1px;
 	padding: $SPACING_XS $SPACING_MD;
-	border-left: 1px solid $GREY;
-	border-right: 1px solid $GREY;
-	border-bottom: 1px solid $GREY;
+	border-left: 1px solid $MEDIUM_LIGHT_GREY;
+	border-right: 1px solid $MEDIUM_LIGHT_GREY;
+	border-bottom: 1px solid $MEDIUM_LIGHT_GREY;
 	border-bottom-left-radius: 8px;
 	border-bottom-right-radius: 8px;
 }
@@ -133,9 +133,9 @@
 	left: -1px;
 	right: -1px;
 	padding: $SPACING_MD;
-	border-left: 1px solid $GREY;
-	border-right: 1px solid $GREY;
-	border-bottom: 1px solid $GREY;
+	border-left: 1px solid $MEDIUM_LIGHT_GREY;
+	border-right: 1px solid $MEDIUM_LIGHT_GREY;
+	border-bottom: 1px solid $MEDIUM_LIGHT_GREY;
 	border-bottom-left-radius: 8px;
 	border-bottom-right-radius: 8px;
 }

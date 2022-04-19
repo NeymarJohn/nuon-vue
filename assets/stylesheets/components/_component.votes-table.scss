@@ -18,11 +18,11 @@
 .votes-table__row {
 	display: flex;
 	flex-flow: row wrap;
-	border-left: 1px solid $GREY;
-	border-right: 1px solid $GREY;
+	border-left: 1px solid $MEDIUM_LIGHT_GREY;
+	border-right: 1px solid $MEDIUM_LIGHT_GREY;
 }
 .votes-table__row:first-child {
-	border-top: 1px solid $GREY;
+	border-top: 1px solid $MEDIUM_LIGHT_GREY;
 	border-top-left-radius: 8px;
 	border-top-right-radius: 8px;
 	font-size: $BODY_TEXT_SM;
@@ -37,7 +37,7 @@
 .votes-table__cell {
 	width: calc(100% / 3);
 	padding: $SPACING_SM;
-	border-bottom: 1px solid $GREY;
+	border-bottom: 1px solid $MEDIUM_LIGHT_GREY;
 }
 .votes-table__cell:nth-child(1),
 .votes-table__cell:nth-child(3) {

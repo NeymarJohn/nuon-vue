@@ -8,7 +8,7 @@
 	padding: $SPACING_XXS;
 }
 .token:hover {
-	background: $GREY_LIGHT;
+	background: $LIGHT_GREY;
 	border-radius: 8px;
 }
 .token__wrapper {
@@ -26,10 +26,10 @@
 	margin-right: $SPACING_XS;
 }
 .token h3 {
-	color: $DARK_BLUE;
+	color: $LIME;
 	font-size: $HEADING_THREE;
 }
 .token p {
-	color: $GREY;
+	color: $MEDIUM_LIGHT_GREY;
 	margin-bottom: 0;
 }

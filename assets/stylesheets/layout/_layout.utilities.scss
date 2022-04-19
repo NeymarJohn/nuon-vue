@@ -172,7 +172,7 @@
 }
 // Validation
 .u-is-warning {
-	color: $RED !important;
+	color: $ERROR !important;
 	font-weight: 500 !important;
 }
 .u-is-success {
@@ -181,7 +181,7 @@
 }
 // Border
 .u-bb-black {
-	border-bottom: 1px solid $DARK_BLUE !important;
+	border-bottom: 1px solid $LIME !important;
 }
 // Position
 .u-position-sticky {
@@ -216,15 +216,15 @@
 }
 // Colour
 .u-colour-grey-dark {
-	color: $GREY_DARK !important;
+	color: $DARK_GREY !important;
 }
 // Prompt
 .u-green-prompt {
-	background: $GREEN !important;
+	background: $SUCCESS !important;
 }
 .u-green-prompt p {
 	color: $WHITE !important;
 }
 .selected-svg {
-	fill: $GREEN;
+	fill: $SUCCESS;
 }

@@ -4,19 +4,19 @@
 	margin-bottom: $SPACING_XXS;
 }
 .datepicker i {
-	color: $DARK_BLUE;
+	color: $LIME;
 }
 .mx-table {
-	color: $DARK_BLUE;
+	color: $LIME;
 }
 .mx-calendar-content .cell.active {
-	background-color: $DARK_BLUE !important;
+	background-color: $LIME !important;
 }
 .mx-table-date .today {
-	background: $GREY_LIGHT;
-	color: $DARK_BLUE !important;
+	background: $LIGHT_GREY;
+	color: $LIME !important;
 }
 .mx-calendar-content .cell:hover {
-	color: $DARK_BLUE !important;
-	background-color: $GREY_LIGHT !important;
+	color: $LIME !important;
+	background-color: $LIGHT_GREY !important;
 }

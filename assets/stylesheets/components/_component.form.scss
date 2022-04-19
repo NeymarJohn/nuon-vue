@@ -52,7 +52,7 @@
 	margin-bottom: $SPACING_24;
 }
 .form__block sup {
-	color: $RED;
+	color: $ERROR;
 	top: -3px;
 }
 .form__block input,
@@ -60,7 +60,7 @@
 	width: 100%;
 	border: 0;
 	padding: 0;
-	color: $DARK_BLUE;
+	color: $LIME;
 }
 .form__block input,
 .form__block textarea,
@@ -84,6 +84,6 @@
 	font-size: $BODY_TEXT_SM;
 }
 .form__block .datepicker input {
-	border: 1px solid $GREY_DARK;
+	border: 1px solid $DARK_GREY;
 	padding: $SPACING_XXS;
 }

@@ -8,27 +8,27 @@
 }
 .badge--purple {
 	background: $WHITE;
-	color: $PURPLE;
+	color: $LIME;
 }
 .badge--green {
-	background: $GREEN;
+	background: $SUCCESS;
 }
 .badge--red {
-	background: $RED;
+	background: $ERROR;
 }
 .badge--blue {
-	background: $LIGHT_BLUE;
-	color: $BLUE;
+	background: $LIME;
+	color: $LIME;
 }
 .badge--pink {
-	background: $PINK;
+	background: $LIME;
 }
 .badge--grey {
 	background: $MEDIUM_LIGHT_GREY;
 	color: $DARK_GREY;
 }
 .badge--yellow {
-	background: $LIGHT_YELLOW;
+	background: $LIME;
 	color: $WARNING;
 }
 @media screen and (max-width: 1440px) {

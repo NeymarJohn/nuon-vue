@@ -6,8 +6,8 @@ html {
 	font-weight: normal;
 }
 body {
-	color: $DARK_BLUE;
-	background: $WHITE;
+	color: $WHITE;
+	background: $MEDIUM_GREY;
 	text-rendering: optimizeLegibility;
 }
 body.is-active {
@@ -20,11 +20,11 @@ body.is-active {
 }
 a {
 	text-decoration: none;
-	color: $DARK_BLUE;
+	color: $LIME;
 	cursor: pointer;
 }
 a:hover {
-	color: $DARK_BLUE;
+	color: $LIME;
 	text-decoration: none;
 }
 a:focus {
@@ -32,10 +32,10 @@ a:focus {
 	text-decoration: none;
 }
 ::selection {
-	background: $DARK_BLUE;
+	background: $LIME;
 	color: $WHITE;
 }
 ::-moz-selection {
-	background: $DARK_BLUE;
+	background: $LIME;
 	color: $WHITE;
 }

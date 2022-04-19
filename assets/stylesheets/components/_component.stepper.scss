@@ -23,7 +23,7 @@
 	left: 0;
 	height: 100%;
 	width: 0%;
-	background: $GREEN;
+	background: $SUCCESS;
 	transition: all 0.3s ease;
 }
 .stepper__panel {
@@ -86,10 +86,10 @@
 }
 .stepper__item.active .stepper__counter {
 	border: 0;
-	background: $LIGHT_GREEN;
+	background: $LIGHT_LIME;
 }
 .stepper__item.active .stepper__number {
-	background: $GREEN;
+	background: $SUCCESS;
 	height: $SPACING_12;
 	width: $SPACING_12;
 	border-radius: 50%;
@@ -98,7 +98,7 @@
 }
 .stepper__item.success .stepper__counter {
 	border-color: $TRANSPARENT;
-	background-color: $LIGHT_GREEN;
+	background-color: $LIGHT_LIME;
 	color: $WHITE;
 }
 .stepper__item.success .stepper__counter svg {
@@ -106,12 +106,12 @@
 	transform: scale(1);
 }
 .stepper__item.success .stepper__counter svg path {
-	fill: $GREEN;
+	fill: $SUCCESS;
 }
 .stepper__item.success .stepper__number {
 	opacity: 0;
 	transform: scale(0);
 }
 .stepper__item.success .stepper__title {
-	color: $GREEN;
+	color: $SUCCESS;
 }

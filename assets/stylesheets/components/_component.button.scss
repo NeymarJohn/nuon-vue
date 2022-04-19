@@ -17,18 +17,18 @@
 	transition-property: background-color, border-color, color, fill, stroke,
 		opacity, box-shadow, transform;
 	transition-duration: 0.3s;
-	background: $PURPLE;
+	background: $LIME;
 	color: $WHITE;
 	cursor: pointer;
 	border: none;
 }
 a.btn:hover,
 .btn:hover {
-	background: $LIGHT_PURPLE_GREY;
-	color: $MEDIUM_PURPLE_GREY;
+	background: $LIGHT_GREY;
+	color: $MEDIUM_LIGHT_GREY;
 }
 .btn:active {
-	background: $TEAL_DARKER;
+	background: $LIGHT_LIME;
 }
 .btn--icon:active {
 	background: $TRANSPARENT;
@@ -53,7 +53,7 @@ a.btn:hover,
 	pointer-events: none;
 	background: none;
 	border: none;
-	color: $DARK_BLUE;
+	color: $LIME;
 }
 .btn--sm {
 	font-size: $BODY_TEXT_SM;
@@ -77,8 +77,8 @@ a.btn:hover,
 	padding-left: $SPACING_24;
 	padding-right: $SPACING_24;
 	border-radius: $BORDER_RADIUS_32;
-	background: $LIGHT_PURPLE;
-	color: $PURPLE;
+	background: $LIGHT_LIME;
+	color: $LIME;
 	font-weight: 500;
 }
 .btn--icon {
@@ -95,7 +95,7 @@ a.btn:hover,
 }
 .btn[disabled].btn--success {
 	position: relative;
-	background: $LIGHT_GREEN !important;
+	background: $LIGHT_LIME !important;
 	border: 4px solid $SUCCESS !important;
 	color: $SUCCESS !important;
 	opacity: 1;
@@ -118,7 +118,7 @@ a.btn:hover,
 	fill: $DARK_GREY;
 }
 .btn--circle {
-	background: $DARK_BLUE;
+	background: $LIME;
 	width: $SPACING_72;
 	height: $SPACING_72;
 	border-radius: 50%;
@@ -127,28 +127,28 @@ a.btn:hover,
 	z-index: 2;
 }
 .btn--circle:hover {
-	background: $PURPLE;
+	background: $LIME;
 }
 .btn--unstyled {
 	font-size: $HEADING_FIVE;
 	line-height: 1.875rem;
 	background: $TRANSPARENT;
-	color: $DARK_BLUE;
+	color: $LIME;
 	padding: 0;
 	font-weight: 500;
 }
 .btn--ghost {
 	background: $WHITE;
-	color: $PURPLE;
-	border: 4px solid $LIGHT_PURPLE;
+	color: $LIME;
+	border: 4px solid $LIGHT_LIME;
 	padding: $SPACING_18 $SPACING_32;
 	border-radius: $BORDER_RADIUS_32;
 	height: $SPACING_64;
 }
 .btn--ghost[disabled],
 .btn--ghost[disabled]:hover {
-	background: $GREY;
-	border-color: $GREY;
+	background: $MEDIUM_LIGHT_GREY;
+	border-color: $MEDIUM_LIGHT_GREY;
 }
 @media screen and (max-width: 1440px) {
 	.btn--md {
