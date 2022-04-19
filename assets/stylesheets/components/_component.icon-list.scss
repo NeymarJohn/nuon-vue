@@ -11,9 +11,8 @@
 	margin-bottom: 0;
 }
 .icon-list li {
-	font-weight: 400;
 	font-size: $BODY_TEXT;
-	color: $MEDIUM_GREY;
+	color: $LIGHT_GREY;
 	margin-right: $SPACING_14;
 }
 .icon-list li:last-child {
@@ -23,10 +22,7 @@
 	border-radius: $BORDER_RADIUS_32;
 	padding: $SPACING_4 $SPACING_16;
 	margin-left: $SPACING_8;
-	color: $LIME;
-}
-.icon-list li .badge--blue {
-	background: $LIME;
+	color: $DARK_GREY;
 }
 @media screen and (max-width: 1440px) {
 	.icon-list li {

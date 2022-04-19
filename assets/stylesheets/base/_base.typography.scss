@@ -4,6 +4,7 @@ h2,
 h3,
 h4,
 h5 {
+	color: $WHITE;
 	word-break: break-word;
 	word-wrap: break-word;
 	margin-top: 0;
@@ -26,12 +27,10 @@ h5 {
 h1 {
 	font-size: $HEADING_ONE;
 	line-height: $SPACING_48;
-	color: $LIME;
 }
 h2 {
 	font-size: $HEADING_TWO;
 	line-height: $SPACING_48;
-	color: $DARK_GREY;
 }
 h3 {
 	font-size: $HEADING_THREE;
@@ -51,7 +50,7 @@ ul,
 ol,
 time,
 sup {
-	color: $LIME;
+	color: $WHITE;
 	line-height: $SPACING_30;
 	margin-top: 0;
 	margin-bottom: $SPACING_10;

@@ -81,7 +81,7 @@
 					</TheLoader>
 				</DataCard>
 				<DataCard>
-					<label>My Voting Power <TooltipIcon v-tooltip="'Calculation: My Stake / Total Staked'" /></label>
+					<label>My Voting Power<TooltipIcon v-tooltip="'Calculation: My Stake / Total Staked'" /></label>
 					<TheLoader component="h1">
 						<h3>{{ numberWithCommas(votingPower.toFixed(2)) }}<sup>%</sup></h3>
 					</TheLoader>
@@ -92,19 +92,19 @@
 			<h2 class="u-mb-20 u-mb-lg-14">Hydro Stake Status</h2>
 			<LayoutGrid class="u-mb-56 u-mb-lg-48" :size="'3-stretch'">
 				<StatCard>
-					<label>Total Staked <TooltipIcon v-tooltip="'Enter Total Staked tooltip content here'" /></label>
+					<label>Total Staked<TooltipIcon v-tooltip="'Enter Total Staked tooltip content here'" /></label>
 					<TheLoader component="h3">
 						<h3>{{ numberWithCommas(totalStaked.toFixed(2)) }}</h3>
 					</TheLoader>
 				</StatCard>
-				<StatCard color="green">
-					<label>HX Price <TooltipIcon v-tooltip="'Enter HX Price tooltip content here'" /></label>
+				<StatCard>
+					<label>HX Price<TooltipIcon v-tooltip="'Enter HX Price tooltip content here'" /></label>
 					<TheLoader component="h3">
 						<h3>{{ numberWithCommas(hxPrice.toFixed(2)) }}</h3>
 					</TheLoader>
 				</StatCard>
-				<StatCard color="blue">
-					<label>Reward Info <TooltipIcon v-tooltip="'Enter Reward Info tooltip content here'" /></label>
+				<StatCard>
+					<label>Reward Information<TooltipIcon v-tooltip="'Enter Reward Info tooltip content here'" /></label>
 					<LayoutFlex>
 						<TheLoader component="h3">
 							<h3 class="u-mr-32">APR {{ numberWithCommas(apr.toFixed(2)) }}%</h3>
@@ -120,7 +120,7 @@
 			</LayoutGrid>
 			<LayoutFlex class="u-mb-36" direction="row-space-between">
 				<PageTitle>
-					<h2>Proposals <TooltipIcon v-tooltip="'Enter proposals tooltip content here.'" /></h2>
+					<h2>Proposals<TooltipIcon v-tooltip="'Enter proposals tooltip content here.'" /></h2>
 					<h5>Create proposals and vote to improve the Nuon protocol.</h5>
 				</PageTitle>
 				<DataCard align="end">
@@ -130,11 +130,11 @@
 			<LayoutFlex class="u-mb-36" direction="row-center-space-between">
 				<LayoutFlex>
 					<ul class="icon-list">
-						<li v-if="totalProposals !== null">Total Proposals <TheBadge color="blue">{{ totalProposals }}</TheBadge></li>
+						<li v-if="totalProposals !== null">Total Proposals <TheBadge>{{ totalProposals }}</TheBadge></li>
 						<li v-if="totalProposals === null"><TheLoader component="list" /></li>
-						<li v-if="totalVotes !== null">Total Votes <TheBadge color="pink">{{ totalVotes }}</TheBadge></li>
+						<li v-if="totalVotes !== null">Total Votes <TheBadge>{{ totalVotes }}</TheBadge></li>
 						<li v-if="totalVotes === null"><TheLoader component="list" /></li>
-						<li v-if="numberOfUniqueVoters !== null">Total Voters <TheBadge color="green">{{ numberOfUniqueVoters }}</TheBadge></li>
+						<li v-if="numberOfUniqueVoters !== null">Total Voters <TheBadge>{{ numberOfUniqueVoters }}</TheBadge></li>
 						<li v-if="numberOfUniqueVoters === null"><TheLoader component="list" /></li>
 					</ul>
 				</LayoutFlex>
@@ -179,7 +179,7 @@ export default {
 			hxPrice: 0,
 			filterOption: "All",
 			proposalStatesToColor: {
-				active: "blue",
+				active: "green",
 				closed: "grey",
 				pending: "yellow",
 			},

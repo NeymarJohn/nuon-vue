@@ -51,7 +51,7 @@
 			<h2 class="u-mb-20">Token State</h2>
 			<LayoutGrid class="u-mb-56" :size="price.usx < tolerance.low ? '3' : '4'">
 				<StatCard>
-					<label>USX Price <TooltipIcon v-tooltip="'Enter usx price tooltip content here.'" /></label>
+					<label>USX Price<TooltipIcon v-tooltip="'Enter usx price tooltip content here.'" /></label>
 					<TheLoader component="h3">
 						<LayoutFlex direction="row-center-space-between">
 							<h3 v-if="price.usx">{{ numberWithCommas(price.usx.toFixed(2)) }}</h3>
@@ -64,20 +64,20 @@
 						</LayoutFlex>
 					</TheLoader>
 				</StatCard>
-				<StatCard color="green">
-					<label>HX Price <TooltipIcon v-tooltip="'Enter hx price tooltip content here.'" /></label>
+				<StatCard>
+					<label>HX Price<TooltipIcon v-tooltip="'Enter hx price tooltip content here.'" /></label>
 					<TheLoader component="h3">
 						<h3 v-if="price.hx">{{ numberWithCommas(price.hx.toFixed(2)) }}</h3>
 					</TheLoader>
 				</StatCard>
-				<StatCard color="blue">
-					<label>Rebalance Fee <TooltipIcon v-tooltip="'Enter rebalance fee tooltip content here.'" /></label>
+				<StatCard>
+					<label>Rebalance Fee<TooltipIcon v-tooltip="'Enter rebalance fee tooltip content here.'" /></label>
 					<TheLoader component="h3">
 						<h3 v-if="rebalanceFee">{{ rebalanceFee }}%</h3>
 					</TheLoader>
 				</StatCard>
 				<StatCard v-if="price.usx > tolerance.high || price.usx <= tolerance.high && price.usx >= tolerance.low">
-					<label>Claim Ratio <TooltipIcon v-tooltip="'Enter claim ratio tooltip content here.'" /></label>
+					<label>Claim Ratio<TooltipIcon v-tooltip="'Enter claim ratio tooltip content here.'" /></label>
 					<TheLoader component="h3">
 						<h3 v-if="connectedAccount !== ''">{{ claimRatio }}%</h3>
 						<h3 v-else>-%</h3>
@@ -88,7 +88,7 @@
 				<LayoutPegZone v-if="price.usx > tolerance.high">
 					<LayoutFlex direction="row-space-between">
 						<PageTitle>
-							<h2>Peg Zone: Is Above Range <TooltipIcon v-tooltip="'Enter above range tooltip content here.'" /></h2>
+							<h2>Peg Zone: Is Above Range<TooltipIcon v-tooltip="'Enter above range tooltip content here.'" /></h2>
 							<p>Burn your HX to get the Peg Zone back in range and earn treasury fees.</p>
 						</PageTitle>
 						<DataCard align="end">
@@ -112,7 +112,7 @@
 					<hr>
 					<LayoutFlex direction="row-space-between">
 						<PageTitle>
-							<h2>Rewards <TooltipIcon v-tooltip="'Enter rewards tooltip content here.'" /></h2>
+							<h2>Rewards<TooltipIcon v-tooltip="'Enter rewards tooltip content here.'" /></h2>
 							<p>Claim statement and description (make audience aware of the claim info)</p>
 						</PageTitle>
 						<DataCard align="end">
@@ -143,7 +143,7 @@
 				<LayoutPegZone v-else-if="price.usx < tolerance.low">
 					<LayoutFlex direction="row-space-between">
 						<PageTitle>
-							<h2>Peg Zone: Is Below Range <TooltipIcon v-tooltip="'Enter below range tooltip content here.'" /></h2>
+							<h2>Peg Zone: Is Below Range<TooltipIcon v-tooltip="'Enter below range tooltip content here.'" /></h2>
 							<p>Burn your USX to get the Peg Zone back in range and earn treasury fees.</p>
 						</PageTitle>
 						<DataCard align="end">

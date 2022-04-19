@@ -14,12 +14,11 @@
 	display: block;
 	margin-bottom: $SPACING_4;
 	line-height: $SPACING_28;
-	color: $MEDIUM_GREY;
-	font-weight: 500;
+	color: $LIGHT_GREY;
 }
 .select.active .select__selected {
 	background: $LIME;
-	color: $WHITE;
+	color: $MEDIUM_LIGHT_GREY;
 }
 .select__selected {
 	transition: all 0.3s ease;
@@ -28,23 +27,32 @@
 	flex-direction: row;
 	align-items: center;
 	padding: $SPACING_12 $SPACING_24;
-	background: $LIGHT_GREY;
+	background: $MEDIUM_LIGHT_GREY;
 	border-radius: $BORDER_RADIUS_16;
-	color: $LIME;
+	color: $LIGHT_GREY;
 	font-size: $BODY_TEXT_SM;
 	line-height: $SPACING_24;
+}
+.select__selected:hover {
+	color: $LIME;
+}
+.select__selected:hover svg path {
+	fill: $LIME;
+}
+.select__selected svg path {
+	transition: all 0.3s ease;
 }
 .select__selected svg {
 	height: $SPACING_24;
 	width: $SPACING_24;
 	margin-left: $SPACING_16;
-	fill: $LIME;
+	fill: $LIGHT_GREY;
 }
 .select.active .select__selected svg path {
-	fill: $WHITE;
+	fill: $MEDIUM_LIGHT_GREY;
 }
 .select__options {
-	background: $WHITE;
+	background: $DARK_GREY;
 	display: none;
 	border-radius: $BORDER_RADIUS_8;
 	box-shadow: $BOX_SHADOW_SELECT;
@@ -62,9 +70,10 @@
 	transition: background-color 0.3s ease;
 	font-size: $BODY_TEXT_SM;
 	line-height: $SPACING_24;
+	color: $LIGHT_GREY;
 }
 .select__option:hover {
-	background-color: $LIGHT_GREY;
+	background-color: $MEDIUM_LIGHT_GREY;
 }
 .select__option:first-child:hover {
 	border-top-left-radius: $SPACING_8;

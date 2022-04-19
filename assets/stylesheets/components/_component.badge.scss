@@ -1,35 +1,25 @@
 /* #COMPONENT - BADGE */
 .badge {
-	font-weight: 500;
 	border-radius: $BORDER_RADIUS_4;
-	padding: $SPACING_6 $SPACING_16;
-	font-size: $BODY_TEXT_SM;
+	padding: $SPACING_5 $SPACING_16;
+	font-size: $BODY_TEXT;
+	line-height: $SPACING_21;
 	text-transform: uppercase;
 }
-.badge--purple {
-	background: $WHITE;
-	color: $LIME;
-}
-.badge--green {
-	background: $SUCCESS;
-}
-.badge--red {
-	background: $ERROR;
-}
-.badge--blue {
-	background: $LIME;
-	color: $LIME;
-}
-.badge--pink {
+.badge--lime {
 	background: $LIME;
 }
 .badge--grey {
-	background: $MEDIUM_LIGHT_GREY;
-	color: $DARK_GREY;
+	border: 1px solid $LIGHT_GREY;
+	color: $LIGHT_GREY;
 }
 .badge--yellow {
-	background: $LIME;
 	color: $WARNING;
+	border: 1px solid $WARNING;
+}
+.badge--green {
+	color: $SUCCESS;
+	border: 1px solid $SUCCESS;
 }
 @media screen and (max-width: 1440px) {
 	.badge {

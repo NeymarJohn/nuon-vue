@@ -46,13 +46,13 @@
 			<h2 class="u-mb-20 u-mb-lg-14">Ecosystem Status</h2>
 			<LayoutGrid class="u-mb-48" :size="'3-stretch-alt'">
 				<StatCard>
-					<label>USX Price <TooltipIcon v-tooltip="'Enter usx price tooltip content here.'" /></label>
+					<label>USX Price<TooltipIcon v-tooltip="'Enter usx price tooltip content here.'" /></label>
 					<TheLoader component="h3">
 						<h3>{{ numberWithCommas(usxPrice.toFixed(2)) }}</h3>
 					</TheLoader>
 				</StatCard>
-				<StatCard color="green">
-					<label>Collateralization Ratio <TooltipIcon v-tooltip="'Enter collateralization ratio tooltip content here.'" /></label>
+				<StatCard>
+					<label>Collateralization Ratio<TooltipIcon v-tooltip="'Enter collateralization ratio tooltip content here.'" /></label>
 					<LayoutFlex>
 						<TheLoader component="h3">
 							<h3 class="u-mr-32">Target {{ numberWithCommas(targetCollateralizationRatio.toFixed(2)) }}%</h3>
@@ -62,8 +62,8 @@
 						</TheLoader>
 					</LayoutFlex>
 				</StatCard>
-				<StatCard color="blue">
-					<label>APR <TooltipIcon v-tooltip="'Enter apr tooltip content here.'" /></label>
+				<StatCard>
+					<label>APR<TooltipIcon v-tooltip="'Enter apr tooltip content here.'" /></label>
 					<LayoutFlex>
 						<TheLoader component="h3">
 							<h3 class="u-mr-32">Inflation {{ numberWithCommas(inflation.toFixed(2)) }}%</h3>
@@ -75,7 +75,7 @@
 				</StatCard>
 			</LayoutGrid>
 			<PageTitle>
-				<h2>Manage Assets <TooltipIcon v-tooltip="'Enter manage assets tooltip content here.'" /></h2>
+				<h2>Manage Assets<TooltipIcon v-tooltip="'Enter manage assets tooltip content here.'" /></h2>
 				<p>Instanly mint USX by depositing your collateral and redeem anytime.</p>
 			</PageTitle>
 		</LayoutContainer>

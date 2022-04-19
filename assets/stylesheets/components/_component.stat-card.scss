@@ -6,6 +6,10 @@
 	padding: $SPACING_32;
 	border-radius: $BORDER_RADIUS_16;
 	position: relative;
+	background: $DARK_GREY;
+}
+.stat-card h3 {
+	color: $LIME;
 }
 .stat-card label {
 	display: flex;
@@ -14,22 +18,13 @@
 	font-size: $HEADING_FIVE;
 	font-weight: 500;
 	margin-bottom: $SPACING_4;
-	line-height: $SPACING_28;
+	line-height: $SPACING_24;
 }
 .stat-card .tooltip--icon path {
 	fill: $WHITE;
+	transition: fill 0.3s ease;
 }
-.stat-card--dark-blue {
-	background: $LIME;
-}
-.stat-card--blue {
-	background: $LIME;
-}
-.stat-card--green {
-	color: $LIME;
-	background: $SUCCESS;
-}
-.stat-card--green .tooltip--icon path {
+.stat-card .tooltip--icon:hover path {
 	fill: $LIME;
 }
 @media screen and (max-width: 1440px) {
