@@ -1,7 +1,9 @@
 <template>
 	<aside class="l-sidebar" :class="{ 'is-active': isNavClosed }">
-		<TheLogo />
-		<TheNav />
+		<div class="l-sidebar--top">
+			<TheLogo />
+			<TheNav />
+		</div>
 		<TheFooter />
 	</aside>
 </template>

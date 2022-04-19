@@ -1,12 +1,6 @@
 <template>
 	<LayoutFooter>
 		<TheWallet />
-		<LayoutFlex direction="row-center-space-between">
-			<p>Version {{ appVersion }}</p>
-			<TheLoader component="p">
-				<p class="block-number">Latest Block: <a :href="`https://etherscan.io/block/${blockNumber}`" title="Click to view the latest block" target="_blank" rel="noopener noreferrer">{{ blockNumber }}</a></p>
-			</TheLoader>
-		</LayoutFlex>
 		<ul class="social-icons">
 			<li>
 				<a href="https://twitter.com/ultra_stable" target="_blank" rel="noopener noreferrer" title="Click to follow us on Twitter">
@@ -17,6 +11,12 @@
 				<a href="https://t.me/ultrastable_money" target="_blank" rel="noopener noreferrer" title="Click to chat with us on Telegram"><TelegramIcon /></a>
 			</li>
 		</ul>
+		<div class="app-info">
+			<p>Version {{ appVersion }}</p>
+			<TheLoader component="p">
+				<p class="block-number">Latest Block: <a :href="`https://etherscan.io/block/${blockNumber}`" title="Click to view the latest block" target="_blank" rel="noopener noreferrer">{{ blockNumber }}</a></p>
+			</TheLoader>
+		</div>
 	</LayoutFooter>
 </template>
 

@@ -7,16 +7,14 @@
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
-	padding: $SPACING_72 $SPACING_36;
 	background: $DARK_GREY;
-	width: $SPACING_328;
+	width: $SPACING_300;
 	overflow-y: auto;
 	transition: transform 0.3s ease-in-out;
 	z-index: 3;
 }
 @media screen and (max-width: 1440px) {
 	.l-sidebar {
-		padding: $SPACING_72 $SPACING_24;
 		width: $SPACING_250;
 	}
 }

@@ -2,12 +2,7 @@
 .l-footer {
 	display: flex;
 	flex-direction: column;
-}
-.l-footer p,
-.l-footer a {
-	color: $LIME;
-	margin-bottom: 0;
-	font-size: 12px;
+	padding: 0 $SPACING_32;
 }
 .l-footer .block-number {
 	display: flex;
@@ -15,4 +10,16 @@
 }
 .l-footer .block-number a {
 	margin-left: 0.2rem;
+}
+.l-footer .app-info {
+	display: flex;
+	flex-direction: column;
+	padding-bottom: $SPACING_48;
+}
+.l-footer .app-info p,
+.l-footer .app-info a {
+	color: $WHITE;
+	margin-bottom: 0;
+	font-size: $BODY_TEXT_XS;
+	line-height: $SPACING_24;
 }

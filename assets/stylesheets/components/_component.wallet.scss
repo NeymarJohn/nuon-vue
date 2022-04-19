@@ -1,4 +1,18 @@
 /* #COMPONENT - WALLET */
+.wallet {
+	margin-bottom: $SPACING_24;
+}
 .wallet .btn {
+	padding: $SPACING_16 $SPACING_32;
+	font-size: $HEADING_FIVE;
+	border-radius: $BORDER_RADIUS_32;
+	background: $TRANSPARENT;
+	border: 1px solid $LIME;
+	color: $LIME;
+	height: $SPACING_64;
 	width: 100%;
+}
+.wallet .btn:hover {
+	background: $LIME;
+	color: $DARK_GREY;
 }
