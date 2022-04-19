@@ -1,8 +1,7 @@
 <template>
 	<div class="votes-table">
 		<LayoutFlex
-			direction="row-center-space-between"
-			class="u-mb-xxxs">
+			direction="row-center-space-between">
 			<h3>Votes</h3>
 			<h4 v-if="votes"><SuccessIcon /> {{ numberOfVotes }}</h4>
 		</LayoutFlex>

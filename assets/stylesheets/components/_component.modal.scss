@@ -60,7 +60,7 @@
 .modal__info--lower {
 	border: 1px solid $MEDIUM_LIGHT_GREY;
 	border-radius: 8px;
-	padding: $SPACING_XS $SPACING_MD;
+	padding: $SPACING_16 $SPACING_32;
 }
 .modal__info--lower p {
 	margin-bottom: 0;
@@ -143,7 +143,7 @@
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-	margin-bottom: $SPACING_XXS;
+	margin-bottom: $SPACING_12;
 }
 @media screen and (max-width: 990px) {
 	.modal__container {
@@ -156,7 +156,7 @@
 		max-height: 100%;
 		width: 100%;
 		height: 100%;
-		padding: $SPACING_XS;
+		padding: $SPACING_16;
 		border: 0;
 	}
 	.modal-fade-enter,

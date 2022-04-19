@@ -4,7 +4,7 @@
 			<div class="transaction-input">
 				<LayoutFlex
 					direction="row-center-space-between"
-					class="u-mb-xxs l-m-flex--column">
+					class="l-m-flex--column">
 					<h4>Enter amount to withdraw</h4>
 					<p class="u-mb-0">Available HX tokens: {{ numberWithCommas(maximum.toFixed(2)) }}</p>
 				</LayoutFlex>
@@ -33,14 +33,12 @@
 					<p v-if="!isDisabled()" class="u-is-success">Ready to withdraw</p>
 				</div>
 				<div v-if="inputValue === maximum">
-					<div class="modal__info--lower u-mb-md u-green-prompt">
+					<div class="modal__info--lower u-green-prompt">
 						<p>Inputting maximum unstake amount will enable claim rewards at the same time when exiting staking.</p>
 					</div>
-					<LayoutFlex
-						direction="column"
-						class="u-mb-md">
-						<h4 class="u-mb-xs">Select Your Reward Token</h4>
-						<div class="modal__info u-mb-sm">
+					<LayoutFlex direction="column">
+						<h4>Select Your Reward Token</h4>
+						<div class="modal__info">
 							<ClaimAccordion from="boardroom" :stepper="false" @selected-token="selectedTokenChanged" />
 						</div>
 					</LayoutFlex>
@@ -61,8 +59,8 @@
 			<TransactionSummary
 				v-else
 				:values="partialSummary" />
-			<div v-if="inputValue > 0 && inputValue < maximum" class="modal__info--lower u-mb-md">
-				<h4 class="u-mb-xxs">Days before unstake: {{ epoch }} Days</h4>
+			<div v-if="inputValue > 0 && inputValue < maximum" class="modal__info--lower">
+				<h4>Days before unstake: {{ epoch }} Days</h4>
 				<p>Withdrawing the staked token partially will reset the unstaked window to another 14 days.</p>
 			</div>
 			<div class="transaction-input__buttons">

@@ -7,19 +7,19 @@
 	flex-direction: column;
 	align-items: flex-start;
 	background: $WHITE;
-	padding: $SPACING_SM;
+	padding: $SPACING_24;
 	border-radius: 8px;
 	position: relative;
 	border: 1px solid $MEDIUM_LIGHT_GREY;
 }
 .panel h3 {
-	margin-bottom: $SPACING_XXS;
+	margin-bottom: $SPACING_12;
 }
 .panel__row {
 	flex-direction: row;
 	justify-content: space-between;
 	align-items: center;
-	margin-bottom: $SPACING_XXXXS;
+	margin-bottom: $SPACING_4;
 	width: 100%;
 	position: relative;
 }
@@ -38,7 +38,7 @@
 }
 .panel__row span svg,
 .panel__row span a svg {
-	margin-left: $SPACING_XXXS;
+	margin-left: $SPACING_8;
 	cursor: pointer;
 }
 .panel__row span a svg {

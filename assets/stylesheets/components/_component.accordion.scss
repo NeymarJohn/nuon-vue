@@ -21,7 +21,7 @@
 .accordion__header svg {
 	height: 24px;
 	width: 24px;
-	margin-left: $SPACING_XS;
+	margin-left: $SPACING_16;
 }
 .accordion__token p {
 	margin-bottom: 0;
@@ -44,7 +44,7 @@
 	align-items: center;
 	justify-content: flex-start;
 	position: relative;
-	margin-bottom: $SPACING_XS;
+	margin-bottom: $SPACING_16;
 }
 .accordion__filter:before {
 	content: url("data:image/svg+xml,%3Csvg width='18' height='18' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M11.385 12.446a6.75 6.75 0 1 1 1.06-1.06l5.156 5.155a.75.75 0 0 1-1.06 1.06l-5.156-5.155Zm-7.926-1.562a5.25 5.25 0 1 1 7.43-.004l-.005.004-.005.005a5.25 5.25 0 0 1-7.42-.005Z' fill='%23000'/%3E%3C/svg%3E");
@@ -57,7 +57,7 @@
 .accordion__filter input {
 	position: relative;
 	display: flex;
-	padding: $SPACING_XXXS 3.5rem;
+	padding: $SPACING_8 3.5rem;
 	align-items: center;
 	width: 100%;
 	white-space: nowrap;
@@ -105,7 +105,7 @@
 	top: 100%;
 	left: -1px;
 	right: -1px;
-	padding: $SPACING_XS $SPACING_MD;
+	padding: $SPACING_16 $SPACING_32;
 	border-left: 1px solid $MEDIUM_LIGHT_GREY;
 	border-right: 1px solid $MEDIUM_LIGHT_GREY;
 	border-bottom: 1px solid $MEDIUM_LIGHT_GREY;
@@ -132,7 +132,7 @@
 	top: 100%;
 	left: -1px;
 	right: -1px;
-	padding: $SPACING_MD;
+	padding: $SPACING_32;
 	border-left: 1px solid $MEDIUM_LIGHT_GREY;
 	border-right: 1px solid $MEDIUM_LIGHT_GREY;
 	border-bottom: 1px solid $MEDIUM_LIGHT_GREY;

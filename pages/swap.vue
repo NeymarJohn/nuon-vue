@@ -117,7 +117,7 @@
 						<div v-if="output.value && input.value">
 							<div class="swap__output">
 								<LayoutFlex direction="row-center">
-									<h4 class="u-mr-xxxs">1 {{ output.token }} = {{ input.value / output.value }} {{ input.token }}</h4>
+									<h4>1 {{ output.token }} = {{ input.value / output.value }} {{ input.token }}</h4>
 									<TheButton
 										size="icon"
 										title="Click to refresh price"
@@ -161,7 +161,7 @@
 					</template>
 					<template #step-two>
 						<TransactionSummarySwap :values="summary" :input="input" :output="output"/>
-						<p class="u-mb-md">Minimum received is estimated. You will receive at least <strong>{{ calculateSlippage() | formatPrice }} {{ output.token }}</strong> or the transaction will revert.</p>
+						<p>Minimum received is estimated. You will receive at least <strong>{{ calculateSlippage() | formatPrice }} {{ output.token }}</strong> or the transaction will revert.</p>
 						<div class="transaction-input__buttons">
 							<TheButton
 								size="lg"

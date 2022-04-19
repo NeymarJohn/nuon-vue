@@ -4,7 +4,7 @@
 			<template #step-one>
 				<LayoutFlex
 					direction="row-center-space-between"
-					class="u-mb-xxs l-m-flex--column">
+					class="l-m-flex--column">
 					<h4>{{ title }}</h4>
 					<p class="u-mb-0">{{ subtitle }}: {{ numberWithCommas(maximum.toFixed(2)) }}</p>
 				</LayoutFlex>

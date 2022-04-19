@@ -8,7 +8,7 @@
 	align-items: center;
 }
 .collateral-table h4 svg {
-	margin-right: $SPACING_XXXS;
+	margin-right: $SPACING_8;
 }
 .collateral-table__container {
 	display: block;
@@ -24,11 +24,11 @@
 	font-size: $BODY_TEXT_SM;
 }
 .collateral-table__row:first-child .collateral-table__cell {
-	padding: $SPACING_XXXS $SPACING_SM;
+	padding: $SPACING_8 $SPACING_24;
 }
 .collateral-table__cell {
 	width: calc(100% / 3);
-	padding: $SPACING_XS $SPACING_SM;
+	padding: $SPACING_16 $SPACING_24;
 }
 .data-card .collateral-table__cell h4 {
 	font-size: $HEADING_FOUR;

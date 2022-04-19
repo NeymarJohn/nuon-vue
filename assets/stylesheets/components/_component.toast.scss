@@ -1,11 +1,11 @@
 /* #COMPONENT - TOAST */
 .toast {
 	position: fixed;
-	top: $SPACING_MD;
-	right: $SPACING_MD;
+	top: $SPACING_32;
+	right: $SPACING_32;
 	border-radius: 6px;
 	z-index: 4;
-	padding: $SPACING_XXS $SPACING_SM;
+	padding: $SPACING_12 $SPACING_24;
 	min-width: 300px;
 }
 .toast a,

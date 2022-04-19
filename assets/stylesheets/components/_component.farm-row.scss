@@ -22,7 +22,7 @@
 
 .farm-row__item {
 	width: 20%;
-	padding: 0px $SPACING_SM;
+	padding: 0px $SPACING_24;
 	display: flex;
 	flex-direction: column;
 }
@@ -43,7 +43,7 @@
 
 .more-info__item {
 	width: 35%;
-	padding: $SPACING_SM;
+	padding: $SPACING_24;
 	height: 100%;
 }
 
@@ -60,7 +60,7 @@
 	border-radius: 20px;
 	height: 100%;
 	width: 100%;
-	padding: $SPACING_XS;
+	padding: $SPACING_16;
 
 	p {
 		font-size: 14px;

@@ -1,6 +1,6 @@
 <template>
 	<div class="collateral-table">
-		<LayoutFlex direction="row-center-space-between" class="u-mb-xxxs">
+		<LayoutFlex direction="row-center-space-between">
 			<h4><AccelerateIcon /> {{ tokens.length }}</h4>
 		</LayoutFlex>
 		<div class="collateral-table__container" role="table" aria-label="Collaterals">
@@ -12,7 +12,7 @@
 			<div v-for="(token, index) in tokens" :key="index" class="collateral-table__row" role="rowgroup">
 				<div class="collateral-table__cell l-flex l-flex-row-center" role="cell">
 					<TokePlaceholderIcon />
-					<h4 class="u-ml-xxs">{{ token.token }}</h4>
+					<h4>{{ token.token }}</h4>
 				</div>
 				<div class="collateral-table__cell" role="cell">{{ numberWithCommas(token.amount.toFixed(2)) }} {{ token.symbol.toUpperCase() }}</div>
 				<div class="collateral-table__cell" role="cell">${{ numberWithCommas(token.value.toFixed(2)) }}</div>

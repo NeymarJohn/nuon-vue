@@ -2,7 +2,7 @@
 	<div class="transaction-input">
 		<TheStepper :active-step="activeStep" :steps="['Input', 'Confirm']">
 			<template #step-one>
-				<LayoutFlex direction="row-center-space-between" class="u-mb-xxs l-m-flex--column">
+				<LayoutFlex direction="row-center-space-between" class="l-m-flex--column">
 					<h4>Enter amount to burn</h4>
 					<p>Available {{ tokenBurn }} tokens: {{ tokenBalance }}</p>
 				</LayoutFlex>

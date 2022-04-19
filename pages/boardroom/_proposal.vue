@@ -42,7 +42,6 @@
 						<div class="u-white-space-pre" v-html="compiledMarkdown"></div>
 						<TheButton
 							v-if="details.body && details.body.length > 400"
-							class="u-mt-xs"
 							:title="`Click to show ${isVisible ? 'less' : 'more'}`"
 							size="unstyled"
 							@click="isVisible = !isVisible">
@@ -50,7 +49,6 @@
 						</TheButton>
 					</ComponentLoader>
 					<VotesTable
-						class="u-pb-md"
 						:proposal-id="$route.params.proposal"
 						:choices="details.choices || []"
 						:number-of-votes="numberOfVotes"

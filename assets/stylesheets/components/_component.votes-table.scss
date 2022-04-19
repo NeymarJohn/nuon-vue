@@ -1,7 +1,7 @@
 /* #COMPONENT - VOTES TABLE */
 .votes-table {
 	width: 100%;
-	margin-top: $SPACING_MD;
+	margin-top: $SPACING_32;
 }
 .votes-table h4 {
 	display: flex;
@@ -9,7 +9,7 @@
 	align-items: center;
 }
 .votes-table h4 svg {
-	margin-right: $SPACING_XXXS;
+	margin-right: $SPACING_8;
 }
 .votes-table__container {
 	display: block;
@@ -28,7 +28,7 @@
 	font-size: $BODY_TEXT_SM;
 }
 .votes-table__row:first-child .votes-table__cell {
-	padding: $SPACING_XXXS $SPACING_SM;
+	padding: $SPACING_8 $SPACING_24;
 }
 .votes-table__row:last-child {
 	border-bottom-left-radius: 8px;
@@ -36,7 +36,7 @@
 }
 .votes-table__cell {
 	width: calc(100% / 3);
-	padding: $SPACING_SM;
+	padding: $SPACING_24;
 	border-bottom: 1px solid $MEDIUM_LIGHT_GREY;
 }
 .votes-table__cell:nth-child(1),

@@ -1,7 +1,7 @@
 <template>
 	<TheStepper :active-step="activeStep" :steps="['Token', 'Confirm']" :stepper="stepper">
 		<template #step-one>
-			<div class="accordion accordion--claim u-mb-md" :class="{ active: isActive }">
+			<div class="accordion accordion--claim" :class="{ active: isActive }">
 				<LayoutFlex direction="row-center-space-between">
 					<LayoutFlex
 						direction="row-center"

@@ -1,8 +1,8 @@
 <template>
 	<div>
-		<h4 class="u-mb-xs">Transaction Summary</h4>
+		<h4>Transaction Summary</h4>
 		<div class="transaction-summary">
-			<LayoutFlex direction="row-center-space-between" class="u-mb-xxxs">
+			<LayoutFlex direction="row-center-space-between">
 				<LayoutFlex direction="row-center">
 					<img :src="require(`~/assets/images/tokens/Hydro.png`)" alt="Hydro logo">
 					<h2>{{input.token}}</h2>
@@ -12,10 +12,10 @@
 					<p class="u-colour-grey-dark">~ ${{ input.value * tokenPrices[input.token] | formatPrice }}</p>
 				</LayoutFlex>
 			</LayoutFlex>
-			<LayoutFlex class="u-mb-xxxs">
+			<LayoutFlex>
 				<ArrowDownIcon />
 			</LayoutFlex>
-			<LayoutFlex direction="row-center-space-between" class="u-mb-sm">
+			<LayoutFlex direction="row-center-space-between">
 				<LayoutFlex direction="row-center">
 					<img :src="require(`~/assets/images/tokens/Ethereum.png`)" alt="Ethereum logo">
 					<h2>{{output.token}}</h2>
@@ -35,14 +35,13 @@
 					title="Click to accept"
 					@click="acceptNewPrice">Accept</TheButton>
 			</div>
-			<LayoutFlex v-else class="u-bb-black u-pb-xs u-mb-xs">
+			<LayoutFlex v-else class="u-bb-black">
 				<h4>1 {{output.token}} = {{swapPrice}} {{input.token}}</h4>
 			</LayoutFlex>
 			<LayoutFlex
 				v-for="(value, index) in values"
 				:key="index"
-				direction="row-start-space-between"
-				class="u-mb-xs">
+				direction="row-start-space-between">
 				<p>{{ value.title }}</p>
 				<LayoutFlex direction="column-end">
 					<p>{{ value.val }} {{ value.currency && value.currency }}</p>

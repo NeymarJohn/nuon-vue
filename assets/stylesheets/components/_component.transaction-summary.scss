@@ -9,7 +9,7 @@
 	height: 56px;
 	width: 56px;
 	border-radius: 50%;
-	margin-right: $SPACING_XS;
+	margin-right: $SPACING_16;
 }
 .transaction-summary p {
 	font-weight: 500;
@@ -26,9 +26,9 @@
 	flex-direction: row;
 	justify-content: space-between;
 	align-items: center;
-	padding: $SPACING_XS $SPACING_SM;
+	padding: $SPACING_16 $SPACING_24;
 	border: 1px solid $MEDIUM_LIGHT_GREY;
 	background: $LIGHT_GREY;
 	border-radius: 8px;
-	margin-bottom: $SPACING_MD;
+	margin-bottom: $SPACING_32;
 }

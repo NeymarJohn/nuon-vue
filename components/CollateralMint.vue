@@ -9,7 +9,6 @@
 			</div>
 			<div class="toggle__transaction">
 				<TheButton
-					class="u-mr-xxs"
 					size="lg"
 					:disabled="isApproved"
 					:class="isApproved"
@@ -29,7 +28,6 @@
 			<TransactionSummary :values="summary" />
 			<div class="toggle__transaction">
 				<TheButton
-					class="u-mr-xxs"
 					size="lg"
 					title="Click to go back"
 					@click="activeStep = 1">Back</TheButton>

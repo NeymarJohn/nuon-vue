@@ -31,7 +31,7 @@
 				<div class="form__block form__block--one">
 					<label for="question">Proposal Title <sup>*</sup></label>
 					<input id="question" v-model="proposal.title" placeholder="Type your question here" type="text" autocomplete="off" autocorrect="off" spellcheck="true" title="Click to enter proposal title" @input="handleInputChange" />
-					<p v-if="errors.title" class="u-is-warning u-mt-xxs u-mb-0">{{ errors.title }}</p>
+					<p v-if="errors.title" class="u-is-warning u-mb-0">{{ errors.title }}</p>
 				</div>
 				<div class="form__block form__block--two">
 					<label for="proposal">Proposal Description</label>

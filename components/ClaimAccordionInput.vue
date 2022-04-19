@@ -1,7 +1,7 @@
 <template>
 	<TheStepper :active-step="activeStep" :steps="['Input', 'Confirm']">
 		<template #step-one>
-			<div class="accordion accordion--claim u-mb-md" :class="{ active: isActive }">
+			<div class="accordion accordion--claim" :class="{ active: isActive }">
 				<LayoutFlex direction="row-center-space-between">
 					<LayoutFlex
 						direction="row-center"
@@ -16,7 +16,7 @@
 						<ChevronUpIcon v-else />
 					</LayoutFlex>
 					<DataCard align="end" class="u-half-width">
-						<p v-if="token" class="u-mb-xxs">Available {{token.symbol}} tokens: {{ numberWithCommas(token.balance.toFixed(2)) }}</p>
+						<p v-if="token">Available {{token.symbol}} tokens: {{ numberWithCommas(token.balance.toFixed(2)) }}</p>
 						<div class="input">
 							<div class="input__container">
 								<input
@@ -35,7 +35,7 @@
 						<h5 v-if="token">~ ${{ numberWithCommas(getDollarValue(inputValue, token.price).toFixed(2)) }}</h5>
 					</DataCard>
 				</LayoutFlex>
-				<p v-if="isMoreThanBalance" class="u-is-warning u-mb-0 u-text-right u-mt-xxs">Insufficient balance.</p>
+				<p v-if="isMoreThanBalance" class="u-is-warning u-mb-0 u-text-right">Insufficient balance.</p>
 				<div class="accordion__body">
 					<div class="accordion__filter">
 						<input ref="searchtoken" v-model="search" type="text" placeholder="Search for your token" autocomplete="off">
@@ -59,7 +59,7 @@
 			</div>
 			<TheButton
 				v-if="stepper"
-				class="u-full-width u-mb-md"
+				class="u-full-width"
 				size="lg"
 				title="Click to go next"
 				:disabled="!canClaimRewards"
@@ -69,11 +69,11 @@
 		</template>
 		<template #step-two>
 			<TransactionSummary :values="summary" />
-			<div v-if="inputValue > 0" class="modal__info--lower u-mb-md">
-				<h4 class="u-mb-xxs">Days before unstake: {{ epoch }} Days</h4>
+			<div v-if="inputValue > 0" class="modal__info--lower">
+				<h4>Days before unstake: {{ epoch }} Days</h4>
 				<p>Withdrawing the staked token partially will reset the unstaked window to another 14 days.</p>
 			</div>
-			<div class="u-mb-md transaction-input__buttons">
+			<div class="transaction-input__buttons">
 				<TheButton
 					class="btn btn--lg"
 					size="lg"
