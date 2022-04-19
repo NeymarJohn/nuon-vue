@@ -24,8 +24,8 @@
 }
 a.btn:hover,
 .btn:hover {
-	background: $LIGHT_GREY;
-	color: $MEDIUM_LIGHT_GREY;
+	background: $LIME;
+	color: $DARK_GREY;
 }
 .btn:active {
 	background: $LIGHT_LIME;
@@ -138,17 +138,17 @@ a.btn:hover,
 	font-weight: 500;
 }
 .btn--ghost {
-	background: $WHITE;
+	background: $TRANSPARENT;
 	color: $LIME;
-	border: 4px solid $LIGHT_LIME;
-	padding: $SPACING_18 $SPACING_32;
+	border: 1px solid $LIME;
+	padding: $SPACING_20 $SPACING_32;
 	border-radius: $BORDER_RADIUS_32;
-	height: $SPACING_64;
+	height: $SPACING_56;
 }
 .btn--ghost[disabled],
 .btn--ghost[disabled]:hover {
-	background: $MEDIUM_LIGHT_GREY;
-	border-color: $MEDIUM_LIGHT_GREY;
+	background: $DARK_GREY;
+	border-color: $DARK_GREY;
 }
 @media screen and (max-width: 1440px) {
 	.btn--md {

@@ -39,7 +39,7 @@
 .data-card p {
 	margin-bottom: $SPACING_4;
 	line-height: $SPACING_30;
-	color: $MEDIUM_LIGHT_GREY;
+	color: $LIGHT_GREY;
 }
 .data-card p:last-child {
 	margin-bottom: 0;
@@ -60,6 +60,9 @@
 .data-card--end,
 .data-card--end .btn {
 	align-items: flex-end;
+}
+.data-card--end .btn {
+	height: $SPACING_64;
 }
 @media screen and (max-width: 1440px) {
 	.data-card label {

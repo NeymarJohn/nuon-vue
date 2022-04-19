@@ -1,6 +1,6 @@
 /* #LAYOUT - PEG ZONE */
 .l-peg-zone {
-	background: $WHITE;
+	background: $MEDIUM_LIGHT_GREY;
 	border-radius: $BORDER_RADIUS_32;
 	padding: $SPACING_48;
 	margin-bottom: $SPACING_48;
@@ -8,6 +8,9 @@
 .l-peg-zone hr {
 	margin: $SPACING_40 0;
 	height: 2px;
-	background: $MEDIUM_LIGHT_GREY;
+	background: $LIGHT_GREY;
 	border: 0;
+}
+.l-peg-zone .page-title p {
+	color: $LIGHT_GREY;
 }

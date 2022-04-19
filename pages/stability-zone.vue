@@ -8,11 +8,11 @@
 				</PageTitle>
 				<LayoutFlex>
 					<NuxtLink
-						class="btn btn--md u-mr-30"
+						class="btn btn--ghost u-mr-30"
 						to="/swap?outputToken=USX"
 						title="Click to buy USX">Buy USX</NuxtLink>
 					<NuxtLink
-						class="btn btn--md"
+						class="btn btn--ghost"
 						to="/swap?outputToken=HX"
 						title="Click to buy HX">Buy HX</NuxtLink>
 				</LayoutFlex>
@@ -56,10 +56,10 @@
 						<LayoutFlex direction="row-center-space-between">
 							<h3 v-if="price.usx">{{ numberWithCommas(price.usx.toFixed(2)) }}</h3>
 							<TheLoader v-if="price.usx > tolerance.high" component="badge">
-								<TheBadge v-if="price.usx" color="purple">Above</TheBadge>
+								<TheBadge v-if="price.usx">Above</TheBadge>
 							</TheLoader>
 							<TheLoader v-else-if="price.usx < tolerance.low" component="badge">
-								<TheBadge v-if="price.usx" color="purple">Below</TheBadge>
+								<TheBadge v-if="price.usx">Below</TheBadge>
 							</TheLoader>
 						</LayoutFlex>
 					</TheLoader>
@@ -116,8 +116,8 @@
 							<p>Claim statement and description (make audience aware of the claim info)</p>
 						</PageTitle>
 						<DataCard align="end">
+							<p>Pending to Claim</p>
 							<h3>{{ numberWithCommas(claimBalance.toFixed(2)) }}<sup>HX</sup></h3>
-							<h5>${{ numberWithCommas(getDollarValue(claimBalance, price.hx).toFixed(2)) }}</h5>
 							<TheButton
 								size="ghost"
 								:disabled="!canClaim"
