@@ -2,8 +2,8 @@
 html {
 	@include font-smoothing(antialiased);
 	font-family: $FONT_BODY;
-	font-weight: 400;
 	font-size: $BODY_TEXT;
+	font-weight: normal;
 }
 body {
 	color: $DARK_BLUE;

@@ -4,7 +4,6 @@ h2,
 h3,
 h4,
 h5 {
-	font-family: $FONT_BODY;
 	word-break: break-word;
 	word-wrap: break-word;
 	margin-top: 0;
@@ -13,13 +12,16 @@ h5 {
 	margin-bottom: 0;
 }
 h1,
-h3 {
-	font-weight: 600;
-}
 h2,
-h4,
+h4 {
+	font-family: $FONT_HEADING_MEDIUM;
+}
+h3 {
+	font-family: $FONT_HEADING_SEMIBOLD;
+}
 h5 {
-	font-weight: 500;
+	font-family: $FONT_BODY;
+	font-weight: normal;
 }
 h1 {
 	font-size: $HEADING_ONE;
@@ -41,7 +43,7 @@ h4 {
 }
 h5 {
 	font-size: $HEADING_FIVE;
-	line-height: $SPACING_28;
+	line-height: $SPACING_24;
 }
 p,
 blockquote,
@@ -49,7 +51,6 @@ ul,
 ol,
 time,
 sup {
-	font-weight: 400;
 	color: $DARK_BLUE;
 	line-height: $SPACING_30;
 	margin-top: 0;
@@ -58,7 +59,6 @@ sup {
 	word-wrap: break-word;
 }
 sup {
-	font-weight: 500;
 	line-height: $SPACING_21;
 	margin-bottom: 0;
 }
@@ -69,9 +69,6 @@ li {
 }
 ol {
 	list-style-type: decimal;
-}
-strong {
-	font-family: 600;
 }
 @media screen and (max-width: 1440px) {
 	h1 {

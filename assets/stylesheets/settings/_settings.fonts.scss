@@ -1,11 +1,34 @@
 /* #SETTINGS - FONTS */
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
+@font-face {
+	font-family: "Archia Medium";
+	src: url("~/assets/fonts/Archia-Medium.woff2") format("woff2"),
+		url("~/assets/fonts/Archia-Medium.woff") format("woff");
+	font-weight: 500;
+	font-style: normal;
+	font-display: swap;
+}
+@font-face {
+	font-family: "Archia SemiBold";
+	src: url("~/assets/fonts/Archia-SemiBold.woff2") format("woff2"),
+		url("~/assets/fonts/Archia-SemiBold.woff") format("woff");
+	font-weight: 600;
+	font-style: normal;
+	font-display: swap;
+}
+@font-face {
+	font-family: "Geomanist";
+	src: url("~/assets/fonts/Geomanist.woff2") format("woff2"),
+		url("~/assets/fonts/Geomanist.woff") format("woff");
+	font-weight: normal;
+	font-style: normal;
+	font-display: swap;
+}
 
-$HEADING_ONE: 2.25rem;
-$HEADING_TWO: 1.75rem;
-$HEADING_THREE: 1.625rem;
-$HEADING_FOUR: 1.125rem;
-$HEADING_FIVE: 1rem;
+$HEADING_ONE: 2.625rem;
+$HEADING_TWO: 1.875rem;
+$HEADING_THREE: 1.75rem;
+$HEADING_FOUR: 1.25rem;
+$HEADING_FIVE: 1.125rem;
 
 $HEADING_ONE_1440: 2rem;
 $HEADING_TWO_1440: 1.5rem;
@@ -14,7 +37,7 @@ $HEADING_FOUR_1440: 1rem;
 $HEADING_FIVE_1440: 0.875rem;
 
 $HEADING_ONE_990: 1.75rem;
-$HEADING_TWO_990: 1.375rem;
+$HEADING_TWO_990: 1.5rem;
 $HEADING_THREE_990: 1.375rem;
 $HEADING_FOUR_990: 0.875rem;
 $HEADING_FIVE_990: 0.75rem;
@@ -29,4 +52,6 @@ $BODY_TEXT: 1rem;
 $BODY_TEXT_SM: 0.875rem;
 $BODY_TEXT_XS: 0.75rem;
 
-$FONT_BODY: "Poppins", sans-serif;
+$FONT_BODY: "Geomanist";
+$FONT_HEADING_MEDIUM: "Archia Medium";
+$FONT_HEADING_SEMIBOLD: "Archia SemiBold";
