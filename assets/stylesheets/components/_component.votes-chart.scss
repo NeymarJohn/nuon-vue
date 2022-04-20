@@ -15,7 +15,7 @@
 	flex-direction: column;
 }
 .votes-chart__row {
-	margin-bottom: $SPACING_24;
+	margin-bottom: $SPACING_30;
 }
 .votes-chart__row:last-child {
 	margin-bottom: 0;
@@ -41,11 +41,11 @@
 }
 .votes-chart__chart,
 .votes-chart__chart--fill {
-	height: 4px;
-	border-radius: 4px;
+	height: $BORDER_RADIUS_4;
+	border-radius: $BORDER_RADIUS_4;
 }
 .votes-chart__chart {
-	background: $MEDIUM_LIGHT_GREY;
+	background: $LIGHT_GREY;
 	position: relative;
 }
 .votes-chart__chart--fill {
@@ -53,5 +53,5 @@
 	left: 0;
 	top: 0;
 	right: 0;
-	background: #9d3fe7;
+	background: $LIME;
 }

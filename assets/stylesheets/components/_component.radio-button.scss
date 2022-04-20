@@ -16,7 +16,7 @@ input[type="radio"] {
 	color: $LIME;
 	width: 1.125rem;
 	height: 1.125rem;
-	border: 1px solid $MEDIUM_LIGHT_GREY;
+	border: 1px solid $SUCCESS;
 	border-radius: 50%;
 	display: grid;
 	place-content: center;
@@ -29,7 +29,7 @@ input[type="radio"]::before {
 	border-radius: 50%;
 	transform: scale(0);
 	transition: 120ms transform ease-in-out;
-	background-color: CanvasText;
+	background-color: $SUCCESS;
 }
 input[type="radio"]:checked::before {
 	transform: scale(1);
@@ -39,8 +39,10 @@ label[disabled]input[type="radio"] {
 	cursor: not-allowed;
 }
 label[disabled] {
-	color: $MEDIUM_LIGHT_GREY;
+	color: $WHITE;
+	font-size: $HEADING_FIVE;
+	line-height: $SPACING_24;
 }
 label[disabled]input[type="radio"] {
-	background-color: $LIGHT_GREY;
+	background-color: $WHITE;
 }

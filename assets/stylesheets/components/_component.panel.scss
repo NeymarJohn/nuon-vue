@@ -18,7 +18,7 @@
 	flex-direction: row;
 	justify-content: space-between;
 	align-items: center;
-	margin-bottom: $SPACING_4;
+	margin-bottom: $SPACING_18;
 	width: 100%;
 	position: relative;
 }
@@ -26,8 +26,12 @@
 .panel__row p {
 	margin-bottom: 0;
 }
+.panel__row p {
+	color: $LIGHT_GREY;
+}
+.panel__row p,
 .panel__row span {
-	font-size: $BODY_TEXT_SM;
+	line-height: $SPACING_24;
 }
 .panel__row span,
 .panel__row span a {
@@ -35,11 +39,18 @@
 	flex-direction: row;
 	align-items: center;
 }
+.panel__row span a {
+	color: $WHITE;
+}
 .panel__row span svg,
 .panel__row span a svg {
-	margin-left: $SPACING_8;
+	margin-left: $SPACING_20;
 	cursor: pointer;
 }
-.panel__row span a svg {
-	height: $SPACING_16;
+.panel__row span svg path,
+.panel__row span svg {
+	transition: $TRANSITION_ALL;
+}
+.panel__row span svg:hover path {
+	stroke: $LIME;
 }
