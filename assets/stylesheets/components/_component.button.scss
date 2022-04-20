@@ -1,7 +1,6 @@
 /* #COMPONENT - BUTTON */
 .btn {
 	font-family: $FONT_BODY;
-	font-weight: 500;
 	display: inline-flex;
 	appearance: none;
 	align-items: center;
@@ -34,13 +33,6 @@ a.btn:hover,
 	background: $TRANSPARENT;
 }
 .btn:focus {
-	box-shadow: none;
-}
-.btn--unstyled:active,
-.btn--unstyled:hover {
-	background: $TRANSPARENT;
-}
-.btn--unstyled:focus {
 	box-shadow: none;
 }
 .btn[disabled],
@@ -79,7 +71,6 @@ a.btn:hover,
 	border-radius: $BORDER_RADIUS_32;
 	background: $LIGHT_LIME;
 	color: $LIME;
-	font-weight: 500;
 }
 .btn--icon {
 	transition: 0.3s ease;
@@ -133,9 +124,17 @@ a.btn:hover,
 	font-size: $HEADING_FIVE;
 	line-height: 1.875rem;
 	background: $TRANSPARENT;
-	color: $LIME;
+	color: $LIGHT_GREY;
 	padding: 0;
-	font-weight: 500;
+	text-decoration: underline;
+}
+.btn--unstyled:active,
+.btn--unstyled:hover {
+	background: $TRANSPARENT;
+	color: $LIME;
+}
+.btn--unstyled:focus {
+	box-shadow: none;
 }
 .btn--ghost {
 	background: $TRANSPARENT;

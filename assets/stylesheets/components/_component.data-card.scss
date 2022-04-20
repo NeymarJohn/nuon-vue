@@ -10,7 +10,6 @@
 	align-items: center;
 	font-size: $BODY_TEXT;
 	color: $LIGHT_GREY;
-	font-weight: 400;
 	margin-bottom: $SPACING_4;
 	line-height: $SPACING_30;
 }
@@ -47,7 +46,6 @@
 .data-card .accordion__available {
 	color: $DARK_GREY;
 	margin-bottom: $SPACING_12;
-	font-weight: 500;
 }
 .data-card sup {
 	position: relative;
