@@ -21,7 +21,7 @@
 	width: 100%;
 	padding: $SPACING_32;
 	border-radius: $BORDER_RADIUS_16;
-	transition: all 0.3s ease;
+	transition: $TRANSITION_ALL;
 	border: 2px solid $TRANSPARENT;
 }
 .proposal a:hover {

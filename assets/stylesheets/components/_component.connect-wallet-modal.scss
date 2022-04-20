@@ -3,7 +3,7 @@
 }
 .icon-container:hover {
 	transform: scale(0.9);
-	transition: 0.3s ease;
+	transition: $TRANSITION_ALL;
 	opacity: 0.6;
 }
 .icon-title {

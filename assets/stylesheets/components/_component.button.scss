@@ -73,7 +73,7 @@ a.btn:hover,
 	color: $LIME;
 }
 .btn--icon {
-	transition: 0.3s ease;
+	transition: $TRANSITION_ALL;
 	background: $TRANSPARENT;
 }
 .btn--icon:hover {
@@ -135,7 +135,7 @@ a.btn:hover,
 	right: 0;
 	bottom: 3px;
 	background: $LIGHT_GREY;
-	transition: all 0.3s ease;
+	transition: $TRANSITION_ALL;
 }
 .btn--unstyled:active,
 .btn--unstyled:hover {

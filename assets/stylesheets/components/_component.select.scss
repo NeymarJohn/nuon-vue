@@ -21,7 +21,7 @@
 	color: $MEDIUM_LIGHT_GREY;
 }
 .select__selected {
-	transition: all 0.3s ease;
+	transition: $TRANSITION_ALL;
 	display: flex;
 	justify-content: space-between;
 	flex-direction: row;
@@ -40,7 +40,7 @@
 	fill: $LIME;
 }
 .select__selected svg path {
-	transition: all 0.3s ease;
+	transition: $TRANSITION_ALL;
 }
 .select__selected svg {
 	height: $SPACING_24;

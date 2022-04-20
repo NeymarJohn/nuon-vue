@@ -10,7 +10,7 @@
 }
 .nav a,
 .nav svg path {
-	transition: 0.3s ease;
+	transition: $TRANSITION_ALL;
 }
 .nav a {
 	display: flex;
@@ -28,8 +28,11 @@
 }
 .nav a .external-link-icon {
 	fill: $WHITE;
-	height: 12px;
-	margin-left: 5px;
+	height: $SPACING_12;
+	margin-left: $SPACING_5;
+}
+.nav .active-link {
+	position: relative;
 }
 .nav .active-link,
 .nav .active-link:hover {
@@ -37,6 +40,19 @@
 }
 .nav .active-link svg path {
 	stroke: $LIME;
+}
+.nav a.nuxt-link-active.active-link:after {
+	content: "";
+	width: $SPACING_3;
+	height: $SPACING_40;
+	border-top-left-radius: $BORDER_RADIUS_4;
+	border-top-right-radius: $BORDER_RADIUS_4;
+	background: $LIME;
+	right: -32px;
+	top: 50%;
+	transform: translateY(-50%);
+	bottom: 0;
+	position: absolute;
 }
 .nav a svg {
 	margin-right: $SPACING_10;

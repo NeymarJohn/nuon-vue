@@ -15,7 +15,7 @@
 	margin-bottom: 0;
 }
 .toast-slide-enter-active {
-	transition: all 0.3s ease;
+	transition: $TRANSITION_ALL;
 }
 .toast-slide-leave-active {
 	transition: all 0.3s cubic-bezier(1, 0.5, 0.8, 1);

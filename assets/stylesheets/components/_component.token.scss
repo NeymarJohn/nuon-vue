@@ -6,7 +6,7 @@
 	justify-content: space-between;
 	cursor: pointer;
 	padding: $SPACING_12;
-	transition: all 0.3s ease;
+	transition: $TRANSITION_ALL;
 }
 .token:hover {
 	background: $DARK_GREY;
