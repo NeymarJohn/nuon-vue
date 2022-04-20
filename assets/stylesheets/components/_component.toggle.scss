@@ -10,7 +10,7 @@
 }
 .toggle {
 	align-items: center;
-	background: $WHITE;
+	background: $DARK_GREY;
 	border-radius: $BORDER_RADIUS_32;
 	padding: $SPACING_72 $SPACING_40;
 	box-shadow: $BOX_SHADOW_CONTAINER;
@@ -21,27 +21,27 @@
 }
 .toggle__buttons .btn {
 	background-color: $MEDIUM_GREY;
-	color: $WHITE;
-	border-top: 4px solid $LIGHT_LIME;
-	border-bottom: 4px solid $LIGHT_LIME;
+	color: $LIME;
+	border-top: 1px solid $LIME;
+	border-bottom: 1px solid $LIME;
 	border-radius: $BORDER_RADIUS_24;
 	padding: $SPACING_14 $SPACING_100;
 	min-height: $SPACING_56;
 	line-height: $SPACING_28;
 }
 .toggle__buttons .btn.active {
-	background-color: $LIGHT_LIME;
-	color: $LIME;
+	background-color: $LIME;
+	color: $DARK_GREY;
 }
 .toggle__buttons .btn:first-child {
 	border-top-right-radius: 0;
 	border-bottom-right-radius: 0;
-	border-left: 4px solid $LIGHT_LIME;
+	border-left: 1px solid $LIME;
 }
 .toggle__buttons .btn:last-child {
 	border-top-left-radius: 0;
 	border-bottom-left-radius: 0;
-	border-right: 4px solid $LIGHT_LIME;
+	border-right: 1px solid $LIME;
 }
 .toggle__content,
 .toggle__transaction {

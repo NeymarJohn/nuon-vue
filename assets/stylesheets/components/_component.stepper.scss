@@ -10,7 +10,7 @@
 }
 .stepper__progress {
 	position: absolute;
-	background: $MEDIUM_LIGHT_GREY;
+	background: $LIGHT_GREY;
 	height: $SPACING_4;
 	border-radius: $BORDER_RADIUS_50;
 	z-index: -1;
@@ -23,7 +23,7 @@
 	left: 0;
 	height: 100%;
 	width: 0%;
-	background: $SUCCESS;
+	background: $LIME;
 	transition: all 0.3s ease;
 }
 .stepper__panel {
@@ -41,9 +41,9 @@
 	width: $SPACING_32;
 	display: grid;
 	place-items: center;
-	background: $WHITE;
+	background: $MEDIUM_LIGHT_GREY;
 	border-radius: 50%;
-	border: 2px solid $MEDIUM_GREY;
+	border: 2px solid $LIGHT_GREY;
 	position: relative;
 }
 .stepper__counter svg {
@@ -62,7 +62,7 @@
 	bottom: -$SPACING_28;
 	font-size: $BODY_TEXT;
 	line-height: $SPACING_28;
-	color: $MEDIUM_GREY;
+	color: $LIGHT_GREY;
 }
 .stepper__loading {
 	text-align: center;
@@ -81,14 +81,14 @@
 	margin: $SPACING_32 auto;
 }
 .stepper__item.active .stepper__title {
-	color: $DARK_GREY;
+	color: $LIME;
 }
 .stepper__item.active .stepper__counter {
 	border: 0;
-	background: $LIGHT_LIME;
+	background: $MEDIUM_LIGHT_GREY;
 }
 .stepper__item.active .stepper__number {
-	background: $SUCCESS;
+	background: $LIME;
 	height: $SPACING_12;
 	width: $SPACING_12;
 	border-radius: 50%;
@@ -97,20 +97,18 @@
 }
 .stepper__item.success .stepper__counter {
 	border-color: $TRANSPARENT;
-	background-color: $LIGHT_LIME;
-	color: $WHITE;
 }
 .stepper__item.success .stepper__counter svg {
 	opacity: 1;
 	transform: scale(1);
 }
 .stepper__item.success .stepper__counter svg path {
-	fill: $SUCCESS;
+	fill: $LIME;
 }
 .stepper__item.success .stepper__number {
 	opacity: 0;
 	transform: scale(0);
 }
 .stepper__item.success .stepper__title {
-	color: $SUCCESS;
+	color: $LIME;
 }
