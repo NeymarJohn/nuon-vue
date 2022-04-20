@@ -8,8 +8,7 @@
 						size="icon"
 						class="u-mr-24 u-no-transition u-p-0"
 						title="Click to go back"
-						@click="getPreviousPage"><ChevronLeftIcon /></TheButton>
-					Proposal #{{ details.snapshot }}</h1>
+						@click="getPreviousPage"><ChevronLeftIcon /></TheButton>Proposal #{{ details.snapshot }}</h1>
 			</PageTitle>
 			<LayoutInfo size="2">
 				<DataCard>
@@ -31,129 +30,130 @@
 				</DataCard>
 			</LayoutInfo>
 		</LayoutContainer>
-		<LayoutContainer>
-			<LayoutGridSidePanel>
-				<div class="proposal-details">
-					<h2>Description</h2>
-					<ComponentLoader
-						:loaded="!!details.snapshot"
-						width="u-full-width"
-						slot-classes="l-flex--column">
-						<div class="u-white-space-pre" v-html="compiledMarkdown"></div>
-						<TheButton
-							v-if="details.body && details.body.length > 400"
-							:title="`Click to show ${isVisible ? 'less' : 'more'}`"
-							size="unstyled"
-							@click="isVisible = !isVisible">
-							Show {{ isVisible ? "less" : "more" }}...
-						</TheButton>
-					</ComponentLoader>
-					<VotesTable
-						:proposal-id="$route.params.proposal"
-						:choices="details.choices || []"
-						:number-of-votes="numberOfVotes"
+		<LayoutGridSidePanel>
+			<div class="proposal-details">
+				<h2>Description<TooltipIcon v-tooltip="'Enter description tooltip content here.'" /></h2>
+				<ComponentLoader
+					:loaded="!!details.snapshot"
+					width="u-full-width"
+					slot-classes="l-flex--column">
+					<div class="u-white-space-pre" v-html="compiledMarkdown"></div>
+					<TheButton
+						v-if="details.body && details.body.length > 400"
+						:title="`Click to show ${isVisible ? 'less' : 'more'}`"
+						size="unstyled"
+						@click="isVisible = !isVisible">
+						Show {{ isVisible ? "less" : "more" }}
+					</TheButton>
+				</ComponentLoader>
+				<VotesTable
+					:proposal-id="$route.params.proposal"
+					:choices="details.choices || []"
+					:number-of-votes="numberOfVotes"
+					:proposal-state="details.state" />
+			</div>
+			<ThePanel>
+				<h3>Information<TooltipIcon v-tooltip="'Enter information tooltip content here.'" /></h3>
+				<ComponentLoader
+					:loaded="!!details.author && !!details.start && !!details.end && !!details.snapshot"
+					width="u-full-width"
+					slot-classes="l-flex--column">
+					<div class="panel__row">
+						<p>Author</p>
+						<span>{{ shortAddress(details.author) }} <ClipboardIcon @click="copyText" /></span>
+						<input id="text-to-copy" type="hidden" :value="details.author">
+						<div class="tooltip" :class="{ visible: isCopySuccess }">Address Copied!</div>
+					</div>
+					<div class="panel__row">
+						<p>Start Date</p>
+						<span>{{ formatDate(new Date(details.start * 1000)) }}</span>
+					</div>
+					<div class="panel__row">
+						<p>End date</p>
+						<span>{{ formatDate(new Date(details.end * 1000)) }}</span>
+					</div>
+					<div class="panel__row">
+						<p>Block number</p>
+						<span><a :href="`https://etherscan.io/block/${details.snapshot}`" title="Click to view the latest block" target="_blank" rel="noopener noreferrer">{{ details.snapshot }} <ExternalLinkIcon /></a></span>
+					</div>
+				</ComponentLoader>
+			</ThePanel>
+			<ThePanel>
+				<h3>Current Results<TooltipIcon v-tooltip="'Enter current results tooltip content here.'" /></h3>
+				<ComponentLoader
+					:loaded="!!voteScores && !!details.choices"
+					width="u-full-width"
+					slot-classes="l-flex--column">
+					<VotesChart
+						:scores="voteScores"
+						:choices="details.choices"
 						:proposal-state="details.state" />
-				</div>
-				<ThePanel title="Information">
-					<ComponentLoader
-						:loaded="!!details.author && !!details.start && !!details.end && !!details.snapshot"
-						width="u-full-width"
-						slot-classes="l-flex--column">
-						<div class="panel__row">
-							<p>Author</p>
-							<span>{{ shortAddress(details.author) }} <ClipboardIcon @click="copyText" /></span>
-							<input id="text-to-copy" type="hidden" :value="details.author">
-							<div class="tooltip" :class="{ visible: isCopySuccess }">Address Copied!</div>
-						</div>
-						<div class="panel__row">
-							<p>Start Date</p>
-							<span>{{ formatDate(new Date(details.start * 1000)) }}</span>
-						</div>
-						<div class="panel__row">
-							<p>End date</p>
-							<span>{{ formatDate(new Date(details.end * 1000)) }}</span>
-						</div>
-						<div class="panel__row">
-							<p>Block number</p>
-							<span><a :href="`https://etherscan.io/block/${details.snapshot}`" title="Click to view the latest block" target="_blank" rel="noopener noreferrer">{{ details.snapshot }} <ExternalLinkIcon /></a></span>
-						</div>
-					</ComponentLoader>
-				</ThePanel>
-				<ThePanel title="Current Results">
-					<ComponentLoader
-						:loaded="!!voteScores && !!details.choices"
-						width="u-full-width"
-						slot-classes="l-flex--column">
-						<VotesChart
-							:scores="voteScores"
-							:choices="details.choices"
-							:proposal-state="details.state" />
-					</ComponentLoader>
-				</ThePanel>
-				<ThePanel title="Cast Your Vote">
-					<ComponentLoader
-						:loaded="!!details.choices"
-						width="u-full-width"
-						slot-classes="l-flex--column">
-						<label v-for="(choice, choiceIdx) in details.choices" :key="choiceIdx" class="radio-button" :disabled="details.state !== 'active'">
-							<input v-model="vote" type="radio" name="radio" :value="choiceIdx" :disabled="details.state !== 'active'" />
-							{{ choice }}
-						</label>
-						<p v-if="!votingPower && details.state === 'active'" class="u-is-warning">Please stake for voting power.</p>
-						<TheButton
-							v-if="details.state !== 'active'"
-							disabled
-							size="lg"
-							title="Voting has closed"
-							class="l-flex--align-self-start">Voting Closed</TheButton>
-						<TheButton
-							v-else
-							:disabled="!isConnectedWallet || vote === null"
-							size="lg"
-							title="Click to vote"
-							class="l-flex--align-self-start"
-							@click="setModalVisibility('voteModal', true)">Vote</TheButton>
-					</ComponentLoader>
-					<TheModal
-						v-show="isVoteModalVisible"
-						title="Confirm Vote"
-						subtitle="Are you sure you want to cast this vote? This action cannot be undone."
-						:class="modalStatus"
-						@close-modal="setModalVisibility('voteModal', false)">
-						<TheStepper :active-step="activeStep" :stepper="false">
-							<template #step-one>
-								<div class="modal__confirm">
-									<div class="modal__confirm--panel">
-										<div class="modal__confirm--row">
-											<p>Choice</p>
-											<p>{{ details.choices && details.choices[vote] }}</p>
-										</div>
-										<div class="modal__confirm--row">
-											<p>Block number</p>
-											<p>{{ details.snapshot }}</p>
-										</div>
-										<div class="modal__confirm--row">
-											<p>Your voting power</p>
-											<p>{{ numberWithCommas(votingPower.toFixed(2)) }}%</p>
-										</div>
+				</ComponentLoader>
+			</ThePanel>
+			<ThePanel>
+				<h3>Cast Your Vote<TooltipIcon v-tooltip="'Enter cast your vote tooltip content here.'" /></h3>
+				<ComponentLoader
+					:loaded="!!details.choices"
+					width="u-full-width"
+					slot-classes="l-flex--column">
+					<label v-for="(choice, choiceIdx) in details.choices" :key="choiceIdx" class="radio-button" :disabled="details.state !== 'active'">
+						<input v-model="vote" type="radio" name="radio" :value="choiceIdx" :disabled="details.state !== 'active'" />
+						{{ choice }}
+					</label>
+					<p v-if="!votingPower && details.state === 'active'" class="u-is-warning">Please stake for voting power.</p>
+					<TheButton
+						v-if="details.state !== 'active'"
+						disabled
+						size="lg"
+						title="Voting has closed"
+						class="l-flex--align-self-start">Voting Closed</TheButton>
+					<TheButton
+						v-else
+						:disabled="!isConnectedWallet || vote === null"
+						size="lg"
+						title="Click to vote"
+						class="l-flex--align-self-start"
+						@click="setModalVisibility('voteModal', true)">Vote</TheButton>
+				</ComponentLoader>
+				<TheModal
+					v-show="isVoteModalVisible"
+					title="Confirm Vote"
+					subtitle="Are you sure you want to cast this vote? This action cannot be undone."
+					:class="modalStatus"
+					@close-modal="setModalVisibility('voteModal', false)">
+					<TheStepper :active-step="activeStep" :stepper="false">
+						<template #step-one>
+							<div class="modal__confirm">
+								<div class="modal__confirm--panel">
+									<div class="modal__confirm--row">
+										<p>Choice</p>
+										<p>{{ details.choices && details.choices[vote] }}</p>
 									</div>
-									<div class="modal__confirm--buttons">
-										<TheButton
-											size="lg"
-											title="Click to cancel"
-											@click="setModalVisibility('voteModal', false)">Cancel</TheButton>
-										<TheButton
-											size="lg"
-											title="Click to submit vote"
-											@click="submitVote">Submit Vote</TheButton>
+									<div class="modal__confirm--row">
+										<p>Block number</p>
+										<p>{{ details.snapshot }}</p>
+									</div>
+									<div class="modal__confirm--row">
+										<p>Your voting power</p>
+										<p>{{ numberWithCommas(votingPower.toFixed(2)) }}%</p>
 									</div>
 								</div>
-							</template>
-						</TheStepper>
-					</TheModal>
-				</ThePanel>
-			</LayoutGridSidePanel>
-		</LayoutContainer>
+								<div class="modal__confirm--buttons">
+									<TheButton
+										size="lg"
+										title="Click to cancel"
+										@click="setModalVisibility('voteModal', false)">Cancel</TheButton>
+									<TheButton
+										size="lg"
+										title="Click to submit vote"
+										@click="submitVote">Submit Vote</TheButton>
+								</div>
+							</div>
+						</template>
+					</TheStepper>
+				</TheModal>
+			</ThePanel>
+		</LayoutGridSidePanel>
 	</div>
 </template>
 
