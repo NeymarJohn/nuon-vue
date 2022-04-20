@@ -1,6 +1,6 @@
 /* #COMPONENT - ACCORDION */
 .accordion {
-	background: $LIGHT_GREY;
+	background: $MEDIUM_LIGHT_GREY;
 	border-radius: $BORDER_RADIUS_24;
 	padding: $SPACING_32;
 	position: relative;
@@ -19,11 +19,14 @@
 	margin-right: $SPACING_16;
 }
 .accordion__header svg {
-	height: 24px;
-	width: 24px;
 	margin-left: $SPACING_16;
+	fill: $LIME;
+}
+.accordion__token h4 {
+	color: $LIME;
 }
 .accordion__token p {
+	color: $LIGHT_GREY;
 	margin-bottom: 0;
 }
 .modal__info .accordion__token p {
@@ -32,7 +35,7 @@
 }
 .accordion__body {
 	display: none;
-	background: $WHITE;
+	background: $MEDIUM_LIGHT_GREY;
 }
 .accordion.active .accordion__body {
 	display: block;
@@ -40,7 +43,7 @@
 .accordion__filter {
 	width: 100%;
 	display: flex;
-	padding: 0px;
+	padding: 0;
 	align-items: center;
 	justify-content: flex-start;
 	position: relative;
@@ -52,49 +55,41 @@
 	top: 50%;
 	left: 16px;
 	transform: translate(0%, -50%);
-	line-height: 0;
+	line-height: normal;
+	z-index: 1;
 }
 .accordion__filter input {
 	position: relative;
 	display: flex;
-	padding: $SPACING_8 3.5rem;
+	padding: $SPACING_16 $SPACING_56;
 	align-items: center;
-	width: 100%;
-	white-space: nowrap;
-	background: none;
-	outline: none;
-	border-radius: 20px;
-	color: $LIME;
-	border: 1px solid $DARK_GREY;
-	appearance: none;
+	background: $WHITE;
+	border-radius: $BORDER_RADIUS_32;
+	color: $DARK_GREY;
 	font-size: $BODY_TEXT;
-	transition: border 100ms ease 0s;
-}
-.accordion__filter input:focus {
-	border: 1px solid rgb(33, 114, 229);
-	outline: none;
+	line-height: $SPACING_28;
 }
 .accordion__results {
 	text-align: center;
 	color: $LIME;
-	padding: 1rem;
-	font-size: 16px;
+	padding: $SPACING_16;
+	font-size: $BODY_TEXT;
 }
 .accordion__tokens {
 	max-height: 225px;
 	overflow-y: scroll;
+	padding: 0 $SPACING_16;
 }
 .accordion__tokens::-webkit-scrollbar {
 	background: $MEDIUM_GREY;
 	width: 0.5rem;
-	border-radius: 8px;
+	border-radius: $BORDER_RADIUS_8;
 }
 .accordion__tokens::-webkit-scrollbar-thumb {
 	background: $LIME;
-	height: 1rem;
-	border-radius: 8px;
+	height: $SPACING_16;
+	border-radius: $BORDER_RADIUS_8;
 }
-// Accordion claim
 .accordion--claim.active {
 	border-bottom-left-radius: 0;
 	border-bottom-right-radius: 0;

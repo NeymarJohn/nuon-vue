@@ -35,7 +35,7 @@
 					title="Click to accept"
 					@click="acceptNewPrice">Accept</TheButton>
 			</div>
-			<LayoutFlex v-else class="u-bb-black">
+			<LayoutFlex v-else class="u-bb-white">
 				<h4>1 {{output.token}} = {{swapPrice}} {{input.token}}</h4>
 			</LayoutFlex>
 			<LayoutFlex

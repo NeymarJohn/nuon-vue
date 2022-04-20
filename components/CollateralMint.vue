@@ -2,14 +2,14 @@
 	<TheStepper :active-step="activeStep" :steps="['Input', 'Confirm']">
 		<template #step-one>
 			<div class="toggle__content">
-				<h5>Select Your Collateral Token To Deposit</h5>
+				<h5 class="u-mb-12">Select Your Collateral Token To Deposit</h5>
 				<CollateralClaimAccordion
 					:token="claimRewardsToken"
 					@selected-token="selectClaimToken" />
 			</div>
 			<div class="toggle__transaction">
 				<TheButton
-					size="lg"
+					size="ghost"
 					:disabled="isApproved"
 					:class="isApproved"
 					title="Click to approve"
@@ -19,7 +19,7 @@
 				</TheButton>
 				<TheButton
 					class="u-full-width"
-					size="lg"
+					size="ghost"
 					title="Click to deposit"
 					@click="activeStep = 2">Next</TheButton>
 			</div>
@@ -28,12 +28,12 @@
 			<TransactionSummary :values="summary" />
 			<div class="toggle__transaction">
 				<TheButton
-					size="lg"
+					size="ghost"
 					title="Click to go back"
 					@click="activeStep = 1">Back</TheButton>
 				<TheButton
 					class="u-full-width"
-					size="lg"
+					size="ghost"
 					title="Click to confirm">Confirm</TheButton>
 			</div>
 		</template>

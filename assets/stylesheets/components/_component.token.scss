@@ -6,30 +6,41 @@
 	justify-content: space-between;
 	cursor: pointer;
 	padding: $SPACING_12;
+	transition: all 0.3s ease;
 }
 .token:hover {
-	background: $LIGHT_GREY;
-	border-radius: 8px;
+	background: $DARK_GREY;
+	border-radius: $BORDER_RADIUS_8;
 }
 .token__wrapper {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-	&.disabled {
-		opacity: 0.4;
-	}
+}
+.token__wrapper .disabled {
+	opacity: 0.4;
 }
 .token img {
-	width: 36px;
-	height: 36px;
+	width: $SPACING_36;
+	height: $SPACING_36;
 	border-radius: 50%;
 	margin-right: $SPACING_16;
 }
+.token h3,
+.token p,
+.token h5 {
+	color: $WHITE;
+}
 .token h3 {
-	color: $LIME;
-	font-size: $HEADING_THREE;
+	font-size: $HEADING_FOUR;
+	line-height: $SPACING_36;
 }
 .token p {
-	color: $MEDIUM_LIGHT_GREY;
+	font-size: $HEADING_FIVE;
+	line-height: $SPACING_24;
 	margin-bottom: 0;
+}
+.token h5 {
+	font-size: $BODY_TEXT;
+	line-height: $SPACING_30;
 }

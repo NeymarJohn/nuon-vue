@@ -50,14 +50,13 @@
 .toggle__content {
 	align-items: flex-start;
 }
-.toggle__content h5 {
-	margin-bottom: $SPACING_12;
-	color: $DARK_GREY;
-}
 .toggle__content .accordion {
 	margin-bottom: $SPACING_48;
 }
 .toggle__transaction {
 	display: flex;
 	flex-direction: row;
+}
+.toggle__transaction .btn:first-child {
+	margin-right: $SPACING_32;
 }

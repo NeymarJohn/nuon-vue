@@ -6,7 +6,7 @@
 					<h4>Collateral Vault</h4>
 					<h1>My Assets</h1>
 				</PageTitle>
-				<NuxtLink class="btn btn--md" to="/swap?outputToken=HX" title="Click to buy HX">Buy HX</NuxtLink>
+				<NuxtLink class="btn btn--ghost" to="/swap?outputToken=HX" title="Click to buy HX">Buy HX</NuxtLink>
 			</LayoutFlex>
 			<LayoutInfo size="3">
 				<DataCard>

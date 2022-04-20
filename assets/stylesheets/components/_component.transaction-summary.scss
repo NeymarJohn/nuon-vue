@@ -3,7 +3,7 @@
 	padding: $SPACING_32;
 	border-radius: $BORDER_RADIUS_16;
 	margin-bottom: $SPACING_48;
-	background: $LIGHT_GREY;
+	background: $MEDIUM_LIGHT_GREY;
 }
 .transaction-summary img {
 	height: 56px;
@@ -14,7 +14,7 @@
 .transaction-summary p {
 	line-height: $SPACING_28;
 	font-size: $BODY_TEXT;
-	color: $DARK_GREY;
+	color: $WHITE;
 	margin-bottom: 0;
 }
 .transaction-summary .svg-arrow-down {

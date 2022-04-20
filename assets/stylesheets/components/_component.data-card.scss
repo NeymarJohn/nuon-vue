@@ -44,7 +44,7 @@
 	margin-bottom: 0;
 }
 .data-card .accordion__available {
-	color: $DARK_GREY;
+	color: $LIGHT_GREY;
 	margin-bottom: $SPACING_12;
 }
 .data-card sup {
@@ -59,9 +59,7 @@
 .data-card--end .btn {
 	align-items: flex-end;
 }
-.data-card--end .btn {
-	height: $SPACING_64;
-}
+
 @media screen and (max-width: 1440px) {
 	.data-card label {
 		font-size: $BODY_TEXT_SM;

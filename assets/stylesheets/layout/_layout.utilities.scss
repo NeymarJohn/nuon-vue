@@ -6,6 +6,8 @@
 		4. Padding all
 		5. Padding top
 		6. Padding bottom
+		7. Color
+		8. Border
 */
 
 // 1. Margin bottom
@@ -94,8 +96,14 @@
 	padding-bottom: $SPACING_8 !important;
 }
 
-.u-color-dark-grey {
-	color: $DARK_GREY !important;
+// 7. Color
+.u-color-light-grey {
+	color: $LIGHT_GREY !important;
+}
+
+// 8. Border
+.u-bb-white {
+	border-bottom: 1px solid $WHITE !important;
 }
 
 // Width
@@ -128,10 +136,6 @@
 }
 .u-is-success {
 	color: $SUCCESS !important;
-}
-// Border
-.u-bb-black {
-	border-bottom: 1px solid $LIME !important;
 }
 // Position
 .u-position-sticky {
