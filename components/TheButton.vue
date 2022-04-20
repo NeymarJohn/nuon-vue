@@ -10,7 +10,7 @@ export default {
 	props: {
 		size: {
 			type: String,
-			default: "md",
+			default: "ghost",
 		},
 	},
 	methods: {

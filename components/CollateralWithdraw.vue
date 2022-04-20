@@ -8,7 +8,6 @@
 					@selected-token="selectClaimToken" />
 				<TheButton
 					class="u-full-width"
-					size="ghost"
 					title="Click to deposit"
 					@click="activeStep = 2">Next</TheButton>
 			</div>
@@ -17,12 +16,10 @@
 			<TransactionSummary :values="summary" />
 			<div class="toggle__transaction">
 				<TheButton
-					size="ghost"
 					title="Click to go back"
 					@click="activeStep = 1">Back</TheButton>
 				<TheButton
 					class="u-full-width"
-					size="ghost"
 					title="Click to confirm">Confirm</TheButton>
 			</div>
 		</template>

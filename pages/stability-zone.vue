@@ -95,7 +95,6 @@
 							<p>Available HX Balance</p>
 							<h3>{{ numberWithCommas(hxBalance.toFixed(2)) }}<sup>HX</sup></h3>
 							<TheButton
-								size="ghost"
 								:disabled="connectedAccount === ''"
 								title="Click to start burning"
 								@click="setModalVisibility('burnModal', true)">Start Burning</TheButton>
@@ -119,7 +118,6 @@
 							<p>Pending to Claim</p>
 							<h3>{{ numberWithCommas(claimBalance.toFixed(2)) }}<sup>HX</sup></h3>
 							<TheButton
-								size="ghost"
 								:disabled="!canClaim"
 								title="Click to start claiming"
 								@click="setModalVisibility('claimModal', true)">Start Claiming</TheButton>
