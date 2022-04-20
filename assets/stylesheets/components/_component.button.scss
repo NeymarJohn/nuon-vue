@@ -126,12 +126,24 @@ a.btn:hover,
 	background: $TRANSPARENT;
 	color: $LIGHT_GREY;
 	padding: 0;
-	text-decoration: underline;
+}
+.btn--unstyled:after {
+	content: "";
+	position: absolute;
+	height: 1px;
+	left: 0;
+	right: 0;
+	bottom: 3px;
+	background: $LIGHT_GREY;
+	transition: all 0.3s ease;
 }
 .btn--unstyled:active,
 .btn--unstyled:hover {
 	background: $TRANSPARENT;
 	color: $LIME;
+}
+.btn--unstyled:hover:after {
+	background: $LIME;
 }
 .btn--unstyled:focus {
 	box-shadow: none;
