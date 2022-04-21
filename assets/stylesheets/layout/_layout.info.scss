@@ -32,3 +32,15 @@
 		grid-template-columns: repeat(2, minmax(0, 1fr));
 	}
 }
+@media screen and (max-width: 480px) {
+	.l-info {
+		display: flex;
+		flex-direction: column;
+	}
+	.l-info .data-card {
+		margin-bottom: $SPACING_24;
+	}
+	.l-info .data-card:last-child {
+		margin-bottom: 0;
+	}
+}

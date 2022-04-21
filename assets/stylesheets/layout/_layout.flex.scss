@@ -55,4 +55,8 @@
 	.l-flex-column-sm {
 		flex-direction: column;
 	}
+	.l-flex-column-start-sm {
+		flex-direction: column;
+		align-items: flex-start;
+	}
 }

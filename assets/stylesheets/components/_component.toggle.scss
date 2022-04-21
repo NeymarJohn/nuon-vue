@@ -11,7 +11,7 @@
 .toggle {
 	align-items: center;
 	background: $DARK_GREY;
-	border-radius: $BORDER_RADIUS_32;
+	border-radius: $BORDER_RADIUS_16;
 	padding: $SPACING_72 $SPACING_40;
 	box-shadow: $BOX_SHADOW_CONTAINER;
 }
@@ -59,4 +59,9 @@
 }
 .toggle__transaction .btn:first-child {
 	margin-right: $SPACING_32;
+}
+@media screen and (max-width: 990px) {
+	.toggle {
+		padding: $SPACING_48 $SPACING_32;
+	}
 }
