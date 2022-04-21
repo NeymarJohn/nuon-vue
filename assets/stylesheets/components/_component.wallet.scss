@@ -26,3 +26,8 @@
 		line-height: $SPACING_26;
 	}
 }
+@media screen and (max-width: 990px) {
+	.wallet .btn {
+		width: auto;
+	}
+}

@@ -69,3 +69,10 @@
 		height: $SPACING_30;
 	}
 }
+@media screen and (max-width: 990px) {
+	.nav a {
+		font-size: $HEADING_TWO_990;
+		line-height: $SPACING_28;
+		font-family: $FONT_HEADING_MEDIUM;
+	}
+}
