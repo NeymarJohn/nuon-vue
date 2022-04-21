@@ -100,25 +100,28 @@ a.btn:hover,
 	transform: translate(0%, -50%);
 	line-height: 0;
 }
-.btn--circle.btn[disabled] {
-	opacity: 1;
-	background: $MEDIUM_GREY;
-	border: 2px solid $WHITE;
-}
-.btn--circle.btn[disabled] svg path {
-	fill: $DARK_GREY;
-}
 .btn--circle {
-	background: $LIME;
-	width: $SPACING_72;
-	height: $SPACING_72;
-	border-radius: 50%;
-	padding: 0;
+	background: $LIME !important;
+	width: $SPACING_72 !important;
+	height: $SPACING_72 !important;
+	border-radius: 50% !important;
+	border: 4px solid $WHITE !important;
+	padding: 0 !important;
 	margin: -$SPACING_20 auto;
 	z-index: 2;
 }
+.btn--circle svg path {
+	fill: $DARK_GREY !important;
+}
 .btn--circle:hover {
 	background: $LIME;
+}
+.btn--circle.btn[disabled] {
+	opacity: 1;
+	background: $DARK_GREY !important;
+}
+.btn--circle.btn[disabled] svg path {
+	fill: $LIGHT_GREY !important;
 }
 .btn--unstyled {
 	font-size: $HEADING_FIVE;

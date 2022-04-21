@@ -11,7 +11,7 @@
 				<LayoutFlex direction="row-start-space-between" class="u-mb-48">
 					<PageTitle>
 						<h2>Swap Tokens <TooltipIcon v-tooltip="'Enter swap tokens tooltip content here.'" /></h2>
-						<h6>Trade tokens in an instant</h6>
+						<p>Trade tokens in an instant</p>
 					</PageTitle>
 					<TheButton
 						size="icon"
