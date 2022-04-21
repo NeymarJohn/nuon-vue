@@ -3,7 +3,7 @@
 	display: flex;
 	flex-direction: column;
 	margin-bottom: 0;
-	padding: 0 $SPACING_32;
+	padding: 0 $SPACING_24;
 }
 .nav li {
 	margin-bottom: $SPACING_16;
@@ -19,7 +19,7 @@
 	color: $WHITE;
 	text-decoration: none;
 	font-size: $HEADING_FIVE;
-	padding: $SPACING_16 $SPACING_24;
+	padding: $SPACING_10 $SPACING_16;
 	border-radius: $BORDER_RADIUS_8;
 	line-height: $SPACING_24;
 }
@@ -48,7 +48,7 @@
 	border-top-left-radius: $BORDER_RADIUS_4;
 	border-top-right-radius: $BORDER_RADIUS_4;
 	background: $LIME;
-	right: -32px;
+	right: -23px;
 	top: 50%;
 	transform: translateY(-50%);
 	bottom: 0;
