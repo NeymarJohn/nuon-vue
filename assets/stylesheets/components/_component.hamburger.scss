@@ -10,8 +10,8 @@
 	display: none;
 }
 .hamburger-box {
-	width: 30px;
-	height: 20px;
+	width: $SPACING_25;
+	height: $SPACING_20;
 	display: inline-block;
 	position: relative;
 }
@@ -24,10 +24,9 @@
 .hamburger-inner,
 .hamburger-inner::before,
 .hamburger-inner::after {
-	width: 30px;
-	height: 2px;
-	background-color: $LIME;
-	border-radius: 4px;
+	width: $SPACING_25;
+	height: $SPACING_2;
+	background-color: $WHITE;
 	position: absolute;
 	transition-property: transform;
 	transition-duration: 0.15s;
@@ -71,6 +70,6 @@
 @media screen and (max-width: 990px) {
 	.hamburger {
 		display: block;
-		padding: 0 $SPACING_24;
+		padding: $SPACING_24;
 	}
 }

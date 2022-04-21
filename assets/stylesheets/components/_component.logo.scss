@@ -5,8 +5,14 @@
 	margin: $SPACING_24 0 $SPACING_64;
 	padding: 0 $SPACING_40;
 }
+@media screen and (max-width: 1440px) {
+	.logo {
+		margin-bottom: $SPACING_48;
+	}
+}
 @media screen and (max-width: 990px) {
 	.logo {
-		padding: 0 $SPACING_24;
+		padding: $SPACING_24;
+		margin: 0;
 	}
 }

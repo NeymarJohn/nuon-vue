@@ -43,7 +43,7 @@
 }
 .nav a.nuxt-link-active.active-link:after {
 	content: "";
-	width: $SPACING_3;
+	width: $SPACING_4;
 	height: $SPACING_40;
 	border-top-left-radius: $BORDER_RADIUS_4;
 	border-top-right-radius: $BORDER_RADIUS_4;
@@ -61,5 +61,11 @@
 	.nav a {
 		font-size: $HEADING_FIVE_1440;
 		line-height: $SPACING_26;
+	}
+	.nav li {
+		margin-bottom: $SPACING_12;
+	}
+	.nav a.nuxt-link-active.active-link:after {
+		height: $SPACING_30;
 	}
 }

@@ -17,3 +17,12 @@
 	background: $LIME;
 	color: $DARK_GREY;
 }
+@media screen and (max-width: 1440px) {
+	.wallet {
+		margin-bottom: $SPACING_24;
+	}
+	.wallet .btn {
+		font-size: $HEADING_FIVE_1440;
+		line-height: $SPACING_26;
+	}
+}
