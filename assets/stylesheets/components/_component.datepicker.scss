@@ -1,22 +1,71 @@
 /* #COMPONENT - DATEPICKER */
-.datepicker {
-	width: 50% !important;
-	margin-bottom: $SPACING_12;
+.mx-datepicker {
+	width: 100% !important;
+	margin-bottom: $SPACING_24;
 }
-.datepicker i {
-	color: $LIME;
+.mx-input,
+.mx-input::placeholder {
+	font-size: $HEADING_FIVE !important;
+	line-height: $SPACING_24 !important;
+	color: $DARK_GREY !important;
+}
+.mx-input {
+	background: $WHITE !important;
+	border-radius: $BORDER_RADIUS_8;
+	height: $SPACING_56 !important;
+	padding: $SPACING_16 $SPACING_24 !important;
+}
+.mx-input:hover {
+	cursor: pointer;
+}
+.mx-datepicker i {
+	right: 24px;
+	color: $DARK_GREY;
+}
+.mx-datepicker svg {
+	height: $SPACING_24 !important;
+	width: $SPACING_24 !important;
+}
+.mx-datepicker-main {
+	background: $MEDIUM_GREY !important;
+	border: 0 !important;
+	border-radius: $BORDER_RADIUS_16 !important;
+	color: $WHITE !important;
 }
 .mx-table {
-	color: $LIME;
+	color: $WHITE;
+}
+.mx-table tbody {
+	border-top: 1px solid $LIGHT_GREY;
+}
+.mx-table th {
+	font-weight: normal !important;
+	color: $LIGHT_GREY !important;
+	border-radius: $BORDER_RADIUS_8 !important;
+}
+.mx-table-date td,
+.mx-table-date th {
+	font-family: $FONT_BODY !important;
+	font-size: $BODY_TEXT !important;
+	line-height: $SPACING_30 !important;
+	height: $SPACING_36 !important;
+}
+.mx-calendar-content {
+	height: auto !important;
+}
+.mx-calendar-content .cell {
+	transition: $TRANSITION_ALL;
 }
 .mx-calendar-content .cell.active {
-	background-color: $LIME !important;
-}
-.mx-table-date .today {
-	background: $LIGHT_GREY;
+	border: 1px solid $LIME !important;
 	color: $LIME !important;
+	background: $MEDIUM_GREY !important;
 }
+.mx-table-date .today,
 .mx-calendar-content .cell:hover {
-	color: $LIME !important;
-	background-color: $LIGHT_GREY !important;
+	background: $LIME !important;
+	color: $DARK_GREY !important;
+}
+.mx-table-date .cell.not-current-month {
+	color: $LIGHT_GREY !important;
 }

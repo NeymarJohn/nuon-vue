@@ -14,7 +14,7 @@
 	bottom: 0;
 	left: 0;
 	right: 0;
-	background-color: $WHITE;
+	background-color: $DARK_GREY_RGBA;
 	backdrop-filter: blur(8px);
 	z-index: 3;
 }
@@ -22,7 +22,7 @@
 	display: flex;
 	flex-direction: column;
 	margin: 0px;
-	background-color: $WHITE;
+	background-color: $DARK_GREY;
 	box-shadow: $BOX_SHADOW_MODAL;
 	padding: $SPACING_62 $SPACING_40;
 	width: 40.625rem;
@@ -44,13 +44,16 @@
 	margin-bottom: $SPACING_8;
 }
 .modal__header p {
-	font-size: $BODY_TEXT_SM;
+	font-size: $BODY_TEXT;
 	line-height: $SPACING_24;
-	color: $MEDIUM_LIGHT_GREY;
+	color: $LIGHT_GREY;
 	margin-bottom: 0;
 }
 .modal__header .btn--icon {
 	padding: 0;
+}
+.modal__header .btn--icon svg path {
+	stroke: $WHITE;
 }
 // Modal claim tokens
 .modal--claim .modal__container {
@@ -96,7 +99,7 @@
 	padding: $SPACING_32;
 	border-radius: $BORDER_RADIUS_16;
 	margin-bottom: $SPACING_48;
-	background: $LIGHT_GREY;
+	background: $MEDIUM_LIGHT_GREY;
 }
 .modal__confirm--row,
 .modal__confirm--buttons {
@@ -114,7 +117,7 @@
 }
 .modal__confirm--row p {
 	line-height: $SPACING_28;
-	color: $DARK_GREY;
+	color: $WHITE;
 }
 .modal__confirm--buttons .btn:first-child {
 	margin-right: $SPACING_16;

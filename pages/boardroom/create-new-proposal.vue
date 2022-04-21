@@ -8,18 +8,17 @@
 						size="icon"
 						class="u-mr-24 u-no-transition u-p-0"
 						title="Click to go back"
-						@click="getPreviousPage"><ChevronLeftIcon /></TheButton>
-					Create Proposal</h1>
+						@click="getPreviousPage"><ChevronLeftIcon /></TheButton>Create Proposal</h1>
 			</PageTitle>
 			<LayoutInfo size="2">
 				<DataCard>
-					<label>Minimum Stake Required <TooltipIcon v-tooltip="'Enter minimum stake tooltip content here.'" /></label>
+					<label>Minimum Stake Required</label>
 					<TheLoader component="h1">
 						<h3>{{ numberWithCommas(minimumStake.toFixed(2)) }}<sup>HX</sup></h3>
 					</TheLoader>
 				</DataCard>
 				<DataCard>
-					<label>Voting Power <TooltipIcon v-tooltip="'Enter voting power tooltip content here.'" /></label>
+					<label>Voting Power<TooltipIcon v-tooltip="'Enter voting power tooltip content here.'" /></label>
 					<TheLoader component="h1">
 						<h3>{{ numberWithCommas(votingPower.toFixed(2)) }}<sup>%</sup></h3>
 					</TheLoader>
@@ -30,23 +29,47 @@
 			<form class="form" method="post" @submit.prevent="handleSubmit">
 				<div class="form__block form__block--one">
 					<label for="question">Proposal Title <sup>*</sup></label>
-					<input id="question" v-model="proposal.title" placeholder="Type your question here" type="text" autocomplete="off" autocorrect="off" spellcheck="true" title="Click to enter proposal title" @input="handleInputChange" />
-					<p v-if="errors.title" class="u-is-warning u-mb-0">{{ errors.title }}</p>
+					<input
+						id="question"
+						v-model="proposal.title"
+						placeholder="Type your question here"
+						type="text"
+						autocomplete="off"
+						autocorrect="off"
+						spellcheck="true"
+						title="Click to enter proposal title"
+						@input="handleInputChange" />
+					<p v-if="errors.title" class="u-is-warning u-mb-0 u-mt-4">{{ errors.title }}</p>
 				</div>
 				<div class="form__block form__block--two">
 					<label for="proposal">Proposal Description</label>
-					<textarea id="proposal" v-model="proposal.description" placeholder="Type your proposal here (optional)" type="text" autocomplete="off" autocorrect="off" spellcheck="true" rows="8" title="Click to enter proposal description" />
+					<textarea
+						id="proposal"
+						v-model="proposal.description"
+						placeholder="Type your proposal here (optional)"
+						type="text"
+						autocomplete="off"
+						autocorrect="off"
+						spellcheck="true"
+						rows="8"
+						title="Click to enter proposal description" />
 				</div>
 				<div class="form__block form__block--three">
 					<h4>Voting Period <sup>*</sup></h4>
-					<date-picker v-model="proposal.startDate" confirm type="datetime" value-type="date" placeholder="Select start date" class="datepicker" title="Click to select start date"></date-picker>
+					<date-picker
+						v-model="proposal.startDate"
+						confirm
+						type="datetime"
+						value-type="date"
+						placeholder="Select start date"
+						title="Click to select start date"></date-picker>
 					<p v-if="errors.date" class="u-is-warning">{{ errors.date }}</p>
 					<p>Voting will be closed 7 days after your chosen start date.</p>
 				</div>
 				<div class="form__button">
 					<TheButton
 						type="submit"
-						size="lg"
+						size="ghost"
 						title="Click to publish proposal"
 						:disabled="!isConnectedWallet">Publish</TheButton>
 				</div>

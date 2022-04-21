@@ -7,21 +7,6 @@
 	grid-row-gap: $SPACING_32;
 	padding-bottom: $SPACING_48;
 }
-.form__block--one {
-	grid-area: 1 / 1 / 2 / 2;
-}
-.form__block--two {
-	grid-area: 2 / 1 / 3 / 2;
-}
-.form__block--three {
-	grid-area: 1 / 2 / 3 / 3;
-}
-.form__block--three p {
-	color: $MEDIUM_GREY;
-	font-size: $BODY_TEXT_SM;
-	line-height: $SPACING_24;
-	margin-bottom: 0;
-}
 .form__button {
 	grid-area: 3 / 1 / 4 / 3;
 	display: flex;
@@ -35,19 +20,35 @@
 .form__block {
 	display: flex;
 	flex-direction: column;
-	border-radius: $BORDER_RADIUS_16;
-	background: $WHITE;
+	border-radius: $BORDER_RADIUS_8;
+	background: $MEDIUM_LIGHT_GREY;
 	padding: $SPACING_36;
+}
+.form__block--one {
+	grid-area: 1 / 1 / 2 / 2;
+}
+.form__block--two {
+	grid-area: 2 / 1 / 3 / 2;
+}
+.form__block--three {
+	grid-area: 1 / 2 / 3 / 3;
+}
+.form__block--three p {
+	color: $LIGHT_GREY;
+	font-size: $BODY_TEXT;
+	line-height: $SPACING_24;
+	margin-bottom: 0;
 }
 .form__block label,
 .form__block h4 {
+	font-family: $FONT_HEADING_MEDIUM;
 	font-size: $HEADING_FOUR;
 	margin-bottom: $SPACING_4;
-	color: $MEDIUM_GREY;
+	color: $WHITE;
 	line-height: $SPACING_36;
+	font-weight: normal;
 }
 .form__block h4 {
-	color: $DARK_GREY;
 	margin-bottom: $SPACING_24;
 }
 .form__block sup {
@@ -56,21 +57,22 @@
 }
 .form__block input,
 .form__block textarea {
+	background: $MEDIUM_LIGHT_GREY;
 	width: 100%;
 	border: 0;
 	padding: 0;
-	color: $LIME;
+	color: $WHITE;
+}
+.form__block input::placeholder,
+.form__block textarea::placeholder {
+	color: $LIGHT_GREY;
 }
 .form__block input,
 .form__block textarea,
 .form__block input::placeholder,
 .form__block textarea::placeholder {
-	font-size: $BODY_TEXT_SM;
+	font-size: $BODY_TEXT;
 	line-height: $SPACING_24;
-}
-.form__block textarea::placeholder,
-.form__block input::placeholder {
-	color: $MEDIUM_GREY;
 }
 .form__block textarea {
 	resize: vertical;
@@ -80,7 +82,7 @@
 }
 .form__block .datepicker input,
 .form__block .datepicker input::placeholder {
-	font-size: $BODY_TEXT_SM;
+	font-size: $BODY_TEXT;
 }
 .form__block .datepicker input {
 	border: 1px solid $DARK_GREY;
