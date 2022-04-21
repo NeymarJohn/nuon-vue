@@ -3,9 +3,13 @@
 	display: inherit;
 	margin-left: $SPACING_24;
 }
+.share-network-twitter:hover svg path {
+	fill: $LIME;
+}
 .share-network-twitter svg {
 	height: $SPACING_24;
 }
 .share-network-twitter svg path {
+	transition: $TRANSITION_ALL;
 	fill: $WHITE;
 }
