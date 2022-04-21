@@ -47,7 +47,7 @@ export const actions: ActionTree<Web3State, Web3State> = {
 		commit("setWeb3", () => web3);
 		commit("setChainId", chainId);
 		if (localStorage.getItem(WALLET_CONNECTED)) {
-			const wallet = localStorage.getItem("nuon-wallet");
+			const wallet = localStorage.getItem("caldron-wallet");
 			if (wallet === "metamask") {
 				dispatch("connect", {wallet: "metamask"});
 			} else {
@@ -69,7 +69,7 @@ export const actions: ActionTree<Web3State, Web3State> = {
 					commit("setWeb3", () => web3);
 					dispatch("updateChain", chainId);
 					localStorage.setItem(WALLET_CONNECTED, "connected");
-					localStorage.setItem("nuon-wallet", wallet);
+					localStorage.setItem("caldron-wallet", wallet);
 					// Dispatch other modules actions
 					dispatch("initializeAllStore", {address: state.account, chainId: state.chainId, web3});
 
@@ -121,7 +121,7 @@ export const actions: ActionTree<Web3State, Web3State> = {
 				commit("setWeb3", () => web3);
 				dispatch("updateChain", chainId);
 				localStorage.setItem(WALLET_CONNECTED, "connected");
-				localStorage.setItem("nuon-wallet", wallet);
+				localStorage.setItem("caldron-wallet", wallet);
 				dispatch("initializeAllStore", {address: state.account, chainId: state.chainId, web3});
 
 				provider.on("accountsChanged", async (accounts: string[]) => {

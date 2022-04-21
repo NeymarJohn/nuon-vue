@@ -62,7 +62,7 @@ export default {
 	},
 	head () {
 		return {
-			title: "Farms | Nuon"
+			title: "Farms | Caldron"
 		};
 	},
 	computed: {

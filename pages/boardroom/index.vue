@@ -121,7 +121,7 @@
 			<LayoutFlex class="u-mb-36" direction="row-space-between">
 				<PageTitle>
 					<h2>Proposals<TooltipIcon v-tooltip="'Enter proposals tooltip content here.'" /></h2>
-					<h5>Create proposals and vote to improve the Nuon protocol.</h5>
+					<h5>Create proposals and vote to improve the Caldron protocol.</h5>
 				</PageTitle>
 				<DataCard align="end">
 					<NuxtLink :disabled="!isConnectedWallet" :event="!isConnectedWallet ? '' : 'click'" class="btn btn--ghost" to="/boardroom/create-new-proposal" title="Click to create a new proposal">Create New Proposal</NuxtLink>
@@ -197,7 +197,7 @@ export default {
 	},
 	head() {
 		return {
-			title: "Boardroom | Nuon"
+			title: "Boardroom | Caldron"
 		};
 	},
 	computed: {

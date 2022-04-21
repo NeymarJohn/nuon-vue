@@ -69,7 +69,7 @@ export default {
 	},
 	head () {
 		return {
-			title: "Dashboard | Nuon"
+			title: "Dashboard | Caldron"
 		};
 	},
 	async mounted () {
@@ -78,26 +78,5 @@ export default {
 		this.$store.commit("rootStore/setIsLoaded", true);
 		this.$store.commit("rootStore/setInfuraId", this.$config.infuraId);
 	},
-	methods: {
-		/**
-     * @TODO Hydro testnet requires https
-     */
-		// async requestNetwork () {
-		//   await window.ethereum.request({
-		//     method: 'wallet_addEthereumChain',
-		//     params: [{
-		//       chainId: 46292,
-		//       chainName: 'HYDRO Testnet',
-		//       nativeCurrency: {
-		//         name: 'HYDRO Coin',
-		//         symbol: 'tHYDRO',
-		//         decimals: 18
-		//       },
-		//       rpcUrls: ['http://34.209.136.11:8545/'],
-		//       blockExplorerUrls: ['http://34.209.136.11:8082/']
-		//     }]
-		//   })
-		// }
-	}
 };
 </script>

@@ -17,9 +17,9 @@
 						<TheBadge :color="proposalStatesToColor[details.state]">{{ capitalize(details.state) }}</TheBadge>
 						<ShareNetwork
 							network="twitter"
-							:url="`https://www.nuon.fi${socialUrl}`"
+							:url="`https://www.caldron.fi${socialUrl}`"
 							:title="socialTitle || ''"
-							hashtags="nuon,vote">
+							hashtags="caldron,vote">
 							<TwitterIcon />
 						</ShareNetwork>
 					</LayoutFlex>
@@ -197,7 +197,7 @@ export default {
 	},
 	head() {
 		return {
-			title: `${this.pageTitle} - Boardroom | Nuon`
+			title: `${this.pageTitle} - Boardroom | Caldron`
 		};
 	},
 	computed: {
