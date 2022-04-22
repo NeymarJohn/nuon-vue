@@ -163,7 +163,7 @@
 	}
 	.modal-fade-enter,
 	.modal-fade-leave-to {
-		transform: translateX(-100%);
+		transform: translateY(100%);
 		opacity: 1;
 	}
 	.modal-fade-enter-active,
