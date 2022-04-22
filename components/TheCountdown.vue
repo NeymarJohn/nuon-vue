@@ -21,7 +21,7 @@
 		<h3 v-if="readyToClaim">Claim now</h3>
 	</div>
 	<div v-else>
-		<h3>00<sup>D</sup> 00<sup>H</sup> 00<sup>M</sup> 00<sup>S</sup></h3>
+		<h3 class="countdown__placeholder">00<sup>D</sup> 00<sup>H</sup> 00<sup>M</sup> 00<sup>S</sup></h3>
 	</div>
 </template>
 

@@ -16,7 +16,7 @@
 	grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 .l-info--4 {
-	grid-template-columns: repeat(4, minmax(0, 1fr));
+	grid-template-columns: 1fr 1fr 1.8fr 1fr;
 }
 @media screen and (max-width: 1440px) {
 	.l-info {
