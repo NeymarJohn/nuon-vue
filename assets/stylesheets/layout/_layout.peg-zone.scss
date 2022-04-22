@@ -1,7 +1,7 @@
 /* #LAYOUT - PEG ZONE */
 .l-peg-zone {
 	background: $MEDIUM_LIGHT_GREY;
-	border-radius: $BORDER_RADIUS_32;
+	border-radius: $BORDER_RADIUS_16;
 	padding: $SPACING_48;
 	margin-bottom: $SPACING_48;
 }
@@ -13,4 +13,12 @@
 }
 .l-peg-zone .data-card--end .btn {
 	height: $SPACING_64;
+}
+@media screen and (max-width: 480px) {
+	.l-peg-zone {
+		padding: $SPACING_32;
+	}
+	.l-peg-zone hr {
+		margin: $SPACING_32 0;
+	}
 }

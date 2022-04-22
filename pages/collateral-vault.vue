@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<LayoutContainer>
-			<LayoutFlex class="u-mb-48" direction="row-center-space-between">
+			<LayoutFlex class="u-mb-48 l-flex-column-start-sm" direction="row-center-space-between">
 				<PageTitle>
 					<h4>Collateral Vault</h4>
 					<h1>My Assets</h1>

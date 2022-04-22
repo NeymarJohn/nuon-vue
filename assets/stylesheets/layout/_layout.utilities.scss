@@ -51,6 +51,11 @@
 		margin-bottom: $SPACING_36 !important;
 	}
 }
+@media screen and (max-width: 990px) {
+	.u-mb-sm-12 {
+		margin-bottom: $SPACING_12 !important;
+	}
+}
 
 // 2. Margin right
 .u-mr-24 {

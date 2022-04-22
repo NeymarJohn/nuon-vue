@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<LayoutContainer>
-			<LayoutFlex class="u-mb-48" direction="row-center-space-between">
+			<LayoutFlex class="u-mb-48 l-flex-column-start-sm" direction="row-center-space-between">
 				<PageTitle>
 					<h4>Stability Zone</h4>
 					<h1>My Token</h1>
@@ -50,7 +50,7 @@
 		<LayoutContainer class="u-pt-48">
 			<h2 class="u-mb-20">Token State</h2>
 			<LayoutGrid class="u-mb-56" :size="price.usx < tolerance.low ? '3' : '4'">
-				<StatCard>
+				<StatCard class="u-mb-sm-12">
 					<label>USX Price<TooltipIcon v-tooltip="'Enter usx price tooltip content here.'" /></label>
 					<TheLoader component="h3">
 						<LayoutFlex direction="row-center-space-between">
@@ -64,13 +64,13 @@
 						</LayoutFlex>
 					</TheLoader>
 				</StatCard>
-				<StatCard>
+				<StatCard class="u-mb-sm-12">
 					<label>HX Price<TooltipIcon v-tooltip="'Enter hx price tooltip content here.'" /></label>
 					<TheLoader component="h3">
 						<h3 v-if="price.hx">{{ numberWithCommas(price.hx.toFixed(2)) }}</h3>
 					</TheLoader>
 				</StatCard>
-				<StatCard>
+				<StatCard class="u-mb-sm-12">
 					<label>Rebalance Fee<TooltipIcon v-tooltip="'Enter rebalance fee tooltip content here.'" /></label>
 					<TheLoader component="h3">
 						<h3 v-if="rebalanceFee">{{ rebalanceFee }}%</h3>
@@ -86,7 +86,7 @@
 			</LayoutGrid>
 			<TheLoader component="burn">
 				<LayoutPegZone v-if="price.usx > tolerance.high">
-					<LayoutFlex direction="row-space-between">
+					<LayoutFlex class="l-flex-column-sm" direction="row-space-between">
 						<PageTitle>
 							<h2>Peg Zone: Is Above Range<TooltipIcon v-tooltip="'Enter above range tooltip content here.'" /></h2>
 							<p>Burn your HX to get the Peg Zone back in range and earn treasury fees.</p>
@@ -109,7 +109,7 @@
 						</DataCard>
 					</LayoutFlex>
 					<hr>
-					<LayoutFlex direction="row-space-between">
+					<LayoutFlex class="l-flex-column-sm" direction="row-space-between">
 						<PageTitle>
 							<h2>Rewards<TooltipIcon v-tooltip="'Enter rewards tooltip content here.'" /></h2>
 							<p>Claim statement and description (make audience aware of the claim info)</p>
