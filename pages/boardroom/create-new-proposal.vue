@@ -69,7 +69,7 @@
 				<div class="form__button">
 					<TheButton
 						type="submit"
-						size="ghost"
+						size="md"
 						title="Click to publish proposal"
 						:disabled="!isConnectedWallet">Publish</TheButton>
 				</div>

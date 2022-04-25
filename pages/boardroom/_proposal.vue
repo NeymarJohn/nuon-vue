@@ -104,13 +104,13 @@
 					<TheButton
 						v-if="details.state !== 'active'"
 						disabled
-						size="lg"
+						size="md"
 						title="Voting has closed"
 						class="l-flex--align-self-start">Voting Closed</TheButton>
 					<TheButton
 						v-else
 						:disabled="!isConnectedWallet || vote === null"
-						size="lg"
+						size="md"
 						title="Click to vote"
 						class="l-flex--align-self-start"
 						@click="setModalVisibility('voteModal', true)">Vote</TheButton>
