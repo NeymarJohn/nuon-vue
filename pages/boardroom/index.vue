@@ -1,8 +1,8 @@
 <template>
 	<div>
 		<LayoutContainer>
-			<LayoutFlex class="u-mb-48 u-mb-md-36 l-flex-column-sm" direction="row-center-space-between">
-				<PageTitle>
+			<LayoutFlex class="u-mb-48 u-mb-md-36 l-flex-column-sm l-flex-column-start-md" direction="row-center-space-between">
+				<PageTitle class="u-mb-md-36">
 					<h4>Boardroom</h4>
 					<h1>Stake - Vote - Earn Rewards</h1>
 				</PageTitle>
@@ -91,13 +91,13 @@
 		<LayoutContainer class="u-pt-48">
 			<h2 class="u-mb-20 u-mb-lg-14">Hydro Stake Status</h2>
 			<LayoutGrid class="u-mb-56 u-mb-lg-48" :size="'3-stretch'">
-				<StatCard>
+				<StatCard class="u-mb-md-12">
 					<label>Total Staked<TooltipIcon v-tooltip="'Enter Total Staked tooltip content here'" /></label>
 					<TheLoader component="h3">
 						<h3>{{ numberWithCommas(totalStaked.toFixed(2)) }}</h3>
 					</TheLoader>
 				</StatCard>
-				<StatCard>
+				<StatCard class="u-mb-md-12">
 					<label>HX Price<TooltipIcon v-tooltip="'Enter HX Price tooltip content here'" /></label>
 					<TheLoader component="h3">
 						<h3>{{ numberWithCommas(hxPrice.toFixed(2)) }}</h3>
@@ -118,7 +118,7 @@
 					</LayoutFlex>
 				</StatCard>
 			</LayoutGrid>
-			<LayoutFlex class="u-mb-36" direction="row-space-between">
+			<LayoutFlex class="u-mb-36 u-mb-md-24" direction="row-space-between">
 				<PageTitle>
 					<h2>Proposals<TooltipIcon v-tooltip="'Enter proposals tooltip content here.'" /></h2>
 					<h5>Create proposals and vote to improve the Caldron protocol.</h5>
@@ -127,7 +127,7 @@
 					<NuxtLink :disabled="!isConnectedWallet" :event="!isConnectedWallet ? '' : 'click'" class="btn btn--lg" to="/boardroom/create-new-proposal" title="Click to create a new proposal">Create New Proposal</NuxtLink>
 				</DataCard>
 			</LayoutFlex>
-			<LayoutFlex class="u-mb-36" direction="row-center-space-between">
+			<LayoutFlex class="u-mb-36 u-mb-md-24" direction="row-center-space-between">
 				<LayoutFlex>
 					<ul class="icon-list">
 						<li v-if="totalProposals !== null">Total Proposals <TheBadge>{{ totalProposals }}</TheBadge></li>

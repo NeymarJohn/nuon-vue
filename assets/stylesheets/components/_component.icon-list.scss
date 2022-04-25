@@ -19,10 +19,14 @@
 	margin-right: 0;
 }
 .icon-list li .badge {
+	font-size: $BODY_TEXT;
+	line-height: $SPACING_21;
 	border-radius: $BORDER_RADIUS_32;
 	padding: $SPACING_4 $SPACING_16;
 	margin-left: $SPACING_8;
 	color: $DARK_GREY;
+	min-width: $SPACING_60;
+	text-align: center;
 }
 @media screen and (max-width: 1440px) {
 	.icon-list li {

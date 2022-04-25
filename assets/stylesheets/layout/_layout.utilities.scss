@@ -46,6 +46,12 @@
 	}
 }
 @media screen and (max-width: 990px) {
+	.u-mb-md-12 {
+		margin-bottom: $SPACING_12 !important;
+	}
+	.u-mb-md-24 {
+		margin-bottom: $SPACING_24 !important;
+	}
 	.u-mb-md-36 {
 		margin-bottom: $SPACING_36 !important;
 	}

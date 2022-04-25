@@ -7,7 +7,7 @@
 .proposal {
 	width: 100%;
 	background: $MEDIUM_LIGHT_GREY;
-	border-radius: $BORDER_RADIUS_16;
+	border-radius: $BORDER_RADIUS_8;
 	position: relative;
 	margin-bottom: $SPACING_32;
 }
@@ -83,5 +83,20 @@
 	.proposal__right time {
 		font-size: $BODY_TEXT_XS;
 		line-height: $SPACING_18;
+	}
+}
+@media screen and (max-width: 990px) {
+	.proposal {
+		margin-bottom: $SPACING_12;
+	}
+	.proposal a {
+		padding: $SPACING_28 $SPACING_32;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+	}
+	.proposal__left,
+	.proposal__right {
+		width: 50%;
 	}
 }

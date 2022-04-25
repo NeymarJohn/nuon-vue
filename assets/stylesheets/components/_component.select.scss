@@ -28,7 +28,7 @@
 	align-items: center;
 	padding: $SPACING_12 $SPACING_24;
 	background: $MEDIUM_LIGHT_GREY;
-	border-radius: $BORDER_RADIUS_16;
+	border-radius: $BORDER_RADIUS_8;
 	color: $LIGHT_GREY;
 	font-size: $BODY_TEXT_SM;
 	line-height: $SPACING_24;
@@ -43,8 +43,8 @@
 	transition: $TRANSITION_ALL;
 }
 .select__selected svg {
-	height: $SPACING_24;
-	width: $SPACING_24;
+	height: $SPACING_7;
+	width: $SPACING_10;
 	margin-left: $SPACING_16;
 	fill: $LIGHT_GREY;
 }
