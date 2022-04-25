@@ -95,3 +95,8 @@
 		line-height: $SPACING_26;
 	}
 }
+@media screen and (max-width: 480px) {
+	.select {
+		max-width: 100%;
+	}
+}

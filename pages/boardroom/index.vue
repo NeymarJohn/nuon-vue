@@ -6,20 +6,21 @@
 					<h4>Boardroom</h4>
 					<h1>Stake - Vote - Earn Rewards</h1>
 				</PageTitle>
-				<LayoutFlex>
+				<LayoutFlex class="u-full-width-sm">
 					<TheButton
 						:disabled="!isConnectedWallet"
 						title="Click to stake"
-						class="u-mr-30 u-mr-lg-24 u-mr-md-12"
+						class="u-mr-30 u-mr-lg-24 u-mr-md-12 u-full-width-sm"
 						@click="setModalVisibility('stakeModal', true)">Stake</TheButton>
 					<TheButton
 						:disabled="disabledWithdraw"
 						title="Click to withdraw"
-						class="u-mr-30 u-mr-lg-24 u-mr-md-12"
+						class="u-mr-30 u-mr-lg-24 u-mr-md-12 u-full-width-sm"
 						@click="setModalVisibility('withdrawModal', true)">Withdraw</TheButton>
 					<TheButton
 						:disabled="disabledClaimRewards"
 						title="Click to claim rewards"
+						class="u-full-width-sm"
 						@click="setModalVisibility('claimRewardsModal', true)">Claim Rewards</TheButton>
 					<TheModal
 						v-show="isStakeModalVisible"
@@ -56,7 +57,7 @@
 				</LayoutFlex>
 			</LayoutFlex>
 			<LayoutInfo size="4">
-				<DataCard class="u-mb-md-36">
+				<DataCard class="u-mb-md-36 u-mb-sm-24">
 					<label>My Stake</label>
 					<TheLoader component="h1">
 						<h3>{{ numberWithCommas(myStake.toFixed(2)) }}<sup>HX</sup></h3>
@@ -65,7 +66,7 @@
 						<h5>${{ numberWithCommas(getDollarValue(myStake, hxPrice).toFixed(2)) }}</h5>
 					</TheLoader>
 				</DataCard>
-				<DataCard class="u-mb-md-36">
+				<DataCard class="u-mb-md-36 u-mb-sm-24">
 					<label>My Rewards</label>
 					<TheLoader component="h1">
 						<h3>{{ numberWithCommas(myRewards.toFixed(2)) }}<sup>HX</sup></h3>
@@ -74,7 +75,7 @@
 						<h5>${{ numberWithCommas(getDollarValue(myRewards, hxPrice).toFixed(2)) }}</h5>
 					</TheLoader>
 				</DataCard>
-				<DataCard>
+				<DataCard class="u-mb-sm-24">
 					<label>My Next Reward Distribution</label>
 					<TheLoader component="h1">
 						<TheCountdown :visible="isConnectedWallet" :next-claim-date="nextEpochPoint" />
@@ -104,13 +105,13 @@
 					</TheLoader>
 				</StatCard>
 				<StatCard>
-					<label>Reward Information<TooltipIcon v-tooltip="'Enter Reward Info tooltip content here'" /></label>
-					<LayoutFlex>
+					<label class="u-mb-sm-12">Reward Information<TooltipIcon v-tooltip="'Enter Reward Info tooltip content here'" /></label>
+					<LayoutFlex class="l-flex-column-sm">
 						<TheLoader component="h3">
-							<h3 class="u-mr-32">APR {{ numberWithCommas(apr.toFixed(2)) }}%</h3>
+							<h3 class="u-mr-32 u-mb-sm-12">APR {{ numberWithCommas(apr.toFixed(2)) }}%</h3>
 						</TheLoader>
 						<TheLoader component="h3">
-							<h3 class="u-mr-32">TVL ${{ numberWithCommas(tvl.toFixed(2)) }}</h3>
+							<h3 class="u-mr-32 u-mb-sm-12">TVL ${{ numberWithCommas(tvl.toFixed(2)) }}</h3>
 						</TheLoader>
 						<TheLoader component="h3">
 							<h3>Day {{ daysFromEpoch }}</h3>
@@ -118,17 +119,17 @@
 					</LayoutFlex>
 				</StatCard>
 			</LayoutGrid>
-			<LayoutFlex class="u-mb-36 u-mb-md-24" direction="row-space-between">
+			<LayoutFlex class="u-mb-36 u-mb-md-24 l-flex-column-start-sm" direction="row-space-between">
 				<PageTitle>
 					<h2>Proposals<TooltipIcon v-tooltip="'Enter proposals tooltip content here.'" /></h2>
 					<h5>Create proposals and vote to improve the Caldron protocol.</h5>
 				</PageTitle>
-				<DataCard align="end">
-					<NuxtLink :disabled="!isConnectedWallet" :event="!isConnectedWallet ? '' : 'click'" class="btn btn--lg" to="/boardroom/create-new-proposal" title="Click to create a new proposal">Create New Proposal</NuxtLink>
+				<DataCard align="end" class="u-full-width-sm">
+					<NuxtLink :disabled="!isConnectedWallet" :event="!isConnectedWallet ? '' : 'click'" class="btn btn--lg u-full-width-sm u-text-center-sm" to="/boardroom/create-new-proposal" title="Click to create a new proposal">Create New Proposal</NuxtLink>
 				</DataCard>
 			</LayoutFlex>
-			<LayoutFlex class="u-mb-36 u-mb-md-24" direction="row-center-space-between">
-				<LayoutFlex>
+			<LayoutFlex class="u-mb-36 u-mb-md-24 l-flex-column-start-sm" direction="row-center-space-between">
+				<LayoutFlex class="u-full-width-sm">
 					<ul class="icon-list">
 						<li v-if="totalProposals !== null">Total Proposals <TheBadge>{{ totalProposals }}</TheBadge></li>
 						<li v-if="totalProposals === null"><TheLoader component="list" /></li>

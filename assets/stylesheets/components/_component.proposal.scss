@@ -100,3 +100,24 @@
 		width: 50%;
 	}
 }
+@media screen and (max-width: 480px) {
+	.proposal a {
+		flex-direction: column;
+		grid-gap: unset;
+		grid-template-columns: none;
+		padding: $SPACING_24;
+	}
+	.proposal__left,
+	.proposal__right {
+		width: 100%;
+	}
+	.proposal__left {
+		margin-bottom: $SPACING_24;
+	}
+	.proposal__right {
+		justify-content: space-between;
+	}
+	.proposal__right time {
+		margin-right: 0;
+	}
+}

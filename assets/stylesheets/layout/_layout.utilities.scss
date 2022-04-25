@@ -60,6 +60,9 @@
 	.u-mb-sm-12 {
 		margin-bottom: $SPACING_12 !important;
 	}
+	.u-mb-sm-24 {
+		margin-bottom: $SPACING_24 !important;
+	}
 	.u-mb-sm-32 {
 		margin-bottom: $SPACING_32 !important;
 	}
@@ -148,6 +151,11 @@
 .u-full-width {
 	width: 100% !important;
 }
+@media screen and (max-width: 480px) {
+	.u-full-width-sm {
+		width: 100% !important;
+	}
+}
 
 // Display
 .u-display-desktop {
@@ -183,6 +191,11 @@
 // Text alignment
 .u-text-center {
 	text-align: center !important;
+}
+@media screen and (max-width: 480px) {
+	.u-text-center-sm {
+		text-align: center !important;
+	}
 }
 .u-text-right {
 	text-align: right !important;

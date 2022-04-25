@@ -37,3 +37,20 @@
 		padding: $SPACING_4 $SPACING_12;
 	}
 }
+@media screen and (max-width: 480px) {
+	.icon-list {
+		width: 100%;
+		justify-content: space-between;
+		margin-bottom: $SPACING_24;
+	}
+	.icon-list li {
+		flex-direction: column;
+		align-items: flex-start;
+	}
+	.icon-list li .badge {
+		margin-left: 0;
+		margin-top: $SPACING_8;
+		font-size: $BODY_TEXT_XS;
+		line-height: $SPACING_18;
+	}
+}
