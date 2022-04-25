@@ -30,11 +30,11 @@
 				<div class="transaction-input__price">
 					<p>You are {{ actionPlural }} <span>{{ numberWithCommas(parseFloat(inputValue || 0).toFixed(2)) }} HX</span> worth <span>${{ numberWithCommas(getDollarValue(inputValue, price.hx).toFixed(2)) }}</span></p>
 					<p v-if="isMoreThanBalance" class="u-is-warning">Insufficient balance.</p>
-					<p v-if="!isDisabled()" class="u-is-success">Ready to {{ action }}</p>
+					<p v-if="!isDisabled()" class="u-is-success u-mb-0">Ready to {{ action }}</p>
 				</div>
 				<div class="transaction-input__buttons">
 					<TheButton
-						size="lg"
+						size="md"
 						:disabled="!!isApproved"
 						:class="isApproved"
 						title="Click to approve"
@@ -43,7 +43,7 @@
 						<span v-else>Approve</span>
 					</TheButton>
 					<TheButton
-						size="lg"
+						size="md"
 						:disabled="isDisabled()"
 						title="Click to go next"
 						@click="activeStep = 2">
@@ -55,11 +55,11 @@
 				<TransactionSummary :values="summary" />
 				<div class="transaction-input__buttons">
 					<TheButton
-						size="lg"
+						size="md"
 						title="Click to go back"
 						@click="activeStep = 1">Back</TheButton>
 					<TheButton
-						size="lg"
+						size="md"
 						:disabled="isDisabled()"
 						title="Click to confirm"
 						@click="submitTransaction">Confirm</TheButton>

@@ -11,16 +11,16 @@
 	color: $DARK_GREY;
 }
 .badge--grey {
-	border: 1px solid $LIGHT_GREY;
+	border: $SPACING_1 solid $LIGHT_GREY;
 	color: $LIGHT_GREY;
 }
 .badge--yellow {
 	color: $WARNING;
-	border: 1px solid $WARNING;
+	border: $SPACING_1 solid $WARNING;
 }
 .badge--green {
 	color: $SUCCESS;
-	border: 1px solid $SUCCESS;
+	border: $SPACING_1 solid $SUCCESS;
 }
 @media screen and (max-width: 1440px) {
 	.badge {

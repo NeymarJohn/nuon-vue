@@ -85,6 +85,6 @@
 	font-size: $BODY_TEXT;
 }
 .form__block .datepicker input {
-	border: 1px solid $DARK_GREY;
+	border: $SPACING_1 solid $DARK_GREY;
 	padding: $SPACING_12;
 }

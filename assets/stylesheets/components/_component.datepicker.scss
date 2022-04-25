@@ -57,7 +57,7 @@
 	transition: $TRANSITION_ALL;
 }
 .mx-calendar-content .cell.active {
-	border: 1px solid $LIME !important;
+	border: $SPACING_1 solid $LIME !important;
 	color: $LIME !important;
 	background: $MEDIUM_GREY !important;
 }

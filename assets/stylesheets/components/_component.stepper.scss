@@ -4,7 +4,7 @@
 	flex-direction: row;
 	align-items: center;
 	justify-content: space-between;
-	margin-bottom: $SPACING_68;
+	margin-bottom: $SPACING_52;
 	position: relative;
 	z-index: 0;
 }
@@ -26,6 +26,9 @@
 	background: $LIME;
 	transition: $TRANSITION_ALL;
 }
+.stepper__content .input__container {
+	background: $WHITE;
+}
 .stepper__panel {
 	display: flex;
 	flex-direction: column;
@@ -46,7 +49,7 @@
 	place-items: center;
 	background: $MEDIUM_LIGHT_GREY;
 	border-radius: $BORDER_RADIUS_CIRCLE;
-	border: 2px solid $LIGHT_GREY;
+	border: $SPACING_2 solid $LIGHT_GREY;
 	position: relative;
 }
 .stepper__counter svg {

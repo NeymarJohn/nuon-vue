@@ -16,7 +16,7 @@ input[type="radio"] {
 	color: $LIME;
 	width: 1.125rem;
 	height: 1.125rem;
-	border: 1px solid $SUCCESS;
+	border: $SPACING_1 solid $SUCCESS;
 	border-radius: $BORDER_RADIUS_CIRCLE;
 	display: grid;
 	place-content: center;

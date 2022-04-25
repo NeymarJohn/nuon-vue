@@ -6,8 +6,8 @@
 	background: $MEDIUM_LIGHT_GREY;
 }
 .transaction-summary img {
-	height: 56px;
-	width: 56px;
+	height: $SPACING_56;
+	width: $SPACING_56;
 	border-radius: $BORDER_RADIUS_CIRCLE;
 	margin-right: $SPACING_16;
 }
@@ -18,7 +18,7 @@
 	margin-bottom: 0;
 }
 .transaction-summary .svg-arrow-down {
-	margin: 0 1rem;
+	margin: 0 $SPACING_16;
 }
 .transaction__update {
 	display: flex;
@@ -26,8 +26,8 @@
 	justify-content: space-between;
 	align-items: center;
 	padding: $SPACING_16 $SPACING_24;
-	border: 1px solid $MEDIUM_LIGHT_GREY;
+	border: $SPACING_1 solid $MEDIUM_LIGHT_GREY;
 	background: $LIGHT_GREY;
-	border-radius: 8px;
+	border-radius: $BORDER_RADIUS_8;
 	margin-bottom: $SPACING_32;
 }

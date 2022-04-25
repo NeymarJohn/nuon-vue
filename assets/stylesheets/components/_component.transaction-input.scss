@@ -4,7 +4,6 @@
 }
 .transaction-input__price {
 	margin-bottom: $SPACING_32;
-	min-height: 55px;
 }
 .data-card .transaction-input__price p {
 	color: $LIME;
@@ -19,8 +18,7 @@
 }
 .transaction-input__buttons .btn:first-child {
 	margin-right: $SPACING_16;
-	background: $LIME;
-	color: $LIME;
+	min-width: $SPACING_185;
 }
 .transaction-input__buttons .btn:last-child {
 	flex: 1;

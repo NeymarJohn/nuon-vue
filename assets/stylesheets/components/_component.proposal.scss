@@ -22,11 +22,11 @@
 	padding: $SPACING_32;
 	border-radius: $BORDER_RADIUS_16;
 	transition: $TRANSITION_ALL;
-	border: 2px solid $TRANSPARENT;
+	border: $SPACING_2 solid $TRANSPARENT;
 }
 .proposal a:hover {
 	background-color: $DARK_GREY;
-	border: 2px solid $LIME;
+	border: $SPACING_2 solid $LIME;
 }
 .proposal a:hover h4,
 .proposal a:hover p,
