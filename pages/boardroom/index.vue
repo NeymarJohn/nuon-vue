@@ -124,7 +124,7 @@
 					<h5>Create proposals and vote to improve the Caldron protocol.</h5>
 				</PageTitle>
 				<DataCard align="end">
-					<NuxtLink :disabled="!isConnectedWallet" :event="!isConnectedWallet ? '' : 'click'" class="btn btn--ghost" to="/boardroom/create-new-proposal" title="Click to create a new proposal">Create New Proposal</NuxtLink>
+					<NuxtLink :disabled="!isConnectedWallet" :event="!isConnectedWallet ? '' : 'click'" class="btn btn--lg" to="/boardroom/create-new-proposal" title="Click to create a new proposal">Create New Proposal</NuxtLink>
 				</DataCard>
 			</LayoutFlex>
 			<LayoutFlex class="u-mb-36" direction="row-center-space-between">
@@ -138,7 +138,7 @@
 						<li v-if="numberOfUniqueVoters === null"><TheLoader component="list" /></li>
 					</ul>
 				</LayoutFlex>
-				<TheSelect :options="['All', 'Active', 'Pending', 'Closed']" :default="'All'" @filter-select="onFilterChange" />
+				<TheSelect :options="['All', 'Active', 'Pending', 'Closed']" :default="'All'" label="Filter Proposals" @filter-select="onFilterChange" />
 			</LayoutFlex>
 			<InfiniteScroll :items="filteredProposals" class-name="proposal" @fetch="getProposalsFromSnapshot">
 				<template #item="{ item }">

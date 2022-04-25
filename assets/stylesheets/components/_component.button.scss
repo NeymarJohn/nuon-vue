@@ -1,25 +1,27 @@
-/* #COMPONENT - BUTTON */
+/* #COMPONENT - BUTTON
+		1. Button default
+		2. Button sizes
+		3. Button icon
+		4. Button approved
+		5. Button swap
+		6. Button link
+*/
+
+// 1. Button default
 .btn {
 	font-family: $FONT_BODY;
-	display: inline-flex;
 	appearance: none;
-	align-items: center;
-	justify-content: center;
 	user-select: none;
 	position: relative;
 	white-space: nowrap;
 	vertical-align: middle;
-	outline: transparent solid 2px;
-	outline-offset: 2px;
-	width: auto;
 	border-radius: $BORDER_RADIUS_24;
-	transition-property: background-color, border-color, color, fill, stroke,
-		opacity, box-shadow, transform;
-	transition-duration: 0.3s;
-	background: $LIME;
-	color: $DARK_GREY;
+	transition: $TRANSITION_ALL;
+	background: $TRANSPARENT;
+	color: $LIME;
+	border: $SPACING_1 solid $LIME;
 	cursor: pointer;
-	border: none;
+	outline: 0;
 }
 a.btn:hover,
 .btn:hover {
@@ -29,155 +31,170 @@ a.btn:hover,
 .btn:active {
 	background: $LIGHT_LIME;
 }
-.btn--icon:active {
-	background: $TRANSPARENT;
-}
-.btn:focus {
-	box-shadow: none;
-}
 .btn[disabled],
 .btn[disabled]:hover {
 	background: $DARK_GREY;
 	color: $LIGHT_GREY;
 	cursor: not-allowed;
+	border: 0;
 }
-.btn[readonly] {
-	pointer-events: none;
-	background: none;
-	border: none;
-	color: $LIME;
-}
+
+// 2. Button sizes
 .btn--sm {
-	font-size: $BODY_TEXT_SM;
-	height: $SPACING_40;
+	font-size: $BODY_TEXT;
 	line-height: $SPACING_24;
-	border-radius: $BORDER_RADIUS_12;
+	height: $SPACING_40;
+	border-radius: $BORDER_RADIUS_4;
 	padding: $SPACING_8 $SPACING_24;
 }
-.btn--md {
-	height: $SPACING_48;
-	line-height: $SPACING_24;
-	min-width: $SPACING_40;
-	font-size: $BODY_TEXT;
-	padding: $SPACING_12 $SPACING_32;
-}
+.btn--md,
 .btn--lg {
 	font-size: $HEADING_FIVE;
-	height: $SPACING_56;
-	line-height: $SPACING_28;
-	min-width: 185px;
-	padding-left: $SPACING_24;
-	padding-right: $SPACING_24;
+	line-height: $SPACING_24;
 	border-radius: $BORDER_RADIUS_32;
-	background: $LIGHT_LIME;
-	color: $LIME;
+}
+.btn--md {
+	height: $SPACING_56;
+	padding: $SPACING_16 $SPACING_32;
+}
+.btn--lg {
+	height: $SPACING_64;
+	padding: $SPACING_20 $SPACING_32;
+}
+@media screen and (max-width: 1440px) {
+	.btn--md,
+	.btn--lg {
+		font-size: $HEADING_FIVE_1440;
+		line-height: $SPACING_26;
+	}
+	.btn--md,
+	.btn--lg {
+		height: $SPACING_46;
+		padding: $SPACING_10 $SPACING_24;
+	}
+}
+@media screen and (max-width: 990px) {
+	.btn--md,
+	.btn--lg {
+		font-size: $HEADING_FIVE_990;
+		line-height: $SPACING_18;
+	}
+	.btn--md {
+		height: $SPACING_38;
+	}
+	.btn--lg {
+		height: $SPACING_44;
+	}
+}
+@media screen and (max-width: 480px) {
+	.btn--md,
+	.btn--lg {
+		font-size: $HEADING_FIVE_480;
+		line-height: $SPACING_18;
+		padding: $SPACING_12;
+		height: $SPACING_42;
+	}
+}
+
+// 3. Button icon
+.btn--icon,
+.btn--icon:hover,
+.btn--icon:active {
+	background: $TRANSPARENT;
+	border: 0;
 }
 .btn--icon {
 	transition: $TRANSITION_ALL;
-	background: $TRANSPARENT;
 }
 .btn--icon:hover {
 	transform: rotate(180deg);
-	background: $TRANSPARENT;
 }
-.btn--token svg {
-	fill: $WHITE;
-	width: 25px;
-}
-.btn[disabled].btn--success {
+
+// 4. Button approved
+.btn[disabled].btn--approved {
 	position: relative;
-	background: $LIGHT_LIME !important;
-	border: 4px solid $SUCCESS !important;
-	color: $SUCCESS !important;
+	background: $LIGHT_LIME;
+	border: $SPACING_4 solid $SUCCESS;
+	color: $SUCCESS;
 	opacity: 1;
 	justify-content: flex-start;
 }
-.btn[disabled].btn--success:after {
+.btn[disabled].btn--approved:after {
 	content: url("data:image/svg+xml,%3Csvg width='20' height='14' viewBox='0 0 20 14' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M19.0455 1.16325C19.4848 1.60258 19.4848 2.3149 19.0455 2.75424L8.5455 13.2542C8.10616 13.6936 7.39384 13.6936 6.9545 13.2542L0.954505 7.25424C0.515165 6.8149 0.515165 6.10259 0.954505 5.66325C1.39384 5.22391 2.10616 5.22391 2.5455 5.66325L7.75 10.8678L17.4545 1.16325C17.8938 0.723905 18.6062 0.723905 19.0455 1.16325Z' fill='%2389D382'/%3E%3C/svg%3E%0A");
 	position: absolute;
 	top: 50%;
-	right: 24px;
+	right: $SPACING_24;
 	transform: translate(0%, -50%);
 	line-height: 0;
 }
-.btn--circle {
-	background: $LIME !important;
-	width: $SPACING_72 !important;
-	height: $SPACING_72 !important;
-	border-radius: 50% !important;
-	border: 4px solid $WHITE !important;
-	padding: 0 !important;
+
+// 5. Button swap
+.btn--swap {
+	background: $LIME;
+	width: $SPACING_72;
+	height: $SPACING_72;
+	border-radius: $BORDER_RADIUS_CIRCLE;
+	border: $SPACING_4 solid $WHITE;
+	padding: 0;
 	margin: -$SPACING_20 auto;
 	z-index: 2;
 }
-.btn--circle svg path {
-	fill: $DARK_GREY !important;
+.btn--swap svg path {
+	fill: $DARK_GREY;
 }
-.btn--circle:hover {
+.btn--swap:hover {
 	background: $LIME;
 }
-.btn--circle.btn[disabled] {
+.btn--swap.btn[disabled] {
 	opacity: 1;
-	background: $DARK_GREY !important;
+	background: $DARK_GREY;
 }
-.btn--circle.btn[disabled] svg path {
-	fill: $LIGHT_GREY !important;
+.btn--swap.btn[disabled] svg path {
+	fill: $LIGHT_GREY;
 }
-.btn--unstyled {
+
+// 6. Button link
+.btn--link {
 	font-size: $HEADING_FIVE;
-	line-height: 1.875rem;
+	line-height: $SPACING_24;
 	background: $TRANSPARENT;
-	color: $LIGHT_GREY;
+	color: $WHITE;
 	padding: 0;
+	border: 0;
 }
-.btn--unstyled:after {
+.btn--link:after {
 	content: "";
 	position: absolute;
-	height: 1px;
+	height: $SPACING_1;
 	left: 0;
 	right: 0;
-	bottom: 3px;
-	background: $LIGHT_GREY;
+	bottom: $SPACING_1;
+	background: $WHITE;
 	transition: $TRANSITION_ALL;
 }
-.btn--unstyled:active,
-.btn--unstyled:hover {
+.btn--link:active,
+.btn--link:hover {
 	background: $TRANSPARENT;
 	color: $LIME;
 }
-.btn--unstyled:hover:after {
+.btn--link:hover:after {
 	background: $LIME;
 }
-.btn--unstyled:focus {
-	box-shadow: none;
-}
-.btn--ghost {
-	background: $TRANSPARENT;
-	color: $LIME;
-	border: 1px solid $LIME;
-	padding: $SPACING_20 $SPACING_32;
-	border-radius: $BORDER_RADIUS_32;
-	height: $SPACING_56;
-}
-.btn--ghost[disabled],
-.btn--ghost[disabled]:hover {
-	background: $DARK_GREY;
-	border-color: $DARK_GREY;
-}
 @media screen and (max-width: 1440px) {
-	.btn--md {
-		padding: $SPACING_7 $SPACING_21;
-		height: $SPACING_40;
-		font-size: $BODY_TEXT_SM;
+	.btn--link {
+		font-size: $HEADING_FIVE_1440;
 		line-height: $SPACING_26;
 	}
-	.btn--unstyled {
-		font-size: $BODY_TEXT_SM;
-		line-height: $SPACING_26;
+}
+@media screen and (max-width: 990px) {
+	.btn--link {
+		font-size: $HEADING_FIVE_990;
+		line-height: $SPACING_18;
 	}
-	.btn--ghost {
-		font-size: $BODY_TEXT_SM;
-		padding: $SPACING_12 $SPACING_24;
-		height: $SPACING_50;
+}
+@media screen and (max-width: 480px) {
+	.btn--link {
+		font-size: $HEADING_FIVE_480;
+		line-height: $SPACING_24;
 	}
 }

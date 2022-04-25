@@ -6,7 +6,7 @@
 					<h4>Collateral Vault</h4>
 					<h1>My Assets</h1>
 				</PageTitle>
-				<NuxtLink class="btn btn--ghost" to="/swap?outputToken=HX" title="Click to buy HX">Buy HX</NuxtLink>
+				<NuxtLink class="btn btn--md" to="/swap?outputToken=HX" title="Click to buy HX">Buy HX</NuxtLink>
 			</LayoutFlex>
 			<LayoutInfo size="3">
 				<DataCard>
@@ -15,7 +15,7 @@
 						<h3>${{ numberWithCommas(lockedCollateral.toFixed(2)) }}</h3>
 					</TheLoader>
 					<TheButton
-						size="unstyled"
+						size="link"
 						title="Click to view the token list"
 						@click="setModalVisibility('collateralModal', true)">Token List</TheButton>
 					<TheModal

@@ -121,7 +121,7 @@ export default {
 			return parseFloat(this.burningValue) > this.getBalance;
 		},
 		isApproved() {
-			return this.allowance[this.tokenBurn] > 0 ? "btn--success" : "";
+			return this.allowance[this.tokenBurn] > 0 ? "btn--approved" : "";
 		},
 		estimatedOutPrice() {
 			if (this.tokenBurn === "HX") return parseFloat(this.estimatedOut) * this.price.usx;

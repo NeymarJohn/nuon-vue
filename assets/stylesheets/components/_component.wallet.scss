@@ -3,27 +3,11 @@
 	margin-bottom: $SPACING_40;
 }
 .wallet .btn {
-	padding: $SPACING_12 $SPACING_28;
-	font-size: $HEADING_FIVE;
-	border-radius: $BORDER_RADIUS_32;
-	background: $TRANSPARENT;
-	border: 1px solid $LIME;
-	color: $LIME;
-	height: $SPACING_48;
 	width: 100%;
-	line-height: $SPACING_24;
-}
-.wallet .btn:hover {
-	background: $LIME;
-	color: $DARK_GREY;
 }
 @media screen and (max-width: 1440px) {
 	.wallet {
 		margin-bottom: $SPACING_24;
-	}
-	.wallet .btn {
-		font-size: $HEADING_FIVE_1440;
-		line-height: $SPACING_26;
 	}
 }
 @media screen and (max-width: 990px) {

@@ -23,7 +23,7 @@
 						<p v-else-if="reachedEnd">All votes loaded</p>
 						<TheButton
 							v-else
-							size="unstyled"
+							size="link"
 							title="Click to show all"
 							@click="showMoreClicked">
 							Show more

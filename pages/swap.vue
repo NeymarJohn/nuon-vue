@@ -81,7 +81,7 @@
 							</SwapAccordion>
 						</div>
 						<TheButton
-							class="btn--circle"
+							size="swap"
 							:disabled="loadingPrice || !output.token"
 							@click="reverseToken">
 							<SwapIcon />

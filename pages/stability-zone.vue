@@ -8,11 +8,11 @@
 				</PageTitle>
 				<LayoutFlex>
 					<NuxtLink
-						class="btn btn--ghost u-mr-30"
+						class="btn btn--md u-mr-30"
 						to="/swap?outputToken=USX"
 						title="Click to buy USX">Buy USX</NuxtLink>
 					<NuxtLink
-						class="btn btn--ghost"
+						class="btn btn--md"
 						to="/swap?outputToken=HX"
 						title="Click to buy HX">Buy HX</NuxtLink>
 				</LayoutFlex>

@@ -45,7 +45,7 @@
 	display: grid;
 	place-items: center;
 	background: $MEDIUM_LIGHT_GREY;
-	border-radius: 50%;
+	border-radius: $BORDER_RADIUS_CIRCLE;
 	border: 2px solid $LIGHT_GREY;
 	position: relative;
 }
@@ -94,7 +94,7 @@
 	background: $LIME;
 	height: $SPACING_12;
 	width: $SPACING_12;
-	border-radius: 50%;
+	border-radius: $BORDER_RADIUS_CIRCLE;
 	opacity: 1;
 	transform: scale(1);
 }

@@ -23,7 +23,7 @@
 .token img {
 	width: $SPACING_36;
 	height: $SPACING_36;
-	border-radius: 50%;
+	border-radius: $BORDER_RADIUS_CIRCLE;
 	margin-right: $SPACING_16;
 }
 .token h3,

@@ -41,7 +41,7 @@
 					<TheButton
 						v-if="details.body && details.body.length > 400"
 						:title="`Click to show ${isVisible ? 'less' : 'more'}`"
-						size="unstyled"
+						size="link"
 						@click="isVisible = !isVisible">
 						Show {{ isVisible ? "less" : "more" }}
 					</TheButton>

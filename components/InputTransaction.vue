@@ -124,7 +124,7 @@ export default {
 		},
 	 	isApproved() {
 			const isApprovedToken = this.$store.getters["boardroomStore/checkApprovedToken"](HX.symbol);
-			return isApprovedToken ? "btn--success" : "";
+			return isApprovedToken ? "btn--approved" : "";
 		},
 		myStake() {
 			return parseFloat(fromWei(this.$store.state.boardroomStore.stakedBalance));

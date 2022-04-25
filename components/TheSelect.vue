@@ -1,8 +1,8 @@
 <template>
 	<div class="select" :class="{ active: isActive }" @click="toggleSelect" >
-		<label>Filter Proposals</label>
+		<label>{{ label }}</label>
 		<div class="select__selected">
-			{{ value }}
+			{{ value || this.default }}
 			<ChevronDownIcon v-if="!isActive" />
 			<ChevronUpIcon v-else />
 		</div>
@@ -41,11 +41,16 @@ export default {
 			type: String,
 			required: false,
 			default: ""
+		},
+		label: {
+			type: String,
+			required: true,
+			default: "Filter"
 		}
 	},
 	data() {
 		return {
-			value: "All",
+			value: "",
 			isActive: false
 		};
 	},
