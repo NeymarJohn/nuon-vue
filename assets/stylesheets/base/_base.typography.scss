@@ -90,6 +90,10 @@ ol {
 		font-size: $HEADING_FIVE_1440;
 		line-height: $SPACING_26;
 	}
+	p {
+		font-size: $BODY_TEXT_SM;
+		line-height: $SPACING_24;
+	}
 }
 @media screen and (max-width: 990px) {
 	h1 {
@@ -132,6 +136,10 @@ ol {
 	}
 	h5 {
 		font-size: $HEADING_FIVE_480;
+		line-height: $SPACING_18;
+	}
+	p {
+		font-size: $BODY_TEXT_XS;
 		line-height: $SPACING_18;
 	}
 }

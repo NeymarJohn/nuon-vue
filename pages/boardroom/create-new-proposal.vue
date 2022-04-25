@@ -1,12 +1,12 @@
 <template>
 	<div>
 		<LayoutContainer>
-			<PageTitle class="u-mb-48">
+			<PageTitle class="u-mb-48 u-mb-sm-32">
 				<h4>Boardroom</h4>
 				<h1>
 					<TheButton
 						size="icon"
-						class="u-mr-24 u-no-transition u-p-0"
+						class="u-mr-24 u-mr-lg-16 u-no-transition u-p-0"
 						title="Click to go back"
 						@click="getPreviousPage"><ChevronLeftIcon /></TheButton>Create Proposal</h1>
 			</PageTitle>
@@ -25,7 +25,7 @@
 				</DataCard>
 			</LayoutInfo>
 		</LayoutContainer>
-		<LayoutContainer class="u-pt-48">
+		<LayoutContainer class="u-pt-48 u-pt-lg-24 u-pt-sm-12">
 			<form class="form" method="post" @submit.prevent="handleSubmit">
 				<div class="form__block form__block--one">
 					<label for="question">Proposal Title <sup>*</sup></label>

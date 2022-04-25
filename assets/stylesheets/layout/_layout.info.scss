@@ -36,6 +36,7 @@
 	.l-info {
 		display: flex;
 		flex-direction: column;
+		padding: $SPACING_32;
 	}
 	.l-info .data-card {
 		margin-bottom: $SPACING_24;

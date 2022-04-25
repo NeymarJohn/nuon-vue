@@ -88,3 +88,45 @@
 	border: $SPACING_1 solid $DARK_GREY;
 	padding: $SPACING_12;
 }
+@media screen and (max-width: 1440px) {
+	.form {
+		grid-column-gap: $SPACING_12;
+		grid-row-gap: $SPACING_12;
+	}
+	.form__block label,
+	.form__block h4 {
+		font-size: $HEADING_FOUR_1440;
+		line-height: $SPACING_28;
+	}
+	.form__block input,
+	.form__block textarea,
+	.form__block input::placeholder,
+	.form__block textarea::placeholder,
+	.form__block--three p {
+		font-size: $BODY_TEXT_SM;
+		line-height: $SPACING_24;
+	}
+	.form__button {
+		margin-top: $SPACING_28;
+	}
+}
+@media screen and (max-width: 480px) {
+	.form {
+		display: flex;
+		flex-direction: column;
+	}
+	.form__block {
+		padding: $SPACING_32;
+	}
+	.form__block input,
+	.form__block textarea,
+	.form__block input::placeholder,
+	.form__block textarea::placeholder,
+	.form__block--three p {
+		font-size: $BODY_TEXT_XS;
+		line-height: $SPACING_18;
+	}
+	.form__button {
+		margin-top: $SPACING_24;
+	}
+}

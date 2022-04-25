@@ -19,7 +19,7 @@
 	cursor: pointer;
 }
 .mx-datepicker i {
-	right: 24px;
+	right: $SPACING_24;
 	color: $DARK_GREY;
 }
 .mx-datepicker svg {
@@ -68,4 +68,17 @@
 }
 .mx-table-date .cell.not-current-month {
 	color: $LIGHT_GREY !important;
+}
+@media screen and (max-width: 1440px) {
+	.mx-datepicker .mx-input {
+		padding: $SPACING_16 !important;
+	}
+	.mx-datepicker i {
+		right: $SPACING_16;
+	}
+	.mx-input,
+	.mx-input::placeholder {
+		font-size: $HEADING_FIVE_1440 !important;
+		line-height: $SPACING_26 !important;
+	}
 }

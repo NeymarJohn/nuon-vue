@@ -50,9 +50,12 @@
 		margin-bottom: $SPACING_36 !important;
 	}
 }
-@media screen and (max-width: 990px) {
+@media screen and (max-width: 480px) {
 	.u-mb-sm-12 {
 		margin-bottom: $SPACING_12 !important;
+	}
+	.u-mb-sm-32 {
+		margin-bottom: $SPACING_32 !important;
 	}
 }
 
@@ -69,6 +72,9 @@
 @media screen and (max-width: 1440px) {
 	.u-mr-lg-24 {
 		margin-right: $SPACING_24 !important;
+	}
+	.u-mr-lg-16 {
+		margin-right: $SPACING_16 !important;
 	}
 }
 @media screen and (max-width: 990px) {
@@ -96,6 +102,16 @@
 }
 .u-pt-48 {
 	padding-top: $SPACING_48 !important;
+}
+@media screen and (max-width: 1440px) {
+	.u-pt-lg-24 {
+		padding-top: $SPACING_24 !important;
+	}
+}
+@media screen and (max-width: 480px) {
+	.u-pt-sm-12 {
+		padding-top: $SPACING_12 !important;
+	}
 }
 
 // 6. Padding bottom
