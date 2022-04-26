@@ -8,6 +8,16 @@
 		7. Color
 		8. Border
 		9. Cursor
+		10. Width
+		11. Display
+		12. Validation
+		13. Position
+		14. Transition
+		15. Text alignment
+		16. Flex
+		17. White space
+		18. Colour
+		19. Prompt
 */
 
 // 1. Margin bottom
@@ -156,13 +166,7 @@
 	color: $LIME !important;
 }
 
-// Width
-.u-w-115 {
-	width: 115.36px !important;
-}
-.u-w-254 {
-	width: 254px !important;
-}
+// 10. Width
 .u-half-width {
 	width: 50% !important;
 }
@@ -175,7 +179,7 @@
 	}
 }
 
-// Display
+// 11. Display
 .u-display-desktop {
 	display: none !important;
 }
@@ -185,28 +189,32 @@
 		padding: 0 !important;
 	}
 }
-// Validation
+
+// 12. Validation
 .u-is-warning {
 	color: $ERROR !important;
 }
 .u-is-success {
 	color: $SUCCESS !important;
 }
-// Position
+
+// 13. Position
 .u-position-sticky {
 	position: sticky !important;
 	top: 0 !important;
 	background: $DARK_GREY !important;
 	z-index: 2 !important;
 }
-// Transition
+
+// 14. Transition
 .u-no-transition {
 	transition: none !important;
 }
 .u-no-transition:hover {
 	transform: none !important;
 }
-// Text alignment
+
+// 15. Text alignment
 .u-text-center {
 	text-align: center !important;
 }
@@ -218,27 +226,28 @@
 .u-text-right {
 	text-align: right !important;
 }
-// Flex
+
+// 16. Flex
 .u-flex-row-center {
 	display: flex !important;
 	flex-direction: row !important;
 	align-items: center !important;
 }
-// White space
+
+// 17. White space
 .u-white-space-pre {
 	white-space: pre-line !important;
 }
-// Colour
+
+// 18. Colour
 .u-colour-grey-dark {
 	color: $DARK_GREY !important;
 }
-// Prompt
+
+// 19. Prompt
 .u-green-prompt {
 	background: $SUCCESS !important;
 }
 .u-green-prompt p {
 	color: $WHITE !important;
-}
-.selected-svg {
-	fill: $SUCCESS;
 }
