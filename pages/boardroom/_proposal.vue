@@ -208,7 +208,7 @@ export default {
 				const uniqueAnswers = new Set(allChoices);
 				const calculatedVotes = {};
 				// gives {1: 8} for 8 yes and 0 no with key 1 denoting yes
-				// gives {2: 3} for 3 no
+				// gives {2: 3} for 0 yes and 3 no
 				// gives {1: 8, 2: 3} for 8 yes and 3 no with key 1 denoting yes, 2 denoting no
 				uniqueAnswers.forEach((ans) => {
 					calculatedVotes[ans] = allChoices.filter(c => c === ans).length;
