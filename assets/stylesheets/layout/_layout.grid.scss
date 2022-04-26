@@ -55,6 +55,9 @@
 	.l-grid--column-3-stretch-alt {
 		column-gap: $SPACING_12;
 	}
+	.l-grid-side-panel {
+		padding: $SPACING_24 $SPACING_80;
+	}
 }
 @media screen and (max-width: 990px) {
 	.l-grid {

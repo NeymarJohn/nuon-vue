@@ -2,6 +2,7 @@
 .votes-table {
 	width: 100%;
 	margin-top: $SPACING_24;
+	padding-bottom: $SPACING_48;
 }
 .votes-table h5 {
 	color: $LIGHT_GREY;
@@ -24,21 +25,21 @@
 .votes-table__row {
 	display: flex;
 	flex-flow: row wrap;
-}
-.votes-table__row:first-child {
-	font-size: $BODY_TEXT_SM;
+	font-size: $BODY_TEXT;
 }
 .votes-table__row:first-child .votes-table__cell {
-	padding: $SPACING_8 $SPACING_24;
+	padding: 0 0 $SPACING_32 0;
+}
+.votes-table__row:first-child .votes-table__cell:first-child {
+	text-transform: none;
 }
 .votes-table__cell {
 	width: calc(100% / 3);
-	padding: $SPACING_24;
-	border-bottom: 1px solid $MEDIUM_LIGHT_GREY;
+	padding: $SPACING_32 0;
+	border-bottom: $SPACING_1 solid $LIGHT_GREY;
 }
-.votes-table__cell:nth-child(1),
-.votes-table__cell:nth-child(3) {
-	font-size: $BODY_TEXT_SM;
+.votes-table__cell:first-child {
+	text-transform: uppercase;
 }
 .votes-table__cell:nth-child(3) {
 	text-align: right;
@@ -49,6 +50,7 @@
 .votes-table__cell--full {
 	width: 100%;
 	text-align: center;
+	border-bottom: 0;
 }
 .votes-table__cell--full p {
 	margin-bottom: 0;
