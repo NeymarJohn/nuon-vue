@@ -1,7 +1,10 @@
 /* #COMPONENT - VOTES TABLE */
 .votes-table {
 	width: 100%;
-	margin-top: $SPACING_32;
+	margin-top: $SPACING_24;
+}
+.votes-table h5 {
+	color: $LIGHT_GREY;
 }
 .votes-table h4 {
 	display: flex;
@@ -12,27 +15,21 @@
 	margin-right: $SPACING_8;
 }
 .votes-table__container {
+	background: $MEDIUM_LIGHT_GREY;
+	padding: $SPACING_32;
+	border-radius: $BORDER_RADIUS_8;
 	display: block;
 	width: 100%;
 }
 .votes-table__row {
 	display: flex;
 	flex-flow: row wrap;
-	border-left: 1px solid $MEDIUM_LIGHT_GREY;
-	border-right: 1px solid $MEDIUM_LIGHT_GREY;
 }
 .votes-table__row:first-child {
-	border-top: 1px solid $MEDIUM_LIGHT_GREY;
-	border-top-left-radius: 8px;
-	border-top-right-radius: 8px;
 	font-size: $BODY_TEXT_SM;
 }
 .votes-table__row:first-child .votes-table__cell {
 	padding: $SPACING_8 $SPACING_24;
-}
-.votes-table__row:last-child {
-	border-bottom-left-radius: 8px;
-	border-bottom-right-radius: 8px;
 }
 .votes-table__cell {
 	width: calc(100% / 3);
@@ -52,8 +49,6 @@
 .votes-table__cell--full {
 	width: 100%;
 	text-align: center;
-	border-bottom-left-radius: 8px;
-	border-bottom-right-radius: 8px;
 }
 .votes-table__cell--full p {
 	margin-bottom: 0;

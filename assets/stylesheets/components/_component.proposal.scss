@@ -69,10 +69,15 @@
 	flex-direction: column;
 	align-items: flex-start;
 }
-.proposal-details h2 {
-	margin-bottom: $SPACING_16;
+.proposal-description {
+	background: $MEDIUM_LIGHT_GREY;
+	padding: $SPACING_32;
+	border-radius: $BORDER_RADIUS_8;
 }
-.proposal-details .btn {
+.proposal-description h2 {
+	margin-bottom: $SPACING_24;
+}
+.proposal-description .btn {
 	align-self: center;
 }
 @media screen and (max-width: 1440px) {

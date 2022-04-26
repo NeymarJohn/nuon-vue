@@ -8,9 +8,15 @@
 		<ComponentLoader :loaded="!!votes">
 			<div class="votes-table__container" role="table" aria-label="Voters">
 				<div class="votes-table__row" role="rowgroup">
-					<div class="votes-table__cell" role="columnheader">Voter</div>
-					<div class="votes-table__cell" role="columnheader">Vote Option</div>
-					<div class="votes-table__cell" role="columnheader">Voting Power</div>
+					<div class="votes-table__cell" role="columnheader">
+						<h5>Voter</h5>
+					</div>
+					<div class="votes-table__cell" role="columnheader">
+						<h5>Vote Option</h5>
+					</div>
+					<div class="votes-table__cell" role="columnheader">
+						<h5>Voting Power</h5>
+					</div>
 				</div>
 				<div v-for="(voter, index) in votes" :key="index" class="votes-table__row" role="rowgroup">
 					<div class="votes-table__cell" role="cell" :title="voter.voter">{{ shortAddress(voter.voter) }}</div>

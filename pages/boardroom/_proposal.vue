@@ -32,20 +32,22 @@
 		</LayoutContainer>
 		<LayoutGridSidePanel>
 			<div class="proposal-details">
-				<h2>Description<TooltipIcon v-tooltip="'Enter description tooltip content here.'" /></h2>
-				<ComponentLoader
-					:loaded="!!details.snapshot"
-					width="u-full-width"
-					slot-classes="l-flex--column">
-					<div class="u-white-space-pre" v-html="compiledMarkdown"></div>
-					<TheButton
-						v-if="details.body && details.body.length > 400"
-						:title="`Click to show ${isVisible ? 'less' : 'more'}`"
-						size="link"
-						@click="isVisible = !isVisible">
-						Show {{ isVisible ? "less" : "more" }}
-					</TheButton>
-				</ComponentLoader>
+				<div class="proposal-description">
+					<h2>Description<TooltipIcon v-tooltip="'Enter description tooltip content here.'" /></h2>
+					<ComponentLoader
+						:loaded="!!details.snapshot"
+						width="u-full-width"
+						slot-classes="l-flex--column">
+						<div class="u-white-space-pre" v-html="compiledMarkdown"></div>
+						<TheButton
+							v-if="details.body && details.body.length > 400"
+							:title="`Click to show ${isVisible ? 'less' : 'more'}`"
+							size="link"
+							@click="isVisible = !isVisible">
+							Show {{ isVisible ? "less" : "more" }}
+						</TheButton>
+					</ComponentLoader>
+				</div>
 				<VotesTable
 					:proposal-id="$route.params.proposal"
 					:choices="details.choices || []"
@@ -90,7 +92,7 @@
 						:proposal-state="details.state" />
 				</ComponentLoader>
 			</ThePanel>
-			<ThePanel>
+			<ThePanel class="u-mb-48">
 				<h3>Cast Your Vote<TooltipIcon v-tooltip="'Enter cast your vote tooltip content here.'" /></h3>
 				<ComponentLoader
 					:loaded="!!details.choices"
@@ -188,7 +190,7 @@ export default {
 			details: {},
 			totalVotesForActive: null,
 			proposalStatesToColor: {
-				active: "blue",
+				active: "green",
 				closed: "grey",
 				pending: "yellow",
 			},
