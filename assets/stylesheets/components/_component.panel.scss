@@ -7,12 +7,15 @@
 	flex-direction: column;
 	align-items: flex-start;
 	background: $MEDIUM_LIGHT_GREY;
-	padding: $SPACING_24;
-	border-radius: $BORDER_RADIUS_16;
+	padding: $SPACING_32;
+	border-radius: $BORDER_RADIUS_8;
 	position: relative;
 }
-.panel h3 {
-	margin-bottom: $SPACING_12;
+.panel h4 {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	margin-bottom: $SPACING_24;
 }
 .panel__row {
 	flex-direction: row;
@@ -53,4 +56,19 @@
 }
 .panel__row span svg:hover path {
 	stroke: $LIME;
+}
+
+@media screen and (max-width: 1440px) {
+	.panel__row {
+		margin-bottom: $SPACING_16;
+	}
+	.panel__row p,
+	.panel__row span {
+		font-size: $BODY_TEXT_SM;
+		line-height: $SPACING_24;
+	}
+	.panel__row span svg,
+	.panel__row span a svg {
+		margin-left: $SPACING_8;
+	}
 }

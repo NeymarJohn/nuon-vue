@@ -9,7 +9,7 @@
 	font-size: $BODY_TEXT_SM;
 	padding: $SPACING_8;
 	border-radius: $BORDER_RADIUS_8;
-	top: -48px;
+	top: -$SPACING_48;
 }
 .tooltip.visible {
 	opacity: 1;
@@ -23,7 +23,11 @@
 	outline: 0;
 }
 .tooltip--icon path {
-	fill: #9e9db3;
+	fill: $WHITE;
+	transition: $TRANSITION_ALL;
+}
+.tooltip--icon:hover path {
+	fill: $LIME;
 }
 @media screen and (max-width: 1440px) {
 	.tooltip--icon {

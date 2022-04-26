@@ -1,16 +1,21 @@
 <template>
 	<div class="votes-table">
-		<LayoutFlex
-			direction="row-center-space-between">
-			<h3>Votes</h3>
+		<LayoutFlex class="u-mb-16" direction="row-center-space-between">
+			<h4>Votes</h4>
 			<h4 v-if="votes"><SuccessIcon /> {{ numberOfVotes }}</h4>
 		</LayoutFlex>
 		<ComponentLoader :loaded="!!votes">
 			<div class="votes-table__container" role="table" aria-label="Voters">
 				<div class="votes-table__row" role="rowgroup">
-					<div class="votes-table__cell" role="columnheader">Voter</div>
-					<div class="votes-table__cell" role="columnheader">Vote Option</div>
-					<div class="votes-table__cell" role="columnheader">Voting Power</div>
+					<div class="votes-table__cell" role="columnheader">
+						<h5>Voter</h5>
+					</div>
+					<div class="votes-table__cell" role="columnheader">
+						<h5>Vote Option</h5>
+					</div>
+					<div class="votes-table__cell" role="columnheader">
+						<h5>Voting Power</h5>
+					</div>
 				</div>
 				<div v-for="(voter, index) in votes" :key="index" class="votes-table__row" role="rowgroup">
 					<div class="votes-table__cell" role="cell" :title="voter.voter">{{ shortAddress(voter.voter) }}</div>
@@ -18,7 +23,7 @@
 					<div class="votes-table__cell" role="cell">{{ votingPower(voter) }}</div>
 				</div>
 				<div class="votes-table__row" role="rowgroup">
-					<div class="votes-table__cell votes-table__cell--full" role="cell">
+					<div class="votes-table__cell votes-table__cell--full u-pb-0" role="cell">
 						<p v-if="numberOfVotes === 0">No votes submitted</p>
 						<p v-else-if="reachedEnd">All votes loaded</p>
 						<TheButton

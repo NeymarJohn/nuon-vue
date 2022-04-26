@@ -28,7 +28,7 @@
 	column-gap: $SPACING_24;
 }
 .l-grid-side-panel {
-	padding: $SPACING_72 $SPACING_100 0;
+	padding: $SPACING_48 $SPACING_100 0;
 	display: grid;
 	grid-template-columns: calc(60% - 16px) calc(40% - 16px);
 	grid-template-rows: repeat(3, 1fr);
@@ -55,10 +55,18 @@
 	.l-grid--column-3-stretch-alt {
 		column-gap: $SPACING_12;
 	}
+	.l-grid-side-panel {
+		padding: $SPACING_24 $SPACING_60 $SPACING_24 $SPACING_80;
+		grid-column-gap: $SPACING_12;
+		grid-row-gap: $SPACING_12;
+	}
 }
 @media screen and (max-width: 990px) {
 	.l-grid {
 		display: flex;
 		flex-direction: column;
+	}
+	.l-grid-side-panel {
+		padding: $SPACING_36 $SPACING_30 $SPACING_36 $SPACING_50;
 	}
 }
