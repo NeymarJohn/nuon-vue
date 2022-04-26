@@ -56,7 +56,9 @@
 		column-gap: $SPACING_12;
 	}
 	.l-grid-side-panel {
-		padding: $SPACING_24 $SPACING_80;
+		padding: $SPACING_24 $SPACING_60 $SPACING_24 $SPACING_80;
+		grid-column-gap: $SPACING_12;
+		grid-row-gap: $SPACING_12;
 	}
 }
 @media screen and (max-width: 990px) {

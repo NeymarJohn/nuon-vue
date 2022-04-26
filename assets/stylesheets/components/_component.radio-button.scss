@@ -46,3 +46,9 @@ label[disabled] {
 label[disabled]input[type="radio"] {
 	background-color: $WHITE;
 }
+@media screen and (max-width: 1440px) {
+	.radio-button {
+		font-size: $BODY_TEXT_SM;
+		margin-bottom: $SPACING_18;
+	}
+}

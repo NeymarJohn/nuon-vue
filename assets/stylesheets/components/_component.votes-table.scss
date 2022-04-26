@@ -56,3 +56,10 @@
 	margin-bottom: 0;
 	font-size: $BODY_TEXT;
 }
+@media screen and (max-width: 1440px) {
+	.votes-table__row,
+	.votes-table__cell--full p {
+		font-size: $BODY_TEXT_SM;
+		line-height: $SPACING_24;
+	}
+}

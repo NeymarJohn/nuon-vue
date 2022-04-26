@@ -57,3 +57,18 @@
 .panel__row span svg:hover path {
 	stroke: $LIME;
 }
+
+@media screen and (max-width: 1440px) {
+	.panel__row {
+		margin-bottom: $SPACING_16;
+	}
+	.panel__row p,
+	.panel__row span {
+		font-size: $BODY_TEXT_SM;
+		line-height: $SPACING_24;
+	}
+	.panel__row span svg,
+	.panel__row span a svg {
+		margin-left: $SPACING_8;
+	}
+}
