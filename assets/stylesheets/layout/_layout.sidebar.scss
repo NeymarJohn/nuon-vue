@@ -19,9 +19,16 @@
 	}
 }
 @media screen and (max-width: 990px) {
+	.l-sidebar--top .logo {
+		display: none;
+	}
+	.l-sidebar--top {
+		padding-top: $SPACING_16;
+	}
 	.l-sidebar {
 		transform: translateX(-100%);
 		width: 75%;
+		top: $SPACING_79;
 	}
 	.l-sidebar.is-active {
 		transform: translateX(0%);

@@ -70,3 +70,13 @@
 		padding: $SPACING_36 $SPACING_30 $SPACING_36 $SPACING_50;
 	}
 }
+@media screen and (max-width: 480px) {
+	.l-grid-side-panel {
+		display: flex;
+		flex-direction: column;
+		grid-column-gap: 0;
+		grid-row-gap: 0;
+		max-height: unset;
+		padding: $SPACING_12 $SPACING_24;
+	}
+}

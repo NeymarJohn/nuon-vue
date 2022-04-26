@@ -68,3 +68,14 @@
 		padding: $SPACING_24 0;
 	}
 }
+@media screen and (max-width: 480px) {
+	.votes-table {
+		padding-bottom: $SPACING_12;
+	}
+	.votes-table__container {
+		border-radius: $BORDER_RADIUS_16;
+	}
+	.votes-table__cell {
+		padding: $SPACING_12 0;
+	}
+}
