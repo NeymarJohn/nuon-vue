@@ -54,7 +54,7 @@
 				<StatCard class="u-mb-sm-12">
 					<label>Collateralization Ratio<TooltipIcon v-tooltip="'Enter collateralization ratio tooltip content here.'" /></label>
 					<LayoutFlex>
-						<TheLoader component="h3">
+						<TheLoader component="h3 u-mr-32">
 							<h3 class="u-mr-32">Target {{ numberWithCommas(targetCollateralizationRatio.toFixed(2)) }}%</h3>
 						</TheLoader>
 						<TheLoader component="h3">
@@ -65,7 +65,7 @@
 				<StatCard>
 					<label>APR<TooltipIcon v-tooltip="'Enter apr tooltip content here.'" /></label>
 					<LayoutFlex>
-						<TheLoader component="h3">
+						<TheLoader component="h3 u-mr-32">
 							<h3 class="u-mr-32">Inflation {{ numberWithCommas(inflation.toFixed(2)) }}%</h3>
 						</TheLoader>
 						<TheLoader component="h3">

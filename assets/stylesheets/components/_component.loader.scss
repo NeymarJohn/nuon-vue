@@ -1,10 +1,10 @@
 /* #COMPONENT - LOADER */
 .loader {
 	width: 100%;
-	background: $LIGHT_GREY;
+	background: $MEDIUM_GREY;
 	position: relative;
 	overflow: hidden;
-	border-radius: 5px;
+	border-radius: $BORDER_RADIUS_4;
 }
 .loader:before {
 	content: "";
@@ -12,11 +12,11 @@
 	animation-timing-function: ease-in-out;
 	background-image: linear-gradient(
 		to left,
-		rgba(251, 251, 251, 0.1),
-		rgba(251, 251, 251, 0.2),
-		rgba(251, 251, 251, 0.3),
-		rgba(251, 251, 251, 0.2),
-		rgba(251, 251, 251, 0.1)
+		rgba(24, 24, 26, 0.4),
+		rgba(24, 24, 26, 0.7),
+		rgba(24, 24, 26, 0.9),
+		rgba(24, 24, 26, 0.7),
+		rgba(24, 24, 26, 0.4)
 	);
 	position: absolute;
 	left: 0;
@@ -35,7 +35,7 @@
 // Loader H1
 .loader--h1 {
 	height: $SPACING_48;
-	width: 215px;
+	width: $SPACING_250;
 	margin-bottom: $SPACING_14;
 }
 // Loader H2
@@ -45,8 +45,8 @@
 }
 // Loader H3
 .loader--h3 {
-	height: 45px;
-	width: 215px;
+	height: $SPACING_45;
+	width: $SPACING_210;
 }
 // Loader H4
 .loader--h4 {
@@ -58,8 +58,8 @@
 }
 // Loader H5
 .loader--h5 {
-	height: 30px;
-	width: 90px;
+	height: $SPACING_24;
+	width: $SPACING_80;
 }
 // Loader p
 .loader--p {
@@ -94,5 +94,9 @@
 	.loader--h1 {
 		width: $SPACING_190;
 		margin-bottom: $SPACING_2;
+	}
+	.loader--h3 {
+		width: $SPACING_100;
+		height: $SPACING_36;
 	}
 }
