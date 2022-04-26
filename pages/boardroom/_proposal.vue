@@ -32,22 +32,20 @@
 		</LayoutContainer>
 		<LayoutGridSidePanel>
 			<div class="proposal-details">
-				<div class="proposal-description">
-					<h4>Description<TooltipIcon v-tooltip="'Enter description tooltip content here.'" /></h4>
-					<ComponentLoader
-						:loaded="!!details.snapshot"
-						width="u-full-width"
-						slot-classes="l-flex--column">
-						<div class="u-white-space-pre" v-html="compiledMarkdown"></div>
-						<TheButton
-							v-if="details.body && details.body.length > 400"
-							:title="`Click to show ${isVisible ? 'less' : 'more'}`"
-							size="link"
-							@click="isVisible = !isVisible">
-							Show {{ isVisible ? "less" : "more" }}
-						</TheButton>
-					</ComponentLoader>
-				</div>
+				<h2>Description<TooltipIcon v-tooltip="'Enter description tooltip content here.'" /></h2>
+				<ComponentLoader
+					:loaded="!!details.snapshot"
+					width="u-full-width"
+					slot-classes="l-flex--column">
+					<div class="u-white-space-pre" v-html="compiledMarkdown"></div>
+					<TheButton
+						v-if="details.body && details.body.length > 400"
+						:title="`Click to show ${isVisible ? 'less' : 'more'}`"
+						size="link"
+						@click="isVisible = !isVisible">
+						Show {{ isVisible ? "less" : "more" }}
+					</TheButton>
+				</ComponentLoader>
 				<VotesTable
 					:proposal-id="$route.params.proposal"
 					:choices="details.choices || []"
@@ -55,7 +53,7 @@
 					:proposal-state="details.state" />
 			</div>
 			<ThePanel>
-				<h4>Information<TooltipIcon v-tooltip="'Enter information tooltip content here.'" /></h4>
+				<h3>Information<TooltipIcon v-tooltip="'Enter information tooltip content here.'" /></h3>
 				<ComponentLoader
 					:loaded="!!details.author && !!details.start && !!details.end && !!details.snapshot"
 					width="u-full-width"
@@ -81,7 +79,7 @@
 				</ComponentLoader>
 			</ThePanel>
 			<ThePanel>
-				<h4>Current Results<TooltipIcon v-tooltip="'Enter current results tooltip content here.'" /></h4>
+				<h3>Current Results<TooltipIcon v-tooltip="'Enter current results tooltip content here.'" /></h3>
 				<ComponentLoader
 					:loaded="!!voteScores && !!details.choices"
 					width="u-full-width"
@@ -92,8 +90,8 @@
 						:proposal-state="details.state" />
 				</ComponentLoader>
 			</ThePanel>
-			<ThePanel class="u-mb-48">
-				<h4>Cast Your Vote<TooltipIcon v-tooltip="'Enter cast your vote tooltip content here.'" /></h4>
+			<ThePanel>
+				<h3>Cast Your Vote<TooltipIcon v-tooltip="'Enter cast your vote tooltip content here.'" /></h3>
 				<ComponentLoader
 					:loaded="!!details.choices"
 					width="u-full-width"
@@ -164,6 +162,7 @@ import axios from "axios";
 import snapshot from "@snapshot-labs/snapshot.js";
 import { marked } from "marked";
 import { Web3Provider } from "@ethersproject/providers";
+import { fromWei } from "~/utils/bnTools";
 import ChevronLeftIcon from "@/assets/images/svg/svg-chevron-left.svg";
 import ClipboardIcon from "@/assets/images/svg/svg-clipboard.svg";
 import ExternalLinkIcon from "@/assets/images/svg/svg-external-link.svg";
@@ -182,7 +181,6 @@ export default {
 	data() {
 		return {
 			slug: this.$route.params,
-			votingPower: 0,
 			socialUrl: this.$nuxt.$route.fullPath,
 			isVisible: false,
 			vote: null,
@@ -190,7 +188,7 @@ export default {
 			details: {},
 			totalVotesForActive: null,
 			proposalStatesToColor: {
-				active: "green",
+				active: "blue",
 				closed: "grey",
 				pending: "yellow",
 			},
@@ -209,12 +207,13 @@ export default {
 				const allChoices = this.totalVotesForActive.map(v => v.choice);
 				const uniqueAnswers = new Set(allChoices);
 				const calculatedVotes = {};
-				// gives {1: 8, 2: undefined} for 8 yes and 0 no with key 1 denoting yes, 2 denoting no
+				// gives {1: 8} for 8 yes and 0 no with key 1 denoting yes
+				// gives {2: 3} for 3 no
 				// gives {1: 8, 2: 3} for 8 yes and 3 no with key 1 denoting yes, 2 denoting no
 				uniqueAnswers.forEach((ans) => {
 					calculatedVotes[ans] = allChoices.filter(c => c === ans).length;
 				});
-				return this.details.choices.map((_, i) => calculatedVotes[i]);
+				return this.details.choices.map((_, i) => calculatedVotes[i + 1]);
 			} else {
 				return this.details.scores;
 			}
@@ -248,6 +247,16 @@ export default {
 			const str3 = str2.replace(/-/g, " ");
 			return str3 || "Proposal";
 		},
+		myStake() {
+			return parseFloat(fromWei(this.$store.state.boardroomStore.stakedBalance));
+		},
+		totalStaked() {
+			return parseFloat(fromWei(this.$store.state.boardroomStore.totalSupply));
+		},
+		votingPower() {
+			if (!this.totalStaked) return 0;
+			return this.myStake / this.totalStaked * 100;
+		},
 	},
 	created() {
 		this.getProposalDetails();
@@ -264,7 +273,7 @@ export default {
 					space: "caldron.eth",
 					proposal: this.$route.params.proposal,
 					type: "single-choice",
-					choice: this.vote,
+					choice: this.vote + 1,
 					metadata: JSON.stringify({})
 				});
 
