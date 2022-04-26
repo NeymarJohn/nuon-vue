@@ -79,6 +79,18 @@
 // Loader burn
 .loader--burn {
 	height: 250px;
+	background: $DARK_GREY;
+	margin-bottom: $SPACING_48;
+}
+.loader--burn:before {
+	background-image: linear-gradient(
+		to left,
+		rgba(38, 38, 38, 0.4),
+		rgba(38, 38, 38, 0.7),
+		rgba(38, 38, 38, 0.9),
+		rgba(38, 38, 38, 0.7),
+		rgba(38, 38, 38, 0.4)
+	);
 }
 // Loader list
 .loader--list {
