@@ -1,17 +1,19 @@
 <template>
 	<TheModal
 		v-show="isConnectWalletVisible"
-		title="Choose a wallet to connect"
-		@close-modal="setModalVisibility('connectWalletModal', false)"
-	>
+		title="Connect Wallet"
+		subtitle="Choose a wallet to connect"
+		class="modal--connect"
+		@close-modal="setModalVisibility('connectWalletModal', false)">
 		<LayoutFlex direction="row-space-around">
 			<LayoutFlex
 				v-for="(wallet, index) in wallets"
 				:key="index"
-				class="icon-container l-flex--column-center"
+				class="u-cursor-pointer"
+				direction="column-center"
 				@click="walletClicked(wallet)">
-				<component :is="require(`~/assets/images/svg/svg-${wallet}.svg`)" />
-				<p class="icon-title">{{capitalize(wallet)}}</p>
+				<component :is="require(`~/assets/images/svg/svg-${wallet}.svg`)" class="u-mb-16"/>
+				<h5>{{capitalize(wallet)}}</h5>
 			</LayoutFlex>
 		</LayoutFlex>
 	</TheModal>

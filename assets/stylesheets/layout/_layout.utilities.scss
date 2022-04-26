@@ -7,6 +7,7 @@
 		6. Padding bottom
 		7. Color
 		8. Border
+		9. Cursor
 */
 
 // 1. Margin bottom
@@ -142,6 +143,17 @@
 // 8. Border
 .u-bb-white {
 	border-bottom: 1px solid $WHITE !important;
+}
+
+// 9. Cursor
+.u-cursor-pointer {
+	cursor: pointer !important;
+}
+.u-cursor-pointer h5 {
+	transition: $TRANSITION_ALL !important;
+}
+.u-cursor-pointer:hover h5 {
+	color: $LIME !important;
 }
 
 // Width

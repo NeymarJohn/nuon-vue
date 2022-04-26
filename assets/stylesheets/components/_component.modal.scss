@@ -1,5 +1,14 @@
-/* #COMPONENT - MODAL */
-// Modal default
+/* #COMPONENT - MODAL
+		1. Modal default
+		2. Modal claim
+		3. Modal boardroom
+		4. Modal confirm
+		5. Modal connect
+		6. Modal states
+		7. Modal responsive
+*/
+
+// 1. Modal default
 .modal {
 	display: flex;
 	justify-content: center;
@@ -21,11 +30,11 @@
 .modal__container {
 	display: flex;
 	flex-direction: column;
-	margin: 0px;
+	margin: 0;
 	background-color: $DARK_GREY;
 	box-shadow: $BOX_SHADOW_MODAL;
 	padding: $SPACING_62 $SPACING_40;
-	width: 40.625rem;
+	width: $SPACING_650;
 	overflow: hidden auto;
 	align-self: center;
 	max-height: 80vh;
@@ -40,9 +49,6 @@
 	align-items: flex-start;
 	margin-bottom: $SPACING_24;
 }
-.modal__header h4 {
-	margin-bottom: $SPACING_8;
-}
 .modal__header p {
 	font-size: $BODY_TEXT;
 	line-height: $SPACING_24;
@@ -55,14 +61,15 @@
 .modal__header .btn--icon svg path {
 	stroke: $WHITE;
 }
-// Modal claim tokens
+
+// 2. Modal claim
 .modal--claim .modal__container {
 	overflow: scroll;
 	min-height: 85vh;
 }
 .modal__info--lower {
 	border: 1px solid $MEDIUM_LIGHT_GREY;
-	border-radius: 8px;
+	border-radius: $BORDER_RADIUS_8;
 	padding: $SPACING_16 $SPACING_32;
 }
 .modal__info--lower p {
@@ -82,11 +89,13 @@
 .modal-fade-leave-active {
 	transition: opacity 0.5s ease;
 }
-// Modal boardroom
+
+// 3. Modal boardroom
 .modal--boardroom .modal__container {
 	min-height: auto;
 }
-// Modal states
+
+// 4. Modal confirm
 .modal__confirm {
 	display: flex;
 	flex-direction: column;
@@ -127,7 +136,17 @@
 .modal__confirm--buttons .btn:last-child {
 	flex: 1;
 }
-// Modal states
+
+// 5. Modal connect
+.modal--connect .modal__container {
+	width: $SPACING_425;
+	padding: $SPACING_64 $SPACING_32;
+}
+.modal--connect .modal__header {
+	margin-bottom: $SPACING_40;
+}
+
+// 6. Modal states
 .modal.is-confirming .modal__header,
 .modal.is-confirmed .modal__header {
 	justify-content: flex-end;
@@ -147,6 +166,8 @@
 	align-items: center;
 	margin-bottom: $SPACING_12;
 }
+
+// 7. Modal responsive
 @media screen and (max-width: 990px) {
 	.modal__container {
 		position: absolute;
