@@ -74,7 +74,10 @@
 	padding: $SPACING_32;
 	border-radius: $BORDER_RADIUS_8;
 }
-.proposal-description h2 {
+.proposal-description h4 {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
 	margin-bottom: $SPACING_24;
 }
 .proposal-description .btn {

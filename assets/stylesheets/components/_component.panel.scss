@@ -7,11 +7,14 @@
 	flex-direction: column;
 	align-items: flex-start;
 	background: $MEDIUM_LIGHT_GREY;
-	padding: $SPACING_24;
-	border-radius: $BORDER_RADIUS_16;
+	padding: $SPACING_32;
+	border-radius: $BORDER_RADIUS_8;
 	position: relative;
 }
-.panel h3 {
+.panel h4 {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
 	margin-bottom: $SPACING_24;
 }
 .panel__row {

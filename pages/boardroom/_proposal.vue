@@ -33,7 +33,7 @@
 		<LayoutGridSidePanel>
 			<div class="proposal-details">
 				<div class="proposal-description">
-					<h2>Description<TooltipIcon v-tooltip="'Enter description tooltip content here.'" /></h2>
+					<h4>Description<TooltipIcon v-tooltip="'Enter description tooltip content here.'" /></h4>
 					<ComponentLoader
 						:loaded="!!details.snapshot"
 						width="u-full-width"
@@ -55,7 +55,7 @@
 					:proposal-state="details.state" />
 			</div>
 			<ThePanel>
-				<h3>Information<TooltipIcon v-tooltip="'Enter information tooltip content here.'" /></h3>
+				<h4>Information<TooltipIcon v-tooltip="'Enter information tooltip content here.'" /></h4>
 				<ComponentLoader
 					:loaded="!!details.author && !!details.start && !!details.end && !!details.snapshot"
 					width="u-full-width"
@@ -81,7 +81,7 @@
 				</ComponentLoader>
 			</ThePanel>
 			<ThePanel>
-				<h3>Current Results<TooltipIcon v-tooltip="'Enter current results tooltip content here.'" /></h3>
+				<h4>Current Results<TooltipIcon v-tooltip="'Enter current results tooltip content here.'" /></h4>
 				<ComponentLoader
 					:loaded="!!voteScores && !!details.choices"
 					width="u-full-width"
@@ -93,7 +93,7 @@
 				</ComponentLoader>
 			</ThePanel>
 			<ThePanel class="u-mb-48">
-				<h3>Cast Your Vote<TooltipIcon v-tooltip="'Enter cast your vote tooltip content here.'" /></h3>
+				<h4>Cast Your Vote<TooltipIcon v-tooltip="'Enter cast your vote tooltip content here.'" /></h4>
 				<ComponentLoader
 					:loaded="!!details.choices"
 					width="u-full-width"
