@@ -43,6 +43,9 @@
 		transform: translateX(200%);
 	}
 }
+.loader--default {
+	height: $SPACING_36;
+}
 
 // 2. Loader H1
 .loader--h1 {

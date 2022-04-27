@@ -9,11 +9,11 @@ export default {
 	props: {
 		component: {
 			type: String,
-			required: true
+			default: "default",
 		},
 		loaded: {
 			type: Boolean,
-			required: false
+			required: true
 		},
 		slotClasses: {
 			type: String,
