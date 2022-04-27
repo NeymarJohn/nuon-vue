@@ -2,11 +2,7 @@
 	<div class="votes-table">
 		<LayoutFlex class="u-mb-16" direction="row-center-space-between">
 			<h4>Votes</h4>
-			<div>
-				<ComponentLoader :loaded="!!votes" component="h4">
-					<h4><SuccessIcon /> {{ numberOfVotes }}</h4>
-				</ComponentLoader>
-			</div>
+			<h4 v-if="votes"><SuccessIcon /> {{ numberOfVotes }}</h4>
 		</LayoutFlex>
 		<ComponentLoader :loaded="!!votes">
 			<div class="votes-table__container" role="table" aria-label="Voters">
@@ -28,17 +24,15 @@
 				</div>
 				<div class="votes-table__row" role="rowgroup">
 					<div class="votes-table__cell votes-table__cell--full u-pb-0" role="cell">
-						<ComponentLoader :loaded="!!votes" component="p" :slot-classes="'l-flex--row-justify-center'">
-							<p v-if="numberOfVotes === 0">No votes submitted</p>
-							<p v-else-if="reachedEnd">All votes loaded</p>
-							<TheButton
-								v-else
-								size="link"
-								title="Click to show all"
-								@click="showMoreClicked">
-								Show more
-							</TheButton>
-						</ComponentLoader>
+						<p v-if="numberOfVotes === 0">No votes submitted</p>
+						<p v-else-if="reachedEnd">All votes loaded</p>
+						<TheButton
+							v-else
+							size="link"
+							title="Click to show all"
+							@click="showMoreClicked">
+							Show more
+						</TheButton>
 					</div>
 				</div>
 			</div>
@@ -67,6 +61,7 @@ export default {
 		numberOfVotes: {
 			type: Number,
 			required: true,
+			default: 0
 		},
 		proposalState: {
 			type: String,

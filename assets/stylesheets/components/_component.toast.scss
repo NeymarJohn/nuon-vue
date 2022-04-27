@@ -1,18 +1,38 @@
-/* #COMPONENT - TOAST */
+/* #COMPONENT - TOAST
+		1. Toast default
+		2. Toast success
+		3. Toast failure
+		4. Toast responsive
+*/
+
+// 1. Toast default
 .toast {
 	position: fixed;
 	top: $SPACING_32;
 	right: $SPACING_32;
-	border-radius: 6px;
+	border-radius: $BORDER_RADIUS_16;
 	z-index: 4;
-	padding: $SPACING_12 $SPACING_24;
-	min-width: 300px;
+	padding: $SPACING_32;
+	min-width: $SPACING_425;
+	background: $DARK_GREY;
 }
-.toast a,
-.toast p,
-.toast h3 {
-	color: $WHITE;
+.toast__header {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: $SPACING_12;
+}
+.toast__header p {
+	font-size: $BODY_TEXT;
+	line-height: $SPACING_30;
 	margin-bottom: 0;
+}
+.toast__header svg path {
+	stroke: $WHITE;
+}
+.toast__body a {
+	color: $WHITE;
 }
 .toast-slide-enter-active {
 	transition: $TRANSITION_ALL;
@@ -25,8 +45,30 @@
 	transform: translateX(10px);
 	opacity: 0;
 }
-.external-link-icon {
-	fill: $WHITE;
-	height: 12px;
-	margin-left: 5px;
+
+// 2. Toast success
+.toast--success p,
+.toast--success h4 {
+	color: $SUCCESS;
+}
+
+// 3. Toast failure
+.toast--failure p,
+.toast--failure h4 {
+	color: $ERROR;
+}
+
+// 4. Toast responsive
+@media screen and (max-width: 1440px) {
+	.toast {
+		padding: $SPACING_24;
+		min-width: $SPACING_325;
+	}
+	.toast__header {
+		margin-bottom: $SPACING_8;
+	}
+	.toast__header p {
+		font-size: $BODY_TEXT_SM;
+		line-height: $SPACING_21;
+	}
 }

@@ -13,7 +13,7 @@ export default {
 		},
 		loaded: {
 			type: Boolean,
-			required: false
+			required: true
 		},
 		slotClasses: {
 			type: String,

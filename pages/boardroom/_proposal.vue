@@ -3,24 +3,18 @@
 		<LayoutContainer>
 			<PageTitle class="u-mb-48">
 				<h4>Boardroom</h4>
-				<LayoutFlex>
+				<h1>
 					<TheButton
 						size="icon"
 						class="u-mr-24 u-no-transition u-p-0"
 						title="Click to go back"
-						@click="getPreviousPage"><ChevronLeftIcon /></TheButton>
-					<ComponentLoader :loaded="!!details.snapshot" component="h1">
-						<h1>Proposal #{{ details.snapshot }}</h1>
-					</ComponentLoader>
-				</LayoutFlex>
+						@click="getPreviousPage"><ChevronLeftIcon /></TheButton>Proposal #{{ details.snapshot }}</h1>
 			</PageTitle>
 			<LayoutInfo size="2">
 				<DataCard>
-					<ComponentLoader :loaded="!!details.title" component="h2"><h2 class="u-mb-24">{{ details.title }}</h2></ComponentLoader>
+					<h2 class="u-mb-24">{{ details.title }}</h2>
 					<LayoutFlex direction="row-center">
-						<ComponentLoader :loaded="!!details.state" component="badge">
-							<TheBadge :color="proposalStatesToColor[details.state]">{{ capitalize(details.state) }}</TheBadge>
-						</ComponentLoader>
+						<TheBadge :color="proposalStatesToColor[details.state]">{{ capitalize(details.state) }}</TheBadge>
 						<ShareNetwork
 							network="twitter"
 							:url="`https://www.caldron.fi${socialUrl}`"
@@ -32,7 +26,7 @@
 				</DataCard>
 				<DataCard>
 					<label>Voting Power <TooltipIcon v-tooltip="'Enter voting power tooltip content here.'" /></label>
-					<ComponentLoader :loaded="!!details.snapshot || !!votingPower" component="h3"><h3>{{ votingPower.toFixed(2) }}<sup>%</sup></h3></ComponentLoader>
+					<h3>{{ votingPower.toFixed(2) }}<sup>%</sup></h3>
 				</DataCard>
 			</LayoutInfo>
 		</LayoutContainer>
