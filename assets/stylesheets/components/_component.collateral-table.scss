@@ -3,45 +3,35 @@
 	width: 100%;
 }
 .collateral-table h4 {
-	font-size: $HEADING_FOUR !important;
 	display: flex;
 	flex-direction: row;
 	align-items: center;
 }
 .collateral-table h4 svg {
-	margin-right: $SPACING_14;
+	margin-right: $SPACING_8;
 }
 .collateral-table__container {
 	display: block;
 	width: 100%;
-	background: $MEDIUM_LIGHT_GREY;
-	border-radius: $BORDER_RADIUS_24;
-	padding: $SPACING_32 $SPACING_40;
 }
 .collateral-table__row {
 	display: flex;
 	flex-flow: row wrap;
-	border-bottom: $SPACING_1 solid $WHITE;
-	padding: $SPACING_30 0;
+	border-bottom: 1px solid $MEDIUM_LIGHT_GREY;
 }
 .collateral-table__row:first-child {
-	padding: 0 0 $SPACING_30;
+	font-size: $BODY_TEXT_SM;
 }
-.collateral-table__row:first-child h5 {
-	color: $LIGHT_GREY;
-}
-.collateral-table__row h5 {
-	color: $WHITE;
+.collateral-table__row:first-child .collateral-table__cell {
+	padding: $SPACING_8 $SPACING_24;
 }
 .collateral-table__cell {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
 	width: calc(100% / 3);
+	padding: $SPACING_16 $SPACING_24;
 }
-.collateral-table__cell svg {
-	margin-right: $SPACING_12;
+.data-card .collateral-table__cell h4 {
+	font-size: $HEADING_FOUR;
 }
 .collateral-table__cell:nth-child(3) {
-	justify-content: flex-end;
+	text-align: right;
 }

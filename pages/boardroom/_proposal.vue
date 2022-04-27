@@ -3,16 +3,20 @@
 		<LayoutContainer>
 			<PageTitle class="u-mb-48">
 				<h4>Boardroom</h4>
-				<h1>
+				<LayoutFlex>
 					<TheButton
 						size="icon"
 						class="u-mr-24 u-no-transition u-p-0"
 						title="Click to go back"
-						@click="getPreviousPage"><ChevronLeftIcon /></TheButton>Proposal #{{ details.snapshot }}</h1>
+						@click="getPreviousPage"><ChevronLeftIcon /></TheButton>
+					<TheLoader component="h1">
+						<h1>Proposal #{{ details.snapshot }}</h1>
+					</TheLoader>
+				</LayoutFlex>
 			</PageTitle>
 			<LayoutInfo size="2">
 				<DataCard>
-					<h2 class="u-mb-24">{{ details.title }}</h2>
+					<ComponentLoader :loaded="!!details.title"><h2 class="u-mb-24">{{ details.title }}</h2></ComponentLoader>
 					<LayoutFlex direction="row-center">
 						<TheBadge :color="proposalStatesToColor[details.state]">{{ capitalize(details.state) }}</TheBadge>
 						<ShareNetwork
@@ -26,7 +30,7 @@
 				</DataCard>
 				<DataCard>
 					<label>Voting Power <TooltipIcon v-tooltip="'Enter voting power tooltip content here.'" /></label>
-					<h3>{{ votingPower.toFixed(2) }}<sup>%</sup></h3>
+					<ComponentLoader :loaded="!!details.snapshot || !!votingPower"><h3>{{ votingPower.toFixed(2) }}<sup>%</sup></h3></ComponentLoader>
 				</DataCard>
 			</LayoutInfo>
 		</LayoutContainer>
