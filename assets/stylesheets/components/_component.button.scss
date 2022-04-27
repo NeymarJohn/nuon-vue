@@ -178,8 +178,8 @@ a.btn:hover,
 }
 .btn--link:active,
 .btn--link:hover {
-	background: $TRANSPARENT;
-	color: $LIME;
+	background: $TRANSPARENT !important;
+	color: $LIME !important;
 }
 .btn--link:hover:after {
 	background: $LIME;

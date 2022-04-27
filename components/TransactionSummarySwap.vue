@@ -9,7 +9,7 @@
 				</LayoutFlex>
 				<LayoutFlex direction="column-end">
 					<h2>{{input.value | formatPrice }}</h2>
-					<p class="u-colour-grey-dark">~ ${{ input.value * tokenPrices[input.token] | formatPrice }}</p>
+					<p class="u-colour-dark-grey">~ ${{ input.value * tokenPrices[input.token] | formatPrice }}</p>
 				</LayoutFlex>
 			</LayoutFlex>
 			<LayoutFlex>
@@ -22,7 +22,7 @@
 				</LayoutFlex>
 				<LayoutFlex direction="column-end">
 					<h2>{{ output.value | formatPrice }}</h2>
-					<p class="u-colour-grey-dark">~ ${{ output.value * tokenPrices[output.token] | formatPrice }}</p>
+					<p class="u-colour-dark-grey">~ ${{ output.value * tokenPrices[output.token] | formatPrice }}</p>
 				</LayoutFlex>
 			</LayoutFlex>
 			<div v-if="priceUpdate" class="transaction__update">
@@ -45,7 +45,7 @@
 				<p>{{ value.title }}</p>
 				<LayoutFlex direction="column-end">
 					<p>{{ value.val }} {{ value.currency && value.currency }}</p>
-					<p v-if="value.dollar" class="u-colour-grey-dark">~ ${{ value.dollar | formatPrice }}</p>
+					<p v-if="value.dollar" class="u-colour-dark-grey">~ ${{ value.dollar | formatPrice }}</p>
 				</LayoutFlex>
 			</LayoutFlex>
 		</div>

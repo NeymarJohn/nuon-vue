@@ -240,8 +240,11 @@
 }
 
 // 18. Colour
-.u-colour-grey-dark {
+.u-colour-dark-grey {
 	color: $DARK_GREY !important;
+}
+.u-colour-light-grey {
+	color: $LIGHT_GREY !important;
 }
 
 // 19. Prompt
