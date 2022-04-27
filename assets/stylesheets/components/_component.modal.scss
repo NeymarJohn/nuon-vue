@@ -4,8 +4,9 @@
 		3. Modal boardroom
 		4. Modal confirm
 		5. Modal connect
-		6. Modal states
-		7. Modal responsive
+		6. Modal collateral table
+		7. Modal states
+		8. Modal responsive
 */
 
 // 1. Modal default
@@ -146,7 +147,12 @@
 	margin-bottom: $SPACING_40;
 }
 
-// 6. Modal states
+// 6. Modal collateral table
+.modal--collateral-table .modal__container {
+	width: $SPACING_870;
+}
+
+// 7. Modal states
 .modal.is-confirming .modal__header,
 .modal.is-confirmed .modal__header {
 	justify-content: flex-end;
@@ -167,7 +173,7 @@
 	margin-bottom: $SPACING_12;
 }
 
-// 7. Modal responsive
+// 8. Modal responsive
 @media screen and (max-width: 990px) {
 	.modal__container {
 		position: absolute;

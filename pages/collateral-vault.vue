@@ -20,7 +20,8 @@
 						@click="setModalVisibility('collateralModal', true)">Token List</TheButton>
 					<TheModal
 						v-show="isCollateralModalVisible"
-						title="Locked Collateral"
+						class="modal--collateral-table"
+						title="Token List"
 						@close-modal="setModalVisibility('collateralModal', false)">
 						<CollateralTable />
 					</TheModal>
