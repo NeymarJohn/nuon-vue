@@ -1,9 +1,4 @@
-/* #COMPONENT - DATA CARD
-		1. Data card default
-		2. Data card responsive
-*/
-
-// 1. Data card default
+/* #COMPONENT - DATA CARD */
 .data-card {
 	display: flex;
 	flex-direction: column;
@@ -65,7 +60,6 @@
 	align-items: flex-end;
 }
 
-// 2. Data card responsive
 @media screen and (max-width: 1440px) {
 	.data-card label {
 		font-size: $BODY_TEXT_SM;
@@ -74,9 +68,6 @@
 	.data-card h3 {
 		font-size: $HEADING_ONE_1440;
 		margin-bottom: $SPACING_4;
-	}
-	.data-card .modal--collateral-table h4 {
-		font-size: $HEADING_FOUR_1440;
 	}
 }
 @media screen and (max-width: 990px) {
