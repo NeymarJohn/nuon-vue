@@ -1,5 +1,5 @@
 <template>
-	<div v-if="!loaded" :class="`loader loader--${ component } ${ width }`" />
+	<div v-if="!loaded" :class="`loader loader--${ component }`" />
 	<div v-else :class="`u-full-width l-flex ${slotClasses}`"><slot /></div>
 </template>
 
@@ -9,11 +9,7 @@ export default {
 	props: {
 		component: {
 			type: String,
-			default: "default",
-		},
-		width: {
-			type: String,
-			default: ""
+			required: true
 		},
 		loaded: {
 			type: Boolean,

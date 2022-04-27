@@ -55,12 +55,8 @@
 					<TheLoader component="h3">
 						<LayoutFlex direction="row-center-space-between">
 							<h3 v-if="price.usx">{{ numberWithCommas(price.usx.toFixed(2)) }}</h3>
-							<TheLoader v-if="price.usx > tolerance.high" component="badge">
-								<TheBadge v-if="price.usx">Above</TheBadge>
-							</TheLoader>
-							<TheLoader v-else-if="price.usx < tolerance.low" component="badge">
-								<TheBadge v-if="price.usx">Below</TheBadge>
-							</TheLoader>
+							<TheBadge v-if="price.usx > tolerance.high">Above</TheBadge>
+							<TheBadge v-else-if="price.usx < tolerance.low">Below</TheBadge>
 						</LayoutFlex>
 					</TheLoader>
 				</StatCard>
@@ -84,7 +80,7 @@
 					</TheLoader>
 				</StatCard>
 			</LayoutGrid>
-			<TheLoader component="burn">
+			<TheLoader component="content-block">
 				<LayoutPegZone v-if="price.usx > tolerance.high">
 					<LayoutFlex class="l-flex-column-sm" direction="row-space-between">
 						<PageTitle>

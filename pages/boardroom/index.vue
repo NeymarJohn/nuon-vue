@@ -131,12 +131,12 @@
 			<LayoutFlex class="u-mb-36 u-mb-md-24 l-flex-column-start-sm" direction="row-center-space-between">
 				<LayoutFlex class="u-full-width-sm">
 					<ul class="icon-list">
-						<li v-if="totalProposals !== null">Total Proposals <TheBadge color="grey">{{ totalProposals }}</TheBadge></li>
-						<li v-if="totalProposals === null"><ComponentLoader component="list" /></li>
-						<li v-if="totalVotes !== null">Total Votes <TheBadge color="grey">{{ totalVotes }}</TheBadge></li>
-						<li v-if="totalVotes === null"><ComponentLoader component="list" /></li>
-						<li v-if="numberOfUniqueVoters !== null">Total Voters <TheBadge color="grey">{{ numberOfUniqueVoters }}</TheBadge></li>
-						<li v-if="numberOfUniqueVoters === null"><ComponentLoader component="list" /></li>
+						<li v-if="totalProposals !== null">Total Proposals <TheBadge>{{ totalProposals }}</TheBadge></li>
+						<li v-if="totalProposals === null"><ComponentLoader component="inline-list" /></li>
+						<li v-if="totalVotes !== null">Total Votes <TheBadge>{{ totalVotes }}</TheBadge></li>
+						<li v-if="totalVotes === null"><ComponentLoader component="inline-list" /></li>
+						<li v-if="numberOfUniqueVoters !== null">Total Voters <TheBadge>{{ numberOfUniqueVoters }}</TheBadge></li>
+						<li v-if="numberOfUniqueVoters === null"><ComponentLoader component="inline-list" /></li>
 					</ul>
 				</LayoutFlex>
 				<TheSelect :options="['All', 'Active', 'Pending', 'Closed']" :default="'All'" label="Filter Proposals" @filter-select="onFilterChange" />
@@ -155,7 +155,7 @@
 					</NuxtLink>
 				</template>
 			</InfiniteScroll>
-			<ComponentLoader :loaded="!isLoading" component="proposals" />
+			<ComponentLoader :loaded="!isLoading" component="content-block" />
 			<p v-if="!isLoading && filteredProposals !== null && filteredProposals.length === 0" class="u-text-center u-mt-xs">No proposals to show.</p>
 		</LayoutContainer>
 	</div>
