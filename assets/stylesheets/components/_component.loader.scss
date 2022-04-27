@@ -7,7 +7,8 @@
 		6. Loader P
 		7. Loader content block
 		8. Loader inline list
-		9. Loader responsive
+		9. Loader badge
+		10. Loader responsive
 */
 
 // 1. Loader default
@@ -103,7 +104,13 @@
 	width: $SPACING_150;
 }
 
-// 9. Loader responsive
+// 9. Loader badge {
+.loader--badge {
+	height: $SPACING_30;
+	width: $SPACING_70;
+}
+
+// 10. Loader responsive
 @media screen and (max-width: 1440px) {
 	.loader--h1 {
 		width: $SPACING_190;

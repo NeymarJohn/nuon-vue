@@ -18,7 +18,7 @@
 				<DataCard>
 					<ComponentLoader :loaded="!!details.title" component="h2"><h2 class="u-mb-24">{{ details.title }}</h2></ComponentLoader>
 					<LayoutFlex direction="row-center">
-						<ComponentLoader :loaded="!!details.state" component="h5">
+						<ComponentLoader :loaded="!!details.state" component="badge">
 							<TheBadge :color="proposalStatesToColor[details.state]">{{ capitalize(details.state) }}</TheBadge>
 						</ComponentLoader>
 						<ShareNetwork
