@@ -1,14 +1,12 @@
 /* #COMPONENT - LOADER
 		1. Loader default
 		2. Loader H1
-		3. Loader H2
-		4. Loader H3
-		5. Loader H4
-		6. Loader H5
-		7. Loader P
-		8. Loader content block
-		9. Loader inline list
-		10. Loader responsive
+		3. Loader H3
+		4. Loader H5
+		5. Loader P
+		6. Loader content block
+		7. Loader inline list
+		8. Loader responsive
 */
 
 // 1. Loader default
@@ -53,37 +51,25 @@
 	margin-bottom: $SPACING_14;
 }
 
-// 3. Loader H2
-.loader--h2 {
-	height: 36px;
-	width: 497px;
-}
-
-// 4. Loader H3
+// 3. Loader H3
 .loader--h3 {
 	height: $SPACING_45;
 	width: $SPACING_210;
 }
 
-// 5. Loader H4
-.loader--h4 {
-	height: 24px;
-	width: 35px;
-}
-
-// 6. Loader H5
+// 4. Loader H5
 .loader--h5 {
 	height: $SPACING_24;
 	width: $SPACING_80;
 }
 
-// 7. Loader P
+// 5. Loader P
 .loader--p {
 	height: $SPACING_24;
 	width: $SPACING_150;
 }
 
-// 8. Loader content block
+// 6. Loader content block
 .loader--content-block {
 	height: $SPACING_250;
 	background: $DARK_GREY;
@@ -100,13 +86,13 @@
 	);
 }
 
-// 9. Loader inline list
+// 7. Loader inline list
 .loader--inline-list {
 	height: $SPACING_30;
 	width: $SPACING_150;
 }
 
-// 10. Loader responsive
+// 8. Loader responsive
 @media screen and (max-width: 1440px) {
 	.loader--h1 {
 		width: $SPACING_190;
