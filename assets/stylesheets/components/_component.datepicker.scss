@@ -1,4 +1,38 @@
-/* #COMPONENT - DATEPICKER */
+/* #COMPONENT - DATEPICKER
+		1. Datepicker default
+		2. Datepicker responsive
+*/
+
+// 1. Datepicker default
+.mx-calendar {
+	width: $SPACING_350 !important;
+	padding: $SPACING_16 !important;
+}
+.mx-btn {
+	font-size: $FONT_BODY !important;
+	line-height: $SPACING_24 !important;
+}
+.mx-btn,
+.mx-btn:hover {
+	border: 0 !important;
+}
+.mx-calendar-header .mx-btn-text {
+	color: $WHITE !important;
+}
+.mx-icon-left:before,
+.mx-icon-right:before,
+.mx-icon-double-left:before,
+.mx-icon-double-right:before,
+.mx-icon-double-left:after,
+.mx-icon-double-right:after {
+	width: $SPACING_12 !important;
+	height: $SPACING_12 !important;
+}
+.mx-calendar-header-label .mx-btn-text {
+	font-size: $BODY_TEXT !important;
+	color: $LIGHT_GREY !important;
+	line-height: $SPACING_30 !important;
+}
 .mx-datepicker {
 	width: 100% !important;
 	margin-bottom: $SPACING_24;
@@ -26,7 +60,8 @@
 	height: $SPACING_24 !important;
 	width: $SPACING_24 !important;
 }
-.mx-datepicker-main {
+.mx-datepicker-main,
+.mx-calendar-time {
 	background: $MEDIUM_GREY !important;
 	border: 0 !important;
 	border-radius: $BORDER_RADIUS_16 !important;
@@ -60,15 +95,83 @@
 	border: $SPACING_1 solid $LIME !important;
 	color: $LIME !important;
 	background: $MEDIUM_GREY !important;
+	border-radius: $BORDER_RADIUS_4 !important;
 }
 .mx-table-date .today,
 .mx-calendar-content .cell:hover {
 	background: $LIME !important;
 	color: $DARK_GREY !important;
+	border-radius: $BORDER_RADIUS_4 !important;
 }
 .mx-table-date .cell.not-current-month {
 	color: $LIGHT_GREY !important;
 }
+.mx-table-date .cell.not-current-month:hover {
+	color: $DARK_GREY !important;
+}
+.mx-datepicker-footer {
+	padding: $SPACING_16 !important;
+	border-top: $SPACING_1 solid $MEDIUM_LIGHT_GREY !important;
+}
+button.mx-btn.mx-datepicker-btn-confirm {
+	background: $LIME;
+	color: $DARK_GREY;
+	padding: $SPACING_8 $SPACING_24;
+	transition: $TRANSITION_ALL;
+}
+button.mx-btn.mx-datepicker-btn-confirm:hover {
+	color: $LIME;
+	background: $MEDIUM_LIGHT_GREY;
+}
+td.cell.today.not-current-month {
+	color: $LIME !important;
+}
+.mx-table-date .today {
+	color: $LIME !important;
+	border: $SPACING_1 solid $LIME !important;
+	background: $TRANSPARENT !important;
+}
+.mx-time-header {
+	border-bottom: $SPACING_1 solid $MEDIUM_LIGHT_GREY !important;
+	height: $SPACING_46 !important;
+	line-height: $SPACING_46 !important;
+}
+.mx-time-content {
+	height: $SPACING_270 !important;
+}
+.mx-time-column {
+	border-left: $SPACING_1 solid $MEDIUM_LIGHT_GREY !important;
+}
+.mx-time-header-title {
+	font-size: $BODY_TEXT !important;
+	line-height: $SPACING_30 !important;
+	color: $LIGHT_GREY !important;
+	transition: $TRANSITION_ALL !important;
+}
+.mx-time-header-title:hover {
+	color: $LIME !important;
+}
+.mx-time-column .mx-time-item.active {
+	color: $LIME !important;
+	font-weight: normal !important;
+}
+.mx-time-column .mx-time-item {
+	font-size: $BODY_TEXT !important;
+	line-height: $SPACING_30 !important;
+	transition: $TRANSITION_ALL !important;
+	height: $SPACING_36 !important;
+}
+.mx-time-column .mx-time-item:hover {
+	background: $LIME !important;
+	color: $DARK_GREY !important;
+}
+.mx-calendar-header-label,
+.mx-table-year .cell div {
+	font-size: $BODY_TEXT !important;
+	line-height: $SPACING_30 !important;
+}
+
+// 2. Datepicker responsive
 @media screen and (max-width: 1440px) {
 	.mx-datepicker .mx-input {
 		padding: $SPACING_16 !important;
