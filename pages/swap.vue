@@ -44,7 +44,7 @@
 				</LayoutFlex>
 				<TheStepper :active-step="activeStep" :steps="['Token', 'Confirm']">
 					<template #step-one>
-						<LayoutFlex direction="row-center-space-between" class="u-mb-12">
+						<LayoutFlex direction="row-center-space-between" class="u-mb-12 u-mt-24">
 							<h5>Select Token To Swap</h5>
 							<h5>Max Slippage {{ maxSlippage }}%</h5>
 						</LayoutFlex>
@@ -161,7 +161,7 @@
 					</template>
 					<template #step-two>
 						<TransactionSummarySwap :values="summary" :input="input" :output="output"/>
-						<p>Minimum received is estimated. You will receive at least <strong>{{ calculateSlippage() | formatPrice }} {{ output.token }}</strong> or the transaction will revert.</p>
+						<p class="u-color-light-grey u-pb-32">Minimum received is estimated. You will receive at least <strong>{{ calculateSlippage() | formatPrice }} {{ output.token }}</strong> or the transaction will revert.</p>
 						<div class="transaction-input__buttons">
 							<TheButton
 								size="lg"

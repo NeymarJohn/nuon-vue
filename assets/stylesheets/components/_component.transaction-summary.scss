@@ -1,4 +1,9 @@
-/* #COMPONENT - TRANSACTION SUMMARY */
+/* #COMPONENT - TRANSACTION SUMMARY
+		1. Transaction summary default
+		2. Transaction summary swap
+*/
+
+// 1. Transaction summary default
 .transaction-summary {
 	padding: $SPACING_32;
 	border-radius: $BORDER_RADIUS_16;
@@ -18,16 +23,29 @@
 	margin-bottom: 0;
 }
 .transaction-summary .svg-arrow-down {
-	margin: 0 $SPACING_16;
+	margin: $SPACING_24 $SPACING_10;
 }
 .transaction__update {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
 	align-items: center;
-	padding: $SPACING_16 $SPACING_24;
-	border: $SPACING_1 solid $MEDIUM_LIGHT_GREY;
-	background: $LIGHT_GREY;
+	padding: $SPACING_32;
+	background: $MEDIUM_LIGHT_GREY;
 	border-radius: $BORDER_RADIUS_8;
-	margin-bottom: $SPACING_32;
+	margin: $SPACING_32 0;
+}
+
+// 2. Transaction summary swap
+.transaction-summary--swap {
+	background: $TRANSPARENT;
+}
+.transaction-summary--swap h4 {
+	color: $LIME;
+}
+.transaction-summary--swap .transaction__update h4 {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	color: $WHITE;
 }

@@ -106,6 +106,7 @@ a.btn:hover,
 	border: 0;
 }
 .btn--icon {
+	display: inline-flex;
 	transition: $TRANSITION_ALL;
 }
 .btn--icon:hover {

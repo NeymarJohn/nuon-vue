@@ -21,6 +21,7 @@
 }
 .swap .btn--icon {
 	padding: 0;
+	margin-left: $SPACING_8;
 }
 .swap__balance {
 	margin-bottom: $SPACING_12;
@@ -33,12 +34,12 @@
 	margin-bottom: 0;
 }
 .swap__output {
+	background: $MEDIUM_LIGHT_GREY;
 	display: flex;
 	flex-direction: row;
 	align-items: center;
 	justify-content: space-between;
-	border: $SPACING_1 solid $MEDIUM_LIGHT_GREY;
 	border-radius: $BORDER_RADIUS_8;
-	padding: $SPACING_16 $SPACING_32;
-	margin-bottom: $SPACING_32;
+	padding: $SPACING_26 $SPACING_32;
+	margin-bottom: $SPACING_64;
 }

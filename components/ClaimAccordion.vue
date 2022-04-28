@@ -9,7 +9,7 @@
 						title="Click to open token list" @click="triggerAccordion">
 						<img :src="require(`~/assets/images/tokens/${selected.name}.png`)" alt="Hydro logo">
 						<div class="accordion__token">
-							<h2>{{ selected.symbol }}</h2>
+							<h4>{{ selected.symbol }}</h4>
 							<p>{{ selected.name }}</p>
 						</div>
 						<ChevronDownIcon v-if="!isActive" />
