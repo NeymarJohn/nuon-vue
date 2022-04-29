@@ -82,7 +82,7 @@
 						</PageTitle>
 						<DataCard align="end">
 							<p>Available HX Balance</p>
-							<h3>{{ numberWithCommas(hxBalance.toFixed(2)) }}<sup>HX</sup></h3>
+							<h3 class="u-mb-18">{{ numberWithCommas(hxBalance.toFixed(2)) }}<sup>HX</sup></h3>
 							<TheButton
 								:disabled="connectedAccount === ''"
 								title="Click to start burning"
@@ -105,7 +105,7 @@
 						</PageTitle>
 						<DataCard align="end">
 							<p>Pending to Claim</p>
-							<h3>{{ numberWithCommas(claimBalance.toFixed(2)) }}<sup>HX</sup></h3>
+							<h3 class="u-mb-18">{{ numberWithCommas(claimBalance.toFixed(2)) }}<sup>HX</sup></h3>
 							<TheButton
 								:disabled="!canClaim"
 								title="Click to start claiming"
