@@ -2,23 +2,24 @@
 		1. Margin bottom
 		2. Margin right
 		3. Margin top
-		4. Padding all
-		5. Padding top
-		6. Padding bottom
-		7. Padding top + bottom
-		8. Color
-		9. Border
-		10. Cursor
-		11. Width
-		12. Display
-		13. Validation
-		14. Position
-		15. Transition
-		16. Text alignment
-		17. Flex
-		18. White space
-		19. Colour
-		20. Prompt
+		4. Margin left
+		5. Padding all
+		6. Padding top
+		7. Padding bottom
+		8. Padding top + bottom
+		9. Color
+		10. Border
+		11. Cursor
+		12. Width
+		13. Display
+		14. Validation
+		15. Position
+		16. Transition
+		17. Text alignment
+		18. Flex
+		19. White space
+		20. Colour
+		21. Prompt
 */
 
 // 1. Margin bottom
@@ -87,6 +88,9 @@
 }
 
 // 2. Margin right
+.u-mr-0 {
+	margin-right: 0 !important;
+}
 .u-mr-8 {
 	margin-right: $SPACING_8 !important;
 }
@@ -124,12 +128,17 @@
 	margin-top: $SPACING_24 !important;
 }
 
-// 4. Padding all
+// 4. Margin left
+.u-ml-8 {
+	margin-left: $SPACING_8 !important;
+}
+
+// 5. Padding all
 .u-p-0 {
 	padding: 0 !important;
 }
 
-// 5. Padding top
+// 6. Padding top
 .u-pt-0 {
 	padding-top: 0 !important;
 }
@@ -147,7 +156,7 @@
 	}
 }
 
-// 6. Padding bottom
+// 7. Padding bottom
 .u-pb-0 {
 	padding-bottom: 0 !important;
 }
@@ -158,13 +167,13 @@
 	padding-bottom: $SPACING_32 !important;
 }
 
-// 7. Padding top + bottom
+// 8. Padding top + bottom
 .u-ptb-32 {
 	padding-top: $SPACING_32 !important;
 	padding-bottom: $SPACING_32 !important;
 }
 
-// 8. Color
+// 9. Color
 .u-color-white {
 	color: $WHITE !important;
 }
@@ -172,7 +181,7 @@
 	color: $LIGHT_GREY !important;
 }
 
-// 9. Border
+// 10. Border
 .u-bb-white {
 	border-bottom: $SPACING_1 solid $WHITE !important;
 }
@@ -180,7 +189,7 @@
 	border-bottom: $SPACING_1 solid $MEDIUM_LIGHT_GREY !important;
 }
 
-// 10. Cursor
+// 11. Cursor
 .u-cursor-pointer {
 	cursor: pointer !important;
 }
@@ -191,7 +200,7 @@
 	color: $LIME !important;
 }
 
-// 11. Width
+// 12. Width
 .u-half-width {
 	width: 50% !important;
 }
@@ -204,7 +213,7 @@
 	}
 }
 
-// 12. Display
+// 13. Display
 .u-display-desktop {
 	display: none !important;
 }
@@ -215,7 +224,7 @@
 	}
 }
 
-// 13. Validation
+// 14. Validation
 .u-is-warning {
 	color: $ERROR !important;
 }
@@ -223,7 +232,7 @@
 	color: $SUCCESS !important;
 }
 
-// 14. Position
+// 15. Position
 .u-position-sticky {
 	position: sticky !important;
 	top: 0 !important;
@@ -231,7 +240,7 @@
 	z-index: 2 !important;
 }
 
-// 15. Transition
+// 16. Transition
 .u-no-transition {
 	transition: none !important;
 }
@@ -239,7 +248,7 @@
 	transform: none !important;
 }
 
-// 16. Text alignment
+// 17. Text alignment
 .u-text-center {
 	text-align: center !important;
 }
@@ -252,19 +261,19 @@
 	text-align: right !important;
 }
 
-// 17. Flex
+// 18. Flex
 .u-flex-row-center {
 	display: flex !important;
 	flex-direction: row !important;
 	align-items: center !important;
 }
 
-// 18. White space
+// 19. White space
 .u-white-space-pre {
 	white-space: pre-line !important;
 }
 
-// 19. Colour
+// 20. Colour
 .u-colour-dark-grey {
 	color: $DARK_GREY !important;
 }
@@ -272,7 +281,7 @@
 	color: $LIGHT_GREY !important;
 }
 
-// 20. Prompt
+// 21. Prompt
 .u-green-prompt {
 	background: $SUCCESS !important;
 }
