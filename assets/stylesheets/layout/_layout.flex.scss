@@ -56,6 +56,9 @@
 		flex-direction: column;
 		align-items: flex-start;
 	}
+	.l-flex-column-md {
+		flex-direction: column;
+	}
 }
 @media screen and (max-width: 480px) {
 	.l-flex-column-sm {

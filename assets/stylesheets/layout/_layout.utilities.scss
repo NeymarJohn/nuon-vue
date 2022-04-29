@@ -91,6 +91,9 @@
 	.u-mb-sm-32 {
 		margin-bottom: $SPACING_32 !important;
 	}
+	.u-mb-sm-48 {
+		margin-bottom: $SPACING_48 !important;
+	}
 }
 
 // 2. Margin right
@@ -123,6 +126,11 @@
 @media screen and (max-width: 990px) {
 	.u-mr-md-12 {
 		margin-right: $SPACING_12 !important;
+	}
+}
+@media screen and (max-width: 480px) {
+	.u-mr-sm-0 {
+		margin-right: 0 !important;
 	}
 }
 
@@ -230,6 +238,12 @@
 	.u-display-desktop {
 		display: block !important;
 		padding: 0 !important;
+	}
+	.u-display-grid-md {
+		display: grid !important;
+	}
+	.u-display-flex-sm {
+		display: flex !important;
 	}
 }
 

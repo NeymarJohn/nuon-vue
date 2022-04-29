@@ -49,7 +49,7 @@
 		</LayoutContainer>
 		<LayoutContainer class="u-pt-48">
 			<h2 class="u-mb-20">Token State</h2>
-			<LayoutGrid class="u-mb-56" size="3">
+			<LayoutGrid class="u-mb-56 u-mb-sm-48 u-display-grid-md u-display-flex-sm" size="3">
 				<StatCard class="u-mb-sm-12">
 					<label>USX Price<TooltipIcon v-tooltip="'Enter usx price tooltip content here.'" /></label>
 					<TheLoader component="h3">
@@ -75,7 +75,7 @@
 			</LayoutGrid>
 			<TheLoader component="content-block">
 				<LayoutPegZone v-if="price.usx > tolerance.high">
-					<LayoutFlex class="l-flex-column-sm" direction="row-space-between">
+					<LayoutFlex class="l-flex-column-md" direction="row-space-between">
 						<PageTitle>
 							<h2>Peg Zone: Is Above Range<TooltipIcon v-tooltip="'Enter above range tooltip content here.'" /></h2>
 							<p>Burn your HX to get the Peg Zone back in range and earn treasury fees.</p>
@@ -98,7 +98,7 @@
 						</DataCard>
 					</LayoutFlex>
 					<hr>
-					<LayoutFlex class="l-flex-column-sm" direction="row-space-between">
+					<LayoutFlex class="l-flex-column-md u-mb-sm-24" direction="row-space-between">
 						<PageTitle>
 							<h2>Rewards<TooltipIcon v-tooltip="'Enter rewards tooltip content here.'" /></h2>
 							<p>Claim statement and description (make audience aware of the claim info)</p>
@@ -120,8 +120,8 @@
 							<ClaimAccordion from="stabilityZone"/>
 						</TheModal>
 					</LayoutFlex>
-					<LayoutFlex v-if="connectedAccount !== ''">
-						<DataCard v-if="price.usx > tolerance.high || price.usx <= tolerance.high && price.usx >= tolerance.low" class="u-mr-80">
+					<LayoutFlex v-if="connectedAccount !== ''" class="l-flex-column-sm">
+						<DataCard v-if="price.usx > tolerance.high || price.usx <= tolerance.high && price.usx >= tolerance.low" class="u-mr-80 u-mb-sm-24 u-mr-sm-0">
 							<label>Claim Ratio<TooltipIcon v-tooltip="'Enter claim ratio tooltip content here.'" /></label>
 							<TheLoader component="h3">
 								<h3 v-if="connectedAccount !== ''">{{ claimRatio }}%</h3>
