@@ -49,7 +49,7 @@
 		</LayoutContainer>
 		<LayoutContainer class="u-pt-48">
 			<h2 class="u-mb-20">Token State</h2>
-			<LayoutGrid class="u-mb-56" :size="price.usx < tolerance.low ? '3' : '4'">
+			<LayoutGrid class="u-mb-56" size="3">
 				<StatCard class="u-mb-sm-12">
 					<label>USX Price<TooltipIcon v-tooltip="'Enter usx price tooltip content here.'" /></label>
 					<TheLoader component="h3">
@@ -70,13 +70,6 @@
 					<label>Rebalance Fee<TooltipIcon v-tooltip="'Enter rebalance fee tooltip content here.'" /></label>
 					<TheLoader component="h3">
 						<h3 v-if="rebalanceFee">{{ rebalanceFee }}%</h3>
-					</TheLoader>
-				</StatCard>
-				<StatCard v-if="price.usx > tolerance.high || price.usx <= tolerance.high && price.usx >= tolerance.low">
-					<label>Claim Ratio<TooltipIcon v-tooltip="'Enter claim ratio tooltip content here.'" /></label>
-					<TheLoader component="h3">
-						<h3 v-if="connectedAccount !== ''">{{ claimRatio }}%</h3>
-						<h3 v-else>-%</h3>
 					</TheLoader>
 				</StatCard>
 			</LayoutGrid>
@@ -128,8 +121,15 @@
 						</TheModal>
 					</LayoutFlex>
 					<LayoutFlex v-if="connectedAccount !== ''">
+						<DataCard v-if="price.usx > tolerance.high || price.usx <= tolerance.high && price.usx >= tolerance.low" class="u-mr-80">
+							<label>Claim Ratio<TooltipIcon v-tooltip="'Enter claim ratio tooltip content here.'" /></label>
+							<TheLoader component="h3">
+								<h3 v-if="connectedAccount !== ''">{{ claimRatio }}%</h3>
+								<h3 v-else>-%</h3>
+							</TheLoader>
+						</DataCard>
 						<DataCard>
-							<p>Claim rewards in:</p>
+							<label>Claim rewards in <TooltipIcon v-tooltip="'Enter claim rewards in tooltip content here.'" /></label>
 							<TheCountdown :visible="isConnectedWallet" :next-claim-date="nextClaimDate" />
 						</DataCard>
 					</LayoutFlex>
