@@ -1,4 +1,11 @@
-/* #COMPONENT - ACCORDION */
+/* #COMPONENT - ACCORDION
+		1. Accordion default
+		2. Accordion claim
+		3. Accordion swap
+		4. Accordion responsive
+*/
+
+// 1. Accordion default
 .accordion {
 	background: $MEDIUM_LIGHT_GREY;
 	border-radius: $BORDER_RADIUS_24;
@@ -90,6 +97,8 @@
 	height: $SPACING_16;
 	border-radius: $BORDER_RADIUS_8;
 }
+
+// 2. Accordion claim
 .accordion--claim.active {
 	border-bottom-left-radius: 0;
 	border-bottom-right-radius: 0;
@@ -110,7 +119,8 @@
 .accordion--claim .input__container {
 	background: $WHITE;
 }
-// Accordion swap
+
+// 3. Accordion swap
 .accordion--swap {
 	padding: 0;
 	border: 0;
@@ -133,4 +143,11 @@
 	border-bottom: 1px solid $MEDIUM_LIGHT_GREY;
 	border-bottom-left-radius: 8px;
 	border-bottom-right-radius: 8px;
+}
+
+// 4. Accordion responsive
+@media screen and (max-width: 990px) {
+	.accordion--swap .data-card--end {
+		align-items: flex-end;
+	}
 }

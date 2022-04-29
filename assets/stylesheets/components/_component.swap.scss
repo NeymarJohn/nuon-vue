@@ -1,5 +1,6 @@
 /* #COMPONENT - SWAP
 		1. Swap default
+		2. Swap responsive
 */
 
 // 1. Swap default
@@ -46,4 +47,11 @@
 	border-radius: $BORDER_RADIUS_8;
 	padding: $SPACING_26 $SPACING_32;
 	margin-bottom: $SPACING_48;
+}
+
+// 2. Swap responsive
+@media screen and (max-width: 990px) {
+	.swap {
+		margin-bottom: $SPACING_48;
+	}
 }

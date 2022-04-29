@@ -24,6 +24,7 @@
 	}
 	.l-container--sm {
 		padding: $SPACING_48 $SPACING_50 0;
+		max-width: inherit;
 	}
 }
 @media screen and (max-width: 480px) {
