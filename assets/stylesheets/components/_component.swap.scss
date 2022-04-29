@@ -55,3 +55,16 @@
 		margin-bottom: $SPACING_48;
 	}
 }
+@media screen and (max-width: 480px) {
+	.swap {
+		padding: $SPACING_48 $SPACING_32;
+	}
+	.swap__container {
+		padding: $SPACING_24;
+	}
+	.swap__output {
+		padding: $SPACING_24;
+		flex-direction: column;
+		align-items: flex-start;
+	}
+}

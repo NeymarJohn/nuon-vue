@@ -83,7 +83,7 @@
 	font-size: $BODY_TEXT;
 }
 .accordion__tokens {
-	max-height: 225px;
+	max-height: $SPACING_225;
 	overflow-y: scroll;
 	padding: 0 $SPACING_16;
 }
@@ -149,5 +149,39 @@
 @media screen and (max-width: 990px) {
 	.accordion--swap .data-card--end {
 		align-items: flex-end;
+	}
+}
+@media screen and (max-width: 480px) {
+	.accordion--swap .data-card--end,
+	.accordion--swap .accordion__header {
+		width: 100%;
+	}
+	.accordion--swap .accordion__header {
+		margin-bottom: $SPACING_32;
+	}
+	.accordion--swap .accordion__token {
+		flex: 1;
+	}
+	.accordion--swap .data-card--end .btn--sm {
+		font-size: $HEADING_FIVE_480;
+		line-height: $SPACING_18;
+		padding: $SPACING_7 $SPACING_21;
+		height: $SPACING_32;
+	}
+	.accordion--swap .accordion__body {
+		padding: 0 $SPACING_24;
+		top: $SPACING_72;
+		left: -$SPACING_24;
+		right: -$SPACING_24;
+		border: 0;
+	}
+	.accordion__filter input {
+		font-size: $HEADING_FIVE_480;
+		line-height: $SPACING_18;
+		padding: $SPACING_8 $SPACING_16 $SPACING_8 $SPACING_50;
+	}
+	.accordion__tokens {
+		padding: 0;
+		max-height: $SPACING_320;
 	}
 }

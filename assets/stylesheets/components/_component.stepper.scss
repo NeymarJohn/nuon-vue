@@ -131,3 +131,8 @@
 		line-height: $SPACING_26;
 	}
 }
+@media screen and (max-width: 480px) {
+	.stepper {
+		margin-bottom: $SPACING_24;
+	}
+}

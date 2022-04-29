@@ -1,6 +1,7 @@
 /* #COMPONENT - TRANSACTION SUMMARY
 		1. Transaction summary default
 		2. Transaction summary swap
+		3. Transaction summary responsive
 */
 
 // 1. Transaction summary default
@@ -48,4 +49,11 @@
 	flex-direction: row;
 	align-items: center;
 	color: $WHITE;
+}
+
+// 3. Transaction summary responsive
+@media screen and (max-width: 480px) {
+	.transaction-summary--swap {
+		padding: 0;
+	}
 }

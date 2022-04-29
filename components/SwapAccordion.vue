@@ -1,6 +1,6 @@
 <template>
 	<div class="accordion accordion--swap" :class="{ active: isActive }">
-		<LayoutFlex direction="row-start-space-between">
+		<LayoutFlex class="l-flex-column-sm" direction="row-start-space-between">
 			<LayoutFlex
 				v-if="selected.symbol"
 				direction="row-center"

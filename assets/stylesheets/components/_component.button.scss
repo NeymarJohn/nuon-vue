@@ -202,4 +202,8 @@ a.btn:hover,
 		font-size: $HEADING_FIVE_480;
 		line-height: $SPACING_24;
 	}
+	.btn--swap {
+		height: $SPACING_48;
+		width: $SPACING_48;
+	}
 }

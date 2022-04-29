@@ -1,4 +1,9 @@
-/* #COMPONENT - TOKEN */
+/* #COMPONENT - TOKEN
+		1. Token default
+		2. Token responsive
+*/
+
+// 1. Token default
 .token {
 	display: flex;
 	flex-direction: row;
@@ -43,4 +48,16 @@
 .token h5 {
 	font-size: $BODY_TEXT;
 	line-height: $SPACING_30;
+}
+
+// 2. Token responsive
+@media screen and (max-width: 480px) {
+	.token h3 {
+		font-size: $HEADING_FOUR_480;
+		line-height: $SPACING_26;
+	}
+	.token p {
+		font-size: $HEADING_FIVE_480;
+		line-height: $SPACING_18;
+	}
 }

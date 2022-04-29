@@ -8,8 +8,8 @@
 		</LayoutContainer>
 		<LayoutContainer size="sm" class="u-pt-0">
 			<div class="swap">
-				<LayoutFlex direction="row-start-space-between" class="u-mb-48">
-					<PageTitle>
+				<LayoutFlex direction="row-start-space-between" class="u-mb-48 u-mb-sm-24">
+					<PageTitle class="u-mb-sm-0">
 						<h2>Swap Tokens <TooltipIcon v-tooltip="'Enter swap tokens tooltip content here.'" /></h2>
 						<p>Trade tokens in an instant</p>
 					</PageTitle>
