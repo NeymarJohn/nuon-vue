@@ -13,7 +13,7 @@
 				<ChevronDownIcon v-if="!isActive" />
 				<ChevronUpIcon v-else />
 			</LayoutFlex>
-			<DataCard align="end" class="u-half-width">
+			<DataCard align="end" class="u-half-width u-full-width-sm">
 				<p v-if="token" class="accordion__available">Available {{token.symbol}} tokens: {{ numberWithCommas(token.balance.toFixed(2)) }}</p>
 				<div class="input u-mb-12">
 					<div class="input__container">

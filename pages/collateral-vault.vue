@@ -46,13 +46,13 @@
 		<LayoutContainer class="u-pt-48">
 			<h2 class="u-mb-20 u-mb-lg-14">Ecosystem Status</h2>
 			<LayoutGrid class="u-mb-48" :size="'3-stretch-alt'">
-				<StatCard class="u-mb-sm-12">
+				<StatCard class="u-mb-md-12">
 					<label>USX Price<TooltipIcon v-tooltip="'Enter usx price tooltip content here.'" /></label>
 					<TheLoader component="h3">
 						<h3>{{ numberWithCommas(usxPrice.toFixed(2)) }}</h3>
 					</TheLoader>
 				</StatCard>
-				<StatCard class="u-mb-sm-12">
+				<StatCard class="u-mb-md-12">
 					<label>Collateralization Ratio<TooltipIcon v-tooltip="'Enter collateralization ratio tooltip content here.'" /></label>
 					<LayoutFlex>
 						<TheLoader component="h3 u-mr-32">

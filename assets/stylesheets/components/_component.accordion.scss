@@ -153,13 +153,16 @@
 }
 @media screen and (max-width: 480px) {
 	.accordion--swap .data-card--end,
-	.accordion--swap .accordion__header {
+	.accordion--swap .accordion__header,
+	.accordion--claim .accordion__header {
 		width: 100%;
 	}
-	.accordion--swap .accordion__header {
+	.accordion--swap .accordion__header,
+	.accordion--claim .accordion__header {
 		margin-bottom: $SPACING_32;
 	}
-	.accordion--swap .accordion__token {
+	.accordion--swap .accordion__token,
+	.accordion--claim .accordion__token {
 		flex: 1;
 	}
 	.accordion--swap .data-card--end .btn--sm {
