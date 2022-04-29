@@ -1,4 +1,9 @@
-/* #COMPONENT - STEPPER */
+/* #COMPONENT - STEPPER
+		1. Stepper default
+		2. Stepper responsive
+*/
+
+// 1. Stepper default
 .stepper {
 	display: flex;
 	flex-direction: row;
@@ -117,4 +122,12 @@
 }
 .stepper__item.success .stepper__title {
 	color: $LIME;
+}
+
+// 2. Stepper responsive
+@media screen and (max-width: 1440px) {
+	.stepper__title {
+		font-size: $HEADING_FIVE_1440;
+		line-height: $SPACING_26;
+	}
 }

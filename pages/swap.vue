@@ -76,7 +76,7 @@
 									</div>
 								</div>
 								<LayoutFlex direction="row-justify-end">
-									<p class="u-mb-0">~ ${{ getPriceInDAI(input.token, input.value) | formatPrice}}</p>
+									<p class="u-mb-0">~ ${{ getPriceInDAI(input.token, input.value).toFixed(2) | formatPrice.toFixed(2) }}</p>
 								</LayoutFlex>
 							</SwapAccordion>
 						</div>

@@ -1,4 +1,8 @@
-/* #COMPONENT - SWAP */
+/* #COMPONENT - SWAP
+		1. Swap default
+*/
+
+// 1. Swap default
 .swap {
 	display: flex;
 	flex-direction: column;
@@ -41,5 +45,5 @@
 	justify-content: space-between;
 	border-radius: $BORDER_RADIUS_8;
 	padding: $SPACING_26 $SPACING_32;
-	margin-bottom: $SPACING_64;
+	margin-bottom: $SPACING_48;
 }

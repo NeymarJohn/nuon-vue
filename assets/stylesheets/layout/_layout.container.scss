@@ -7,12 +7,15 @@
 	padding: $SPACING_72 $SPACING_100 0;
 }
 .l-container--sm {
-	max-width: 54.375rem;
+	max-width: $SPACING_870;
 	padding: $SPACING_32 0;
 }
 @media screen and (max-width: 1440px) {
 	.l-container--md {
 		padding: $SPACING_72 $SPACING_80 0;
+	}
+	.l-container--sm {
+		max-width: $SPACING_660;
 	}
 }
 @media screen and (max-width: 990px) {
