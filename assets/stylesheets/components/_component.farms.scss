@@ -2,6 +2,7 @@
 		1. Farms toggle
 		2. Farms filter
 		3. Farms search
+		4. Farms card
 */
 
 // 1. Farms toggle
@@ -66,4 +67,63 @@
 	background: $MEDIUM_LIGHT_GREY;
 	border-radius: $BORDER_RADIUS_32;
 	min-width: $SPACING_250;
+}
+
+// 4. Farms card
+.farms-card {
+	width: calc(33.3% - $SPACING_16);
+	margin-right: $SPACING_24;
+	background: $MEDIUM_LIGHT_GREY;
+	border-radius: $BORDER_RADIUS_16;
+	padding: $SPACING_24;
+	margin-bottom: $SPACING_24;
+	display: flex;
+	flex-direction: column;
+}
+.farms-card:nth-child(3n) {
+	margin-right: 0;
+}
+.farms-card__earned {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	background: $DARK_GREY;
+	padding: $SPACING_32 $SPACING_24;
+	border-radius: $BORDER_RADIUS_8;
+	margin-bottom: $SPACING_24;
+}
+.farms-card__earned .btn {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	background: $MEDIUM_LIGHT_GREY;
+	border: none;
+	color: $LIGHT_GREY;
+}
+.farms-card__earned .btn svg {
+	margin-right: $SPACING_12;
+}
+.farms-card__text {
+	display: flex;
+	flex-direction: column;
+}
+.farms-card__text h3 {
+	color: $LIME;
+}
+.farm-card__details {
+	padding-top: $SPACING_24;
+}
+.farm-card__details a {
+	color: $WHITE;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	margin-bottom: $SPACING_6;
+}
+.farm-card__details a:last-child {
+	margin-bottom: 0;
+}
+.farm-card__details a svg {
+	margin-left: $SPACING_8;
 }

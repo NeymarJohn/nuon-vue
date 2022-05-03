@@ -26,6 +26,9 @@
 .u-mb-0 {
 	margin-bottom: 0 !important;
 }
+.u-mb-5 {
+	margin-bottom: $SPACING_5 !important;
+}
 .u-mb-8 {
 	margin-bottom: $SPACING_8 !important;
 }
@@ -180,6 +183,9 @@
 .u-pb-8 {
 	padding-bottom: $SPACING_8 !important;
 }
+.u-pb-16 {
+	padding-bottom: $SPACING_16 !important;
+}
 .u-pb-32 {
 	padding-bottom: $SPACING_32 !important;
 }
@@ -201,6 +207,9 @@
 // 10. Border
 .u-bb-white {
 	border-bottom: $SPACING_1 solid $WHITE !important;
+}
+.u-bb-light-grey {
+	border-bottom: $SPACING_1 solid $LIGHT_GREY !important;
 }
 .u-bb-medium-light-grey {
 	border-bottom: $SPACING_1 solid $MEDIUM_LIGHT_GREY !important;

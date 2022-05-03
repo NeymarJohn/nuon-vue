@@ -7,7 +7,7 @@
 			</PageTitle>
 		</LayoutContainer>
 		<LayoutContainer>
-			<LayoutFlex direction="row-end-space-between">
+			<LayoutFlex class="u-mb-32" direction="row-end-space-between">
 				<div class="farms-toggle">
 					<TheButton
 						title="Click to view card view"
@@ -35,21 +35,21 @@
 					</div>
 				</div>
 			</LayoutFlex>
-		</LayoutContainer>
-		<component
-			:is="isTableView ? 'LayoutContainer' : 'LayoutFlex'"
-			:direction="!isTableView && 'row-wrap l-container l-container--md'"
-			:class="[isTableView && 'l-flex l-flex--column l-flex--column-center']">
 			<component
-				:is="isTableView ? 'FarmRow' : 'FarmCard'"
-				v-for="(item, idx) in sortedFarms"
-				:key="idx"
-				:item="item"
-				:idx="idx"
-				@viewMoreClicked="viewMoreFn"
-			/>
-			<div v-observe-visibility="handleScroll"></div>
-		</component>
+				:is="isTableView ? 'LayoutFlex' : 'LayoutFlex'"
+				:direction="!isTableView && 'row-wrap-start'"
+				:class="[isTableView && 'l-flex l-flex--column l-flex--column-center']">
+				<component
+					:is="isTableView ? 'FarmRow' : 'FarmCard'"
+					v-for="(item, idx) in sortedFarms"
+					:key="idx"
+					:item="item"
+					:idx="idx"
+					@viewMoreClicked="handleViewMore"
+				/>
+				<div v-observe-visibility="handleScroll"></div>
+			</component>
+		</LayoutContainer>
 	</div>
 </template>
 
@@ -115,7 +115,7 @@ export default {
 			this.page++;
 			this.farms.push(...this.farms);
 		},
-		viewMoreFn(idx) {
+		handleViewMore(idx) {
 			this.farms[idx].viewMore = !this.farms[idx].viewMore;
 		},
 		sortFarms() {
