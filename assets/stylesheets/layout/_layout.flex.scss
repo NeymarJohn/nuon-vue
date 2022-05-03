@@ -31,6 +31,11 @@
 	align-items: flex-start;
 	justify-content: space-between;
 }
+.l-flex--row-end-space-between {
+	flex-direction: row;
+	align-items: flex-end;
+	justify-content: space-between;
+}
 .l-flex--row-justify-center {
 	justify-content: center;
 }

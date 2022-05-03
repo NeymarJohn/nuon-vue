@@ -1,31 +1,47 @@
 <template>
 	<div>
 		<LayoutContainer>
-			<LayoutFlex class="l-m-flex--column" direction="row-center-space-between">
-				<PageTitle>
-					<h4>Farms</h4>
-				</PageTitle>
-			</LayoutFlex>
-			<LayoutFlex direction="row-center-space-between">
-				<LayoutFlex>
-					<CardView :class="['icon-container', !isTable && 'selected-svg']" @click="viewType = 'card'" />
-					<TableView :class="['icon-container', isTable && 'selected-svg']" @click="viewType = 'table'" />
-				</LayoutFlex>
-				<LayoutFlex>
-					<TheSelect :options="['Hot', 'APR', 'Multiplier', 'Earned', 'Liquidity', 'Latest']" :default="'Hot'" label="Sort by" @filter-select="onFilterChange" />
-					<LayoutFlex direction="column" class="select u-ml-xs">
-						<label>Search</label>
-						<input type="text" title="Search for a farm" class="farm-search" placeholder="Search Farms" />
-					</LayoutFlex>
-				</LayoutFlex>
+			<PageTitle>
+				<h4>Farms</h4>
+				<h1>Stake LP Tokens to Earn</h1>
+			</PageTitle>
+		</LayoutContainer>
+		<LayoutContainer>
+			<LayoutFlex direction="row-end-space-between">
+				<div class="farms-toggle">
+					<TheButton
+						title="Click to view card view"
+						size="icon"
+						:class="{ active: isCardView }"
+						@click="toggleCardView">
+						<CardViewIcon />
+					</TheButton>
+					<TheButton
+						title="Click to view table view"
+						size="icon"
+						:class="{ active: isTableView }"
+						@click="toggleTableView">
+						<TableViewIcon />
+					</TheButton>
+				</div>
+				<div class="farms-filter">
+					<TheSelect
+						:options="['Hot', 'APR', 'Multiplier', 'Earned', 'Liquidity', 'Latest']"
+						:default="'Hot'"
+						label="Sort by"
+						@filter-select="onFilterChange" />
+					<div class="farms-search">
+						<input type="text" placeholder="Search Farms" autocomplete="off">
+					</div>
+				</div>
 			</LayoutFlex>
 		</LayoutContainer>
 		<component
-			:is="isTable ? 'LayoutContainer' : 'LayoutFlex'"
-			:direction="!isTable && 'row-wrap l-container l-container--md'"
-			:class="[isTable && 'l-flex l-flex--column l-flex--column-center']">
+			:is="isTableView ? 'LayoutContainer' : 'LayoutFlex'"
+			:direction="!isTableView && 'row-wrap l-container l-container--md'"
+			:class="[isTableView && 'l-flex l-flex--column l-flex--column-center']">
 			<component
-				:is="isTable ? 'FarmRow' : 'FarmCard'"
+				:is="isTableView ? 'FarmRow' : 'FarmCard'"
 				v-for="(item, idx) in sortedFarms"
 				:key="idx"
 				:item="item"
@@ -39,8 +55,8 @@
 
 <script>
 import { ObserveVisibility } from "vue-observe-visibility";
-import CardView from "~/assets/images/svg/svg-card-view.svg";
-import TableView from "~/assets/images/svg/svg-table-view.svg";
+import CardViewIcon from "~/assets/images/svg/svg-card-view.svg";
+import TableViewIcon from "~/assets/images/svg/svg-table-view.svg";
 
 export default {
 	name: "TheFarms",
@@ -48,11 +64,13 @@ export default {
 		ObserveVisibility
 	},
 	components: {
-		CardView,
-		TableView,
+		CardViewIcon,
+		TableViewIcon,
 	},
 	data() {
 		return {
+			isCardView: true,
+			isTableView: false,
 			page: 0,
 			viewType: "table",
 			filterOption: "Hot",
@@ -76,14 +94,19 @@ export default {
 		};
 	},
 	computed: {
-		isTable() {
-			return this.viewType === "table";
-		},
 		sortedFarms() {
 			return this.sortFarms();
 		}
 	},
 	methods: {
+		toggleCardView() {
+			this.isCardView = true;
+			this.isTableView = false;
+		},
+		toggleTableView() {
+			this.isCardView = false;
+			this.isTableView = true;
+		},
 		getFarms() {
 			this.farms.push(...this.farms);
 		},
