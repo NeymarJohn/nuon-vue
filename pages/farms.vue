@@ -38,9 +38,9 @@
 			<component
 				:is="isTableView ? 'LayoutFlex' : 'LayoutFlex'"
 				:direction="!isTableView && 'row-wrap-start'"
-				:class="[isTableView && 'l-flex l-flex--column l-flex--column-center']">
+				:class="[isTableView && 'l-flex--column-wrap']">
 				<component
-					:is="isTableView ? 'FarmRow' : 'FarmCard'"
+					:is="isTableView ? 'FarmTable' : 'FarmCard'"
 					v-for="(item, idx) in sortedFarms"
 					:key="idx"
 					:item="item"
@@ -72,7 +72,6 @@ export default {
 			isCardView: true,
 			isTableView: false,
 			page: 0,
-			viewType: "table",
 			filterOption: "Hot",
 			farms: [{name: "CAKE-BNB", earned: 0.25, apr: 1, liquidity: 250000000, multiplier: 2, viewMore: false, addLPLink: "https://pancakeswap.finance/add/BNB/0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82", contractAddress: "https://bscscan.com/address/0x0eD7e52944161450477ee417DE9Cd3a859b14fD0", poolInfo: "https://pancakeswap.finance/info/pool/0x0eD7e52944161450477ee417DE9Cd3a859b14fD0"},
 				{name: "BUSD-BNB", earned: 0.37, apr: 2, liquidity: 250000000, multiplier: 5, viewMore: false, addLPLink: "https://pancakeswap.finance/add/BNB/0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82", contractAddress: "https://bscscan.com/address/0x0eD7e52944161450477ee417DE9Cd3a859b14fD0", poolInfo: "https://pancakeswap.finance/info/pool/0x0eD7e52944161450477ee417DE9Cd3a859b14fD0"},

@@ -1,7 +1,16 @@
-/* #LAYOUT - FLEX */
+/* #LAYOUT - FLEX
+		1. Flex default
+		2. Flex row
+		3. Flex column
+		4. Flex responsive
+*/
+
+// 1. Flex default
 .l-flex {
 	display: flex;
 }
+
+// 2. Flex row
 .l-flex--row {
 	flex-direction: row;
 }
@@ -47,6 +56,8 @@
 .l-flex--row-justify-end {
 	justify-content: flex-end;
 }
+
+// 3. Flex column
 .l-flex--column {
 	flex-direction: column;
 }
@@ -61,6 +72,12 @@
 	flex-direction: column;
 	align-items: center;
 }
+.l-flex--column-wrap {
+	flex-direction: column;
+	flex-wrap: wrap;
+}
+
+// 4. Flex responsive
 @media screen and (max-width: 990px) {
 	.l-flex-column-start-md {
 		flex-direction: column;

@@ -1,0 +1,81 @@
+<template>
+	<div class="farms-table">
+		<div class="farms-table__row" @click="clicked(idx)">
+			<h4 class="u-width-20">{{ item.name }}</h4>
+			<div class="farms-table__cell">
+				<p>Earned</p>
+				<h4>{{ item.earned }}</h4>
+			</div>
+			<div class="farms-table__cell">
+				<p>APR</p>
+				<h4>{{ item.apr }}%</h4>
+			</div>
+			<div class="farms-table__cell">
+				<p>Liquidity</p>
+				<h4>${{ numberWithCommas(item.liquidity) }}</h4>
+			</div>
+			<div class="farms-table__cell">
+				<p>Multiplier</p>
+				<h4>{{ item.multiplier }}x</h4>
+			</div>
+			<ChevronDown v-if="!item.viewMore" class="chevron-down" />
+			<ChevronUp v-else />
+		</div>
+		<div v-if="item.viewMore" class="farms-table__details">
+			<div class="farms-table__earned">
+				<div>
+					<p>Cake earned</p>
+					<h3>{{ item.earned }}</h3>
+				</div>
+				<TheButton title="Click to harvest earnings">
+					<HarvestIcon />
+					Harvest
+				</TheButton>
+			</div>
+			<LayoutFlex class="u-flex-1" direction="column">
+				<a title="Click to get LP token" :href="item.addLPLink">
+					Get {{ item.name }} LP <ExternalLinkIcon />
+				</a>
+				<a title="Click to view contract" :href="item.contractAddress">
+					View Contract <ExternalLinkIcon />
+				</a>
+				<a title="Click to see pair information" :href="item.poolInfo">
+					See Pair Info <ExternalLinkIcon />
+				</a>
+			</LayoutFlex>
+			<TheButton title="Click to enable farm">Enable Farm</TheButton>
+		</div>
+	</div>
+</template>
+
+<script>
+import ChevronDown from "~/assets/images/svg/svg-chevron-down.svg";
+import ChevronUp from "~/assets/images/svg/svg-chevron-up.svg";
+import ExternalLinkIcon from "@/assets/images/svg/svg-external-link.svg";
+import HarvestIcon from "~/assets/images/svg/svg-harvest.svg";
+
+export default {
+	name: "FarmTable",
+	components: {
+		ChevronDown,
+		ChevronUp,
+		ExternalLinkIcon,
+		HarvestIcon
+	},
+	props: {
+		item: {
+			type: Object,
+			required: true,
+		},
+		idx: {
+			type: Number,
+			required: true
+		}
+	},
+	methods: {
+		clicked(idx) {
+			this.$emit("viewMoreClicked", idx);
+		}
+	}
+};
+</script>

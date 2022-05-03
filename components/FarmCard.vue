@@ -34,9 +34,15 @@
 				<h4>${{ numberWithCommas(item.liquidity) }}</h4>
 			</LayoutFlex>
 			<LayoutFlex direction="column">
-				<a title="Click to get LP token" :href="item.addLPLink">Get {{ item.name }} LP <ExternalLinkIcon /></a>
-				<a title="Click to view contract" :href="item.contractAddress">View Contract <ExternalLinkIcon /></a>
-				<a title="Click to see pair information" :href="item.poolInfo">See Pair Info <ExternalLinkIcon /></a>
+				<a title="Click to get LP token" :href="item.addLPLink">
+					Get {{ item.name }} LP <ExternalLinkIcon />
+				</a>
+				<a title="Click to view contract" :href="item.contractAddress">
+					View Contract <ExternalLinkIcon />
+				</a>
+				<a title="Click to see pair information" :href="item.poolInfo">
+					See Pair Info <ExternalLinkIcon />
+				</a>
 			</LayoutFlex>
 		</div>
 	</div>

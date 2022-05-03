@@ -227,6 +227,9 @@
 }
 
 // 12. Width
+.u-width-20 {
+	width: 20% !important;
+}
 .u-half-width {
 	width: 50% !important;
 }
@@ -294,6 +297,9 @@
 }
 
 // 18. Flex
+.u-flex-1 {
+	flex: 1 !important;
+}
 .u-flex-row-center {
 	display: flex !important;
 	flex-direction: row !important;

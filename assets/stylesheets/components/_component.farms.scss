@@ -3,6 +3,7 @@
 		2. Farms filter
 		3. Farms search
 		4. Farms card
+		5. Farms table
 */
 
 // 1. Farms toggle
@@ -114,16 +115,79 @@
 .farm-card__details {
 	padding-top: $SPACING_24;
 }
-.farm-card__details a {
+.farm-card__details a,
+.farms-table__details a {
 	color: $WHITE;
 	display: flex;
 	flex-direction: row;
 	align-items: center;
 	margin-bottom: $SPACING_6;
 }
-.farm-card__details a:last-child {
+.farm-card__details a:last-child,
+.farms-table__details a:last-child {
 	margin-bottom: 0;
 }
-.farm-card__details a svg {
+.farm-card__details a svg,
+.farms-table__details a svg {
 	margin-left: $SPACING_8;
+}
+
+// 5. Farms table
+.farms-table {
+	background: $MEDIUM_LIGHT_GREY;
+	margin-bottom: $SPACING_16;
+	border-radius: $BORDER_RADIUS_8;
+}
+.farms-table__row {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	cursor: pointer;
+	padding: $SPACING_16 $SPACING_32;
+}
+.farms-table__cell {
+	display: flex;
+	flex-direction: column;
+}
+.farms-table__cell p {
+	margin-bottom: 0;
+	color: $LIGHT_GREY;
+}
+.farms-table__details {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	width: 100%;
+	padding: $SPACING_40 $SPACING_32 $SPACING_24;
+}
+.farms-table__earned {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	padding: $SPACING_32;
+	border-radius: $BORDER_RADIUS_8;
+	background: $DARK_GREY;
+	margin-right: $SPACING_40;
+}
+.farms-table__earned p {
+	margin-bottom: $SPACING_4;
+}
+.farms-table__earned h3 {
+	color: $LIME;
+}
+.farms-table__earned .btn {
+	margin-left: $SPACING_80;
+	background: $LIME;
+	color: $DARK_GREY;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+.farms-table__earned .btn svg {
+	margin-right: $SPACING_12;
+}
+.farms-table__earned .btn svg path {
+	fill: $DARK_GREY;
 }
