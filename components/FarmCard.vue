@@ -33,7 +33,7 @@
 				<p class="u-mb-0 u-colour-light-grey">Total Liquidity:</p>
 				<h4>${{ numberWithCommas(item.liquidity) }}</h4>
 			</LayoutFlex>
-			<LayoutFlex direction="column">
+			<LayoutFlex direction="column-start">
 				<a title="Click to get LP token" :href="item.addLPLink">
 					Get {{ item.name }} LP <ExternalLinkIcon />
 				</a>

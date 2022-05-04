@@ -61,6 +61,10 @@
 .l-flex--column {
 	flex-direction: column;
 }
+.l-flex--column-start {
+	flex-direction: column;
+	align-items: flex-start;
+}
 .l-flex--column-end {
 	flex-direction: column;
 	align-items: flex-end;

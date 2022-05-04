@@ -122,6 +122,15 @@
 	flex-direction: row;
 	align-items: center;
 	margin-bottom: $SPACING_6;
+	transition: $TRANSITION_ALL;
+}
+.farm-card__details a:hover,
+.farms-table__details a:hover {
+	color: $LIME;
+}
+.farm-card__details a:hover svg path,
+.farms-table__details a:hover svg path {
+	stroke: $LIME;
 }
 .farm-card__details a:last-child,
 .farms-table__details a:last-child {

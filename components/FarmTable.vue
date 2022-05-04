@@ -32,7 +32,7 @@
 					Harvest
 				</TheButton>
 			</div>
-			<LayoutFlex class="u-flex-1" direction="column">
+			<LayoutFlex class="u-flex-1" direction="column-start">
 				<a title="Click to get LP token" :href="item.addLPLink">
 					Get {{ item.name }} LP <ExternalLinkIcon />
 				</a>
