@@ -56,10 +56,7 @@
 					<label>Collateralization Ratio<TooltipIcon v-tooltip="'Enter collateralization ratio tooltip content here.'" /></label>
 					<LayoutFlex>
 						<TheLoader component="h3 u-mr-32">
-							<h3 class="u-mr-32">Target {{ numberWithCommas(targetCollateralizationRatio.toFixed(2)) }}%</h3>
-						</TheLoader>
-						<TheLoader component="h3">
-							<h3>Real {{ numberWithCommas(realCollateralizationRatio.toFixed(2)) }}%</h3>
+							<h3 class="u-mr-32">{{ numberWithCommas(collateralizationRatio.toFixed(2)) }}%</h3>
 						</TheLoader>
 					</LayoutFlex>
 				</StatCard>
@@ -98,8 +95,7 @@ export default {
 		return {
 			lockedCollateral: 102886,
 			myMintedTokens: 1249,
-			targetCollateralizationRatio: 170,
-			realCollateralizationRatio: 150,
+			collateralizationRatio: 170,
 			myCollateralRatio: 0,
 			usxPrice: 0,
 			inflation: 34.09,
