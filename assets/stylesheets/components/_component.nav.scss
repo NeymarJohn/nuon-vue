@@ -18,6 +18,7 @@
 	transition: $TRANSITION_ALL;
 }
 .nav a {
+	font-family: $FONT_BODY;
 	display: flex;
 	flex-direction: row;
 	align-items: center;
@@ -80,7 +81,6 @@
 	.nav a {
 		font-size: $HEADING_TWO_990;
 		line-height: $SPACING_28;
-		font-family: $FONT_HEADING_MEDIUM;
 		padding: $SPACING_8 0;
 	}
 }

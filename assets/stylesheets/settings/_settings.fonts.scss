@@ -9,30 +9,7 @@
 */
 
 // 1. Font import
-@font-face {
-	font-family: "Archia Medium";
-	src: url("~/assets/fonts/Archia-Medium.woff2") format("woff2"),
-		url("~/assets/fonts/Archia-Medium.woff") format("woff");
-	font-weight: 500;
-	font-style: normal;
-	font-display: swap;
-}
-@font-face {
-	font-family: "Archia SemiBold";
-	src: url("~/assets/fonts/Archia-SemiBold.woff2") format("woff2"),
-		url("~/assets/fonts/Archia-SemiBold.woff") format("woff");
-	font-weight: 600;
-	font-style: normal;
-	font-display: swap;
-}
-@font-face {
-	font-family: "Geomanist";
-	src: url("~/assets/fonts/Geomanist.woff2") format("woff2"),
-		url("~/assets/fonts/Geomanist.woff") format("woff");
-	font-weight: normal;
-	font-style: normal;
-	font-display: swap;
-}
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap");
 
 // 2. Headings 1920
 $HEADING_ONE: 2.625rem;
@@ -68,6 +45,4 @@ $BODY_TEXT_SM: 0.875rem;
 $BODY_TEXT_XS: 0.75rem;
 
 // 7. Font family
-$FONT_BODY: "Geomanist";
-$FONT_HEADING_MEDIUM: "Archia Medium";
-$FONT_HEADING_SEMIBOLD: "Archia SemiBold";
+$FONT_BODY: "Plus Jakarta Sans", sans-serif;
