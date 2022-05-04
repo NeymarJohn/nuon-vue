@@ -69,7 +69,7 @@ export default {
 	},
 	head () {
 		return {
-			title: "Dashboard | Caldron"
+			title: "Dashboard | Nuon"
 		};
 	},
 	async mounted () {

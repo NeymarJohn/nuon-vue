@@ -150,7 +150,7 @@ export default {
 	},
 	head() {
 		return {
-			title: "Create New Proposal - Boardroom | Caldron"
+			title: "Create New Proposal - Boardroom | Nuon"
 		};
 	},
 	computed: {

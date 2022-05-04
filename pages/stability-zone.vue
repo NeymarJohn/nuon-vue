@@ -203,7 +203,7 @@ export default {
 	},
 	head() {
 		return {
-			title: "Stability Zone | Caldron"
+			title: "Stability Zone | Nuon"
 		};
 	},
 	computed: {

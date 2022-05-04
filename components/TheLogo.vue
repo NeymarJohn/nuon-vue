@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import CaldronLogo from "@/assets/images/logo/logo-caldron.svg";
+import CaldronLogo from "@/assets/images/logo/logo-nuon.svg";
 
 export default {
 	name: "TheLogo",

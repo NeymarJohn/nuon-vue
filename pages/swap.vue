@@ -223,7 +223,7 @@ export default {
 	},
 	head () {
 		return {
-			title: "Swap | Caldron"
+			title: "Swap | Nuon"
 		};
 	},
 	computed: {

@@ -23,9 +23,9 @@
 						</ComponentLoader>
 						<ShareNetwork
 							network="twitter"
-							:url="`https://www.caldron.fi${socialUrl}`"
+							:url="`https://www.nuon.fi${socialUrl}`"
 							:title="socialTitle || ''"
-							hashtags="caldron,vote">
+							hashtags="nuon,vote">
 							<TwitterIcon />
 						</ShareNetwork>
 					</LayoutFlex>
@@ -205,7 +205,7 @@ export default {
 	},
 	head() {
 		return {
-			title: `${this.pageTitle} - Boardroom | Caldron`
+			title: `${this.pageTitle} - Boardroom | Nuon`
 		};
 	},
 	computed: {
