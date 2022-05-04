@@ -4,6 +4,7 @@
 		3. Farms search
 		4. Farms card
 		5. Farms table
+		6. Farms responsive
 */
 
 // 1. Farms toggle
@@ -199,4 +200,19 @@
 }
 .farms-table__earned .btn svg path {
 	fill: $DARK_GREY;
+}
+
+// 6. Farms responsive
+@media screen and (max-width: 1440px) {
+	.farms-card {
+		margin-bottom: $SPACING_12;
+		margin-right: $SPACING_12;
+		width: calc(33.3% - $SPACING_8);
+	}
+	.farms-toggle .btn {
+		padding: $SPACING_8 $SPACING_24;
+	}
+	.farms-card__earned {
+		padding: $SPACING_16;
+	}
 }

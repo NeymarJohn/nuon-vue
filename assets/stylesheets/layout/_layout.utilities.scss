@@ -66,6 +66,9 @@
 	.u-mb-lg-14 {
 		margin-bottom: $SPACING_14 !important;
 	}
+	.u-mb-lg-24 {
+		margin-bottom: $SPACING_24 !important;
+	}
 	.u-mb-lg-48 {
 		margin-bottom: $SPACING_48 !important;
 	}
@@ -168,6 +171,9 @@
 @media screen and (max-width: 1440px) {
 	.u-pt-lg-24 {
 		padding-top: $SPACING_24 !important;
+	}
+	.u-pt-lg-48 {
+		padding-top: $SPACING_48 !important;
 	}
 }
 @media screen and (max-width: 480px) {

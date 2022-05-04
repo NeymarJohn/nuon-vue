@@ -6,8 +6,8 @@
 				<h1>Stake LP Tokens to Earn</h1>
 			</PageTitle>
 		</LayoutContainer>
-		<LayoutContainer>
-			<LayoutFlex class="u-mb-32" direction="row-end-space-between">
+		<LayoutContainer class="u-pt-lg-48">
+			<LayoutFlex class="u-mb-32 u-mb-lg-24" direction="row-end-space-between">
 				<div class="farms-toggle">
 					<TheButton
 						title="Click to view card view"
