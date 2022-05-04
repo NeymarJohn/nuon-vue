@@ -5,10 +5,10 @@
 */
 
 // 1. Box shadow
-$BOX_SHADOW_FOCUS: rgba(66, 153, 225, 0.6) 0px 0px 0px $SPACING_3;
-$BOX_SHADOW_MODAL: 0px 0px $SPACING_150 $SPACING_10 rgba(0, 0, 0, 0.1);
-$BOX_SHADOW_CONTAINER: 0px 0px $SPACING_50 rgba(0, 0, 0, 0.02);
-$BOX_SHADOW_SELECT: 0px 0px $SPACING_25 rgba(0, 0, 0, 0.05);
+$BOX_SHADOW_FOCUS: rgba(66, 153, 225, 0.6) 0px 0px 0px 3px;
+$BOX_SHADOW_MODAL: 0px 0px 150px 10px rgba(0, 0, 0, 0.1);
+$BOX_SHADOW_CONTAINER: 0px 0px 50px rgba(0, 0, 0, 0.02);
+$BOX_SHADOW_SELECT: 0px 0px 25px rgba(0, 0, 0, 0.05);
 
 // 2. Border radius
 $BORDER_RADIUS_4: 0.25rem;
