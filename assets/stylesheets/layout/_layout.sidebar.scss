@@ -20,12 +20,12 @@
 }
 
 // 2. Sidebar responsive
-@media screen and (max-width: 1440px) {
+@media screen and (max-width: $SPACING_1440) {
 	.l-sidebar {
 		width: $SPACING_250;
 	}
 }
-@media screen and (max-width: 990px) {
+@media screen and (max-width: $SPACING_990) {
 	.l-sidebar--top .logo {
 		display: none;
 	}
@@ -41,7 +41,7 @@
 		transform: translateX(0%);
 	}
 }
-@media screen and (max-width: 480px) {
+@media screen and (max-width: $SPACING_480) {
 	.l-sidebar {
 		width: 100%;
 	}

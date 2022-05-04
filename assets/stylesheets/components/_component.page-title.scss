@@ -34,12 +34,12 @@
 }
 
 // 2. Page title responsive
-@media screen and (max-width: 1440px) {
+@media screen and (max-width: $SPACING_1440) {
 	.page-title h4 {
 		margin-bottom: $SPACING_2;
 	}
 }
-@media screen and (max-width: 480px) {
+@media screen and (max-width: $SPACING_480) {
 	.page-title {
 		margin-bottom: $SPACING_16;
 	}

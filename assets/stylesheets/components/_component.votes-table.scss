@@ -63,19 +63,19 @@
 }
 
 // 2. Votes table responsive
-@media screen and (max-width: 1440px) {
+@media screen and (max-width: $SPACING_1440) {
 	.votes-table__row,
 	.votes-table__cell--full p {
 		font-size: $BODY_TEXT_SM;
 		line-height: $SPACING_24;
 	}
 }
-@media screen and (max-width: 990px) {
+@media screen and (max-width: $SPACING_990) {
 	.votes-table__cell {
 		padding: $SPACING_24 0;
 	}
 }
-@media screen and (max-width: 480px) {
+@media screen and (max-width: $SPACING_480) {
 	.votes-table {
 		padding-bottom: $SPACING_12;
 	}

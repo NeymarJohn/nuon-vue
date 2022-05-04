@@ -25,13 +25,13 @@
 }
 
 // 2. Info responsive
-@media screen and (max-width: 1440px) {
+@media screen and (max-width: $SPACING_1440) {
 	.l-info {
 		padding: $SPACING_36;
 		column-gap: $SPACING_38;
 	}
 }
-@media screen and (max-width: 990px) {
+@media screen and (max-width: $SPACING_990) {
 	.l-info {
 		padding: $SPACING_36;
 	}
@@ -39,7 +39,7 @@
 		grid-template-columns: repeat(2, minmax(0, 1fr));
 	}
 }
-@media screen and (max-width: 480px) {
+@media screen and (max-width: $SPACING_480) {
 	.l-info {
 		display: flex;
 		flex-direction: column;

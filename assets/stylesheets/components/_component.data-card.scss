@@ -66,7 +66,7 @@
 }
 
 // 2. Data card responsive
-@media screen and (max-width: 1440px) {
+@media screen and (max-width: $SPACING_1440) {
 	.data-card label {
 		font-size: $BODY_TEXT_SM;
 		line-height: $SPACING_30;
@@ -79,7 +79,7 @@
 		font-size: $HEADING_FOUR_1440;
 	}
 }
-@media screen and (max-width: 990px) {
+@media screen and (max-width: $SPACING_990) {
 	.data-card--end,
 	.data-card--end .btn {
 		align-items: flex-start;

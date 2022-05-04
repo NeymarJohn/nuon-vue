@@ -52,12 +52,12 @@
 }
 
 // 2. Collateral table responsive
-@media screen and (max-width: 1440px) {
+@media screen and (max-width: $SPACING_1440) {
 	.collateral-table__row {
 		padding: $SPACING_24 0;
 	}
 }
-@media screen and (max-width: 990px) {
+@media screen and (max-width: $SPACING_990) {
 	.collateral-table__container {
 		padding: $SPACING_24;
 	}

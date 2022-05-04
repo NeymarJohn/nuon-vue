@@ -63,7 +63,7 @@ a.btn:hover,
 	height: $SPACING_64;
 	padding: $SPACING_20 $SPACING_32;
 }
-@media screen and (max-width: 1440px) {
+@media screen and (max-width: $SPACING_1440) {
 	.btn--md,
 	.btn--lg {
 		font-size: $HEADING_FIVE_1440;
@@ -75,7 +75,7 @@ a.btn:hover,
 		padding: $SPACING_10 $SPACING_24;
 	}
 }
-@media screen and (max-width: 990px) {
+@media screen and (max-width: $SPACING_990) {
 	.btn--md,
 	.btn--lg {
 		font-size: $HEADING_FIVE_990;
@@ -88,7 +88,7 @@ a.btn:hover,
 		height: $SPACING_44;
 	}
 }
-@media screen and (max-width: 480px) {
+@media screen and (max-width: $SPACING_480) {
 	.btn--md,
 	.btn--lg {
 		font-size: $HEADING_FIVE_480;
@@ -157,7 +157,7 @@ a.btn:hover,
 .btn--swap.btn[disabled] svg path {
 	fill: $LIGHT_GREY;
 }
-@media screen and (max-width: 480px) {
+@media screen and (max-width: $SPACING_480) {
 	.btn--swap {
 		height: $SPACING_48;
 		width: $SPACING_48;
@@ -191,19 +191,19 @@ a.btn:hover,
 .btn--link:hover:after {
 	background: $LIME;
 }
-@media screen and (max-width: 1440px) {
+@media screen and (max-width: $SPACING_1440) {
 	.btn--link {
 		font-size: $HEADING_FIVE_1440;
 		line-height: $SPACING_26;
 	}
 }
-@media screen and (max-width: 990px) {
+@media screen and (max-width: $SPACING_990) {
 	.btn--link {
 		font-size: $HEADING_FIVE_990;
 		line-height: $SPACING_18;
 	}
 }
-@media screen and (max-width: 480px) {
+@media screen and (max-width: $SPACING_480) {
 	.btn--link {
 		font-size: $HEADING_FIVE_480;
 		line-height: $SPACING_24;

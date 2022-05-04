@@ -174,13 +174,13 @@
 }
 
 // 8. Modal responsive
-@media screen and (max-width: 1440px) {
+@media screen and (max-width: $SPACING_1440) {
 	.modal--collateral-table .modal__container {
 		width: $SPACING_660;
 		padding: $SPACING_48 $SPACING_32;
 	}
 }
-@media screen and (max-width: 990px) {
+@media screen and (max-width: $SPACING_990) {
 	.modal__container {
 		position: absolute;
 		top: 0;

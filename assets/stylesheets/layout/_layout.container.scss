@@ -17,7 +17,7 @@
 }
 
 // 2. Container responsive
-@media screen and (max-width: 1440px) {
+@media screen and (max-width: $SPACING_1440) {
 	.l-container--md {
 		padding: $SPACING_72 $SPACING_80 0;
 	}
@@ -25,7 +25,7 @@
 		max-width: $SPACING_660;
 	}
 }
-@media screen and (max-width: 990px) {
+@media screen and (max-width: $SPACING_990) {
 	.l-container--md {
 		padding: $SPACING_48 $SPACING_50 0;
 	}
@@ -34,7 +34,7 @@
 		max-width: inherit;
 	}
 }
-@media screen and (max-width: 480px) {
+@media screen and (max-width: $SPACING_480) {
 	.l-container--md {
 		padding: $SPACING_48 $SPACING_24 0;
 	}

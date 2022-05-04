@@ -203,7 +203,7 @@
 }
 
 // 6. Farms responsive
-@media screen and (max-width: 1440px) {
+@media screen and (max-width: $SPACING_1440) {
 	.farms-card {
 		margin-bottom: $SPACING_12;
 		margin-right: $SPACING_12;
@@ -216,7 +216,7 @@
 		padding: $SPACING_16;
 	}
 }
-@media screen and (max-width: 990px) {
+@media screen and (max-width: $SPACING_990) {
 	.farms-card {
 		padding: $SPACING_24 $SPACING_16;
 	}
@@ -240,7 +240,7 @@
 		padding: $SPACING_32;
 	}
 }
-@media screen and (max-width: 480px) {
+@media screen and (max-width: $SPACING_480) {
 	.farms-filter,
 	.farms-toggle {
 		width: 100%;

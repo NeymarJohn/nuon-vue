@@ -67,7 +67,7 @@
 }
 
 // 2. Toggle responsive
-@media screen and (max-width: 990px) {
+@media screen and (max-width: $SPACING_990) {
 	.toggle {
 		padding: $SPACING_48 $SPACING_32;
 	}

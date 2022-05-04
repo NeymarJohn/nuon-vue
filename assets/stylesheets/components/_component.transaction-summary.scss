@@ -52,7 +52,7 @@
 }
 
 // 3. Transaction summary responsive
-@media screen and (max-width: 480px) {
+@media screen and (max-width: $SPACING_480) {
 	.transaction-summary--swap {
 		padding: 0;
 	}

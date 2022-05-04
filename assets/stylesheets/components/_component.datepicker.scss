@@ -172,7 +172,7 @@ td.cell.today.not-current-month {
 }
 
 // 2. Datepicker responsive
-@media screen and (max-width: 1440px) {
+@media screen and (max-width: $SPACING_1440) {
 	.mx-datepicker .mx-input {
 		padding: $SPACING_16 !important;
 	}

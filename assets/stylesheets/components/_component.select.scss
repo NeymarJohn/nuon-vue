@@ -94,13 +94,13 @@
 }
 
 // 2. Select responsive
-@media screen and (max-width: 1440px) {
+@media screen and (max-width: $SPACING_1440) {
 	.select label {
 		font-size: $BODY_TEXT_SM;
 		line-height: $SPACING_26;
 	}
 }
-@media screen and (max-width: 480px) {
+@media screen and (max-width: $SPACING_480) {
 	.select {
 		max-width: 100%;
 	}

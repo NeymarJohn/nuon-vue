@@ -95,7 +95,7 @@
 }
 
 // 2. Form responsive
-@media screen and (max-width: 1440px) {
+@media screen and (max-width: $SPACING_1440) {
 	.form {
 		grid-column-gap: $SPACING_12;
 		grid-row-gap: $SPACING_12;
@@ -117,7 +117,7 @@
 		margin-top: $SPACING_28;
 	}
 }
-@media screen and (max-width: 480px) {
+@media screen and (max-width: $SPACING_480) {
 	.form {
 		display: flex;
 		flex-direction: column;

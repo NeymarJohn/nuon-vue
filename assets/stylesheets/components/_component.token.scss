@@ -51,7 +51,7 @@
 }
 
 // 2. Token responsive
-@media screen and (max-width: 480px) {
+@media screen and (max-width: $SPACING_480) {
 	.token h3 {
 		font-size: $HEADING_FOUR_480;
 		line-height: $SPACING_26;

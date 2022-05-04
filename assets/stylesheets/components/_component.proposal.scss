@@ -91,7 +91,7 @@
 }
 
 // 2. Proposal responsive
-@media screen and (max-width: 1440px) {
+@media screen and (max-width: $SPACING_1440) {
 	.proposal {
 		margin-bottom: $SPACING_16;
 	}
@@ -101,7 +101,7 @@
 		line-height: $SPACING_18;
 	}
 }
-@media screen and (max-width: 990px) {
+@media screen and (max-width: $SPACING_990) {
 	.proposal {
 		margin-bottom: $SPACING_12;
 	}
@@ -116,7 +116,7 @@
 		width: 50%;
 	}
 }
-@media screen and (max-width: 480px) {
+@media screen and (max-width: $SPACING_480) {
 	.proposal a {
 		flex-direction: column;
 		grid-gap: unset;

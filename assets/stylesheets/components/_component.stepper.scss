@@ -125,13 +125,13 @@
 }
 
 // 2. Stepper responsive
-@media screen and (max-width: 1440px) {
+@media screen and (max-width: $SPACING_1440) {
 	.stepper__title {
 		font-size: $HEADING_FIVE_1440;
 		line-height: $SPACING_26;
 	}
 }
-@media screen and (max-width: 480px) {
+@media screen and (max-width: $SPACING_480) {
 	.stepper {
 		margin-bottom: $SPACING_24;
 	}

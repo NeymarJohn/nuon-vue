@@ -64,7 +64,7 @@
 }
 
 // 2. Nav responsive
-@media screen and (max-width: 1440px) {
+@media screen and (max-width: $SPACING_1440) {
 	.nav a {
 		font-size: $HEADING_FIVE_1440;
 		line-height: $SPACING_26;
@@ -76,7 +76,7 @@
 		height: $SPACING_30;
 	}
 }
-@media screen and (max-width: 990px) {
+@media screen and (max-width: $SPACING_990) {
 	.nav a {
 		font-size: $HEADING_TWO_990;
 		line-height: $SPACING_28;

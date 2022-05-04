@@ -12,12 +12,12 @@
 }
 
 // 2. Wallet responsive
-@media screen and (max-width: 1440px) {
+@media screen and (max-width: $SPACING_1440) {
 	.wallet {
 		margin-bottom: $SPACING_24;
 	}
 }
-@media screen and (max-width: 990px) {
+@media screen and (max-width: $SPACING_990) {
 	.wallet .btn {
 		width: auto;
 	}

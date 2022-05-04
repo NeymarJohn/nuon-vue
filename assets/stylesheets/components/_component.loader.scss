@@ -118,7 +118,7 @@
 }
 
 // 11. Loader responsive
-@media screen and (max-width: 1440px) {
+@media screen and (max-width: $SPACING_1440) {
 	.loader--h1 {
 		width: $SPACING_190;
 		margin-bottom: $SPACING_2;

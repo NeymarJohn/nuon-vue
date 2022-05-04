@@ -12,12 +12,12 @@
 }
 
 // 2. Logo responsive
-@media screen and (max-width: 1440px) {
+@media screen and (max-width: $SPACING_1440) {
 	.logo {
 		margin-bottom: $SPACING_48;
 	}
 }
-@media screen and (max-width: 990px) {
+@media screen and (max-width: $SPACING_990) {
 	.logo {
 		padding: $SPACING_24;
 		margin: 0;

@@ -33,7 +33,7 @@
 }
 
 // 2. Stat card responsive
-@media screen and (max-width: 1440px) {
+@media screen and (max-width: $SPACING_1440) {
 	.stat-card {
 		padding: $SPACING_24 $SPACING_32;
 	}

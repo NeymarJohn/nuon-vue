@@ -59,7 +59,7 @@
 }
 
 // 4. Toast responsive
-@media screen and (max-width: 1440px) {
+@media screen and (max-width: $SPACING_1440) {
 	.toast {
 		padding: $SPACING_24;
 		min-width: $SPACING_325;

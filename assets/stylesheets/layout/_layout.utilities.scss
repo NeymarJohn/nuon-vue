@@ -62,7 +62,7 @@
 .u-mb-64 {
 	margin-bottom: $SPACING_64 !important;
 }
-@media screen and (max-width: 1440px) {
+@media screen and (max-width: $SPACING_1440) {
 	.u-mb-lg-14 {
 		margin-bottom: $SPACING_14 !important;
 	}
@@ -73,7 +73,7 @@
 		margin-bottom: $SPACING_48 !important;
 	}
 }
-@media screen and (max-width: 990px) {
+@media screen and (max-width: $SPACING_990) {
 	.u-mb-md-12 {
 		margin-bottom: $SPACING_12 !important;
 	}
@@ -87,7 +87,7 @@
 		margin-bottom: $SPACING_36 !important;
 	}
 }
-@media screen and (max-width: 480px) {
+@media screen and (max-width: $SPACING_480) {
 	.u-mb-sm-0 {
 		margin-bottom: 0 !important;
 	}
@@ -127,7 +127,7 @@
 .u-mr-80 {
 	margin-right: $SPACING_80 !important;
 }
-@media screen and (max-width: 1440px) {
+@media screen and (max-width: $SPACING_1440) {
 	.u-mr-lg-24 {
 		margin-right: $SPACING_24 !important;
 	}
@@ -135,12 +135,12 @@
 		margin-right: $SPACING_16 !important;
 	}
 }
-@media screen and (max-width: 990px) {
+@media screen and (max-width: $SPACING_990) {
 	.u-mr-md-12 {
 		margin-right: $SPACING_12 !important;
 	}
 }
-@media screen and (max-width: 480px) {
+@media screen and (max-width: $SPACING_480) {
 	.u-mr-sm-0 {
 		margin-right: 0 !important;
 	}
@@ -174,7 +174,7 @@
 .u-pt-48 {
 	padding-top: $SPACING_48 !important;
 }
-@media screen and (max-width: 1440px) {
+@media screen and (max-width: $SPACING_1440) {
 	.u-pt-lg-24 {
 		padding-top: $SPACING_24 !important;
 	}
@@ -182,7 +182,7 @@
 		padding-top: $SPACING_48 !important;
 	}
 }
-@media screen and (max-width: 480px) {
+@media screen and (max-width: $SPACING_480) {
 	.u-pt-sm-12 {
 		padding-top: $SPACING_12 !important;
 	}
@@ -251,7 +251,7 @@
 .u-full-width {
 	width: 100% !important;
 }
-@media screen and (max-width: 480px) {
+@media screen and (max-width: $SPACING_480) {
 	.u-full-width-sm {
 		width: 100% !important;
 	}
@@ -261,7 +261,7 @@
 .u-display-desktop {
 	display: none !important;
 }
-@media screen and (max-width: 990px) {
+@media screen and (max-width: $SPACING_990) {
 	.u-display-desktop {
 		display: block !important;
 		padding: 0 !important;
@@ -302,7 +302,7 @@
 .u-text-center {
 	text-align: center !important;
 }
-@media screen and (max-width: 480px) {
+@media screen and (max-width: $SPACING_480) {
 	.u-text-center-sm {
 		text-align: center !important;
 	}

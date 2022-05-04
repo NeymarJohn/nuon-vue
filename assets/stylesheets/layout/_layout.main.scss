@@ -10,12 +10,12 @@
 }
 
 // 2. Main responsive
-@media screen and (max-width: 1440px) {
+@media screen and (max-width: $SPACING_1440) {
 	.l-main {
 		margin-left: $SPACING_250;
 	}
 }
-@media screen and (max-width: 990px) {
+@media screen and (max-width: $SPACING_990) {
 	.l-main {
 		margin-left: 0;
 	}
