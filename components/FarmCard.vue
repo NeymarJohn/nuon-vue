@@ -1,6 +1,6 @@
 <template>
 	<div class="farms-card">
-		<h4 class="u-mb-24">{{ item.name }}</h4>
+		<h4 class="u-mb-24 u-mb-md-20">{{ item.name }}</h4>
 		<LayoutFlex direction="row-center-space-between">
 			<p class="u-mb-0 u-colour-light-grey">APR:</p>
 			<h4>{{ item.apr }}%</h4>

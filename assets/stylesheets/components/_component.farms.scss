@@ -216,3 +216,27 @@
 		padding: $SPACING_16;
 	}
 }
+@media screen and (max-width: 990px) {
+	.farms-card {
+		padding: $SPACING_24 $SPACING_16;
+	}
+	.farms-card__earned {
+		flex-direction: column;
+		align-items: flex-start;
+		margin-bottom: $SPACING_20;
+	}
+	.farms-card__text {
+		margin-bottom: $SPACING_16;
+	}
+	.farm-card__details a,
+	.farms-table__details a {
+		font-size: $BODY_TEXT_XS;
+		line-height: $SPACING_18;
+	}
+	.farms-table__row {
+		padding: $SPACING_24 $SPACING_32;
+	}
+	.farms-table__details {
+		padding: $SPACING_32;
+	}
+}
