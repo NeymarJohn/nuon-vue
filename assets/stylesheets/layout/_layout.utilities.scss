@@ -91,6 +91,9 @@
 	.u-mb-sm-0 {
 		margin-bottom: 0 !important;
 	}
+	.u-mb-sm-8 {
+		margin-bottom: $SPACING_8 !important;
+	}
 	.u-mb-sm-12 {
 		margin-bottom: $SPACING_12 !important;
 	}
@@ -182,6 +185,9 @@
 @media screen and (max-width: 480px) {
 	.u-pt-sm-12 {
 		padding-top: $SPACING_12 !important;
+	}
+	.u-pt-sm-24 {
+		padding-top: $SPACING_24 !important;
 	}
 }
 

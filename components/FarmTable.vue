@@ -1,7 +1,7 @@
 <template>
 	<div class="farms-table">
 		<div class="farms-table__row" @click="clicked(idx)">
-			<h4 class="u-width-20">{{ item.name }}</h4>
+			<h4 class="u-width-20 u-full-width-sm u-mb-sm-8">{{ item.name }}</h4>
 			<div class="farms-table__cell">
 				<p>Earned</p>
 				<h4>{{ item.earned }}</h4>
@@ -32,7 +32,7 @@
 					Harvest
 				</TheButton>
 			</div>
-			<LayoutFlex class="u-flex-1" direction="column-start">
+			<LayoutFlex class="u-flex-1 u-full-width-sm u-mb-sm-24" direction="column-start">
 				<a title="Click to get LP token" :href="item.addLPLink">
 					Get {{ item.name }} LP <ExternalLinkIcon />
 				</a>
@@ -43,7 +43,7 @@
 					See Pair Info <ExternalLinkIcon />
 				</a>
 			</LayoutFlex>
-			<TheButton title="Click to enable farm">Enable Farm</TheButton>
+			<TheButton class="u-full-width-sm" title="Click to enable farm">Enable Farm</TheButton>
 		</div>
 	</div>
 </template>
