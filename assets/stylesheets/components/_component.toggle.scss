@@ -46,7 +46,7 @@
 .toggle__buttons .btn:last-child {
 	border-top-left-radius: 0;
 	border-bottom-left-radius: 0;
-	border-right: 1px solid $LIME;
+	border-right: $SPACING_1 solid $LIME;
 }
 .toggle__content,
 .toggle__transaction {

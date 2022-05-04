@@ -53,7 +53,7 @@
 	border-top-left-radius: $BORDER_RADIUS_4;
 	border-top-right-radius: $BORDER_RADIUS_4;
 	background: $LIME;
-	right: -23px;
+	right: -$SPACING_23;
 	top: 50%;
 	transform: translateY(-50%);
 	bottom: 0;

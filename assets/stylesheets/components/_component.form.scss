@@ -58,7 +58,7 @@
 }
 .form__block sup {
 	color: $ERROR;
-	top: -3px;
+	top: -$SPACING_3;
 }
 .form__block input,
 .form__block textarea {

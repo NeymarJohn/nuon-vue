@@ -42,7 +42,7 @@
 }
 .toast-slide-enter,
 .toast-slide-leave-to {
-	transform: translateX(10px);
+	transform: translateX($SPACING_10);
 	opacity: 0;
 }
 

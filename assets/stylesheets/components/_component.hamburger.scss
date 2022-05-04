@@ -43,11 +43,11 @@
 	display: block;
 }
 .hamburger-inner::before {
-	top: -8px;
+	top: -$SPACING_8;
 	transition: top 0.1s 0.25s ease-in, opacity 0.1s ease-in;
 }
 .hamburger-inner::after {
-	bottom: -8px;
+	bottom: -$SPACING_8;
 	transition: bottom 0.1s 0.25s ease-in,
 		transform 0.22s cubic-bezier(0.55, 0.055, 0.675, 0.19);
 }

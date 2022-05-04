@@ -14,19 +14,19 @@
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-	margin-right: 0.25rem;
+	margin-right: $SPACING_4;
 }
 .countdown__block:last-child {
 	margin-right: 0;
 }
 .countdown__block h3 {
-	margin-right: 0.25rem;
+	margin-right: $SPACING_4;
 }
 .countdown__block p {
 	text-transform: uppercase;
 	background: $DARK_GREY;
-	padding: 0 0.375rem;
-	border-radius: 4px;
+	padding: 0 $SPACING_6;
+	border-radius: $BORDER_RADIUS_4;
 }
 .countdown__placeholder sup {
 	font-family: $FONT_BODY;

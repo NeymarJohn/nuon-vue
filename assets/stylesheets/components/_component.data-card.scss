@@ -34,7 +34,7 @@
 	margin-bottom: 0;
 }
 .data-card .countdown__block:last-child h3 {
-	min-width: 55px;
+	min-width: $SPACING_55;
 	margin-right: 0;
 }
 .data-card .countdown__block p {
@@ -55,7 +55,7 @@
 .data-card sup {
 	position: relative;
 	font-size: $BODY_TEXT_SM;
-	top: 5px;
+	top: $SPACING_5;
 }
 .data-card--start {
 	align-items: flex-start;
