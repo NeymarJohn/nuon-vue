@@ -1,4 +1,9 @@
-/* #BASE - TYPOGRAPHY */
+/* #BASE - TYPOGRAPHY
+		1. Typography default
+		2. Typography responsive
+*/
+
+// 1. Typography default
 h1,
 h2,
 h3,
@@ -69,6 +74,8 @@ li {
 ol {
 	list-style-type: decimal;
 }
+
+// 2. Typography responsive
 @media screen and (max-width: 1440px) {
 	h1 {
 		font-size: $HEADING_ONE_1440;

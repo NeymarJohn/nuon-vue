@@ -1,4 +1,9 @@
-/* #COMPONENT - PANEL */
+/* #COMPONENT - PANEL
+		1. Panel default
+		2. Panel responsive
+*/
+
+// 1. Panel default
 .panel,
 .panel__row {
 	display: flex;
@@ -57,6 +62,8 @@
 .panel__row span svg:hover path {
 	stroke: $LIME;
 }
+
+// 2. Panel responsive
 @media screen and (max-width: 1440px) {
 	.panel__row {
 		margin-bottom: $SPACING_16;

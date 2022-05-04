@@ -1,12 +1,16 @@
-/* #LAYOUT - DATA CARD */
+/* #LAYOUT - DATA CARD
+		1. Data card default
+*/
+
+// 1. Data card default
 .l-data-card-container {
 	background: $LIGHT_GREY;
-	border-radius: 10px;
-	padding: 2.5rem;
-	margin-top: 1rem;
+	border-radius: $BORDER_RADIUS_8;
+	padding: $SPACING_40;
+	margin-top: $SPACING_16;
 }
 .l-data-card {
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
-	grid-gap: 1rem;
+	grid-gap: $SPACING_16;
 }

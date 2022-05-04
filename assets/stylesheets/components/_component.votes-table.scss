@@ -1,4 +1,9 @@
-/* #COMPONENT - VOTES TABLE */
+/* #COMPONENT - VOTES TABLE
+		1. Votes table default
+		2. Votes table responsive
+*/
+
+// 1. Votes table default
 .votes-table {
 	width: 100%;
 	margin-top: $SPACING_24;
@@ -56,6 +61,8 @@
 	margin-bottom: 0;
 	font-size: $BODY_TEXT;
 }
+
+// 2. Votes table responsive
 @media screen and (max-width: 1440px) {
 	.votes-table__row,
 	.votes-table__cell--full p {

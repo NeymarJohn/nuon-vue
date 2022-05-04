@@ -1,4 +1,9 @@
-/* #COMPONENT - TOOLTIP */
+/* #COMPONENT - TOOLTIP
+		1. Tooltip default
+		2. Tooltip responsive
+*/
+
+// 1. Tooltip default
 .tooltip {
 	opacity: 0;
 	transition: opacity 0.3s ease-in-out;
@@ -29,6 +34,8 @@
 .tooltip--icon:hover path {
 	fill: $LIME;
 }
+
+// 2. Tooltip responsive
 @media screen and (max-width: 1440px) {
 	.tooltip--icon {
 		height: $SPACING_18;

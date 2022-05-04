@@ -1,4 +1,9 @@
-/* #COMPONENT - ICON LIST */
+/* #COMPONENT - ICON LIST
+		1. Icon list default
+		2. Icon list responsive
+*/
+
+// 1. Icon list default
 .icon-list,
 .icon-list li {
 	display: flex;
@@ -28,6 +33,8 @@
 	min-width: $SPACING_60;
 	text-align: center;
 }
+
+// 2. Icon list responsive
 @media screen and (max-width: 1440px) {
 	.icon-list li {
 		font-size: $BODY_TEXT_SM;

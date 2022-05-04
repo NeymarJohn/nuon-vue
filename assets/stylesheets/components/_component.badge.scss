@@ -1,4 +1,13 @@
-/* #COMPONENT - BADGE */
+/* #COMPONENT - BADGE
+		1. Badge default
+		2. Badge lime
+		3. Badge grey
+		4. Badge yellow
+		5. Badge green
+		6. Badge responsive
+*/
+
+// 1. Badge default
 .badge {
 	border-radius: $BORDER_RADIUS_4;
 	padding: $SPACING_5 $SPACING_16;
@@ -6,22 +15,32 @@
 	line-height: $SPACING_21;
 	text-transform: uppercase;
 }
+
+// 2. Badge lime
 .badge--lime {
 	background: $LIME;
 	color: $DARK_GREY;
 }
+
+// 3. Badge grey
 .badge--grey {
 	border: $SPACING_1 solid $LIGHT_GREY;
 	color: $LIGHT_GREY;
 }
+
+// 4. Badge yellow
 .badge--yellow {
 	color: $WARNING;
 	border: $SPACING_1 solid $WARNING;
 }
+
+// 5. Badge green
 .badge--green {
 	color: $SUCCESS;
 	border: $SPACING_1 solid $SUCCESS;
 }
+
+// 6. Badge responsive
 @media screen and (max-width: 1440px) {
 	.badge {
 		font-size: $BODY_TEXT_XS;

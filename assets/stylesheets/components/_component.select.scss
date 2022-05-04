@@ -1,7 +1,12 @@
-/* #COMPONENT - SELECT */
+/* #COMPONENT - SELECT
+		1. Select default
+		2. Select responsive
+*/
+
+// 1. Select default
 .select {
 	position: relative;
-	max-width: 200px;
+	max-width: $SPACING_200;
 	width: 100%;
 	height: $SPACING_80;
 	z-index: 1;
@@ -87,6 +92,8 @@
 .select__option.selected {
 	color: $LIME;
 }
+
+// 2. Select responsive
 @media screen and (max-width: 1440px) {
 	.select label {
 		font-size: $BODY_TEXT_SM;

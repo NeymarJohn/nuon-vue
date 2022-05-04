@@ -1,3 +1,9 @@
+/* #COMPONENT - RADIO BUTTON
+		1. Radio button default
+		2. Radio button responsive
+*/
+
+// 1. Radio button default
 .radio-button {
 	font-size: $BODY_TEXT;
 	display: flex;
@@ -14,8 +20,8 @@ input[type="radio"] {
 	background-color: $WHITE;
 	margin: 0;
 	color: $LIME;
-	width: 1.125rem;
-	height: 1.125rem;
+	width: $SPACING_18;
+	height: $SPACING_18;
 	border: $SPACING_1 solid $SUCCESS;
 	border-radius: $BORDER_RADIUS_CIRCLE;
 	display: grid;
@@ -24,8 +30,8 @@ input[type="radio"] {
 }
 input[type="radio"]::before {
 	content: "";
-	width: 0.65rem;
-	height: 0.65rem;
+	width: $SPACING_10;
+	height: $SPACING_10;
 	border-radius: $BORDER_RADIUS_CIRCLE;
 	transform: scale(0);
 	transition: 120ms transform ease-in-out;
@@ -46,6 +52,8 @@ label[disabled] {
 label[disabled]input[type="radio"] {
 	background-color: $WHITE;
 }
+
+// 2. Radio button responsive
 @media screen and (max-width: 1440px) {
 	.radio-button {
 		font-size: $BODY_TEXT_SM;

@@ -1,10 +1,17 @@
-/* #COMPONENT - LOGO */
+/* #COMPONENT - LOGO
+		1. Logo default
+		2. Logo responsive
+*/
+
+// 1. Logo default
 .logo {
 	align-self: flex-start;
 	display: inherit;
 	margin: $SPACING_24 0 $SPACING_64;
 	padding: 0 $SPACING_40;
 }
+
+// 2. Logo responsive
 @media screen and (max-width: 1440px) {
 	.logo {
 		margin-bottom: $SPACING_48;

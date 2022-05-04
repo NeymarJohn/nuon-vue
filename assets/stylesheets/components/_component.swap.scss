@@ -13,7 +13,7 @@
 	box-shadow: $BOX_SHADOW_CONTAINER;
 }
 .swap .modal__container {
-	max-width: 575px;
+	max-width: $SPACING_575;
 }
 .swap__container {
 	padding: $SPACING_32;

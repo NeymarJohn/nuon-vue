@@ -1,4 +1,9 @@
-/* #LAYOUT - INFO */
+/* #LAYOUT - INFO
+		1. Info default
+		2. Info responsive
+*/
+
+// 1. Info default
 .l-info {
 	display: grid;
 	column-gap: $SPACING_56;
@@ -18,6 +23,8 @@
 .l-info--4 {
 	grid-template-columns: 1fr 1fr 1.8fr 1fr;
 }
+
+// 2. Info responsive
 @media screen and (max-width: 1440px) {
 	.l-info {
 		padding: $SPACING_36;

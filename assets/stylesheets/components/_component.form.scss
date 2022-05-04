@@ -1,4 +1,9 @@
-/* #COMPONENT - FORM */
+/* #COMPONENT - FORM
+		1. Form default
+		2. Form responsive
+*/
+
+// 1. Form default
 .form {
 	display: grid;
 	grid-template-columns: 2fr 1fr;
@@ -88,6 +93,8 @@
 	border: $SPACING_1 solid $DARK_GREY;
 	padding: $SPACING_12;
 }
+
+// 2. Form responsive
 @media screen and (max-width: 1440px) {
 	.form {
 		grid-column-gap: $SPACING_12;

@@ -157,6 +157,12 @@ a.btn:hover,
 .btn--swap.btn[disabled] svg path {
 	fill: $LIGHT_GREY;
 }
+@media screen and (max-width: 480px) {
+	.btn--swap {
+		height: $SPACING_48;
+		width: $SPACING_48;
+	}
+}
 
 // 6. Button link
 .btn--link {
@@ -201,9 +207,5 @@ a.btn:hover,
 	.btn--link {
 		font-size: $HEADING_FIVE_480;
 		line-height: $SPACING_24;
-	}
-	.btn--swap {
-		height: $SPACING_48;
-		width: $SPACING_48;
 	}
 }

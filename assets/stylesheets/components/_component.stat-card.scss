@@ -1,4 +1,9 @@
-/* #COMPONENT - STAT CARD */
+/* #COMPONENT - STAT CARD
+		1. Stat card default
+		2. Stat card responsive
+*/
+
+// 1. Stat card default
 .stat-card {
 	display: flex;
 	flex-direction: column;
@@ -26,6 +31,8 @@
 .stat-card .tooltip--icon:hover path {
 	fill: $LIME;
 }
+
+// 2. Stat card responsive
 @media screen and (max-width: 1440px) {
 	.stat-card {
 		padding: $SPACING_24 $SPACING_32;

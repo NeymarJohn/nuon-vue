@@ -1,4 +1,9 @@
-/* #COMPONENT - NAV */
+/* #COMPONENT - NAV
+		1. Nav default
+		2. Nav responsive
+*/
+
+// 1. Nav default
 .nav {
 	display: flex;
 	flex-direction: column;
@@ -57,6 +62,8 @@
 .nav a svg {
 	margin-right: $SPACING_10;
 }
+
+// 2. Nav responsive
 @media screen and (max-width: 1440px) {
 	.nav a {
 		font-size: $HEADING_FIVE_1440;

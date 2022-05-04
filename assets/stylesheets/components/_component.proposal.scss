@@ -1,4 +1,9 @@
-/* #COMPONENT - PROPOSAL */
+/* #COMPONENT - PROPOSAL
+		1. Proposal default
+		2. Proposal responsive
+*/
+
+// 1. Proposal default
 .proposal,
 .proposal__left,
 .proposal__right {
@@ -16,7 +21,7 @@
 }
 .proposal a {
 	display: grid;
-	grid-template-columns: calc(60% - 20px) 40%;
+	grid-template-columns: calc(60% - $SPACING_20) 40%;
 	grid-gap: $SPACING_32;
 	width: 100%;
 	padding: $SPACING_32;
@@ -61,7 +66,7 @@
 	line-height: $SPACING_21;
 }
 .proposal__right .badge {
-	min-width: 82px;
+	min-width: $SPACING_82;
 	text-align: center;
 }
 .proposal-details {
@@ -84,6 +89,8 @@
 .proposal-description .btn {
 	align-self: center;
 }
+
+// 2. Proposal responsive
 @media screen and (max-width: 1440px) {
 	.proposal {
 		margin-bottom: $SPACING_16;

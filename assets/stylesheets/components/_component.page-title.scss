@@ -1,4 +1,9 @@
-/* #COMPONENT - PAGE TITLE */
+/* #COMPONENT - PAGE TITLE
+		1. Page title default
+		2. Page title responsive
+*/
+
+// 1. Page title default
 .page-title h2 {
 	display: flex;
 	flex-direction: row;
@@ -27,6 +32,8 @@
 	margin-bottom: 0;
 	color: $LIGHT_GREY;
 }
+
+// 2. Page title responsive
 @media screen and (max-width: 1440px) {
 	.page-title h4 {
 		margin-bottom: $SPACING_2;

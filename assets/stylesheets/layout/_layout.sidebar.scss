@@ -1,4 +1,9 @@
-/* #LAYOUT - SIDEBAR */
+/* #LAYOUT - SIDEBAR
+		1. Sidebar default
+		2. Sidebar responsive
+*/
+
+// 1. Sidebar default
 .l-sidebar {
 	position: fixed;
 	left: 0;
@@ -13,6 +18,8 @@
 	transition: transform 0.3s ease-in-out;
 	z-index: 3;
 }
+
+// 2. Sidebar responsive
 @media screen and (max-width: 1440px) {
 	.l-sidebar {
 		width: $SPACING_250;

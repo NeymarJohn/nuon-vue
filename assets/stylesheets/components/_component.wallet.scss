@@ -1,10 +1,17 @@
-/* #COMPONENT - WALLET */
+/* #COMPONENT - WALLET
+		1. Wallet default
+		2. Wallet responsive
+*/
+
+// 1. Wallet default
 .wallet {
 	margin-bottom: $SPACING_40;
 }
 .wallet .btn {
 	width: 100%;
 }
+
+// 2. Wallet responsive
 @media screen and (max-width: 1440px) {
 	.wallet {
 		margin-bottom: $SPACING_24;

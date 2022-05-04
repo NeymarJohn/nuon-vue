@@ -1,4 +1,9 @@
-/* #LAYOUT - GRID */
+/* #LAYOUT - GRID
+		1. Grid default
+		2. Grid responsive
+*/
+
+// 1. Grid default
 .l-grid {
 	display: grid;
 }
@@ -30,7 +35,7 @@
 .l-grid-side-panel {
 	padding: $SPACING_48 $SPACING_100 0;
 	display: grid;
-	grid-template-columns: calc(60% - 16px) calc(40% - 16px);
+	grid-template-columns: calc(60% - $SPACING_16) calc(40% - $SPACING_16);
 	grid-template-rows: repeat(3, 1fr);
 	grid-column-gap: $SPACING_24;
 	grid-row-gap: $SPACING_24;
@@ -48,6 +53,8 @@
 .panel:nth-child(1) {
 	grid-area: 3 / 2 / 4 / 3;
 }
+
+// 2. Grid responsive
 @media screen and (max-width: 1440px) {
 	.l-grid--column-3-stretch {
 		column-gap: $SPACING_12;

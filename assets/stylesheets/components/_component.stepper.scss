@@ -19,8 +19,8 @@
 	height: $SPACING_4;
 	border-radius: $BORDER_RADIUS_50;
 	z-index: -1;
-	left: 45px;
-	right: 45px;
+	left: $SPACING_45;
+	right: $SPACING_45;
 	margin: 0 auto;
 }
 .stepper__progress-bar {
@@ -87,8 +87,8 @@
 .stepper__loading svg {
 	display: block;
 	position: relative;
-	width: 80px;
-	height: 80px;
+	width: $SPACING_80;
+	height: $SPACING_80;
 	margin: $SPACING_32 auto;
 }
 .stepper__item.active .stepper__title {

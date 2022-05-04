@@ -1,4 +1,9 @@
-/* #COMPONENT - TOGGLE */
+/* #COMPONENT - TOGGLE
+		1. Toggle default
+		2. Toggle responsive
+*/
+
+// 1. Toggle default
 .toggle,
 .toggle__buttons,
 .toggle__content {
@@ -22,8 +27,8 @@
 .toggle__buttons .btn {
 	background-color: $MEDIUM_GREY;
 	color: $LIME;
-	border-top: 1px solid $LIME;
-	border-bottom: 1px solid $LIME;
+	border-top: $SPACING_1 solid $LIME;
+	border-bottom: $SPACING_1 solid $LIME;
 	border-radius: $BORDER_RADIUS_24;
 	padding: $SPACING_14 $SPACING_100;
 	min-height: $SPACING_56;
@@ -36,7 +41,7 @@
 .toggle__buttons .btn:first-child {
 	border-top-right-radius: 0;
 	border-bottom-right-radius: 0;
-	border-left: 1px solid $LIME;
+	border-left: $SPACING_1 solid $LIME;
 }
 .toggle__buttons .btn:last-child {
 	border-top-left-radius: 0;
@@ -60,6 +65,8 @@
 .toggle__transaction .btn:first-child {
 	margin-right: $SPACING_32;
 }
+
+// 2. Toggle responsive
 @media screen and (max-width: 990px) {
 	.toggle {
 		padding: $SPACING_48 $SPACING_32;

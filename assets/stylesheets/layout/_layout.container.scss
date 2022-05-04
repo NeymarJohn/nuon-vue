@@ -1,4 +1,9 @@
-/* #LAYOUT - CONTAINER */
+/* #LAYOUT - CONTAINER
+		1. Container default
+		2. Container responsive
+*/
+
+// 1. Container default
 .l-container {
 	width: 100%;
 	margin: 0 auto;
@@ -10,6 +15,8 @@
 	max-width: $SPACING_870;
 	padding: $SPACING_32 0;
 }
+
+// 2. Container responsive
 @media screen and (max-width: 1440px) {
 	.l-container--md {
 		padding: $SPACING_72 $SPACING_80 0;

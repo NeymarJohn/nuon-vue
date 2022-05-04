@@ -1,8 +1,15 @@
-/* #LAYOUT - MAIN */
+/* #LAYOUT - MAIN
+		1. Main default
+		2. Main responsive
+*/
+
+// 1. Main default
 .l-main {
 	flex: 1;
 	margin-left: $SPACING_300;
 }
+
+// 2. Main responsive
 @media screen and (max-width: 1440px) {
 	.l-main {
 		margin-left: $SPACING_250;

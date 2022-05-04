@@ -1,9 +1,16 @@
-/* #SETTINGS - COMMON */
+/* #SETTINGS - COMMON
+		1. Box shadow
+		2. Border radius
+		3. Transition
+*/
+
+// 1. Box shadow
 $BOX_SHADOW_FOCUS: rgba(66, 153, 225, 0.6) 0px 0px 0px 3px;
 $BOX_SHADOW_MODAL: 0px 0px 150px 10px rgba(0, 0, 0, 0.1);
 $BOX_SHADOW_CONTAINER: 0px 0px 50px rgba(0, 0, 0, 0.02);
 $BOX_SHADOW_SELECT: 0px 0px 25px rgba(0, 0, 0, 0.05);
 
+// 2. Border radius
 $BORDER_RADIUS_4: 0.25rem;
 $BORDER_RADIUS_8: 0.5rem;
 $BORDER_RADIUS_12: 0.75rem;
@@ -14,4 +21,5 @@ $BORDER_RADIUS_48: 3rem;
 $BORDER_RADIUS_50: 3.125rem;
 $BORDER_RADIUS_CIRCLE: 50%;
 
+// 3. Transition
 $TRANSITION_ALL: all 0.3s ease;
