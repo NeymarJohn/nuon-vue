@@ -6,13 +6,13 @@
 				:class="{ active: isMintView }"
 				@click="toggleMintView">Mint</TheButton>
 			<TheButton
-				title="Click to view withdraw section"
+				title="Click to view redeem section"
 				:class="{ active: isWithdrawView }"
 				:disabled="isDisabled"
-				@click="toggleRedeemView">Withdraw</TheButton>
+				@click="toggleRedeemView">Redeem</TheButton>
 		</div>
 		<CollateralMint v-if="isMintView" />
-		<CollateralWithdraw v-else />
+		<CollateralRedeem v-else />
 	</div>
 </template>
 

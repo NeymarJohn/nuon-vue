@@ -12,6 +12,7 @@
 					:disabled="isApproved"
 					:class="isApproved"
 					title="Click to approve"
+					size="approve"
 					@click="approveTokens">
 					<span v-if="isApproved">Approved</span>
 					<span v-else>Approve</span>

@@ -3,7 +3,7 @@
 		<LayoutContainer>
 			<PageTitle class="u-mb-48">
 				<h4>Boardroom</h4>
-				<LayoutFlex>
+				<LayoutFlex direction="row-center">
 					<TheButton
 						size="icon"
 						class="u-mr-24 u-no-transition u-p-0"
@@ -57,7 +57,7 @@
 				<VotesTable
 					:proposal-id="$route.params.proposal"
 					:choices="details.choices || []"
-					:number-of-votes="numberOfVotes"
+					:number-of-votes="numberOfVotes || 0"
 					:proposal-state="details.state" />
 			</div>
 			<ThePanel>

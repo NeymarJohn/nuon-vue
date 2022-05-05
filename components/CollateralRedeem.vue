@@ -2,7 +2,7 @@
 	<TheStepper :active-step="activeStep" :steps="['Input', 'Confirm']">
 		<template #step-one>
 			<div class="toggle__content">
-				<h5 class="u-mb-12">Select Your Collateral Token To Withdraw</h5>
+				<h5 class="u-mb-12">Select Your Collateral Token To Redeem</h5>
 				<CollateralClaimAccordion
 					:token="claimRewardsToken"
 					@selected-token="selectClaimToken" />
@@ -28,7 +28,7 @@
 
 <script>
 export default {
-	name: "CollateralWithdraw",
+	name: "CollateralRedeem",
 	data() {
 		return {
 			fee: 5,
@@ -41,7 +41,7 @@ export default {
 		summary() {
 			return [
 				{
-					title: "Collateral to Withdraw",
+					title: "Collateral to Redemm",
 					val: this.numberWithCommas(this.withdrawCollateral.toFixed(2)),
 					currency: "HX",
 					dollar: this.numberWithCommas(this.getDollarValue(10, 1).toFixed(2))

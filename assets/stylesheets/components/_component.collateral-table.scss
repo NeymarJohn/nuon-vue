@@ -22,6 +22,18 @@
 	background: $MEDIUM_LIGHT_GREY;
 	border-radius: $BORDER_RADIUS_24;
 	padding: $SPACING_32;
+	overflow-y: auto;
+	max-height: $SPACING_500;
+}
+.collateral-table__container::-webkit-scrollbar {
+	background: $MEDIUM_GREY;
+	width: 0.5rem;
+	border-radius: $BORDER_RADIUS_8;
+}
+.collateral-table__container::-webkit-scrollbar-thumb {
+	background: $LIME;
+	height: $SPACING_16;
+	border-radius: $BORDER_RADIUS_8;
 }
 .collateral-table__row {
 	display: flex;

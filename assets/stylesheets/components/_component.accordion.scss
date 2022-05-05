@@ -89,7 +89,7 @@
 }
 .accordion__tokens::-webkit-scrollbar {
 	background: $MEDIUM_GREY;
-	width: 0.5rem;
+	width: $SPACING_8;
 	border-radius: $BORDER_RADIUS_8;
 }
 .accordion__tokens::-webkit-scrollbar-thumb {
@@ -99,6 +99,9 @@
 }
 
 // 2. Accordion claim
+.accordion.accordion--claim {
+	border-radius: $BORDER_RADIUS_8;
+}
 .accordion--claim.active {
 	border-bottom-left-radius: 0;
 	border-bottom-right-radius: 0;
@@ -107,8 +110,8 @@
 	z-index: 9;
 	position: absolute;
 	top: 100%;
-	left: -$SPACING_1;
-	right: -$SPACING_1;
+	left: 0;
+	right: 0;
 	padding: $SPACING_16 $SPACING_32;
 	border-left: $SPACING_1 solid $MEDIUM_LIGHT_GREY;
 	border-right: $SPACING_1 solid $MEDIUM_LIGHT_GREY;

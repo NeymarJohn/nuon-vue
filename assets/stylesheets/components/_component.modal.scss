@@ -28,6 +28,9 @@
 	right: 0;
 	z-index: 3;
 }
+.modal h4 {
+	font-size: $HEADING_FOUR;
+}
 .modal__container {
 	display: flex;
 	flex-direction: column;
@@ -150,6 +153,7 @@
 // 6. Modal collateral table
 .modal--collateral-table .modal__container {
 	width: $SPACING_870;
+	overflow: hidden;
 }
 
 // 7. Modal states

@@ -14,7 +14,7 @@
 				class="select__option"
 				@click="selectOption(option)"
 			>
-				{{ option }} <SuccessIcon v-if="option === value" />
+				{{ option }} <SelectedIcon v-if="option === value" />
 			</div>
 		</div>
 	</div>
@@ -23,14 +23,14 @@
 <script>
 import ChevronDownIcon from "@/assets/images/svg/svg-chevron-down.svg";
 import ChevronUpIcon from "@/assets/images/svg/svg-chevron-up.svg";
-import SuccessIcon from "@/assets/images/svg/svg-success.svg";
+import SelectedIcon from "@/assets/images/svg/svg-selected.svg";
 
 export default {
 	name: "TheSelect",
 	components: {
 		ChevronDownIcon,
 		ChevronUpIcon,
-		SuccessIcon
+		SelectedIcon
 	},
 	props: {
 		options: {

@@ -5,6 +5,7 @@
 		4. Button approved
 		5. Button swap
 		6. Button link
+		7. Button approve
 */
 
 // 1. Button default
@@ -208,4 +209,15 @@ a.btn:hover,
 		font-size: $HEADING_FIVE_480;
 		line-height: $SPACING_24;
 	}
+}
+
+// 7. Button approve
+.btn--approve {
+	@extend .btn--md;
+	border-color: $SUCCESS;
+	color: $SUCCESS;
+}
+.btn--approve:hover {
+	color: $DARK_GREY;
+	background: $SUCCESS;
 }
