@@ -3,7 +3,7 @@
 		<LayoutContainer>
 			<PageTitle class="u-mb-48">
 				<h4>Boardroom</h4>
-				<LayoutFlex direction="row-center">
+				<LayoutFlex>
 					<TheButton
 						size="icon"
 						class="u-mr-24 u-no-transition u-p-0"
@@ -57,7 +57,7 @@
 				<VotesTable
 					:proposal-id="$route.params.proposal"
 					:choices="details.choices || []"
-					:number-of-votes="numberOfVotes || 0"
+					:number-of-votes="numberOfVotes"
 					:proposal-state="details.state" />
 			</div>
 			<ThePanel>
@@ -168,6 +168,7 @@
 <script>
 import axios from "axios";
 import snapshot from "@snapshot-labs/snapshot.js";
+import DOMPurify from "isomorphic-dompurify";
 import { marked } from "marked";
 import { Web3Provider } from "@ethersproject/providers";
 import { fromWei } from "~/utils/bnTools";
@@ -234,7 +235,7 @@ export default {
 			}
 		},
 		compiledMarkdown() {
-			return marked(this.description, { sanitize: true });
+			return DOMPurify.sanitize(marked(this.description));
 		},
 		description() {
 			if (!this.details.body) return "";
