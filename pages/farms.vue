@@ -31,12 +31,11 @@
 						label="Sort by"
 						@filter-select="onFilterChange" />
 					<div class="farms-search">
-						<input type="text" placeholder="Search Farms" autocomplete="off">
+						<input v-model="search" type="text" placeholder="Search Farms" autocomplete="off">
 					</div>
 				</div>
 			</LayoutFlex>
-			<component
-				:is="isTableView ? 'LayoutFlex' : 'LayoutFlex'"
+			<LayoutFlex
 				:direction="!isTableView && 'row-wrap-start'"
 				:class="[isTableView && 'l-flex--column-wrap']">
 				<component
@@ -48,7 +47,7 @@
 					@viewMoreClicked="handleViewMore"
 				/>
 				<div v-observe-visibility="handleScroll"></div>
-			</component>
+			</LayoutFlex>
 		</LayoutContainer>
 	</div>
 </template>
@@ -69,6 +68,7 @@ export default {
 	},
 	data() {
 		return {
+			search: "",
 			isCardView: true,
 			isTableView: false,
 			page: 0,
@@ -95,6 +95,11 @@ export default {
 	computed: {
 		sortedFarms() {
 			return this.sortFarms();
+		},
+		searchedFarms() {
+			const trimmedSearch = this.search.trim();
+			if (trimmedSearch === "") return this.farms;
+			return this.farms.filter(f => f.name.toLowerCase().includes(trimmedSearch.toLowerCase()));
 		}
 	},
 	methods: {
@@ -119,15 +124,15 @@ export default {
 		},
 		sortFarms() {
 			if (this.filterOption === "APR") {
-				return this.farms.sort((a, b) => b.apr - a.apr);
+				return this.searchedFarms.sort((a, b) => b.apr - a.apr);
 			} else if (this.filterOption === "Multiplier") {
-				return this.farms.sort((a, b) => b.multiplier - a.multiplier);
+				return this.searchedFarms.sort((a, b) => b.multiplier - a.multiplier);
 			} else if (this.filterOption === "Earned") {
-				return this.farms.sort((a, b) => b.earned - a.earned);
+				return this.searchedFarms.sort((a, b) => b.earned - a.earned);
 			} else if (this.filterOption === "Liquidity") {
-				return this.farms.sort((a, b) => b.liquidity - a.liquidity);
+				return this.searchedFarms.sort((a, b) => b.liquidity - a.liquidity);
 			}
-			return this.farms;
+			return this.searchedFarms;
 		},
 		onFilterChange(o) {
 			this.filterOption = o;
