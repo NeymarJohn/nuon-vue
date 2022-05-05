@@ -3,12 +3,22 @@
 		<TheWallet />
 		<ul class="social-icons">
 			<li>
-				<a href="https://twitter.com/ultra_stable" target="_blank" rel="noopener noreferrer" title="Click to follow us on Twitter">
+				<a href="https://t.me/NuonFinance" target="_blank" rel="noopener noreferrer" title="Click to chat with us on Telegram"><TelegramIcon /></a>
+			</li>
+			<li>
+				<a href="https://twitter.com/NuonFinance" target="_blank" rel="noopener noreferrer" title="Click to follow us on Twitter">
 					<TwitterIcon />
 				</a>
 			</li>
 			<li>
-				<a href="https://t.me/ultrastable_money" target="_blank" rel="noopener noreferrer" title="Click to chat with us on Telegram"><TelegramIcon /></a>
+				<a href="https://nuonfinance.medium.com/" target="_blank" rel="noopener noreferrer" title="Click to follow us on Medium">
+					<MediumIcon />
+				</a>
+			</li>
+			<li>
+				<a href="https://discord.com/invite/pWT49HTJJu" target="_blank" rel="noopener noreferrer" title="Click to follow us on Discord">
+					<DiscordIcon />
+				</a>
 			</li>
 		</ul>
 		<div class="app-info">
@@ -22,14 +32,18 @@
 
 <script>
 import { version } from "../package.json";
-import TwitterIcon from "@/assets/images/svg/svg-twitter.svg";
+import DiscordIcon from "@/assets/images/svg/svg-discord.svg";
+import MediumIcon from "@/assets/images/svg/svg-medium.svg";
 import TelegramIcon from "@/assets/images/svg/svg-telegram.svg";
+import TwitterIcon from "@/assets/images/svg/svg-twitter.svg";
 
 export default {
 	name: "TheFooter",
 	components: {
-		TwitterIcon,
-		TelegramIcon
+		DiscordIcon,
+		MediumIcon,
+		TelegramIcon,
+		TwitterIcon
 	},
 	data () {
 		return {

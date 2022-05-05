@@ -23,7 +23,7 @@
 						</ComponentLoader>
 						<ShareNetwork
 							network="twitter"
-							:url="`https://www.nuon.fi${socialUrl}`"
+							:url="`https://app.nuon.fi/${socialUrl}`"
 							:title="socialTitle || ''"
 							hashtags="nuon,vote">
 							<TwitterIcon />
