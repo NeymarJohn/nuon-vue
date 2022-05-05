@@ -204,7 +204,7 @@ export default {
 				await this.$store.dispatch("stabilityFlashStore/burnHydro", {
 					address: this.account,
 					amount: this.burningValue,
-					onConfirm: (txHash) => this.successToast(() => {this.activeStep = 1;}, null, txHash),
+					onConfirm: (txHash) => this.successToast(() => {this.activeStep = 1;}, `You've burned ${this.burningValue} HX`, txHash),
 					onError: (e) => this.failureToast(() => {this.activeStep = 1;}, e),
 					onComplete: () => {}
 				});
@@ -213,7 +213,7 @@ export default {
 				await this.$store.dispatch("stabilityFlashStore/burnUsx", {
 					address: this.account,
 					amount: this.burningValue,
-					onConfirm: (txHash) => this.successToast(() => {this.activeStep = 1;}, null, txHash),
+					onConfirm: (txHash) => this.successToast(() => {this.activeStep = 1;}, `You've burned ${this.burningValue} USX`, txHash),
 					onError: (e) => this.failureToast(() => {this.activeStep = 1;}, e),
 					onComplete: () => {}
 				});

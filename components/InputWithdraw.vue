@@ -211,7 +211,7 @@ export default {
 				if (this.action === "stake") {
 					this.$store.dispatch("boardroomStore/stake", {
 						amount: this.inputValue,
-						onConfirm: (txHash) => this.successToast(() => {this.activeStep = 1;}, null, txHash),
+						onConfirm: (txHash) => this.successToast(() => {this.activeStep = 1;}, `You have staked ${this.inputValue} HX`, txHash),
 						onReject: (e) => this.failureToast(() => {this.activeStep = 1;}, e)
 					}).then(() => {
 						_this.$store.dispatch("boardroomStore/updateStatus");
@@ -220,7 +220,7 @@ export default {
 					if (this.inputValue < this.maximum) {
 						this.$store.dispatch("boardroomStore/withdraw", {
 							amount: this.inputValue,
-							onConfirm: (txHash) => this.successToast(() => {this.activeStep = 1;}, null, txHash),
+							onConfirm: (txHash) => this.successToast(() => {this.activeStep = 1;}, `You have withdrawn ${this.inputValue} HX`, txHash),
 							onReject: (e) => this.failureToast(() => {this.activeStep = 1;}, e)
 						}).then(()=>{
 							_this.$store.dispatch("boardroomStore/updateStatus");
@@ -228,7 +228,7 @@ export default {
 					} else {
 						this.$store.dispatch("boardroomStore/claimRewardsAndWithdraw", {
 							amount: this.inputValue,
-							onConfirm: (txHash) => this.successToast(() => {this.activeStep = 1;}, null, txHash),
+							onConfirm: (txHash) => this.successToast(() => {this.activeStep = 1;}, `You have claimed ${this.inputValue} HX`, txHash),
 							onReject: (e) => this.failureToast(() => {this.activeStep = 1;}, e)
 						}).then(()=>{
 							_this.$store.dispatch("boardroomStore/updateStatus");
@@ -236,7 +236,7 @@ export default {
 					}
 				} else if (this.action === "claim") {
 					this.$store.dispatch("boardroomStore/claimReward", {
-						onConfirm: (txHash) => this.successToast(() => {this.activeStep = 1;}, null, txHash),
+						onConfirm: (txHash) => this.successToast(() => {this.activeStep = 1;}, `You have claimed ${this.inputValue} HX`, txHash),
 						onReject: (e) => this.failureToast(() => {this.activeStep = 1;}, e)
 					}).then(()=>{
 						_this.$store.dispatch("boardroomStore/updateStatus");
