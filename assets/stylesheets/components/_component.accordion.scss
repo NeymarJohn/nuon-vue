@@ -138,8 +138,8 @@
 	z-index: 9;
 	position: absolute;
 	top: 100%;
-	left: -$SPACING_1;
-	right: -$SPACING_1;
+	left: -$SPACING_32;
+	right: -$SPACING_32;
 	padding: $SPACING_32;
 	border-left: $SPACING_1 solid $MEDIUM_LIGHT_GREY;
 	border-right: $SPACING_1 solid $MEDIUM_LIGHT_GREY;
@@ -176,7 +176,7 @@
 	}
 	.accordion--swap .accordion__body {
 		padding: 0 $SPACING_24;
-		top: $SPACING_72;
+		top: $SPACING_40;
 		left: -$SPACING_24;
 		right: -$SPACING_24;
 		border: 0;

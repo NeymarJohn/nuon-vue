@@ -137,16 +137,16 @@ a.btn:hover,
 // 5. Button swap
 .btn--swap {
 	background: $LIME;
-	width: $SPACING_72;
-	height: $SPACING_72;
 	border-radius: $BORDER_RADIUS_CIRCLE;
 	border: $SPACING_4 solid $WHITE;
 	padding: 0;
 	margin: -$SPACING_20 auto;
 	z-index: 2;
+	width: $SPACING_72;
+	height: $SPACING_72;
 }
-.btn--swap svg path {
-	fill: $DARK_GREY;
+.btn--swap img {
+	padding: $SPACING_14;
 }
 .btn--swap:hover {
 	background: $LIME;
@@ -155,13 +155,15 @@ a.btn:hover,
 	opacity: 1;
 	background: $DARK_GREY;
 }
-.btn--swap.btn[disabled] svg path {
-	fill: $LIGHT_GREY;
-}
 @media screen and (max-width: $SPACING_480) {
 	.btn--swap {
 		height: $SPACING_48;
 		width: $SPACING_48;
+	}
+	.btn--swap img {
+		height: $SPACING_35;
+		width: $SPACING_35;
+		padding: $SPACING_6;
 	}
 }
 

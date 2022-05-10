@@ -84,7 +84,7 @@
 							size="swap"
 							:disabled="loadingPrice || !output.token"
 							@click="reverseToken">
-							<SwapIcon />
+							<img :src="swapButtonHover" @mouseover="hover = true" @mouseleave="hover = false">
 						</TheButton>
 						<div class="swap__container u-mb-36">
 							<SwapBalance
@@ -186,7 +186,6 @@ import { HX, USX } from "~/constants/tokens";
 import GasIcon from "@/assets/images/svg/svg-gas.svg";
 import RefreshIcon from "@/assets/images/svg/svg-refresh.svg";
 import SettingsIcon from "@/assets/images/svg/svg-settings.svg";
-import SwapIcon from "@/assets/images/svg/svg-swap.svg";
 import TooltipIcon from "@/assets/images/svg/svg-tooltip.svg";
 
 export default {
@@ -195,11 +194,14 @@ export default {
 		GasIcon,
 		RefreshIcon,
 		SettingsIcon,
-		SwapIcon,
 		TooltipIcon
 	},
 	data() {
 		return {
+			arrowDown: require("~/assets/images/png/png-arrow-down.png"),
+			arrowDownDisabled: require("~/assets/images/png/png-arrow-down-disabled.png"),
+			arrowCollapse: require("~/assets/images/png/png-arrow-collapse.png"),
+			hover: false,
 			price: {
 				usx: 0,
 				hx: 0
@@ -227,7 +229,16 @@ export default {
 		};
 	},
 	computed: {
-		tokens(){
+		swapButtonHover() {
+			if (this.hover === true && this.loadingPrice || !this.output.token) {
+				return this.arrowDownDisabled;
+			} else if (this.hover === true ) {
+				return this.arrowCollapse;
+			} else {
+				return this.arrowDown;
+			}
+		},
+		tokens() {
 			return this.$store.state.addressStore.tokens;
 		},
 		disabledSwap() {
