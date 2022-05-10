@@ -1,9 +1,10 @@
 <template>
 	<LayoutError>
-		<ErrorIcon />
-		<h3>{{ message }}</h3>
-		<nuxt-link v-if="statusCode === 404" to="/">
-			Return to dashboard
+		<ErrorIcon class="u-mb-48" />
+		<h1 class="u-mb-24">{{ statusCode }}</h1>
+		<h2 class="u-mb-64">{{ message }}</h2>
+		<nuxt-link v-if="statusCode === 404" to="/" class="btn btn--md">
+			Back To Dashboard
 		</nuxt-link>
 	</LayoutError>
 </template>

@@ -1,9 +1,7 @@
 <template>
-	<div class="l-container">
-		<div class="l-error-container">
-			<slot />
-		</div>
-	</div>
+	<LayoutContainer size="error">
+		<slot />
+	</LayoutContainer>
 </template>
 
 <script>
