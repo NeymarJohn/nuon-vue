@@ -45,7 +45,7 @@
 				to="/farms"
 				title="Click to visit the Farms"
 				:class="{'active-link': isRouteActive('/farms')}">
-				<SwapIcon /> Farms
+				<FarmIcon /> Farms
 			</NuxtLink>
 		</li>
 		<a href="https://hydrolabs.gitbook.io/inflation-adjusted-algorithmic-stablecoin/" title="Click to visit the documentation" target="_blank" rel="noopener noreferrer"><DocumentationIcon /> Documentation <ExternalLinkIcon class="u-mr-0 u-ml-8" /></a>
@@ -55,6 +55,7 @@
 <script>
 import ExternalLinkIcon from "@/assets/images/svg/svg-external-link.svg";
 import DashboardIcon from "@/assets/images/svg/svg-menu-dashboard.svg";
+import FarmIcon from "@/assets/images/svg/svg-menu-farm.svg";
 import StabilityZoneIcon from "@/assets/images/svg/svg-menu-stability-zone.svg";
 import BoardroomIcon from "@/assets/images/svg/svg-menu-boardroom.svg";
 import CollateralVaultIcon from "@/assets/images/svg/svg-menu-collateral-vault.svg";
@@ -66,6 +67,7 @@ export default {
 	components: {
 		ExternalLinkIcon,
 		DashboardIcon,
+		FarmIcon,
 		StabilityZoneIcon,
 		BoardroomIcon,
 		CollateralVaultIcon,
