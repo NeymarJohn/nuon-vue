@@ -9,8 +9,9 @@
 .transaction-input__price {
 	margin-bottom: $SPACING_32;
 }
+.transaction-input__price p,
 .data-card .transaction-input__price p {
-	color: $LIME;
+	color: $LIGHT_GREY;
 }
 .transaction-input__buttons {
 	display: flex;

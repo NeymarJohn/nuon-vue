@@ -35,6 +35,15 @@
 	line-height: $SPACING_18;
 	font-weight: 300;
 }
+.toggle__buttons .btn:hover,
+.toggle__buttons .btn.active:hover {
+	background: $MEDIUM_LIGHT_GREY;
+	border: $SPACING_1 solid $MEDIUM_LIGHT_GREY !important;
+	color: $LIME;
+}
+.toggle__buttons .btn.active:hover {
+	cursor: not-allowed;
+}
 .toggle__buttons .btn.active {
 	background-color: $LIME;
 	color: $DARK_GREY;
@@ -71,5 +80,22 @@
 @media screen and (max-width: $SPACING_990) {
 	.toggle {
 		padding: $SPACING_48 $SPACING_32;
+	}
+}
+@media screen and (max-width: $SPACING_480) {
+	.toggle .stepper {
+		margin-bottom: $SPACING_52;
+	}
+	.toggle__buttons {
+		margin-bottom: $SPACING_24;
+	}
+	.toggle__buttons .btn {
+		padding: $SPACING_20 $SPACING_48;
+		font-size: $BODY_TEXT_SM;
+		line-height: $SPACING_18;
+	}
+	.toggle__content .accordion {
+		padding: $SPACING_24;
+		margin-bottom: $SPACING_24;
 	}
 }

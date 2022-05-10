@@ -96,7 +96,7 @@
 								<p>{{ proposal.startDate && formatDate(proposal.startDate) }}</p>
 							</div>
 							<div class="modal__confirm--row">
-								<p>Voting power for publishing</p>
+								<p>Amount</p>
 								<p>{{ votingPower }} HX</p>
 							</div>
 						</div>

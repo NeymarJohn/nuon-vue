@@ -4,9 +4,9 @@
 			<template #step-one>
 				<LayoutFlex
 					direction="row-center-space-between"
-					class="l-m-flex--column">
-					<h4>{{ title }}</h4>
-					<p class="u-mb-0">{{ subtitle }}: {{ numberWithCommas(maximum.toFixed(2)) }}</p>
+					class="l-m-flex--column u-mb-12">
+					<h5>{{ title }}</h5>
+					<h5 class="u-mb-0">{{ subtitle }}: {{ numberWithCommas(maximum.toFixed(2)) }}</h5>
 				</LayoutFlex>
 				<div class="input">
 					<div class="input__container">
