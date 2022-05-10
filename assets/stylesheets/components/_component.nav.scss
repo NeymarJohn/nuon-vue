@@ -47,6 +47,13 @@
 .nav .active-link svg path {
 	stroke: $LIME;
 }
+.nav .active-link svg.menu-stability-zone path {
+	fill: $LIME;
+	stroke: $TRANSPARENT;
+}
+.nav .active-link path.menu-stability-zone-stroke {
+	stroke: $LIME !important;
+}
 .nav a.nuxt-link-active.active-link:after {
 	content: "";
 	width: $SPACING_4;
