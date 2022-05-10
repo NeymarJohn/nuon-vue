@@ -21,22 +21,27 @@ h5 {
 h1 {
 	font-size: $HEADING_ONE;
 	line-height: $SPACING_42;
+	font-weight: 500;
 }
 h2 {
 	font-size: $HEADING_TWO;
 	line-height: $SPACING_30;
+	font-weight: 500;
 }
 h3 {
 	font-size: $HEADING_THREE;
 	line-height: $SPACING_28;
+	font-weight: 400;
 }
 h4 {
 	font-size: $HEADING_FOUR;
 	line-height: $SPACING_20;
+	font-weight: 400;
 }
 h5 {
 	font-size: $HEADING_FIVE;
 	line-height: $SPACING_18;
+	font-weight: 300;
 }
 p,
 blockquote,
