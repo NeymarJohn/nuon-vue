@@ -79,6 +79,7 @@
 			v-show="isPublishModalVisible"
 			title="Confirm Publish"
 			subtitle="Are you sure you want to publish the new proposal? This action cannot be undone."
+			class="modal--boardroom-proposal"
 			:class="modalStatus"
 			@close-modal="setModalVisibility('proposalPublishModal', false)">
 			<TheStepper :active-step="activeStep" :stepper="false">
