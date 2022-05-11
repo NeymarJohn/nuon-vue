@@ -2,7 +2,6 @@ import { GetterTree, ActionTree, MutationTree } from "vuex";
 import BN from "bn.js";
 import { Web3State } from "./web3Store";
 import boardroomAbi from "./abi/boardroom.json";
-import treasuryAbi from "./abi/treasury.json";
 import { fromWei, toWei } from "~/utils/bnTools";
 import { BOARDROOM_ADDRESS } from "~/constants/addresses";
 
@@ -78,8 +77,8 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 	async getAllowance (ctx: any) {
 		const address = ctx.rootGetters["web3Store/account"];
 		if (!address) return;
-		const getUsxAllowance = parseFloat(fromWei(await ctx.rootGetters["erc20Store/usx"].methods.allowance(address, BOARDROOM_ADDRESS).call()));
-		const getHydroAllowance = parseFloat(fromWei(await  ctx.rootGetters["erc20Store/hydro"].methods.allowance(address, BOARDROOM_ADDRESS).call()));
+		const getUsxAllowance = fromWei(await ctx.rootGetters["erc20Store/usx"].methods.allowance(address, BOARDROOM_ADDRESS).call());
+		const getHydroAllowance = fromWei(await  ctx.rootGetters["erc20Store/hydro"].methods.allowance(address, BOARDROOM_ADDRESS).call());
 		ctx.commit("setAllowance", {HX: getHydroAllowance, USX: getUsxAllowance});
 	},
 	approveToken(ctx: any, {tokenName,  onConfirm, onReject, onCallback}): void {
@@ -161,16 +160,6 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 				if (onReject) onReject();
 			});
 	},
-	async allocateHydroToBoardroom(ctx:any, {onConfirm, onReject}) {
-		const accountAddress = ctx.rootState.web3Store.account;
-		return await ctx.getters.treasury.methods.allocateHydroToBoardroom().send({from: accountAddress})
-			.on("transactionHash", () => {
-				if (onConfirm) onConfirm();
-			})
-			.on("error", () => {
-				if (onReject) onReject();
-			});
-	},
 	getLastSnapshot(ctx: any) {
 		const accountAddress = ctx.rootState?.web3Store.account;
 		if (!accountAddress) return;
@@ -217,13 +206,6 @@ export const getters: GetterTree<BoardroomState, Web3State> = {
 		const addr = store.addressStore.addr[store.web3Store.chainId as number].boardroom;
 		return new web3.eth.Contract(boardroomAbi, addr);
 	},
-
-	treasury: (_state: any, _getters: any, store: any) => {
-		const web3 = store.web3Store.instance();
-		const addr = store.addressStore.addr[store.web3Store.chainId as number].treasury;
-		return new web3.eth.Contract(treasuryAbi, addr);
-	},
-
 	getEarned:  (_state: any, getters: any, store: any ) => async () => {
 		const account = store.web3Store.account;
 		if (!account) return 0;

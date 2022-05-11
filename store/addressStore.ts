@@ -1,6 +1,6 @@
 import { GetterTree } from "vuex";
 import { Web3State } from "./web3Store";
-import { BOARDROOM_ADDRESS, DAI_ADDRESS, HYDRO_ADDRESS, ORACLE_USX_DAI_ADDRESS, ROUTER_ADDRESS, STABILITYFLASH_ADDRESS, tokenPairs, TREASURY_ADDRESS, USX_ADDRESS, USX_CONTROLLER_ADDRESS, WETH_ADDRESS } from "~/constants/addresses";
+import { BOARDROOM_ADDRESS, HYDRO_ADDRESS, USX_USDC_PAIR_ADDRESS, ROUTER_ADDRESS, STABILITYFLASH_ADDRESS, tokenPairs, TREASURY_ADDRESS, USX_ADDRESS, USX_CONTROLLER_ADDRESS, WETH_ADDRESS, USDC_ADDRESS } from "~/constants/addresses";
 
 export const state = () => ({
 	addr: {
@@ -12,11 +12,11 @@ export const state = () => ({
 			stabilityFlash: STABILITYFLASH_ADDRESS,
 			router: ROUTER_ADDRESS,
 			controller: USX_CONTROLLER_ADDRESS,
-			oracle: ORACLE_USX_DAI_ADDRESS,
+			oracle: USX_USDC_PAIR_ADDRESS,
 			weth: WETH_ADDRESS,
 			hydro: HYDRO_ADDRESS,
 			usx: USX_ADDRESS,
-			dai: DAI_ADDRESS,
+			usdc: USDC_ADDRESS,
 			treasury: TREASURY_ADDRESS,
 			uniswapV2Pair: tokenPairs
 		},
@@ -25,7 +25,7 @@ export const state = () => ({
 		ETH: WETH_ADDRESS,
 		HX: HYDRO_ADDRESS,
 		USX: USX_ADDRESS,
-		DAI: DAI_ADDRESS
+		USDC: USDC_ADDRESS
 	},
 });
 

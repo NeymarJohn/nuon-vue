@@ -157,6 +157,7 @@ export const actions: ActionTree<Web3State, Web3State> = {
 		dispatch("swapStore/initialize", {}, {root: true});
 		dispatch("boardroomStore/initialize", {}, {root: true});
 		dispatch("stabilityFlashStore/initialize", {}, {root: true});
+		dispatch("collateralVaultStore/initialize", {}, {root: true});
 	},
 	disconnect ({ commit }) {
 		commit("setAccount", "");

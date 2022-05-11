@@ -12,7 +12,7 @@
 				<DataCard>
 					<label>My Total Locked Collateral</label>
 					<TheLoader component="h1">
-						<h3>${{ numberWithCommas(lockedCollateral.toFixed(2)) }}</h3>
+						<h3>${{ numberWithCommas(userTVL.toFixed(2)) }}</h3>
 					</TheLoader>
 					<TheButton
 						size="link"
@@ -29,10 +29,10 @@
 				<DataCard>
 					<label>My Minted Tokens</label>
 					<TheLoader component="h1">
-						<h3>{{ numberWithCommas(myMintedTokens.toFixed(2)) }}<sup>USX</sup></h3>
+						<h3>{{ numberWithCommas(userMintedAmount.toFixed(2)) }}<sup>USX</sup></h3>
 					</TheLoader>
 					<TheLoader component="h5">
-						<h5>${{ numberWithCommas(getDollarValue(myMintedTokens, usxPrice).toFixed(2)) }}</h5>
+						<h5>${{ numberWithCommas(getDollarValue(userMintedAmount, usxPrice).toFixed(2)) }}</h5>
 					</TheLoader>
 				</DataCard>
 				<DataCard>
@@ -67,7 +67,7 @@
 							<h3 class="u-mr-32">Inflation {{ numberWithCommas(inflation.toFixed(2)) }}%</h3>
 						</TheLoader>
 						<TheLoader component="h3">
-							<h3>Net {{ numberWithCommas(net.toFixed(2)) }}%</h3>
+							<h3>Net {{ numberWithCommas(dailyInflationRate.toFixed(2)) }}%</h3>
 						</TheLoader>
 					</LayoutFlex>
 				</StatCard>
@@ -78,13 +78,14 @@
 			</PageTitle>
 		</LayoutContainer>
 		<LayoutContainer size="sm">
-			<CollateralToggle :minted-tokens="myMintedTokens" />
+			<CollateralToggle :minted-tokens="userTVL" />
 		</LayoutContainer>
 	</div>
 </template>
 
 <script>
 import TooltipIcon from "@/assets/images/svg/svg-tooltip.svg";
+import { fromWei } from "~/utils/bnTools";
 
 export default {
 	name: "TheCaldron",
@@ -93,13 +94,13 @@ export default {
 	},
 	data () {
 		return {
+			userTVL: 0,
 			lockedCollateral: 102886,
 			myMintedTokens: 1249,
 			collateralizationRatio: 170,
 			myCollateralRatio: 0,
-			usxPrice: 0,
-			inflation: 34.09,
-			net: 3.56
+			net: 3.56,
+			collateralAddresses: []
 		};
 	},
 	head () {
@@ -108,12 +109,58 @@ export default {
 		};
 	},
 	computed: {
+		usxPrice() {
+			return this.tokenPrices.USX;
+		},
+		userJustMinted() {
+			return this.$store.state.collateralVaultStore.userJustMinted;
+		},
 		isCollateralModalVisible() {
 			return this.$store.state.modalStore.modalVisible.collateralModal;
 		},
+		userMintedAmount() {
+			return parseFloat(this.$store.getters["erc20Store/usxBalance"]);
+		},
+		targetCollateralValue() {
+			return fromWei(this.$store.state.collateralVaultStore.targetCollateralValue);
+		},
+		globalCollateralRatioValue() {
+			return fromWei(this.$store.state.collateralVaultStore.globalCollateralRatioValue);
+		},
+		inflation() {
+			return this.$store.state.collateralVaultStore.inflation / 10;
+		},
+		dailyInflationRate() {
+			return this.$store.state.collateralVaultStore.dailyInflationRate / 10;
+		}
 	},
-	async mounted() {
-		this.usxPrice = parseFloat(await this.$store.getters["stabilityFlashStore/getUSXPriceInDAI"]);
+	watch: {
+		connectedAccount(newValue) {
+			this.getUserTVL(newValue);
+		},
+		userJustMinted(newValue) {
+			if (newValue) {
+				this.getUserTVL(this.connectedAccount);
+				this.$store.commit("collateralVaultStore/setUserJustMinted", false);
+			}
+		}
+	},
+	mounted() {
+		this.getUserTVL(this.connectedAccount);
+	},
+	methods: {
+		async getUserTVL(userAddress) {
+			if (this.connectedAccount) {
+				this.userTVL = 0;
+				this.collateralAddresses = await this.$store.getters["collateralVaultStore/getCollaterals"]();
+				this.collateralAddresses.forEach(async (_, idx) => {
+					const userAmounts = await this.$store.getters["collateralVaultStore/getUserAmounts"](userAddress, idx);
+					const weiBalance = userAmounts[0];
+					const usdBalance = fromWei(weiBalance);
+					this.userTVL += usdBalance;
+				});
+			}
+		}
 	}
 };
 </script>

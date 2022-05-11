@@ -39,20 +39,6 @@
 	},
 	{
 		"inputs": [],
-		"name": "DAI",
-		"outputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function",
-		"constant": true
-	},
-	{
-		"inputs": [],
 		"name": "Delay",
 		"outputs": [
 			{
@@ -101,7 +87,7 @@
 				"type": "uint256"
 			}
 		],
-		"name": "HYDROToDAIRoute",
+		"name": "HYDROToUSDCRoute",
 		"outputs": [
 			{
 				"internalType": "address",
@@ -149,6 +135,20 @@
 	},
 	{
 		"inputs": [],
+		"name": "USDC",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function",
+		"constant": true
+	},
+	{
+		"inputs": [],
 		"name": "USX",
 		"outputs": [
 			{
@@ -177,7 +177,7 @@
 	},
 	{
 		"inputs": [],
-		"name": "_HYDRO_DAI_Oracle",
+		"name": "_HYDRO_USDC_Oracle",
 		"outputs": [
 			{
 				"internalType": "contract IUniOracle",
@@ -205,7 +205,7 @@
 	},
 	{
 		"inputs": [],
-		"name": "_USX_DAI_Oracle",
+		"name": "_USX_USDC_Oracle",
 		"outputs": [
 			{
 				"internalType": "contract IUniOracle",
@@ -393,6 +393,13 @@
 	},
 	{
 		"inputs": [],
+		"name": "renounceOwnership",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
 		"name": "switched",
 		"outputs": [
 			{
@@ -432,6 +439,19 @@
 		"stateMutability": "view",
 		"type": "function",
 		"constant": true
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "newOwner",
+				"type": "address"
+			}
+		],
+		"name": "transferOwnership",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
 	},
 	{
 		"inputs": [],
@@ -582,20 +602,6 @@
 		"constant": true
 	},
 	{
-		"inputs": [],
-		"name": "isInitialized",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function",
-		"constant": true
-	},
-	{
 		"inputs": [
 			{
 				"internalType": "address",
@@ -648,7 +654,7 @@
 				"type": "uint256"
 			}
 		],
-		"name": "reservesInDAI",
+		"name": "reservesInUSDC",
 		"outputs": [
 			{
 				"internalType": "uint256",
@@ -722,7 +728,7 @@
 	},
 	{
 		"inputs": [],
-		"name": "getHYDROPriceInDAI",
+		"name": "getHYDROPriceInUSDC",
 		"outputs": [
 			{
 				"internalType": "uint256",
@@ -736,7 +742,7 @@
 	},
 	{
 		"inputs": [],
-		"name": "getUSXPriceInDAI",
+		"name": "getUSXPriceInUSDC",
 		"outputs": [
 			{
 				"internalType": "uint256",
@@ -779,6 +785,46 @@
 	{
 		"inputs": [
 			{
+				"internalType": "uint256",
+				"name": "_amount",
+				"type": "uint256"
+			}
+		],
+		"name": "getEstimatedHYDROOut",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function",
+		"constant": true
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_amount",
+				"type": "uint256"
+			}
+		],
+		"name": "getEstimatedUSXOut",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function",
+		"constant": true
+	},
+	{
+		"inputs": [
+			{
 				"internalType": "address",
 				"name": "__USX",
 				"type": "address"
@@ -790,7 +836,7 @@
 			},
 			{
 				"internalType": "address",
-				"name": "__DAI",
+				"name": "__USDC",
 				"type": "address"
 			},
 			{
@@ -805,12 +851,12 @@
 			},
 			{
 				"internalType": "address",
-				"name": "__USX_DAI_Oracle",
+				"name": "__USX_USDC_Oracle",
 				"type": "address"
 			},
 			{
 				"internalType": "address",
-				"name": "__HYDRO_DAI_Oracle",
+				"name": "__HYDRO_USDC_Oracle",
 				"type": "address"
 			},
 			{
@@ -820,19 +866,6 @@
 			}
 		],
 		"name": "initialize",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "newOwner",
-				"type": "address"
-			}
-		],
-		"name": "transferOwnership",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -961,7 +994,7 @@
 			},
 			{
 				"internalType": "address",
-				"name": "__DAI",
+				"name": "__USDC",
 				"type": "address"
 			},
 			{
@@ -976,7 +1009,7 @@
 			},
 			{
 				"internalType": "address",
-				"name": "__USX_DAI_Oracle",
+				"name": "__USX_USDC_Oracle",
 				"type": "address"
 			},
 			{
@@ -999,46 +1032,6 @@
 				"name": "",
 				"type": "uint256"
 			},
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function",
-		"constant": true
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_amount",
-				"type": "uint256"
-			}
-		],
-		"name": "getEstimatedUSXOut",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function",
-		"constant": true
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_amount",
-				"type": "uint256"
-			}
-		],
-		"name": "getEstimatedHYDROOut",
-		"outputs": [
 			{
 				"internalType": "uint256",
 				"name": "",

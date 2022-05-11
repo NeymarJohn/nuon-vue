@@ -7,13 +7,13 @@
 					<DataCard>
 						<p>USX price:</p>
 						<TheLoader component="h3">
-							<h3>{{ numberWithCommas(price.usx.toFixed(2)) }}</h3>
+							<h3>{{ numberWithCommas(usxPrice.toFixed(2)) }}</h3>
 						</TheLoader>
 					</DataCard>
 					<DataCard>
 						<p>HX price:</p>
 						<TheLoader component="h3">
-							<h3>{{ numberWithCommas(price.hx.toFixed(2)) }}</h3>
+							<h3>{{ numberWithCommas(hxPrice.toFixed(2)) }}</h3>
 						</TheLoader>
 					</DataCard>
 					<DataCard v-for="(item, index) in items" :key="index">
@@ -27,14 +27,11 @@
 </template>
 
 <script>
+import { HX, USX } from "~/constants/tokens";
 export default {
 	name: "TheDashboard",
 	data () {
 		return {
-			price: {
-				usx: 0,
-				hx: 0
-			},
 			items: [
 				{
 					label: "Peg range",
@@ -72,11 +69,18 @@ export default {
 			title: "Dashboard | Nuon"
 		};
 	},
-	async mounted () {
-		this.price.usx = parseFloat(await this.$store.getters["stabilityFlashStore/getUSXPriceInDAI"]);
-		this.price.hx = parseFloat(await this.$store.getters["stabilityFlashStore/getHydroPriceInDAI"]);
+	computed: {
+		usxPrice() {
+			return this.tokenPrices[USX.symbol]; 
+		},
+		hxPrice() {
+			return this.tokenPrices[HX.symbol];
+		}
+	},
+	mounted () {
 		this.$store.commit("rootStore/setIsLoaded", true);
 		this.$store.commit("rootStore/setInfuraId", this.$config.infuraId);
 	},
+
 };
 </script>

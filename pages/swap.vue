@@ -286,8 +286,8 @@ export default {
 		},
 	},
 	async mounted () {
-		this.price.usx = parseFloat(await this.$store.getters["stabilityFlashStore/getUSXPriceInDAI"]);
-		this.price.hx = parseFloat(await this.$store.getters["stabilityFlashStore/getHydroPriceInDAI"]);
+		this.price.usx = parseFloat(await this.$store.getters["stabilityFlashStore/getUSXPriceInUSDC"]);
+		this.price.hx = parseFloat(await this.$store.getters["stabilityFlashStore/getHYDROPriceInUSDC"]);
 		this.getAllowance();
 
 		const routeQuery = this.$route.query;
