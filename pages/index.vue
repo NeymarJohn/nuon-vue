@@ -35,7 +35,8 @@
 				</div>
 			</div>
 		</div>
-		<h2>Token Price</h2>
+		<h2 class="u-mb-24">Token Price</h2>
+		<TokenPriceToggle />
 	</LayoutContainer>
 </template>
 
