@@ -1,0 +1,23 @@
+/* #COMPONENT - CHART
+		1. Chart default
+		2. Chart donut
+		3. Chart responsive
+*/
+
+// 1. Chart default
+.chart {
+	background: $MEDIUM_LIGHT_GREY;
+	border-radius: $BORDER_RADIUS_16;
+	padding: $SPACING_32;
+}
+
+// 2. Chart donut
+.chart--donut p {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	color: $LIGHT_GREY;
+	margin-bottom: 0;
+}
+
+// 3. Chart responsive

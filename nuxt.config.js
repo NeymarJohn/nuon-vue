@@ -32,7 +32,8 @@ export default {
 	// Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
 	plugins: [
 		"~/plugins/helpers",
-		"~/plugins/floating-vue"
+		"~/plugins/floating-vue",
+		"~/plugins/vue-apexcharts.client"
 	],
 
 	// Auto import components: https://go.nuxtjs.dev/config-components

@@ -89,6 +89,8 @@ export default {
 	data () {
 		return {
 			userTVL: 0,
+			lockedCollateral: 102886,
+			myMintedTokens: 1249,
 			collateralizationRatio: 0,
 			net: 3.56,
 			collateralAddresses: []
@@ -112,6 +114,12 @@ export default {
 		userMintedAmount() {
 			return parseFloat(this.$store.getters["erc20Store/usxBalance"]);
 		},
+		targetCollateralValue() {
+			return fromWei(this.$store.state.collateralVaultStore.targetCollateralValue);
+		},
+		globalCollateralRatioValue() {
+			return fromWei(this.$store.state.collateralVaultStore.globalCollateralRatioValue);
+		},
 		inflation() {
 			return this.$store.state.collateralVaultStore.inflation / 10;
 		},
@@ -132,7 +140,7 @@ export default {
 	},
 	async mounted() {
 		this.getUserTVL(this.connectedAccount);
-		this.collateralizationRatio = (1 / parseFloat(fromWei(await this.$store.getters["collateralVaultStore/getGlobalCollateralRatio"]()))) * 100;
+		this.collateralizationRatio = parseFloat(fromWei(await this.$store.getters["collateralVaultStore/getGlobalCollateralRatio"]()));
 	},
 	methods: {
 		async getUserTVL(userAddress) {

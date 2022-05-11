@@ -10,6 +10,7 @@
 		</div>
 	</TheModal>
 </template>
+
 <script>
 export default {
 	name: "AlertModal",

@@ -26,6 +26,9 @@
 .u-mb-0 {
 	margin-bottom: 0 !important;
 }
+.u-mb-4 {
+	margin-bottom: $SPACING_4 !important;
+}
 .u-mb-5 {
 	margin-bottom: $SPACING_5 !important;
 }
@@ -335,6 +338,9 @@
 }
 .u-colour-light-grey {
 	color: $LIGHT_GREY !important;
+}
+.u-colour-white {
+	color: $WHITE !important;
 }
 
 // 21. Prompt

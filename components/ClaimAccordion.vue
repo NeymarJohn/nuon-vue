@@ -29,8 +29,8 @@
 							<div class="token__wrapper">
 								<img :src="require(`~/assets/images/tokens/${token.name}.png`)" :alt="`${token.name} logo`">
 								<div class="token__body">
-									<h3>{{ token.symbol }}</h3>
-									<p>{{ token.name }}</p>
+									<h4>{{ token.symbol }}</h4>
+									<h5>{{ token.name }}</h5>
 								</div>
 							</div>
 							<h5>~ ${{ numberWithCommas(getDollarValue(claimBalance, tokenPrice).toFixed(2)) }}</h5>
