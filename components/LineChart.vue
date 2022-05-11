@@ -64,6 +64,9 @@ export default {
 							fontFamily: "Plus Jakarta Sans",
 						}
 					}
+				},
+				tooltip: {
+					theme: "dark"
 				}
 			},
 		};

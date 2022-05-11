@@ -5,18 +5,43 @@
 
 // 1. Chart default
 .l-chart {
-	display: flex;
-	flex-direction: row;
 	background: $DARK_GREY;
 	border-radius: $BORDER_RADIUS_24;
 	padding: $SPACING_32;
 	margin-bottom: $SPACING_48;
 }
-.l-chart .chart:first-child {
+.l-chart__toggle {
+	display: inline-flex;
+	flex-direction: row;
+	align-items: center;
+	background: $MEDIUM_LIGHT_GREY;
+	border-radius: $BORDER_RADIUS_32;
+	padding: $SPACING_8;
+	margin-bottom: $SPACING_24;
+	align-self: flex-start;
+}
+.l-chart__toggle .btn {
+	border: none;
+	padding: $SPACING_8 $SPACING_20;
+	color: $LIGHT_GREY;
+	margin-right: $SPACING_4;
+}
+.l-chart__toggle .btn:last-child {
+	margin-right: 0;
+}
+.l-chart__toggle .btn:hover {
+	color: $LIME;
+	background: $DARK_GREY;
+}
+.l-chart__wrapper {
+	display: flex;
+	flex-direction: row;
+}
+.l-chart__wrapper .chart:first-child {
 	flex-basis: calc(60% - $SPACING_16);
 	margin-right: $SPACING_32;
 }
-.l-chart .chart:last-child {
+.l-chart__wrapper .chart:last-child {
 	flex-basis: calc(40% - $SPACING_16);
 }
 
