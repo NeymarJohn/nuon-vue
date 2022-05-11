@@ -1,0 +1,15 @@
+/* #LAYOUT - CHART
+		1. Chart default
+		2. Chart responsive
+*/
+
+// 1. Chart default
+.l-chart {
+	display: grid;
+	grid-template-columns: 0.5fr 1fr;
+	grid-template-rows: 1fr;
+	grid-column-gap: $SPACING_32;
+	grid-row-gap: 0px;
+}
+
+// 2. Chart responsive
