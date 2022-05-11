@@ -48,8 +48,8 @@ export const actions: ActionTree<SwapState, SwapState> = {
 	},
 	async getAllowance (ctx: any) {
 		const address = ctx.rootGetters["web3Store/account"];
-		const getUsxAllowance = fromWei(await ctx.rootGetters["erc20Store/usx"].methods.allowance(address, ROUTER_ADDRESS).call());
-		const getHydroAllowance = fromWei(await ctx.rootGetters["erc20Store/hydro"].methods.allowance(address, ROUTER_ADDRESS).call());
+		const getUsxAllowance = parseFloat(fromWei(await ctx.rootGetters["erc20Store/usx"].methods.allowance(address, ROUTER_ADDRESS).call()));
+		const getHydroAllowance = parseFloat(fromWei(await ctx.rootGetters["erc20Store/hydro"].methods.allowance(address, ROUTER_ADDRESS).call()));
 		ctx.commit("setAllowance", {HX: getHydroAllowance, USX: getUsxAllowance});
 	},
 	approveToken(ctx: any, {tokenName, onConfirm, onReject, onCallback}): void {

@@ -24,7 +24,7 @@
 						<h3>{{ numberWithCommas(usxBalance.toFixed(2)) }}<sup>USX</sup></h3>
 					</TheLoader>
 					<TheLoader component="h5">
-						<h5>${{ numberWithCommas(getDollarValue(usxBalance, tokenPrices.USX).toFixed(2)) }}</h5>
+						<h5>${{ numberWithCommas(getDollarValue(usxBalance, price.usx).toFixed(2)) }}</h5>
 					</TheLoader>
 				</DataCard>
 				<DataCard>
@@ -33,16 +33,16 @@
 						<h3>{{ numberWithCommas(hxBalance.toFixed(2)) }}<sup>HX</sup></h3>
 					</TheLoader>
 					<TheLoader component="h5">
-						<h5>${{ numberWithCommas(getDollarValue(hxBalance, tokenPrices.HX).toFixed(2)) }}</h5>
+						<h5>${{ numberWithCommas(getDollarValue(hxBalance, price.hx).toFixed(2)) }}</h5>
 					</TheLoader>
 				</DataCard>
-				<DataCard v-if="tokenPrices.USX < tolerance.low && connectedAccount !== ''">
+				<DataCard v-if="price.usx < tolerance.low && connectedAccount !== ''">
 					<label>Staked in vesting</label>
 					<TheLoader component="h1">
 						<h3>{{ numberWithCommas(stakedBalance.toFixed(2)) }}<sup>HX</sup></h3>
 					</TheLoader>
 					<TheLoader component="h5">
-						<h5>${{ numberWithCommas(getDollarValue(stakedBalance, tokenPrices.HX).toFixed(2)) }}</h5>
+						<h5>${{ numberWithCommas(getDollarValue(stakedBalance, price.hx).toFixed(2)) }}</h5>
 					</TheLoader>
 				</DataCard>
 			</LayoutInfo>
@@ -54,16 +54,16 @@
 					<label>USX Price<TooltipIcon v-tooltip="'Enter usx price tooltip content here.'" /></label>
 					<TheLoader component="h3">
 						<LayoutFlex direction="row-center-space-between">
-							<h3 v-if="tokenPrices.USX">{{ numberWithCommas(tokenPrices.USX.toFixed(2)) }}</h3>
-							<TheBadge v-if="tokenPrices.USX > tolerance.high">Above</TheBadge>
-							<TheBadge v-else-if="tokenPrices.USX < tolerance.low">Below</TheBadge>
+							<h3 v-if="price.usx">{{ numberWithCommas(price.usx.toFixed(2)) }}</h3>
+							<TheBadge v-if="price.usx > tolerance.high">Above</TheBadge>
+							<TheBadge v-else-if="price.usx < tolerance.low">Below</TheBadge>
 						</LayoutFlex>
 					</TheLoader>
 				</StatCard>
 				<StatCard class="u-mb-sm-12">
 					<label>HX Price<TooltipIcon v-tooltip="'Enter hx price tooltip content here.'" /></label>
 					<TheLoader component="h3">
-						<h3 v-if="tokenPrices.HX">{{ numberWithCommas(tokenPrices.HX.toFixed(2)) }}</h3>
+						<h3 v-if="price.hx">{{ numberWithCommas(price.hx.toFixed(2)) }}</h3>
 					</TheLoader>
 				</StatCard>
 				<StatCard class="u-mb-sm-12">
@@ -74,7 +74,7 @@
 				</StatCard>
 			</LayoutGrid>
 			<TheLoader component="content-block">
-				<LayoutPegZone v-if="tokenPrices.USX > tolerance.high">
+				<LayoutPegZone v-if="price.usx > tolerance.high">
 					<LayoutFlex class="l-flex-column-md" direction="row-space-between">
 						<PageTitle>
 							<h2>Peg Zone: Is Above Range<TooltipIcon v-tooltip="'Enter above range tooltip content here.'" /></h2>
@@ -121,7 +121,7 @@
 						</TheModal>
 					</LayoutFlex>
 					<LayoutFlex v-if="connectedAccount !== ''" class="l-flex-column-sm">
-						<DataCard v-if="tokenPrices.USX > tolerance.high || tokenPrices.USX <= tolerance.high && tokenPrices.USX >= tolerance.low" class="u-mr-80 u-mb-sm-24 u-mr-sm-0">
+						<DataCard v-if="price.usx > tolerance.high || price.usx <= tolerance.high && price.usx >= tolerance.low" class="u-mr-80 u-mb-sm-24 u-mr-sm-0">
 							<label>Claim Ratio<TooltipIcon v-tooltip="'Enter claim ratio tooltip content here.'" /></label>
 							<TheLoader component="h3">
 								<h3 v-if="connectedAccount !== ''">{{ claimRatio }}%</h3>
@@ -134,7 +134,7 @@
 						</DataCard>
 					</LayoutFlex>
 				</LayoutPegZone>
-				<LayoutPegZone v-else-if="tokenPrices.USX < tolerance.low">
+				<LayoutPegZone v-else-if="price.usx < tolerance.low">
 					<LayoutFlex direction="row-space-between">
 						<PageTitle>
 							<h2>Peg Zone: Is Below Range<TooltipIcon v-tooltip="'Enter below range tooltip content here.'" /></h2>
@@ -161,8 +161,8 @@
 				</LayoutPegZone>
 				<LayoutPegZone v-else>
 					<LayoutFlex direction="column">
-						<h2 v-if="tokenPrices.USX">Peg Zone: Is In Range</h2>
-						<p v-if="tokenPrices.USX">There is nothing to do.</p>
+						<h2 v-if="price.usx">Peg Zone: Is In Range</h2>
+						<p v-if="price.usx">There is nothing to do.</p>
 					</LayoutFlex>
 				</LayoutPegZone>
 			</TheLoader>
@@ -187,6 +187,10 @@ export default {
 	},
 	data () {
 		return {
+			price: {
+				usx: 0,
+				hx: 0
+			},
 			stakedBalance: 0,
 			claimRatio: 0,
 			rebalanceFee: 0,
@@ -252,6 +256,8 @@ export default {
 	},
 	async mounted() {
 		this.rebalanceFee = await this.$store.getters["stabilityFlashStore/getRebalanceFees"];
+		this.price.usx = parseFloat(await this.$store.getters["stabilityFlashStore/getUSXPriceInDAI"]);
+		this.price.hx = parseFloat(await this.$store.getters["stabilityFlashStore/getHydroPriceInDAI"]);
 		this.claimRatio = await this.$store.getters["stabilityFlashStore/userClaimRatio"];
 		this.tolerance.high = await this.$store.getters["stabilityFlashStore/getToleranceHigh"];
 		this.stakedBalance = parseFloat(await this.$store.getters["stabilityFlashStore/getStakedBalance"]);

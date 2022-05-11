@@ -70,7 +70,6 @@
 <script>
 import debounce from "lodash.debounce";
 import { fromWei, toWei } from "~/utils/bnTools";
-import { USX } from "~/constants/tokens";
 export default {
 	name: "BurnInput",
 	props: {
@@ -164,8 +163,8 @@ export default {
 		});
 		this.tolerance.high = await this.$store.getters["stabilityFlashStore/getToleranceHigh"];
 		this.tolerance.low = await this.$store.getters["stabilityFlashStore/getToleranceLow"];
-		this.price.usx = this.tokenPrices[USX.symbol];
-		this.price.hx = this.tokenPrices[USX.symbol];
+		this.price.usx = parseFloat(await this.$store.getters["stabilityFlashStore/getUSXPriceInDAI"]);
+		this.price.hx = parseFloat(await this.$store.getters["stabilityFlashStore/getHYDROPriceInDAI"]);
 		this.updatePrices = debounce(async function(burningInput){
 			try {
 				if (burningInput) {

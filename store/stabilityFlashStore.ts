@@ -80,8 +80,8 @@ export const actions: ActionTree<StabilityState, StabilityState> = {
 	async getAllowance (ctx: any) {
 		const address = ctx.rootGetters["web3Store/account"];
 		if (!address) return;
-		const getUsxAllowance = fromWei(await ctx.rootGetters["erc20Store/usx"].methods.allowance(address, STABILITYFLASH_ADDRESS).call());
-		const getHydroAllowance = fromWei(await  ctx.rootGetters["erc20Store/hydro"].methods.allowance(address, STABILITYFLASH_ADDRESS).call());
+		const getUsxAllowance = parseFloat(fromWei(await ctx.rootGetters["erc20Store/usx"].methods.allowance(address, STABILITYFLASH_ADDRESS).call()));
+		const getHydroAllowance = parseFloat(fromWei(await  ctx.rootGetters["erc20Store/hydro"].methods.allowance(address, STABILITYFLASH_ADDRESS).call()));
 		ctx.commit("setAllowance", {HX: getHydroAllowance, USX: getUsxAllowance});
 	},
 	approveToken(ctx: any, {tokenName,  onConfirm, onReject, onCallback}): void {
@@ -279,12 +279,14 @@ export const getters: GetterTree<StabilityState, Web3State> = {
 		return await getters.contract.methods.claimRatio().call();
 	},
 
-	getHYDROPriceInUSDC: async (_state: any, getters: any, _store: any) => {
-		return fromWei(await getters.contract.methods.getHYDROPriceInUSDC().call(), 6);
+	getHydroPriceInDAI: async (_state: any, getters: any, store: any) => {
+		const web3 = store.web3Store.instance();
+		return web3.utils.fromWei(await getters.contract.methods.getHYDROPriceInDAI().call());
 	},
 
-	getUSXPriceInUSDC: async (_state: any, getters: any, _store: any) => {
-		return fromWei(await getters.contract.methods.getUSXPriceInUSDC().call(), 6);
+	getUSXPriceInDAI: async (_state: any, getters: any, store: any) => {
+		const web3 = store.web3Store.instance();
+		return web3.utils.fromWei(await getters.contract.methods.getUSXPriceInDAI().call());
 	},
 
 	getViewRatio: (_state: any, getters: any, _store: any) => {

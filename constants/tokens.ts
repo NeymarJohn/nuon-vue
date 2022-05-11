@@ -1,4 +1,4 @@
-import { DAI_ADDRESS, HYDRO_ADDRESS, USX_ADDRESS, USDC_ADDRESS, USDT_ADDRESS, USDC_USDT_PAIR_ADDRESS } from "./addresses";
+import { DAI_ADDRESS, HYDRO_ADDRESS, USX_ADDRESS } from "./addresses";
 import paths from "./paths";
 
 export const HX = {
@@ -19,31 +19,10 @@ export const DAI = {
 	name: "DAI STABLE COIN"
 };
 
-export const USDC = {
-	address: USDC_ADDRESS,
-	symbol: "USDC",
-	name: "USDC TOKEN"
-};
-
-export const USDT = {
-	address: USDT_ADDRESS,
-	symbol: "USDT",
-	name: "USDT TOKEN"
-};
-
-export const USDC_USDT_LP_TOKEN = {
-	address: USDC_USDT_PAIR_ADDRESS,
-	symbol: "USDC-USDT LP",
-	name: "USDC-USDT LP TOKEN"
-};
-
 export const TOKENS_MAP:any = {
 	HX,
 	USX,
-	DAI,
-	USDC,
-	USDT,
-	USDC_USDT_LP_TOKEN
+	DAI
 };
 
 export const getPath = (inputToken:string, outputToken:string) => {

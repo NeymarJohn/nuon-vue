@@ -18,30 +18,34 @@ h5 {
 	margin-right: 0;
 	margin-bottom: 0;
 }
+h1,
+h2,
+h3 {
+	font-weight: 500;
+}
+h4,
+h5 {
+	font-weight: 400;
+}
 h1 {
 	font-size: $HEADING_ONE;
-	line-height: $SPACING_42;
-	font-weight: 500;
+	line-height: $SPACING_48;
 }
 h2 {
 	font-size: $HEADING_TWO;
-	line-height: $SPACING_30;
-	font-weight: 500;
+	line-height: $SPACING_48;
 }
 h3 {
 	font-size: $HEADING_THREE;
-	line-height: $SPACING_28;
-	font-weight: 400;
+	line-height: $SPACING_45;
 }
 h4 {
 	font-size: $HEADING_FOUR;
-	line-height: $SPACING_20;
-	font-weight: 400;
+	line-height: $SPACING_36;
 }
 h5 {
 	font-size: $HEADING_FIVE;
-	line-height: $SPACING_18;
-	font-weight: 300;
+	line-height: $SPACING_22;
 }
 p,
 blockquote,
@@ -50,7 +54,7 @@ ol,
 time,
 sup {
 	color: $WHITE;
-	line-height: $SPACING_16;
+	line-height: $SPACING_24;
 	margin-top: 0;
 	margin-bottom: $SPACING_10;
 	word-break: break-word;
@@ -73,74 +77,73 @@ ol {
 @media screen and (max-width: $SPACING_1440) {
 	h1 {
 		font-size: $HEADING_ONE_1440;
-		line-height: $SPACING_32;
 	}
 	h2 {
 		font-size: $HEADING_TWO_1440;
-		line-height: $SPACING_24;
+		line-height: $SPACING_32;
 	}
 	h3 {
 		font-size: $HEADING_THREE_1440;
-		line-height: $SPACING_22;
+		line-height: $SPACING_36;
 	}
 	h4 {
 		font-size: $HEADING_FOUR_1440;
-		line-height: $SPACING_16;
+		line-height: $SPACING_28;
 	}
 	h5 {
 		font-size: $HEADING_FIVE_1440;
-		line-height: $SPACING_14;
+		line-height: $SPACING_18;
 	}
 	p {
 		font-size: $BODY_TEXT_SM;
-		line-height: $SPACING_14;
+		line-height: $SPACING_24;
 	}
 }
 @media screen and (max-width: $SPACING_990) {
 	h1 {
 		font-size: $HEADING_ONE_990;
-		line-height: $SPACING_28;
+		line-height: $SPACING_36;
 	}
 	h2 {
 		font-size: $HEADING_TWO_990;
-		line-height: $SPACING_24;
+		line-height: $SPACING_28;
 	}
 	h3 {
 		font-size: $HEADING_THREE_990;
-		line-height: $SPACING_22;
+		line-height: $SPACING_36;
 	}
 	h4 {
 		font-size: $HEADING_FOUR_990;
-		line-height: $SPACING_16;
+		line-height: $SPACING_26;
 	}
 	h5 {
 		font-size: $HEADING_FIVE_990;
-		line-height: $SPACING_12;
+		line-height: $SPACING_18;
+	}
+	p {
+		font-size: $BODY_TEXT_XS;
+		line-height: $SPACING_18;
 	}
 }
 @media screen and (max-width: $SPACING_480) {
 	h1 {
 		font-size: $HEADING_ONE_480;
-		line-height: $SPACING_28;
+		line-height: $SPACING_36;
 	}
 	h2 {
 		font-size: $HEADING_TWO_480;
-		line-height: $SPACING_24;
+		line-height: $SPACING_28;
 	}
 	h3 {
 		font-size: $HEADING_THREE_480;
-		line-height: $SPACING_22;
+		line-height: $SPACING_36;
 	}
 	h4 {
 		font-size: $HEADING_FOUR_480;
-		line-height: $SPACING_16;
+		line-height: $SPACING_26;
 	}
 	h5 {
 		font-size: $HEADING_FIVE_480;
-		line-height: $SPACING_14;
-	}
-	p {
-		font-size: $BODY_TEXT_XS;
-		line-height: $SPACING_12;
+		line-height: $SPACING_18;
 	}
 }

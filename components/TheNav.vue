@@ -5,7 +5,15 @@
 				to="/"
 				title="Click to visit the Dashboard"
 				:class="{'active-link': isRouteActive('/')}">
-				<DashboardIcon /> Dashboard
+				<DashboardIcon /> Ecosystem Dashboard
+			</NuxtLink>
+		</li>
+		<li>
+			<NuxtLink
+				to="/my-page"
+				title="Click to visit My Page"
+				:class="{'active-link': isRouteActive('/my-page')}">
+				<DashboardIcon /> My Page
 			</NuxtLink>
 		</li>
 		<li>

@@ -178,9 +178,9 @@ export default {
 		},
 		async getTokenPrice(tokenSymbol) {
 			if (tokenSymbol === HX.symbol) {
-				this.tokenPrice = parseFloat(await this.$store.getters["stabilityFlashStore/getHYDROPriceInUSDC"]);
+				this.tokenPrice = parseFloat(await this.$store.getters["stabilityFlashStore/getHydroPriceInDAI"]);
 			} else if (tokenSymbol === USX.symbol) {
-				this.tokenPrice = parseFloat(await this.$store.getters["stabilityFlashStore/getUSXPriceInUSDC"]);
+				this.tokenPrice = parseFloat(await this.$store.getters["stabilityFlashStore/getUSXPriceInDAI"]);
 			} else {
 				this.tokenPrice = 0;
 			}

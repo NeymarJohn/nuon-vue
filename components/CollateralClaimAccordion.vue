@@ -5,10 +5,10 @@
 				direction="row-center"
 				class="accordion__header"
 				title="Click to open token list" @click="triggerAccordion">
-				<img :src="require(`~/assets/images/tokens/${token.name || selected.name}.png`)" alt="Hydro logo">
+				<img :src="require(`~/assets/images/tokens/${selected.name}.png`)" alt="Hydro logo">
 				<div class="accordion__token">
-					<h4>{{ token.symbol || selected.symbol }}</h4>
-					<p>{{ token.name || selected.name }}</p>
+					<h4>{{ selected.symbol }}</h4>
+					<p>{{ selected.name }}</p>
 				</div>
 				<ChevronDownIcon v-if="!isActive" />
 				<ChevronUpIcon v-else />
@@ -47,7 +47,7 @@
 							<p>{{ t.name }}</p>
 						</div>
 					</div>
-					<h5>~ ${{ numberWithCommas(getDollarValue(inputValue, t.price || 0).toFixed(2)) }}</h5>
+					<h5>~ ${{ numberWithCommas(getDollarValue(inputValue, t.price).toFixed(2)) }}</h5>
 				</div>
 				<div v-if="filteredTokens.length <= 0" class="accordion__results">
 					No results found.
@@ -61,7 +61,7 @@
 import ChevronDownIcon from "@/assets/images/svg/svg-chevron-down.svg";
 import ChevronUpIcon from "@/assets/images/svg/svg-chevron-up.svg";
 import TokenData from "@/assets/images/tokens/token-data.json";
-import { fromWei, toFixedFloorNumber } from "~/utils/bnTools";
+import { fromWei } from "~/utils/bnTools";
 import { HX } from "~/constants/tokens";
 
 export default {
@@ -75,10 +75,6 @@ export default {
 			type: Object,
 			default: () => ({ symbol: HX.symbol, price: 0, balance: 0 })
 		},
-		defaultValue: {
-			type: [Number, String],
-			default: 0
-		}
 	},
 	data () {
 		return {
@@ -108,7 +104,7 @@ export default {
 			return parseFloat(fromWei(this.user?.outstanding));
 		},
 		isMoreThanBalance() {
-			return this.inputValue > this.tokenBalance;
+			return this.inputValue > this.token.balance;
 		},
 		summary() {
 			return [
@@ -130,25 +126,16 @@ export default {
 					dollar: "1,900.00 = 9.84 TNODE"
 				},
 			];
-		},
-		tokenBalance() {
-			return parseFloat(this.token.balance);
-		},
-	},
-	watch: {
-		inputValue(newValue) {
-			this.$emit("change-input", newValue);
 		}
 	},
 	async mounted() {
-		this.hxPrice = parseFloat(await this.$store.getters["stabilityFlashStore/getHYDROPriceInUSDC"]);
+		this.hxPrice = parseFloat(await this.$store.getters["stabilityFlashStore/getHydroPriceInDAI"]);
 		this.$store.commit("rootStore/setIsLoaded", true);
 		window.addEventListener("click", (e) => {
 			if (!this.$el.contains(e.target)){
 				this.isActive = false;
 			}
 		});
-		this.inputValue = this.defaultValue;
 	},
 	methods: {
 		triggerAccordion() {
@@ -162,11 +149,11 @@ export default {
 			this.isActive = !this.isActive;
 		},
 		inputMaxBalance() {
-			this.inputValue = toFixedFloorNumber(this.tokenBalance, 2) ;
+			this.inputValue = parseFloat(this.token.balance);
 		},
 		submitTransaction() {
 			console.log("Submit transaction");
 		}
-	},
+	}
 };
 </script>

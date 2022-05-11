@@ -3,19 +3,12 @@ import BN from "bn.js";
 import Web3 from "web3";
 import { Web3State } from "./web3Store";
 import erc20 from "./abi/erc20.json";
-import { HX, USX, USDC } from "~/constants/tokens";
-import { HYDRO_ADDRESS, USX_ADDRESS, USDC_ADDRESS } from "~/constants/addresses";
+import { USX } from "~/constants/tokens";
 
 type StateType = {
 	balance: {
 		USX: BN,
-		HX: BN,
-		USDC: BN
-	},
-	decimals: {
-		USX: number,
-		HX: number,
-		USDC: number
+		HX: BN
 	}
 }
 /**
@@ -24,13 +17,7 @@ type StateType = {
 export const state = (): StateType => ({
 	balance: {
 		USX: new BN(0),
-		HX: new BN(0),
-		USDC: new BN(0)
-	},
-	decimals: {
-		USX: 18,
-		HX: 18,
-		USDC: 6
+		HX: new BN(0)
 	}
 });
 
@@ -39,9 +26,6 @@ export type Erc20State = ReturnType<typeof state>
 export const mutations: MutationTree<Erc20State> = {
 	setBalance(state, payload: any) {
 		state.balance = payload;
-	},
-	setDecimals(state, payload: any) {
-		state.decimals = payload;
 	}
 };
 
@@ -49,26 +33,17 @@ export const actions: ActionTree<Erc20State, Erc20State> = {
 	async initializeBalance (ctx: any, {address}) {
 		const usxBalance = await ctx.getters.usx.methods.balanceOf(address).call();
 		const hydroBalance = await ctx.getters.hydro.methods.balanceOf(address).call();
-		const usdcBalance = await ctx.getters.usdc.methods.balanceOf(address).call();
-		const usdcDecimals = await ctx.getters.usdc.methods.decimals().call();
-
 		ctx.commit("setBalance", {
 			HX: hydroBalance,
-			USX: usxBalance,
-			USDC: usdcBalance
-		});
-		ctx.commit("setDecimals", {
-			HX: 18,
-			USX: 18,
-			USDC: usdcDecimals
+			USX: usxBalance
 		});
 	},
 
-	approveToken(ctx: any, {tokenSymbol, contractAddress, onConfirm, onReject}): void {
+	approveToken(ctx: any, {tokenName, contractAddress, onConfirm, onReject}): void {
 		const web3 = ctx.rootGetters["web3Store/instance"]();
 		const MAX_VALUE = new web3.utils.BN("0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF");
 		const accountAddress = ctx.rootGetters["web3Store/account"];
-		const tokenContract = ctx.getters.getContractBySymbol(tokenSymbol);
+		const tokenContract = tokenName === USX.symbol ? ctx.getters.usx : ctx.getters.hydro;
 		return tokenContract.methods.approve(contractAddress, MAX_VALUE)
 			.send({from: accountAddress
 			}).on("transactionHash", function() {
@@ -92,19 +67,13 @@ export const getters: GetterTree<Erc20State, Web3State> = {
 
 	hydro: (_state: any, _getters: any, store: any) => {
 		const web3 = store.web3Store.instance();
-		const addr = HYDRO_ADDRESS;
+		const addr = store.addressStore.addr[store.web3Store.chainId as number].hydro;
 		return new web3.eth.Contract(erc20, addr);
 	},
 
 	usx: (_state: any, _getters: any, store: any) => {
 		const web3 = store.web3Store.instance();
-		const addr = USX_ADDRESS;
-		return new web3.eth.Contract(erc20, addr);
-	},
-
-	usdc: (_state: any, _getters: any, store: any) => {
-		const web3 = store.web3Store.instance();
-		const addr = USDC_ADDRESS;
+		const addr = store.addressStore.addr[store.web3Store.chainId as number].usx;
 		return new web3.eth.Contract(erc20, addr);
 	},
 
@@ -135,18 +104,5 @@ export const getters: GetterTree<Erc20State, Web3State> = {
 			USX: usxBalance,
 			HX: hxBalance
 		};
-	},
-
-	getContractBySymbol: (_state: any, getters: any) => (symbol: string) => {
-		switch (symbol) {
-		case USX.symbol:
-			return getters.usx;
-		case HX.symbol:
-			return getters.hydro;
-		case USDC.symbol:
-			return getters.usdc;
-		default:
-			return getters.hx;
-		}
 	}
 };

@@ -53,7 +53,7 @@ export default {
 		},
 	},
 	async mounted() {
-		this.hxPrice = parseFloat(await this.$store.getters["stabilityFlashStore/getHYDROPriceInUSDC"]);
+		this.hxPrice = parseFloat(await this.$store.getters["stabilityFlashStore/getHydroPriceInDAI"]);
 		this.claimRewardsToken = { symbol: HX.symbol, price: this.hxPrice, balance: this.myRewards };
 	},
 	methods: {
@@ -69,10 +69,10 @@ export default {
 		},
 		async selectClaimToken(token) {
 			if (token.symbol === HX.symbol) {
-				const price = parseFloat(await this.$store.getters["stabilityFlashStore/getHYDROPriceInUSDC"]);
+				const price = parseFloat(await this.$store.getters["stabilityFlashStore/getHydroPriceInDAI"]);
 				this.claimRewardsToken = {...token, price, balance: this.myRewards};
 			} else if (token.symbol === USX.symbol) {
-				const price = parseFloat(await this.$store.getters["stabilityFlashStore/getUSXPriceInUSDC"]);
+				const price = parseFloat(await this.$store.getters["stabilityFlashStore/getUSXPriceInDAI"]);
 				this.claimRewardsToken = {...token, price, balance: this.myRewards};
 			} else {
 				this.claimRewardsToken = {...token, price: 0, balance: 0};
