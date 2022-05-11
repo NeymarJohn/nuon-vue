@@ -1,6 +1,6 @@
 <template>
 	<div v-if="visible">
-		<div v-if="!readyToClaim" class="countdown">
+		<div class="countdown">
 			<div class="countdown__block">
 				<h3>{{days}}</h3>
 				<p>D</p>
@@ -18,7 +18,6 @@
 				<p>S</p>
 			</div>
 		</div>
-		<h3 v-if="readyToClaim">Claim now</h3>
 	</div>
 	<div v-else>
 		<h3 class="countdown__placeholder">00<sup>D</sup> 00<sup>H</sup> 00<sup>M</sup> 00<sup>S</sup></h3>
