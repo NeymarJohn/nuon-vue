@@ -188,7 +188,7 @@ export default {
 		this.$store.watch((state) => {
 			this.account = state.web3Store.account;
 		});
-		this.price.hx = parseFloat(await this.$store.getters["stabilityFlashStore/getHydroPriceInDAI"]);
+		this.price.hx = parseFloat(await this.$store.getters["stabilityFlashStore/getHYDROPriceInUSDC"]);
 		this.handleWatchInput = debounce(async (inputValue) => {
 			try {
 				this.estimatedOut = fromWei(await this.$store.getters["stabilityFlashStore/getEstimatedUSXOut"](toWei(inputValue || 0)));

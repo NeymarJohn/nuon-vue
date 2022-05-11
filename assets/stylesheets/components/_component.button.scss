@@ -126,7 +126,7 @@ a.btn:hover,
 	margin-right: $SPACING_26;
 }
 .btn[disabled].btn--approved:after {
-	content: url("data:image/svg+xml,%3Csvg width='20' height='14' viewBox='0 0 20 14' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M19.0455 1.16325C19.4848 1.60258 19.4848 2.3149 19.0455 2.75424L8.5455 13.2542C8.10616 13.6936 7.39384 13.6936 6.9545 13.2542L0.954505 7.25424C0.515165 6.8149 0.515165 6.10259 0.954505 5.66325C1.39384 5.22391 2.10616 5.22391 2.5455 5.66325L7.75 10.8678L17.4545 1.16325C17.8938 0.723905 18.6062 0.723905 19.0455 1.16325Z' fill='%2389D382'/%3E%3C/svg%3E%0A");
+	content: url("data:image/svg+xml,%3Csvg width='20' height='14' viewBox='0 0 20 14' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M19.0455 0.954505C19.4848 1.39384 19.4848 2.10616 19.0455 2.5455L8.5455 13.0455C8.10616 13.4848 7.39384 13.4848 6.9545 13.0455L0.954505 7.0455C0.515165 6.60616 0.515165 5.89385 0.954505 5.4545C1.39384 5.01517 2.10616 5.01517 2.5455 5.4545L7.75 10.659L17.4545 0.954505C17.8938 0.515165 18.6062 0.515165 19.0455 0.954505Z' fill='%2380FF4A'/%3E%3C/svg%3E%0A");
 	position: absolute;
 	top: 50%;
 	right: $SPACING_24;
