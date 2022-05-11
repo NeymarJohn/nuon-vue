@@ -36,10 +36,18 @@
 .token h5 {
 	color: $WHITE;
 }
+.token h3 {
+	font-size: $HEADING_FOUR;
+	line-height: $SPACING_36;
+}
 .token p {
 	font-size: $HEADING_FIVE;
 	line-height: $SPACING_24;
 	margin-bottom: 0;
+}
+.token h5 {
+	font-size: $BODY_TEXT;
+	line-height: $SPACING_30;
 }
 
 // 2. Token responsive

@@ -45,8 +45,8 @@
 							<div class="token__wrapper">
 								<img :src="require(`~/assets/images/tokens/${t.name}.png`)" :alt="`${t.name} logo`">
 								<div class="token__body">
-									<h4>{{ t.symbol }}</h4>
-									<h5>{{ t.name }}</h5>
+									<h3>{{ t.symbol }}</h3>
+									<p>{{ t.name }}</p>
 								</div>
 							</div>
 							<h5>~ ${{ numberWithCommas(getDollarValue(inputValue, t.price).toFixed(2)) }}</h5>

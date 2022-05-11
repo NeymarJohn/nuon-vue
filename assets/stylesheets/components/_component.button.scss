@@ -6,7 +6,6 @@
 		5. Button swap
 		6. Button link
 		7. Button approve
-		8. Button user
 */
 
 // 1. Button default
@@ -54,11 +53,11 @@ a.btn:hover,
 .btn--md,
 .btn--lg {
 	font-size: $HEADING_FIVE;
-	line-height: $SPACING_22;
+	line-height: $SPACING_18;
 	border-radius: $BORDER_RADIUS_32;
 }
 .btn--md {
-	height: $SPACING_54;
+	height: $SPACING_56;
 	padding: $SPACING_16 $SPACING_32;
 }
 .btn--lg {
@@ -69,15 +68,12 @@ a.btn:hover,
 	.btn--md,
 	.btn--lg {
 		font-size: $HEADING_FIVE_1440;
-		line-height: $SPACING_18;
+		line-height: $SPACING_14;
 	}
-	.btn--md {
-		height: $SPACING_40;
-		padding: $SPACING_10 $SPACING_24;
-	}
+	.btn--md,
 	.btn--lg {
-		height: $SPACING_48;
-		padding: $SPACING_16 $SPACING_24;
+		height: $SPACING_46;
+		padding: $SPACING_10 $SPACING_24;
 	}
 }
 @media screen and (max-width: $SPACING_990) {
@@ -226,20 +222,4 @@ a.btn:hover,
 .btn--approve:hover {
 	color: $DARK_GREY;
 	background: $SUCCESS;
-}
-
-// 8. Button user
-.btn--user {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-}
-.btn--user:hover svg path {
-	fill: $DARK_GREY;
-}
-.btn--user svg {
-	margin-right: $SPACING_8;
-}
-.btn--user svg path {
-	transition: $TRANSITION_ALL;
 }

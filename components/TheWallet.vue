@@ -3,14 +3,12 @@
 		<TheButton
 			v-if="!isConnectedWallet"
 			title="Click to connect wallet"
-			size="lg"
 			@click="connect">
 			Connect Wallet
 		</TheButton>
 		<TheButton
 			v-else
 			title="Click to disconnect wallet"
-			size="lg"
 			@click="disconnect">
 			<span>{{ shortAddress(connectedAccount) }}</span>
 		</TheButton>
