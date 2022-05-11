@@ -98,6 +98,9 @@ ol {
 		font-size: $BODY_TEXT_SM;
 		line-height: $SPACING_24;
 	}
+	sup {
+		line-height: $SPACING_18;
+	}
 }
 @media screen and (max-width: $SPACING_990) {
 	h1 {
@@ -110,7 +113,7 @@ ol {
 	}
 	h3 {
 		font-size: $HEADING_THREE_990;
-		line-height: $SPACING_36;
+		line-height: $SPACING_22;
 	}
 	h4 {
 		font-size: $HEADING_FOUR_990;
