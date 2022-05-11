@@ -35,12 +35,6 @@
 						<h5>${{ numberWithCommas(getDollarValue(userMintedAmount, usxPrice).toFixed(2)) }}</h5>
 					</TheLoader>
 				</DataCard>
-				<DataCard>
-					<label>My Collateral Ratio</label>
-					<TheLoader component="h1">
-						<h3>{{ numberWithCommas(myCollateralRatio.toFixed(2)) }}<sup>%</sup></h3>
-					</TheLoader>
-				</DataCard>
 			</LayoutInfo>
 		</LayoutContainer>
 		<LayoutContainer class="u-pt-48">
@@ -98,7 +92,6 @@ export default {
 			lockedCollateral: 102886,
 			myMintedTokens: 1249,
 			collateralizationRatio: 0,
-			myCollateralRatio: 0,
 			net: 3.56,
 			collateralAddresses: []
 		};
