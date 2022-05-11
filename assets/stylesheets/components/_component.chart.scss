@@ -1,7 +1,6 @@
 /* #COMPONENT - CHART
 		1. Chart default
-		2. Chart donut
-		3. Chart responsive
+		2. Chart responsive
 */
 
 // 1. Chart default
@@ -10,9 +9,7 @@
 	border-radius: $BORDER_RADIUS_16;
 	padding: $SPACING_32;
 }
-
-// 2. Chart donut
-.chart--donut p {
+.chart p {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
@@ -20,4 +17,4 @@
 	margin-bottom: 0;
 }
 
-// 3. Chart responsive
+// 2. Chart responsive

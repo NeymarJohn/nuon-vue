@@ -6,14 +6,18 @@
 // 1. Chart default
 .l-chart {
 	display: flex;
-	grid-template-columns: 1fr 0.5fr;
-	grid-template-rows: 1fr;
-	grid-column-gap: $SPACING_32;
-	grid-row-gap: 0px;
+	flex-direction: row;
 	background: $DARK_GREY;
 	border-radius: $BORDER_RADIUS_24;
 	padding: $SPACING_32;
 	margin-bottom: $SPACING_48;
+}
+.l-chart .chart:first-child {
+	flex-basis: calc(60% - $SPACING_16);
+	margin-right: $SPACING_32;
+}
+.l-chart .chart:last-child {
+	flex-basis: calc(40% - $SPACING_16);
 }
 
 // 2. Chart responsive

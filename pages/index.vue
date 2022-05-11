@@ -13,6 +13,9 @@
 		<h2 class="u-mb-24">Vault Overview</h2>
 		<div class="l-chart">
 			<div class="chart">
+				<p>TVL</p>
+				<h1>$6,126,304</h1>
+				<p class="u-colour-white u-mb-16">Apr 14, 2022</p>
 				<LineChart />
 			</div>
 			<div class="chart chart--donut">
