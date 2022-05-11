@@ -265,5 +265,8 @@ export const getters: GetterTree<BoardroomState, Web3State> = {
 	},
 	getUserAmounts: (_state: any, getters: any) => async (userAddress: string, cid: number) => {
 		return await getters.collateralHubContract.methods.getUsersAmounts(userAddress, cid).call();
+	},
+	getGlobalCollateralRatio: (_state: any, getters: any) => async () => {
+		return await getters.usxControllerContract.methods.getGlobalCollateralRatio().call();
 	}
 };

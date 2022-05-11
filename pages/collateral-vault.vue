@@ -97,7 +97,7 @@ export default {
 			userTVL: 0,
 			lockedCollateral: 102886,
 			myMintedTokens: 1249,
-			collateralizationRatio: 170,
+			collateralizationRatio: 0,
 			myCollateralRatio: 0,
 			net: 3.56,
 			collateralAddresses: []
@@ -145,8 +145,9 @@ export default {
 			}
 		}
 	},
-	mounted() {
+	async mounted() {
 		this.getUserTVL(this.connectedAccount);
+		this.collateralizationRatio = parseFloat(fromWei(await this.$store.getters["collateralVaultStore/getGlobalCollateralRatio"]()));
 	},
 	methods: {
 		async getUserTVL(userAddress) {
