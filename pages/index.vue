@@ -1,29 +1,14 @@
 <template>
-	<div>
-		<LayoutContainer>
-			<h1>Dashboard</h1>
-			<LayoutDataCardContainer>
-				<LayoutDataCard>
-					<DataCard>
-						<p>USX price:</p>
-						<TheLoader component="h3">
-							<h3>{{ numberWithCommas(usxPrice.toFixed(2)) }}</h3>
-						</TheLoader>
-					</DataCard>
-					<DataCard>
-						<p>HX price:</p>
-						<TheLoader component="h3">
-							<h3>{{ numberWithCommas(hxPrice.toFixed(2)) }}</h3>
-						</TheLoader>
-					</DataCard>
-					<DataCard v-for="(item, index) in items" :key="index">
-						<p>{{ item.label }}:</p>
-						<h3>{{ item.statistic }}</h3>
-					</DataCard>
-				</LayoutDataCard>
-			</LayoutDataCardContainer>
-		</LayoutContainer>
-	</div>
+	<LayoutContainer>
+		<LayoutFlex class="u-mb-48 l-flex-column-start-sm" direction="row-center-space-between">
+			<PageTitle>
+				<h4>Dashboard</h4>
+				<h1>Nuon Protocol Information</h1>
+			</PageTitle>
+			<NuxtLink class="btn btn--md" to="/my-page" title="Click to view my page">My Page</NuxtLink>
+		</LayoutFlex>
+		<h2>Account Balance</h2>
+	</LayoutContainer>
 </template>
 
 <script>

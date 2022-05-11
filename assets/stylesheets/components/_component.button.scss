@@ -53,11 +53,11 @@ a.btn:hover,
 .btn--md,
 .btn--lg {
 	font-size: $HEADING_FIVE;
-	line-height: $SPACING_18;
+	line-height: $SPACING_22;
 	border-radius: $BORDER_RADIUS_32;
 }
 .btn--md {
-	height: $SPACING_56;
+	height: $SPACING_54;
 	padding: $SPACING_16 $SPACING_32;
 }
 .btn--lg {
@@ -68,11 +68,11 @@ a.btn:hover,
 	.btn--md,
 	.btn--lg {
 		font-size: $HEADING_FIVE_1440;
-		line-height: $SPACING_14;
+		line-height: $SPACING_18;
 	}
 	.btn--md,
 	.btn--lg {
-		height: $SPACING_46;
+		height: $SPACING_40;
 		padding: $SPACING_10 $SPACING_24;
 	}
 }
