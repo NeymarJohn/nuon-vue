@@ -1,5 +1,4 @@
 import { GetterTree, ActionTree, MutationTree } from "vuex";
-import Web3 from "web3";
 import { HX, USX } from "~/constants/tokens";
 import { fromWei } from "~/utils/bnTools";
 
