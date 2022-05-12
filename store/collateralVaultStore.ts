@@ -188,12 +188,15 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 		const dailyInflationRate = Number(await getters.getDailyInflationRate());
 		commit("setDailyInflationRate", dailyInflationRate);
 	},
-	async mint(ctx: any, {amount, cid, onConfirm, onReject}) {
+	async mint(ctx: any, {amount, cid, onTxHash, onConfirm, onReject}) {
 		if (cid === -1) return;
 		const accountAddress = ctx.rootState.web3Store.account;
 		return await ctx.getters.collateralHubContract.methods.mint(amount, cid).send({from: accountAddress})
 			.on("transactionHash", (txHash: string) => {
-				if (onConfirm) onConfirm(txHash);
+				if (onTxHash) onTxHash(txHash);
+			})
+			.on("confirmation", (confNumber: any, _receipt: any, _latestBlockHash: any) => {
+				if (onConfirm && confNumber === 0) onConfirm(confNumber, _receipt, _latestBlockHash);
 			})
 			.on("error", (err: any) => {
 				if (onReject) onReject(err);

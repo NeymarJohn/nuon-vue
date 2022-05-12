@@ -14,7 +14,7 @@
 				<ChevronUpIcon v-else />
 			</LayoutFlex>
 			<DataCard align="end" class="u-half-width u-full-width-sm">
-				<p v-if="token" class="accordion__available">Available {{token.symbol}} tokens: {{ numberWithCommas(token.balance.toFixed(2)) }}</p>
+				<p v-if="token" class="accordion__available">Available {{token.symbol}} tokens: {{ token.balance | formatLongNumber }}</p>
 				<div class="input u-mb-12">
 					<div class="input__container">
 						<input
@@ -162,7 +162,7 @@ export default {
 			this.isActive = !this.isActive;
 		},
 		inputMaxBalance() {
-			this.inputValue = toFixedFloorNumber(this.tokenBalance, 2) ;
+			this.inputValue = this.token.balance; // toFixedFloorNumber(this.tokenBalance, 2) ;
 		},
 		submitTransaction() {
 			console.log("Submit transaction");

@@ -134,9 +134,9 @@ export const actions: ActionTree<StabilityState, StabilityState> = {
 			 .on("transactionHash", function(hash: string) {
 					onConfirm(hash);
 			 })
-			 .then((_res:any) => {
+			 .then((res:any) => {
 				 	ctx.dispatch("erc20Store/initializeBalance", {address}, {root:true});
-				 	onComplete();
+					onComplete(res);
 			 });
 		} catch (e) {
 			onError(e);
@@ -156,9 +156,9 @@ export const actions: ActionTree<StabilityState, StabilityState> = {
 			 .on("transactionHash", function(hash: string) {
 				 	onConfirm(hash);
 			 })
-			 .then((_res: any) => {
+			 .then((res: any) => {
 					ctx.dispatch("erc20Store/initializeBalance", {address}, {root:true});
-				 	onComplete();
+				 	onComplete(res);
 			 });
 		} catch (e) {
 			onError(e);
