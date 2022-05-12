@@ -1,0 +1,77 @@
+<template>
+	<div>
+		<h2 class="u-mb-24">Vault Overview</h2>
+		<div class="l-chart l-chart--vault-overview">
+			<TheTabs size="thin" color="light">
+				<TheTab title="D">
+					<LayoutFlex>
+						<div class="chart">
+							<p>TVL</p>
+							<h1>$6,126,304</h1>
+							<p class="u-colour-white u-mb-16">Apr 14, 2022</p>
+							<LineChart />
+						</div>
+						<div class="chart chart--donut">
+							<p class="u-mb-4">Collateral Distribution</p>
+							<p class="u-colour-white u-mb-16">Apr 14, 2022</p>
+							<DonutChart class="u-mb-24" />
+							<p>APY <TooltipIcon v-tooltip="'Enter APY tooltip content here.'" /></p>
+							<h3 class="u-mb-24">Inflation 34.3%</h3>
+							<p>Collateralization Ratio<TooltipIcon v-tooltip="'Enter collateralization ratio tooltip content here.'" /></p>
+							<h3>150%</h3>
+						</div>
+					</LayoutFlex>
+				</TheTab>
+				<TheTab title="W">
+					<LayoutFlex>
+						<div class="chart">
+							<p>TVL</p>
+							<h1>$6,126,304</h1>
+							<p class="u-colour-white u-mb-16">Apr 10, 2022 - Apr 16, 2022</p>
+							<LineChart />
+						</div>
+						<div class="chart chart--donut">
+							<p class="u-mb-4">Collateral Distribution</p>
+							<p class="u-colour-white u-mb-16">Apr 10, 2022 - Apr 16, 2022</p>
+							<DonutChart class="u-mb-24" />
+							<p>APY <TooltipIcon v-tooltip="'Enter APY tooltip content here.'" /></p>
+							<h3 class="u-mb-24">Inflation 34.3%</h3>
+							<p>Collateralization Ratio<TooltipIcon v-tooltip="'Enter collateralization ratio tooltip content here.'" /></p>
+							<h3>150%</h3>
+						</div>
+					</LayoutFlex>
+				</TheTab>
+				<TheTab title="M">
+					<LayoutFlex>
+						<div class="chart">
+							<p>TVL</p>
+							<h1>$6,126,304</h1>
+							<p class="u-colour-white u-mb-16">Apr 10, 2022 - May 10, 2022</p>
+							<LineChart />
+						</div>
+						<div class="chart chart--donut">
+							<p class="u-mb-4">Collateral Distribution</p>
+							<p class="u-colour-white u-mb-16">Apr 10, 2022 - May 10, 2022</p>
+							<DonutChart class="u-mb-24" />
+							<p>APY <TooltipIcon v-tooltip="'Enter APY tooltip content here.'" /></p>
+							<h3 class="u-mb-24">Inflation 34.3%</h3>
+							<p>Collateralization Ratio<TooltipIcon v-tooltip="'Enter collateralization ratio tooltip content here.'" /></p>
+							<h3>150%</h3>
+						</div>
+					</LayoutFlex>
+				</TheTab>
+			</TheTabs>
+		</div>
+	</div>
+</template>
+
+<script>
+import TooltipIcon from "@/assets/images/svg/svg-tooltip.svg";
+
+export default {
+	name: "VaultOverview",
+	components: {
+		TooltipIcon
+	},
+};
+</script>

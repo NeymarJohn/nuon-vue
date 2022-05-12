@@ -1,5 +1,5 @@
 <template>
-	<div class="tabs">
+	<div :class="`tabs tabs--${size} tabs--${color}`">
 		<ul class="tabs__header">
 			<li v-for="(tab, index) in tabs" :key="tab.title" :class="{'is-active': (index === selectedIndex)}" @click="selectTab(index)">
 				<h5>{{ tab.title }}</h5>
@@ -12,6 +12,16 @@
 <script>
 export default {
 	name: "TheTabs",
+	props: {
+		size: {
+			type: String,
+			default: "default"
+		},
+		color: {
+			type: String,
+			default: "dark"
+		}
+	},
 	data() {
 		return {
 			selectedIndex: 0,

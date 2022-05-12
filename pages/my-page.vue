@@ -42,12 +42,22 @@
 			</LayoutFlex>
 		</div>
 		<h2 class="u-mb-24">Transaction History</h2>
-		<TheTabs>
-			<TheTab title="Vault">Vault content</TheTab>
-			<TheTab title="Stability Zone">Stability Zone content</TheTab>
-			<TheTab title="Swap">Swap content</TheTab>
-			<TheTab title="Boardroom">Boardroom content</TheTab>
-			<TheTab title="Rewards">Rewards content</TheTab>
+		<TheTabs size="full-width">
+			<TheTab title="Vault">
+				<TabVault />
+			</TheTab>
+			<TheTab title="Stability Zone">
+				<TabStabilityZone />
+			</TheTab>
+			<TheTab title="Swap">
+				<TabSwap />
+			</TheTab>
+			<TheTab title="Boardroom">
+				<TabBoardroom />
+			</TheTab>
+			<TheTab title="Rewards">
+				<TabRewards />
+			</TheTab>
 		</TheTabs>
 	</LayoutContainer>
 </template>

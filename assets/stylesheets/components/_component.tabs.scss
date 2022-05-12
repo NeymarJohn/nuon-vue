@@ -1,17 +1,16 @@
 /* #COMPONENT - TABS
 		1. Tabs default
-		2. Tabs responsive
+		2. Tabs size
+		3. Tabs color
+		4. Tabs responsive
 */
 
 // 1. Tabs default
-.tabs {
-	margin-bottom: $SPACING_48;
-}
-.tabs__header {
-	display: flex;
+.tabs--default .tabs__header,
+.tabs--full-width .tabs__header {
+	display: inline-flex;
 	flex-direction: row;
 	align-items: center;
-	background: $DARK_GREY;
 	border-radius: $BORDER_RADIUS_8;
 	padding: $SPACING_16;
 }
@@ -26,7 +25,7 @@
 	background: $MEDIUM_LIGHT_GREY;
 }
 .tabs__header li:hover h5 {
-	color: $LIME;
+	color: $LIGHT_GREY;
 }
 .tabs__header li:last-child {
 	margin-right: 0;
@@ -45,4 +44,42 @@
 	color: $DARK_GREY;
 }
 
-// 2. Tabs responsive
+// 2. Tabs size
+.tabs--thin .tabs__header {
+	display: inline-flex;
+	background: $MEDIUM_LIGHT_GREY;
+	border-radius: $BORDER_RADIUS_32;
+	padding: $SPACING_8;
+	margin-bottom: $SPACING_24;
+	width: auto !important;
+}
+.tabs--thin .tabs__header li {
+	padding: $SPACING_8 $SPACING_20;
+	margin-right: $SPACING_4;
+	border-radius: $BORDER_RADIUS_24;
+}
+.tabs--thin .tabs__header li:hover {
+	background: $DARK_GREY;
+}
+.tabs--thin .tabs__header li h5 {
+	color: $LIGHT_GREY;
+}
+.tabs--thin .tabs__header li.is-active {
+	background: $MEDIUM_GREY;
+}
+.tabs--thin .tabs__header li.is-active h5 {
+	color: $LIME;
+}
+.tabs--full-width .tabs__header {
+	width: 100%;
+}
+
+// 3. Tabs color
+.tabs--light .tabs__header {
+	background: $MEDIUM_LIGHT_GREY;
+}
+.tabs--dark .tabs__header {
+	background: $DARK_GREY;
+}
+
+// 4. Tabs responsive
