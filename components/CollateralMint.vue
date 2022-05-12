@@ -77,24 +77,24 @@ export default {
 					title: "Collateral to Deposit",
 					val: this.numberWithCommas(parseFloat(this.depositLockedCollateral).toFixed(2)),
 					currency: this.mintToken.symbol,
-					dollar: this.numberWithCommas(this.getDollarValue(this.depositLockedCollateral, this.mintToken.price).toFixed(2))
+					dollar: this.numberWithCommas((this.depositLockedCollateral * this.mintToken.price).toFixed(2))
 				},
 				{
 					title: "Maximum Minted USX",
 					val: this.numberWithCommas(this.estimatedMintedUsxValue.toFixed(2)),
 					currency: "USX",
-					dollar: this.numberWithCommas(this.getDollarValue(this.estimatedMintedUsxValue, this.tokenPrices.USX).toFixed(2))
+					dollar: this.numberWithCommas((this.estimatedMintedUsxValue * this.tokenPrices.USX).toFixed(2))
 				},
 				{
 					title: "Fee",
 					val: `${this.mintingFee * 100}%`,
-					dollar: this.numberWithCommas(this.getDollarValue(parseFloat(this.depositLockedCollateral) * this.mintingFee, this.tokenPrices[this.mintToken.symbol]).toFixed(2))
+					dollar: this.numberWithCommas((parseFloat(this.depositLockedCollateral) * this.mintingFee * this.tokenPrices[this.mintToken.symbol]).toFixed(2))
 				},
 				{
 					title: "Total Received",
 					val: this.numberWithCommas((this.depositLockedCollateral * (1 - this.mintingFee)).toFixed(2)),
 					currency: this.mintToken.symbol,
-					dollar: this.numberWithCommas(this.getDollarValue(this.depositLockedCollateral * (1 - this.mintingFee), this.tokenPrices[this.mintToken.symbol]).toFixed(2))
+					dollar: this.numberWithCommas((this.depositLockedCollateral * (1 - this.mintingFee) * this.tokenPrices[this.mintToken.symbol]).toFixed(2))
 				}
 			];
 		},
@@ -150,6 +150,7 @@ export default {
 			return estimatedMintedUsx;
 		},
 		async mint() {
+			this.activeStep = "loading";
 			this.minting = true;
 			const selectedTokenAddress = TOKENS_MAP[this.mintToken.symbol].address;
 			const cid = this.allCollaterals.findIndex(c => c === selectedTokenAddress);
@@ -162,7 +163,7 @@ export default {
 					onTxHash: null,
 					onConfirm: (_confNumber, receipt, _latestBlockHash) => {
 						this.$store.commit("collateralVaultStore/setUserJustMinted", true);
-						this.successToast(null, "You've successfully minted USX", receipt.transactionHash);
+						this.successToast(null, `You've successfully minted ${this.estimatedMintedUsxValue} USX`, receipt.transactionHash);
 					},
 					onReject: (err) => {
 						this.failureToast(null, err, "Transaction failed");
