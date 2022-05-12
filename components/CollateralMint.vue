@@ -159,9 +159,10 @@ export default {
 				{
 					amount,
 					cid,
-					onConfirm: (txHash) => {
+					onTxHash: null,
+					onConfirm: (_confNumber, receipt, _latestBlockHash) => {
 						this.$store.commit("collateralVaultStore/setUserJustMinted", true);
-						this.successToast(null, "You've successfully minted USX", txHash);
+						this.successToast(null, "You've successfully minted USX", receipt.transactionHash);
 					},
 					onReject: (err) => {
 						this.failureToast(null, err, "Transaction failed");
