@@ -67,33 +67,30 @@ export default {
 		isNextDisabled() {
 			return !this.isApproved || !this.withdrawAmount || this.withdrawAmount > this.tokenBalance;
 		},
-		feeDollarValue() {
-			return (this.withdrawAmount * this.withdrawToken.price * this.feeAmount).toFixed(2);
-		},
 		summary() {
 			return [
 				{
 					title: "Collateral to Withdraw",
 					val: this.numberWithCommas(parseFloat(this.withdrawAmount).toFixed(2)),
 					currency: this.withdrawToken.symbol,
-					dollar: this.numberWithCommas((this.withdrawAmount * this.withdrawToken.price).toFixed(2))
+					dollar: this.numberWithCommas(this.getDollarValue(this.withdrawAmount, this.withdrawToken.price).toFixed(2))
 				},
 				{
 					title: "Maximum Withdrawn USX",
 					val: this.numberWithCommas(this.estimatedWithdrawnUsxValue),
 					currency: "USX",
-					dollar: this.numberWithCommas((this.estimatedWithdrawnUsxValue * this.tokenPrices.USX).toFixed(2))
+					dollar: this.numberWithCommas(this.getDollarValue(this.estimatedWithdrawnUsxValue, fromWei(this.tokenPrices.USX)).toFixed(2))
 				},
 				{
 					title: "Fee",
 					val: `${this.redeemFee * 100}%`,
-					dollar: this.numberWithCommas(this.feeDollarValue)
+					dollar: this.numberWithCommas(this.feeAmount.toFixed(2))
 				},
 				{
 					title: "Total Received",
-					val: this.numberWithCommas((this.estimatedWithdrawnUsxValue * (1 - this.feeAmount)).toFixed(2)),
+					val: this.numberWithCommas(this.estimatedWithdrawnUsxValue.toFixed(2)),
 					currency: "HX",
-					dollar: this.numberWithCommas((this.estimatedWithdrawnUsxValue * this.tokenPrices.USX).toFixed(2) - this.feeDollarValue)
+					dollar: this.numberWithCommas(this.getDollarValue(this.estimatedWithdrawnUsxValue, fromWei(this.tokenPrices.USX)).toFixed(2))
 				}
 			];
 		},

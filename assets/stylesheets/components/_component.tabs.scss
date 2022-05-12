@@ -1,0 +1,41 @@
+/* #COMPONENT - TABS
+		1. Tabs default
+		2. Tabs responsive
+*/
+
+// 1. Tabs default
+.tabs {
+	margin-bottom: $SPACING_48;
+}
+.tabs__header {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	background: $DARK_GREY;
+	border-radius: $BORDER_RADIUS_8;
+	padding: $SPACING_16;
+}
+.tabs__header li {
+	transition: $TRANSITION_ALL;
+	cursor: pointer;
+	margin-right: $SPACING_16;
+	padding: $SPACING_13 $SPACING_24;
+	border-radius: $BORDER_RADIUS_6;
+}
+.tabs__header li:hover {
+	background: $MEDIUM_LIGHT_GREY;
+}
+.tabs__header li:last-child {
+	margin-right: 0;
+}
+.tabs__header li h5 {
+	color: $LIGHT_GREY;
+}
+.tabs__header li.is-active {
+	background: $LIME;
+}
+.tabs__header li.is-active h5 {
+	color: $DARK_GREY;
+}
+
+// 2. Tabs responsive

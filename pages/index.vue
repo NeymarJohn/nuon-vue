@@ -11,13 +11,13 @@
 			</NuxtLink>
 		</LayoutFlex>
 		<h2 class="u-mb-24">Vault Overview</h2>
-		<div class="l-chart">
+		<div class="l-chart l-chart--vault-overview">
 			<div class="l-chart__toggle">
 				<TheButton title="Click to view by day">D</TheButton>
 				<TheButton title="Click to view by week">W</TheButton>
 				<TheButton title="Click to view by month">M</TheButton>
 			</div>
-			<div class="l-chart__wrapper">
+			<LayoutFlex>
 				<div class="chart">
 					<p>TVL</p>
 					<h1>$6,126,304</h1>
@@ -33,7 +33,7 @@
 					<p>Collateralization Ratio <TooltipIcon v-tooltip="'Enter collateralization ratio tooltip content here.'" /></p>
 					<h3>150%</h3>
 				</div>
-			</div>
+			</LayoutFlex>
 		</div>
 		<h2 class="u-mb-24">Token Price</h2>
 		<TokenPriceToggle />
