@@ -1,52 +1,28 @@
 <template>
 	<LayoutContainer>
 		<PageTitle class="u-mb-48">
-			<h4>My Page</h4>
-			<h1>Portfolio Details</h1>
-		</PageTitle>
-		<h2 class="u-mb-24">Account Balance</h2>
-		<div class="l-chart l-chart--account-balance">
-			<LayoutFlex>
-				<div class="chart">
-					<p>Total Value</p>
-					<h1 class="u-mb-24">$63,334.34</h1>
-					<p>Balance</p>
-					<h3>$5,485.12</h3>
-					<div class="progress u-mb-10">
-						<div class="progress__bar progress__bar--balance" style="width: 59.76%"></div>
-						<h5>59.76%</h5>
-					</div>
-					<LayoutFlex class="u-mb-20">
-						<TheBadge class="u-mr-8" color="balance">2,343.00 HX</TheBadge>
-						<TheBadge color="balance">3,023.00 USX</TheBadge>
-					</LayoutFlex>
-					<p>Collateral locked</p>
-					<h3>$3,485.20</h3>
-					<div class="progress u-mb-20">
-						<div class="progress__bar progress__bar--locked" style="width: 23.01%"></div>
-						<h5>23.01%</h5>
-					</div>
-					<p>Staked</p>
-					<h3>$504.32</h3>
-					<div class="progress">
-						<div class="progress__bar progress__bar--staked" style="width: 17.23%"></div>
-						<h5>17.23%</h5>
-					</div>
-				</div>
-				<div class="chart chart--donut">
-					<p class="u-mb-4">Total claimable rewards</p>
-					<h1>1,233.00<sup>HX</sup></h1>
-					<h5>$12,343.34</h5>
-					<DonutChart class="u-mb-24" />
-				</div>
+			<h4>Dashboard</h4>
+			<LayoutFlex direction="row-center">
+				<TheButton
+					size="icon"
+					class="u-mr-24 u-no-transition u-p-0"
+					title="Click to go back"
+					@click="getPreviousPage"><ChevronLeftIcon /></TheButton>
+				<h1>My Page</h1>
 			</LayoutFlex>
-		</div>
+		</PageTitle>
+		<h2>Account Balance</h2>
 	</LayoutContainer>
 </template>
 
 <script>
+import ChevronLeftIcon from "@/assets/images/svg/svg-chevron-left.svg";
+
 export default {
 	name: "MyPage",
+	components: {
+		ChevronLeftIcon,
+	},
 	head () {
 		return {
 			title: "My Page | Nuon"

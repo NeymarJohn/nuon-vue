@@ -4,8 +4,7 @@
 		3. Badge grey
 		4. Badge yellow
 		5. Badge green
-		6. Badge balance
-		7. Badge responsive
+		6. Badge responsive
 */
 
 // 1. Badge default
@@ -41,15 +40,7 @@
 	border: $SPACING_1 solid $SUCCESS;
 }
 
-// 6. Badge balance
-.badge--balance {
-	background: $DARK_GREY;
-	color: $LIME;
-	padding: $SPACING_1 $SPACING_16;
-	border-radius: $BORDER_RADIUS_8;
-}
-
-// 7. Badge responsive
+// 6. Badge responsive
 @media screen and (max-width: $SPACING_1440) {
 	.badge {
 		font-size: $BODY_TEXT_XS;

@@ -1,94 +1,48 @@
 /* #LAYOUT - CHART
 		1. Chart default
-		2. Chart vault overview
-		3. Chart token price
-		4. Chart account balance
-		5. Chart responsive
+		2. Chart responsive
 */
 
 // 1. Chart default
 .l-chart {
+	background: $DARK_GREY;
+	border-radius: $BORDER_RADIUS_24;
+	padding: $SPACING_32;
 	margin-bottom: $SPACING_48;
-}
-.l-chart .chart:first-child {
-	margin-right: $SPACING_32;
 }
 .l-chart__toggle {
 	display: inline-flex;
 	flex-direction: row;
 	align-items: center;
-	margin-bottom: $SPACING_24;
-}
-.l-chart__toggle .btn {
-	border: none;
-}
-.l-chart__toggle .btn:last-child {
-	margin-right: 0 !important;
-}
-
-// 2. Chart vault overview
-.l-chart--vault-overview {
-	background: $DARK_GREY;
-	border-radius: $BORDER_RADIUS_24;
-	padding: $SPACING_32;
-}
-.l-chart--vault-overview .chart:first-child {
-	flex-basis: calc(60% - $SPACING_16);
-}
-.l-chart--vault-overview .chart:last-child {
-	flex-basis: calc(40% - $SPACING_16);
-}
-.l-chart--vault-overview .l-chart__toggle {
 	background: $MEDIUM_LIGHT_GREY;
 	border-radius: $BORDER_RADIUS_32;
 	padding: $SPACING_8;
+	margin-bottom: $SPACING_24;
+	align-self: flex-start;
 }
-.l-chart--vault-overview .l-chart__toggle .btn {
+.l-chart__toggle .btn {
+	border: none;
 	padding: $SPACING_8 $SPACING_20;
 	color: $LIGHT_GREY;
 	margin-right: $SPACING_4;
 }
-.l-chart--vault-overview .l-chart__toggle .btn:hover {
+.l-chart__toggle .btn:last-child {
+	margin-right: 0;
+}
+.l-chart__toggle .btn:hover {
 	color: $LIME;
 	background: $DARK_GREY;
 }
-
-// 3. Chart token price
-.l-chart--token-price .chart:first-child {
-	width: calc(35% - $SPACING_16);
+.l-chart__wrapper {
+	display: flex;
+	flex-direction: row;
 }
-.l-chart--token-price .chart:last-child {
-	width: calc(65% - $SPACING_16);
+.l-chart__wrapper .chart:first-child {
+	flex-basis: calc(60% - $SPACING_16);
+	margin-right: $SPACING_32;
 }
-.l-chart--token-price .l-chart__toggle {
-	background: $DARK_GREY;
-	border-radius: $SPACING_8;
-	padding: $SPACING_16;
-}
-.l-chart--token-price .l-chart__toggle .btn {
-	padding: $SPACING_13 $SPACING_24;
-	height: $SPACING_48;
-	color: $WHITE;
-	border-radius: $BORDER_RADIUS_4;
-	margin-right: $SPACING_8;
-}
-.l-chart--token-price .l-chart__toggle .btn.active,
-.l-chart--token-price .l-chart__toggle .btn.active:hover {
-	background: $LIME;
-	color: $DARK_GREY;
-	cursor: not-allowed;
-}
-.l-chart--token-price .l-chart__toggle .btn:hover {
-	background: $MEDIUM_LIGHT_GREY;
-	color: $LIME;
+.l-chart__wrapper .chart:last-child {
+	flex-basis: calc(40% - $SPACING_16);
 }
 
-// 4. Chart account balance
-.l-chart--account-balance .chart:first-child {
-	flex-basis: calc(50% - $SPACING_16);
-}
-.l-chart--account-balance .chart:last-child {
-	flex-basis: calc(50% - $SPACING_16);
-}
-
-// 5. Chart responsive
+// 2. Chart responsive
