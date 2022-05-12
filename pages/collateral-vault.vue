@@ -43,7 +43,7 @@
 				<StatCard class="u-mb-md-12">
 					<label>USX Price<TooltipIcon v-tooltip="'Enter usx price tooltip content here.'" /></label>
 					<TheLoader component="h3">
-						<h3>{{ usxPrice | toFixed numberWithCommas }}</h3>
+						<h3>{{ usxPrice | toFixed | numberWithCommas }}</h3>
 					</TheLoader>
 				</StatCard>
 				<StatCard class="u-mb-md-12">

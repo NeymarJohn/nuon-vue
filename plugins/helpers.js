@@ -16,10 +16,11 @@ Vue.mixin({
 		},
 		formatLongNumber(x) {
 			const nums = x.toString().split(".");
-			console.log("numbs",nums);
 			if (nums[1]) {
-				 nums[1] = nums[1].substring(0,2);
-			}
+				nums[1] = nums[1].substring(0,2);
+			} else {
+				nums[1] = "00";
+			} 
 			return `${nums[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",")}.${nums[1]}`;
 		}
 	},
