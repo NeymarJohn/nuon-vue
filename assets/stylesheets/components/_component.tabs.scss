@@ -25,14 +25,21 @@
 .tabs__header li:hover {
 	background: $MEDIUM_LIGHT_GREY;
 }
+.tabs__header li:hover h5 {
+	color: $LIME;
+}
 .tabs__header li:last-child {
 	margin-right: 0;
 }
 .tabs__header li h5 {
 	color: $LIGHT_GREY;
+	transition: $TRANSITION_ALL;
 }
 .tabs__header li.is-active {
 	background: $LIME;
+}
+.tabs__header li.is-active:hover {
+	cursor: not-allowed;
 }
 .tabs__header li.is-active h5 {
 	color: $DARK_GREY;
