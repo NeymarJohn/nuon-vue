@@ -32,7 +32,7 @@
 								<TheButton :disabled="isMaxInputDisabled(token.balance)" size="sm" title="Click to input your max balance" @click="inputMaxBalance">Max</TheButton>
 							</div>
 						</div>
-						<h5 v-if="token">~ ${{ numberWithCommas(getDollarValue(inputValue, tokenPrices[token.symbol]).toFixed(2)) }}</h5>
+						<h5 v-if="token">~ ${{ numberWithCommas(getDollarValue(inputValue, token.price).toFixed(2)) }}</h5>
 					</DataCard>
 				</LayoutFlex>
 				<p v-if="isMoreThanBalance" class="u-is-warning u-mb-0 u-text-right">Insufficient balance.</p>
@@ -160,24 +160,25 @@ export default {
 					title: "Amount to Claim",
 					val: this.claimBalance,
 					currency: this.selected.symbol,
-					dollar: this.claimBalance * this.tokenPrices.HX
+					dollar: this.claimBalance * this.hxPrice
 				},
 				{
 					title: "Fee",
 					val: `${this.claimFeeToken}`,
 					currency: this.selected.symbol,
-					dollar: this.numberWithCommas(this.getDollarValue(this.claimFeeToken , this.tokenPrices.HX).toFixed(2))
+					dollar: this.numberWithCommas(this.getDollarValue(this.claimFeeToken , this.hxPrice).toFixed(2))
 				},
 				{
 					title: "Total Received",
 					val: this.claimBalance - this.claimFeeToken,
 					currency: this.selected.symbol,
-					dollar: this.numberWithCommas(this.getDollarValue(this.claimBalance - this.claimFeeToken , this.tokenPrices.HX).toFixed(2))
+					dollar: this.numberWithCommas(this.getDollarValue(this.claimBalance - this.claimFeeToken , this.hxPrice).toFixed(2))
 				},
 			];
 		},
 	},
-	mounted() {
+	async mounted() {
+		this.hxPrice = parseFloat(await this.$store.getters["stabilityFlashStore/getHYDROPriceInUSDC"]);
 		this.$store.commit("rootStore/setIsLoaded", true);
 		window.addEventListener("click", (e) => {
 			if (!this.$el.contains(e.target)){

@@ -106,14 +106,6 @@ Vue.mixin({
 			setTimeout(() => {
 				this.$store.commit("rootStore/setToast", {...this.$store.state.rootStore.toast, show: false});
 			}, 5000);
-		},
-		getRPCErrorMessage(err){
-			const open = err.message.indexOf("{");
-			const close = err.message.lastIndexOf("}");
-			const jsonData = err.message.substring(open, close + 1);
-			const j = JSON.parse(jsonData);
-			const message = j.message;
-			return message;
 		}
 	}
 });

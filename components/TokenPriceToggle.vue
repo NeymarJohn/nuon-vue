@@ -1,6 +1,6 @@
 <template>
-	<div class="token-price">
-		<div class="token-price__toggle">
+	<div class="l-chart l-chart--token-price">
+		<div class="l-chart__toggle">
 			<TheButton
 				title="Click to view HX section"
 				:class="{ active: isHxView }"
@@ -10,7 +10,7 @@
 				:class="{ active: isUsxView }"
 				@click="toggleUsxView">USX</TheButton>
 		</div>
-		<div v-if="isHxView" class="token-price__wrapper">
+		<LayoutFlex v-if="isHxView">
 			<div class="chart">
 				<p>Market Cap</p>
 				<h3 class="u-mb-48">$39,887,462</h3>
@@ -25,8 +25,8 @@
 				<p class="u-colour-white">Apr 14, 2022</p>
 				<LineChart />
 			</div>
-		</div>
-		<div v-else class="token-price__wrapper">
+		</LayoutFlex>
+		<LayoutFlex v-else>
 			<div class="chart">
 				<p>Market Cap</p>
 				<h3 class="u-mb-48">$39,887,462</h3>
@@ -41,7 +41,7 @@
 				<p class="u-colour-white">Apr 14, 2022</p>
 				<LineChart />
 			</div>
-		</div>
+		</LayoutFlex>
 	</div>
 </template>
 
