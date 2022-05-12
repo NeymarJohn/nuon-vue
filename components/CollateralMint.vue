@@ -102,11 +102,13 @@ export default {
 			return !!this.$store.state.collateralVaultStore.allowance[this.mintToken.symbol];
 		},
 		disabledMint() {
-			return !this.isApproved || !this.depositLockedCollateral || this.depositLockedCollateral > this.tokenBalance;
+			return !this.isApproved || !parseFloat(this.depositLockedCollateral) || this.isMoreThanBalance;
+		},
+		isMoreThanBalance() {
+			return  parseFloat(this.depositLockedCollateral) > this.tokenBalance;
 		},
 		tokenBalance() {
-			const symbol = this.mintToken.symbol;
-			return parseFloat(this.$store.state.erc20Store.balance[symbol]) / this.$store.state.erc20Store.decimals[symbol];
+			return parseFloat(this.mintToken.balance);
 		},
 		mintingFee() {
 			return this.$store.state.collateralVaultStore.mintingFee;
