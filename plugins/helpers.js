@@ -39,6 +39,9 @@ Vue.mixin({
 		},
 		tokenPrices() {
 			return this.$store.state.tokenStore.price;
+		},
+		tokenBalances() {
+			return this.$store.state.erc20Store.balance;
 		}
 	},
 	methods: {

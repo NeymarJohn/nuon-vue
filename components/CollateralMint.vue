@@ -4,7 +4,6 @@
 			<div class="toggle__content">
 				<h5 class="u-mb-12">Select Your Collateral Token To Deposit</h5>
 				<CollateralClaimAccordion
-					:token="mintToken"
 					:default-value="depositLockedCollateral"
 					@selected-token="selectClaimToken"
 					@change-input="changeMintValue"
@@ -56,11 +55,7 @@ export default {
 	name: "CollateralMint",
 	data() {
 		return {
-			mintToken: {
-				symbol: HX.symbol,
-				price: 0,
-				balance: 0
-			},
+			mintToken: {},
 			depositLockedCollateral: 0,
 			estimatedMintedUsxValue: 0,
 			maxUsxMinted: 3401,
@@ -102,6 +97,7 @@ export default {
 			return !!this.$store.state.collateralVaultStore.allowance[this.mintToken.symbol];
 		},
 		disabledMint() {
+			console.log(this.mintToken);
 			return !this.isApproved || !parseFloat(this.depositLockedCollateral) || this.isMoreThanBalance;
 		},
 		isMoreThanBalance() {
@@ -122,8 +118,8 @@ export default {
 	methods: {
 		selectClaimToken(token) {
 			const price = this.tokenPrices[token.symbol];
-			const balance = fromWei(this.$store.state.erc20Store.balance[token.symbol], this.$store.state.erc20Store.decimals[token.symbol]);
-			const selectedTokenAddress = TOKENS_MAP[this.mintToken.symbol].address;
+			const balance = this.tokenBalances[token.symbol];
+			const selectedTokenAddress = TOKENS_MAP[token.symbol].address;
 			const cid = this.allCollaterals.findIndex(c => c === selectedTokenAddress);
 			this.mintToken = {...token, price, cid, balance, symbol: token.symbol};
 		},
