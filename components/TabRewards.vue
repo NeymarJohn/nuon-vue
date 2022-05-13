@@ -1,13 +1,6 @@
 <template>
 	<div>
-		<TheTabs size="thin" color="dark">
-			<TheTab title="Stake HX">
-				<TransactionTable />
-			</TheTab>
-			<TheTab title="Burn HX">
-				<TransactionTable />
-			</TheTab>
-		</TheTabs>
+		<h1>Rewards</h1>
 	</div>
 </template>
 

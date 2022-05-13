@@ -2,10 +2,10 @@
 	<div>
 		<TheTabs size="thin" color="dark">
 			<TheTab title="Mint">
-				<TransactionTable />
+				Mint
 			</TheTab>
 			<TheTab title="Redeem">
-				<TransactionTable />
+				Redeem
 			</TheTab>
 		</TheTabs>
 	</div>

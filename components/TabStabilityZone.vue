@@ -1,13 +1,6 @@
 <template>
 	<div>
-		<TheTabs size="thin" color="dark">
-			<TheTab title="Above Peg">
-				<TransactionTable />
-			</TheTab>
-			<TheTab title="Below Peg">
-				<TransactionTable />
-			</TheTab>
-		</TheTabs>
+		<h1>Stability Zone</h1>
 	</div>
 </template>
 
