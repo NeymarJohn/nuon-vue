@@ -12,8 +12,7 @@
 				:key="index"
 				:class="{ selected: option === value }"
 				class="select__option"
-				@click="selectOption(option)"
-			>
+				@click="selectOption(option)">
 				{{ option }} <SelectedIcon v-if="option === value" />
 			</div>
 		</div>

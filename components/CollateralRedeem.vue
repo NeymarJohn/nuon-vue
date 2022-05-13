@@ -150,7 +150,6 @@ export default {
 			}
 		},
 		async withdraw() {
-			this.activeStep = "loading";
 			this.withdrawing = true;
 			const selectedTokenAddress = TOKENS_MAP[this.withdrawToken.symbol].address;
 			const cid = this.allCollaterals.findIndex(c => c === selectedTokenAddress);
@@ -162,6 +161,7 @@ export default {
 						usxAmount,
 						cid,
 						onConfirm: (txHash) => {
+							this.activeStep = 1;
 							this.successToast(null, "Withdraw successful", txHash);
 						},
 						onReject: null
@@ -171,7 +171,6 @@ export default {
 			}
 			finally {
 				this.withdrawing = false;
-				this.activeStep = 1;
 			}
 		}
 	}

@@ -1,0 +1,49 @@
+/* #COMPONENT - TRANSACTION TABLE
+		1. Transaction table default
+		2. Transaction table 5 columns
+		3. Transaction table 6 columns
+		4. Transaction table 7 columns
+		5. Transaction table 8 columns
+		6. Transaction table responsive
+*/
+
+// 1. Transaction table default
+.transaction-table {
+	background: $MEDIUM_LIGHT_GREY;
+	margin-bottom: $SPACING_48;
+	padding: $SPACING_40 $SPACING_32;
+	border-radius: $BORDER_RADIUS_8;
+}
+.transaction-table__row {
+	display: flex;
+	flex-flow: row wrap;
+	border-bottom: 1px solid $LIGHER_GREY;
+}
+.transaction-table__row:first-child {
+	padding-bottom: $SPACING_40;
+}
+.transaction-table__row:first-child .transaction-table__cell {
+	color: $LIGHT_GREY;
+}
+
+// 2. Transaction table 5 columns
+.transaction-table--5 .transaction-table__cell {
+	width: calc(100% / 5);
+}
+
+// 3. Transaction table 6 columns
+.transaction-table--6 .transaction-table__cell {
+	width: calc(100% / 6);
+}
+
+// 4. Transaction table 7 columns
+.transaction-table--7 .transaction-table__cell {
+	width: calc(100% / 7);
+}
+
+// 5. Transaction table 8 columns
+.transaction-table--8 .transaction-table__cell {
+	width: calc(100% / 8);
+}
+
+// 6. Transaction table responsive

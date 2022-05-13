@@ -1,6 +1,9 @@
 <template>
 	<div>
-		<h1>Swap</h1>
+		<TransactionTable
+			size="8"
+			aria="Swap transactions"
+			:columns="['From', 'To', 'Max Slippage', 'Min. Received', 'Price Impace', 'Fees', 'Date', 'TX Status']" />
 	</div>
 </template>
 

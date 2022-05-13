@@ -2,10 +2,16 @@
 	<div>
 		<TheTabs size="thin" color="dark">
 			<TheTab title="Mint">
-				Mint
+				<TransactionTable
+					size="7"
+					aria="Vault minted transactions"
+					:columns="['Token Type', 'Amount', 'Minted', 'Fees', 'Final Amount', 'Date', 'TX Status']" />
 			</TheTab>
 			<TheTab title="Redeem">
-				Redeem
+				<TransactionTable
+					size="7"
+					aria="Vault redeemed transactions"
+					:columns="['Token Type', 'Amount', 'Minted', 'Fees', 'Final Amount', 'Date', 'TX Status']" />
 			</TheTab>
 		</TheTabs>
 	</div>
