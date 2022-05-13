@@ -12,7 +12,7 @@
 				<DataCard>
 					<label>My Total Locked Collateral</label>
 					<TheLoader component="h1">
-						<h3>${{ userTVL | toFixed | numberWithCommas }}</h3>
+						<h3>${{ numberWithCommas(userTVL.toFixed(2)) }}</h3>
 					</TheLoader>
 					<TheButton
 						size="link"
@@ -43,7 +43,7 @@
 				<StatCard class="u-mb-md-12">
 					<label>USX Price<TooltipIcon v-tooltip="'Enter usx price tooltip content here.'" /></label>
 					<TheLoader component="h3">
-						<h3>{{ usxPrice | toFixed | numberWithCommas }}</h3>
+						<h3>{{ numberWithCommas(usxPrice.toFixed(2)) }}</h3>
 					</TheLoader>
 				</StatCard>
 				<StatCard class="u-mb-md-12">

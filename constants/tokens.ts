@@ -51,9 +51,3 @@ export const getPath = (inputToken:string, outputToken:string) => {
 	if (!path) path = [TOKENS_MAP[inputToken].address, TOKENS_MAP[outputToken].address];
 	return path;
 };
-
-export const collateralTokens = [
-	{ "symbol": USDC_USDT_LP_TOKEN.symbol, "name": USDC_USDT_LP_TOKEN.name, "icon": "USDC.png" },
-	{ "symbol": USDC.symbol, "name": USDC.name, "icon": "USDC.png"  },
-	{ "symbol": DAI.symbol, "name": DAI.name, "icon": "Dai.png"  },
-];

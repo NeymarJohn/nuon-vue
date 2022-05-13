@@ -5,13 +5,12 @@ import { Web3State } from "./web3Store";
 import erc20 from "./abi/erc20.json";
 import { HX, USX, USDC } from "~/constants/tokens";
 import { HYDRO_ADDRESS, USX_ADDRESS, USDC_ADDRESS } from "~/constants/addresses";
-import { fromWei } from "~/utils/bnTools";
 
 type StateType = {
 	balance: {
-		USX: string,
-		HX: string,
-		USDC: string
+		USX: BN,
+		HX: BN,
+		USDC: BN
 	},
 	decimals: {
 		USX: number,
@@ -24,9 +23,9 @@ type StateType = {
  */
 export const state = (): StateType => ({
 	balance: {
-		USX: "",
-		HX: "",
-		USDC: ""
+		USX: new BN(0),
+		HX: new BN(0),
+		USDC: new BN(0)
 	},
 	decimals: {
 		USX: 18,
@@ -48,10 +47,10 @@ export const mutations: MutationTree<Erc20State> = {
 
 export const actions: ActionTree<Erc20State, Erc20State> = {
 	async initializeBalance (ctx: any, {address}) {
+		const usxBalance = await ctx.getters.usx.methods.balanceOf(address).call();
+		const hydroBalance = await ctx.getters.hydro.methods.balanceOf(address).call();
+		const usdcBalance = await ctx.getters.usdc.methods.balanceOf(address).call();
 		const usdcDecimals = await ctx.getters.usdc.methods.decimals().call();
-		const usxBalance = fromWei(await ctx.getters.usx.methods.balanceOf(address).call(), ctx.state.decimals.USX);
-		const hydroBalance = fromWei(await ctx.getters.hydro.methods.balanceOf(address).call(), ctx.state.decimals.HX) ;
-		const usdcBalance = fromWei(await ctx.getters.usdc.methods.balanceOf(address).call(), usdcDecimals);
 
 		ctx.commit("setBalance", {
 			HX: hydroBalance,
@@ -122,16 +121,16 @@ export const getters: GetterTree<Erc20State, Web3State> = {
 	},
 
 	hxBalance: (state: StateType, _getters: any) => {
-		return parseFloat(state.balance.HX);
+		return parseFloat(Web3.utils.fromWei(state.balance.HX.toString(), "ether"));
 	},
 
 	usxBalance: (state: StateType, _getters: any) => {
-		return parseFloat(state.balance.HX);
+		return parseFloat(Web3.utils.fromWei(state.balance.USX.toString(), "ether"));
 	},
 
 	tokenBalance: (state: StateType) => {
-		const hxBalance = parseFloat(state.balance.HX);
-		const usxBalance = parseFloat(state.balance.HX);
+		const hxBalance = parseFloat(Web3.utils.fromWei(state.balance.HX.toString(), "ether"));
+		const usxBalance = parseFloat(Web3.utils.fromWei(state.balance.USX.toString(), "ether"));
 		return {
 			USX: usxBalance,
 			HX: hxBalance

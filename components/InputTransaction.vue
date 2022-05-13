@@ -30,7 +30,6 @@
 				<div class="transaction-input__price">
 					<p>You are {{ actionPlural }} <span>{{ numberWithCommas(parseFloat(inputValue || 0).toFixed(2)) }} HX</span> worth <span>${{ numberWithCommas(getDollarValue(inputValue, price.hx).toFixed(2)) }}</span></p>
 					<p v-if="isMoreThanBalance" class="u-is-warning">Insufficient balance.</p>
-					<p v-if="errorMessage" class="u-is-warning">{{errorMessage}}</p>
 					<p v-if="!isDisabled()" class="u-is-success u-mb-0">Ready to {{ action }}</p>
 				</div>
 				<div class="transaction-input__buttons">
@@ -107,8 +106,7 @@ export default {
 			},
 			account: "",
 			estimatedOut: 0,
-			activeStep: 1,
-			errorMessage: ""
+			activeStep: 1
 		};
 	},
 	computed: {
@@ -119,7 +117,7 @@ export default {
 			return parseFloat(this.inputValue) > this.hxBalance;
 		},
 		estimatedOutPrice() {
-			return parseFloat(this.estimatedOut) * this.tokenPrices.HX;
+			return parseFloat(this.estimatedOut) * this.price.hx;
 		},
 		hxBalance() {
 			return this.$store.getters["erc20Store/hxBalance"] || 0;
@@ -140,18 +138,18 @@ export default {
 					title: "Amount to Stake",
 					val: this.numberWithCommas(this.inputValue),
 					currency: "HX",
-					dollar: this.numberWithCommas(this.getDollarValue(this.inputValue, this.tokenPrices.HX).toFixed(2)),
+					dollar: this.numberWithCommas(this.getDollarValue(this.inputValue, this.price.hx).toFixed(2)),
 				},
 				{
 					title: "Stake Fee",
 					val: `-${this.numberWithCommas(this.feeToken.toFixed(2))}HX (${this.claimFee} %)`,
-					dollar: this.numberWithCommas(this.getDollarValue(this.feeToken, this.tokenPrices.HX).toFixed(2))
+					dollar: this.numberWithCommas(this.getDollarValue(this.feeToken, this.price.hx).toFixed(2))
 				},
 				{
 					title: "Total",
 					val: this.numberWithCommas((parseFloat(this.inputValue) - this.feeToken).toFixed(2)) ,
 					currency: "HX",
-					dollar: this.numberWithCommas(this.getDollarValue(parseFloat(this.inputValue) - this.feeToken, this.tokenPrices.HX).toFixed(2)),
+					dollar: this.numberWithCommas(this.getDollarValue(parseFloat(this.inputValue) - this.feeToken, this.price.hx).toFixed(2)),
 				}
 			];
 		}
@@ -161,16 +159,15 @@ export default {
 			this.handleWatchInput(newValue);
 		}
 	},
-	mounted() {
+	async mounted() {
 		this.$store.watch((state) => {
 			this.account = state.web3Store.account;
 		});
+		this.price.hx = parseFloat(await this.$store.getters["stabilityFlashStore/getHYDROPriceInUSDC"]);
 		this.handleWatchInput = debounce(async (inputValue) => {
-			this.errorMessage = "";
 			try {
 				this.estimatedOut = fromWei(await this.$store.getters["stabilityFlashStore/getEstimatedUSXOut"](toWei(inputValue || 0)));
 			} catch(e) {
-				this.errorMessage  = this.getRPCErrorMessage(e);
 				this.estimatedOut = 0;
 			}
 		}, 300);

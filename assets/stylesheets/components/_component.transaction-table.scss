@@ -1,0 +1,14 @@
+/* #COMPONENT - TRANSACTION TABLE
+		1. Transaction table default
+		2. Transaction table responsive
+*/
+
+// 1. Transaction table default
+.transaction-table {
+	background: $MEDIUM_LIGHT_GREY;
+	margin-bottom: $SPACING_48;
+	padding: $SPACING_40 $SPACING_32;
+	border-radius: $BORDER_RADIUS_8;
+}
+
+// 2. Transaction table responsive

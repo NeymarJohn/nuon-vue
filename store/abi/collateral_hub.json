@@ -333,7 +333,7 @@
 			},
 			{
 				"internalType": "address",
-				"name": "_controller",
+				"name": "controller",
 				"type": "address"
 			}
 		],
@@ -400,16 +400,16 @@
 		"inputs": [
 			{
 				"internalType": "address",
-				"name": "_collateral",
+				"name": "poolAddress",
 				"type": "address"
 			},
 			{
 				"internalType": "bool",
-				"name": "_isLPPair",
+				"name": "ispool",
 				"type": "bool"
 			}
 		],
-		"name": "setCollateralAsLP",
+		"name": "addPool",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -418,17 +418,22 @@
 		"inputs": [
 			{
 				"internalType": "address",
-				"name": "_collateral",
+				"name": "token",
 				"type": "address"
 			},
 			{
 				"internalType": "uint256",
-				"name": "_multiplier",
+				"name": "multiplier",
 				"type": "uint256"
 			},
 			{
 				"internalType": "uint256",
-				"name": "_factor",
+				"name": "factor",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "shares",
 				"type": "uint256"
 			}
 		],
@@ -441,16 +446,39 @@
 		"inputs": [
 			{
 				"internalType": "address",
-				"name": "_vaultAddress",
+				"name": "vaultAddress",
 				"type": "address"
 			},
 			{
 				"internalType": "uint256",
-				"name": "_cid",
+				"name": "cid",
 				"type": "uint256"
 			}
 		],
-		"name": "setCompounderVault",
+		"name": "addCompounderVault",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "cid",
+				"type": "uint256"
+			},
+			{
+				"internalType": "bool",
+				"name": "mintingStatus",
+				"type": "bool"
+			},
+			{
+				"internalType": "bool",
+				"name": "redeemStatus",
+				"type": "bool"
+			}
+		],
+		"name": "changeVaultStatus",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -528,6 +556,46 @@
 				"type": "uint256"
 			}
 		],
+		"name": "isVaultMintingPaused",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function",
+		"constant": true
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "cid",
+				"type": "uint256"
+			}
+		],
+		"name": "isVaultRedeemPaused",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function",
+		"constant": true
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "cid",
+				"type": "uint256"
+			}
+		],
 		"name": "getCompounderVault",
 		"outputs": [
 			{
@@ -548,31 +616,6 @@
 				"internalType": "address[]",
 				"name": "",
 				"type": "address[]"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function",
-		"constant": true
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "cid",
-				"type": "uint256"
-			},
-			{
-				"internalType": "address",
-				"name": "user",
-				"type": "address"
-			}
-		],
-		"name": "getUserVaultTokenBalance",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
 			}
 		],
 		"stateMutability": "view",
@@ -723,6 +766,11 @@
 				"internalType": "uint256",
 				"name": "",
 				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
 			}
 		],
 		"stateMutability": "view",
@@ -759,31 +807,6 @@
 				"name": "",
 				"type": "uint256"
 			},
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function",
-		"constant": true
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_amountA",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_amountB",
-				"type": "uint256"
-			}
-		],
-		"name": "estimateProfit",
-		"outputs": [
 			{
 				"internalType": "uint256",
 				"name": "",

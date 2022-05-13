@@ -10,7 +10,7 @@
 				<p>{{ value.title }}</p>
 				<LayoutFlex direction="column-end">
 					<p>{{ value.val }} {{ value.currency && value.currency }}</p>
-					<p>~ ${{ value.dollar | toFixed | numberWithCommas}}</p>
+					<p>~ ${{ value.dollar }}</p>
 				</LayoutFlex>
 			</LayoutFlex>
 		</div>

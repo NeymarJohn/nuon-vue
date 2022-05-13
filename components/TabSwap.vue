@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<h1>Swap</h1>
+		<TransactionTable />
 	</div>
 </template>
 

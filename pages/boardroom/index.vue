@@ -63,7 +63,7 @@
 						<h3>{{ numberWithCommas(myStake.toFixed(2)) }}<sup>HX</sup></h3>
 					</TheLoader>
 					<TheLoader component="h5">
-						<h5>${{ numberWithCommas(getDollarValue(myStake, tokenPrices.HX).toFixed(2)) }}</h5>
+						<h5>${{ numberWithCommas(getDollarValue(myStake, hxPrice).toFixed(2)) }}</h5>
 					</TheLoader>
 				</DataCard>
 				<DataCard class="u-mb-md-36 u-mb-sm-24">
@@ -72,7 +72,7 @@
 						<h3>{{ numberWithCommas(myRewards.toFixed(2)) }}<sup>HX</sup></h3>
 					</TheLoader>
 					<TheLoader component="h5">
-						<h5>${{ numberWithCommas(getDollarValue(myRewards, tokenPrices.HX).toFixed(2)) }}</h5>
+						<h5>${{ numberWithCommas(getDollarValue(myRewards, hxPrice).toFixed(2)) }}</h5>
 					</TheLoader>
 				</DataCard>
 				<DataCard class="u-mb-sm-24">
@@ -101,7 +101,7 @@
 				<StatCard class="u-mb-md-12">
 					<label>HX Price<TooltipIcon v-tooltip="'Enter HX Price tooltip content here'" /></label>
 					<TheLoader component="h3">
-						<h3>{{ tokenPrices.HX |toFixed | numberWithCommas }}</h3>
+						<h3>{{ numberWithCommas(hxPrice.toFixed(2)) }}</h3>
 					</TheLoader>
 				</StatCard>
 				<StatCard>
@@ -139,7 +139,11 @@
 						<li v-if="numberOfUniqueVoters === null"><ComponentLoader component="inline-list" /></li>
 					</ul>
 				</LayoutFlex>
-				<TheSelect :options="['All', 'Active', 'Pending', 'Closed']" :default="'All'" label="Filter Proposals" @filter-select="onFilterChange" />
+				<TheSelect
+					:options="['All', 'Active', 'Pending', 'Closed']"
+					:default="'All'"
+					label="Filter Proposals"
+					@filter-select="onFilterChange" />
 			</LayoutFlex>
 			<InfiniteScroll :items="filteredProposals" class-name="proposal" @fetch="getProposalsFromSnapshot">
 				<template #item="{ item }">
@@ -177,6 +181,7 @@ export default {
 		return {
 			proposals: [],
 			apr: 134,
+			hxPrice: 0,
 			filterOption: "All",
 			proposalStatesToColor: {
 				active: "green",
@@ -237,7 +242,7 @@ export default {
 			return Number(this.$store.state.boardroomStore.nextEpochPoint) + 3600 * 24 * 50;
 		},
 		tvl() {
-			return this.totalStaked * this.tokenPrices.HX;
+			return this.totalStaked * this.hxPrice;
 		},
 		epoch() {
 			return this.$store.state.boardroomStore.epoch;
@@ -254,9 +259,10 @@ export default {
 			this.updateStatus();
 		}
 	},
-	mounted() {
+	async mounted() {
+		this.hxPrice = parseFloat(await this.$store.getters["stabilityFlashStore/getHYDROPriceInUSDC"]);
 		this.updateStatus();
-		this.claimRewardsToken = {symbol: HX.symbol, price: this.tokenPrices.HX, balance: this.myRewards};
+		this.claimRewardsToken = {symbol: HX.symbol, price: this.hxPrice, balance: this.myRewards};
 	},
 	created() {
 		this.getData();
@@ -402,8 +408,16 @@ export default {
 		updateStatus() {
 			return this.$store.dispatch("boardroomStore/updateStatus");
 		},
-		selectClaimToken(token) {
-			this.claimRewardsToken = {...token, price: this.tokenPrices[token.symbol], balance: this.myRewards};
+		async selectClaimToken(token) {
+			if (token.symbol === HX.symbol) {
+				const price = parseFloat(await this.$store.getters["stabilityFlashStore/getHYDROPriceInUSDC"]);
+				this.claimRewardsToken = {...token, price, balance: this.myRewards};
+			} else if (token.symbol === USX.symbol) {
+				const price = parseFloat(await this.$store.getters["stabilityFlashStore/getUSXPriceInUSDC"]);
+				this.claimRewardsToken = {...token, price, balance: this.myRewards};
+			} else {
+				this.claimRewardsToken = {...token, price: 0, balance: 0};
+			}
 		},
 		claimReward() {
 			// TODO reward
