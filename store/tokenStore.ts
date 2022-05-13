@@ -42,7 +42,7 @@ export const actions: ActionTree<Web3State, Web3State> = {
 			DAI: { value: 1, decimals: 0 },
 			USDC: { value: 1, decimals: 0},
 		});
-	}
+	},
 };
 
 export const getters: GetterTree<Web3State, Web3State> = {

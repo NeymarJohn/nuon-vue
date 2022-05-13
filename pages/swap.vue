@@ -76,7 +76,7 @@
 									</div>
 								</div>
 								<LayoutFlex direction="row-justify-end">
-									<p class="u-mb-0">~ ${{ getPriceInDAI(input.token, input.value).toFixed(2) | formatPrice.toFixed(2) }}</p>
+									<p class="u-mb-0">~ ${{ getPriceInDAI(input.token, input.value) | toFixed }}</p>
 								</LayoutFlex>
 							</SwapAccordion>
 						</div>
@@ -202,13 +202,9 @@ export default {
 			arrowDownDisabled: require("~/assets/images/png/png-arrow-down-disabled.png"),
 			arrowCollapse: require("~/assets/images/png/png-arrow-collapse.png"),
 			hover: false,
-			price: {
-				usx: 0,
-				hx: 0
-			},
 			input: {
 				value: "",
-				token: "ETH"
+				token: "HX"
 			},
 			output: {
 				value: "",
@@ -285,11 +281,7 @@ export default {
 			return this.output.value * this.swapFee / 100;
 		},
 	},
-	async mounted () {
-		this.price.usx = parseFloat(await this.$store.getters["stabilityFlashStore/getUSXPriceInUSDC"]);
-		this.price.hx = parseFloat(await this.$store.getters["stabilityFlashStore/getHYDROPriceInUSDC"]);
-		this.getAllowance();
-
+	mounted () {
 		const routeQuery = this.$route.query;
 		if (routeQuery.inputToken) this.input.token = routeQuery.inputToken;
 		if (routeQuery.outputToken) this.output.token = routeQuery.outputToken; 
@@ -301,9 +293,7 @@ export default {
 			this.output.value = "";
 		},
 		getPriceInDAI(token, value) {
-			if (token === "HX") return this.price.hx * value;
-			if (token === "USX") return this.price.usx * value;
-			return 0;
+			return this.getDollarValue(this.tokenPrices[token], value) || 0;
 		},
 		selectInputToken(token) {
 			this.input.token = token.symbol;
@@ -340,7 +330,8 @@ export default {
 				this.loadingPrice = false;
 				this.loadedPrice = true;
 				this.output.value = parseFloat(fromWei(res[1])).toFixed(2);
-			}).catch(() => {
+			}).catch((e) => {
+				console.log("e",  e);
 				this.loadedPrice = false;
 				this.loadingPrice = false;
 			});
@@ -404,6 +395,7 @@ export default {
 			});
 		},
 		calcuatePriceImpact() {
+			if (!this.input.token || !this.output.token) return;
 			this.$store.dispatch("swapStore/getReserves", [this.input.token, this.output.token]).then((reserves) => {
 				const oldPrice = reserves[this.input.token] / reserves[this.output.token];
 				const newPrice = (reserves[this.input.token] - this.input.value) / (reserves[this.output.token] + this.output.value);
@@ -469,9 +461,6 @@ export default {
 			if (tokenName !== USX.symbol && tokenName !== HX.symbol) return true;
 			const allowance = this.$store.state.swapStore.allowance;
 			return allowance[tokenName] > 0;
-		},
-		getAllowance() {
-			this.$store.dispatch("swapStore/getAllowance");
 		},
 		approveToken(tokenName) {
 			this.activeStep = "approving";

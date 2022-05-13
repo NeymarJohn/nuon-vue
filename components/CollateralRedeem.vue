@@ -146,10 +146,11 @@ export default {
 				this.estimatedWithdrawnUsxValue = estimatedValue[0] / (10 ** this.$store.state.erc20Store.decimals[this.withdrawToken.symbol]);
 				this.feeAmount = fromWei(estimatedValue[2]);
 			} catch (e) {
-				this.failureToast(e);
+				this.failureToast(() => {},  e.message);
 			}
 		},
 		async withdraw() {
+			this.activeStep = "loading";
 			this.withdrawing = true;
 			const selectedTokenAddress = TOKENS_MAP[this.withdrawToken.symbol].address;
 			const cid = this.allCollaterals.findIndex(c => c === selectedTokenAddress);
@@ -161,7 +162,6 @@ export default {
 						usxAmount,
 						cid,
 						onConfirm: (txHash) => {
-							this.activeStep = 1;
 							this.successToast(null, "Withdraw successful", txHash);
 						},
 						onReject: null
@@ -171,6 +171,7 @@ export default {
 			}
 			finally {
 				this.withdrawing = false;
+				this.activeStep = 1;
 			}
 		}
 	}
