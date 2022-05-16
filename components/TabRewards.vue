@@ -3,13 +3,13 @@
 		<template #filter>
 			<div class="tabs__filter">
 				<TheSelect
-					:options="['All', 'Active', 'Pending', 'Closed']"
+					:options="['All', 'USX', 'HX', 'USDC']"
 					:default="'All'"
 					label="Token"
 					@filter-select="onFilterChange" />
 				<TheSelect
-					:options="['All', 'Active', 'Pending', 'Closed']"
-					:default="'All'"
+					:options="['Past 7 Days', 'Past 30 Days', 'Past 90 Days']"
+					:default="'Past 7 Days'"
 					label="Date"
 					@filter-select="onFilterChange" />
 				<TheSelect
