@@ -134,9 +134,6 @@ export default {
 			}
 			return this.searchedFarms;
 		},
-		onFilterChange(o) {
-			this.filterOption = o;
-		}
 	}
 };
 </script>

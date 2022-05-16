@@ -43,6 +43,18 @@
 .tabs__header li.is-active h5 {
 	color: $DARK_GREY;
 }
+.tabs__filter {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+.tabs__filter .select {
+	min-width: $SPACING_185;
+	margin-right: $SPACING_16;
+}
+.tabs__filter .select:last-child {
+	margin-right: 0;
+}
 
 // 2. Tabs size
 .tabs--thin .tabs__header {
@@ -50,7 +62,7 @@
 	background: $MEDIUM_LIGHT_GREY;
 	border-radius: $BORDER_RADIUS_32;
 	padding: $SPACING_8;
-	margin-bottom: $SPACING_24;
+	margin-bottom: 0;
 	width: auto !important;
 }
 .tabs--thin .tabs__header li {

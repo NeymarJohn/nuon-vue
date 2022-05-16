@@ -1,10 +1,13 @@
 <template>
 	<div :class="`tabs tabs--${size} tabs--${color}`">
-		<ul class="tabs__header">
-			<li v-for="(tab, index) in tabs" :key="tab.title" :class="{'is-active': (index === selectedIndex)}" @click="selectTab(index)">
-				<h5>{{ tab.title }}</h5>
-			</li>
-		</ul>
+		<LayoutFlex class="u-mb-24" direction="row-center-space-between">
+			<ul class="tabs__header">
+				<li v-for="(tab, index) in tabs" :key="tab.index" :class="{'is-active': (index === selectedIndex)}" @click="selectTab(index)">
+					<h5>{{ tab.title }}</h5>
+				</li>
+			</ul>
+			<slot name="filter" />
+		</LayoutFlex>
 		<slot />
 	</div>
 </template>

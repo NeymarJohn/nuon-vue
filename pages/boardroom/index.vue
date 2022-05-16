@@ -268,9 +268,6 @@ export default {
 		this.getData();
 	},
 	methods: {
-		onFilterChange(o) {
-			this.filterOption = o;
-		},
 		async getProposalsFromSnapshot(page) {
 			if (this.reachedEnd) return;
 			try {

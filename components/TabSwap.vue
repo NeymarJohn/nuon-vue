@@ -1,5 +1,17 @@
 <template>
 	<div>
+		<div class="tabs__filter">
+			<TheSelect
+				:options="['All', 'Active', 'Pending', 'Closed']"
+				:default="'All'"
+				label="Date"
+				@filter-select="onFilterChange" />
+			<TheSelect
+				:options="['All', 'Active', 'Pending', 'Closed']"
+				:default="'All'"
+				label="Status"
+				@filter-select="onFilterChange" />
+		</div>
 		<TransactionTable
 			size="8"
 			aria="Swap transactions"
@@ -9,6 +21,11 @@
 
 <script>
 export default {
-	name: "TabSwap"
+	name: "TabSwap",
+	data() {
+		return {
+			filterOption: "All",
+		};
+	},
 };
 </script>

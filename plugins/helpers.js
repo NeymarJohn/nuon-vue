@@ -106,6 +106,9 @@ Vue.mixin({
 			setTimeout(() => {
 				this.$store.commit("rootStore/setToast", {...this.$store.state.rootStore.toast, show: false});
 			}, 5000);
+		},
+		onFilterChange(o) {
+			this.filterOption = o;
 		}
 	}
 });
