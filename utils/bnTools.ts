@@ -10,7 +10,7 @@ export function toWei(value: string | number | null | undefined , decimals: numb
 export function fromWei(value: BN | string | null | undefined, decimals: number = 18): string  | number {
 	const unit = getUnitFromDecimal(decimals);
 	const bigNum = Web3.utils.toBN(value?.toString() || "0");
-	return parseFloat(Web3.utils.fromWei(bigNum, unit));
+	return Web3.utils.fromWei(bigNum, unit);
 }
 export function compareStringBigNumbers(a: string, b: string): number {
 	const bigA = Web3.utils.toBN(a);

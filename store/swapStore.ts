@@ -25,7 +25,7 @@ export const mutations: MutationTree<SwapState> = {
 export const getters: GetterTree<SwapState, Web3State> = {
 	contract: (_state: any, _getters: any, store: any) => {
 		const web3 = store.web3Store.instance();
-		const routerAddress = store.addressStore.addr[store.web3Store.chainId as number].router;
+		const routerAddress = ROUTER_ADDRESS;
 		return new web3.eth.Contract(router, routerAddress);
 	},
 	getMinOutputWithSlippage: (_state: any) => ({value, slippage, formatted}: any) => {
@@ -94,11 +94,11 @@ export const actions: ActionTree<SwapState, SwapState> = {
 			new Date().getTime()
 		).send({from: accountAddress}).on("transactionHash", function(){
 			callback();
-		});;
+		});
 	},
 	async getReserves(ctx: any, pair: Array<string>) {
 		const tokenPair = tokenPairs.find(token => token.pairName.includes(pair[0]) && token.pairName.includes(pair[1]));
-		
+		console.log(tokenPair);
 		const result = await ctx.rootGetters["contractStore/uniswapV2Pair"](pair).methods.getReserves().call();
 		return {
 			[tokenPair?.pairs[0] as string]: fromWei(result[0]),

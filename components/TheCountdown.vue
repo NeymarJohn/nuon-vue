@@ -1,27 +1,27 @@
 <template>
 	<div v-if="visible">
-		<div v-if="!readyToClaim" class="countdown">
+		<h3 v-if="readyToClaim && !isLoop">Claim now</h3>
+		<div v-else class="countdown">
 			<div class="countdown__block">
-				<h3>{{days}}</h3>
+				<h3>{{days | formatWithTwoDigit}}</h3>
 				<p>D</p>
 			</div>
 			<div class="countdown__block">
-				<h3>{{hours}}</h3>
+				<h3>{{hours | formatWithTwoDigit}}</h3>
 				<p>H</p>
 			</div>
 			<div class="countdown__block">
-				<h3>{{minutes}}</h3>
+				<h3>{{minutes | formatWithTwoDigit}}</h3>
 				<p>M</p>
 			</div>
 			<div class="countdown__block">
-				<h3>{{seconds}}</h3>
+				<h3>{{seconds | formatWithTwoDigit}}</h3>
 				<p>S</p>
 			</div>
 		</div>
-		<h3 v-if="readyToClaim">Claim now</h3>
 	</div>
 	<div v-else>
-		<h3 class="countdown__placeholder">00<sup>D</sup> 00<sup>H</sup> 00<sup>M</sup> 00<sup>S</sup></h3>
+		<h3 class="countdown__placeholder">00<sup>D</sup> 00<sup>H</sup> 00<sup>M</sup>00<sup>S</sup></h3>
 	</div>
 </template>
 
@@ -36,6 +36,10 @@ export default {
 		visible: {
 			type: Boolean,
 			default: false
+		},
+		isLoop: {
+			type: Boolean,
+			default: false
 		}
 	},
 	data () {
@@ -48,12 +52,23 @@ export default {
 	},
 	computed: {
 		readyToClaim() {
-			// return this.$store.getters["stabilityFlashStore/getReadyToClaim"];
-			return this.nextClaimDate * 1000 < new Date().getTime();
+			return this.$store.getters["stabilityFlashStore/getReadyToClaim"];
 		},
 	},
+	watch: {
+		nextClaimDate() {
+			// initial value
+			const now = new Date();
+			const end = new Date(this.nextClaimDate * 1000);
+			const distance = end.getTime() - now.getTime();
+			if (distance > 0) {
+				this.setRemaingTime(distance);
+			}
+			this.showRemaining();
+		}
+	},
 	mounted() {
-		this.showRemaining();
+		
 	},
 	methods: {
 		formatNumber(number) {
@@ -70,22 +85,24 @@ export default {
 					this.$store.commit("stabilityFlashStore/setReadyToClaim", true);
 					return;
 				}
-
-				const _days = 86400000;
-				const _hours = 3600000;
-				const _minutes = 60000;
-				const _seconds = 1000;
-
-				const days = Math.floor(distance / _days);
-				const hours = Math.floor((distance % _days) / _hours);
-				const minutes = Math.floor((distance % _hours) / _minutes);
-				const seconds = Math.floor((distance % _minutes) / _seconds);
-
-				this.days = this.formatNumber(days);
-				this.hours = this.formatNumber(hours);
-				this.minutes = this.formatNumber(minutes);
-				this.seconds = this.formatNumber(seconds);
+				this.setRemaingTime(distance);
 			}, 1000);
+		},
+		setRemaingTime(distance) {
+			const _days = 86400000;
+			const _hours = 3600000;
+			const _minutes = 60000;
+			const _seconds = 1000;
+
+			const days = Math.floor(distance / _days);
+			const hours = Math.floor((distance % _days) / _hours);
+			const minutes = Math.floor((distance % _hours) / _minutes);
+			const seconds = Math.floor((distance % _minutes) / _seconds);
+
+			this.days = this.formatNumber(days);
+			this.hours = this.formatNumber(hours);
+			this.minutes = this.formatNumber(minutes);
+			this.seconds = this.formatNumber(seconds);
 		}
 	}
 };

@@ -7,7 +7,7 @@
 				class="accordion__header"
 				title="Click to open token list"
 				@click="triggerAccordion">
-				<img :src="require(`~/assets/images/tokens/${selected.name}.png`)" alt="Hydro logo">
+				<img v-if="selected.icon" :src="require(`~/assets/images/tokens/${selected.icon}`)" alt="Hydro logo">
 				<div class="accordion__token">
 					<h4>{{ selected.symbol }}</h4>
 					<p>{{ selected.name }}</p>
@@ -38,7 +38,7 @@
 			<div class="accordion__tokens">
 				<div v-for="(token, index) in filteredTokens" :key="index" class="token" title="Click to select token" @click="changeToken(token)">
 					<div class="token__wrapper" :class="isDisabled(token.symbol)?'disabled':''">
-						<img :src="require(`~/assets/images/tokens/${token.name}.png`)" :alt="`${token.name} logo`">
+						<img :src="require(`~/assets/images/tokens/${token.icon}`)" :alt="`${token.name} logo`">
 						<div class="token__body">
 							<h4>{{ token.symbol }}</h4>
 							<h5>{{ token.name }}</h5>
@@ -57,6 +57,7 @@
 import ChevronDownIcon from "@/assets/images/svg/svg-chevron-down.svg";
 import ChevronUpIcon from "@/assets/images/svg/svg-chevron-up.svg";
 import TokenData from "@/assets/images/tokens/token-data.json";
+import { swapTokens } from "~/constants/tokens";
 
 export default {
 	name: "SwapAccordion",
@@ -78,11 +79,12 @@ export default {
 	data () {
 		return {
 			isActive: false,
-			tokens: TokenData,
+			// tokens: TokenData,
 			search: "",
 			selected: {
 				name: "",
-				symbol: ""
+				symbol: "",
+				icon: ""
 			}
 		};
 	},
@@ -94,21 +96,20 @@ export default {
 				return filterTokenByName || filterTokenBySymbol;
 			});
 		},
+		tokens() {
+			return swapTokens;
+		}
 	},
 	watch: {
 		defaultToken(newValue) {
 			if (newValue) {
-				const defaultToken = TokenData.find(item => item.symbol === newValue);
-				this.selected.symbol = defaultToken.symbol;
-				this.selected.name = defaultToken.name;
+				this.setSelectedToken(newValue);
 			}
 		}
 	},
 	mounted() {
 		if (this.defaultToken) {
-			const defaultToken = TokenData.find(item => item.symbol === this.defaultToken);
-			this.selected.symbol = defaultToken.symbol;
-			this.selected.name = defaultToken.name;
+			this.setSelectedToken(this.defaultToken);
 		}
 		this.$store.commit("rootStore/setIsLoaded", true);
 		window.addEventListener("click", (e) => {
@@ -125,9 +126,12 @@ export default {
 		changeToken(token) {
 			if (this.isDisabled(token.symbol)) return;
 			this.$emit("selected-token", token);
-			this.selected.name = token.name;
-			this.selected.symbol = token.symbol;
+			this.selected = {...token};
 			this.isActive = !this.isActive;
+		},
+		setSelectedToken(tokenSymbol) {
+			const defaultToken = this.tokens.find(item => item.symbol === tokenSymbol);
+			this.selected = {...defaultToken};
 		},
 		isDisabled(token) {
 			return this.disabledTokens.includes(token);

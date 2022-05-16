@@ -28,8 +28,9 @@
 					</div>
 				</div>
 				<div class="transaction-input__price">
-					<p>You are withdrawing <span>{{ numberWithCommas(parseFloat(inputValue || 0).toFixed(2)) }} HX</span> worth <span>${{ numberWithCommas(getDollarValue(inputValue, price.hx).toFixed(2)) }}</span></p>
+					<p>You are withdrawing <span>{{ numberWithCommas(parseFloat(inputValue || 0).toFixed(2)) }} HX</span> worth <span>${{ numberWithCommas(getDollarValue(inputValue, tokenPrices.HX).toFixed(2)) }}</span></p>
 					<p v-if="isMoreThanBalance" class="u-is-warning">Insufficient balance.</p>
+					<p v-if="errorMessage" class="u-is-warning">{{errorMessage}}</p>
 					<p v-if="!isDisabled()" class="u-is-success">Ready to withdraw</p>
 				</div>
 				<div v-if="inputValue === maximum">
@@ -103,7 +104,8 @@ export default {
 			estimatedOut: 0,
 			claimAmount: 23,
 			activeStep: 1,
-			selectedToken: {}
+			selectedToken: {},
+			errorMessage: ""
 		};
 	},
 	computed: {
@@ -111,7 +113,7 @@ export default {
 			return parseFloat(this.inputValue) > this.hxBalance;
 		},
 		estimatedOutPrice() {
-			return parseFloat(this.estimatedOut) * this.price.hx;
+			return parseFloat(this.estimatedOut) * this.tokenPrices.HX;
 		},
 		hxBalance() {
 			return this.$store.getters["erc20Store/hxBalance"] || 0;
@@ -129,7 +131,7 @@ export default {
 			return this.myRewards * this.claimFee / 100;
 		},
 		totalReceived() {
-			return (this.inputValue + this.myRewards - this.feePrice) * this.price.hx;
+			return (this.inputValue + this.myRewards - this.feePrice) * this.tokenPrices.HX;
 		},
 		canWithdraw() {
 			return this.$store.state.boardroomStore.canWithdraw;
@@ -140,18 +142,18 @@ export default {
 					title: "Amount to Withdraw",
 					val: this.numberWithCommas(parseFloat(this.inputValue).toFixed(2)),
 					currency: "HX",
-					dollar: this.numberWithCommas(this.getDollarValue(this.inputValue, this.price.hx).toFixed(2)),
+					dollar: this.numberWithCommas(this.getDollarValue(this.inputValue, this.tokenPrices.HX).toFixed(2)),
 				},
 				{
 					title: "Amount to Claim",
 					val: this.numberWithCommas(parseFloat(this.myRewards).toFixed(2)),
 					currency: "HX",
-					dollar: this.numberWithCommas(this.getDollarValue(this.myRewards, this.price.hx).toFixed(2)),
+					dollar: this.numberWithCommas(this.getDollarValue(this.myRewards, this.tokenPrices.HX).toFixed(2)),
 				},
 				{
 					title: "Fee",
 					val: `${this.claimFee}%`,
-					dollar: this.numberWithCommas(this.getDollarValue(this.feePrice, this.price.hx).toFixed(2))
+					dollar: this.numberWithCommas(this.getDollarValue(this.feePrice, this.tokenPrices.HX).toFixed(2))
 				},
 				{
 					title: "Total Exit Value",
@@ -165,12 +167,12 @@ export default {
 					title: "Amount to Withdraw",
 					val: this.numberWithCommas(parseFloat(this.inputValue).toFixed(2)),
 					currency: "HX",
-					dollar: this.numberWithCommas(this.getDollarValue(this.inputValue, this.price.hx).toFixed(2)),
+					dollar: this.numberWithCommas(this.getDollarValue(this.inputValue, this.tokenPrices.HX).toFixed(2)),
 				},
 				{
 					title: "Fee",
 					val: `${this.claimFee}%`,
-					dollar: this.numberWithCommas(this.getDollarValue(this.feePrice, this.price.hx).toFixed(2))
+					dollar: this.numberWithCommas(this.getDollarValue(this.feePrice, this.tokenPrices.HX).toFixed(2))
 				},
 				{
 					title: "Total Received",
@@ -184,15 +186,16 @@ export default {
 			this.handleWatchInput(newValue);
 		}
 	},
-	async mounted() {
+	mounted() {
 		this.$store.watch((state) => {
 			this.account = state.web3Store.account;
 		});
-		this.price.hx = parseFloat(await this.$store.getters["stabilityFlashStore/getHYDROPriceInUSDC"]);
 		this.handleWatchInput = debounce(async (inputValue) => {
+			this.errorMessage = "";
 			try {
 				this.estimatedOut = fromWei(await this.$store.getters["stabilityFlashStore/getEstimatedUSXOut"](toWei(inputValue || 0)));
 			} catch(e) {
+				this.errorMessage  = this.getRPCErrorMessage(e);
 				this.estimatedOut = 0;
 			}
 		},300);

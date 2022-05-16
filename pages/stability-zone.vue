@@ -54,7 +54,7 @@
 					<label>USX Price<TooltipIcon v-tooltip="'Enter usx price tooltip content here.'" /></label>
 					<TheLoader component="h3">
 						<LayoutFlex direction="row-center-space-between">
-							<h3 v-if="tokenPrices.USX">{{ numberWithCommas(tokenPrices.USX.toFixed(2)) }}</h3>
+							<h3 v-if="tokenPrices.USX">{{ tokenPrices.USX | toFixed | numberWithCommas }}</h3>
 							<TheBadge v-if="tokenPrices.USX > tolerance.high">Above</TheBadge>
 							<TheBadge v-else-if="tokenPrices.USX < tolerance.low">Below</TheBadge>
 						</LayoutFlex>
@@ -63,7 +63,7 @@
 				<StatCard class="u-mb-sm-12">
 					<label>HX Price<TooltipIcon v-tooltip="'Enter hx price tooltip content here.'" /></label>
 					<TheLoader component="h3">
-						<h3 v-if="tokenPrices.HX">{{ numberWithCommas(tokenPrices.HX.toFixed(2)) }}</h3>
+						<h3 v-if="tokenPrices.HX">{{ tokenPrices.HX | toFixed | numberWithCommas }}</h3>
 					</TheLoader>
 				</StatCard>
 				<StatCard class="u-mb-sm-12">
