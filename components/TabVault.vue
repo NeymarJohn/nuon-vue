@@ -23,15 +23,13 @@
 			<TransactionTable
 				size="7"
 				aria="Vault minted transactions"
-				:columns="['Token Type', 'Amount', 'Minted', 'Fees', 'Final Amount', 'Date', 'TX Status']"
-				:rows="['HX', '200.00HX', '3,456.00USX', '5%', '1,900.95HX', '2022-04-05 22:34:50', 'Success']" />
+				:columns="['Token Type', 'Amount', 'Minted', 'Fees', 'Final Amount', 'Date', 'TX Status']" />
 		</TheTab>
 		<TheTab title="Redeem">
 			<TransactionTable
 				size="7"
 				aria="Vault redeemed transactions"
-				:columns="['Token Type', 'Amount', 'Minted', 'Fees', 'Final Amount', 'Date', 'TX Status']"
-				:rows="['HX', '200.00HX', '3,456.00USX', '5%', '1,900.95HX', '2022-04-05 22:34:50', 'Success']" />
+				:columns="['Token Type', 'Amount', 'Minted', 'Fees', 'Final Amount', 'Date', 'TX Status']" />
 		</TheTab>
 	</TheTabs>
 </template>

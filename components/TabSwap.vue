@@ -15,8 +15,7 @@
 		<TransactionTable
 			size="8"
 			aria="Swap transactions"
-			:columns="['From', 'To', 'Max Slippage', 'Min. Received', 'Price Impace', 'Fees', 'Date', 'TX Status']"
-			:rows="['200.00HX', '0.0439.00ETH', '0.5%', '0.0345.03ETH', '0.02%', '5%', '2022-04-05 22:34:50', 'Success']" />
+			:columns="['From', 'To', 'Max Slippage', 'Min. Received', 'Price Impace', 'Fees', 'Date', 'TX Status']" />
 	</div>
 </template>
 

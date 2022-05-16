@@ -23,15 +23,13 @@
 			<TransactionTable
 				size="6"
 				aria="Staked HX reward transactions"
-				:columns="['Reward Token', 'Reward Amount', 'Fees', 'Total Claimed', 'Date', 'TX Status']"
-				:rows="['TNODE', '200.00TNode', '5%', '1,900.95TNode', '2022-04-05 22:34:50', 'Success']" />
+				:columns="['Reward Token', 'Reward Amount', 'Fees', 'Total Claimed', 'Date', 'TX Status']" />
 		</TheTab>
 		<TheTab title="Burn HX">
 			<TransactionTable
 				size="7"
 				aria="Burned HX reward transactions"
-				:columns="['Reward Token', 'Reward Amount', 'Claim Ratio', 'Fees', 'Total Claimed', 'Date', 'TX Status']"
-				:rows="['TNODE', '200.00TNode', '20%', '5%', '1,900.95TNode', '2022-04-05 22:34:50', 'Success']" />
+				:columns="['Reward Token', 'Reward Amount', 'Claim Ratio', 'Fees', 'Total Claimed', 'Date', 'TX Status']" />
 		</TheTab>
 	</TheTabs>
 </template>

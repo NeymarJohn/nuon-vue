@@ -18,15 +18,13 @@
 			<TransactionTable
 				size="6"
 				aria="Stability zone above peg transactions"
-				:columns="['Token Type', 'Amount', 'Fees', 'Final Amount', 'Date', 'TX Status']"
-				:rows="['HX', '200.00HX', '5%', '1,900.95HX', '2022-04-05 22:34:50', 'Success']" />
+				:columns="['Token Type', 'Amount', 'Fees', 'Final Amount', 'Date', 'TX Status']" />
 		</TheTab>
 		<TheTab title="Below Peg">
 			<TransactionTable
 				size="6"
 				aria="Stability zone below peg transactions"
-				:columns="['Token Type', 'Amount', 'Fees', 'Final Amount', 'Date', 'TX Status']"
-				:rows="['USX', '200.00USX', '5%', '1,900.95USX', '2022-04-05 22:34:50', 'Success']" />
+				:columns="['Token Type', 'Amount', 'Fees', 'Final Amount', 'Date', 'TX Status']" />
 		</TheTab>
 	</TheTabs>
 </template>
