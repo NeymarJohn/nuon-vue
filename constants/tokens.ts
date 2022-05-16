@@ -59,9 +59,7 @@ export const collateralTokens = [
 ];
 
 export const swapTokens = [
-	// { "symbol": USDT.symbol, "name": USDT.name, "icon": "USDT.png" },
 	{ "symbol": USDC.symbol, "name": USDC.name, "icon": "USDC.png"  },
-	// { "symbol": DAI.symbol, "name": DAI.name, "icon": "Dai.png"  },
 	{ "symbol": HX.symbol, "name": HX.name, "icon": "Hydro.png" },
 	{ "symbol": USX.symbol, "name": USX.name, "icon": "USX.png"  },
 ];

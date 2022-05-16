@@ -143,7 +143,7 @@ export default {
 					const userAmounts = await this.$store.getters["collateralVaultStore/getUserAmounts"](userAddress, idx);
 					const weiBalance = userAmounts[0];
 					const usdBalance = fromWei(weiBalance);
-					this.userTVL += usdBalance;
+					this.userTVL += parseFloat(usdBalance);
 				});
 			}
 		}

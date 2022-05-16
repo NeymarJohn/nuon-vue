@@ -330,8 +330,7 @@ export default {
 				this.loadingPrice = false;
 				this.loadedPrice = true;
 				this.output.value = parseFloat(fromWei(res[1])).toFixed(2);
-			}).catch((e) => {
-				console.log("e",  e);
+			}).catch(() => {
 				this.loadedPrice = false;
 				this.loadingPrice = false;
 			});

@@ -60,31 +60,31 @@
 				<DataCard class="u-mb-md-36 u-mb-sm-24">
 					<label>My Stake</label>
 					<TheLoader component="h1">
-						<h3>{{ numberWithCommas(myStake.toFixed(2)) }}<sup>HX</sup></h3>
+						<h3>{{ myStake | toFixed | numberWithCommas }}<sup>HX</sup></h3>
 					</TheLoader>
 					<TheLoader component="h5">
-						<h5>${{ numberWithCommas(getDollarValue(myStake, tokenPrices.HX).toFixed(2)) }}</h5>
+						<h5>${{ getDollarValue(myStake, tokenPrices.HX) | toFixed | numberWithCommas }}</h5>
 					</TheLoader>
 				</DataCard>
 				<DataCard class="u-mb-md-36 u-mb-sm-24">
 					<label>My Rewards</label>
 					<TheLoader component="h1">
-						<h3>{{ numberWithCommas(myRewards.toFixed(2)) }}<sup>HX</sup></h3>
+						<h3>{{ myRewards | toFixed | numberWithCommas }}<sup>HX</sup></h3>
 					</TheLoader>
 					<TheLoader component="h5">
-						<h5>${{ numberWithCommas(getDollarValue(myRewards, tokenPrices.HX).toFixed(2)) }}</h5>
+						<h5>${{ getDollarValue(myRewards, tokenPrices.HX) | toFixed | numberWithCommas }}</h5>
 					</TheLoader>
 				</DataCard>
 				<DataCard class="u-mb-sm-24">
 					<label>My Next Reward Distribution</label>
 					<TheLoader component="h1">
-						<TheCountdown :visible="isConnectedWallet" :next-claim-date="nextEpochPoint" />
+						<TheCountdown :visible="isConnectedWallet" :next-claim-date="nextEpochPoint" :is-loop="true" />
 					</TheLoader>
 				</DataCard>
 				<DataCard>
 					<label>My Voting Power<TooltipIcon v-tooltip="'Calculation: My Stake / Total Staked'" /></label>
 					<TheLoader component="h1">
-						<h3>{{ numberWithCommas(votingPower.toFixed(2)) }}<sup>%</sup></h3>
+						<h3>{{ votingPower | toFixed | numberWithCommas }}<sup>%</sup></h3>
 					</TheLoader>
 				</DataCard>
 			</LayoutInfo>
@@ -95,23 +95,23 @@
 				<StatCard class="u-mb-md-12">
 					<label>Total Staked<TooltipIcon v-tooltip="'Enter Total Staked tooltip content here'" /></label>
 					<TheLoader component="h3">
-						<h3>{{ numberWithCommas(totalStaked.toFixed(2)) }}</h3>
+						<h3>{{ totalStaked | toFixed | numberWithCommas }}</h3>
 					</TheLoader>
 				</StatCard>
 				<StatCard class="u-mb-md-12">
 					<label>HX Price<TooltipIcon v-tooltip="'Enter HX Price tooltip content here'" /></label>
 					<TheLoader component="h3">
-						<h3>{{ tokenPrices.HX |toFixed | numberWithCommas }}</h3>
+						<h3>{{ tokenPrices.HX | toFixed | numberWithCommas }}</h3>
 					</TheLoader>
 				</StatCard>
 				<StatCard>
 					<label class="u-mb-sm-12">Reward Information<TooltipIcon v-tooltip="'Enter Reward Info tooltip content here'" /></label>
 					<LayoutFlex class="l-flex-column-sm">
 						<TheLoader component="h3">
-							<h3 class="u-mr-32 u-mb-sm-12">APR {{ numberWithCommas(apr.toFixed(2)) }}%</h3>
+							<h3 class="u-mr-32 u-mb-sm-12">APR {{ apr | toFixed | numberWithCommas }}%</h3>
 						</TheLoader>
 						<TheLoader component="h3">
-							<h3 class="u-mr-32 u-mb-sm-12">TVL ${{ numberWithCommas(tvl.toFixed(2)) }}</h3>
+							<h3 class="u-mr-32 u-mb-sm-12">TVL ${{ tvl | toFixed | numberWithCommas }}</h3>
 						</TheLoader>
 						<TheLoader component="h3">
 							<h3>Day {{ daysFromEpoch }}</h3>
@@ -169,7 +169,7 @@
 import axios from "axios";
 import { fromWei } from "~/utils/bnTools";
 import TooltipIcon from "@/assets/images/svg/svg-tooltip.svg";
-import { HX, USX } from "~/constants/tokens";
+import { HX } from "~/constants/tokens";
 import { EPOCH_PERIOD } from "~/constants/addresses";
 
 export default {

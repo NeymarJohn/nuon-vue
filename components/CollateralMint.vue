@@ -97,7 +97,6 @@ export default {
 			return !!this.$store.state.collateralVaultStore.allowance[this.mintToken.symbol];
 		},
 		disabledMint() {
-			console.log(this.mintToken);
 			return !this.isApproved || !parseFloat(this.depositLockedCollateral) || this.isMoreThanBalance;
 		},
 		isMoreThanBalance() {

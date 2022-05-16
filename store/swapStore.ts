@@ -98,7 +98,6 @@ export const actions: ActionTree<SwapState, SwapState> = {
 	},
 	async getReserves(ctx: any, pair: Array<string>) {
 		const tokenPair = tokenPairs.find(token => token.pairName.includes(pair[0]) && token.pairName.includes(pair[1]));
-		console.log(tokenPair);
 		const result = await ctx.rootGetters["contractStore/uniswapV2Pair"](pair).methods.getReserves().call();
 		return {
 			[tokenPair?.pairs[0] as string]: fromWei(result[0]),

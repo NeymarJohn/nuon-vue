@@ -154,7 +154,6 @@ export default {
 			}
 		});
 		this.inputValue = this.defaultValue;
-		console.log(this.tokens);
 	},
 	methods: {
 		triggerAccordion() {
@@ -168,11 +167,9 @@ export default {
 		},
 		inputMaxBalance() {
 			if (!this.selectedToken) return ;
-			this.inputValue = this.selectedToken.balance; // toFixedFloorNumber(this.tokenBalance, 2) ;
+			this.inputValue = this.selectedToken.balance;
 		},
-		submitTransaction() {
-			console.log("Submit transaction");
-		}
+		submitTransaction() {}
 	},
 };
 </script>

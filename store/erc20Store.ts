@@ -1,6 +1,4 @@
 import { GetterTree, ActionTree, MutationTree } from "vuex";
-import BN from "bn.js";
-import Web3 from "web3";
 import { Web3State } from "./web3Store";
 import erc20 from "./abi/erc20.json";
 import { HX, USX, USDC } from "~/constants/tokens";

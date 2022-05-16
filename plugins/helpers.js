@@ -22,6 +22,9 @@ Vue.mixin({
 				nums[1] = "00";
 			} 
 			return `${nums[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",")}.${nums[1]}`;
+		},
+		formatWithTwoDigit(number) {
+			return (`0${number}`).slice(-2);
 		}
 	},
 	computed: {

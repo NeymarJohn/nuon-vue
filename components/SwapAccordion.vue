@@ -56,7 +56,6 @@
 <script>
 import ChevronDownIcon from "@/assets/images/svg/svg-chevron-down.svg";
 import ChevronUpIcon from "@/assets/images/svg/svg-chevron-up.svg";
-import TokenData from "@/assets/images/tokens/token-data.json";
 import { swapTokens } from "~/constants/tokens";
 
 export default {
@@ -79,7 +78,6 @@ export default {
 	data () {
 		return {
 			isActive: false,
-			// tokens: TokenData,
 			search: "",
 			selected: {
 				name: "",
