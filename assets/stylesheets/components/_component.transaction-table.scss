@@ -22,8 +22,12 @@
 .transaction-table__row:first-child {
 	padding-bottom: $SPACING_40;
 }
+.transaction-table__cell {
+	padding: $SPACING_20 0;
+}
 .transaction-table__row:first-child .transaction-table__cell {
 	color: $LIGHT_GREY;
+	padding: 0;
 }
 
 // 2. Transaction table 5 columns
@@ -47,3 +51,13 @@
 }
 
 // 6. Transaction table responsive
+@media screen and (max-width: $SPACING_1440) {
+	.transaction-table {
+		font-size: $BODY_TEXT_SM;
+		line-height: $SPACING_18;
+		padding: $SPACING_32;
+	}
+	.transaction-table__row:first-child {
+		padding-bottom: $SPACING_32;
+	}
+}
