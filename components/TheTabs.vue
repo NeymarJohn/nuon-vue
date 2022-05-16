@@ -33,9 +33,8 @@ export default {
 	},
 	mounted() {
 		this.selectTab(0);
-	},
-	created() {
-		this.tabs = this.$children;
+		// The following line removes the LayoutFlex child and leaves the children in the slot only
+		this.tabs = this.$children.slice(1);
 	},
 	methods: {
 		selectTab (i) {
