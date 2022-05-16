@@ -9,7 +9,9 @@ interface TokenList {
   [symbol: string]: Token
 }
 
-const defineTokens = <T extends TokenList>(t: T) => t;
+interface T extends TokenList {}
+
+const defineTokens = (t: T) => t;
 
 export const mainnetTokens = defineTokens({
 	wbnb: new Token(

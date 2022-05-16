@@ -1,7 +1,6 @@
 import { Token } from "@pancakeswap/sdk";
 import { TokenInfo, Tags } from "@uniswap/token-lists";
 
-
 interface SerializedToken {
   chainId: number
   address: string
