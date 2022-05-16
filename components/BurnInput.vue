@@ -201,16 +201,22 @@ export default {
 		},
 		async burnTokens() {
 			this.activeStep = "loading";
-			const burningFunction = this.tokenBurn === "HX"?"burnHydro":"burnUsx";
-			if (this.account) {
-				await this.$store.dispatch(`stabilityFlashStore/${burningFunction}`, {
+			if (this.tokenBurn === "HX" && this.account !== "") {
+				await this.$store.dispatch("stabilityFlashStore/burnHydro", {
 					address: this.account,
 					amount: this.burningValue,
-					onConfirm: (txHash) => this.successToast(() => {this.activeStep = 1;}, `You've confirmed burning ${this.burningValue} ${this.tokenBurn}`, txHash),
+					onConfirm: (txHash) => this.successToast(() => {this.activeStep = 1;}, `You've burned ${this.burningValue} HX`, txHash),
 					onError: (e) => this.failureToast(() => {this.activeStep = 1;}, e),
-					onComplete: (result) => {
-						this.successToast(() => {}, `You've burned ${this.burningValue} ${this.tokenBurn}`, result.transactionHash);
-					}
+					onComplete: () => {}
+				});
+			}
+			if (this.tokenBurn === "USX" && this.account !== "") {
+				await this.$store.dispatch("stabilityFlashStore/burnUsx", {
+					address: this.account,
+					amount: this.burningValue,
+					onConfirm: (txHash) => this.successToast(() => {this.activeStep = 1;}, `You've burned ${this.burningValue} USX`, txHash),
+					onError: (e) => this.failureToast(() => {this.activeStep = 1;}, e),
+					onComplete: () => {}
 				});
 			}
 		},

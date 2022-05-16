@@ -4,6 +4,7 @@
 			<div class="toggle__content">
 				<h5 class="u-mb-12">Select Your Collateral Token To Deposit</h5>
 				<CollateralClaimAccordion
+					:token="mintToken"
 					:default-value="depositLockedCollateral"
 					@selected-token="selectClaimToken"
 					@change-input="changeMintValue"
@@ -55,7 +56,11 @@ export default {
 	name: "CollateralMint",
 	data() {
 		return {
-			mintToken: {},
+			mintToken: {
+				symbol: HX.symbol,
+				price: 0,
+				balance: 0
+			},
 			depositLockedCollateral: 0,
 			estimatedMintedUsxValue: 0,
 			maxUsxMinted: 3401,
@@ -70,26 +75,26 @@ export default {
 			return [
 				{
 					title: "Collateral to Deposit",
-					val: this.depositLockedCollateral,
+					val: this.numberWithCommas(parseFloat(this.depositLockedCollateral).toFixed(2)),
 					currency: this.mintToken.symbol,
-					dollar: this.getDollarValue(this.depositLockedCollateral, this.mintToken.price)
+					dollar: this.numberWithCommas((this.depositLockedCollateral * this.mintToken.price).toFixed(2))
 				},
 				{
 					title: "Maximum Minted USX",
-					val: this.estimatedMintedUsxValue,
+					val: this.numberWithCommas(this.estimatedMintedUsxValue.toFixed(2)),
 					currency: "USX",
-					dollar: this.getDollarValue(this.estimatedMintedUsxValue, this.tokenPrices.USX)
+					dollar: this.numberWithCommas((this.estimatedMintedUsxValue * this.tokenPrices.USX).toFixed(2))
 				},
 				{
 					title: "Fee",
 					val: `${this.mintingFee * 100}%`,
-					dollar: this.getDollarValue(this.getDollarValue(this.depositLockedCollateral, this.mintingFee), this.tokenPrices[this.mintToken.symbol]),
+					dollar: this.numberWithCommas((parseFloat(this.depositLockedCollateral) * this.mintingFee * this.tokenPrices[this.mintToken.symbol]).toFixed(2))
 				},
 				{
 					title: "Total Received",
 					val: this.numberWithCommas((this.depositLockedCollateral * (1 - this.mintingFee)).toFixed(2)),
 					currency: this.mintToken.symbol,
-					dollar: this.getDollarValue(this.getDollarValue(this.depositLockedCollateral, (1 - this.mintingFee)), this.tokenPrices[this.mintToken.symbol]),
+					dollar: this.numberWithCommas((this.depositLockedCollateral * (1 - this.mintingFee) * this.tokenPrices[this.mintToken.symbol]).toFixed(2))
 				}
 			];
 		},
@@ -97,14 +102,11 @@ export default {
 			return !!this.$store.state.collateralVaultStore.allowance[this.mintToken.symbol];
 		},
 		disabledMint() {
-			console.log(this.mintToken);
-			return !this.isApproved || !parseFloat(this.depositLockedCollateral) || this.isMoreThanBalance;
-		},
-		isMoreThanBalance() {
-			return  parseFloat(this.depositLockedCollateral) > this.tokenBalance;
+			return !this.isApproved || !this.depositLockedCollateral || this.depositLockedCollateral > this.tokenBalance;
 		},
 		tokenBalance() {
-			return parseFloat(this.mintToken.balance);
+			const symbol = this.mintToken.symbol;
+			return parseFloat(this.$store.state.erc20Store.balance[symbol]) / this.$store.state.erc20Store.decimals[symbol];
 		},
 		mintingFee() {
 			return this.$store.state.collateralVaultStore.mintingFee;
@@ -118,8 +120,8 @@ export default {
 	methods: {
 		selectClaimToken(token) {
 			const price = this.tokenPrices[token.symbol];
-			const balance = this.tokenBalances[token.symbol];
-			const selectedTokenAddress = TOKENS_MAP[token.symbol].address;
+			const balance = fromWei(this.$store.state.erc20Store.balance[token.symbol], this.$store.state.erc20Store.decimals[token.symbol]);
+			const selectedTokenAddress = TOKENS_MAP[this.mintToken.symbol].address;
 			const cid = this.allCollaterals.findIndex(c => c === selectedTokenAddress);
 			this.mintToken = {...token, price, cid, balance, symbol: token.symbol};
 		},

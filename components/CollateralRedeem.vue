@@ -146,7 +146,7 @@ export default {
 				this.estimatedWithdrawnUsxValue = estimatedValue[0] / (10 ** this.$store.state.erc20Store.decimals[this.withdrawToken.symbol]);
 				this.feeAmount = fromWei(estimatedValue[2]);
 			} catch (e) {
-				this.failureToast(() => {},  e.message);
+				this.failureToast(e);
 			}
 		},
 		async withdraw() {

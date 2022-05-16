@@ -5,21 +5,16 @@
 				direction="row-center"
 				class="accordion__header"
 				title="Click to open token list" @click="triggerAccordion">
-				<template v-if="selectedToken">
-					<img :src="require(`~/assets/images/tokens/${selectedToken.icon}`)" alt="Hydro logo">
-					<div class="accordion__token">
-						<h4>{{ selectedToken.symbol }}</h4>
-						<p>{{ selectedToken.name }}</p>
-					</div>
-				</template>
-				<template v-else>
-					<h4>Select Token</h4>
-				</template>
+				<img :src="require(`~/assets/images/tokens/${token.name || selected.name}.png`)" alt="Hydro logo">
+				<div class="accordion__token">
+					<h4>{{ token.symbol || selected.symbol }}</h4>
+					<p>{{ token.name || selected.name }}</p>
+				</div>
 				<ChevronDownIcon v-if="!isActive" />
 				<ChevronUpIcon v-else />
 			</LayoutFlex>
 			<DataCard align="end" class="u-half-width u-full-width-sm">
-				<p v-if="selectedToken" class="accordion__available">Available {{selectedToken.symbol}} tokens: {{ (selectedToken.balance || 0) | formatLongNumber }}</p>
+				<p v-if="token" class="accordion__available">Available {{token.symbol}} tokens: {{ numberWithCommas(token.balance.toFixed(2)) }}</p>
 				<div class="input u-mb-12">
 					<div class="input__container">
 						<input
@@ -32,10 +27,10 @@
 							autocorrect="off"
 							spellcheck="false"
 							inputmode="decimal" />
-						<TheButton :disabled="isMaxInputDisabled(selectedToken ? selectedToken.balance : 0)" size="sm" title="Click to input your max balance" @click="inputMaxBalance">Max</TheButton>
+						<TheButton :disabled="isMaxInputDisabled(token.balance)" size="sm" title="Click to input your max balance" @click="inputMaxBalance">Max</TheButton>
 					</div>
 				</div>
-				<h5 v-if="selectedToken" class="u-mb-0">~ ${{ numberWithCommas(getDollarValue(inputValue, selectedToken.price).toFixed(2)) }}</h5>
+				<h5 v-if="token" class="u-mb-0">~ ${{ numberWithCommas(getDollarValue(inputValue, token.price).toFixed(2)) }}</h5>
 			</DataCard>
 		</LayoutFlex>
 		<p v-if="isMoreThanBalance" class="u-is-warning u-mb-0 u-text-right u-mt-12">Insufficient balance.</p>
@@ -46,13 +41,13 @@
 			<div class="accordion__tokens">
 				<div v-for="(t, index) in filteredTokens" :key="index" class="token" title="Click to select token" @click="changeToken(t)">
 					<div class="token__wrapper">
-						<img :src="require(`~/assets/images/tokens/${t.icon}`)" :alt="`${t.name} logo`">
+						<img :src="require(`~/assets/images/tokens/${t.name}.png`)" :alt="`${t.name} logo`">
 						<div class="token__body">
 							<h4>{{ t.symbol }}</h4>
 							<h5>{{ t.name }}</h5>
 						</div>
 					</div>
-					<h5>~ ${{ getDollarValue(t.balance, t.price || 0) | toFixed | numberWithCommas }}</h5>
+					<h5>~ ${{ numberWithCommas(getDollarValue(inputValue, t.price || 0).toFixed(2)) }}</h5>
 				</div>
 				<div v-if="filteredTokens.length <= 0" class="accordion__results">
 					No results found.
@@ -65,8 +60,9 @@
 <script>
 import ChevronDownIcon from "@/assets/images/svg/svg-chevron-down.svg";
 import ChevronUpIcon from "@/assets/images/svg/svg-chevron-up.svg";
-import { fromWei } from "~/utils/bnTools";
-import { HX, collateralTokens } from "~/constants/tokens";
+import TokenData from "@/assets/images/tokens/token-data.json";
+import { fromWei, toFixedFloorNumber } from "~/utils/bnTools";
+import { HX } from "~/constants/tokens";
 
 export default {
 	name: "CollateralClaimAccordion",
@@ -77,7 +73,7 @@ export default {
 	props: {
 		token: {
 			type: Object,
-			default: () => ({ symbol: HX.symbol, price: 0, balance: 0, icon:"HX.icon" })
+			default: () => ({ symbol: HX.symbol, price: 0, balance: 0 })
 		},
 		defaultValue: {
 			type: [Number, String],
@@ -87,9 +83,13 @@ export default {
 	data () {
 		return {
 			isActive: false,
+			tokens: TokenData,
 			inputValue: 0,
 			search: "",
-			selectedToken: null,
+			selected: {
+				name: "Hydro",
+				symbol: "HX"
+			},
 			activeStep: 1
 		};
 	},
@@ -132,21 +132,16 @@ export default {
 			];
 		},
 		tokenBalance() {
-			if (!this.selectedToken) return 0;
-			return parseFloat(this.selectedToken.balance);
+			return parseFloat(this.token.balance);
 		},
-		tokens() {
-			return collateralTokens.map(t => {
-				return {...t, balance: this.tokenBalances[t.symbol] || 0, price: this.tokenPrices[t.symbol]};
-			});
-		}
 	},
 	watch: {
 		inputValue(newValue) {
 			this.$emit("change-input", newValue);
 		}
 	},
-	mounted() {
+	async mounted() {
+		this.hxPrice = parseFloat(await this.$store.getters["stabilityFlashStore/getHYDROPriceInUSDC"]);
 		this.$store.commit("rootStore/setIsLoaded", true);
 		window.addEventListener("click", (e) => {
 			if (!this.$el.contains(e.target)){
@@ -154,7 +149,6 @@ export default {
 			}
 		});
 		this.inputValue = this.defaultValue;
-		console.log(this.tokens);
 	},
 	methods: {
 		triggerAccordion() {
@@ -163,12 +157,12 @@ export default {
 		},
 		changeToken(token) {
 			this.$emit("selected-token", token);
-			this.selectedToken = { ...token};
+			this.selected.name = token.name;
+			this.selected.symbol = token.symbol;
 			this.isActive = !this.isActive;
 		},
 		inputMaxBalance() {
-			if (!this.selectedToken) return ;
-			this.inputValue = this.selectedToken.balance; // toFixedFloorNumber(this.tokenBalance, 2) ;
+			this.inputValue = toFixedFloorNumber(this.tokenBalance, 2) ;
 		},
 		submitTransaction() {
 			console.log("Submit transaction");

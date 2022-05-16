@@ -13,15 +13,6 @@ Vue.mixin({
 		formatPrice(x) {
 			if (!x) return 0;
 			return parseFloat(x).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-		},
-		formatLongNumber(x) {
-			const nums = x.toString().split(".");
-			if (nums[1]) {
-				nums[1] = nums[1].substring(0,2);
-			} else {
-				nums[1] = "00";
-			} 
-			return `${nums[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",")}.${nums[1]}`;
 		}
 	},
 	computed: {
@@ -39,9 +30,6 @@ Vue.mixin({
 		},
 		tokenPrices() {
 			return this.$store.state.tokenStore.price;
-		},
-		tokenBalances() {
-			return this.$store.state.erc20Store.balance;
 		}
 	},
 	methods: {
@@ -65,7 +53,7 @@ Vue.mixin({
 			return Number(Web3.utils.fromWei(x)).toFixed(3).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 		},
 		getDollarValue(x, y) {
-			return parseFloat(x) * parseFloat(y);
+			return x * y;
 		},
 		getPreviousPage() {
 			this.$router.back();
@@ -118,14 +106,6 @@ Vue.mixin({
 			setTimeout(() => {
 				this.$store.commit("rootStore/setToast", {...this.$store.state.rootStore.toast, show: false});
 			}, 5000);
-		},
-		getRPCErrorMessage(err){
-			const open = err.message.indexOf("{");
-			const close = err.message.lastIndexOf("}");
-			const jsonData = err.message.substring(open, close + 1);
-			const j = JSON.parse(jsonData);
-			const message = j.message;
-			return message;
 		}
 	}
 });
