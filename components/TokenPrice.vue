@@ -2,7 +2,7 @@
 	<div>
 		<h2 class="u-mb-24">Token Price</h2>
 		<div class="l-chart l-chart--token-price">
-			<TheTabs>
+			<TheTabs margin="24">
 				<TheTab title="HX">
 					<LayoutFlex>
 						<div class="chart">
