@@ -13,11 +13,53 @@
 							<p>Price</p>
 							<h3>1.03<sup>HX</sup></h3>
 						</div>
-						<div class="chart">
-							<p>Price</p>
-							<h1>1.03<sup>HX</sup></h1>
-							<p class="u-colour-white">Apr 14, 2022</p>
-							<LineChart />
+						<div class="chart chart--token-price">
+							<div class="chart__overview">
+								<p>Price</p>
+								<h1>1.03<sup>HX</sup></h1>
+								<p class="u-colour-white">Apr 14, 2022</p>
+							</div>
+							<TheTabs size="thin" color="light" margin="0">
+								<TheTab title="Price">
+									<TheTabs size="thin" color="light" margin="absolute">
+										<TheTab title="D">
+											<LineChart />
+										</TheTab>
+										<TheTab title="W">
+											<LineChart />
+										</TheTab>
+										<TheTab title="M">
+											<LineChart />
+										</TheTab>
+									</TheTabs>
+								</TheTab>
+								<TheTab title="Market Cap">
+									<TheTabs size="thin" color="light" margin="absolute">
+										<TheTab title="D">
+											<LineChart />
+										</TheTab>
+										<TheTab title="W">
+											<LineChart />
+										</TheTab>
+										<TheTab title="M">
+											<LineChart />
+										</TheTab>
+									</TheTabs>
+								</TheTab>
+								<TheTab title="Circulating Supply">
+									<TheTabs size="thin" color="light" margin="absolute">
+										<TheTab title="D">
+											<LineChart />
+										</TheTab>
+										<TheTab title="W">
+											<LineChart />
+										</TheTab>
+										<TheTab title="M">
+											<LineChart />
+										</TheTab>
+									</TheTabs>
+								</TheTab>
+							</TheTabs>
 						</div>
 					</LayoutFlex>
 				</TheTab>
@@ -31,11 +73,53 @@
 							<p>Price</p>
 							<h3>1.03<sup>USX</sup></h3>
 						</div>
-						<div class="chart">
-							<p>Price</p>
-							<h1>1.03<sup>USX</sup></h1>
-							<p class="u-colour-white">Apr 14, 2022</p>
-							<LineChart />
+						<div class="chart chart--token-price">
+							<div class="chart--overview">
+								<p>Price</p>
+								<h1>1.03<sup>USX</sup></h1>
+								<p class="u-colour-white">Apr 14, 2022</p>
+							</div>
+							<TheTabs size="thin" color="light" margin="0">
+								<TheTab title="Price">
+									<TheTabs size="thin" color="light" margin="absolute">
+										<TheTab title="D">
+											<LineChart />
+										</TheTab>
+										<TheTab title="W">
+											<LineChart />
+										</TheTab>
+										<TheTab title="M">
+											<LineChart />
+										</TheTab>
+									</TheTabs>
+								</TheTab>
+								<TheTab title="Market Cap">
+									<TheTabs size="thin" color="light" margin="absolute">
+										<TheTab title="D">
+											<LineChart />
+										</TheTab>
+										<TheTab title="W">
+											<LineChart />
+										</TheTab>
+										<TheTab title="M">
+											<LineChart />
+										</TheTab>
+									</TheTabs>
+								</TheTab>
+								<TheTab title="Circulating Supply">
+									<TheTabs size="thin" color="light" margin="absolute">
+										<TheTab title="D">
+											<LineChart />
+										</TheTab>
+										<TheTab title="W">
+											<LineChart />
+										</TheTab>
+										<TheTab title="M">
+											<LineChart />
+										</TheTab>
+									</TheTabs>
+								</TheTab>
+							</TheTabs>
 						</div>
 					</LayoutFlex>
 				</TheTab>
