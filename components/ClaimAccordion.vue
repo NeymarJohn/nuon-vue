@@ -69,8 +69,9 @@
 <script>
 import ChevronDownIcon from "@/assets/images/svg/svg-chevron-down.svg";
 import ChevronUpIcon from "@/assets/images/svg/svg-chevron-up.svg";
+import TokenData from "@/assets/images/tokens/token-data.json";
 import { fromWei } from "~/utils/bnTools";
-import { HX, mainTokens, USX } from "~/constants/tokens";
+import { HX, USX } from "~/constants/tokens";
 
 export default {
 	name: "ClaimAccordion",
@@ -93,6 +94,7 @@ export default {
 		return {
 			tokenPrice: 0,
 			isActive: false,
+			tokens: TokenData,
 			search: "",
 			selected: {
 				name: "Hydro",
@@ -151,9 +153,6 @@ export default {
 					dollar: this.numberWithCommas(this.getDollarValue(this.claimBalance - this.claimFeeToken , this.tokenPrice).toFixed(2))
 				},
 			];
-		},
-		tokens() {
-			return mainTokens;
 		}
 	},
 	async mounted() {

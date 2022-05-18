@@ -29,10 +29,10 @@
 				<DataCard>
 					<label>My Minted Tokens</label>
 					<TheLoader component="h1">
-						<h3>{{ userMintedAmount | toFixed | numberWithCommas }}<sup>USX</sup></h3>
+						<h3>{{ numberWithCommas(userMintedAmount.toFixed(2)) }}<sup>USX</sup></h3>
 					</TheLoader>
 					<TheLoader component="h5">
-						<h5>${{ getDollarValue(userMintedAmount, usxPrice) | toFixed | numberWithCommas }}</h5>
+						<h5>${{ numberWithCommas(getDollarValue(userMintedAmount, usxPrice).toFixed(2)) }}</h5>
 					</TheLoader>
 				</DataCard>
 			</LayoutInfo>

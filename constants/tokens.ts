@@ -58,7 +58,7 @@ export const collateralTokens = [
 	{ "symbol": DAI.symbol, "name": DAI.name, "icon": "Dai.png"  },
 ];
 
-export const mainTokens = [
+export const swapTokens = [
 	{ "symbol": USDC.symbol, "name": USDC.name, "icon": "USDC.png"  },
 	{ "symbol": HX.symbol, "name": HX.name, "icon": "Hydro.png" },
 	{ "symbol": USX.symbol, "name": USX.name, "icon": "USX.png"  },
