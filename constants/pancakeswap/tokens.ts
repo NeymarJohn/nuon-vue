@@ -1,7 +1,7 @@
 import { ChainId, Token } from "@pancakeswap/sdk";
 import { SerializedToken } from "./types";
 import { CHAIN_ID } from "./networks";
-import { serializeToken } from "~/utils/pancakeswap/helpers";
+import { serializeToken } from "utils/pancakeswap/helpers";
 
 const { MAINNET, TESTNET } = ChainId;
 

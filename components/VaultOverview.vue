@@ -2,7 +2,7 @@
 	<div>
 		<h2 class="u-mb-24">Vault Overview</h2>
 		<div class="l-chart l-chart--vault-overview">
-			<TheTabs size="thin" color="light" margin="24">
+			<TheTabs size="thin" color="light">
 				<TheTab title="D">
 					<LayoutFlex>
 						<div class="chart">

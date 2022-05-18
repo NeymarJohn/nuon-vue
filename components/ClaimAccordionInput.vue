@@ -96,9 +96,8 @@
 <script>
 import ChevronDownIcon from "@/assets/images/svg/svg-chevron-down.svg";
 import ChevronUpIcon from "@/assets/images/svg/svg-chevron-up.svg";
-import TokenData from "@/assets/images/tokens/token-data.json";
 import { fromWei } from "~/utils/bnTools";
-import { HX } from "~/constants/tokens";
+import { HX, mainTokens } from "~/constants/tokens";
 
 export default {
 	name: "ClaimAccordionInput",
@@ -121,7 +120,6 @@ export default {
 		return {
 			isActive: false,
 			isPending: false,
-			tokens: TokenData,
 			inputValue: 0,
 			search: "",
 			selected: {
@@ -176,6 +174,9 @@ export default {
 				},
 			];
 		},
+		tokens() {
+			return mainTokens;
+		}
 	},
 	mounted() {
 		this.$store.commit("rootStore/setIsLoaded", true);

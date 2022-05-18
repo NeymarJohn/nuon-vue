@@ -1,10 +1,13 @@
 <template>
 	<div :class="`tabs tabs--${size} tabs--${color}`">
-		<ul :class="`tabs__header u-mb-${margin}`">
-			<li v-for="(tab, index) in tabs" :key="tab.index" :class="{'is-active': (index === selectedIndex)}" :title="`Click to view ${tab.title.toLowerCase()} transactions`" @click="selectTab(index)">
-				<h5>{{ tab.title }}</h5>
-			</li>
-		</ul>
+		<LayoutFlex class="u-mb-24" direction="row-center-space-between">
+			<ul class="tabs__header">
+				<li v-for="(tab, index) in tabs" :key="tab.index" :class="{'is-active': (index === selectedIndex)}" @click="selectTab(index)">
+					<h5>{{ tab.title }}</h5>
+				</li>
+			</ul>
+			<slot name="filter" />
+		</LayoutFlex>
 		<slot />
 	</div>
 </template>
@@ -20,10 +23,6 @@ export default {
 		color: {
 			type: String,
 			default: "dark"
-		},
-		margin: {
-			type: String,
-			default: "48"
 		}
 	},
 	data() {
@@ -34,9 +33,8 @@ export default {
 	},
 	mounted() {
 		this.selectTab(0);
-	},
-	created() {
-		this.tabs = this.$children;
+		// The following line removes the LayoutFlex child and leaves the children in the slot only
+		this.tabs = this.$children.slice(1);
 	},
 	methods: {
 		selectTab (i) {
