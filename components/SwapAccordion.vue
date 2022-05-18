@@ -56,7 +56,7 @@
 <script>
 import ChevronDownIcon from "@/assets/images/svg/svg-chevron-down.svg";
 import ChevronUpIcon from "@/assets/images/svg/svg-chevron-up.svg";
-import { swapTokens } from "~/constants/tokens";
+import { mainTokens } from "~/constants/tokens";
 
 export default {
 	name: "SwapAccordion",
@@ -95,7 +95,7 @@ export default {
 			});
 		},
 		tokens() {
-			return swapTokens;
+			return mainTokens;
 		}
 	},
 	watch: {

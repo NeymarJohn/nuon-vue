@@ -25,10 +25,7 @@ export default {
 	},
 	head () {
 		return {
-			title: "Dashboard | Nuon",
-			script: [
-				{ src: "https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js" },
-			]
+			title: "Dashboard | Nuon"
 		};
 	},
 };

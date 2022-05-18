@@ -17,6 +17,13 @@ export const state = (): SwapStateType => ({
 
 export type SwapState = ReturnType<typeof state>
 
+const convertPathIntoMap = (values: Array<any>, tokens: Array<any>) => {
+	const m: any = {};
+	values.forEach((value, index) => {
+		m[tokens[index]] = value;
+	});
+	return m;
+};
 export const mutations: MutationTree<SwapState> = {
 	setAllowance(state, payload: {HX:number, USX: number}) {
 		state.allowance = payload;
@@ -53,7 +60,7 @@ export const actions: ActionTree<SwapState, SwapState> = {
 		ctx.commit("setAllowance", {HX: getHydroAllowance, USX: getUsxAllowance});
 	},
 	approveToken(ctx: any, {tokenName, onConfirm, onReject, onCallback}): void {
-		ctx.dispatch("erc20Store/approveToken", {tokenName, contractAddress: ROUTER_ADDRESS, onConfirm, onReject, onCallback}, {root:true} )
+		ctx.dispatch("erc20Store/approveToken", {tokenSymbol: tokenName, contractAddress: ROUTER_ADDRESS, onConfirm, onReject, onCallback}, {root:true} )
 			.then(() =>{
 				ctx.dispatch("getAllowance").then(() => {
 					if (onCallback) onCallback(null);
@@ -64,19 +71,21 @@ export const actions: ActionTree<SwapState, SwapState> = {
 	},
 	async getAmountsOut(ctx: any, { inputToken, outputToken, amount }) {
 		const path = getPath(inputToken, outputToken);
-		return await ctx.getters.contract.methods.getAmountsOut(Web3.utils.toWei(amount), path).call();
+		const res =  await ctx.getters.contract.methods.getAmountsOut(Web3.utils.toWei(amount), path.addresses).call();
+		return convertPathIntoMap(res, path.tokens);
 	},
 	async getAmountsIn(ctx: any, { inputToken, outputToken, amount }) {
 		const path = getPath(inputToken, outputToken);
-		return await ctx.getters.contract.methods.getAmountsIn(Web3.utils.toWei(amount),path).call();
+		const res = await ctx.getters.contract.methods.getAmountsIn(Web3.utils.toWei(amount),path.addresses).call();
+		return convertPathIntoMap(res, path.tokens);
 	},
 	swapExactTokensForTokens(ctx: any, { inputToken, inputAmount, outputToken, outputAmount:_outputAmount, callback, slippage:_slippiage }) {
 		const accountAddress = ctx.rootState.web3Store.account;
-		// const amoutOutMin = ctx.getters.getMinOutputWithSlippage({value: outputAmount, slippage});
+		const path = getPath(inputToken, outputToken);
 		return ctx.getters.contract.methods.swapExactTokensForTokensSupportingFeeOnTransferTokens(
 			Web3.utils.toWei(inputAmount),
 			0,
-			getPath(inputToken, outputToken),
+			path.addresses,
 			accountAddress,
 			new Date().getTime()
 		).send({from: accountAddress}).on("transactionHash", function(){
@@ -86,10 +95,12 @@ export const actions: ActionTree<SwapState, SwapState> = {
 	swapTokensForExactTokens(ctx: any, { inputToken, inputAmount, outputToken, outputAmount, callback, slippage }) {
 		const accountAddress = ctx.rootState.web3Store.account;
 		const amountInMax = ctx.getters.getMaxInputWithSlippage({value: inputAmount, slippage});
+		const path = getPath(inputToken, outputToken);
+
 		return ctx.getters.contract.methods.swapExactTokensForTokensSupportingFeeOnTransferTokens(
 			amountInMax,
 			Web3.utils.toWei(outputAmount),
-			getPath(inputToken, outputToken),
+			path.addresses,
 			accountAddress,
 			new Date().getTime()
 		).send({from: accountAddress}).on("transactionHash", function(){

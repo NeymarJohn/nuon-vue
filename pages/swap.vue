@@ -329,7 +329,7 @@ export default {
 			).then(res => {
 				this.loadingPrice = false;
 				this.loadedPrice = true;
-				this.output.value = parseFloat(fromWei(res[1])).toFixed(2);
+				this.output.value = fromWei(res[this.output.token], this.$store.state.erc20Store.decimals[this.output.token]);
 			}).catch(() => {
 				this.loadedPrice = false;
 				this.loadingPrice = false;
@@ -349,7 +349,7 @@ export default {
 			).then(res => {
 				this.loadingPrice = false;
 				this.loadedPrice = true;
-				this.input.value = parseFloat(fromWei(res[0])).toFixed(2);
+				this.input.value = fromWei(res[this.input.token], this.$store.state.erc20Store.decimals[this.input.token]);
 			}).catch(() => {
 				this.loadingPrice = false;
 				this.loadedPrice = false;
@@ -457,7 +457,7 @@ export default {
 			this.isActive = !this.isActive;
 		},
 		isApproved(tokenName) {
-			if (tokenName !== USX.symbol && tokenName !== HX.symbol) return true;
+			if (!tokenName) return true;
 			const allowance = this.$store.state.swapStore.allowance;
 			return allowance[tokenName] > 0;
 		},

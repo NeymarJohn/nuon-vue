@@ -4,7 +4,7 @@ import { CHAIN_ID } from "./networks";
 
 const serializedTokens = serializeTokens();
 
-const farmsConfig: SerializedFarmConfig[] = [
+const farms: SerializedFarmConfig[] = [
 	/**
    * These 3 farms (PID 0, 2, 3) should always be at the top of the file.
    */
@@ -1098,4 +1098,4 @@ const farmsConfig: SerializedFarmConfig[] = [
 	},
 ].filter((f) => !!f.lpAddresses[CHAIN_ID]);
 
-export default farmsConfig;
+export default farms;

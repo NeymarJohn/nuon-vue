@@ -10,6 +10,7 @@ export const COLLATERAL_HUB_ADDRESS = "0x6500754f6c15Bd4CDcB5403e9a3207144651016
 export const HYDRO_USDC_PAIR_ADDRESS = "0x99F31f02EdcA9f4e3fC3bDd38941e6F12FbC4ca0"; // UniswapPairOracle_HYDRO_USDC.sol
 export const USX_USDC_PAIR_ADDRESS = "0xEe44651201C03Cc689656078ccDf297F6292CEF1"; // UniswapPairOracle_USX_USDC.sol
 export const USDC_USDT_PAIR_ADDRESS = "0x357e8275c90fa1a624873dE76c6a5aeB604b5Fd9"; // UniswapPairOracle_USDC_USDT.sol
+export const HYDRO_USX_PAIR_ADDRESS = "0xf9D3Fe2De55a46791c770687ba6d4DAd24f18B32"; // HX_USX
 
 // Token Addresses
 export const WETH_ADDRESS = "0x6e57319482Fdb735E045D024ECd438fb243FBde0"; // MockETH.sol
@@ -36,6 +37,10 @@ export const tokenPairs = [
 		address: USDC_USDT_PAIR_ADDRESS,
 		pairName: "USDC_USDT",
 		pairs: ["USDC", "USDT"]
+	}, {
+		address: HYDRO_USX_PAIR_ADDRESS,
+		pairName: "HX_USX",
+		pairs: ["HX", "USX"]
 	}
 ];
 

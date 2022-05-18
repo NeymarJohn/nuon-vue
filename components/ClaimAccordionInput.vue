@@ -7,7 +7,7 @@
 						direction="row-center"
 						class="accordion__header"
 						title="Click to open token list" @click="triggerAccordion">
-						<img :src="require(`~/assets/images/tokens/${selected.name}.png`)" alt="Hydro logo">
+						<img :src="require(`~/assets/images/tokens/${selected.icon}`)" alt="Hydro logo">
 						<div class="accordion__token">
 							<h2>{{ selected.symbol }}</h2>
 							<p>{{ selected.name }}</p>
@@ -43,7 +43,7 @@
 					<div class="accordion__tokens">
 						<div v-for="(t, index) in filteredTokens" :key="index" class="token" title="Click to select token" @click="changeToken(t)">
 							<div class="token__wrapper">
-								<img :src="require(`~/assets/images/tokens/${t.name}.png`)" :alt="`${t.name} logo`">
+								<img :src="require(`~/assets/images/tokens/${t.icon}`)" :alt="`${t.name} logo`">
 								<div class="token__body">
 									<h4>{{ t.symbol }}</h4>
 									<h5>{{ t.name }}</h5>
@@ -96,9 +96,8 @@
 <script>
 import ChevronDownIcon from "@/assets/images/svg/svg-chevron-down.svg";
 import ChevronUpIcon from "@/assets/images/svg/svg-chevron-up.svg";
-import TokenData from "@/assets/images/tokens/token-data.json";
 import { fromWei } from "~/utils/bnTools";
-import { HX } from "~/constants/tokens";
+import { HX, mainTokens } from "~/constants/tokens";
 
 export default {
 	name: "ClaimAccordionInput",
@@ -121,12 +120,12 @@ export default {
 		return {
 			isActive: false,
 			isPending: false,
-			tokens: TokenData,
 			inputValue: 0,
 			search: "",
 			selected: {
 				name: "Hydro",
-				symbol: "HX"
+				symbol: "HX",
+				icon: "Hydro.png"
 			},
 			activeStep: 1
 		};
@@ -176,6 +175,9 @@ export default {
 				},
 			];
 		},
+		tokens() {
+			return mainTokens;
+		}
 	},
 	mounted() {
 		this.$store.commit("rootStore/setIsLoaded", true);
@@ -192,8 +194,7 @@ export default {
 		},
 		changeToken(token) {
 			this.$emit("selected-token", token);
-			this.selected.name = token.name;
-			this.selected.symbol = token.symbol;
+			this.selected = {...token};
 			this.isActive = !this.isActive;
 		},
 		inputMaxBalance() {

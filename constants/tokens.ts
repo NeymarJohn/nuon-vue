@@ -1,5 +1,4 @@
 import { DAI_ADDRESS, HYDRO_ADDRESS, USX_ADDRESS, USDC_ADDRESS, USDT_ADDRESS, USDC_USDT_PAIR_ADDRESS } from "./addresses";
-import paths from "./paths";
 
 export const HX = {
 	address: HYDRO_ADDRESS,
@@ -46,6 +45,33 @@ export const TOKENS_MAP:any = {
 	USDC_USDT_LP_TOKEN
 };
 
+const paths:any =  {
+	USX_USDC: {
+		tokens: [USX.symbol, USDC.symbol],
+		addresses: [USX_ADDRESS, DAI_ADDRESS],
+	},
+	DAI_USX: {
+		tokens: [USDC.symbol, USX.symbol],
+		addresses: [DAI_ADDRESS, USX_ADDRESS]
+	},
+	HX_USDC: {
+		tokens: [HX.symbol, USDC.symbol],
+		addresses: [HYDRO_ADDRESS, DAI_ADDRESS]
+	},
+	USDC_HX: {
+		tokens: [USDC.symbol, HX.symbol],
+		addresses: [DAI_ADDRESS, HYDRO_ADDRESS]
+	},
+	HX_USX: {
+		tokens: [HX.symbol, USDC.symbol, USX.symbol],
+		addresses: [HYDRO_ADDRESS, USDC_ADDRESS, USX_ADDRESS]
+	},
+	USX_HX: {
+		tokesn: [USX.symbol, USDC.symbol, HX.symbol],
+		addresses: [USX_ADDRESS, USDC_ADDRESS, HYDRO_ADDRESS]
+	}
+};
+
 export const getPath = (inputToken:string, outputToken:string) => {
 	let path = paths[`${inputToken}_${outputToken}`];
 	if (!path) path = [TOKENS_MAP[inputToken].address, TOKENS_MAP[outputToken].address];
@@ -58,7 +84,7 @@ export const collateralTokens = [
 	{ "symbol": DAI.symbol, "name": DAI.name, "icon": "Dai.png"  },
 ];
 
-export const swapTokens = [
+export const mainTokens = [
 	{ "symbol": USDC.symbol, "name": USDC.name, "icon": "USDC.png"  },
 	{ "symbol": HX.symbol, "name": HX.name, "icon": "Hydro.png" },
 	{ "symbol": USX.symbol, "name": USX.name, "icon": "USX.png"  },

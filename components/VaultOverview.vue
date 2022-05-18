@@ -2,11 +2,14 @@
 	<div>
 		<h2 class="u-mb-24">Vault Overview</h2>
 		<div class="l-chart l-chart--vault-overview">
-			<TheTabs size="thin" color="light" margin="24">
+			<TheTabs size="thin" color="light">
 				<TheTab title="D">
 					<LayoutFlex>
 						<div class="chart">
-							<LightweightChart />
+							<p>TVL</p>
+							<h1>$6,126,304</h1>
+							<p class="u-colour-white u-mb-16">Apr 14, 2022</p>
+							<LineChart />
 						</div>
 						<div class="chart chart--donut">
 							<p class="u-mb-4">Collateral Distribution</p>

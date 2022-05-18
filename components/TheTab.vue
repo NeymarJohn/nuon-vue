@@ -1,5 +1,5 @@
 <template>
-	<div v-if="isActive" :class="`tabs__body u-mt-${margin}`">
+	<div v-if="isActive" class="tabs__body">
 		<slot />
 	</div>
 </template>
@@ -11,10 +11,6 @@ export default {
 		title: {
 			type: String,
 			default: ""
-		},
-		margin: {
-			type: String,
-			default: "0"
 		}
 	},
 	data() {

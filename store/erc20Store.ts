@@ -22,9 +22,9 @@ type StateType = {
  */
 export const state = (): StateType => ({
 	balance: {
-		USX: "",
-		HX: "",
-		USDC: ""
+		USX: "0",
+		HX: "0",
+		USDC: "0"
 	},
 	decimals: {
 		USX: 18,
@@ -110,14 +110,6 @@ export const getters: GetterTree<Erc20State, Web3State> = {
 	getHydroInfo: (state: any) => state.hydro,
 
 	getUsxInfo: (state: any) => state.usx,
-
-	getName: async (_state: StateType, getters: any, _store: any) => {
-		return await getters.contract.methods.name().call();
-	},
-
-	getSymbol: async (_state: StateType, getters: any, _store: any) => {
-		return await getters.contract.methods.symbol().call();
-	},
 
 	hxBalance: (state: StateType, _getters: any) => {
 		return parseFloat(state.balance.HX);

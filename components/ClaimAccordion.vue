@@ -7,7 +7,7 @@
 						direction="row-center"
 						class="accordion__header"
 						title="Click to open token list" @click="triggerAccordion">
-						<img :src="require(`~/assets/images/tokens/${selected.name}.png`)" alt="Hydro logo">
+						<img :src="require(`~/assets/images/tokens/${selected.icon}`)" alt="Hydro logo">
 						<div class="accordion__token">
 							<h4>{{ selected.symbol }}</h4>
 							<p>{{ selected.name }}</p>
@@ -27,7 +27,7 @@
 					<div class="accordion__tokens">
 						<div v-for="(token, index) in filteredTokens" :key="index" class="token" title="Click to select token" @click="changeToken(token)">
 							<div class="token__wrapper">
-								<img :src="require(`~/assets/images/tokens/${token.name}.png`)" :alt="`${token.name} logo`">
+								<img :src="require(`~/assets/images/tokens/${token.icon}`)" :alt="`${token.name} logo`">
 								<div class="token__body">
 									<h4>{{ token.symbol }}</h4>
 									<h5>{{ token.name }}</h5>
@@ -69,9 +69,8 @@
 <script>
 import ChevronDownIcon from "@/assets/images/svg/svg-chevron-down.svg";
 import ChevronUpIcon from "@/assets/images/svg/svg-chevron-up.svg";
-import TokenData from "@/assets/images/tokens/token-data.json";
 import { fromWei } from "~/utils/bnTools";
-import { HX, USX } from "~/constants/tokens";
+import { HX, mainTokens, USX } from "~/constants/tokens";
 
 export default {
 	name: "ClaimAccordion",
@@ -94,11 +93,11 @@ export default {
 		return {
 			tokenPrice: 0,
 			isActive: false,
-			tokens: TokenData,
 			search: "",
 			selected: {
 				name: "Hydro",
-				symbol: "HX"
+				symbol: "HX",
+				icon: "Hydro.png"
 			},
 			activeStep: 1
 		};
@@ -153,6 +152,9 @@ export default {
 					dollar: this.numberWithCommas(this.getDollarValue(this.claimBalance - this.claimFeeToken , this.tokenPrice).toFixed(2))
 				},
 			];
+		},
+		tokens() {
+			return mainTokens;
 		}
 	},
 	async mounted() {
@@ -171,8 +173,7 @@ export default {
 		},
 		changeToken(token) {
 			this.$emit("selected-token", token);
-			this.selected.name = token.name;
-			this.selected.symbol = token.symbol;
+			this.selected = { ...token };
 			this.isActive = !this.isActive;
 			this.getTokenPrice(token.symbol);
 		},

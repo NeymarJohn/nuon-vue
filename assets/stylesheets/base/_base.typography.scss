@@ -60,16 +60,6 @@ sup {
 	word-break: break-word;
 	word-wrap: break-word;
 }
-h1 sup,
-h3 sup {
-	font-size: $BODY_TEXT;
-}
-h1 sup {
-	top: -$SPACING_20;
-}
-h3 sup {
-	top: -$SPACING_10;
-}
 sup {
 	line-height: $SPACING_21;
 	margin-bottom: 0;
