@@ -182,7 +182,6 @@
 
 <script>
 import { fromWei } from "~/utils/bnTools";
-import { HX, USX } from "~/constants/tokens";
 import GasIcon from "@/assets/images/svg/svg-gas.svg";
 import RefreshIcon from "@/assets/images/svg/svg-refresh.svg";
 import SettingsIcon from "@/assets/images/svg/svg-settings.svg";
