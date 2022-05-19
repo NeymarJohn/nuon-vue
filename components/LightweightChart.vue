@@ -3,9 +3,13 @@
 </template>
 
 <script>
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
 import DayData from "@/assets/json/day-data.json";
 import WeekData from "@/assets/json/week-data.json";
 import MonthData from "@/assets/json/month-data.json";
+
+dayjs.extend(utc);
 
 export default {
 	name: "LightweightChart",
@@ -14,7 +18,8 @@ export default {
 			DayData,
 			WeekData,
 			MonthData,
-			chartData: DayData // Needs to be replaced / removed
+			chartData: DayData, // Needs to be replaced / removed
+			activeTab: "dialy", // "weekly" "mothly"
 		};
 	},
 	mounted() {
@@ -106,7 +111,7 @@ export default {
 		}
 
 		const timePeriod = ["D", "W", "M"];
-
+		let currentInterval = "D";
 		const seriesesData = new Map([
 			["D", this.DayData ],
 			["W", this.WeekData ],
@@ -119,7 +124,9 @@ export default {
 
 		let lineSeries = null;
 
+
 		function getTimePeriod(interval) {
+			currentInterval = interval;
 			if (lineSeries) {
 				chart.removeSeries(lineSeries);
 				lineSeries = null;
@@ -160,11 +167,25 @@ export default {
 			if (param === undefined || param.time === undefined || param.point.x < 0 || param.point.x > 600 || param.point.y < 0 || param.point.y > 300) {
 				getTooltipValue();
 			} else {
-				dateStr = `
-					${getMonthName(param.time.month)}
-					${param.time.day},
-					${param.time.year}
-				`;
+				const now = dayjs();
+				const time = param?.time;
+				const timeString = dayjs(time.year + "-" + time.month + "-" + time.day).format("YYYY-MM-DD");
+				const formattedTime = dayjs(timeString).format("MMM D");
+				const formattedTimeDaily = dayjs(timeString).format("MMM D YYYY");
+				const formattedTimePlusWeek = dayjs(timeString).add(1, "week");
+				const formattedTimePlusMonth = dayjs(timeString).add(1, "month");
+
+				if (currentInterval === "W") {
+					const isCurrent = formattedTimePlusWeek.isAfter(now);
+					dateStr = formattedTime + "-" + (isCurrent ? "current" : formattedTimePlusWeek.format("MMM D, YYYY"));
+				} else if (currentInterval === "M") {
+					const isCurrent = formattedTimePlusMonth.isAfter(now);
+					dateStr = formattedTime + "-" + (isCurrent ? "current" : formattedTimePlusMonth.format("MMM D, YYYY"));
+				} else {
+					dateStr = formattedTimeDaily;
+				}
+				
+				
 				const price = param.seriesPrices.get(lineSeries);
 				tooltip.innerHTML =	`
 					<p>TVL</p>
