@@ -1,5 +1,7 @@
 <template>
-	<div id="lineChart" class="chart__container"></div>
+	<div>
+		<div id="lineChart"></div>
+	</div>
 </template>
 
 <script>
@@ -29,13 +31,8 @@ export default {
 				textColor: "#B7B7B7",
 				background: {
 					type: "solid",
-					color: "#3A3A3E",
+					color: "#3A3A3E"
 				}
-			},
-			localization: {
-				priceFormatter: (price) => {
-					return formatPrice(price);
-				},
 			},
 			rightPriceScale: {
 				scaleMargins: {
@@ -46,7 +43,6 @@ export default {
 			},
 			timeScale: {
 				borderVisible: false,
-				barSpacing: 18,
 			},
 			grid: {
 				horzLines: {
@@ -57,17 +53,14 @@ export default {
 				},
 			},
 			crosshair: {
-				horzLine: {
-					visible: false,
-					labelVisible: false,
+  			horzLine: {
+      		visible: false,
+					labelVisible: false
 				},
 				vertLine: {
-					visible: true,
-					style: 0,
-					width: 1,
-					color: "#B7B7B7",
+      		visible: false,
 					labelVisible: false,
-				},
+				}
 			},
 		};
 
@@ -117,7 +110,8 @@ export default {
 
 		container.prepend(timePeriodToggle);
 
-		let lineSeries = null;
+		// eslint-disable-next-line
+		var lineSeries = null;
 
 		function getTimePeriod(interval) {
 			if (lineSeries) {
@@ -140,7 +134,8 @@ export default {
 			return monthName;
 		}
 
-		let dateStr = `
+		// eslint-disable-next-line
+		var dateStr = `
 			${getMonthName(data[data.length - 1].time.month)}
 			${data[data.length - 1].time.day},
 			${data[data.length - 1].time.year}
@@ -149,7 +144,7 @@ export default {
 		function getTooltipValue() {
 			tooltip.innerHTML =	`
 				<p>TVL</p>
-				<h1>$${numberWithCommas(data[data.length - 1].value)}</h1>
+				<h1>$${data[data.length - 1].value}</h1>
 				<p class="u-colour-white u-mb-16">${dateStr}</p>
 			`;
 		}
@@ -168,30 +163,12 @@ export default {
 				const price = param.seriesPrices.get(lineSeries);
 				tooltip.innerHTML =	`
 					<p>TVL</p>
-					<h1>$${numberWithCommas((Math.round(price * 100) / 100).toFixed(2))}</h1>
+					<h1>$${(Math.round(price * 100) / 100).toFixed(2)}</h1>
 					<p class="u-colour-white u-mb-16">${dateStr}</p>
 				`;
 			}
 
 		});
-
-		function numberWithCommas (x) {
-			if (!x) return 0;
-			return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-		}
-
-		function formatPrice(num) {
-			if (Math.abs(num) < 1000) {
-				 return parseFloat(num.toFixed(1));
-			}
-			else if (Math.abs(num) < 1000000) {
-				return parseFloat((num / 1000).toFixed(1)) + "K"; // convert to K for number from > 1000 < 1 million
-			} else if (Math.abs(num) < 1000000000) {
-				return parseFloat((num / 1000000).toFixed(1)) + "M"; // convert to M for number from > 1 million
-			} else {
-				return parseFloat((num / 1000000000).toFixed(1)) + "B"; // convert to M for number from > 1 billion
-			}
-		}
 	},
 };
 </script>

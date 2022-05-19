@@ -1,36 +1,12 @@
 import { Token } from "@pancakeswap/sdk";
-import { TokenInfo, Tags } from "@uniswap/token-lists";
+import BigNumber from "bignumber.js";
+import { SerializedToken, WrappedTokenInfo } from "~/constants/pancakeswap/types";
 
-interface SerializedToken {
-  chainId: number
-  address: string
-  decimals: number
-  symbol?: string
-  name?: string
-  projectLink?: string
-  logoURI?: string
-}
-
-type TagDetails = Tags[keyof Tags]
-export interface TagInfo extends TagDetails {
-  id: string
-}
-
-class WrappedTokenInfo extends Token {
-	public readonly tokenInfo: TokenInfo;
-
-	public readonly tags: TagInfo[];
-
-	constructor(tokenInfo: TokenInfo, tags: TagInfo[]) {
-		super(tokenInfo.chainId, tokenInfo.address, tokenInfo.decimals, tokenInfo.symbol, tokenInfo.name);
-		this.tokenInfo = tokenInfo;
-		this.tags = tags;
-	}
-
-	public get logoURI(): string | undefined {
-		return this.tokenInfo.logoURI;
-	}
-}
+export const BIG_TEN = new BigNumber(10);
+export const BIG_ZERO = new BigNumber(0);
+export const BIG_ONE = new BigNumber(1);
+export const BIG_TWO = new BigNumber(2);
+export const BIG_NINE = new BigNumber(9);
 
 export function serializeToken(token: Token): SerializedToken {
 	return {

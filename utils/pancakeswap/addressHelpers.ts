@@ -1,10 +1,11 @@
 import { ChainId } from "@pancakeswap/sdk";
+import { Address } from "~/constants/pancakeswap/types";
 import addresses from "~/constants/pancakeswap/contracts";
 import { CHAIN_ID } from "~/constants/pancakeswap/networks";
 
-export const getAddress = (address: Record<number, string>): string => {
+export const getAddress = (address: Address): string | undefined => {
 	const chainId = parseInt(CHAIN_ID);
-	return address[chainId] ? address[chainId] : address[ChainId.MAINNET];
+	return address[chainId as keyof typeof address] ? address[chainId as keyof typeof address] : address[ChainId.MAINNET];
 };
 
 export const getMasterChefAddress = () => {
