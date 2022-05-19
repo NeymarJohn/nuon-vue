@@ -34,10 +34,28 @@
 					</div>
 				</div>
 				<div class="chart chart--donut">
-					<p class="u-mb-4">Total claimable rewards</p>
-					<h1>1,233.00<sup>HX</sup></h1>
-					<h5>$12,343.34</h5>
-					<DonutChart class="u-mb-24" />
+					<LayoutFlex class="u-mb-16" direction="column">
+						<p class="u-mb-4">Total claimable rewards</p>
+						<h1 class="u-mb-4">1,233.00<sup>HX</sup></h1>
+						<h5>$12,343.34</h5>
+					</LayoutFlex>
+					<LayoutFlex direction="row-start-space-between">
+						<TheLoader component="donut-claimable" class="u-mb-24 u-full-width u-mr-24">
+							<DonutChart />
+						</TheLoader>
+						<LayoutFlex direction="column">
+							<LayoutFlex class="u-mb-8" direction="column">
+								<p class="u-mb-8"><TheBadge class="u-mr-4" color="key badge--light-green" /> Staked Rewards</p>
+								<h1 class="u-mb-8">234.00<sup>HX</sup></h1>
+								<TheButton title="Click to start claiming">Start Claiming</TheButton>
+							</LayoutFlex>
+							<LayoutFlex direction="column">
+								<p class="u-mb-8"><TheBadge class="u-mr-4" color="key badge--orange" /> Burned Token Rewards</p>
+								<h1 class="u-mb-8">999.00<sup>HX</sup></h1>
+								<TheButton title="Click to start claiming">Start Claiming</TheButton>
+							</LayoutFlex>
+						</LayoutFlex>
+					</LayoutFlex>
 				</div>
 			</LayoutFlex>
 		</div>
