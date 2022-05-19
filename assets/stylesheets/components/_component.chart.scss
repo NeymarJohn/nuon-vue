@@ -1,6 +1,7 @@
 /* #COMPONENT - CHART
 		1. Chart default
-		2. Chart responsive
+		2. Chart token price
+		3. Chart responsive
 */
 
 // 1. Chart default
@@ -15,6 +16,26 @@
 	align-items: center;
 	color: $LIGHT_GREY;
 	margin-bottom: 0;
+}
+.chart__overview {
+	display: flex;
+	flex-direction: column;
+}
+
+// 2. Chart token price
+.chart--token-price .tabs {
+	position: relative;
+}
+.chart--token-price .tabs:first-child {
+	padding-top: $SPACING_43;
+}
+.chart--token-price .tabs__header {
+	position: absolute;
+	top: -$SPACING_96;
+	right: 0;
+}
+.chart--token-price .u-mb-absolute {
+	top: -$SPACING_34;
 }
 
 // 2. Chart responsive
