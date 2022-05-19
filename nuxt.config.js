@@ -85,7 +85,9 @@ export default {
 	},
 	publicRuntimeConfig: {
 		blockExplorerUrl: "http://13.251.9.172:4000/",
-		infuraId: "0b78809457cf4190a7919f375644dd9b"
+		infuraId: "0b78809457cf4190a7919f375644dd9b",
+		bscscanUrl: "https://bscscan.com",
+		pancakeswapUrl: "https://pancakeswap.finance"
 	},
 	generate: {
 		async routes() {

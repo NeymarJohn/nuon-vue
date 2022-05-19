@@ -1,10 +1,10 @@
 <template>
 	<div class="farms-table">
 		<div class="farms-table__row" @click="clicked(idx)">
-			<h4 class="u-width-20 u-full-width-sm u-mb-sm-8">{{ item.name }}</h4>
+			<h4 class="u-width-20 u-full-width-sm u-mb-sm-8">{{ item.lpSymbol }}</h4>
 			<div class="farms-table__cell">
 				<p>Earned</p>
-				<h4>{{ item.earned }}</h4>
+				<h4>{{ item.earnings }}</h4>
 			</div>
 			<div class="farms-table__cell">
 				<p>APR</p>
@@ -12,16 +12,16 @@
 			</div>
 			<div class="farms-table__cell">
 				<p>Liquidity</p>
-				<h4>${{ numberWithCommas(item.liquidity) }}</h4>
+				<h4>${{ fromWei(noExponents(item.lpTotalSupply)) }}</h4>
 			</div>
 			<div class="farms-table__cell">
 				<p>Multiplier</p>
-				<h4>{{ item.multiplier }}x</h4>
+				<h4>{{ item.multiplier }}</h4>
 			</div>
-			<ChevronDown v-if="!item.viewMore" class="chevron-down" />
+			<ChevronDown v-if="!viewMore" class="chevron-down" />
 			<ChevronUp v-else />
 		</div>
-		<div v-if="item.viewMore" class="farms-table__details">
+		<div v-if="viewMore" class="farms-table__details">
 			<div class="farms-table__earned">
 				<div>
 					<p>Cake earned</p>
@@ -34,9 +34,9 @@
 			</div>
 			<LayoutFlex class="u-flex-1 u-full-width-sm u-mb-sm-24" direction="column-start">
 				<a title="Click to get LP token" :href="item.addLPLink">
-					Get {{ item.name }} LP <ExternalLinkIcon />
+					Get {{ item.lpSymbol }} <ExternalLinkIcon />
 				</a>
-				<a title="Click to view contract" :href="item.contractAddress">
+				<a title="Click to view contract" :href="item.lpAddressLink">
 					View Contract <ExternalLinkIcon />
 				</a>
 				<a title="Click to see pair information" :href="item.poolInfo">
@@ -69,6 +69,10 @@ export default {
 		},
 		idx: {
 			type: Number,
+			required: true
+		},
+		viewMore: {
+			type: Boolean,
 			required: true
 		}
 	},

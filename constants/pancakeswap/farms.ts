@@ -1,6 +1,6 @@
 import { serializeTokens } from "./tokens";
 import { SerializedFarmConfig } from "./types";
-import { CHAIN_ID } from "./networks";
+import { BSC_CHAIN_ID } from "./networks";
 
 const serializedTokens = serializeTokens();
 
@@ -1096,6 +1096,6 @@ const farmsConfig: SerializedFarmConfig[] = [
 		token: serializedTokens.ada,
 		quoteToken: serializedTokens.wbnb,
 	},
-].filter((f) => !!f.lpAddresses[CHAIN_ID]);
+].filter((f) => !!f.lpAddresses[BSC_CHAIN_ID]);
 
 export default farmsConfig;

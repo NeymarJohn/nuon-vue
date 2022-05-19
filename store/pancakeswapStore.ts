@@ -38,8 +38,8 @@ export const mutations: MutationTree<PancakeSwapStore> = {
 };
 
 export const actions: ActionTree<PancakeSwapStore, PancakeSwapStore> = {
-	initialize(_ctx:any) {
-		// ctx.dispatch("pollFarmsWithUserData");
+	initialize(ctx:any) {
+		ctx.dispatch("pollFarmsWithUserData");
 	},
 
 	async multiCall(ctx: any, { abi, calls }) {

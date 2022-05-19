@@ -1,1 +1,1 @@
-export const CHAIN_ID = "56";
+export const BSC_CHAIN_ID = "56";

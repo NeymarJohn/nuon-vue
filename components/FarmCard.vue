@@ -1,13 +1,13 @@
 <template>
 	<div class="farms-card">
-		<h4 class="u-mb-24 u-mb-md-20">{{ item.name }}</h4>
+		<h4 class="u-mb-24 u-mb-md-20">{{ item.lpSymbol }}</h4>
 		<LayoutFlex direction="row-center-space-between">
 			<p class="u-mb-0 u-colour-light-grey">APR:</p>
 			<h4>{{ item.apr }}%</h4>
 		</LayoutFlex>
 		<LayoutFlex class="u-mb-16" direction="row-center-space-between">
 			<p class="u-mb-0 u-colour-light-grey">Earn:</p>
-			<h4>{{ item.earned }}</h4>
+			<h4>HYDRO + FEES</h4>
 		</LayoutFlex>
 		<div class="farms-card__earned">
 			<div class="farms-card__text">
@@ -25,19 +25,19 @@
 			direction="row-center-space-between"
 			@click="viewMoreClicked(idx)">
 			<h5 class="u-colour-light-grey">Details</h5>
-			<ChevronDown v-if="!item.viewMore" class="chevron-down" />
+			<ChevronDown v-if="!viewMore" class="chevron-down" />
 			<ChevronUp v-else />
 		</LayoutFlex>
-		<div v-if="item.viewMore" class="farm-card__details">
+		<div v-if="viewMore" class="farm-card__details">
 			<LayoutFlex class="u-bb-light-grey u-mb-16 u-pb-16" direction="row-center-space-between">
 				<p class="u-mb-0 u-colour-light-grey">Total Liquidity:</p>
 				<h4>${{ numberWithCommas(item.liquidity) }}</h4>
 			</LayoutFlex>
 			<LayoutFlex direction="column-start">
 				<a title="Click to get LP token" :href="item.addLPLink">
-					Get {{ item.name }} LP <ExternalLinkIcon />
+					Get {{ item.lpSymbol }} <ExternalLinkIcon />
 				</a>
-				<a title="Click to view contract" :href="item.contractAddress">
+				<a title="Click to view contract" :href="item.lpAddressLink">
 					View Contract <ExternalLinkIcon />
 				</a>
 				<a title="Click to see pair information" :href="item.poolInfo">
@@ -69,6 +69,10 @@ export default {
 		},
 		idx: {
 			type: Number,
+			required: true
+		},
+		viewMore: {
+			type: Boolean,
 			required: true
 		}
 	},

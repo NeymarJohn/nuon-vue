@@ -40,10 +40,11 @@
 				:class="[isTableView && 'l-flex--column-wrap']">
 				<component
 					:is="isTableView ? 'FarmTable' : 'FarmCard'"
-					v-for="(item, idx) in sortedFarms"
+					v-for="(item, idx) in searchedFarms.slice(0, 10 * page)"
 					:key="idx"
 					:item="item"
 					:idx="idx"
+					:view-more="viewMoreArray[idx]"
 					@viewMoreClicked="handleViewMore"
 				/>
 				<div v-observe-visibility="handleScroll"></div>
@@ -56,6 +57,7 @@
 import { ObserveVisibility } from "vue-observe-visibility";
 import CardViewIcon from "~/assets/images/svg/svg-card-view.svg";
 import TableViewIcon from "~/assets/images/svg/svg-table-view.svg";
+import { BSC_CHAIN_ID } from "~/constants/pancakeswap/networks.ts";
 
 export default {
 	name: "TheFarms",
@@ -73,18 +75,7 @@ export default {
 			isTableView: false,
 			page: 0,
 			filterOption: "Hot",
-			farms: [{name: "CAKE-BNB", earned: 0.25, apr: 1, liquidity: 250000000, multiplier: 2, viewMore: false, addLPLink: "https://pancakeswap.finance/add/BNB/0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82", contractAddress: "https://bscscan.com/address/0x0eD7e52944161450477ee417DE9Cd3a859b14fD0", poolInfo: "https://pancakeswap.finance/info/pool/0x0eD7e52944161450477ee417DE9Cd3a859b14fD0"},
-				{name: "BUSD-BNB", earned: 0.37, apr: 2, liquidity: 250000000, multiplier: 5, viewMore: false, addLPLink: "https://pancakeswap.finance/add/BNB/0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82", contractAddress: "https://bscscan.com/address/0x0eD7e52944161450477ee417DE9Cd3a859b14fD0", poolInfo: "https://pancakeswap.finance/info/pool/0x0eD7e52944161450477ee417DE9Cd3a859b14fD0"},
-				{name: "TINC-BNB", earned: 0.23, apr: 3, liquidity: 250000000, multiplier: 8, viewMore: false, addLPLink: "https://pancakeswap.finance/add/BNB/0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82", contractAddress: "https://bscscan.com/address/0x0eD7e52944161450477ee417DE9Cd3a859b14fD0", poolInfo: "https://pancakeswap.finance/info/pool/0x0eD7e52944161450477ee417DE9Cd3a859b14fD0"},
-				{name: "HOTCROSS-BNB", earned: 0.45, apr: 4, liquidity: 250000000, multiplier: 1, viewMore: false, addLPLink: "https://pancakeswap.finance/add/BNB/0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82", contractAddress: "https://bscscan.com/address/0x0eD7e52944161450477ee417DE9Cd3a859b14fD0", poolInfo: "https://pancakeswap.finance/info/pool/0x0eD7e52944161450477ee417DE9Cd3a859b14fD0"},
-				{name: "CAKE-BNB", earned: 0, apr: 5, liquidity: 250000000, multiplier: 3, viewMore: false, addLPLink: "https://pancakeswap.finance/add/BNB/0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82", contractAddress: "https://bscscan.com/address/0x0eD7e52944161450477ee417DE9Cd3a859b14fD0", poolInfo: "https://pancakeswap.finance/info/pool/0x0eD7e52944161450477ee417DE9Cd3a859b14fD0"},
-				{name: "BUSD-BNB", earned: 0, apr: 6, liquidity: 250000000, multiplier: 7, viewMore: false, addLPLink: "https://pancakeswap.finance/add/BNB/0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82", contractAddress: "https://bscscan.com/address/0x0eD7e52944161450477ee417DE9Cd3a859b14fD0", poolInfo: "https://pancakeswap.finance/info/pool/0x0eD7e52944161450477ee417DE9Cd3a859b14fD0"},
-				{name: "TINC-BNB", earned: 0.39, apr: 7, liquidity: 250000000, multiplier: 6, viewMore: false, addLPLink: "https://pancakeswap.finance/add/BNB/0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82", contractAddress: "https://bscscan.com/address/0x0eD7e52944161450477ee417DE9Cd3a859b14fD0", poolInfo: "https://pancakeswap.finance/info/pool/0x0eD7e52944161450477ee417DE9Cd3a859b14fD0"},
-				{name: "HOTCROSS-BNB", earned: 0.12, apr: 8, liquidity: 250000000, multiplier: 2, viewMore: false, addLPLink: "https://pancakeswap.finance/add/BNB/0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82", contractAddress: "https://bscscan.com/address/0x0eD7e52944161450477ee417DE9Cd3a859b14fD0", poolInfo: "https://pancakeswap.finance/info/pool/0x0eD7e52944161450477ee417DE9Cd3a859b14fD0"},
-				{name: "CAKE-BNB", earned: 0.67, apr: 9, liquidity: 250000000, multiplier: 9, viewMore: false, addLPLink: "https://pancakeswap.finance/add/BNB/0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82", contractAddress: "https://bscscan.com/address/0x0eD7e52944161450477ee417DE9Cd3a859b14fD0", poolInfo: "https://pancakeswap.finance/info/pool/0x0eD7e52944161450477ee417DE9Cd3a859b14fD0"},
-				{name: "BUSD-BNB", earned: 0.69, apr: 10, liquidity: 250000000, multiplier: 5, viewMore: false, addLPLink: "https://pancakeswap.finance/add/BNB/0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82", contractAddress: "https://bscscan.com/address/0x0eD7e52944161450477ee417DE9Cd3a859b14fD0", poolInfo: "https://pancakeswap.finance/info/pool/0x0eD7e52944161450477ee417DE9Cd3a859b14fD0"},
-				{name: "TINC-BNB", earned: 0.85, apr: 11, liquidity: 250000000, multiplier: 20, viewMore: false, addLPLink: "https://pancakeswap.finance/add/BNB/0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82", contractAddress: "https://bscscan.com/address/0x0eD7e52944161450477ee417DE9Cd3a859b14fD0", poolInfo: "https://pancakeswap.finance/info/pool/0x0eD7e52944161450477ee417DE9Cd3a859b14fD0"},
-				{name: "HOTCROSS-BNB", earned: 0.14, apr: 12, liquidity: 250000000, multiplier: 10, viewMore: false, addLPLink: "https://pancakeswap.finance/add/BNB/0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82", contractAddress: "https://bscscan.com/address/0x0eD7e52944161450477ee417DE9Cd3a859b14fD0", poolInfo: "https://pancakeswap.finance/info/pool/0x0eD7e52944161450477ee417DE9Cd3a859b14fD0"}]
+			viewMoreArray: new Array(200).fill(false)
 		};
 	},
 	head () {
@@ -93,14 +84,46 @@ export default {
 		};
 	},
 	computed: {
-		sortedFarms() {
-			return this.sortFarms();
-		},
 		searchedFarms() {
 			const trimmedSearch = this.search.trim();
-			if (trimmedSearch === "") return this.farms;
-			return this.farms.filter(f => f.name.toLowerCase().includes(trimmedSearch.toLowerCase()));
+			if (trimmedSearch === "") return this.farmsAggData;
+			return this.farmsAggData.filter(f => f.lpSymbol.toLowerCase().includes(trimmedSearch.toLowerCase()));
+		},
+		farms() {
+			return this.$store.state.pancakeswapStore.farmsPublicData;
+		},
+		farmsUserData() {
+			return this.$store.state.pancakeswapStore.farmsUserData;
+		},
+		farmsAggData() {
+			if (this.farms.length === 0) return [];
+			// combining the farm and user data
+			const pidToUserData = this.farmsUserData.reduce((acc, val) => {acc[val.pid] = val; return acc;}, {});
+			const aggData = this.farms[0].map(f => {
+				const lpAddress = f.lpAddresses[BSC_CHAIN_ID];
+				const lpAddressLink = `${this.$config.bscscanUrl}/address/${f.lpAddress}`;
+				const addLPLink = `${this.$config.pancakeswapUrl}/add/${f.token.address}/${f.quoteToken.address}`;
+				const poolInfo = `${this.$config.pancakeswapUrl}/info/pool/${lpAddress}`;
+				return { type: "pancakeswap", ...f, ...pidToUserData[f.pid], lpAddress, lpAddressLink, addLPLink, poolInfo};
+			});
+			return aggData;
 		}
+	},
+	watch: {
+		searchedFarms(newValue) {
+			if (newValue) this.viewMoreArray = new Array(newValue.length).fill(false);
+		},
+		filterOption(newValue) {
+			if (newValue === "APR") {
+				this.searchedFarms.sort((a, b) => b.apr - a.apr);
+			} else if (newValue === "Multiplier") {
+				this.searchedFarms.sort((a, b) => b.multiplier - a.multiplier);
+			} else if (newValue === "Earned") {
+				this.searchedFarms.sort((a, b) => b.earned - a.earned);
+			} else if (newValue === "Liquidity") {
+				this.searchedFarms.sort((a, b) => b.liquidity - a.liquidity);
+			}
+		},
 	},
 	methods: {
 		toggleCardView() {
@@ -111,28 +134,12 @@ export default {
 			this.isCardView = false;
 			this.isTableView = true;
 		},
-		getFarms() {
-			this.farms.push(...this.farms);
-		},
 		handleScroll(isVisible) {
 			if(!isVisible) return true;
 			this.page++;
-			this.farms.push(...this.farms);
 		},
 		handleViewMore(idx) {
-			this.farms[idx].viewMore = !this.farms[idx].viewMore;
-		},
-		sortFarms() {
-			if (this.filterOption === "APR") {
-				return this.searchedFarms.sort((a, b) => b.apr - a.apr);
-			} else if (this.filterOption === "Multiplier") {
-				return this.searchedFarms.sort((a, b) => b.multiplier - a.multiplier);
-			} else if (this.filterOption === "Earned") {
-				return this.searchedFarms.sort((a, b) => b.earned - a.earned);
-			} else if (this.filterOption === "Liquidity") {
-				return this.searchedFarms.sort((a, b) => b.liquidity - a.liquidity);
-			}
-			return this.searchedFarms;
+			this.$set(this.viewMoreArray, idx, !this.viewMoreArray[idx]);
 		},
 	}
 };
