@@ -6,11 +6,11 @@
 				<TheTab title="HX">
 					<LayoutFlex>
 						<div class="chart">
-							<p>Market Cap</p>
+							<p>Market Cap <TheBadge color="price-down" class="u-ml-8">-1.79%</TheBadge></p>
 							<h3 class="u-mb-48">$39,887,462</h3>
-							<p>Circulating Supply</p>
+							<p>Circulating Supply <TheBadge color="price-up" class="u-ml-8">+1.79%</TheBadge></p>
 							<h3 class="u-mb-48">$12,343,334.34</h3>
-							<p>Price</p>
+							<p>Price <TheBadge color="price-up" class="u-ml-8">+1.79%</TheBadge></p>
 							<h3>1.03<sup>HX</sup></h3>
 						</div>
 						<div class="chart chart--token-price">

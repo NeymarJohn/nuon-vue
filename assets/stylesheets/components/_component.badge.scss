@@ -5,7 +5,8 @@
 		4. Badge yellow
 		5. Badge green
 		6. Badge balance
-		7. Badge responsive
+		7. Badge price change
+		8. Badge responsive
 */
 
 // 1. Badge default
@@ -49,7 +50,24 @@
 	border-radius: $BORDER_RADIUS_8;
 }
 
-// 7. Badge responsive
+// 7. Badge price change
+.badge--price-up,
+.badge--price-down {
+	background: $DARK_GREY;
+	padding: $SPACING_1 $SPACING_16;
+	border-radius: $BORDER_RADIUS_24;
+	border: 1px solid;
+}
+.badge--price-up {
+	border-color: $SUCCESS;
+	color: $SUCCESS;
+}
+.badge--price-down {
+	border-color: $ERROR;
+	color: $ERROR;
+}
+
+// 8. Badge responsive
 @media screen and (max-width: $SPACING_1440) {
 	.badge {
 		font-size: $BODY_TEXT_XS;
