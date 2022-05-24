@@ -11,7 +11,7 @@
 						<div class="chart chart--donut">
 							<p class="u-mb-4">Collateral Distribution</p>
 							<p class="u-colour-white u-mb-16">Apr 14, 2022</p>
-							<DonutChart class="u-mb-24" />
+							<DonutChartCollateral class="u-mb-24" />
 							<p>APY <TooltipIcon v-tooltip="'Enter APY tooltip content here.'" /></p>
 							<h3 class="u-mb-24">Inflation 34.3%</h3>
 							<p>Collateralization Ratio<TooltipIcon v-tooltip="'Enter collateralization ratio tooltip content here.'" /></p>
@@ -30,7 +30,7 @@
 						<div class="chart chart--donut">
 							<p class="u-mb-4">Collateral Distribution</p>
 							<p class="u-colour-white u-mb-16">Apr 10, 2022 - Apr 16, 2022</p>
-							<DonutChart class="u-mb-24" />
+							<DonutChartCollateral class="u-mb-24" />
 							<p>APY <TooltipIcon v-tooltip="'Enter APY tooltip content here.'" /></p>
 							<h3 class="u-mb-24">Inflation 34.3%</h3>
 							<p>Collateralization Ratio<TooltipIcon v-tooltip="'Enter collateralization ratio tooltip content here.'" /></p>
@@ -49,7 +49,7 @@
 						<div class="chart chart--donut">
 							<p class="u-mb-4">Collateral Distribution</p>
 							<p class="u-colour-white u-mb-16">Apr 10, 2022 - May 10, 2022</p>
-							<DonutChart class="u-mb-24" />
+							<DonutChartCollateral class="u-mb-24" />
 							<p>APY <TooltipIcon v-tooltip="'Enter APY tooltip content here.'" /></p>
 							<h3 class="u-mb-24">Inflation 34.3%</h3>
 							<p>Collateralization Ratio<TooltipIcon v-tooltip="'Enter collateralization ratio tooltip content here.'" /></p>

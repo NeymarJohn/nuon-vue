@@ -6,7 +6,7 @@
 <script>
 
 export default {
-	name: "DonutChart",
+	name: "DonutChartCollateral",
 	data() {
 		return {
 			series: [44, 55, 41, 17, 15],
