@@ -19,10 +19,11 @@
 					@filter-select="onFilterChange" />
 			</div>
 			<TransactionTable
+				v-if="tableData"
 				size="7"
 				aria="Vault minted transactions"
-				:columns="['Token Type', 'Amount', 'Minted', 'Fees', 'Final Amount', 'Date', 'TX Status']"
-				:rows="['HX', '200.00HX', '3,456.00USX', '5%', '1,900.95HX', '2022-04-05 22:34:50', 'Success']" />
+				:data="tableData"
+				:config="config" />
 		</TheTab>
 		<TheTab title="Redeem" margin="-54">
 			<div class="tabs__filter">
@@ -43,10 +44,11 @@
 					@filter-select="onFilterChange" />
 			</div>
 			<TransactionTable
+				v-if="tableData"
 				size="7"
 				aria="Vault redeemed transactions"
-				:columns="['Token Type', 'Amount', 'Minted', 'Fees', 'Final Amount', 'Date', 'TX Status']"
-				:rows="['HX', '200.00HX', '3,456.00USX', '5%', '1,900.95HX', '2022-04-05 22:34:50', 'Success']" />
+				:data="tableData"
+				:config="config" />
 		</TheTab>
 	</TheTabs>
 </template>
@@ -57,7 +59,44 @@ export default {
 	data() {
 		return {
 			filterOption: "All",
+			tableData: [],
+			config: [
+				{
+					id: "tokenType",
+					title: "Token Type"
+				},
+				{
+					id: "amount",
+					title: "Amount"
+				},
+				{
+					id: "minted",
+					title: "Minted"
+				},
+				{
+					id: "fees",
+					title: "Fees"
+				},
+				{
+					id: "finalAmount",
+					title: "Final Amount"
+				},
+				{
+					id: "date",
+					title: "Date",
+				},
+				{
+					id: "status",
+					title: "TX Status"
+				}
+			]
 		};
 	},
+	mounted() {
+		this.$axios.get("https://628c722ba3fd714fd0322bbd.mockapi.io/users")
+			.then(({data}) => {
+				this.tableData = data;
+			});
+	}
 };
 </script>

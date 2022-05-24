@@ -13,10 +13,11 @@
 				@filter-select="onFilterChange" />
 		</div>
 		<TransactionTable
+			v-if="tableData"
 			size="8"
 			aria="Swap transactions"
-			:columns="['From', 'To', 'Max Slippage', 'Min. Received', 'Price Impace', 'Fees', 'Date', 'TX Status']"
-			:rows="['200.00HX', '0.0439.00ETH', '0.5%', '0.0345.03ETH', '0.02%', '5%', '2022-04-05 22:34:50', 'Success']" />
+			:data="tableData"
+			:config="config" />
 	</div>
 </template>
 
@@ -26,7 +27,48 @@ export default {
 	data() {
 		return {
 			filterOption: "All",
+			tableData: [],
+			config: [
+				{
+					id: "from",
+					title: "From"
+				},
+				{
+					id: "to",
+					title: "To"
+				},
+				{
+					id: "slippage",
+					title: "Max Slippage"
+				},
+				{
+					id: "received",
+					title: "Min. Received"
+				},
+				{
+					id: "priceImpact",
+					title: "Price Impact"
+				},
+				{
+					id: "fees",
+					title: "Fees",
+				},
+				{
+					id: "date",
+					title: "Date",
+				},
+				{
+					id: "status",
+					title: "TX Status"
+				}
+			]
 		};
 	},
+	mounted() {
+		this.$axios.get("https://628c722ba3fd714fd0322bbd.mockapi.io/users")
+			.then(({data}) => {
+				this.tableData = data;
+			});
+	}
 };
 </script>

@@ -2,17 +2,20 @@
 	<div :class="`transaction-table transaction-table--${size}`" role="table" :aria-label="aria">
 		<div class="transaction-table__row" role="rowgroup">
 			<div
-				v-for="(column, index) in columns"
+				v-for="(column, index) in config"
 				:key="index"
 				class="transaction-table__cell"
-				role="columnheader">{{ column }}</div>
+				role="columnheader">{{ column.title }}</div>
 		</div>
-		<div class="transaction-table__row" role="rowgroup">
+		<div v-for="(row, index) in data" :key="index" class="transaction-table__row" role="rowgroup">
 			<div
-				v-for="(row, index) in rows"
-				:key="index"
+				v-for="(obj, idx) in config"
+				:key="idx"
 				class="transaction-table__cell"
-				role="cell">{{ row }}</div>
+				role="cell">
+				<span v-if="obj.id === 'date'">{{ new Date(row[obj.id]).toLocaleDateString() }}</span>
+				<span v-else>{{ row[obj.id] }}</span>
+			</div>
 		</div>
 	</div>
 </template>
@@ -21,13 +24,13 @@
 export default {
 	name: "TransactionTable",
 	props: {
-		columns: {
+		data: {
 			type: Array,
-			required: true,
+			required: true
 		},
-		rows: {
+		config: {
 			type: Array,
-			required: true,
+			required: true
 		},
 		aria: {
 			type: String,
@@ -37,6 +40,6 @@ export default {
 			type: String,
 			required: true
 		}
-	}
+	},
 };
 </script>
