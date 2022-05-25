@@ -17,6 +17,13 @@
 				<span v-else>{{ row[obj.id] }}</span>
 			</div>
 		</div>
+		<ThePagination
+			:max-visible-buttons="10"
+			:total-pages="11"
+			:total="113"
+			:per-page="10"
+			:current-page="currentPage"
+			@pagechanged="onPageChange" />
 	</div>
 </template>
 
@@ -41,5 +48,15 @@ export default {
 			required: true
 		}
 	},
+	data() {
+		return {
+			currentPage: 1
+		};
+	},
+	methods: {
+		onPageChange(page) {
+			this.currentPage = page;
+		}
+	}
 };
 </script>

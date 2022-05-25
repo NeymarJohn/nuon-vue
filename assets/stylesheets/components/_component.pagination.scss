@@ -1,0 +1,42 @@
+/* #COMPONENT - PAGINATION
+		1. Pagination default
+		2. Pagination responsive
+*/
+
+// 1. Pagination default
+.pagination {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	margin-bottom: 0;
+	margin-top: $SPACING_40;
+}
+.pagination .btn {
+	transform: none;
+	padding: $SPACING_10 $SPACING_13;
+	color: $LIGHT_GREY;
+}
+.pagination .btn[disabled],
+.pagination .btn[disabled]:hover {
+	background: $TRANSPARENT;
+	color: $DARK_GREY;
+}
+.pagination .btn[disabled] svg path,
+.pagination .btn[disabled]:hover svg path {
+	fill: $DARK_GREY;
+}
+.pagination .btn.active {
+	color: $DARK_GREY;
+}
+.pagination .btn:hover {
+	background: $DARK_GREY;
+	color: $LIME;
+}
+.pagination .btn svg path {
+	fill: $LIGHT_GREY;
+	transition: $TRANSITION_ALL;
+}
+.pagination .btn:hover svg path {
+	fill: $LIME;
+}
