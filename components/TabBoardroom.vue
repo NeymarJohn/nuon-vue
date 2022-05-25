@@ -1,6 +1,6 @@
 <template>
 	<TheTabs size="thin" color="dark" margin="0">
-		<TheTab title="Stake" margin="-54">
+		<TheTab title="Staked" margin="-54">
 			<div class="tabs__filter">
 				<TheSelect
 					:options="['Partially', 'Exit']"
@@ -19,12 +19,13 @@
 					@filter-select="onFilterChange" />
 			</div>
 			<TransactionTable
+				v-if="users"
 				size="6"
-				aria="Boardroom stake transactions"
-				:columns="['Token Type', 'Amount', 'Fees', 'Final Amount', 'Date', 'TX Status']"
-				:rows="['HX', '200.00USX', '5%', '1,900.95HX', '2022-04-05 22:34:50', 'Success']" />
+				aria="Boardroom staked transactions"
+				:data="users"
+				:config="boardroomStakedConfig" />
 		</TheTab>
-		<TheTab title="Unstake" margin="-54">
+		<TheTab title="Unstaked" margin="-54">
 			<div class="tabs__filter">
 				<TheSelect
 					:options="['Partially', 'Exit']"
@@ -43,12 +44,13 @@
 					@filter-select="onFilterChange" />
 			</div>
 			<TransactionTable
+				v-if="users"
 				size="8"
-				aria="Boardroom unstake transactions"
-				:columns="['Token Type', 'Amount', 'Reward Tokens', 'Reward Amount', 'Fees', 'Final Amount', 'Date', 'TX Status']"
-				:rows="['HX', '200.00USX', 'TNODE', '23.00 TNODE', '5%', '$130.45', '2022-04-05 22:34:50', 'Success']" />
+				aria="Boardroom unstaked transactions"
+				:data="users"
+				:config="boardroomUnstakedConfig" />
 		</TheTab>
-		<TheTab title="Proposal" margin="-54">
+		<TheTab title="Proposals" margin="-54">
 			<div class="tabs__filter">
 				<TheSelect
 					:options="['All', 'Active', 'Pending', 'Closed']"
@@ -67,10 +69,11 @@
 					@filter-select="onFilterChange" />
 			</div>
 			<TransactionTable
+				v-if="users"
 				size="5"
-				aria="Boardroom proposal transactions"
-				:columns="['Proposal Name', 'Start Date', 'Amount', 'Status', 'TX Status']"
-				:rows="['Should the Treasury Management and Diversification', '2022-04-05 22:34:50', '10.00HX', 'Pending', 'Success']" />
+				aria="Boardroom proposals transactions"
+				:data="users"
+				:config="boardroomProposalsConfig" />
 		</TheTab>
 		<TheTab title="Votes" margin="-54">
 			<div class="tabs__filter">
@@ -86,10 +89,11 @@
 					@filter-select="onFilterChange" />
 			</div>
 			<TransactionTable
+				v-if="users"
 				size="5"
-				aria="Boardroom vote transactions"
-				:columns="['Proposal Name', 'Choice', 'Block Number', 'Voting Power', 'TX Status']"
-				:rows="['Should the Treasury Management and Diversification', 'Yes', '15,343,345', '23.5%', 'Success']" />
+				aria="Boardroom votes transactions"
+				:data="users"
+				:config="boardroomVotesConfig" />
 		</TheTab>
 	</TheTabs>
 </template>
@@ -97,10 +101,22 @@
 <script>
 export default {
 	name: "TabBoardroom",
-	data() {
-		return {
-			filterOption: "All",
-		};
+	computed: {
+		boardroomStakedConfig() {
+			return this.$store.state.transactionStore.boardroomStakedConfig;
+		},
+		boardroomUnstakedConfig() {
+			return this.$store.state.transactionStore.boardroomUnstakedConfig;
+		},
+		boardroomProposalsConfig() {
+			return this.$store.state.transactionStore.boardroomProposalsConfig;
+		},
+		boardroomVotesConfig() {
+			return this.$store.state.transactionStore.boardroomVotesConfig;
+		},
+	},
+	mounted() {
+		this.$store.dispatch("transactionStore/loadUsers");
 	},
 };
 </script>

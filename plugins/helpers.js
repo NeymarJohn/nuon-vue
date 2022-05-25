@@ -45,6 +45,9 @@ Vue.mixin({
 		},
 		tokenBalances() {
 			return this.$store.state.erc20Store.balance;
+		},
+		users() {
+			return this.$store.state.transactionStore.users;
 		}
 	},
 	methods: {

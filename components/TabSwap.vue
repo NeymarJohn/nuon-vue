@@ -13,62 +13,24 @@
 				@filter-select="onFilterChange" />
 		</div>
 		<TransactionTable
-			v-if="tableData"
+			v-if="users"
 			size="8"
 			aria="Swap transactions"
-			:data="tableData"
-			:config="config" />
+			:data="users"
+			:config="swapConfig" />
 	</div>
 </template>
 
 <script>
 export default {
 	name: "TabSwap",
-	data() {
-		return {
-			filterOption: "All",
-			tableData: [],
-			config: [
-				{
-					id: "from",
-					title: "From"
-				},
-				{
-					id: "to",
-					title: "To"
-				},
-				{
-					id: "slippage",
-					title: "Max Slippage"
-				},
-				{
-					id: "received",
-					title: "Min. Received"
-				},
-				{
-					id: "priceImpact",
-					title: "Price Impact"
-				},
-				{
-					id: "fees",
-					title: "Fees",
-				},
-				{
-					id: "date",
-					title: "Date",
-				},
-				{
-					id: "status",
-					title: "TX Status"
-				}
-			]
-		};
+	computed: {
+		swapConfig() {
+			return this.$store.state.transactionStore.swapConfig;
+		},
 	},
 	mounted() {
-		this.$axios.get("https://628c722ba3fd714fd0322bbd.mockapi.io/users")
-			.then(({data}) => {
-				this.tableData = data;
-			});
-	}
+		this.$store.dispatch("transactionStore/loadUsers");
+	},
 };
 </script>

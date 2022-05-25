@@ -19,11 +19,11 @@
 					@filter-select="onFilterChange" />
 			</div>
 			<TransactionTable
-				v-if="tableData"
+				v-if="users"
 				size="7"
 				aria="Vault minted transactions"
-				:data="tableData"
-				:config="config" />
+				:data="users"
+				:config="mintedConfig" />
 		</TheTab>
 		<TheTab title="Redeem" margin="-54">
 			<div class="tabs__filter">
@@ -44,11 +44,11 @@
 					@filter-select="onFilterChange" />
 			</div>
 			<TransactionTable
-				v-if="tableData"
+				v-if="users"
 				size="7"
 				aria="Vault redeemed transactions"
-				:data="tableData"
-				:config="config" />
+				:data="users"
+				:config="redeemedConfig" />
 		</TheTab>
 	</TheTabs>
 </template>
@@ -56,47 +56,16 @@
 <script>
 export default {
 	name: "TabVault",
-	data() {
-		return {
-			filterOption: "All",
-			tableData: [],
-			config: [
-				{
-					id: "tokenType",
-					title: "Token Type"
-				},
-				{
-					id: "amount",
-					title: "Amount"
-				},
-				{
-					id: "minted",
-					title: "Minted"
-				},
-				{
-					id: "fees",
-					title: "Fees"
-				},
-				{
-					id: "finalAmount",
-					title: "Final Amount"
-				},
-				{
-					id: "date",
-					title: "Date",
-				},
-				{
-					id: "status",
-					title: "TX Status"
-				}
-			]
-		};
+	computed: {
+		mintedConfig() {
+			return this.$store.state.transactionStore.mintedConfig;
+		},
+		redeemedConfig() {
+			return this.$store.state.transactionStore.redeemedConfig;
+		}
 	},
 	mounted() {
-		this.$axios.get("https://628c722ba3fd714fd0322bbd.mockapi.io/users")
-			.then(({data}) => {
-				this.tableData = data;
-			});
+		this.$store.dispatch("transactionStore/loadUsers");
 	}
 };
 </script>

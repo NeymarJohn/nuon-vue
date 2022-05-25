@@ -1,6 +1,6 @@
 <template>
 	<TheTabs size="thin" color="dark" margin="0">
-		<TheTab title="Stake HX" margin="-54">
+		<TheTab title="Staked HX" margin="-54">
 			<div class="tabs__filter">
 				<TheSelect
 					:options="['All', 'USX', 'HX', 'USDC']"
@@ -19,12 +19,13 @@
 					@filter-select="onFilterChange" />
 			</div>
 			<TransactionTable
+				v-if="users"
 				size="6"
 				aria="Staked HX reward transactions"
-				:columns="['Reward Token', 'Reward Amount', 'Fees', 'Total Claimed', 'Date', 'TX Status']"
-				:rows="['TNODE', '200.00TNode', '5%', '1,900.95TNode', '2022-04-05 22:34:50', 'Success']" />
+				:data="users"
+				:config="stakedHxConfig" />
 		</TheTab>
-		<TheTab title="Burn HX" margin="-54">
+		<TheTab title="Burnt HX" margin="-54">
 			<div class="tabs__filter">
 				<TheSelect
 					:options="['All', 'USX', 'HX', 'USDC']"
@@ -43,10 +44,11 @@
 					@filter-select="onFilterChange" />
 			</div>
 			<TransactionTable
+				v-if="users"
 				size="7"
-				aria="Burned HX reward transactions"
-				:columns="['Reward Token', 'Reward Amount', 'Claim Ratio', 'Fees', 'Total Claimed', 'Date', 'TX Status']"
-				:rows="['TNODE', '200.00TNode', '20%', '5%', '1,900.95TNode', '2022-04-05 22:34:50', 'Success']" />
+				aria="Burnt HX reward transactions"
+				:data="users"
+				:config="burntHxConfig" />
 		</TheTab>
 	</TheTabs>
 </template>
@@ -54,10 +56,16 @@
 <script>
 export default {
 	name: "TabRewards",
-	data() {
-		return {
-			filterOption: "All",
-		};
+	computed: {
+		stakedHxConfig() {
+			return this.$store.state.transactionStore.stakedHxConfig;
+		},
+		burntHxConfig() {
+			return this.$store.state.transactionStore.burntHxConfig;
+		},
+	},
+	mounted() {
+		this.$store.dispatch("transactionStore/loadUsers");
 	},
 };
 </script>

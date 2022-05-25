@@ -14,10 +14,11 @@
 					@filter-select="onFilterChange" />
 			</div>
 			<TransactionTable
+				v-if="users"
 				size="6"
 				aria="Stability zone above peg transactions"
-				:columns="['Token Type', 'Amount', 'Fees', 'Final Amount', 'Date', 'TX Status']"
-				:rows="['HX', '200.00HX', '5%', '1,900.95HX', '2022-04-05 22:34:50', 'Success']" />
+				:data="users"
+				:config="stabilityZoneConfig" />
 		</TheTab>
 		<TheTab title="Below Peg" margin="-54">
 			<div class="tabs__filter">
@@ -33,10 +34,11 @@
 					@filter-select="onFilterChange" />
 			</div>
 			<TransactionTable
+				v-if="users"
 				size="6"
 				aria="Stability zone below peg transactions"
-				:columns="['Token Type', 'Amount', 'Fees', 'Final Amount', 'Date', 'TX Status']"
-				:rows="['USX', '200.00USX', '5%', '1,900.95USX', '2022-04-05 22:34:50', 'Success']" />
+				:data="users"
+				:config="stabilityZoneConfig" />
 		</TheTab>
 	</TheTabs>
 </template>
@@ -44,10 +46,13 @@
 <script>
 export default {
 	name: "TabStabilityZone",
-	data() {
-		return {
-			filterOption: "All",
-		};
+	computed: {
+		stabilityZoneConfig() {
+			return this.$store.state.transactionStore.stabilityZoneConfig;
+		},
+	},
+	mounted() {
+		this.$store.dispatch("transactionStore/loadUsers");
 	},
 };
 </script>

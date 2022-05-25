@@ -5,9 +5,9 @@
 				<h4>Dashboard</h4>
 				<h1>Nuon Protocol Information</h1>
 			</PageTitle>
-			<NuxtLink class="btn btn--lg btn--user" to="/my-page" title="Click to view my page">
+			<NuxtLink class="btn btn--lg btn--user" to="/my-transactions" title="Click to view my page">
 				<UserIcon />
-				My Page
+				My Transactions
 			</NuxtLink>
 		</LayoutFlex>
 		<VaultOverview />

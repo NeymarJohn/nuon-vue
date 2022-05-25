@@ -10,10 +10,10 @@
 		</li>
 		<li>
 			<NuxtLink
-				to="/my-page"
+				to="/my-transactions"
 				title="Click to visit My Page"
-				:class="{'active-link': isRouteActive('/my-page')}">
-				<DashboardIcon /> My Page
+				:class="{'active-link': isRouteActive('/my-transactions')}">
+				<DashboardIcon /> My Transactions
 			</NuxtLink>
 		</li>
 		<li>
