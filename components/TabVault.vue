@@ -3,11 +3,6 @@
 		<TheTab title="Mint" margin="-54">
 			<div class="tabs__filter">
 				<TheSelect
-					:options="['All', 'USX', 'HX', 'USDC']"
-					:default="'All'"
-					label="Token"
-					@filter-select="onFilterChange" />
-				<TheSelect
 					:options="['Past 7 Days', 'Past 30 Days', 'Past 90 Days']"
 					:default="'Past 7 Days'"
 					label="Date"
@@ -28,11 +23,6 @@
 		</TheTab>
 		<TheTab title="Redeem" margin="-54">
 			<div class="tabs__filter">
-				<TheSelect
-					:options="['All', 'USX', 'HX', 'USDC']"
-					:default="'All'"
-					label="Token"
-					@filter-select="onFilterChange" />
 				<TheSelect
 					:options="['Past 7 Days', 'Past 30 Days', 'Past 90 Days']"
 					:default="'Past 7 Days'"

@@ -3,11 +3,6 @@
 		<TheTab title="Staked" margin="-54">
 			<div class="tabs__filter">
 				<TheSelect
-					:options="['Partially', 'Exit']"
-					:default="'Partially'"
-					label="Withdraw Type"
-					@filter-select="onFilterChange" />
-				<TheSelect
 					:options="['Past 7 Days', 'Past 30 Days', 'Past 90 Days']"
 					:default="'Past 7 Days'"
 					label="Date"
@@ -29,11 +24,6 @@
 		<TheTab title="Unstaked" margin="-54">
 			<div class="tabs__filter">
 				<TheSelect
-					:options="['Partially', 'Exit']"
-					:default="'Partially'"
-					label="Withdraw Type"
-					@filter-select="onFilterChange" />
-				<TheSelect
 					:options="['Past 7 Days', 'Past 30 Days', 'Past 90 Days']"
 					:default="'Past 7 Days'"
 					label="Date"
@@ -54,11 +44,6 @@
 		</TheTab>
 		<TheTab title="Proposals" margin="-54">
 			<div class="tabs__filter">
-				<TheSelect
-					:options="['All', 'Active', 'Pending', 'Closed']"
-					:default="'All'"
-					label="Status"
-					@filter-select="onFilterChange" />
 				<TheSelect
 					:options="['Past 7 Days', 'Past 30 Days', 'Past 90 Days']"
 					:default="'Past 7 Days'"
