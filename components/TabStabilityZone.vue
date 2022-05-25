@@ -13,12 +13,13 @@
 					label="Status"
 					@filter-select="onFilterChange" />
 			</div>
-			<TransactionTable
-				v-if="users"
-				size="6"
-				aria="Stability zone above peg transactions"
-				:data="users"
-				:config="stabilityZoneConfig" />
+			<TheLoader component="table">
+				<TransactionTable
+					size="6"
+					aria="Stability zone above peg transactions"
+					:data="users"
+					:config="stabilityZoneConfig" />
+			</TheLoader>
 		</TheTab>
 		<TheTab title="Below Peg" margin="-54">
 			<div class="tabs__filter">
@@ -33,12 +34,13 @@
 					label="Status"
 					@filter-select="onFilterChange" />
 			</div>
-			<TransactionTable
-				v-if="users"
-				size="6"
-				aria="Stability zone below peg transactions"
-				:data="users"
-				:config="stabilityZoneConfig" />
+			<TheLoader component="table">
+				<TransactionTable
+					size="6"
+					aria="Stability zone below peg transactions"
+					:data="users"
+					:config="stabilityZoneConfig" />
+			</TheLoader>
 		</TheTab>
 	</TheTabs>
 </template>
@@ -53,6 +55,7 @@ export default {
 	},
 	mounted() {
 		this.$store.dispatch("transactionStore/loadUsers");
+		this.$store.commit("rootStore/setIsLoaded", true);
 	},
 };
 </script>

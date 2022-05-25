@@ -18,12 +18,13 @@
 					label="TX Status"
 					@filter-select="onFilterChange" />
 			</div>
-			<TransactionTable
-				v-if="users"
-				size="6"
-				aria="Boardroom staked transactions"
-				:data="users"
-				:config="boardroomStakedConfig" />
+			<TheLoader component="table">
+				<TransactionTable
+					size="6"
+					aria="Boardroom staked transactions"
+					:data="users"
+					:config="boardroomStakedConfig" />
+			</TheLoader>
 		</TheTab>
 		<TheTab title="Unstaked" margin="-54">
 			<div class="tabs__filter">
@@ -43,12 +44,13 @@
 					label="TX Status"
 					@filter-select="onFilterChange" />
 			</div>
-			<TransactionTable
-				v-if="users"
-				size="8"
-				aria="Boardroom unstaked transactions"
-				:data="users"
-				:config="boardroomUnstakedConfig" />
+			<TheLoader component="table">
+				<TransactionTable
+					size="8"
+					aria="Boardroom unstaked transactions"
+					:data="users"
+					:config="boardroomUnstakedConfig" />
+			</TheLoader>
 		</TheTab>
 		<TheTab title="Proposals" margin="-54">
 			<div class="tabs__filter">
@@ -68,12 +70,13 @@
 					label="TX Status"
 					@filter-select="onFilterChange" />
 			</div>
-			<TransactionTable
-				v-if="users"
-				size="5"
-				aria="Boardroom proposals transactions"
-				:data="users"
-				:config="boardroomProposalsConfig" />
+			<TheLoader component="table">
+				<TransactionTable
+					size="5"
+					aria="Boardroom proposals transactions"
+					:data="users"
+					:config="boardroomProposalsConfig" />
+			</TheLoader>
 		</TheTab>
 		<TheTab title="Votes" margin="-54">
 			<div class="tabs__filter">
@@ -88,12 +91,13 @@
 					label="TX Status"
 					@filter-select="onFilterChange" />
 			</div>
-			<TransactionTable
-				v-if="users"
-				size="5"
-				aria="Boardroom votes transactions"
-				:data="users"
-				:config="boardroomVotesConfig" />
+			<TheLoader component="table">
+				<TransactionTable
+					size="5"
+					aria="Boardroom votes transactions"
+					:data="users"
+					:config="boardroomVotesConfig" />
+			</TheLoader>
 		</TheTab>
 	</TheTabs>
 </template>
@@ -117,6 +121,7 @@ export default {
 	},
 	mounted() {
 		this.$store.dispatch("transactionStore/loadUsers");
+		this.$store.commit("rootStore/setIsLoaded", true);
 	},
 };
 </script>

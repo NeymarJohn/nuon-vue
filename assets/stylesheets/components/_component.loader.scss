@@ -10,7 +10,8 @@
 		9. Loader inline list
 		10. Loader badge
 		11. Loader donut
-		12. Loader responsive
+		12. Loader table
+		13. Loader responsive
 */
 
 // 1. Loader default
@@ -124,7 +125,12 @@
 	height: $SPACING_320;
 }
 
-// 12. Loader responsive
+// 12. Loader table
+.loader--table {
+	height: $SPACING_375;
+}
+
+// 13. Loader responsive
 @media screen and (max-width: $SPACING_1440) {
 	.loader--h1 {
 		width: $SPACING_190;

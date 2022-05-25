@@ -18,12 +18,13 @@
 					label="Status"
 					@filter-select="onFilterChange" />
 			</div>
-			<TransactionTable
-				v-if="users"
-				size="6"
-				aria="Staked HX reward transactions"
-				:data="users"
-				:config="stakedHxConfig" />
+			<TheLoader component="table">
+				<TransactionTable
+					size="6"
+					aria="Staked HX reward transactions"
+					:data="users"
+					:config="stakedHxConfig" />
+			</TheLoader>
 		</TheTab>
 		<TheTab title="Burnt HX" margin="-54">
 			<div class="tabs__filter">
@@ -43,12 +44,13 @@
 					label="Status"
 					@filter-select="onFilterChange" />
 			</div>
-			<TransactionTable
-				v-if="users"
-				size="7"
-				aria="Burnt HX reward transactions"
-				:data="users"
-				:config="burntHxConfig" />
+			<TheLoader component="table">
+				<TransactionTable
+					size="7"
+					aria="Burnt HX reward transactions"
+					:data="users"
+					:config="burntHxConfig" />
+			</TheLoader>
 		</TheTab>
 	</TheTabs>
 </template>
@@ -66,6 +68,7 @@ export default {
 	},
 	mounted() {
 		this.$store.dispatch("transactionStore/loadUsers");
+		this.$store.commit("rootStore/setIsLoaded", true);
 	},
 };
 </script>

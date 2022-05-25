@@ -18,12 +18,13 @@
 					label="Status"
 					@filter-select="onFilterChange" />
 			</div>
-			<TransactionTable
-				v-if="users"
-				size="7"
-				aria="Vault minted transactions"
-				:data="users"
-				:config="mintedConfig" />
+			<TheLoader component="table">
+				<TransactionTable
+					size="7"
+					aria="Vault minted transactions"
+					:data="users"
+					:config="mintedConfig" />
+			</TheLoader>
 		</TheTab>
 		<TheTab title="Redeem" margin="-54">
 			<div class="tabs__filter">
@@ -43,12 +44,13 @@
 					label="Status"
 					@filter-select="onFilterChange" />
 			</div>
-			<TransactionTable
-				v-if="users"
-				size="7"
-				aria="Vault redeemed transactions"
-				:data="users"
-				:config="redeemedConfig" />
+			<TheLoader component="table">
+				<TransactionTable
+					size="7"
+					aria="Vault redeemed transactions"
+					:data="users"
+					:config="redeemedConfig" />
+			</TheLoader>
 		</TheTab>
 	</TheTabs>
 </template>
@@ -66,6 +68,7 @@ export default {
 	},
 	mounted() {
 		this.$store.dispatch("transactionStore/loadUsers");
+		this.$store.commit("rootStore/setIsLoaded", true);
 	}
 };
 </script>

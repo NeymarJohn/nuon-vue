@@ -12,12 +12,13 @@
 				label="Status"
 				@filter-select="onFilterChange" />
 		</div>
-		<TransactionTable
-			v-if="users"
-			size="8"
-			aria="Swap transactions"
-			:data="users"
-			:config="swapConfig" />
+		<TheLoader component="table">
+			<TransactionTable
+				size="8"
+				aria="Swap transactions"
+				:data="users"
+				:config="swapConfig" />
+		</TheLoader>
 	</div>
 </template>
 
@@ -31,6 +32,7 @@ export default {
 	},
 	mounted() {
 		this.$store.dispatch("transactionStore/loadUsers");
+		this.$store.commit("rootStore/setIsLoaded", true);
 	},
 };
 </script>
