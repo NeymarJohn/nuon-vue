@@ -136,6 +136,12 @@ Vue.mixin({
 		onFilterChange(o) {
 			this.filterOption = o;
 		},
+		onDateFilterChange(o) {
+			this.dateFilter = o;
+		},
+		onStatusFilterChange(o) {
+			this.statusFilter = o;
+		},
 		noExponents(exponent) {
 			const data = exponent.split(/[eE]/);
 			if (data.length === 1) return data[0];

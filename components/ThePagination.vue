@@ -78,10 +78,6 @@ export default {
 			type: Number,
 			required: true
 		},
-		total: {
-			type: Number,
-			required: true
-		},
 		perPage: {
 			type: Number,
 			required: true

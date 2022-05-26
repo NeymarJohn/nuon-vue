@@ -19,8 +19,7 @@
 		</div>
 		<ThePagination
 			:max-visible-buttons="10"
-			:total-pages="11"
-			:total="113"
+			:total-pages="Math.ceil(data.length / 10)"
 			:per-page="10"
 			:current-page="currentPage"
 			@pagechanged="onPageChange" />
