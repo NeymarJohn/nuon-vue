@@ -48,7 +48,10 @@ Vue.mixin({
 		},
 		users() {
 			return this.$store.state.transactionStore.users;
-		}
+		},
+		transactionConfig() {
+			return this.$store.state.transactionStore.transactionConfig;
+		},
 	},
 	methods: {
 		numberWithCommas (x) {
@@ -135,6 +138,9 @@ Vue.mixin({
 		},
 		onFilterChange(o) {
 			this.filterOption = o;
+		},
+		onDateFilterChange(o) {
+			this.dateFilter = o;
 		},
 		noExponents(exponent) {
 			const data = exponent.split(/[eE]/);

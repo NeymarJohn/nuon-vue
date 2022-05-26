@@ -3,58 +3,64 @@
 		<TheTab title="Staked HX" margin="-54">
 			<div class="tabs__filter">
 				<TheSelect
-					:options="['Past 7 Days', 'Past 30 Days', 'Past 90 Days']"
-					:default="'Past 7 Days'"
-					label="Date"
-					@filter-select="onFilterChange" />
-				<TheSelect
-					:options="['All', 'Active', 'Pending', 'Closed']"
+					:options="['All', 'Past 7 Days', 'Past 30 Days', 'Past 90 Days']"
 					:default="'All'"
-					label="Status"
-					@filter-select="onFilterChange" />
+					label="Date"
+					@filter-select="onDateFilterChange" />
 			</div>
 			<TheLoader component="table">
 				<TransactionTable
-					size="6"
+					size="4"
 					aria="Staked HX reward transactions"
-					:data="users"
-					:config="stakedHxConfig" />
+					:data="filteredData"
+					:config="transactionConfig" />
 			</TheLoader>
 		</TheTab>
 		<TheTab title="Burnt HX" margin="-54">
 			<div class="tabs__filter">
 				<TheSelect
-					:options="['Past 7 Days', 'Past 30 Days', 'Past 90 Days']"
-					:default="'Past 7 Days'"
-					label="Date"
-					@filter-select="onFilterChange" />
-				<TheSelect
-					:options="['All', 'Active', 'Pending', 'Closed']"
+					:options="['All', 'Past 7 Days', 'Past 30 Days', 'Past 90 Days']"
 					:default="'All'"
-					label="Status"
-					@filter-select="onFilterChange" />
+					label="Date"
+					@filter-select="onDateFilterChange" />
 			</div>
 			<TheLoader component="table">
 				<TransactionTable
-					size="7"
+					size="4"
 					aria="Burnt HX reward transactions"
-					:data="users"
-					:config="burntHxConfig" />
+					:data="filteredData"
+					:config="transactionConfig" />
 			</TheLoader>
 		</TheTab>
 	</TheTabs>
 </template>
 
 <script>
+import dayjs from "dayjs";
+
 export default {
 	name: "TabRewards",
+	data() {
+		return {
+			dateFilter: "",
+			statusFilter: ""
+		};
+	},
 	computed: {
-		stakedHxConfig() {
-			return this.$store.state.transactionStore.stakedHxConfig;
-		},
-		burntHxConfig() {
-			return this.$store.state.transactionStore.burntHxConfig;
-		},
+		filteredData() {
+			let data = this.users;
+
+			if (this.dateFilter) {
+				const days = parseInt(this.dateFilter.split(" ")[1]);
+				data = data.filter(d => new Date(d.date) > new Date(dayjs().subtract(days, "day").$d));
+			}
+
+			if (this.statusFilter) {
+				data = data.filter(d => d.txStatus === this.statusFilter);
+			}
+
+			return data;
+		}
 	},
 	mounted() {
 		this.$store.dispatch("transactionStore/loadUsers");

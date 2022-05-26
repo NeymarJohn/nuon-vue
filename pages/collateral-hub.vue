@@ -3,7 +3,7 @@
 		<LayoutContainer>
 			<LayoutFlex class="u-mb-48 l-flex-column-start-sm" direction="row-center-space-between">
 				<PageTitle>
-					<h4>Collateral Vault</h4>
+					<h4>Collateral Hub</h4>
 					<h1>My Assets</h1>
 				</PageTitle>
 				<NuxtLink class="btn btn--md" to="/swap?outputToken=HX" title="Click to buy HX">Buy HX</NuxtLink>
@@ -96,7 +96,7 @@ export default {
 	},
 	head () {
 		return {
-			title: "Collateral Vault | Nuon"
+			title: "Collateral Hub | Nuon"
 		};
 	},
 	computed: {

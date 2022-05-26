@@ -7,7 +7,7 @@
 				class="transaction-table__cell"
 				role="columnheader">{{ column.title }}</div>
 		</div>
-		<div v-for="(row, index) in data" :key="index" class="transaction-table__row" role="rowgroup">
+		<div v-for="(row, index) in data.slice((currentPage - 1) * 10, currentPage * 10)" :key="index" class="transaction-table__row" role="rowgroup">
 			<div
 				v-for="(obj, idx) in config"
 				:key="idx"
@@ -19,8 +19,7 @@
 		</div>
 		<ThePagination
 			:max-visible-buttons="10"
-			:total-pages="11"
-			:total="113"
+			:total-pages="Math.ceil(data.length / 10)"
 			:per-page="10"
 			:current-page="currentPage"
 			@pagechanged="onPageChange" />

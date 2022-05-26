@@ -3,57 +3,63 @@
 		<TheTab title="Mint" margin="-54">
 			<div class="tabs__filter">
 				<TheSelect
-					:options="['Past 7 Days', 'Past 30 Days', 'Past 90 Days']"
-					:default="'Past 7 Days'"
-					label="Date"
-					@filter-select="onFilterChange" />
-				<TheSelect
-					:options="['All', 'Active', 'Pending', 'Closed']"
+					:options="['All', 'Past 7 Days', 'Past 30 Days', 'Past 90 Days']"
 					:default="'All'"
-					label="Status"
-					@filter-select="onFilterChange" />
+					label="Date"
+					@filter-select="onDateFilterChange" />
 			</div>
 			<TheLoader component="table">
 				<TransactionTable
-					size="7"
+					size="4"
 					aria="Vault minted transactions"
-					:data="users"
-					:config="mintedConfig" />
+					:data="filteredData"
+					:config="transactionConfig" />
 			</TheLoader>
 		</TheTab>
 		<TheTab title="Redeem" margin="-54">
 			<div class="tabs__filter">
 				<TheSelect
-					:options="['Past 7 Days', 'Past 30 Days', 'Past 90 Days']"
-					:default="'Past 7 Days'"
-					label="Date"
-					@filter-select="onFilterChange" />
-				<TheSelect
-					:options="['All', 'Active', 'Pending', 'Closed']"
+					:options="['All', 'Past 7 Days', 'Past 30 Days', 'Past 90 Days']"
 					:default="'All'"
-					label="Status"
-					@filter-select="onFilterChange" />
+					label="Date"
+					@filter-select="onDateFilterChange" />
 			</div>
 			<TheLoader component="table">
 				<TransactionTable
-					size="7"
+					size="4"
 					aria="Vault redeemed transactions"
-					:data="users"
-					:config="redeemedConfig" />
+					:data="filteredData"
+					:config="transactionConfig" />
 			</TheLoader>
 		</TheTab>
 	</TheTabs>
 </template>
 
 <script>
+import dayjs from "dayjs";
+
 export default {
 	name: "TabVault",
+	data() {
+		return {
+			dateFilter: "",
+			statusFilter: ""
+		};
+	},
 	computed: {
-		mintedConfig() {
-			return this.$store.state.transactionStore.mintedConfig;
-		},
-		redeemedConfig() {
-			return this.$store.state.transactionStore.redeemedConfig;
+		filteredData() {
+			let data = this.users;
+
+			if (this.dateFilter) {
+				const days = parseInt(this.dateFilter.split(" ")[1]);
+				data = data.filter(d => new Date(d.date) > new Date(dayjs().subtract(days, "day").$d));
+			}
+
+			if (this.statusFilter) {
+				data = data.filter(d => d.txStatus === this.statusFilter);
+			}
+
+			return data;
 		}
 	},
 	mounted() {
