@@ -48,13 +48,6 @@
 .nav .active-link svg rect {
 	stroke: $LIME;
 }
-.nav .active-link svg.menu-stability-zone path {
-	fill: $LIME;
-	stroke: $TRANSPARENT;
-}
-.nav .active-link path.menu-stability-zone-stroke {
-	stroke: $LIME !important;
-}
 .nav .active-link svg.menu-farm path,
 .nav .active-link svg.menu-swap path {
 	fill: $LIME;

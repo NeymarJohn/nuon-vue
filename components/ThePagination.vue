@@ -23,12 +23,12 @@
 		<li v-for="(page, index) in pages" :key="index">
 			<TheButton
 				size="icon"
-				:title="`Click to view page ${page}`"
-				:aria-label="`Go to page number ${page}`"
+				:title="`Click to view page ${page.name}`"
+				:aria-label="`Go to page number ${page.name}`"
 				:disabled="page.isDisabled"
-				:class="{ active: isPageActive(page) }"
-				@click="getCurrentPage(page)">
-				{{ page }}
+				:class="{ active: isPageActive(page.name) }"
+				@click="getCurrentPage(page.name)">
+				{{ page.name }}
 			</TheButton>
 		</li>
 		<li>
@@ -78,6 +78,10 @@ export default {
 			type: Number,
 			required: true
 		},
+		total: {
+			type: Number,
+			required: true
+		},
 		perPage: {
 			type: Number,
 			required: true
@@ -88,25 +92,27 @@ export default {
 		},
 	},
 	computed: {
-		pages() {
-			const minPages = this.totalPages < this.maxVisibleButtons ? this.totalPages : this.maxVisibleButtons;
-			let buttons = new Array(minPages).fill(0);
-
-			if (this.currentPage < minPages) { // number is either on start or end or in between range
-				buttons[0] = 1;
-				buttons.forEach((_, i) => {
-					if (i !== 0) buttons[i] = buttons[i - 1] + 1;
-				});
-			} else { // number is on end
-				buttons[0] = this.currentPage;
-				buttons.forEach((_, i) => {
-					if (i !== 0) buttons[i] = buttons[i - 1] - 1;
-				});
-
-				buttons = buttons.reverse();
+		startPage() {
+			if (this.currentPage === 1) {
+				return 1;
 			}
-
-			return buttons;
+			if (this.currentPage === this.totalPages) {
+				return this.totalPages - this.maxVisibleButtons + 1;
+			}
+			return this.currentPage - 1;
+		},
+		endPage() {
+			return Math.min(this.startPage + this.maxVisibleButtons - 1, this.totalPages);
+		},
+		pages() {
+			const range = [];
+			for (let i = this.startPage; i <= this.endPage; i+= 1 ) {
+				range.push({
+					name: i,
+					isDisabled: i === this.currentPage
+				});
+			}
+			return range;
 		},
 		isFirstPage() {
 			return this.currentPage === 1;
