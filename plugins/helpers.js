@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Web3 from "web3";
+import dayjs from "dayjs";
 
 Vue.mixin({
 	filters: {
@@ -52,6 +53,16 @@ Vue.mixin({
 		transactionConfig() {
 			return this.$store.state.transactionStore.transactionConfig;
 		},
+		filteredData() {
+			let data = this.users;
+
+			if (this.dateFilter) {
+				const days = parseInt(this.dateFilter.split(" ")[1]);
+				data = data.filter(d => new Date(d.date) > new Date(dayjs().subtract(days, "day").$d));
+			}
+
+			return data;
+		}
 	},
 	methods: {
 		numberWithCommas (x) {
