@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Web3 from "web3";
+import dayjs from "dayjs";
 
 Vue.mixin({
 	filters: {
@@ -48,6 +49,22 @@ Vue.mixin({
 		},
 		users() {
 			return this.$store.state.transactionStore.users;
+		},
+		transactionConfig() {
+			return this.$store.state.transactionStore.transactionConfig;
+		},
+		dateFilterComputed() {
+			return this.$store.state.transactionStore.dateFilter;
+		},
+		filteredData() {
+			let data = this.users;
+
+			if (this.dateFilterComputed && this.dateFilterComputed !== "All") {
+				const days = parseInt(this.dateFilterComputed.split(" ")[1]);
+				data = data.filter(d => new Date(d.date) > new Date(dayjs().subtract(days, "day").$d));
+			}
+
+			return data;
 		}
 	},
 	methods: {
@@ -135,6 +152,9 @@ Vue.mixin({
 		},
 		onFilterChange(o) {
 			this.filterOption = o;
+		},
+		onDateFilterChange(o) {
+			this.$store.commit("transactionStore/setDateFilter", o);
 		},
 		noExponents(exponent) {
 			const data = exponent.split(/[eE]/);

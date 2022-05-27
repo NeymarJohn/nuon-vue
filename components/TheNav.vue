@@ -18,10 +18,18 @@
 		</li>
 		<li>
 			<NuxtLink
-				to="/collateral-vault"
-				title="Click to visit the Collateral Vault"
-				:class="{'active-link': isRouteActive('/collateral-vault')}">
-				<CollateralVaultIcon /> Collateral Vault
+				to="/collateral-hub"
+				title="Click to visit the Collateral Hub"
+				:class="{'active-link': isRouteActive('/collateral-hub')}">
+				<CollateralVaultIcon /> Collateral Hub
+			</NuxtLink>
+		</li>
+		<li>
+			<NuxtLink
+				to="/stability-zone"
+				title="Click to visit the Stability Zone"
+				:class="{'active-link': isRouteActive('/stability-zone')}">
+				<StabilityZoneIcon /> Stability Zone
 			</NuxtLink>
 		</li>
 		<li>
@@ -56,6 +64,7 @@
 import ExternalLinkIcon from "@/assets/images/svg/svg-external-link.svg";
 import DashboardIcon from "@/assets/images/svg/svg-menu-dashboard.svg";
 import FarmIcon from "@/assets/images/svg/svg-menu-farm.svg";
+import StabilityZoneIcon from "@/assets/images/svg/svg-menu-stability-zone.svg";
 import BoardroomIcon from "@/assets/images/svg/svg-menu-boardroom.svg";
 import CollateralVaultIcon from "@/assets/images/svg/svg-menu-collateral-vault.svg";
 import SwapIcon from "@/assets/images/svg/svg-menu-swap.svg";
@@ -67,6 +76,7 @@ export default {
 		ExternalLinkIcon,
 		DashboardIcon,
 		FarmIcon,
+		StabilityZoneIcon,
 		BoardroomIcon,
 		CollateralVaultIcon,
 		SwapIcon,

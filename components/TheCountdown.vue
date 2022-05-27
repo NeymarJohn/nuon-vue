@@ -67,6 +67,9 @@ export default {
 			this.showRemaining();
 		}
 	},
+	mounted() {
+		
+	},
 	methods: {
 		formatNumber(number) {
 			return number < 10 ? "0" + number : number;

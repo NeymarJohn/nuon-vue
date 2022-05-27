@@ -1,0 +1,28 @@
+/* #LAYOUT - PEG ZONE
+		1. Peg zone default
+		2. Peg zone responsive
+*/
+
+// 1. Peg zone default
+.l-peg-zone {
+	background: $MEDIUM_LIGHT_GREY;
+	border-radius: $BORDER_RADIUS_16;
+	padding: $SPACING_48;
+	margin-bottom: $SPACING_48;
+}
+.l-peg-zone hr {
+	margin: $SPACING_40 0;
+	height: $SPACING_2;
+	background: $LIGHT_GREY;
+	border: 0;
+}
+
+// 2. Peg zone responsive
+@media screen and (max-width: $SPACING_480) {
+	.l-peg-zone {
+		padding: $SPACING_32;
+	}
+	.l-peg-zone hr {
+		margin: $SPACING_32 0;
+	}
+}
