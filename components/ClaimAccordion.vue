@@ -81,7 +81,7 @@ export default {
 	props: {
 		from: {
 			type: String,
-			default: ""  // "boardroom" or "stabilityZone"
+			default: ""  // "boardroom"
 		},
 		stepper: {
 			type: Boolean,
@@ -110,19 +110,14 @@ export default {
 				return filterTokenByName || filterTokenBySymbol;
 			});
 		},
-		user() {
-			return this.$store.state.stabilityFlashStore.user;
-		},
 		claimFee() {
-			if (this.from === "boardroom") return this.$store.state.boardroomStore.claimFee;
-			return this.$store.state.stabilityFlashStore.claimFee;
+			return this.$store.state.boardroomStore.claimFee;
 		},
 		claimFeeToken() {
 			return this.claimFee * this.claimBalance / 100 || 0;
 		},
 		claimBalance() {
-			if (this.from === "boardroom") return this.rewardFromBoardroom;
-			return parseFloat(fromWei(this.user?.outstanding));
+			return this.rewardFromBoardroom;
 		},
 		rewardFromBoardroom() {
 			return parseFloat(fromWei(this.$store.state.boardroomStore.earned));
@@ -177,14 +172,8 @@ export default {
 			this.isActive = !this.isActive;
 			this.getTokenPrice(token.symbol);
 		},
-		async getTokenPrice(tokenSymbol) {
-			if (tokenSymbol === HX.symbol) {
-				this.tokenPrice = parseFloat(await this.$store.getters["stabilityFlashStore/getHYDROPriceInUSDC"]);
-			} else if (tokenSymbol === USX.symbol) {
-				this.tokenPrice = parseFloat(await this.$store.getters["stabilityFlashStore/getUSXPriceInUSDC"]);
-			} else {
-				this.tokenPrice = 0;
-			}
+	  getTokenPrice(tokenSymbol) {
+			this.tokenPrice = this.tokenPrices[tokenSymbol] || 0;
 		},
 		submitTransaction() {
 			this.$store.dispatch("boardroomStore/claimReward", {

@@ -101,12 +101,6 @@ export default {
 				return filterTokenByName || filterTokenBySymbol;
 			});
 		},
-		user() {
-			return this.$store.state.stabilityFlashStore.user;
-		},
-		claimBalance() {
-			return parseFloat(fromWei(this.user?.outstanding));
-		},
 		isMoreThanBalance() {
 			return this.inputValue > this.tokenBalance;
 		},

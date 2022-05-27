@@ -1,6 +1,5 @@
 import Vue from "vue";
 import Web3 from "web3";
-import dayjs from "dayjs";
 
 Vue.mixin({
 	filters: {
@@ -49,35 +48,7 @@ Vue.mixin({
 		},
 		users() {
 			return this.$store.state.transactionStore.users;
-		},
-		transactionConfig() {
-			return this.$store.state.transactionStore.transactionConfig;
-		},
-		dateFilterComputed() {
-			return this.$store.state.transactionStore.dateFilter;
-		},
-		transactionSearch() {
-			return this.$store.state.transactionStore.search;
-		},
-		filteredData() {
-			let data = this.users;
-
-			if (this.dateFilterComputed && this.dateFilterComputed !== "All") {
-				const days = parseInt(this.dateFilterComputed.split(" ")[1]);
-				data = data.filter(d => new Date(d.date) > new Date(dayjs().subtract(days, "day").$d));
-			}
-
-			if (this.transactionSearch) {
-				const lowerCaseSearch = this.transactionSearch.toLowerCase();
-				data = data.filter(d =>
-					d.txType.toLowerCase().includes(lowerCaseSearch) ||
-					d.amount.includes(lowerCaseSearch) ||
-					d.totalAmount.includes(lowerCaseSearch)
-				);
-			}
-
-			return data;
-		},
+		}
 	},
 	methods: {
 		numberWithCommas (x) {
@@ -165,9 +136,6 @@ Vue.mixin({
 		onFilterChange(o) {
 			this.filterOption = o;
 		},
-		onDateFilterChange(o) {
-			this.$store.commit("transactionStore/setDateFilter", o);
-		},
 		noExponents(exponent) {
 			const data = exponent.split(/[eE]/);
 			if (data.length === 1) return data[0];
@@ -185,9 +153,6 @@ Vue.mixin({
 			mag -= str.length;
 			while (mag--) z += "0";
 			return str + z;
-		},
-		setTransactionSearch(s) {
-			this.$store.commit("transactionStore/setSearch", s);
 		}
-	},
+	}
 });

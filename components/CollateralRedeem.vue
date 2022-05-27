@@ -102,7 +102,7 @@ export default {
 		}
 	},
 	async mounted () {
-		const hxPrice = parseFloat(await this.$store.getters["stabilityFlashStore/getHYDROPriceInUSDC"]);
+		const hxPrice = parseFloat(this.tokenPrices.HX);
 		this.withdrawToken.price = hxPrice;
 		this.allCollaterals = await this.$store.getters["collateralVaultStore/getCollaterals"]();
 		const cid = this.allCollaterals.findIndex(c => c === TOKENS_MAP.HX.address);
@@ -118,13 +118,7 @@ export default {
 			let balance = 0;
 			const selectedTokenAddress = TOKENS_MAP[token.symbol].address;
 			const decimals = (10 ** this.$store.state.erc20Store.decimals[token.symbol]);
-			if (token.symbol === HX.symbol) {
-				price = parseFloat(await this.$store.getters["stabilityFlashStore/getHYDROPriceInUSDC"]);
-			} else if (token.symbol === USX.symbol) {
-				price = parseFloat(await this.$store.getters["stabilityFlashStore/getUSXPriceInUSDC"]);
-			} else {
-				price = parseFloat(await this.$store.getters["collateralVaultStore/getCollateralPrice"](selectedTokenAddress));
-			}
+			price = this.tokenPrices[token.symbol] || 0;
 			price = price / decimals;
 
 			const cid = this.allCollaterals.findIndex(c => c === selectedTokenAddress);

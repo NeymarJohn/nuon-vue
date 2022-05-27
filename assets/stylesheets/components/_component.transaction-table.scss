@@ -1,7 +1,10 @@
 /* #COMPONENT - TRANSACTION TABLE
 		1. Transaction table default
-		2. Transaction table 4 columns
-		3. Transaction table responsive
+		2. Transaction table 5 columns
+		3. Transaction table 6 columns
+		4. Transaction table 7 columns
+		5. Transaction table 8 columns
+		6. Transaction table responsive
 */
 
 // 1. Transaction table default
@@ -27,12 +30,27 @@
 	padding: 0;
 }
 
-// 2. Transaction table 4 columns
-.transaction-table--4 .transaction-table__cell {
-	width: calc(100% / 4);
+// 2. Transaction table 5 columns
+.transaction-table--5 .transaction-table__cell {
+	width: calc(100% / 5);
 }
 
-// 3. Transaction table responsive
+// 3. Transaction table 6 columns
+.transaction-table--6 .transaction-table__cell {
+	width: calc(100% / 6);
+}
+
+// 4. Transaction table 7 columns
+.transaction-table--7 .transaction-table__cell {
+	width: calc(100% / 7);
+}
+
+// 5. Transaction table 8 columns
+.transaction-table--8 .transaction-table__cell {
+	width: calc(100% / 8);
+}
+
+// 6. Transaction table responsive
 @media screen and (max-width: $SPACING_1440) {
 	.transaction-table {
 		font-size: $BODY_TEXT_SM;
