@@ -56,6 +56,9 @@ Vue.mixin({
 		dateFilterComputed() {
 			return this.$store.state.transactionStore.dateFilter;
 		},
+		transactionSearch() {
+			return this.$store.state.transactionStore.search;
+		},
 		filteredData() {
 			let data = this.users;
 
@@ -64,8 +67,17 @@ Vue.mixin({
 				data = data.filter(d => new Date(d.date) > new Date(dayjs().subtract(days, "day").$d));
 			}
 
+			if (this.transactionSearch) {
+				const lowerCaseSearch = this.transactionSearch.toLowerCase();
+				data = data.filter(d =>
+					d.txType.toLowerCase().includes(lowerCaseSearch) ||
+					d.amount.includes(lowerCaseSearch) ||
+					d.totalAmount.includes(lowerCaseSearch)
+				);
+			}
+
 			return data;
-		}
+		},
 	},
 	methods: {
 		numberWithCommas (x) {
@@ -173,6 +185,9 @@ Vue.mixin({
 			mag -= str.length;
 			while (mag--) z += "0";
 			return str + z;
+		},
+		setTransactionSearch(s) {
+			this.$store.commit("transactionStore/setSearch", s);
 		}
-	}
+	},
 });

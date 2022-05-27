@@ -9,7 +9,8 @@ const defaultState = {
 		{ id: "totalAmount", title: "Total Amount" },
 		{ id: "date", title: "Date" },
 	],
-	dateFilter: ""
+	dateFilter: "",
+	search: ""
 };
 
 export const state = () => defaultState;
@@ -22,6 +23,9 @@ export const mutations: MutationTree<LocalState> = {
 	},
 	setDateFilter(state, payload) {
 		state.dateFilter = payload;
+	},
+	setSearch(state, payload) {
+		state.search = payload.target.value;
 	}
 };
 

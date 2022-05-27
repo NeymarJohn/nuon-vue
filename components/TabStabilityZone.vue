@@ -1,6 +1,10 @@
 <template>
 	<div>
 		<div class="tabs__filter">
+			<div class="select">
+				<label>Search</label>
+				<input :value="transactionSearch" type="text" class="search__input" @change="setTransactionSearch" />
+			</div>
 			<TheSelect
 				:options="['All', 'Past 7 Days', 'Past 30 Days', 'Past 90 Days']"
 				:default="dateFilterComputed || 'All'"
