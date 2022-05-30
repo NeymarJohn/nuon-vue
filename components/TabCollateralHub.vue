@@ -11,7 +11,7 @@
 		<TheLoader component="table">
 			<TransactionTable
 				size="4"
-				aria="Staked HX reward transactions"
+				aria="Vault redeemed transactions"
 				:data="filteredData"
 				:config="transactionConfig" />
 		</TheLoader>
@@ -20,10 +20,10 @@
 
 <script>
 export default {
-	name: "TabRewards",
+	name: "TabCollateralHub",
 	mounted() {
 		this.$store.dispatch("transactionStore/loadUsers");
 		this.$store.commit("rootStore/setIsLoaded", true);
-	},
+	}
 };
 </script>

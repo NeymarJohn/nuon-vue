@@ -1,6 +1,7 @@
 <template>
 	<div v-if="visible">
-		<div class="countdown">
+		<h3 v-if="readyToClaim && !isLoop">Claim now</h3>
+		<div v-else class="countdown">
 			<div class="countdown__block">
 				<h3>{{days | formatWithTwoDigit}}</h3>
 				<p>D</p>
@@ -49,6 +50,11 @@ export default {
 			seconds: 0,
 		};
 	},
+	computed: {
+		readyToClaim() {
+			return this.$store.getters["stabilityFlashStore/getReadyToClaim"];
+		},
+	},
 	watch: {
 		nextClaimDate() {
 			// initial value
@@ -73,6 +79,7 @@ export default {
 
 				if(distance < 0) {
 					clearInterval(timer);
+					this.$store.commit("stabilityFlashStore/setReadyToClaim", true);
 					return;
 				}
 				this.setRemaingTime(distance);

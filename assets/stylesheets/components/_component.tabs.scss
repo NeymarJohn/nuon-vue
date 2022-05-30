@@ -46,16 +46,9 @@
 .tabs__filter {
 	display: flex;
 	flex-direction: row;
-	align-items: center;
-	justify-content: flex-end;
+	align-items: flex-end;
+	justify-content: space-between;
 	margin-bottom: $SPACING_24;
-}
-.tabs__filter .select {
-	min-width: $SPACING_185;
-	margin-right: $SPACING_16;
-}
-.tabs__filter .select:last-child {
-	margin-right: 0;
 }
 
 // 2. Tabs size

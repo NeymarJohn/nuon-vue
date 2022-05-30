@@ -61,11 +61,8 @@
 		</div>
 		<h2 class="u-mb-24">Transaction History</h2>
 		<TheTabs size="full-width">
-			<TheTab title="Vault">
-				<TabVault />
-			</TheTab>
-			<TheTab title="Stability Zone">
-				<TabStabilityZone />
+			<TheTab title="Collateral Hub">
+				<TabCollateralHub />
 			</TheTab>
 			<TheTab title="Swap">
 				<TabSwap />

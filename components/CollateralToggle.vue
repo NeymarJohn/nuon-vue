@@ -32,6 +32,12 @@ export default {
 		return {
 			isMintView: true,
 			isWithdrawView: false,
+			hxPrice: 0,
+			claimRewardsToken: {
+				symbol: HX.symbol,
+				price: 0,
+				balance: 0
+			},
 		};
 	},
 	computed: {
@@ -45,14 +51,10 @@ export default {
 			const isApprovedToken = this.$store.getters["boardroomStore/checkApprovedToken"](HX.symbol);
 			return isApprovedToken ? "btn--approved" : "";
 		},
-		hxPrice() {
-			return this.tokenPrices.HX;
-		},
-		claimRewardsToken() {
-			return { symbol: HX.symbol, price: this.hxPrice, balance: this.myRewards };
-		}
 	},
 	async mounted() {
+		this.hxPrice = parseFloat(await this.$store.getters["stabilityFlashStore/getHYDROPriceInUSDC"]);
+		this.claimRewardsToken = { symbol: HX.symbol, price: this.hxPrice, balance: this.myRewards };
 	},
 	methods: {
 		toggleMintView() {

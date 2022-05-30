@@ -18,10 +18,10 @@
 		</li>
 		<li>
 			<NuxtLink
-				to="/collateral-vault"
-				title="Click to visit the Collateral Vault"
-				:class="{'active-link': isRouteActive('/collateral-vault')}">
-				<CollateralVaultIcon /> Collateral Vault
+				to="/collateral-hub"
+				title="Click to visit the Collateral Hub"
+				:class="{'active-link': isRouteActive('/collateral-hub')}">
+				<CollateralVaultIcon /> Collateral Hub
 			</NuxtLink>
 		</li>
 		<li>
