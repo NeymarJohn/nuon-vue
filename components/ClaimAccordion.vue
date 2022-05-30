@@ -70,7 +70,7 @@
 import ChevronDownIcon from "@/assets/images/svg/svg-chevron-down.svg";
 import ChevronUpIcon from "@/assets/images/svg/svg-chevron-up.svg";
 import { fromWei } from "~/utils/bnTools";
-import { HX, mainTokens, USX } from "~/constants/tokens";
+import { HX, mainTokens } from "~/constants/tokens";
 
 export default {
 	name: "ClaimAccordion",

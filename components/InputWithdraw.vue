@@ -80,8 +80,7 @@
 </template>
 
 <script>
-import debounce from "lodash.debounce";
-import { fromWei, toWei } from "~/utils/bnTools";
+import { fromWei } from "~/utils/bnTools";
 export default {
 	name: "InputWithdraw",
 	props: {

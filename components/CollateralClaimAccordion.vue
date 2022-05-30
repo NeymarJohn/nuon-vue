@@ -65,7 +65,6 @@
 <script>
 import ChevronDownIcon from "@/assets/images/svg/svg-chevron-down.svg";
 import ChevronUpIcon from "@/assets/images/svg/svg-chevron-up.svg";
-import { fromWei } from "~/utils/bnTools";
 import { HX, collateralTokens } from "~/constants/tokens";
 
 export default {

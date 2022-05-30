@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import { HX, USX, TOKENS_MAP } from "~/constants/tokens";
+import { HX, TOKENS_MAP } from "~/constants/tokens";
 import { fromWei, toWei } from "~/utils/bnTools";
 
 export default {
