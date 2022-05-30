@@ -13,7 +13,7 @@
 				to="/my-transactions"
 				title="Click to visit My Page"
 				:class="{'active-link': isRouteActive('/my-transactions')}">
-				<DashboardIcon /> My Transactions
+				<MyTransactionsIcon /> My Transactions
 			</NuxtLink>
 		</li>
 		<li>
@@ -53,24 +53,26 @@
 </template>
 
 <script>
-import ExternalLinkIcon from "@/assets/images/svg/svg-external-link.svg";
-import DashboardIcon from "@/assets/images/svg/svg-menu-dashboard.svg";
-import FarmIcon from "@/assets/images/svg/svg-menu-farm.svg";
 import BoardroomIcon from "@/assets/images/svg/svg-menu-boardroom.svg";
 import CollateralVaultIcon from "@/assets/images/svg/svg-menu-collateral-vault.svg";
-import SwapIcon from "@/assets/images/svg/svg-menu-swap.svg";
+import DashboardIcon from "@/assets/images/svg/svg-menu-dashboard.svg";
 import DocumentationIcon from "@/assets/images/svg/svg-menu-documentation.svg";
+import ExternalLinkIcon from "@/assets/images/svg/svg-external-link.svg";
+import FarmIcon from "@/assets/images/svg/svg-menu-farm.svg";
+import MyTransactionsIcon from "@/assets/images/svg/svg-menu-my-transactions.svg";
+import SwapIcon from "@/assets/images/svg/svg-menu-swap.svg";
 
 export default {
 	name: "TheNav",
 	components: {
-		ExternalLinkIcon,
-		DashboardIcon,
-		FarmIcon,
 		BoardroomIcon,
 		CollateralVaultIcon,
-		SwapIcon,
-		DocumentationIcon
+		DashboardIcon,
+		DocumentationIcon,
+		ExternalLinkIcon,
+		FarmIcon,
+		MyTransactionsIcon,
+		SwapIcon
 	},
 	watch: {
 		"$route" () {

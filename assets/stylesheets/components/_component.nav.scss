@@ -45,7 +45,9 @@
 	color: $LIME;
 }
 .nav .active-link svg path,
-.nav .active-link svg rect {
+.nav .active-link svg rect,
+.nav .active-link svg circle {
+	transition: $TRANSITION_ALL;
 	stroke: $LIME;
 }
 .nav .active-link svg.menu-farm path,
