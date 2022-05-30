@@ -118,9 +118,6 @@ export default {
 		isMoreThanBalance() {
 			return parseFloat(this.inputValue) > this.hxBalance;
 		},
-		estimatedOutPrice() {
-			return parseFloat(this.estimatedOut) * this.tokenPrices.HX;
-		},
 		hxBalance() {
 			return this.$store.getters["erc20Store/hxBalance"] || 0;
 		},
@@ -156,24 +153,10 @@ export default {
 			];
 		}
 	},
-	watch: {
-		inputValue(newValue) {
-			this.handleWatchInput(newValue);
-		}
-	},
 	mounted() {
 		this.$store.watch((state) => {
 			this.account = state.web3Store.account;
 		});
-		this.handleWatchInput = debounce(async (inputValue) => {
-			this.errorMessage = "";
-			try {
-				this.estimatedOut = fromWei(await this.$store.getters["stabilityFlashStore/getEstimatedUSXOut"](toWei(inputValue || 0)));
-			} catch(e) {
-				this.errorMessage  = this.getRPCErrorMessage(e);
-				this.estimatedOut = 0;
-			}
-		}, 300);
 	},
 	methods: {
 		isDisabled () {

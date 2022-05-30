@@ -22,6 +22,19 @@
 		"anonymous": false,
 		"inputs": [
 			{
+				"indexed": false,
+				"internalType": "uint8",
+				"name": "version",
+				"type": "uint8"
+			}
+		],
+		"name": "Initialized",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
 				"indexed": true,
 				"internalType": "address",
 				"name": "previousOwner",
@@ -114,34 +127,6 @@
 		"type": "event"
 	},
 	{
-		"inputs": [],
-		"name": "HYDRO",
-		"outputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function",
-		"constant": true
-	},
-	{
-		"inputs": [],
-		"name": "Treasury",
-		"outputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function",
-		"constant": true
-	},
-	{
 		"inputs": [
 			{
 				"internalType": "address",
@@ -183,8 +168,22 @@
 			},
 			{
 				"internalType": "uint256",
-				"name": "rewardPerShare",
+				"name": "rewardPerhydro",
 				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function",
+		"constant": true
+	},
+	{
+		"inputs": [],
+		"name": "busd",
+		"outputs": [
+			{
+				"internalType": "contract IERC20Upgradeable",
+				"name": "",
+				"type": "address"
 			}
 		],
 		"stateMutability": "view",
@@ -223,54 +222,12 @@
 	},
 	{
 		"inputs": [],
-		"name": "fees",
+		"name": "hydro",
 		"outputs": [
 			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function",
-		"constant": true
-	},
-	{
-		"inputs": [],
-		"name": "feesTo",
-		"outputs": [
-			{
-				"internalType": "address",
+				"internalType": "contract IERC20Upgradeable",
 				"name": "",
 				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function",
-		"constant": true
-	},
-	{
-		"inputs": [],
-		"name": "getFees",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function",
-		"constant": true
-	},
-	{
-		"inputs": [],
-		"name": "initialized",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
 			}
 		],
 		"stateMutability": "view",
@@ -314,20 +271,6 @@
 	},
 	{
 		"inputs": [],
-		"name": "shareHYDRO",
-		"outputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function",
-		"constant": true
-	},
-	{
-		"inputs": [],
 		"name": "totalSupply",
 		"outputs": [
 			{
@@ -355,10 +298,10 @@
 	},
 	{
 		"inputs": [],
-		"name": "unirouter",
+		"name": "treasury",
 		"outputs": [
 			{
-				"internalType": "address",
+				"internalType": "contract ITreasury",
 				"name": "",
 				"type": "address"
 			}
@@ -384,18 +327,18 @@
 	{
 		"inputs": [
 			{
-				"internalType": "address",
-				"name": "_HYDRO",
+				"internalType": "contract IERC20Upgradeable",
+				"name": "_busd",
 				"type": "address"
 			},
 			{
-				"internalType": "address",
-				"name": "_Treasury",
+				"internalType": "contract IERC20Upgradeable",
+				"name": "_hydro",
 				"type": "address"
 			},
 			{
-				"internalType": "address",
-				"name": "_unirouter",
+				"internalType": "contract ITreasury",
+				"name": "_treasury",
 				"type": "address"
 			}
 		],
@@ -423,79 +366,9 @@
 		"type": "function"
 	},
 	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "_hydroToken",
-				"type": "address"
-			}
-		],
-		"name": "setHYDROToken",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_fees",
-				"type": "uint256"
-			}
-		],
-		"name": "setFees",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
 		"inputs": [],
 		"name": "latestSnapshotIndex",
 		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function",
-		"constant": true
-	},
-	{
-		"inputs": [],
-		"name": "getOperator",
-		"outputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function",
-		"constant": true
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "director",
-				"type": "address"
-			}
-		],
-		"name": "getDirectorInfo",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			},
 			{
 				"internalType": "uint256",
 				"name": "",
@@ -596,7 +469,7 @@
 	},
 	{
 		"inputs": [],
-		"name": "rewardPerShare",
+		"name": "rewardPerhydro",
 		"outputs": [
 			{
 				"internalType": "uint256",
@@ -622,6 +495,20 @@
 				"internalType": "uint256",
 				"name": "",
 				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function",
+		"constant": true
+	},
+	{
+		"inputs": [],
+		"name": "getOperator",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
 			}
 		],
 		"stateMutability": "view",
@@ -662,23 +549,7 @@
 		"type": "function"
 	},
 	{
-		"inputs": [
-			{
-				"internalType": "bool",
-				"name": "_claimInHYDRO",
-				"type": "bool"
-			},
-			{
-				"internalType": "address",
-				"name": "paidIn",
-				"type": "address"
-			},
-			{
-				"internalType": "address[]",
-				"name": "_HYDROToChosenRoute",
-				"type": "address[]"
-			}
-		],
+		"inputs": [],
 		"name": "claimReward",
 		"outputs": [],
 		"stateMutability": "nonpayable",
@@ -716,13 +587,6 @@
 			}
 		],
 		"name": "governanceRecoverUnsupported",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "giveAllowances",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"

@@ -1,7 +1,7 @@
 import { GetterTree, ActionTree, MutationTree } from "vuex";
 import BN from "bn.js";
 import { Web3State } from "./web3Store";
-import collateralHubAbi from "./abi/collateral_hub.json";
+import collateralHubAbi from "./abi/collateral_hub_native.json";
 import usxControllerAbi from "./abi/usx_controller.json";
 import truflationAbi from "./abi/truflation.json";
 import { fromWei, toWei } from "~/utils/bnTools";
