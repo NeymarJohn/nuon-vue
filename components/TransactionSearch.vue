@@ -8,7 +8,7 @@
 			autocomplete="off"
 			autocorrect="off"
 			spellcheck="false"
-			@change="setTransactionSearch" />
+			@input="setTransactionSearch" />
 	</div>
 </template>
 
