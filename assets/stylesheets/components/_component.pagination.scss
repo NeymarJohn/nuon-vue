@@ -28,6 +28,11 @@
 }
 .pagination .btn.active {
 	color: $DARK_GREY;
+	cursor: not-allowed;
+}
+.pagination .btn.active:hover {
+	background: $TRANSPARENT;
+	color: $DARK_GREY;
 }
 .pagination .btn:hover {
 	background: $DARK_GREY;
