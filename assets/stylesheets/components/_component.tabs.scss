@@ -103,3 +103,8 @@
 		line-height: $SPACING_18;
 	}
 }
+@media screen and (max-width: $SPACING_480) {
+	.tabs__filter {
+		flex-direction: column;
+	}
+}

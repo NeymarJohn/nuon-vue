@@ -44,3 +44,13 @@
 }
 
 // 5. Chart responsive
+@media screen and (max-width: $SPACING_480) {
+	.l-chart--account-balance .chart:first-child,
+	.l-chart--account-balance .chart:last-child {
+		flex-basis: calc(100%);
+		margin-right: 0;
+	}
+	.l-chart--account-balance .chart:first-child {
+		margin-bottom: $SPACING_24;
+	}
+}
