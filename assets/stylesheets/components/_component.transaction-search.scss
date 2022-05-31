@@ -1,5 +1,6 @@
 /* #COMPONENT - TRANSACTION SEARCH
 		1. Transaction search default
+		2. Transaction search responsive
 */
 
 // 1. Transaction search default
@@ -29,4 +30,16 @@
 	color: $LIGHT_GREY;
 	font-size: $HEADING_FIVE;
 	line-height: $SPACING_24;
+}
+
+// 2. Transaction search responsive
+@media screen and (max-width: $SPACING_990) {
+	.transaction-search__input {
+		width: $SPACING_270;
+	}
+	.transaction-search__input,
+	.transaction-search__input::placeholder {
+		font-size: $BODY_TEXT_SM;
+		line-height: $SPACING_24;
+	}
 }

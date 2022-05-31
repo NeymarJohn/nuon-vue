@@ -45,3 +45,11 @@
 .pagination .btn:hover svg path {
 	fill: $LIME;
 }
+
+// 2. Pagination responsive
+@media screen and (max-width: $SPACING_990) {
+	.pagination {
+		margin-top: $SPACING_32;
+		margin-bottom: $SPACING_16;
+	}
+}

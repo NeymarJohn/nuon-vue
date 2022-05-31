@@ -90,3 +90,16 @@
 }
 
 // 4. Tabs responsive
+@media screen and (max-width: $SPACING_990) {
+	.tabs--default .tabs__header,
+	.tabs--full-width .tabs__header {
+		padding: $SPACING_8;
+	}
+	.tabs__header li {
+		padding: $SPACING_11 $SPACING_24;
+	}
+	.tabs__header li h5 {
+		font-size: $BODY_TEXT_SM;
+		line-height: $SPACING_18;
+	}
+}
