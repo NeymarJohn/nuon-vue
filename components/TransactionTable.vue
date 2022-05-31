@@ -21,8 +21,8 @@
 		</template>
 		<template v-else>
 			<div class="transaction-table__row" role="rowgroup">
-				<div class="transaction-table__cell">
-					No transaction records found
+				<div class="transaction-table__cell u-full-width u-text-center">
+					<span>No transaction records found</span>
 				</div>
 			</div>
 		</template>
