@@ -27,6 +27,7 @@
 			</div>
 		</template>
 		<ThePagination
+			v-if="data.length"
 			:max-visible-buttons="10"
 			:total-pages="Math.ceil(data.length / 10)"
 			:per-page="10"
