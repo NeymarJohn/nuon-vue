@@ -14,6 +14,9 @@
 				aria="Vault redeemed transactions"
 				:data="filteredData"
 				:config="transactionConfig" />
+			<TransactionCard
+				:data="filteredData"
+				:config="transactionConfig" />
 		</TheLoader>
 	</div>
 </template>
