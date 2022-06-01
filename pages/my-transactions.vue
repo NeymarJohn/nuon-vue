@@ -18,7 +18,7 @@
 					</div>
 					<LayoutFlex class="u-mb-20">
 						<TheBadge class="u-mr-8" color="balance">2,343.00 HX</TheBadge>
-						<TheBadge color="balance">3,023.00 USX</TheBadge>
+						<TheBadge color="balance">3,023.00 Nuon</TheBadge>
 					</LayoutFlex>
 					<p>Collateral locked</p>
 					<h3>$3,485.20</h3>
