@@ -67,7 +67,7 @@ export default {
 	},
 	async mounted() {
 		this.collateralAddresses = await this.$store.getters["collateralVaultStore/getCollaterals"]();
-		const collateralPrices = await Promise.all(this.collateralAddresses.map(c => this.$store.getters["collateralVaultStore/getCollateralPriceDeprecated"](c)));
+		const collateralPrices = await Promise.all(this.collateralAddresses.map(c => this.$store.getters["collateralVaultStore/getCollateralPrice"](c)));
 		this.collateralAddresses.forEach((a, i) => this.$set(this.collateralPrices, a, fromWei(collateralPrices[i])));
 		const collateralTVL = await Promise.all(this.collateralAddresses.map((_, i) => this.$store.getters["collateralVaultStore/getAmountsStakedInVault"](i)));
 		this.collateralAddresses.forEach((a, i) => this.$set(this.collateralTVL, a, fromWei(collateralTVL[i])));

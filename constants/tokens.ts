@@ -8,8 +8,8 @@ export const HX = {
 
 export const USX = {
 	address: USX_ADDRESS,
-	symbol: "NUON",
-	name: "NUON TOKEN"
+	symbol: "USX",
+	name: "USX TOKEN"
 };
 
 export const DAI = {

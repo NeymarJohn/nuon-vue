@@ -6,7 +6,7 @@
 		</PageTitle>
 		<h2 class="u-mb-24">Account Balance</h2>
 		<div class="l-chart l-chart--account-balance u-mb-80">
-			<LayoutFlex class="l-flex-column-sm">
+			<LayoutFlex>
 				<div class="chart">
 					<p>Total Value</p>
 					<h1 class="u-mb-24">$63,334.34</h1>
@@ -18,7 +18,7 @@
 					</div>
 					<LayoutFlex class="u-mb-20">
 						<TheBadge class="u-mr-8" color="balance">2,343.00 HX</TheBadge>
-						<TheBadge color="balance">3,023.00 Nuon</TheBadge>
+						<TheBadge color="balance">3,023.00 USX</TheBadge>
 					</LayoutFlex>
 					<p>Collateral locked</p>
 					<h3>$3,485.20</h3>
@@ -39,8 +39,8 @@
 						<h1 class="u-mb-4">1,233.00<sup>HX</sup></h1>
 						<h5>$12,343.34</h5>
 					</LayoutFlex>
-					<LayoutFlex direction="row-start-space-between" class="l-flex-column-sm">
-						<TheLoader component="donut-claimable" class="u-mb-24 u-full-width u-mr-24 u-mr-sm-0">
+					<LayoutFlex direction="row-start-space-between">
+						<TheLoader component="donut-claimable" class="u-mb-24 u-full-width u-mr-24">
 							<DonutChartRewards />
 						</TheLoader>
 						<LayoutFlex direction="column">

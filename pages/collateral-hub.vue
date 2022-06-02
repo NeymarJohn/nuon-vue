@@ -29,7 +29,7 @@
 				<DataCard>
 					<label>My Minted Tokens</label>
 					<TheLoader component="h1">
-						<h3>{{ userMintedAmount | toFixed | numberWithCommas }}<sup>Nuon</sup></h3>
+						<h3>{{ userMintedAmount | toFixed | numberWithCommas }}<sup>USX</sup></h3>
 					</TheLoader>
 					<TheLoader component="h5">
 						<h5>${{ getDollarValue(userMintedAmount, usxPrice) | toFixed | numberWithCommas }}</h5>
@@ -41,7 +41,7 @@
 			<h2 class="u-mb-20 u-mb-lg-14">Ecosystem Status</h2>
 			<LayoutGrid class="u-mb-48" :size="'3-stretch-alt'">
 				<StatCard class="u-mb-md-12">
-					<label>Nuon Price<TooltipIcon v-tooltip="'Enter Nuon price tooltip content here.'" /></label>
+					<label>USX Price<TooltipIcon v-tooltip="'Enter usx price tooltip content here.'" /></label>
 					<TheLoader component="h3">
 						<h3>{{ usxPrice | toFixed | numberWithCommas }}</h3>
 					</TheLoader>
@@ -68,7 +68,7 @@
 			</LayoutGrid>
 			<PageTitle>
 				<h2>Manage Assets<TooltipIcon v-tooltip="'Enter manage assets tooltip content here.'" /></h2>
-				<p>Instanly mint Nuon by depositing your collateral and redeem anytime.</p>
+				<p>Instanly mint USX by depositing your collateral and redeem anytime.</p>
 			</PageTitle>
 		</LayoutContainer>
 		<LayoutContainer size="sm">

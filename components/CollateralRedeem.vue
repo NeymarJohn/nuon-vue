@@ -79,9 +79,9 @@ export default {
 					dollar: this.numberWithCommas((this.withdrawAmount * this.withdrawToken.price).toFixed(2))
 				},
 				{
-					title: "Maximum Withdrawn Nuon",
+					title: "Maximum Withdrawn USX",
 					val: this.numberWithCommas(this.estimatedWithdrawnUsxValue),
-					currency: "Nuon",
+					currency: "USX",
 					dollar: this.numberWithCommas((this.estimatedWithdrawnUsxValue * this.tokenPrices.USX).toFixed(2))
 				},
 				{

@@ -1,7 +1,7 @@
 import { GetterTree, ActionTree, MutationTree } from "vuex";
 import BN from "bn.js";
 import { Web3State } from "./web3Store";
-import collateralHubAbi from "./abi/collateral_hub_native.json";
+import collateralHubAbi from "./abi/collateral_hub.json";
 import usxControllerAbi from "./abi/usx_controller.json";
 import truflationAbi from "./abi/truflation.json";
 import { fromWei, toWei } from "~/utils/bnTools";
@@ -245,7 +245,7 @@ export const getters: GetterTree<BoardroomState, Web3State> = {
 	getMintingFee: (_state: any, getters: any) => async () => {
 		return await getters.usxControllerContract.methods.getMintingFee().call();
 	},
-	getCollateralPriceDeprecated: (_state: any, getters: any) => async (tokenAddress: string) => {
+	getCollateralPrice: (_state: any, getters: any) => async (tokenAddress: string) => {
 		return await getters.collateralHubContract.methods.viewCollateralPrice(tokenAddress).call();
 	},
 	getUserCollateralInVault: (_state: any, getters: any) => async (address: string, cid: number) => {
@@ -254,7 +254,7 @@ export const getters: GetterTree<BoardroomState, Web3State> = {
 	getRedeemFee: (_state: any, getters: any) => async () => {
 		return await getters.usxControllerContract.methods.getRedeemFee().call();
 	},
-	getEstimateCollateralsOutDeprecated: (_state: any, getters: any) => async (cid: number, userAddress: string, usxAmount: number) => {
+	getEstimateCollateralsOut: (_state: any, getters: any) => async (cid: number, userAddress: string, usxAmount: number) => {
 		return await getters.collateralHubContract.methods.estimateCollateralsOut(cid, userAddress, usxAmount).call();
 	},
 	getAmountsStakedInVault: (_state: any, getters: any) => async (cid: number) => {
@@ -271,53 +271,5 @@ export const getters: GetterTree<BoardroomState, Web3State> = {
 	},
 	getGlobalCollateralRatio: (_state: any, getters: any) => async () => {
 		return await getters.usxControllerContract.methods.getGlobalCollateralRatio().call();
-	},
-	getUserCollateralAmount: (_state: any, getters: any) => async (userAddress: string) => {
-		return await getters.collateralHubContract.methods.viewUserCollateralAmount(userAddress).call();
-	},
-	getUserMintedAmount: (_state: any, getters: any) => async (userAddress: string) => {
-		return await getters.collateralHubContract.methods.viewUserMintedAmount(userAddress).call();
-	},
-	getUserIndex: (_state: any, getters: any) => async (userAddress: string) => {
-		return await getters.collateralHubContract.methods.getUserIndex(userAddress).call();
-	},
-	getTruflationPeg: (_state: any, getters: any) => async () => {
-		return await getters.collateralHubContract.methods.getTruflationPeg().call();
-	},
-	getNuonPrice: (_state: any, getters: any) => async () => {
-		return await getters.collateralHubContract.methods.getNUONPrice().call();
-	},
-	getAllUsers: (_state: any, getters: any) => async () => {
-		return await getters.collateralHubContract.methods.getAllUsers().call();
-	},
-	getCollateralsValue: (_state: any, getters: any) => async () => {
-		return await getters.collateralHubContract.methods.getCollateralsValue().call();
-	},
-	getGlobalCR: (_state: any, getters: any) => async () => {
-		return await getters.collateralHubContract.methods.getGlobalCR().call();
-	},
-	getUserCollateralRatioInPercent: (_state: any, getters: any) => async (userAddress: string) => {
-		return await getters.collateralHubContract.methods.getUserCollateralRatioInPercent(userAddress).call();
-	},
-	getCollateralPercentToRatio: (_state: any, getters: any) => async (userAddress: string, _percent: number) => {
-		return await getters.collateralHubContract.methods.collateralPercentToRatio(_percent, userAddress).call();
-	},
-	getUserSupposedCollateralsValue: (_state: any, getters: any) => async (userAddress: string) => {
-		return await getters.collateralHubContract.methods.getUserSupposedCollateralsValue(userAddress).call();
-	},
-	getEstimateMintedNUONAmount: (_state: any, getters: any) => async (collateralAmount: number, _collateralRatio: number) => {
-		return await getters.collateralHubContract.methods.estimateMintedNUONAmount(collateralAmount, _collateralRatio).call();
-	},
-	getCollateralPrice: (_state: any, getters: any) => async () => {
-		return await getters.collateralHubContract.methods.viewCollateralPrice().call();
-	},
-	getEstimateCollateralsOut: (_state: any, getters: any) => async (_userAddress: string, nuonAmount: number) => {
-		return await getters.collateralHubContract.methods.estimateCollateralsOut(_userAddress, nuonAmount).call();
-	},
-	getCalcOverCollateralizedMintAmounts: (_state: any, getters: any) => async (collateralRatio: number, collateralPrice: number, collateralAmountD18: number) => {
-		return await getters.collateralHubContract.methods.calcOverCollateralizedMintAmounts(collateralRatio, collateralPrice, collateralAmountD18).call();
-	},
-	getCalcOverCollateralizedRedeemAmounts: (_state: any, getters: any) => async (collateralRatio: number, collateralPrice: number, nuonAmount: number, multiplier: number) => {
-		return await getters.collateralHubContract.methods.calcOverCollateralizedRedeemAmounts(collateralRatio, collateralPrice, nuonAmount, multiplier).call();
 	}
 };
