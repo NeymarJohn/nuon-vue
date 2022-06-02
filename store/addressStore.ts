@@ -1,6 +1,6 @@
 import { GetterTree } from "vuex";
 import { Web3State } from "./web3Store";
-import { BOARDROOM_ADDRESS, HYDRO_ADDRESS, USX_USDC_PAIR_ADDRESS, ROUTER_ADDRESS, STABILITYFLASH_ADDRESS, tokenPairs, TREASURY_ADDRESS, USX_ADDRESS, USX_CONTROLLER_ADDRESS, WETH_ADDRESS, USDC_ADDRESS } from "~/constants/addresses";
+import { BOARDROOM_ADDRESS, HYDRO_ADDRESS, USX_USDC_PAIR_ADDRESS, ROUTER_ADDRESS, tokenPairs, TREASURY_ADDRESS, USX_ADDRESS, USX_CONTROLLER_ADDRESS, WETH_ADDRESS, USDC_ADDRESS, NUON_CONTROLLER_ADDRESS, NUON_ADDRESS } from "~/constants/addresses";
 
 export const state = () => ({
 	addr: {
@@ -9,13 +9,13 @@ export const state = () => ({
      */
 		 31010: {
 			boardroom: BOARDROOM_ADDRESS,
-			stabilityFlash: STABILITYFLASH_ADDRESS,
 			router: ROUTER_ADDRESS,
-			controller: USX_CONTROLLER_ADDRESS,
+			nuonController: NUON_CONTROLLER_ADDRESS,
 			oracle: USX_USDC_PAIR_ADDRESS,
 			weth: WETH_ADDRESS,
 			hydro: HYDRO_ADDRESS,
 			usx: USX_ADDRESS,
+			nuon: NUON_ADDRESS,
 			usdc: USDC_ADDRESS,
 			treasury: TREASURY_ADDRESS,
 			uniswapV2Pair: tokenPairs
@@ -25,7 +25,8 @@ export const state = () => ({
 		ETH: WETH_ADDRESS,
 		HX: HYDRO_ADDRESS,
 		USX: USX_ADDRESS,
-		USDC: USDC_ADDRESS
+		USDC: USDC_ADDRESS,
+		NUON: NUON_ADDRESS
 	},
 });
 
@@ -37,8 +38,8 @@ export const getters: GetterTree<ContractState, Web3State> = {
 		return addr;
 	},
 
-	stabilityFlash: (state: any, _getters, store: any) => {
-		const addr = state.addr[store.web3Store.chainId as number].stabilityFlash;
+	nuon: (state: any, _getters, store: any) => {
+		const addr = state.addr[store.web3Store.chainId as number].nuon;
 		return addr;
 	},
 
@@ -52,8 +53,8 @@ export const getters: GetterTree<ContractState, Web3State> = {
 		return addr;
 	},
 
-	controller: (state: any, _getters, store: any) => {
-		const addr = state.addr[store.web3Store].controller;
+	nuonController: (state: any, _getters, store: any) => {
+		const addr = state.addr[store.web3Store].nuonController;
 		return addr;
 	},
 

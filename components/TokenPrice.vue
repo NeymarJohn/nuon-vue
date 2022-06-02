@@ -63,7 +63,7 @@
 						</div>
 					</LayoutFlex>
 				</TheTab>
-				<TheTab title="USX">
+				<TheTab title="Nuon">
 					<LayoutFlex>
 						<div class="chart">
 							<p>Market Cap <TheBadge color="price-down" class="u-ml-8">-1.79%</TheBadge></p>
@@ -71,12 +71,12 @@
 							<p>Circulating Supply <TheBadge color="price-up" class="u-ml-8">+1.79%</TheBadge></p>
 							<h3 class="u-mb-48">$12,343,334.34</h3>
 							<p>Price <TheBadge color="price-up" class="u-ml-8">+1.79%</TheBadge></p>
-							<h3>1.03<sup>USX</sup></h3>
+							<h3>1.03<sup>Nuon</sup></h3>
 						</div>
 						<div class="chart chart--token-price">
 							<div class="chart--overview">
 								<p>Price</p>
-								<h1>1.03<sup>USX</sup></h1>
+								<h1>1.03<sup>Nuon</sup></h1>
 								<p class="u-colour-white">Apr 14, 2022</p>
 							</div>
 							<TheTabs size="thin" color="light" margin="0">

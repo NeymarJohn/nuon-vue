@@ -75,9 +75,9 @@ export default {
 					dollar: this.getDollarValue(this.depositLockedCollateral, this.mintToken.price)
 				},
 				{
-					title: "Maximum Minted USX",
+					title: "Maximum Minted Nuon",
 					val: this.estimatedMintedUsxValue,
-					currency: "USX",
+					currency: "Nuon",
 					dollar: this.getDollarValue(this.estimatedMintedUsxValue, this.tokenPrices.USX)
 				},
 				{
@@ -160,7 +160,7 @@ export default {
 					onTxHash: null,
 					onConfirm: (_confNumber, receipt, _latestBlockHash) => {
 						this.$store.commit("collateralVaultStore/setUserJustMinted", true);
-						this.successToast(null, `You've successfully minted ${this.estimatedMintedUsxValue} USX`, receipt.transactionHash);
+						this.successToast(null, `You've successfully minted ${this.estimatedMintedUsxValue} Nuon`, receipt.transactionHash);
 					},
 					onReject: (err) => {
 						this.failureToast(null, err, "Transaction failed");
