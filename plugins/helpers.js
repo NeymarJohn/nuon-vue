@@ -16,6 +16,7 @@ Vue.mixin({
 			return parseFloat(x).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 		},
 		formatLongNumber(x) {
+			if (!x) return "0.00";
 			const nums = x.toString().split(".");
 			if (nums[1]) {
 				nums[1] = nums[1].substring(0,2);

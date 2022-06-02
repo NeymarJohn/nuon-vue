@@ -7,11 +7,11 @@ import { getPath } from "~/constants/tokens";
 import { ROUTER_ADDRESS , tokenPairs } from "~/constants/addresses";
 
 type SwapStateType = {
-	allowance: {HX: number, USX: number},
+	allowance: {HX: number, NUON: number},
 	swapFee: number
 }
 export const state = (): SwapStateType => ({
-	allowance: {HX:0, USX: 0},
+	allowance: {HX:0, NUON: 0},
 	swapFee: 0.25
 });
 
@@ -25,7 +25,7 @@ const convertPathIntoMap = (values: Array<any>, tokens: Array<any>) => {
 	return m;
 };
 export const mutations: MutationTree<SwapState> = {
-	setAllowance(state, payload: {HX:number, USX: number}) {
+	setAllowance(state, payload: {HX:number, NUON: number}) {
 		state.allowance = payload;
 	}
 };
@@ -55,9 +55,9 @@ export const actions: ActionTree<SwapState, SwapState> = {
 	},
 	async getAllowance (ctx: any) {
 		const address = ctx.rootGetters["web3Store/account"];
-		const getUsxAllowance = fromWei(await ctx.rootGetters["erc20Store/nuon"].methods.allowance(address, ROUTER_ADDRESS).call());
+		const getNuonAllowance = fromWei(await ctx.rootGetters["erc20Store/nuon"].methods.allowance(address, ROUTER_ADDRESS).call());
 		const getHydroAllowance = fromWei(await ctx.rootGetters["erc20Store/hydro"].methods.allowance(address, ROUTER_ADDRESS).call());
-		ctx.commit("setAllowance", {HX: getHydroAllowance, USX: getUsxAllowance});
+		ctx.commit("setAllowance", {HX: getHydroAllowance, NUON: getNuonAllowance});
 	},
 	approveToken(ctx: any, {tokenName, onConfirm, onReject, onCallback}): void {
 		ctx.dispatch("erc20Store/approveToken", {tokenSymbol: tokenName, contractAddress: ROUTER_ADDRESS, onConfirm, onReject, onCallback}, {root:true} )

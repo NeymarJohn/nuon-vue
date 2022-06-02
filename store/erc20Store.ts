@@ -109,19 +109,19 @@ export const getters: GetterTree<Erc20State, Web3State> = {
 
 	getHydroInfo: (state: any) => state.hydro,
 
-	getUsxInfo: (state: any) => state.nuon,
+	getNuonInfo: (state: any) => state.nuon,
 
 	hxBalance: (state: StateType, _getters: any) => {
 		return parseFloat(state.balance.HX);
 	},
 
 	nuonBalance: (state: StateType, _getters: any) => {
-		return parseFloat(state.balance.HX);
+		return parseFloat(state.balance.NUON);
 	},
 
 	tokenBalance: (state: StateType) => {
 		const hxBalance = parseFloat(state.balance.HX);
-		const nuonBalance = parseFloat(state.balance.HX);
+		const nuonBalance = parseFloat(state.balance.NUON);
 		return {
 			NUON: nuonBalance,
 			HX: hxBalance

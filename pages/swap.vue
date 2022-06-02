@@ -136,7 +136,7 @@
 								title="Click to connect wallet"
 								@click="connectWallet">Connect Wallet</TheButton>
 							<TheButton
-								v-else-if="input.token === 'HX' && input.value > hxBalance || input.token === 'USX' && input.value > usxBalance || input.token === 'ETH' && input.balance > ethBalance"
+								v-else-if="isMoreThanBalance"
 								size="lg"
 								disabled>Insufficient Balance</TheButton>
 							<TheButton
@@ -240,15 +240,6 @@ export default {
 			if (this.loadingPrice || !this.input.value || !this.output.value || !this.output.token || this.maxSlippage > 10) return true;
 			return false;
 		},
-		hxBalance() {
-			return this.$store.getters["erc20Store/hxBalance"] || 0;
-		},
-		usxBalance() {
-			return this.$store.getters["erc20Store/usxBalance"] || 0;
-		},
-		ethBalance() {
-			return parseFloat(fromWei(this.$store.getters["web3Store/balance"])) || 0;
-		},
 		isSettingsModalVisible() {
 			return this.$store.state.modalStore.modalVisible.settingsModal;
 		},
@@ -279,6 +270,9 @@ export default {
 		swapFeePrice() {
 			return this.output.value * this.swapFee / 100;
 		},
+		isMoreThanBalance() {
+			return this.input.value > this.tokenBalances[this.input.token];
+		}
 	},
 	mounted () {
 		const routeQuery = this.$route.query;
@@ -433,15 +427,7 @@ export default {
 			}
 		},
 		inputMaxBalance() {
-			if(this.input.token === "ETH") {
-				this.input.value = parseFloat(fromWei(this.$store.getters["web3Store/balance"])).toFixed(3);
-			};
-			if(this.input.token === "USX") {
-				this.input.value = parseFloat(this.$store.getters["erc20Store/usxBalance"]).toFixed(2);
-			};
-			if(this.input.token === "HX") {
-				this.input.value = parseFloat(this.$store.getters["erc20Store/hxBalance"]).toFixed(2);
-			};
+			this.input.value = this.tokenBalances[this.input.token];
 			this.getMaxOutput();
 		},
 		showSettingsModal() {
