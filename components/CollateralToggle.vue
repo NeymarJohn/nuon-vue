@@ -18,7 +18,7 @@
 
 <script>
 import { fromWei } from "~/utils/bnTools";
-import { HX, USX } from "~/constants/tokens";
+import { HX } from "~/constants/tokens";
 
 export default {
 	name: "CollateralToggle",
@@ -65,16 +65,9 @@ export default {
 				this.isWithdrawView = true;
 			}
 		},
-		async selectClaimToken(token) {
-			if (token.symbol === HX.symbol) {
-				const price = parseFloat(await this.$store.getters["stabilityFlashStore/getHYDROPriceInUSDC"]);
-				this.claimRewardsToken = {...token, price, balance: this.myRewards};
-			} else if (token.symbol === USX.symbol) {
-				const price = parseFloat(await this.$store.getters["stabilityFlashStore/getUSXPriceInUSDC"]);
-				this.claimRewardsToken = {...token, price, balance: this.myRewards};
-			} else {
-				this.claimRewardsToken = {...token, price: 0, balance: 0};
-			}
+		selectClaimToken(token) {
+			const price = this.tokenPrices[token.symbol];
+			this.claimRewardsToken = {...token, price, balance: this.myRewards};
 		},
 		submitTransaction() {
 			this.$store.commit("modalStore/setModalStatus", "is-confirming");

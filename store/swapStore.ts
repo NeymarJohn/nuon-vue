@@ -55,7 +55,7 @@ export const actions: ActionTree<SwapState, SwapState> = {
 	},
 	async getAllowance (ctx: any) {
 		const address = ctx.rootGetters["web3Store/account"];
-		const getUsxAllowance = fromWei(await ctx.rootGetters["erc20Store/usx"].methods.allowance(address, ROUTER_ADDRESS).call());
+		const getUsxAllowance = fromWei(await ctx.rootGetters["erc20Store/nuon"].methods.allowance(address, ROUTER_ADDRESS).call());
 		const getHydroAllowance = fromWei(await ctx.rootGetters["erc20Store/hydro"].methods.allowance(address, ROUTER_ADDRESS).call());
 		ctx.commit("setAllowance", {HX: getHydroAllowance, USX: getUsxAllowance});
 	},

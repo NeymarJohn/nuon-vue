@@ -77,7 +77,7 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 	async getAllowance (ctx: any) {
 		const address = ctx.rootGetters["web3Store/account"];
 		if (!address) return;
-		const getUsxAllowance = fromWei(await ctx.rootGetters["erc20Store/usx"].methods.allowance(address, BOARDROOM_ADDRESS).call());
+		const getUsxAllowance = fromWei(await ctx.rootGetters["erc20Store/nuon"].methods.allowance(address, BOARDROOM_ADDRESS).call());
 		const getHydroAllowance = fromWei(await  ctx.rootGetters["erc20Store/hydro"].methods.allowance(address, BOARDROOM_ADDRESS).call());
 		ctx.commit("setAllowance", {HX: getHydroAllowance, USX: getUsxAllowance});
 	},

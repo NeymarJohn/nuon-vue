@@ -1,11 +1,12 @@
 import { GetterTree, ActionTree, MutationTree } from "vuex";
 import BN from "bn.js";
 import { Web3State } from "./web3Store";
-import collateralHubAbi from "./abi/collateral_hub_native.json";
+import collateralHubAbi from "./abi/collateral_hub.json";
 import usxControllerAbi from "./abi/usx_controller.json";
+import nuonControllerAbi from "./abi/nuon_controller.json";
 import truflationAbi from "./abi/truflation.json";
 import { fromWei, toWei } from "~/utils/bnTools";
-import { COLLATERAL_HUB_ADDRESS, USX_CONTROLLER_ADDRESS, TRUFLATION_ADDRESS } from "~/constants/addresses";
+import { COLLATERAL_HUB_ADDRESS, USX_CONTROLLER_ADDRESS, TRUFLATION_ADDRESS, NUON_CONTROLLER_ADDRESS } from "~/constants/addresses";
 
 type StateType = {
 	allowance: any,
@@ -228,6 +229,10 @@ export const getters: GetterTree<BoardroomState, Web3State> = {
 	usxControllerContract:  (_state: any, _getters: any, store: any) => {
 		const web3 = store.web3Store.instance();
 		return new web3.eth.Contract(usxControllerAbi, USX_CONTROLLER_ADDRESS);
+	},
+	nuonControllerContract:  (_state: any, _getters: any, store: any) => {
+		const web3 = store.web3Store.instance();
+		return new web3.eth.Contract(nuonControllerAbi, NUON_CONTROLLER_ADDRESS);
 	},
 	truflationContract: (_state: any, _getters: any, store: any) => {
 		const web3 = store.web3Store.instance();
