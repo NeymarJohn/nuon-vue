@@ -1,6 +1,6 @@
 import { GetterTree } from "vuex";
 import { Web3State } from "./web3Store";
-import { BOARDROOM_ADDRESS, HYDRO_ADDRESS, USX_USDC_PAIR_ADDRESS, ROUTER_ADDRESS, tokenPairs, TREASURY_ADDRESS, USX_ADDRESS, WETH_ADDRESS, USDC_ADDRESS, NUON_CONTROLLER_ADDRESS, NUON_ADDRESS } from "~/constants/addresses";
+import { BOARDROOM_ADDRESS, HYDRO_ADDRESS, NUON_USDC_PAIR_ADDRESS, ROUTER_ADDRESS, tokenPairs, TREASURY_ADDRESS, WETH_ADDRESS, USDC_ADDRESS, NUON_CONTROLLER_ADDRESS, NUON_ADDRESS } from "~/constants/addresses";
 
 export const state = () => ({
 	addr: {
@@ -11,7 +11,7 @@ export const state = () => ({
 			boardroom: BOARDROOM_ADDRESS,
 			router: ROUTER_ADDRESS,
 			nuonController: NUON_CONTROLLER_ADDRESS,
-			oracle: USX_USDC_PAIR_ADDRESS,
+			oracle: NUON_USDC_PAIR_ADDRESS,
 			weth: WETH_ADDRESS,
 			hydro: HYDRO_ADDRESS,
 			nuon: NUON_ADDRESS,
