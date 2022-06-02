@@ -1,6 +1,5 @@
 /* #LAYOUT - FOOTER
 		1. Footer default
-		2. Footer responsive
 */
 
 // 1. Footer default
@@ -27,11 +26,4 @@
 	margin-bottom: 0;
 	font-size: $BODY_TEXT_XS;
 	line-height: $SPACING_24;
-}
-
-// 2. Footer responsive
-@media screen and (max-width: $SPACING_1440) {
-	.l-footer .app-info {
-		padding-bottom: $SPACING_21;
-	}
 }
