@@ -100,7 +100,7 @@ Vue.mixin({
 			return Number(Web3.utils.fromWei(x)).toFixed(3).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 		},
 		getDollarValue(x, y) {
-			return parseFloat(x) * parseFloat(y);
+			return parseFloat(x || 0) * parseFloat(y || 0);
 		},
 		getPreviousPage() {
 			this.$router.back();

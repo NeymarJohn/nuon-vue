@@ -13,7 +13,7 @@ type StateType = {
 	nextEpochPoint: number,
 	canWithdraw: boolean,
 	canClaimRewards: boolean,
-	allowance: {HX: number, USX: number},
+	allowance: {HX: number, NUON: number},
 	lastSnapshot: {lastSnapshotIndex: number, rewardEarned: BN, epochTimerStart: number},
 	claimFee: number,
 	director: any
@@ -26,7 +26,7 @@ export const state = (): StateType => ({
 	nextEpochPoint: 0,
 	canWithdraw: false,
 	canClaimRewards: false,
-	allowance: {HX:0, USX: 0},
+	allowance: {HX:0, NUON: 0},
 	lastSnapshot: {lastSnapshotIndex: 0, rewardEarned: new BN(0), epochTimerStart: 0},
 	claimFee: 0,
 	director: null
@@ -56,7 +56,7 @@ export const mutations: MutationTree<BoardroomState> = {
 	setCanWithdraw(state, payload: boolean) {
 		state.canWithdraw = payload;
 	},
-	setAllowance(state, payload: {HX:number, USX: number}) {
+	setAllowance(state, payload: {HX:number, NUON: number}) {
 		state.allowance = payload;
 	},
 	setLastSnapshot(state, payload: {lastSnapshotIndex: number, rewardEarned: BN, epochTimerStart: number}) {
@@ -77,9 +77,9 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 	async getAllowance (ctx: any) {
 		const address = ctx.rootGetters["web3Store/account"];
 		if (!address) return;
-		const getUsxAllowance = fromWei(await ctx.rootGetters["erc20Store/nuon"].methods.allowance(address, BOARDROOM_ADDRESS).call());
+		const getNuonAllowance = fromWei(await ctx.rootGetters["erc20Store/nuon"].methods.allowance(address, BOARDROOM_ADDRESS).call());
 		const getHydroAllowance = fromWei(await  ctx.rootGetters["erc20Store/hydro"].methods.allowance(address, BOARDROOM_ADDRESS).call());
-		ctx.commit("setAllowance", {HX: getHydroAllowance, USX: getUsxAllowance});
+		ctx.commit("setAllowance", {HX: getHydroAllowance, NUON: getNuonAllowance});
 	},
 	approveToken(ctx: any, {tokenName,  onConfirm, onReject, onCallback}): void {
 		const contractAddress = BOARDROOM_ADDRESS;
@@ -191,12 +191,6 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 		getters.getEpoch().then((epoch: number) => {
 			commit("setEpoch", epoch);
 		});
-		getters.getDirector().then((seat:any) => {
-			commit("setDirector", seat);
-		});
-		getters.getFees().then((fee:number) => {
-			commit("setClaimFee", fee / 10); // we got the fee value as 1000 rate. 5 means 0.5% and 10 means 1%
-		});
 	}
 };
 
@@ -232,14 +226,6 @@ export const getters: GetterTree<BoardroomState, Web3State> = {
 	getBalanceOf: (_state: any, getters: any, store: any) => async () => {
 		const account = store.web3Store.account;
 		return account !== "" ? await getters.contract.methods.balanceOf(account).call() : new BN(0);
-	},
-	getDirector:  (_state: any, getters: any, store: any) => async () => {
-		const account = store.web3Store.account;
-		return account !== "" ? await getters.contract.methods.getDirectorInfo(account).call() : new BN(0);
-	},
-	getFees: (_state: any, getters: any, store: any) => async () => {
-		const account = store.web3Store.account;
-		return account !== "" ? await getters.contract.methods.getFees().call() : new BN(0);
 	},
 	checkApprovedToken: (state:any) => (tokenName: string):boolean => {
 		return state.allowance[tokenName] > 0;
