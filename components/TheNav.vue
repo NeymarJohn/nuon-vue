@@ -21,7 +21,7 @@
 				to="/collateral-hub"
 				title="Click to visit the Collateral Hub"
 				:class="{'active-link': isRouteActive('/collateral-hub')}">
-				<CollateralVaultIcon /> Collateral Hub
+				<CollateralHubIcon /> Collateral Hub
 			</NuxtLink>
 		</li>
 		<li>
@@ -48,13 +48,13 @@
 				<FarmIcon /> Farms
 			</NuxtLink>
 		</li>
-		<a href="https://hydrolabs.gitbook.io/inflation-adjusted-algorithmic-stablecoin/" title="Click to visit the documentation" target="_blank" rel="noopener noreferrer"><DocumentationIcon /> Documentation <ExternalLinkIcon class="u-mr-0 u-ml-8" /></a>
+		<a href="https://hydrolabs.gitbook.io/inflation-adjusted-algorithmic-stablecoin/" title="Click to visit the documentation" target="_blank" rel="noopener noreferrer"><DocumentationIcon /> Docs <ExternalLinkIcon class="u-mr-0 u-ml-8" /></a>
 	</ul>
 </template>
 
 <script>
 import BoardroomIcon from "@/assets/images/svg/svg-menu-boardroom.svg";
-import CollateralVaultIcon from "@/assets/images/svg/svg-menu-collateral-vault.svg";
+import CollateralHubIcon from "@/assets/images/svg/svg-menu-collateral-hub.svg";
 import DashboardIcon from "@/assets/images/svg/svg-menu-dashboard.svg";
 import DocumentationIcon from "@/assets/images/svg/svg-menu-documentation.svg";
 import ExternalLinkIcon from "@/assets/images/svg/svg-external-link.svg";
@@ -66,7 +66,7 @@ export default {
 	name: "TheNav",
 	components: {
 		BoardroomIcon,
-		CollateralVaultIcon,
+		CollateralHubIcon,
 		DashboardIcon,
 		DocumentationIcon,
 		ExternalLinkIcon,
