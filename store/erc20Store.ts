@@ -1,18 +1,18 @@
 import { GetterTree, ActionTree, MutationTree } from "vuex";
 import { Web3State } from "./web3Store";
 import erc20 from "./abi/erc20.json";
-import { HX, NUON, USDC } from "~/constants/tokens";
-import { HYDRO_ADDRESS, NUON_ADDRESS, USDC_ADDRESS } from "~/constants/addresses";
+import { HX, USX, USDC } from "~/constants/tokens";
+import { HYDRO_ADDRESS, USX_ADDRESS, USDC_ADDRESS } from "~/constants/addresses";
 import { fromWei } from "~/utils/bnTools";
 
 type StateType = {
 	balance: {
-		NUON: string,
+		USX: string,
 		HX: string,
 		USDC: string
 	},
 	decimals: {
-		NUON: number,
+		USX: number,
 		HX: number,
 		USDC: number
 	}
@@ -22,12 +22,12 @@ type StateType = {
  */
 export const state = (): StateType => ({
 	balance: {
-		NUON: "0",
+		USX: "0",
 		HX: "0",
-		USDC: "0",
+		USDC: "0"
 	},
 	decimals: {
-		NUON: 18,
+		USX: 18,
 		HX: 18,
 		USDC: 6
 	}
@@ -47,18 +47,18 @@ export const mutations: MutationTree<Erc20State> = {
 export const actions: ActionTree<Erc20State, Erc20State> = {
 	async initializeBalance (ctx: any, {address}) {
 		const usdcDecimals = await ctx.getters.usdc.methods.decimals().call();
-		const nuonBalance = fromWei(await ctx.getters.nuon.methods.balanceOf(address).call(), ctx.state.decimals.NUON);
+		const usxBalance = fromWei(await ctx.getters.usx.methods.balanceOf(address).call(), ctx.state.decimals.USX);
 		const hydroBalance = fromWei(await ctx.getters.hydro.methods.balanceOf(address).call(), ctx.state.decimals.HX) ;
 		const usdcBalance = fromWei(await ctx.getters.usdc.methods.balanceOf(address).call(), usdcDecimals);
 
 		ctx.commit("setBalance", {
 			HX: hydroBalance,
-			NUON: nuonBalance,
+			USX: usxBalance,
 			USDC: usdcBalance
 		});
 		ctx.commit("setDecimals", {
 			HX: 18,
-			NUON: 18,
+			USX: 18,
 			USDC: usdcDecimals
 		});
 	},
@@ -95,9 +95,9 @@ export const getters: GetterTree<Erc20State, Web3State> = {
 		return new web3.eth.Contract(erc20, addr);
 	},
 
-	nuon: (_state: any, _getters: any, store: any) => {
+	usx: (_state: any, _getters: any, store: any) => {
 		const web3 = store.web3Store.instance();
-		const addr = NUON_ADDRESS;
+		const addr = USX_ADDRESS;
 		return new web3.eth.Contract(erc20, addr);
 	},
 
@@ -109,29 +109,29 @@ export const getters: GetterTree<Erc20State, Web3State> = {
 
 	getHydroInfo: (state: any) => state.hydro,
 
-	getUsxInfo: (state: any) => state.nuon,
+	getUsxInfo: (state: any) => state.usx,
 
 	hxBalance: (state: StateType, _getters: any) => {
 		return parseFloat(state.balance.HX);
 	},
 
-	nuonBalance: (state: StateType, _getters: any) => {
+	usxBalance: (state: StateType, _getters: any) => {
 		return parseFloat(state.balance.HX);
 	},
 
 	tokenBalance: (state: StateType) => {
 		const hxBalance = parseFloat(state.balance.HX);
-		const nuonBalance = parseFloat(state.balance.HX);
+		const usxBalance = parseFloat(state.balance.HX);
 		return {
-			NUON: nuonBalance,
+			USX: usxBalance,
 			HX: hxBalance
 		};
 	},
 
 	getContractBySymbol: (_state: any, getters: any) => (symbol: string) => {
 		switch (symbol) {
-		case NUON.symbol:
-			return getters.nuon;
+		case USX.symbol:
+			return getters.usx;
 		case HX.symbol:
 			return getters.hydro;
 		case USDC.symbol:

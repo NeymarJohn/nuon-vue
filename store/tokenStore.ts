@@ -1,10 +1,10 @@
 import { GetterTree, ActionTree, MutationTree } from "vuex";
-import { HX, NUON } from "~/constants/tokens";
+import { HX, USX } from "~/constants/tokens";
 import { fromWei } from "~/utils/bnTools";
 
 const initalPrice = {
 	[HX.symbol] : 0,
-	[NUON.symbol] : 0,
+	[USX.symbol] : 0,
 	DAI: 1,
 	USDC: 1
 };
@@ -26,18 +26,18 @@ export const mutations: MutationTree<Web3State> = {
 
 export const actions: ActionTree<Web3State, Web3State> = {
 	async getTokenPrices(ctx: any) {
-		const nuonController = ctx.rootGetters["contractStore/nuonController"];
-		const nuonPrice = await nuonController.methods.getNUONPrice().call();
-		const hxPrice = await nuonController.methods.getNUONPrice().call();
+		const stabilityFlashContract = ctx.rootGetters["contractStore/stabilityFlash"];
+		const usxPrice = await stabilityFlashContract.methods.getUSXPriceInUSDC().call();
+		const hxPrice = await stabilityFlashContract.methods.getHYDROPriceInUSDC().call();
 		ctx.commit("setPrice", {
-			NUON: fromWei(nuonPrice, ctx.rootState.erc20Store.decimals.NUON),
+			USX: fromWei(usxPrice, ctx.rootState.erc20Store.decimals.USX),
 			HX: fromWei(hxPrice, ctx.rootState.erc20Store.decimals.HX),
 			DAI: 1,
 			USDC: 1,
 		});
 
 		ctx.commit("setPriceWithDecimal", {
-			NUON: { value: nuonPrice, decimals: ctx.rootState.erc20Store.decimals.NUON},
+			USX: { value: usxPrice, decimals: ctx.rootState.erc20Store.decimals.USX},
 			HX: { value: hxPrice, decimals: ctx.rootState.erc20Store.decimals.HX},
 			DAI: { value: 1, decimals: 0 },
 			USDC: { value: 1, decimals: 0},

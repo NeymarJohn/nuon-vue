@@ -1,6 +1,7 @@
 export const BOARDROOM_ADDRESS  =  "0x9c94acA7B451c4B6BEE094A191a4eBEa72E8c263";  // BoardroomV2.sol (TransparentUpgradeableProxy)
 export const USX_CONTROLLER_ADDRESS = "0x9060B84128781263964a2BBCD90B4901cF486806"; // USXController.sol
-export const ROUTER_ADDRESS = "0xb2DbC5B4675b21803F7c7E7d66c04B4bba97Fd0a"; // UniswapV2Router02.sol
+export const STABILITYFLASH_ADDRESS = "0x4f1Ba70099B1d446C25bD4D47d6c90A16e4C9245"; // TransparentUpgradeableProxy.sol
+export const ROUTER_ADDRESS = "0x28c280462C97e3e04eE772f6AdDa400B8275dDB0"; // UniswapV2Router02.sol
 export const NUON_CONTROLLER_ADDRESS = "0x04294c86357678c683F87bc87aC0Cd5E13180c5d"; // NUONController.sol
 export const TRUFLATION_ADDRESS = "0x89bebB87b728029890A30032C46f32c1D07e4298";
 export const TREASURY_ADDRESS = "0x464f03645C698D44f82aF4a4b930F8c4b35f1739"; // TreasuryV2 / TransparentUpgradeableProxy
