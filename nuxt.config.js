@@ -3,6 +3,9 @@ import axios from "axios";
 export default {
 	target: "static",
 	// Global page headers: https://go.nuxtjs.dev/config-head
+	server: {
+		host: "0" // default: localhost
+	},
 	head: {
 		title: "Nuon",
 		htmlAttrs: {
