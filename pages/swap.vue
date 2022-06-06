@@ -366,7 +366,8 @@ export default {
 				.then(() => {
 					this.initialize();
 				})
-				.catch(() => {});
+				.catch(() => {})
+				.finally(() => {this.activeStep = 1;});
 		},
 		swapForOutput() {
 			this.$store.dispatch(
@@ -383,8 +384,8 @@ export default {
 				}
 			).then(() => {
 				this.initialize();
-			}).catch(() => {
-			});
+			}).catch(() => {})
+				.finally(() => {this.activeStep = 1;});
 		},
 		calcuatePriceImpact() {
 			if (!this.input.token || !this.output.token) return;
@@ -398,6 +399,7 @@ export default {
 			this.$store.commit("modalStore/setModalVisibility", {name: "connectWalletModal", visibility: true});
 		},
 		swap() {
+			this.activeStep = "loading";
 			if (this.changedValue === "input") {
 				this.swapForInput();
 			} else {
