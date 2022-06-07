@@ -170,7 +170,7 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 			ctx.commit("setLastSnapshot", {lastSnapshotIndex: lastSnapshot, rewardEarned: new BN(0), epochTimerStart: 0});
 		});
 	},
-	async updateStatus({dispatch, getters, commit}) {
+	async updateStatus() { // {dispatch, getters, commit}
 		// dispatch("getAllowance");
 
 		// const allCollaterals = await getters.getCollaterals();
