@@ -79,7 +79,6 @@
 
 <script>
 import TooltipIcon from "@/assets/images/svg/svg-tooltip.svg";
-import { fromWei } from "~/utils/bnTools";
 
 export default {
 	name: "TheCollateral",
