@@ -12,7 +12,7 @@
 				@click="toggleRedeemView">Redeem</TheButton>
 		</div>
 		<CollateralMint v-if="isMintView" />
-		<CollateralRedeem v-else />
+		<!-- <CollateralRedeem v-else /> -->
 	</div>
 </template>
 

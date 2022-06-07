@@ -2,6 +2,7 @@
 		1. Transaction summary default
 		2. Transaction summary swap
 		3. Transaction summary responsive
+		4. Transaction summary CHub
 */
 
 // 1. Transaction summary default
@@ -56,4 +57,10 @@
 	.transaction-summary--swap {
 		padding: 0;
 	}
+}
+
+// 4. Transaction summary CHub
+.transaction-summary--chub {
+	padding: $SPACING_32;
+	margin-bottom: $SPACING_48;
 }

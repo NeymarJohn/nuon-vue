@@ -1,15 +1,56 @@
 <template>
 	<TheStepper :active-step="activeStep" :steps="['Input', 'Confirm']">
 		<template #step-one>
-			<div class="toggle__content">
-				<h5 class="u-mb-12">Select Your Collateral Token To Deposit</h5>
-				<CollateralClaimAccordion
-					:default-value="depositLockedCollateral"
-					@selected-token="selectClaimToken"
-					@change-input="changeMintValue"
-				/>
-			</div>
-			<div class="toggle__transaction">
+			<DataCard class="u-full-width">
+				<div class="u-full-width l-flex l-flex--row-space-between">
+					<p class="accordion__available">{{ selectedToken.symbol }} amount</p>
+					<p class="accordion__available">Available balance: {{ (selectedToken.balance || 0) | formatLongNumber }}</p>
+				</div>
+				<div class="input u-mb-12">
+					<div class="input__container">
+						<input
+							v-model="inputValue"
+							placeholder="0.0"
+							type="number"
+							min="0"
+							max="79"
+							autocomplete="off"
+							autocorrect="off"
+							spellcheck="false"
+							inputmode="decimal" />
+						<TheButton :disabled="isMaxInputDisabled(selectedToken ? selectedToken.balance : 0)" size="sm" title="Click to input your max balance" @click="inputMaxBalance">Max</TheButton>
+					</div>
+				</div>
+				<h5 v-if="selectedToken" class="u-mb-0 l-flex--align-self-end">~ ${{ numberWithCommas(getDollarValue(inputValue, selectedToken.price).toFixed(2)) }}</h5>
+				<p v-if="readyToDeposit" class="u-is-success l-flex--align-self-end">Ready to deposit</p>
+			</DataCard>
+			<DataCard class="u-full-width">
+				<p class="accordion__available">Estimated NUON minted</p>
+				<div class="accordion u-br-10">124.00 NUON</div>
+			</DataCard>
+			<DataCard class="u-full-width u-mt-24">
+				<p class="accordion__available">Set your Collateral Ratio</p>
+				<div class="accordion u-br-10">
+					<div class="u-full-width l-flex l-flex--row-space-between">
+						<p class="accordion__available">Liquidation Price</p>
+						<p class="accordion__available">Collateral Ratio</p>
+					</div>
+					<div class="u-full-width l-flex l-flex--row-space-between">
+						<h4>$1495.00</h4>
+						<h4 class="u-is-success">204%</h4>
+					</div>
+					<RangeSlider class="u-mt-24" />
+					<div class="u-full-width l-flex l-flex--row-space-between u-mt-24">
+						<p class="accordion__available">250%</p>
+						<p class="accordion__available">170%</p>
+					</div>
+					<div class="u-full-width l-flex l-flex--row-space-between">
+						<p class="accordion__available">Decrease risk</p>
+						<p class="accordion__available">Increase risk</p>
+					</div>
+				</div>
+			</DataCard>
+			<div class="toggle__transaction u-mt-24">
 				<TheButton
 					:disabled="isApproved || isApproving"
 					:class="isApproved"
@@ -29,7 +70,7 @@
 			</div>
 		</template>
 		<template #step-two>
-			<TransactionSummary :values="summary" />
+			<TransactionSummaryCHub :values="summary" />
 			<div class="toggle__transaction">
 				<TheButton
 					title="Click to go back"
@@ -48,13 +89,14 @@
 </template>
 
 <script>
-import { HX, TOKENS_MAP} from "~/constants/tokens";
+import { TOKENS_MAP} from "~/constants/tokens";
 import { fromWei, toWei } from "~/utils/bnTools";
 
 export default {
 	name: "CollateralMint",
 	data() {
 		return {
+			inputValue: 0,
 			mintToken: {},
 			depositLockedCollateral: 0,
 			estimatedMintedUsxValue: 0,
@@ -62,7 +104,11 @@ export default {
 			activeStep: 1,
 			isApproving: false,
 			minting: false,
-			allCollaterals: []
+			allCollaterals: [],
+			selectedToken: {
+				symbol: "ETH",
+				balance: 0
+			}
 		};
 	},
 	computed: {
@@ -97,7 +143,8 @@ export default {
 			return !!this.$store.state.collateralVaultStore.allowance[this.mintToken.symbol];
 		},
 		disabledMint() {
-			return !this.isApproved || !parseFloat(this.depositLockedCollateral) || this.isMoreThanBalance;
+			// !this.isApproved || !parseFloat(this.depositLockedCollateral) || this.isMoreThanBalance
+			return false;
 		},
 		isMoreThanBalance() {
 			return  parseFloat(this.depositLockedCollateral) > this.tokenBalance;
@@ -108,11 +155,15 @@ export default {
 		mintingFee() {
 			return this.$store.state.collateralVaultStore.mintingFee;
 		},
+		readyToDeposit() {
+			return !!this.inputValue;
+		}
 	},
-	async mounted () {
-		this.allCollaterals = await this.$store.getters["collateralVaultStore/getCollaterals"]();
-		const hxPrice = this.tokenPrices[HX.symbol];
-		this.mintToken.price = hxPrice;
+	mounted () {
+		// await this.$store.getters["collateralVaultStore/getCollaterals"]();
+		this.allCollaterals = [];
+		// const hxPrice = this.tokenPrices[HX.symbol];
+		// this.mintToken.price = hxPrice;
 	},
 	methods: {
 		selectClaimToken(token) {
@@ -139,12 +190,12 @@ export default {
 			const estimatedValue = await this.getEstimatedMintedUsx();
 			this.estimatedMintedUsxValue = fromWei(estimatedValue[0]);
 		},
-		async getEstimatedMintedUsx() {
-			const selectedTokenAddress = TOKENS_MAP[this.mintToken.symbol].address;
-			const cid = this.allCollaterals.findIndex(c => c === selectedTokenAddress);
-			if (cid < 0) return 0;
-			const estimatedMintedUsx  =  await this.$store.getters["collateralVaultStore/getEstimatedMintedUSXAmount"](toWei(this.depositLockedCollateral ,this.$store.state.erc20Store.decimals[this.mintToken.symbol]), cid);
-			return estimatedMintedUsx;
+		getEstimatedMintedUsx() {
+			// const selectedTokenAddress = TOKENS_MAP[this.mintToken.symbol].address;
+			// const cid = this.allCollaterals.findIndex(c => c === selectedTokenAddress);
+			// if (cid < 0) return 0;
+			// const estimatedMintedUsx  =  await this.$store.getters["collateralVaultStore/getEstimatedMintedUSXAmount"](toWei(this.depositLockedCollateral ,this.$store.state.erc20Store.decimals[this.mintToken.symbol]), cid);
+			return 0;
 		},
 		async mint() {
 			this.activeStep = "loading";

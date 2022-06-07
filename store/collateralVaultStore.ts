@@ -83,8 +83,8 @@ export const mutations: MutationTree<BoardroomState> = {
 };
 
 export const actions: ActionTree<BoardroomState, BoardroomState> = {
-	initialize(ctx:any) {
-		ctx.dispatch("updateStatus");
+	initialize() {
+		// ctx.dispatch("updateStatus");
 	},
 	async getAllowance (ctx: any) {
 		const address = ctx.rootGetters["web3Store/account"];
@@ -171,23 +171,23 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 		});
 	},
 	async updateStatus({dispatch, getters, commit}) {
-		dispatch("getAllowance");
+		// dispatch("getAllowance");
 
-		const allCollaterals = await getters.getCollaterals();
-		commit("setAllCollaterals", allCollaterals);
+		// const allCollaterals = await getters.getCollaterals();
+		// commit("setAllCollaterals", allCollaterals);
 		// const totalLockedCollateral = await getters.getTotalLockedCollareralValue();
 		// commit("setTotalLockedCollateral", totalLockedCollateral);
 
-		const mintingFee = await getters.getMintingFee();
-		commit("setMintingFee",  fromWei(mintingFee));
-		const redeemFee = await getters.getRedeemFee();
-		commit("setRedeemFee", fromWei(redeemFee));
+		// const mintingFee = await getters.getMintingFee();
+		// commit("setMintingFee",  fromWei(mintingFee));
+		// const redeemFee = await getters.getRedeemFee();
+		// commit("setRedeemFee", fromWei(redeemFee));
 
-		const inflation = Number(await getters.getInflation());
-		commit("setInflation", inflation);
+		// const inflation = Number(await getters.getInflation());
+		// commit("setInflation", inflation);
 
-		const dailyInflationRate = Number(await getters.getDailyInflationRate());
-		commit("setDailyInflationRate", dailyInflationRate);
+		// const dailyInflationRate = Number(await getters.getDailyInflationRate());
+		// commit("setDailyInflationRate", dailyInflationRate);
 	},
 	async mint(ctx: any, {amount, cid, onTxHash, onConfirm, onReject}) {
 		if (cid === -1) return;

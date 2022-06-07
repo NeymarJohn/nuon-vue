@@ -156,7 +156,7 @@ export const actions: ActionTree<Web3State, Web3State> = {
 		dispatch("erc20Store/initializeBalance", {address , chainId, web3}, {root: true});
 		dispatch("swapStore/initialize", {}, {root: true});
 		dispatch("boardroomStore/initialize", {}, {root: true});
-		dispatch("collateralVaultStore/initialize", {}, {root: true});
+		// dispatch("collateralVaultStore/initialize", {}, {root: true});
 		dispatch("pancakeswapStore/initialize", {}, {root: true});
 	},
 	disconnect ({ commit }) {

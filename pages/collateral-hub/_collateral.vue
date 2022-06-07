@@ -23,16 +23,16 @@
 						class="modal--collateral-table"
 						title="Token List"
 						@close-modal="setModalVisibility('collateralModal', false)">
-						<CollateralTable />
+						<!-- <CollateralTable /> -->
 					</TheModal>
 				</DataCard>
 				<DataCard>
 					<label>My Minted Tokens</label>
 					<TheLoader component="h1">
-						<h3>{{ userMintedAmount | toFixed | numberWithCommas }}<sup>Nuon</sup></h3>
+						<h3>{{  }}<sup>Nuon</sup></h3>
 					</TheLoader>
 					<TheLoader component="h5">
-						<h5>${{ getDollarValue(userMintedAmount, usxPrice) | toFixed | numberWithCommas }}</h5>
+						<h5>${{  }}</h5>
 					</TheLoader>
 				</DataCard>
 			</LayoutInfo>
@@ -43,7 +43,7 @@
 				<StatCard class="u-mb-md-12">
 					<label>Nuon Price<TooltipIcon v-tooltip="'Enter Nuon price tooltip content here.'" /></label>
 					<TheLoader component="h3">
-						<h3>{{ usxPrice | toFixed | numberWithCommas }}</h3>
+						<h3>{{  }}</h3>
 					</TheLoader>
 				</StatCard>
 				<StatCard class="u-mb-md-12">
@@ -72,7 +72,7 @@
 			</PageTitle>
 		</LayoutContainer>
 		<LayoutContainer size="sm">
-			<CollateralToggle :minted-tokens="userTVL" />
+			<CollateralToggle :minted-tokens="0" />
 		</LayoutContainer>
 	</div>
 </template>
@@ -103,50 +103,39 @@ export default {
 		usxPrice() {
 			return this.tokenPrices.USX;
 		},
-		userJustMinted() {
-			return this.$store.state.collateralVaultStore.userJustMinted;
-		},
+		// userJustMinted() {
+		// 	return this.$store.state.collateralVaultStore.userJustMinted;
+		// },
 		isCollateralModalVisible() {
 			return this.$store.state.modalStore.modalVisible.collateralModal;
 		},
-		userMintedAmount() {
-			return parseFloat(this.$store.getters["erc20Store/usxBalance"]);
-		},
+		// userMintedAmount() {
+		// 	return parseFloat(this.$store.getters["erc20Store/usxBalance"]);
+		// },
 		inflation() {
-			return this.$store.state.collateralVaultStore.inflation / 10;
+			return 0;
 		},
 		dailyInflationRate() {
-			return this.$store.state.collateralVaultStore.dailyInflationRate / 10;
-		}
-	},
-	watch: {
-		connectedAccount(newValue) {
-			this.getUserTVL(newValue);
-		},
-		userJustMinted(newValue) {
-			if (newValue) {
-				this.getUserTVL(this.connectedAccount);
-				this.$store.commit("collateralVaultStore/setUserJustMinted", false);
-			}
+			return 0;
 		}
 	},
 	async mounted() {
-		this.getUserTVL(this.connectedAccount);
-		this.collateralizationRatio = (1 / parseFloat(fromWei(await this.$store.getters["collateralVaultStore/getGlobalCollateralRatio"]()))) * 100;
+		// this.getUserTVL(this.connectedAccount);
+		// this.collateralizationRatio = (1 / parseFloat(fromWei(await this.$store.getters["collateralVaultStore/getGlobalCollateralRatio"]()))) * 100;
 	},
 	methods: {
-		async getUserTVL(userAddress) {
-			if (this.connectedAccount) {
-				this.userTVL = 0;
-				this.collateralAddresses = await this.$store.getters["collateralVaultStore/getCollaterals"]();
-				this.collateralAddresses.forEach(async (_, idx) => {
-					const userAmounts = await this.$store.getters["collateralVaultStore/getUserAmounts"](userAddress, idx);
-					const weiBalance = userAmounts[0];
-					const usdBalance = fromWei(weiBalance);
-					this.userTVL += parseFloat(usdBalance);
-				});
-			}
-		}
+		// async getUserTVL(userAddress) {
+		// 	if (this.connectedAccount) {
+		// 		this.userTVL = 0;
+		// 		this.collateralAddresses = await this.$store.getters["collateralVaultStore/getCollaterals"]();
+		// 		this.collateralAddresses.forEach(async (_, idx) => {
+		// 			const userAmounts = await this.$store.getters["collateralVaultStore/getUserAmounts"](userAddress, idx);
+		// 			const weiBalance = userAmounts[0];
+		// 			const usdBalance = fromWei(weiBalance);
+		// 			this.userTVL += parseFloat(usdBalance);
+		// 		});
+		// 	}
+		// }
 	}
 };
 </script>
