@@ -1,16 +1,16 @@
 <template>
 	<a href="/" class="logo" title="Click to visit the dashboard">
-		<CaldronLogo />
+		<NuonLogo />
 	</a>
 </template>
 
 <script>
-import CaldronLogo from "@/assets/images/logo/logo-nuon.svg";
+import NuonLogo from "@/assets/images/logo/logo-nuon.svg";
 
 export default {
 	name: "TheLogo",
 	components: {
-		CaldronLogo
+		NuonLogo
 	},
 };
 </script>
