@@ -26,11 +26,11 @@
 			</DataCard>
 			<DataCard class="u-full-width">
 				<p class="accordion__available">Estimated NUON minted</p>
-				<div class="accordion u-br-10">124.00 NUON</div>
+				<div class="accordion u-border-radius-10">124.00 NUON</div>
 			</DataCard>
 			<DataCard class="u-full-width u-mt-24">
 				<p class="accordion__available">Set your Collateral Ratio</p>
-				<div class="accordion u-br-10">
+				<div class="accordion u-border-radius-10">
 					<div class="u-full-width l-flex l-flex--row-space-between">
 						<p class="accordion__available">Liquidation Price</p>
 						<p class="accordion__available">Collateral Ratio</p>
@@ -70,7 +70,7 @@
 			</div>
 		</template>
 		<template #step-two>
-			<TransactionSummaryCHub :values="summary" />
+			<TransactionSummaryChub :values="summary" />
 			<div class="toggle__transaction">
 				<TheButton
 					title="Click to go back"

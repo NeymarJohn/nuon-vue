@@ -19,8 +19,6 @@
 				</LayoutFlex>
 				<h3>124.0</h3>
 			</LayoutFlex>
-
-
 			<div class="u-mt-32 u-full-width l-flex l-flex--row-space-between">
 				<h4>Liquidation Price</h4>
 				<h4>204%</h4>
@@ -41,6 +39,7 @@
 import ArrowDownIcon from "@/assets/images/svg/svg-arrow-down.svg";
 
 export default {
+	name: "TransactionSummaryChub",
 	components: {
 		ArrowDownIcon
 	},
