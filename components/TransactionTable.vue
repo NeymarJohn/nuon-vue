@@ -8,7 +8,11 @@
 				role="columnheader">{{ column.title }}</div>
 		</div>
 		<template v-if="data.length">
-			<div v-for="(row, index) in data.slice((currentPage - 1) * 10, currentPage * 10)" :key="index" class="transaction-table__row" role="rowgroup">
+			<div
+				v-for="(row, index) in data.slice((currentPage - 1) * 10, currentPage * 10)"
+				:key="index"
+				class="transaction-table__row"
+				role="rowgroup">
 				<div
 					v-for="(obj, idx) in config"
 					:key="idx"
@@ -62,10 +66,5 @@ export default {
 			currentPage: 1
 		};
 	},
-	methods: {
-		onPageChange(page) {
-			this.currentPage = page;
-		}
-	}
 };
 </script>

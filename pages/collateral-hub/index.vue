@@ -5,12 +5,36 @@
 			<h1>Borrow Nuon Against Your Favourite Crypto Assets</h1>
 		</PageTitle>
 		<LayoutFlex direction="row-wrap-start">
-			<BorrowCard />
-			<BorrowCard />
-			<BorrowCard />
-			<BorrowCard />
-			<BorrowCard />
-			<BorrowCard />
+			<BorrowCard
+				token="ETH"
+				:mint="151000"
+				:ratio="170"
+				:tvl="1234" />
+			<BorrowCard
+				token="WBTC"
+				:mint="200000"
+				:ratio="170"
+				:tvl="1234" />
+			<BorrowCard
+				token="USDC"
+				:mint="10000"
+				:ratio="170"
+				:tvl="1234" />
+			<BorrowCard
+				token="ETH"
+				:mint="151000"
+				:ratio="170"
+				:tvl="1234" />
+			<BorrowCard
+				token="WBTC"
+				:mint="200000"
+				:ratio="170"
+				:tvl="1234" />
+			<BorrowCard
+				token="USDC"
+				:mint="10000"
+				:ratio="170"
+				:tvl="1234" />
 		</LayoutFlex>
 	</LayoutContainer>
 </template>

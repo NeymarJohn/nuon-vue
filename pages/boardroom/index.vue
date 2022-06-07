@@ -147,7 +147,9 @@
 			</LayoutFlex>
 			<InfiniteScroll :items="filteredProposals" class-name="proposal" @fetch="getProposalsFromSnapshot">
 				<template #item="{ item }">
-					<NuxtLink :to="{name: 'boardroom-proposal', params: { proposal: item.id }}">
+					<NuxtLink
+						:to="{name: 'boardroom-proposal', params: { proposal: item.id }}"
+						title="Click to view proposal">
 						<div class="proposal__left">
 							<h4># {{ item.snapshot }} {{ item.title }}</h4>
 							<p>{{ shortAddress(item.id) }}</p>
