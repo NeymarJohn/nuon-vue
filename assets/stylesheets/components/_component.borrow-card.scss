@@ -1,0 +1,56 @@
+/* #COMPONENT - BORROW CARD
+		1. Borrow card default
+*/
+
+// 1. Borrow card default
+.borrow-card,
+.borrow-card__asset {
+	padding: $SPACING_24;
+}
+.borrow-card__asset,
+.borrow-card__info {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+}
+.borrow-card__image p,
+.borrow-card__info p {
+	margin-bottom: 0;
+}
+.borrow-card {
+	background: $MEDIUM_LIGHT_GREY;
+	border-radius: $BORDER_RADIUS_16;
+	width: calc(33.3% - $SPACING_16);
+	margin-right: $SPACING_24;
+	margin-bottom: $SPACING_24;
+}
+.borrow-card:nth-child(3n) {
+	margin-right: 0;
+}
+.borrow-card__asset {
+	background: $DARK_GREY;
+	border-radius: $BORDER_RADIUS_8;
+	margin-bottom: $SPACING_16;
+}
+.borrow-card__image {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+.borrow-card__image svg {
+	margin-bottom: $SPACING_4;
+}
+.borrow-card__text p {
+	margin-bottom: $SPACING_4;
+}
+.borrow-card__text h5 {
+	color: $LIME;
+}
+.borrow-card__info p {
+	color: $LIGHT_GREY;
+}
+.borrow-card .btn {
+	width: 100%;
+	margin-bottom: $SPACING_32;
+}

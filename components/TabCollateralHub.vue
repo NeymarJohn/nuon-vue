@@ -10,13 +10,8 @@
 		</div>
 		<TheLoader component="table">
 			<TransactionTable
-				v-if="!mobileView"
 				size="4"
 				aria="Vault redeemed transactions"
-				:data="filteredData"
-				:config="transactionConfig" />
-			<TransactionCard
-				v-else
 				:data="filteredData"
 				:config="transactionConfig" />
 		</TheLoader>
@@ -26,15 +21,9 @@
 <script>
 export default {
 	name: "TabCollateralHub",
-	data() {
-		return {
-			mobileView: false
-		};
-	},
 	mounted() {
 		this.$store.dispatch("transactionStore/loadUsers");
 		this.$store.commit("rootStore/setIsLoaded", true);
-		this.mobileView = this.isMobile();
 	}
 };
 </script>

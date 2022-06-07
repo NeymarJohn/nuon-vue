@@ -14,7 +14,7 @@
 .transaction-table__row {
 	display: flex;
 	flex-flow: row wrap;
-	border-bottom: $SPACING_1 solid $LIGHER_GREY;
+	border-bottom: 1px solid $LIGHER_GREY;
 }
 .transaction-table__row:first-child {
 	padding-bottom: $SPACING_40;

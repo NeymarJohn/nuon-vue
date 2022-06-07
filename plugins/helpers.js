@@ -155,19 +155,19 @@ Vue.mixin({
 				this.$store.commit("rootStore/setToast", {...this.$store.state.rootStore.toast, show: false});
 			}, 5000);
 		},
-		getRPCErrorMessage(x){
-			const open = x.message.indexOf("{");
-			const close = x.message.lastIndexOf("}");
-			const jsonData = x.message.substring(open, close + 1);
+		getRPCErrorMessage(err){
+			const open = err.message.indexOf("{");
+			const close = err.message.lastIndexOf("}");
+			const jsonData = err.message.substring(open, close + 1);
 			const j = JSON.parse(jsonData);
 			const message = j.message;
 			return message;
 		},
-		onFilterChange(x) {
-			this.filterOption = x;
+		onFilterChange(o) {
+			this.filterOption = o;
 		},
-		onDateFilterChange(x) {
-			this.$store.commit("transactionStore/setDateFilter", x);
+		onDateFilterChange(o) {
+			this.$store.commit("transactionStore/setDateFilter", o);
 		},
 		noExponents(exponent) {
 			const data = exponent.split(/[eE]/);
@@ -187,18 +187,8 @@ Vue.mixin({
 			while (mag--) z += "0";
 			return str + z;
 		},
-		setTransactionSearch(x) {
-			this.$store.commit("transactionStore/setSearch", x);
-		},
-		onPageChange(x) {
-			this.currentPage = x;
-		},
-		isMobile() {
-			if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-				return true;
-			} else {
-				return false;
-			}
+		setTransactionSearch(s) {
+			this.$store.commit("transactionStore/setSearch", s);
 		}
 	},
 });

@@ -29,7 +29,11 @@
 									autocorrect="off"
 									spellcheck="false"
 									inputmode="decimal" />
-								<TheButton :disabled="isMaxInputDisabled(token.balance)" size="sm" title="Click to input your max balance" @click="inputMaxBalance">Max</TheButton>
+								<TheButton
+									:disabled="isMaxInputDisabled(token.balance)"
+									size="sm"
+									title="Click to input your max balance"
+									@click="inputMaxBalance">Max</TheButton>
 							</div>
 						</div>
 						<h5 v-if="token">~ ${{ numberWithCommas(getDollarValue(inputValue, tokenPrices[token.symbol]).toFixed(2)) }}</h5>
