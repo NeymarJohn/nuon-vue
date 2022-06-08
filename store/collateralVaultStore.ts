@@ -276,7 +276,7 @@ export const getters: GetterTree<BoardroomState, Web3State> = {
 	},
 	getGlobalCollateralRatio: (_state: any, getters: any) => async () => {
 		return await getters.usxControllerContract.methods.getGlobalCollateralRatio().call();
-	},
+	}, // old methods end here
 	getUserCollateralAmount: (_state: any, getters: any) => async (userAddress: string) => {
 		return await getters.collateralHubContract.methods.viewUserCollateralAmount(userAddress).call();
 	},

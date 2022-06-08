@@ -4,7 +4,7 @@
 			<DataCard class="u-full-width">
 				<div class="u-full-width l-flex l-flex--row-space-between">
 					<p class="accordion__available">{{ selectedToken.symbol }} amount</p>
-					<p class="accordion__available">Available balance: {{ (selectedToken.balance || 0) | formatLongNumber }}</p>
+					<p class="accordion__available">Available balance: {{ (ethBalance || 0) | formatLongNumber }}</p>
 				</div>
 				<div class="input u-mb-12">
 					<div class="input__container">
@@ -13,7 +13,6 @@
 							placeholder="0.0"
 							type="number"
 							min="0"
-							max="79"
 							autocomplete="off"
 							autocorrect="off"
 							spellcheck="false"
@@ -157,6 +156,9 @@ export default {
 		},
 		readyToDeposit() {
 			return !!this.inputValue;
+		},
+		ethBalance() {
+			return this.$store.state.erc20Store.balance.ETH;
 		}
 	},
 	mounted () {

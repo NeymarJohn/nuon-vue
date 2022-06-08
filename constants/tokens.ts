@@ -1,4 +1,4 @@
-import { DAI_ADDRESS, HYDRO_ADDRESS, NUON_ADDRESS, USDC_ADDRESS, USDT_ADDRESS, USDC_USDT_PAIR_ADDRESS } from "./addresses";
+import { DAI_ADDRESS, ETH_ADDRESS, HYDRO_ADDRESS, NUON_ADDRESS, USDC_ADDRESS, USDT_ADDRESS, USDC_USDT_PAIR_ADDRESS } from "./addresses";
 
 export const HX = {
 	address: HYDRO_ADDRESS,
@@ -30,6 +30,12 @@ export const USDT = {
 	name: "USDT TOKEN"
 };
 
+export const ETH = {
+	address: ETH_ADDRESS,
+	symbol: "ETH",
+	name: "ETHER"
+};
+
 export const USDC_USDT_LP_TOKEN = {
 	address: USDC_USDT_PAIR_ADDRESS,
 	symbol: "USDC-USDT LP",
@@ -42,7 +48,8 @@ export const TOKENS_MAP:any = {
 	DAI,
 	USDC,
 	USDT,
-	USDC_USDT_LP_TOKEN
+	USDC_USDT_LP_TOKEN,
+	ETH
 };
 
 const paths:any =  {
