@@ -1,5 +1,6 @@
 /* #COMPONENT - BORROW CARD
 		1. Borrow card default
+		2. Borrow card responsive
 */
 
 // 1. Borrow card default
@@ -51,12 +52,63 @@
 .borrow-card__text h5 {
 	color: $LIME;
 }
+.borrow-card__info {
+	margin-bottom: $SPACING_8;
+}
 .borrow-card__info p {
 	color: $LIGHT_GREY;
 }
 .borrow-card .btn {
-	display: inline-block;
 	text-align: center;
 	width: 100%;
-	margin-bottom: $SPACING_32;
+	line-height: $SPACING_18;
+}
+
+// 2. Borrow card responsive
+@media screen and (max-width: $SPACING_1440) {
+	.borrow-card {
+		margin-bottom: $SPACING_12;
+		margin-right: $SPACING_12;
+		width: calc(33.3% - $SPACING_8);
+	}
+	.borrow-card__asset {
+		padding: $SPACING_32;
+	}
+	.borrow-card__image {
+		margin-right: $SPACING_28;
+	}
+	.borrow-card__image img {
+		margin-bottom: $SPACING_12;
+		height: $SPACING_56;
+		width: $SPACING_56;
+	}
+}
+@media screen and (max-width: $SPACING_990) {
+	.borrow-card {
+		padding: $SPACING_16;
+	}
+	.borrow-card__asset {
+		padding: $SPACING_16;
+	}
+	.borrow-card__image {
+		margin-right: $SPACING_16;
+	}
+	.borrow-card__image img {
+		height: $SPACING_48;
+		width: $SPACING_48;
+	}
+}
+@media screen and (max-width: $SPACING_480) {
+	.borrow-card {
+		width: 100%;
+		margin-right: 0;
+		padding: $SPACING_32;
+	}
+	.borrow-card__image {
+		margin-right: $SPACING_26;
+	}
+	.borrow-card__image img {
+		height: $SPACING_36;
+		width: $SPACING_36;
+	}
 }

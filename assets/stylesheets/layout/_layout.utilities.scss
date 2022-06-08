@@ -146,6 +146,9 @@
 	}
 }
 @media screen and (max-width: $SPACING_990) {
+	.u-mr-md-0 {
+		margin-right: 0 !important;
+	}
 	.u-mr-md-12 {
 		margin-right: $SPACING_12 !important;
 	}

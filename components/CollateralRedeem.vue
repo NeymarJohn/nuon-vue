@@ -1,41 +1,22 @@
 <template>
 	<TheStepper :active-step="activeStep" :steps="['Input', 'Confirm']">
 		<template #step-one>
-			<DataCard class="u-full-width">
-				<div class="u-full-width l-flex l-flex--row-space-between">
-					<p class="accordion__available">{{ withdrawToken.symbol }} amount</p>
-					<p class="accordion__available">Available balance: {{ (withdrawToken.balance || 0) | formatLongNumber }}</p>
-				</div>
-				<div class="input u-mb-12">
-					<div class="input__container">
-						<input
-							v-model="inputValue"
-							placeholder="0.0"
-							type="number"
-							min="0"
-							max="79"
-							autocomplete="off"
-							autocorrect="off"
-							spellcheck="false"
-							inputmode="decimal" />
-						<TheButton :disabled="isMaxInputDisabled(withdrawToken ? withdrawToken.balance : 0)" size="sm" title="Click to input your max balance" @click="inputMaxBalance">Max</TheButton>
-					</div>
-				</div>
-				<h5 v-if="selectedToken" class="u-mb-0 l-flex--align-self-end">~ ${{ numberWithCommas(getDollarValue(inputValue, withdrawToken.price).toFixed(2)) }}</h5>
-				<p v-if="readyToDeposit" class="u-is-success l-flex--align-self-end">Ready to repay</p>
-			</DataCard>
-			<DataCard class="u-full-width u-mt-32">
-				<p class="accordion__available">Estimated NUON redeemed</p>
-				<div class="accordion u-border-radius-10">124.00 NUON</div>
-			</DataCard>
-			<TheButton
-				class="u-full-width u-mt-32"
-				title="Click to deposit"
-				:disabled="isNextDisabled"
-				@click="activeStep = 2">Next</TheButton>
+			<div class="toggle__content">
+				<h5 class="u-mb-12">Select Your Collateral Token To Redeem</h5>
+				<CollateralClaimAccordion
+					:token="withdrawToken"
+					:default-value="withdrawAmount"
+					@selected-token="selectClaimToken"
+					@change-input="changeWithdrawValue" />
+				<TheButton
+					class="u-full-width"
+					title="Click to deposit"
+					:disabled="isNextDisabled"
+					@click="activeStep = 2">Next</TheButton>
+			</div>
 		</template>
 		<template #step-two>
-			<TransactionSummaryChub :values="summary" />
+			<TransactionSummary :values="summary" />
 			<div class="toggle__transaction">
 				<TheButton
 					title="Click to go back"
@@ -78,61 +59,58 @@ export default {
 	},
 	computed: {
 		isApproved() {
-			// !!this.$store.state.collateralVaultStore.allowance[this.withdrawToken.symbol]
-			return true;
+			return !!this.$store.state.collateralVaultStore.allowance[this.withdrawToken.symbol];
 		},
 		tokenBalance() {
 			return parseFloat(this.withdrawToken.balance);
 		},
 		isNextDisabled() {
-			// !this.isApproved || !this.withdrawAmount || this.withdrawAmount > this.tokenBalance
-			return false;
+			return !this.isApproved || !this.withdrawAmount || this.withdrawAmount > this.tokenBalance;
 		},
 		feeDollarValue() {
 			return (this.withdrawAmount * this.withdrawToken.price * this.feeAmount).toFixed(2);
 		},
 		summary() {
 			return [
-				// {
-				// 	title: "Collateral to Withdraw",
-				// 	val: this.numberWithCommas(parseFloat(this.withdrawAmount).toFixed(2)),
-				// 	currency: this.withdrawToken.symbol,
-				// 	dollar: this.numberWithCommas((this.withdrawAmount * this.withdrawToken.price).toFixed(2))
-				// },
-				// {
-				// 	title: "Maximum Withdrawn Nuon",
-				// 	val: this.numberWithCommas(this.estimatedWithdrawnUsxValue),
-				// 	currency: "Nuon",
-				// 	dollar: this.numberWithCommas((this.estimatedWithdrawnUsxValue * this.tokenPrices.USX).toFixed(2))
-				// },
-				// {
-				// 	title: "Fee",
-				// 	val: `${this.redeemFee * 100}%`,
-				// 	dollar: this.numberWithCommas(this.feeDollarValue)
-				// },
-				// {
-				// 	title: "Total Received",
-				// 	val: this.numberWithCommas((this.estimatedWithdrawnUsxValue * (1 - this.feeAmount)).toFixed(2)),
-				// 	currency: "HX",
-				// 	dollar: this.numberWithCommas((this.estimatedWithdrawnUsxValue * this.tokenPrices.USX).toFixed(2) - this.feeDollarValue)
-				// }
+				{
+					title: "Collateral to Withdraw",
+					val: this.numberWithCommas(parseFloat(this.withdrawAmount).toFixed(2)),
+					currency: this.withdrawToken.symbol,
+					dollar: this.numberWithCommas((this.withdrawAmount * this.withdrawToken.price).toFixed(2))
+				},
+				{
+					title: "Maximum Withdrawn Nuon",
+					val: this.numberWithCommas(this.estimatedWithdrawnUsxValue),
+					currency: "Nuon",
+					dollar: this.numberWithCommas((this.estimatedWithdrawnUsxValue * this.tokenPrices.USX).toFixed(2))
+				},
+				{
+					title: "Fee",
+					val: `${this.redeemFee * 100}%`,
+					dollar: this.numberWithCommas(this.feeDollarValue)
+				},
+				{
+					title: "Total Received",
+					val: this.numberWithCommas((this.estimatedWithdrawnUsxValue * (1 - this.feeAmount)).toFixed(2)),
+					currency: "HX",
+					dollar: this.numberWithCommas((this.estimatedWithdrawnUsxValue * this.tokenPrices.USX).toFixed(2) - this.feeDollarValue)
+				}
 			];
 		},
 		redeemFee() {
-			// this.$store.state.collateralVaultStore.redeemFee
-			return 0;
+			return this.$store.state.collateralVaultStore.redeemFee;
 		}
 	},
 	async mounted () {
-		// const hxPrice = parseFloat(this.tokenPrices.HX);
-		// this.withdrawToken.price = hxPrice;
-		// this.allCollaterals = await this.$store.getters["collateralVaultStore/getCollaterals"]();
-		// const cid = this.allCollaterals.findIndex(c => c === TOKENS_MAP.HX.address);
-		// if (cid !== -1) {
-		// 	const userAmounts = await this.$store.getters["collateralVaultStore/getUserAmounts"](this.connectedAccount, cid);
-		// 	const balance = parseFloat(userAmounts[1]) / (10 ** this.$store.state.erc20Store.decimals[token.symbol]);
-		// 	this.withdrawToken = {...this.withdrawToken, balance};
-		// }
+		const hxPrice = parseFloat(this.tokenPrices.HX);
+		this.withdrawToken.price = hxPrice;
+		this.allCollaterals = await this.$store.getters["collateralVaultStore/getCollaterals"]();
+		const cid = this.allCollaterals.findIndex(c => c === TOKENS_MAP.HX.address);
+		if (cid !== -1) {
+			const userAmounts = await this.$store.getters["collateralVaultStore/getUserAmounts"](this.connectedAccount, cid);
+			const balance = parseFloat(userAmounts[1]) / (10 ** this.$store.state.erc20Store.decimals[token.symbol]);
+			this.withdrawToken = {...this.withdrawToken, balance};
+		}
 	},
 	methods: {
 		async selectClaimToken(token) {

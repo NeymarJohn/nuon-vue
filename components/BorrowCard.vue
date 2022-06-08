@@ -6,8 +6,8 @@
 				<p>{{ token }}</p>
 			</div>
 			<div class="borrow-card__text">
-				<p>With 145.00 {{ token }}</p>
-				<h5>Mint Up To <br />{{ mint | toFixed | numberWithCommas }} NUON</h5>
+				<p>With 1 {{ token }}</p>
+				<h5>Mint {{ mint | toFixed | numberWithCommas }} NUON</h5>
 			</div>
 		</div>
 		<div class="borrow-card__info">
@@ -18,7 +18,10 @@
 			<p>TVL</p>
 			<h4>${{ tvl | toFixed | numberWithCommas }}</h4>
 		</div>
-		<NuxtLink to="/collateral-hub/collateral" class="btn btn--md" title="Click to deposit/redeem assets">Deposit/Redeem</NuxtLink>
+		<LayoutFlex direction="center-space-between" class="u-mb-32 u-mb-sm-0 l-flex-column-md">
+			<NuxtLink to="/collateral-hub/collateral" class="btn btn--md u-mr-24 u-mr-md-0 u-mb-md-12" title="Click to deposit assets">Deposit</NuxtLink>
+			<NuxtLink to="/collateral-hub/collateral" class="btn btn--md" title="Click to redeem assets">Redeem</NuxtLink>
+		</LayoutFlex>
 	</div>
 </template>
 

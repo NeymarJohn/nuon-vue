@@ -12,7 +12,7 @@
 				@click="toggleRedeemView">Redeem</TheButton>
 		</div>
 		<CollateralMint v-if="isMintView" />
-		<CollateralRedeem v-else />
+		<!-- <CollateralRedeem v-else /> -->
 	</div>
 </template>
 
@@ -36,8 +36,7 @@ export default {
 	},
 	computed: {
 		isDisabled() {
-			// this.mintedTokens === 0
-			return false;
+			return this.mintedTokens === 0;
 		},
 		myRewards() {
 			return parseFloat(fromWei(this.$store.state.boardroomStore.earned));
@@ -61,10 +60,10 @@ export default {
 			this.isWithdrawView = false;
 		},
 		toggleRedeemView() {
-			// if(this.mintedTokens !== 0) {
-			this.isMintView = false;
-			this.isWithdrawView = true;
-			// }
+			if(this.mintedTokens !== 0) {
+				this.isMintView = false;
+				this.isWithdrawView = true;
+			}
 		},
 		selectClaimToken(token) {
 			const price = this.tokenPrices[token.symbol];
