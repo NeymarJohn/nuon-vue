@@ -1,7 +1,7 @@
 <template>
 	<TheStepper :active-step="activeStep" :steps="['Input', 'Confirm']">
 		<template #step-one>
-			<DataCard class="u-full-width">
+			<DataCard class="u-full-width u-mb-48">
 				<LayoutFlex direction="row-space-between" class="u-full-width">
 					<p>{{ selectedToken.symbol }} amount</p>
 					<p>Available balance: {{ (ethBalance || 0) | formatLongNumber }}</p>
@@ -31,31 +31,25 @@
 			</DataCard>
 			<DataCard class="u-full-width">
 				<p>Estimated NUON minted</p>
-				<div class="accordion u-border-radius-10">124.00 NUON</div>
+				<h4 class="collateral-estimate">{{ collateralEstimate | toFixed | numberWithCommas }}<sup>NUON</sup></h4>
 			</DataCard>
-			<DataCard class="u-full-width u-mt-24">
+			<DataCard class="u-full-width">
 				<p>Set your Collateral Ratio</p>
-				<div class="accordion u-border-radius-10">
-					<div class="u-full-width l-flex l-flex--row-space-between">
-						<p>Liquidation Price</p>
-						<p>Collateral Ratio</p>
-					</div>
-					<div class="u-full-width l-flex l-flex--row-space-between">
-						<h4>$1495.00</h4>
-						<h4 class="u-is-success">204%</h4>
-					</div>
-					<RangeSlider class="u-mt-24" />
-					<div class="u-full-width l-flex l-flex--row-space-between u-mt-24">
-						<p>250%</p>
-						<p>170%</p>
-					</div>
-					<div class="u-full-width l-flex l-flex--row-space-between">
-						<p>Decrease risk</p>
-						<p>Increase risk</p>
-					</div>
+				<div class="collateral">
+					<LayoutFlex direction="row-space-between" class="u-full-width">
+						<div class="collateral__text">
+							<p>Liquidation Price</p>
+							<h4>${{ liquidationPrice | toFixed | numberWithCommas }}</h4>
+						</div>
+						<div class="collateral__text">
+							<p>Collateral Ratio</p>
+							<h4>{{ collateralRatio }}%</h4>
+						</div>
+					</LayoutFlex>
+					<RangeSlider />
 				</div>
 			</DataCard>
-			<div class="toggle__transaction u-mt-24">
+			<div class="toggle__transaction">
 				<TheButton
 					:disabled="isApproved || isApproving"
 					:class="isApproved"
@@ -105,6 +99,9 @@ export default {
 			mintToken: {},
 			depositLockedCollateral: 0,
 			estimatedMintedUsxValue: 0,
+			liquidationPrice: 1495,
+			collateralRatio: 204,
+			collateralEstimate: 124,
 			maxUsxMinted: 3401,
 			activeStep: 1,
 			isApproving: false,

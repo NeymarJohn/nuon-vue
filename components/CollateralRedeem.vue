@@ -1,11 +1,11 @@
 <template>
 	<TheStepper :active-step="activeStep" :steps="['Input', 'Confirm']">
 		<template #step-one>
-			<DataCard class="u-full-width">
-				<div class="u-full-width l-flex l-flex--row-space-between">
-					<p class="accordion__available">{{ withdrawToken.symbol }} amount</p>
-					<p class="accordion__available">Available balance: {{ (withdrawToken.balance || 0) | formatLongNumber }}</p>
-				</div>
+			<DataCard class="u-full-width u-mb-48">
+				<LayoutFlex direction="row-space-between" class="u-full-width">
+					<p>{{ withdrawToken.symbol }} amount</p>
+					<p>Available balance: {{ (withdrawToken.balance || 0) | formatLongNumber }}</p>
+				</LayoutFlex>
 				<div class="input u-mb-12">
 					<div class="input__container">
 						<input
@@ -25,11 +25,11 @@
 				<p v-if="readyToDeposit" class="u-is-success l-flex--align-self-end">Ready to repay</p>
 			</DataCard>
 			<DataCard class="u-full-width">
-				<p class="accordion__available">Estimated NUON redeemed</p>
-				<div class="accordion u-border-radius-10">124.00 NUON</div>
+				<p>Estimated ETH Redeemed</p>
+				<h4 class="collateral-estimate">{{ collateralEstimate | toFixed | numberWithCommas }}<sup>ETH</sup></h4>
 			</DataCard>
 			<TheButton
-				class="u-full-width u-mt-32"
+				class="u-full-width"
 				title="Click to deposit"
 				:disabled="isNextDisabled"
 				@click="activeStep = 2">Next</TheButton>
@@ -64,6 +64,7 @@ export default {
 			withdrawCollateral: 3223,
 			maxUsxRedeemed: 3401,
 			activeStep: 1,
+			collateralEstimate: 1.3,
 			withdrawToken: {
 				symbol: HX.symbol,
 				price: 0,

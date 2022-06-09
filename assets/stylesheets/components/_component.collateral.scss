@@ -1,0 +1,23 @@
+/* #COMPONENT - COLLATERAL
+		1. Collateral default
+*/
+
+// 1. Collateral default
+.collateral,
+.collateral-estimate {
+	width: 100%;
+	background: $MEDIUM_LIGHT_GREY;
+	border-radius: $BORDER_RADIUS_8;
+	padding: $SPACING_32;
+	margin-bottom: $SPACING_48;
+}
+.collateral__text,
+.collateral__text p {
+	margin-bottom: $SPACING_16;
+}
+.collateral__text:last-child {
+	text-align: right;
+}
+.collateral-estimate sup {
+	top: -$SPACING_10 !important;
+}
