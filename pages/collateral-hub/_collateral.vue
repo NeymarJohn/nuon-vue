@@ -1,73 +1,82 @@
 <template>
 	<div>
 		<LayoutContainer>
-			<LayoutFlex class="u-mb-48 l-flex-column-start-sm" direction="row-center-space-between">
+			<LayoutFlex class="u-mb-48" direction="row-end-space-between">
 				<PageTitle>
 					<h4>Collateral Hub</h4>
-					<h1>My Assets</h1>
+					<LayoutFlex direction="row-center">
+						<TheButton
+							size="icon"
+							class="u-mr-24 u-no-transition u-p-0"
+							title="Click to go back"
+							@click="getPreviousPage"><ChevronLeftIcon /></TheButton>
+						<img src="~/assets/images/borrow/eth.png" :alt="`${collateralToken } logo`" height="48" width="48" class="u-mr-24">
+						<h1>{{ collateralToken }}</h1>
+					</LayoutFlex>
 				</PageTitle>
-				<NuxtLink class="btn btn--md" to="/swap?outputToken=HX" title="Click to buy HX">Buy HX</NuxtLink>
+				<TheNotification :class="isRiskLevel">
+					<p v-if="myCollateralizationRatio > minCollateralizationRatio">Your collateralization ratio is good and at low risk of liquidation.</p>
+					<p v-if="myCollateralizationRatio <= minCollateralizationRatio && myCollateralizationRatio != 0">Your collateralization ratio is low and at high risk of liquidation. Please deposit more collateral.</p>
+					<p v-if="myCollateralizationRatio === 0">Hi there, please deposit your {{ collateralToken }} to mint NUON.</p>
+				</TheNotification>
 			</LayoutFlex>
-			<LayoutInfo size="3">
+			<LayoutInfo size="4">
 				<DataCard>
 					<label>My Total Locked Collateral</label>
 					<TheLoader component="h1">
-						<h3>${{ userTVL | toFixed | numberWithCommas }}</h3>
-					</TheLoader>
-					<TheButton
-						size="link"
-						title="Click to view the token list"
-						@click="setModalVisibility('collateralModal', true)">Token List</TheButton>
-					<TheModal
-						v-show="isCollateralModalVisible"
-						class="modal--collateral-table"
-						title="Token List"
-						@close-modal="setModalVisibility('collateralModal', false)">
-						<!-- <CollateralTable /> -->
-					</TheModal>
-				</DataCard>
-				<DataCard>
-					<label>My Minted Tokens</label>
-					<TheLoader component="h1">
-						<h3>{{  }}<sup>Nuon</sup></h3>
+						<h3>{{ myTotalLockedCollateral | toFixed | numberWithCommas }}<sup>{{ collateralToken }}</sup></h3>
 					</TheLoader>
 					<TheLoader component="h5">
-						<h5>${{  }}</h5>
+						<h5>${{ myTotalLockedCollateralDollar | toFixed | numberWithCommas }}</h5>
 					</TheLoader>
+				</DataCard>
+				<DataCard>
+					<label>My Total Minted Tokens</label>
+					<TheLoader component="h1">
+						<h3>{{ myTotalMintedTokens | toFixed | numberWithCommas }}<sup>NUON</sup></h3>
+					</TheLoader>
+					<TheLoader component="h5">
+						<h5>${{ myTotalMintedTokensDollar | toFixed | numberWithCommas }}</h5>
+					</TheLoader>
+				</DataCard>
+				<DataCard>
+					<label>My Collateralization Ratio<TooltipIcon v-tooltip="'Enter my collateralization ratio tooltip content here.'" /></label>
+					<TheLoader component="h1">
+						<h3 :class="isRiskLevel">{{ myCollateralizationRatio | toFixed }}<sup>%</sup></h3>
+					</TheLoader>
+					<TheBadge color="price-up">+ 0.03%</TheBadge>
+				</DataCard>
+				<DataCard>
+					<label>Current {{ collateralToken }} Price<TooltipIcon v-tooltip="'Enter current ETH price tooltip content here.'" /></label>
+					<TheLoader component="h1">
+						<h3>${{ currentEthPrice | toFixed | numberWithCommas }}</h3>
+					</TheLoader>
+					<TheBadge color="price-down">- 4.56%</TheBadge>
 				</DataCard>
 			</LayoutInfo>
 		</LayoutContainer>
 		<LayoutContainer class="u-pt-48">
 			<h2 class="u-mb-20 u-mb-lg-14">Ecosystem Status</h2>
-			<LayoutGrid class="u-mb-48" :size="'3-stretch-alt'">
+			<LayoutGrid class="u-mb-48" :size="'2'">
 				<StatCard class="u-mb-md-12">
-					<label>Nuon Price<TooltipIcon v-tooltip="'Enter Nuon price tooltip content here.'" /></label>
-					<TheLoader component="h3">
-						<h3>{{  }}</h3>
-					</TheLoader>
-				</StatCard>
-				<StatCard class="u-mb-md-12">
-					<label>Collateralization Ratio<TooltipIcon v-tooltip="'Enter collateralization ratio tooltip content here.'" /></label>
+					<label>Min. Collateralization Ratio<TooltipIcon v-tooltip="'Enter min collateralization ratio tooltip content here.'" /></label>
 					<LayoutFlex>
-						<TheLoader component="h3 u-mr-32">
-							<h3 class="u-mr-32">{{ numberWithCommas(collateralizationRatio.toFixed(2)) }}%</h3>
+						<TheLoader component="h3">
+							<h3>{{ minCollateralizationRatio }}%</h3>
 						</TheLoader>
 					</LayoutFlex>
 				</StatCard>
 				<StatCard>
-					<label>APR<TooltipIcon v-tooltip="'Enter apr tooltip content here.'" /></label>
+					<label>Liquidation Price<TooltipIcon v-tooltip="'Enter liquidation price tooltip content here.'" /></label>
 					<LayoutFlex>
-						<TheLoader component="h3 u-mr-32">
-							<h3 class="u-mr-32">Inflation {{ numberWithCommas(inflation.toFixed(2)) }}%</h3>
-						</TheLoader>
 						<TheLoader component="h3">
-							<h3>Net {{ numberWithCommas(dailyInflationRate.toFixed(2)) }}%</h3>
+							<h3>${{ liquidationPrice | toFixed | numberWithCommas }}</h3>
 						</TheLoader>
 					</LayoutFlex>
 				</StatCard>
 			</LayoutGrid>
 			<PageTitle>
-				<h2>Manage Assets<TooltipIcon v-tooltip="'Enter manage assets tooltip content here.'" /></h2>
+				<h2>Manage Your {{ collateralToken }}<TooltipIcon v-tooltip="'Enter manage your ETH tooltip content here.'" /></h2>
 				<p>Instanly mint Nuon by depositing your collateral and redeem anytime.</p>
 			</PageTitle>
 		</LayoutContainer>
@@ -78,18 +87,26 @@
 </template>
 
 <script>
+import ChevronLeftIcon from "@/assets/images/svg/svg-chevron-left.svg";
 import TooltipIcon from "@/assets/images/svg/svg-tooltip.svg";
 
 export default {
 	name: "TheCollateral",
 	components: {
+		ChevronLeftIcon,
 		TooltipIcon
 	},
 	data () {
 		return {
-			userTVL: 0,
-			collateralizationRatio: 0,
-			net: 3.56,
+			collateralToken: "ETH",
+			myTotalLockedCollateral: 0,
+			myTotalLockedCollateralDollar: 0,
+			myTotalMintedTokens: 0,
+			myTotalMintedTokensDollar: 0,
+			myCollateralizationRatio: 0,
+			currentEthPrice: 1777.7,
+			minCollateralizationRatio: 170,
+			liquidationPrice: 1777.7,
 			collateralAddresses: []
 		};
 	},
@@ -99,6 +116,13 @@ export default {
 		};
 	},
 	computed: {
+		isRiskLevel() {
+			return {
+				low: this.myCollateralizationRatio > this.minCollateralizationRatio,
+				high: this.myCollateralizationRatio <= this.minCollateralizationRatio && this.myCollateralizationRatio !== 0,
+				normal: this.myCollateralizationRatio === 0
+			};
+		},
 		usxPrice() {
 			return this.tokenPrices.USX;
 		},
@@ -111,16 +135,10 @@ export default {
 		// userMintedAmount() {
 		// 	return parseFloat(this.$store.getters["erc20Store/usxBalance"]);
 		// },
-		inflation() {
-			return 0;
-		},
-		dailyInflationRate() {
-			return 0;
-		}
 	},
 	async mounted() {
 		// this.getUserTVL(this.connectedAccount);
-		// this.collateralizationRatio = (1 / parseFloat(fromWei(await this.$store.getters["collateralVaultStore/getGlobalCollateralRatio"]()))) * 100;
+		// this.minCollateralizationRatio = (1 / parseFloat(fromWei(await this.$store.getters["collateralVaultStore/getGlobalCollateralRatio"]()))) * 100;
 	},
 	methods: {
 		// async getUserTVL(userAddress) {

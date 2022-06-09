@@ -26,6 +26,14 @@
 	flex-direction: row;
 	align-items: flex-start;
 }
+.data-card h3.low,
+.data-card h3.low sup {
+	color: $SUCCESS;
+}
+.data-card h3.high,
+.data-card h3.high sup {
+	color: $ERROR;
+}
 .data-card h4 {
 	font-size: $HEADING_THREE;
 }
@@ -47,10 +55,6 @@
 }
 .data-card p:last-child {
 	margin-bottom: 0;
-}
-.data-card .accordion__available {
-	color: $LIGHT_GREY;
-	margin-bottom: $SPACING_12;
 }
 .data-card sup {
 	position: relative;

@@ -2,10 +2,10 @@
 	<TheStepper :active-step="activeStep" :steps="['Input', 'Confirm']">
 		<template #step-one>
 			<DataCard class="u-full-width">
-				<div class="u-full-width l-flex l-flex--row-space-between">
-					<p class="accordion__available">{{ selectedToken.symbol }} amount</p>
-					<p class="accordion__available">Available balance: {{ (ethBalance || 0) | formatLongNumber }}</p>
-				</div>
+				<LayoutFlex direction="row-space-between" class="u-full-width">
+					<p>{{ selectedToken.symbol }} amount</p>
+					<p>Available balance: {{ (ethBalance || 0) | formatLongNumber }}</p>
+				</LayoutFlex>
 				<div class="input u-mb-12">
 					<div class="input__container">
 						<input
@@ -17,22 +17,28 @@
 							autocorrect="off"
 							spellcheck="false"
 							inputmode="decimal" />
-						<TheButton :disabled="isMaxInputDisabled(selectedToken ? selectedToken.balance : 0)" size="sm" title="Click to input your max balance" @click="inputMaxBalance">Max</TheButton>
+						<TheButton
+							:disabled="isMaxInputDisabled(selectedToken ? selectedToken.balance : 0)"
+							size="sm"
+							title="Click to input your max balance"
+							@click="inputMaxBalance">Max</TheButton>
 					</div>
 				</div>
-				<h5 v-if="selectedToken" class="u-mb-0 l-flex--align-self-end">~ ${{ numberWithCommas(getDollarValue(inputValue, selectedToken.price).toFixed(2)) }}</h5>
+				<h5 v-if="selectedToken" class="u-mb-0 l-flex--align-self-end">
+					~ ${{ numberWithCommas(getDollarValue(inputValue, selectedToken.price).toFixed(2)) }}
+				</h5>
 				<p v-if="readyToDeposit" class="u-is-success l-flex--align-self-end">Ready to deposit</p>
 			</DataCard>
 			<DataCard class="u-full-width">
-				<p class="accordion__available">Estimated NUON minted</p>
+				<p>Estimated NUON minted</p>
 				<div class="accordion u-border-radius-10">124.00 NUON</div>
 			</DataCard>
 			<DataCard class="u-full-width u-mt-24">
-				<p class="accordion__available">Set your Collateral Ratio</p>
+				<p>Set your Collateral Ratio</p>
 				<div class="accordion u-border-radius-10">
 					<div class="u-full-width l-flex l-flex--row-space-between">
-						<p class="accordion__available">Liquidation Price</p>
-						<p class="accordion__available">Collateral Ratio</p>
+						<p>Liquidation Price</p>
+						<p>Collateral Ratio</p>
 					</div>
 					<div class="u-full-width l-flex l-flex--row-space-between">
 						<h4>$1495.00</h4>
@@ -40,12 +46,12 @@
 					</div>
 					<RangeSlider class="u-mt-24" />
 					<div class="u-full-width l-flex l-flex--row-space-between u-mt-24">
-						<p class="accordion__available">250%</p>
-						<p class="accordion__available">170%</p>
+						<p>250%</p>
+						<p>170%</p>
 					</div>
 					<div class="u-full-width l-flex l-flex--row-space-between">
-						<p class="accordion__available">Decrease risk</p>
-						<p class="accordion__available">Increase risk</p>
+						<p>Decrease risk</p>
+						<p>Increase risk</p>
 					</div>
 				</div>
 			</DataCard>

@@ -1,0 +1,26 @@
+/* #COMPONENT - NOTIFICATION
+		1. Notification default
+		2. Notification responsive
+*/
+
+// 1. Notification default
+.notification {
+	padding: $SPACING_12 $SPACING_24;
+	border-radius: $BORDER_RADIUS_8;
+	border: $SPACING_1 solid;
+}
+.notification p {
+	margin-bottom: 0;
+}
+.notification.normal {
+	background: $DARK_GREY;
+	border-color: $MEDIUM_LIGHT_GREY;
+}
+.notification.high {
+	background: $ERROR_RGBA;
+	border-color: $ERROR;
+}
+.notification.low {
+	background: $SUCCESS_RGBA;
+	border-color: $SUCCESS;
+}

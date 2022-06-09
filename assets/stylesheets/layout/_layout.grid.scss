@@ -7,8 +7,8 @@
 .l-grid {
 	display: grid;
 }
-.l-grid--column-4 {
-	grid-template-columns: repeat(4, minmax(0, 1fr));
+.l-grid--column-2 {
+	grid-template-columns: repeat(2, minmax(0, 1fr));
 	column-gap: $SPACING_24;
 }
 .l-grid--column-3 {
@@ -30,6 +30,10 @@
 }
 .l-grid--column-3-stretch-alt {
 	grid-template-columns: 0.6fr 1.5fr 1.5fr;
+	column-gap: $SPACING_24;
+}
+.l-grid--column-4 {
+	grid-template-columns: repeat(4, minmax(0, 1fr));
 	column-gap: $SPACING_24;
 }
 .l-grid-side-panel {
