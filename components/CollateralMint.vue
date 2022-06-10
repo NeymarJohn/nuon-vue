@@ -53,7 +53,7 @@
 					</div>
 				</div>
 			</DataCard>
-			<div class="toggle__transaction">
+			<div class="toggle__transaction u-mt-32">
 				<TheButton
 					:disabled="isApproved || isApproving"
 					:class="isApproved"
