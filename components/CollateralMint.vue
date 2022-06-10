@@ -73,7 +73,12 @@
 			</div>
 		</template>
 		<template #step-two>
-			<TransactionSummaryChub />
+			<TransactionSummaryChub
+				:deposit-amount="inputValue"
+				:mint-amount="estimatedMintedNuonValue"
+				:collateral-ratio="selectedCollateralRatio"
+				:liquidation-price="liquidationPrice"
+			/>
 			<div class="toggle__transaction">
 				<TheButton
 					title="Click to go back"
@@ -145,6 +150,7 @@ export default {
 	watch: {
 		inputValue(newValue) {
 			if (newValue) this.getEstimatedMintedUsx();
+			if (this.selectedCollateralRatio) this.liquidationPrice = (this.inputValue * this.tokenPrice) / (this.selectedCollateralRatio / 100);
 		},
 		selectedCollateralRatio(newValue) {
 			if (newValue) this.liquidationPrice = (this.inputValue * this.tokenPrice) / (this.selectedCollateralRatio / 100);

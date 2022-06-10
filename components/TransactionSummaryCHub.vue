@@ -8,7 +8,7 @@
 					<img :src="require('~/assets/images/tokens/USDC.png')" alt="usdc image" height="50" width="50" class="u-mr-8">
 					test
 				</LayoutFlex>
-				<h3>1.0</h3>
+				<h3>{{ depositAmount }}</h3>
 			</LayoutFlex>
 			<ArrowDownIcon class="u-mt-24 u-ml-8 u-mb-24" />
 			<p class="u-color-light-grey">Mint</p>
@@ -17,15 +17,15 @@
 					<img :src="require('~/assets/images/tokens/USDC.png')" alt="usdc image" height="50" width="50" class="u-mr-8">
 					test
 				</LayoutFlex>
-				<h3>124.0</h3>
+				<h3>{{ mintAmount }}</h3>
 			</LayoutFlex>
 			<div class="u-mt-32 u-full-width l-flex l-flex--row-space-between">
-				<h4>Liquidation Price</h4>
-				<h4>204%</h4>
+				<h4>Collateral Ratio</h4>
+				<h4>{{ collateralRatio }}%</h4>
 			</div>
 			<div class="u-full-width l-flex l-flex--row-space-between">
-				<h4>Collateral Ratio</h4>
-				<h4>$1543.03</h4>
+				<h4>Liquidation Price</h4>
+				<h4>${{ liquidationPrice | toFixed }}</h4>
 			</div>
 			<div class="u-full-width l-flex l-flex--row-space-between">
 				<h4>Fee</h4>
@@ -44,8 +44,20 @@ export default {
 		ArrowDownIcon
 	},
 	props: {
-		values: {
-			type: Array,
+		depositAmount: {
+			type: Number,
+			required: true
+		},
+		mintAmount: {
+			type: Number,
+			required: true
+		},
+		collateralRatio: {
+			type: Number,
+			required: true
+		},
+		liquidationPrice: {
+			type: Number,
 			required: true
 		}
 	}
