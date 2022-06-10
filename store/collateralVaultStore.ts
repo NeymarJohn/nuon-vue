@@ -1,12 +1,11 @@
 import { GetterTree, ActionTree, MutationTree } from "vuex";
 import BN from "bn.js";
 import { Web3State } from "./web3Store";
-import collateralHubAbi from "./abi/collateral_hub.json";
-import usxControllerAbi from "./abi/usx_controller.json";
+import collateralHubAbi from "./abi/collateral_hub_native.json";
 import nuonControllerAbi from "./abi/nuon_controller.json";
 import truflationAbi from "./abi/truflation.json";
 import { fromWei, toWei } from "~/utils/bnTools";
-import { COLLATERAL_HUB_ADDRESS, USX_CONTROLLER_ADDRESS, TRUFLATION_ADDRESS, NUON_CONTROLLER_ADDRESS } from "~/constants/addresses";
+import { COLLATERAL_HUB_ADDRESS, TRUFLATION_ADDRESS, NUON_CONTROLLER_ADDRESS } from "~/constants/addresses";
 
 type StateType = {
 	allowance: any,
@@ -226,10 +225,6 @@ export const getters: GetterTree<BoardroomState, Web3State> = {
 		const addr = store.addressStore.addr[store.web3Store.chainId as number].boardroom;
 		return new web3.eth.Contract(collateralHubAbi, addr);
 	},
-	usxControllerContract:  (_state: any, _getters: any, store: any) => {
-		const web3 = store.web3Store.instance();
-		return new web3.eth.Contract(usxControllerAbi, USX_CONTROLLER_ADDRESS);
-	},
 	nuonControllerContract:  (_state: any, _getters: any, store: any) => {
 		const web3 = store.web3Store.instance();
 		return new web3.eth.Contract(nuonControllerAbi, NUON_CONTROLLER_ADDRESS);
@@ -248,7 +243,7 @@ export const getters: GetterTree<BoardroomState, Web3State> = {
 		return await getters.collateralHubContract.methods.estimateMintedUSXAmount(amount, cid).call();
 	},
 	getMintingFee: (_state: any, getters: any) => async () => {
-		return await getters.usxControllerContract.methods.getMintingFee().call();
+		return await getters.nuonControllerContract.methods.getMintingFee().call();
 	},
 	getCollateralPriceDeprecated: (_state: any, getters: any) => async (tokenAddress: string) => {
 		return await getters.collateralHubContract.methods.viewCollateralPrice(tokenAddress).call();
@@ -257,7 +252,7 @@ export const getters: GetterTree<BoardroomState, Web3State> = {
 		return await getters.collateralHubContract.methods.getUserCollateralInVault(address, cid).call();
 	},
 	getRedeemFee: (_state: any, getters: any) => async () => {
-		return await getters.usxControllerContract.methods.getRedeemFee().call();
+		return await getters.nuonControllerContract.methods.getRedeemFee().call();
 	},
 	getEstimateCollateralsOutDeprecated: (_state: any, getters: any) => async (cid: number, userAddress: string, usxAmount: number) => {
 		return await getters.collateralHubContract.methods.estimateCollateralsOut(cid, userAddress, usxAmount).call();
@@ -273,10 +268,10 @@ export const getters: GetterTree<BoardroomState, Web3State> = {
 	},
 	getUserAmounts: (_state: any, getters: any) => async (userAddress: string, cid: number) => {
 		return await getters.collateralHubContract.methods.getUsersAmounts(userAddress, cid).call();
-	},
-	getGlobalCollateralRatio: (_state: any, getters: any) => async () => {
-		return await getters.usxControllerContract.methods.getGlobalCollateralRatio().call();
 	}, // old methods end here
+	getGlobalCollateralRatio: (_state: any, getters: any) => async () => {
+		return await getters.nuonControllerContract.methods.getGlobalCollateralRatio().call();
+	},
 	getUserCollateralAmount: (_state: any, getters: any) => async (userAddress: string) => {
 		return await getters.collateralHubContract.methods.viewUserCollateralAmount(userAddress).call();
 	},
@@ -324,5 +319,11 @@ export const getters: GetterTree<BoardroomState, Web3State> = {
 	},
 	getCalcOverCollateralizedRedeemAmounts: (_state: any, getters: any) => async (collateralRatio: number, collateralPrice: number, nuonAmount: number, multiplier: number) => {
 		return await getters.collateralHubContract.methods.calcOverCollateralizedRedeemAmounts(collateralRatio, collateralPrice, nuonAmount, multiplier).call();
+	},
+	mintNuon: (_state: any, getters: any) => async (collateralRatio: number, collateralAmount: number) => {
+		return await getters.collateralHubContract.methods.mint(collateralRatio).send({value: collateralAmount});
+	},
+	getMinimumDepositAmount: (_state: any, getters: any) => async () => {
+		return await getters.collateralHubContract.methods.minimumDepositAmount().call();
 	}
 };

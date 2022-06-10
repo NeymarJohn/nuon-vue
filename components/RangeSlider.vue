@@ -1,21 +1,36 @@
 <template>
 	<div class="range-slider">
-		<input type="range" min="170" max="1000" value="170" class="range-slider__input">
-		<LayoutFlex direction="row-space-between">
-			<div class="range-slider__value">
-				<h5>170%</h5>
-				<p>Increased Risk</p>
-			</div>
-			<div class="range-slider__value">
-				<h5>1000%</h5>
-				<p>Decreased Risk</p>
-			</div>
-		</LayoutFlex>
+		<input v-model="selectedValue" type="range" :min="min" :max="max" class="range-slider__input">
 	</div>
 </template>
 
 <script>
 export default {
-	name: "RangeSlider"
+	name: "RangeSlider",
+	props: {
+		min: {
+			type: Number,
+			default: 170
+		},
+		max: {
+			type: Number,
+			default: 1000
+		}
+	},
+	data() {
+		return {
+			selectedValue: this.min
+		};
+	},
+	watch: {
+		selectedValue(newValue) {
+			if (newValue) this.emitChange(newValue);
+		}
+	},
+	methods: {
+		emitChange(e) {
+			this.$emit("emit-change", e);
+		}
+	}
 };
 </script>
