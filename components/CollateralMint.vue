@@ -39,7 +39,7 @@
 						<p class="accordion__available">Collateral Ratio</p>
 					</div>
 					<div class="u-full-width l-flex l-flex--row-space-between">
-						<h4>${{ liquidationPrice }}</h4>
+						<h4>${{ liquidationPrice | toFixed }}</h4>
 						<h4 class="u-is-success">{{ selectedCollateralRatio }}%</h4>
 					</div>
 					<RangeSlider class="u-mt-24" :min="170" :max="1000" @emit-change="sliderChanged" />
@@ -145,6 +145,9 @@ export default {
 	watch: {
 		inputValue(newValue) {
 			if (newValue) this.getEstimatedMintedUsx();
+		},
+		selectedCollateralRatio(newValue) {
+			if (newValue) this.liquidationPrice = (this.inputValue * this.tokenPrice) / (this.selectedCollateralRatio / 100);
 		}
 	},
 	methods: {
