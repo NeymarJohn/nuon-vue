@@ -28,32 +28,36 @@
 				<p v-if="readyToDeposit" class="u-is-success l-flex--align-self-end">Ready to deposit</p>
 			</DataCard>
 			<DataCard class="u-full-width">
-				<p class="accordion__available">Estimated NUON minted</p>
-				<div class="accordion u-border-radius-10">{{ estimatedMintedNuonValue }} NUON</div>
+				<p>Estimated NUON minted</p>
+				<h4 class="collateral-estimate">{{ estimatedMintedNuonValue }} NUON</h4>
 			</DataCard>
-			<DataCard class="u-full-width u-mt-24">
-				<p class="accordion__available">Set your Collateral Ratio</p>
-				<div class="accordion u-border-radius-10">
-					<div class="u-full-width l-flex l-flex--row-space-between">
-						<p class="accordion__available">Liquidation Price</p>
-						<p class="accordion__available">Collateral Ratio</p>
-					</div>
-					<div class="u-full-width l-flex l-flex--row-space-between">
-						<h4>${{ liquidationPrice | toFixed }}</h4>
-						<h4 class="u-is-success">{{ selectedCollateralRatio }}%</h4>
-					</div>
-					<RangeSlider class="u-mt-24" :min="170" :max="1000" @emit-change="sliderChanged" />
-					<div class="u-full-width l-flex l-flex--row-space-between u-mt-24">
-						<p class="accordion__available">170%</p>
-						<p class="accordion__available">1000%</p>
-					</div>
-					<div class="u-full-width l-flex l-flex--row-space-between">
-						<p class="accordion__available">Increase risk</p>
-						<p class="accordion__available">Decrease risk</p>
-					</div>
+			<DataCard class="u-full-width">
+				<p>Set your Collateral Ratio</p>
+				<div class="collateral">
+					<LayoutFlex direction="row-space-between" class="u-full-width">
+						<div class="collateral__text">
+							<p>Liquidation Price</p>
+							<h4>${{ liquidationPrice | toFixed | numberWithCommas }}</h4>
+						</div>
+						<div class="collateral__text">
+							<p>Collateral Ratio</p>
+							<h4>{{ selectedCollateralRatio }}%</h4>
+						</div>
+					</LayoutFlex>
+					<RangeSlider :min="170" :max="1000" @emit-change="sliderChanged" />
+					<LayoutFlex direction="row-space-between">
+						<div class="range-slider__value">
+							<h5>170%</h5>
+							<p>Increased Risk</p>
+						</div>
+						<div class="range-slider__value">
+							<h5>1000%</h5>
+							<p>Decreased Risk</p>
+						</div>
+					</LayoutFlex>
 				</div>
 			</DataCard>
-			<div class="toggle__transaction u-mt-32">
+			<div class="toggle__transaction">
 				<TheButton
 					:disabled="isApproved || isApproving"
 					:class="isApproved"
