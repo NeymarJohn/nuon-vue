@@ -8,7 +8,7 @@
 					<img :src="require('~/assets/images/tokens/USDC.png')" alt="usdc image" height="50" width="50" class="u-mr-8">
 					test
 				</LayoutFlex>
-				<h3>{{ depositAmount }}</h3>
+				<h3>{{ depositAmount | toFixed }}</h3>
 			</LayoutFlex>
 			<ArrowDownIcon class="u-mt-24 u-ml-8 u-mb-24" />
 			<p class="u-color-light-grey">Mint</p>

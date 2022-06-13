@@ -188,10 +188,9 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 		// const dailyInflationRate = Number(await getters.getDailyInflationRate());
 		// commit("setDailyInflationRate", dailyInflationRate);
 	},
-	async mint(ctx: any, {amount, cid, onTxHash, onConfirm, onReject}) {
-		if (cid === -1) return;
+	async mintNuon(ctx: any, {collateralRatio, collateralAmount, onTxHash, onConfirm, onReject}) {
 		const accountAddress = ctx.rootState.web3Store.account;
-		return await ctx.getters.collateralHubContract.methods.mint(amount, cid).send({from: accountAddress})
+		return await ctx.getters.collateralHubContract.methods.mint(collateralRatio).send({from: accountAddress, value: collateralAmount})
 			.on("transactionHash", (txHash: string) => {
 				if (onTxHash) onTxHash(txHash);
 			})
@@ -320,10 +319,10 @@ export const getters: GetterTree<BoardroomState, Web3State> = {
 	getCalcOverCollateralizedRedeemAmounts: (_state: any, getters: any) => async (collateralRatio: number, collateralPrice: number, nuonAmount: number, multiplier: number) => {
 		return await getters.collateralHubContract.methods.calcOverCollateralizedRedeemAmounts(collateralRatio, collateralPrice, nuonAmount, multiplier).call();
 	},
-	mintNuon: (_state: any, getters: any) => async (collateralRatio: number, collateralAmount: number) => {
-		return await getters.collateralHubContract.methods.mint(collateralRatio).send({value: collateralAmount});
-	},
 	getMinimumDepositAmount: (_state: any, getters: any) => async () => {
 		return await getters.collateralHubContract.methods.minimumDepositAmount().call();
+	},
+	getMaxCRatio: (_state: any, getters: any) => async () => {
+		return await getters.nuonControllerContract.methods.getMaxCratio().call();
 	}
 };

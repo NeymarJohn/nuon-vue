@@ -24,8 +24,8 @@
 							@click="inputMaxBalance">Max</TheButton>
 					</div>
 				</div>
-				<h5 v-if="selectedToken" class="u-mb-0 l-flex--align-self-end">~ ${{ numberWithCommas(getDollarValue(inputValue, tokenPrice).toFixed(2)) }}</h5>
-				<p v-if="readyToDeposit && !isMoreThanBalance" class="u-is-success l-flex--align-self-end">Ready to deposit</p>
+				<h5 v-if="selectedToken" class="u-mb-0 l-flex--align-self-end">~ ${{ numberWithCommas(getDollarValue(inputValue, collateralPrice).toFixed(2)) }}</h5>
+				<p v-if="readyToDeposit" class="u-is-success l-flex--align-self-end">Ready to deposit</p>
 				<p v-if="isMoreThanBalance" class="u-is-warning l-flex--align-self-end">Insufficient balance</p>
 			</DataCard>
 			<DataCard class="u-full-width">
@@ -42,13 +42,13 @@
 						</div>
 						<div class="collateral__text">
 							<p>Collateral Ratio</p>
-							<h4 :class="selectedCollateralRatio < 722 ? selectedCollateralRatio < 446 ? 'u-is-warning' : 'u-is-caution' : 'u-is-success'">{{ selectedCollateralRatio }}%</h4>
+							<h4 :class="selectedCollateralRatio < 730 ? selectedCollateralRatio < 460 ? 'u-is-warning' : 'u-is-caution' : 'u-is-success'">{{ selectedCollateralRatio }}%</h4>
 						</div>
 					</LayoutFlex>
-					<RangeSlider :min="'170'" :max="'1000'" :slider-disabled="!inputValue || isMoreThanBalance" :selected-collateral-ratio="`${selectedCollateralRatio}`" @emit-change="sliderChanged" />
+					<RangeSlider :min="sliderMin" :max="'1000'" :slider-disabled="!inputValue || isMoreThanBalance" :selected-collateral-ratio="`${selectedCollateralRatio}`" @emit-change="sliderChanged" />
 					<LayoutFlex direction="row-space-between">
 						<div class="range-slider__value">
-							<h5>170%</h5>
+							<h5>{{ sliderMin }}%</h5>
 							<p>Increased Risk</p>
 						</div>
 						<div class="range-slider__value">
@@ -79,7 +79,7 @@
 		</template>
 		<template #step-two>
 			<TransactionSummaryChub
-				:deposit-amount="inputValue"
+				:deposit-amount="`${actualDepositAmount}`"
 				:mint-amount="estimatedMintedNuonValue"
 				:collateral-ratio="selectedCollateralRatio"
 				:liquidation-price="liquidationPrice"
@@ -103,14 +103,14 @@
 
 <script>
 import { BigNumber } from "bignumber.js";
-import { toWei } from "~/utils/bnTools";
+import { fromWei, toWei } from "~/utils/bnTools";
 
 export default {
 	name: "CollateralMint",
 	data() {
 		return {
-			selectedCollateralRatio: "170",
-			tokenPrice: 2,
+			selectedCollateralRatio: "190",
+			collateralPrice: 0,
 			inputValue: 0,
 			estimatedMintedNuonValue: 0,
 			maxUsxMinted: 3401,
@@ -122,7 +122,8 @@ export default {
 				symbol: "ETH",
 				balance: 0
 			},
-			liquidationPrice: 0
+			liquidationPrice: 0,
+			sliderMin: "0",
 		};
 	},
 	computed: {
@@ -142,17 +143,25 @@ export default {
 			return this.$store.state.collateralVaultStore.mintingFee;
 		},
 		readyToDeposit() {
-			return !!this.inputValue;
+			return !!this.inputValue && !this.isMoreThanBalance;
 		},
+		actualDepositAmount() {
+			return this.inputValue * (1 + (this.selectedCollateralRatio / 100));
+		}
 	},
 	watch: {
 		inputValue() {
 			this.getEstimatedMintedNuon();
-			if (this.selectedCollateralRatio) this.liquidationPrice = (this.inputValue * this.tokenPrice) / (this.selectedCollateralRatio / 100);
+			if (this.selectedCollateralRatio) this.liquidationPrice = (this.inputValue * this.collateralPrice) / (this.selectedCollateralRatio / 100);
 		},
 		selectedCollateralRatio(newValue) {
-			if (newValue) this.liquidationPrice = (this.inputValue * this.tokenPrice) / (this.selectedCollateralRatio / 100);
+			if (newValue) this.liquidationPrice = (this.inputValue * this.collateralPrice) / (this.selectedCollateralRatio / 100);
 		}
+	},
+	async mounted() {
+		const min = await this.$store.getters["collateralVaultStore/getGlobalCR"]();
+		this.sliderMin = (10 ** 20 / min).toFixed();
+		this.collateralPrice = fromWei(await this.$store.getters["collateralVaultStore/getCollateralPrice"]());
 	},
 	methods: {
 		sliderChanged(e) {
@@ -177,11 +186,12 @@ export default {
 		async mint() {
 			this.activeStep = "loading";
 			this.minting = true;
-			const amount = toWei(this.inputValue, this.$store.state.erc20Store.decimals.HX);
-			// const collateralRatioToWei = this.selectedCollateralRatio * 10;
+			const amount = toWei(this.actualDepositAmount, this.$store.state.erc20Store.decimals.HX);
+			const collateralRatioToWei = (10 ** 20 / parseInt(this.selectedCollateralRatio));
+
 			await this.$store.dispatch("collateralVaultStore/mintNuon",
 				{
-					collateralRatio,
+					collateralRatio: `${collateralRatioToWei}`,
 					collateralAmount: amount,
 					onConfirm: (_confNumber, receipt, _latestBlockHash) => {
 						this.$store.commit("collateralVaultStore/setUserJustMinted", true);

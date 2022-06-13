@@ -10,7 +10,7 @@ export default {
 	props: {
 		min: {
 			type: String,
-			default: "170"
+			default: "190"
 		},
 		max: {
 			type: String,
