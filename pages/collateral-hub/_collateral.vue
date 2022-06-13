@@ -20,7 +20,7 @@
 					<p v-if="myCollateralizationRatio === 0">Hi there, please deposit your {{ collateralToken }} to mint NUON.</p>
 				</TheNotification>
 			</LayoutFlex>
-			<LayoutInfo size="4">
+			<LayoutInfo size="row-space-between">
 				<DataCard>
 					<label>My Total Locked Collateral</label>
 					<TheLoader component="h1">
@@ -44,14 +44,18 @@
 					<TheLoader component="h1">
 						<h3 :class="isRiskLevel">{{ myCollateralizationRatio | toFixed }}<sup>%</sup></h3>
 					</TheLoader>
-					<TheBadge color="price-up">+ 0.03%</TheBadge>
+					<TheLoader component="h5">
+						<TheBadge color="price-up">+ 0.03%</TheBadge>
+					</TheLoader>
 				</DataCard>
 				<DataCard>
 					<label>Current {{ collateralToken }} Price<TooltipIcon v-tooltip="'Enter current ETH price tooltip content here.'" /></label>
 					<TheLoader component="h1">
 						<h3>${{ currentEthPrice | toFixed | numberWithCommas }}</h3>
 					</TheLoader>
-					<TheBadge color="price-down">- 4.56%</TheBadge>
+					<TheLoader component="h5">
+						<TheBadge color="price-down">- 4.56%</TheBadge>
+					</TheLoader>
 				</DataCard>
 			</LayoutInfo>
 		</LayoutContainer>

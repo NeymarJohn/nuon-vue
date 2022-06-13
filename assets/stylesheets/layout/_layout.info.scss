@@ -1,6 +1,7 @@
 /* #LAYOUT - INFO
 		1. Info default
-		2. Info responsive
+		2. Info flex
+		3. Info responsive
 */
 
 // 1. Info default
@@ -24,7 +25,13 @@
 	grid-template-columns: 1fr 1fr 1.8fr 1fr;
 }
 
-// 2. Info responsive
+// 2. Info flex
+.l-info--row-space-between {
+	display: flex;
+	justify-content: space-between;
+}
+
+// 3. Info responsive
 @media screen and (max-width: $SPACING_1440) {
 	.l-info {
 		padding: $SPACING_36;
