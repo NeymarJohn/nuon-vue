@@ -4,7 +4,7 @@
 			<DataCard class="u-full-width u-mb-48">
 				<LayoutFlex direction="row-space-between" class="u-full-width">
 					<p>{{ selectedToken.symbol }} amount</p>
-					<p>Available balance: {{ (ethBalance || 0) | formatLongNumber }}</p>
+					<p>Available balance: {{ (tokenBalance || 0) | formatLongNumber }}</p>
 				</LayoutFlex>
 				<div class="input u-mb-12">
 					<div class="input__container">
@@ -41,10 +41,10 @@
 						</div>
 						<div class="collateral__text">
 							<p>Collateral Ratio</p>
-							<h4>{{ selectedCollateralRatio }}%</h4>
+							<h4 :class="selectedCollateralRatio < 722 ? selectedCollateralRatio < 446 ? 'u-is-warning' : 'u-is-caution' : 'u-is-success'">{{ selectedCollateralRatio }}%</h4>
 						</div>
 					</LayoutFlex>
-					<RangeSlider :min="170" :max="1000" @emit-change="sliderChanged" />
+					<RangeSlider :min="'170'" :max="'1000'" :slider-disabled="!inputValue || isMoreThanBalance" :selected-collateral-ratio="selectedCollateralRatio" @emit-change="sliderChanged" />
 					<LayoutFlex direction="row-space-between">
 						<div class="range-slider__value">
 							<h5>170%</h5>
@@ -102,8 +102,7 @@
 
 <script>
 import BigNumber from "bignumber.js";
-import { TOKENS_MAP} from "~/constants/tokens";
-import { fromWei, toWei } from "~/utils/bnTools";
+import { toWei } from "~/utils/bnTools";
 
 export default {
 	name: "CollateralMint",
@@ -113,7 +112,6 @@ export default {
 			tokenPrice: 2,
 			inputValue: 0,
 			estimatedMintedNuonValue: 0,
-			depositLockedCollateral: 0,
 			maxUsxMinted: 3401,
 			activeStep: 1,
 			isApproving: false,
@@ -128,18 +126,16 @@ export default {
 	},
 	computed: {
 		isApproved() {
-			// this.$store.state.collateralVaultStore.allowance[this.mintToken.symbol]
-			return true;
+			return this.$store.state.collateralVaultStore.allowance.HX;
 		},
 		disabledMint() {
-			// !this.isApproved || !parseFloat(this.depositLockedCollateral) || this.isMoreThanBalance
-			return false;
+			return !this.isApproved || !parseFloat(this.inputValue) || this.isMoreThanBalance;
 		},
 		isMoreThanBalance() {
-			return  parseFloat(this.depositLockedCollateral) > this.tokenBalance;
+			return  parseFloat(this.inputValue) > this.tokenBalance;
 		},
 		tokenBalance() {
-			return parseFloat(this.mintToken.balance);
+			return parseFloat(this.$store.state.erc20Store.balance.HX);
 		},
 		mintingFee() {
 			return this.$store.state.collateralVaultStore.mintingFee;
@@ -147,9 +143,6 @@ export default {
 		readyToDeposit() {
 			return !!this.inputValue;
 		},
-		ethBalance() {
-			return this.$store.state.erc20Store.balance.ETH;
-		}
 	},
 	watch: {
 		inputValue(newValue) {
@@ -168,18 +161,13 @@ export default {
 			this.isApproving = true;
 			this.$store.dispatch("collateralVaultStore/approveToken",
 				{
-					tokenSymbol: this.mintToken.symbol,
+					tokenSymbol: "HX",
 					onConfirm: () => { },
 					onReject: () => { },
 					onCallback: () => {
 						this.isApproving = false;
 					}
 				});
-		},
-		async changeMintValue(value) {
-			this.depositLockedCollateral = value;
-			const estimatedValue = await this.getEstimatedMintedUsx();
-			this.estimatedMintedNuonValue = fromWei(estimatedValue[0]);
 		},
 		async getEstimatedMintedUsx() {
 			const test = new BigNumber(1e18);
@@ -189,15 +177,12 @@ export default {
 		async mint() {
 			this.activeStep = "loading";
 			this.minting = true;
-			const selectedTokenAddress = TOKENS_MAP[this.mintToken.symbol].address;
-			const cid = this.allCollaterals.findIndex(c => c === selectedTokenAddress);
-			const amount = toWei(this.depositLockedCollateral, this.$store.state.erc20Store.decimals[this.mintToken.symbol]);
-			this.mintToken = {...this.mintToken, cid};
-			await this.$store.dispatch("collateralVaultStore/mint",
+			const amount = toWei(this.inputValue, this.$store.state.erc20Store.decimals.HX);
+			// const collateralRatioToWei = this.selectedCollateralRatio * 10;
+			await this.$store.dispatch("collateralVaultStore/mintNuon",
 				{
-					amount,
-					cid,
-					onTxHash: null,
+					collateralRatio,
+					collateralAmount: amount,
 					onConfirm: (_confNumber, receipt, _latestBlockHash) => {
 						this.$store.commit("collateralVaultStore/setUserJustMinted", true);
 						this.successToast(null, `You've successfully minted ${this.estimatedMintedNuonValue} Nuon`, receipt.transactionHash);
@@ -210,7 +195,7 @@ export default {
 			this.activeStep = 1;
 		},
 		inputMaxBalance() {
-			this.inputValue = this.ethBalance;
+			this.inputValue = this.tokenBalance;
 		}
 	}
 };

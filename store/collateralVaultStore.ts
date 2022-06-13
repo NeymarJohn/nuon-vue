@@ -24,7 +24,7 @@ type StateType = {
 	userJustMinted: boolean
 }
 export const state = (): StateType => ({
-	allowance: {HX:0, USX: 0},
+	allowance: {HX:0, NUON: 0},
 	targetCollateralValue: 0,
 	globalCollateralRatioValue: 0,
 	aprInflation: 0,
@@ -88,11 +88,11 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 	async getAllowance (ctx: any) {
 		const address = ctx.rootGetters["web3Store/account"];
 		if (!address) return;
-		const getUsxAllowance = fromWei(await ctx.rootGetters["erc20Store/usx"].methods.allowance(address, COLLATERAL_HUB_ADDRESS).call());
+		const getNuonAllowance = fromWei(await ctx.rootGetters["erc20Store/nuon"].methods.allowance(address, COLLATERAL_HUB_ADDRESS).call());
 		const getHydroAllowance = fromWei(await  ctx.rootGetters["erc20Store/hydro"].methods.allowance(address, COLLATERAL_HUB_ADDRESS).call());
 		// const getDaiAllowance = fromWei(await  ctx.rootGetters["erc20Store/dai"].methods.allowance(address, COLLATERAL_HUB_ADDRESS).call());
 		const getUSDCAllowance = fromWei(await  ctx.rootGetters["erc20Store/usdc"].methods.allowance(address, COLLATERAL_HUB_ADDRESS).call());
-		ctx.commit("setAllowance", {HX: getHydroAllowance, USX: getUsxAllowance, USDC: getUSDCAllowance});
+		ctx.commit("setAllowance", {HX: getHydroAllowance, NUON: getNuonAllowance, USDC: getUSDCAllowance});
 	},
 	approveToken(ctx: any, {tokenSymbol,  onConfirm, onReject, onCallback}): void {
 		const contractAddress = COLLATERAL_HUB_ADDRESS;

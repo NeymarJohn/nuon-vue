@@ -1,6 +1,6 @@
 <template>
 	<div class="range-slider">
-		<input v-model="selectedValue" type="range" :min="min" :max="max" class="range-slider__input">
+		<input v-model="selectedValue" :disabled="sliderDisabled" type="range" :min="min" :max="max" class="range-slider__input">
 	</div>
 </template>
 
@@ -9,17 +9,25 @@ export default {
 	name: "RangeSlider",
 	props: {
 		min: {
-			type: Number,
-			default: 170
+			type: String,
+			default: "170"
 		},
 		max: {
+			type: String,
+			default: "1000"
+		},
+		sliderDisabled: {
+			type: Boolean,
+			default: true
+		},
+		selectedCollateralRatio: {
 			type: Number,
-			default: 1000
+			required: true
 		}
 	},
 	data() {
 		return {
-			selectedValue: this.min
+			selectedValue: this.selectedCollateralRatio || this.min
 		};
 	},
 	watch: {

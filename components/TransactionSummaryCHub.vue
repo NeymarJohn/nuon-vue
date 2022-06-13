@@ -45,11 +45,11 @@ export default {
 	},
 	props: {
 		depositAmount: {
-			type: Number,
+			type: String,
 			required: true
 		},
 		mintAmount: {
-			type: Number,
+			type: String,
 			required: true
 		},
 		collateralRatio: {
