@@ -25,7 +25,8 @@
 					</div>
 				</div>
 				<h5 v-if="selectedToken" class="u-mb-0 l-flex--align-self-end">~ ${{ numberWithCommas(getDollarValue(inputValue, tokenPrice).toFixed(2)) }}</h5>
-				<p v-if="readyToDeposit" class="u-is-success l-flex--align-self-end">Ready to deposit</p>
+				<p v-if="readyToDeposit && !isMoreThanBalance" class="u-is-success l-flex--align-self-end">Ready to deposit</p>
+				<p v-if="isMoreThanBalance" class="u-is-warning l-flex--align-self-end">Insufficient balance</p>
 			</DataCard>
 			<DataCard class="u-full-width">
 				<p>Estimated NUON minted</p>
