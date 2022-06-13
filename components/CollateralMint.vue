@@ -32,7 +32,7 @@
 				<h4 class="collateral-estimate">{{ estimatedMintedNuonValue }} NUON</h4>
 			</DataCard>
 			<DataCard class="u-full-width">
-				<p>Set your Collateral Ratio</p>
+				<p>Set Your Collateral Ratio</p>
 				<div class="collateral">
 					<LayoutFlex direction="row-space-between" class="u-full-width">
 						<div class="collateral__text">
