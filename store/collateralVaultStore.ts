@@ -82,8 +82,8 @@ export const mutations: MutationTree<BoardroomState> = {
 };
 
 export const actions: ActionTree<BoardroomState, BoardroomState> = {
-	initialize() {
-		// ctx.dispatch("updateStatus");
+	initialize(ctx: any) {
+		ctx.dispatch("updateStatus");
 	},
 	async getAllowance (ctx: any) {
 		const address = ctx.rootGetters["web3Store/account"];
@@ -169,8 +169,8 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 			ctx.commit("setLastSnapshot", {lastSnapshotIndex: lastSnapshot, rewardEarned: new BN(0), epochTimerStart: 0});
 		});
 	},
-	async updateStatus() { // {dispatch, getters, commit}
-		// dispatch("getAllowance");
+	updateStatus({dispatch}) { // {getters, commit}
+		dispatch("getAllowance");
 
 		// const allCollaterals = await getters.getCollaterals();
 		// commit("setAllCollaterals", allCollaterals);

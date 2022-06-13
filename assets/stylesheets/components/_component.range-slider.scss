@@ -15,6 +15,12 @@
 	transition: $TRANSITION_ALL;
 	margin-bottom: $SPACING_20;
 }
+.range-slider__input:disabled {
+	opacity: 0.5;
+	&:hover {
+		opacity: 0.5;
+	}
+}
 .range-slider__input:hover {
 	opacity: 1;
 }

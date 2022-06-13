@@ -29,7 +29,7 @@
 			</DataCard>
 			<DataCard class="u-full-width">
 				<p>Estimated NUON minted</p>
-				<h4 class="collateral-estimate">{{ estimatedMintedNuonValue }} NUON</h4>
+				<h4 class="collateral-estimate">{{ estimatedMintedNuonValue | toFixed | numberWithCommas }} NUON</h4>
 			</DataCard>
 			<DataCard class="u-full-width">
 				<p>Set Your Collateral Ratio</p>
@@ -44,7 +44,7 @@
 							<h4 :class="selectedCollateralRatio < 722 ? selectedCollateralRatio < 446 ? 'u-is-warning' : 'u-is-caution' : 'u-is-success'">{{ selectedCollateralRatio }}%</h4>
 						</div>
 					</LayoutFlex>
-					<RangeSlider :min="'170'" :max="'1000'" :slider-disabled="!inputValue || isMoreThanBalance" :selected-collateral-ratio="selectedCollateralRatio" @emit-change="sliderChanged" />
+					<RangeSlider :min="'170'" :max="'1000'" :slider-disabled="!inputValue || isMoreThanBalance" :selected-collateral-ratio="`${selectedCollateralRatio}`" @emit-change="sliderChanged" />
 					<LayoutFlex direction="row-space-between">
 						<div class="range-slider__value">
 							<h5>170%</h5>
@@ -108,7 +108,7 @@ export default {
 	name: "CollateralMint",
 	data() {
 		return {
-			selectedCollateralRatio: 170,
+			selectedCollateralRatio: "170",
 			tokenPrice: 2,
 			inputValue: 0,
 			estimatedMintedNuonValue: 0,
@@ -145,8 +145,8 @@ export default {
 		},
 	},
 	watch: {
-		inputValue(newValue) {
-			if (newValue) this.getEstimatedMintedUsx();
+		inputValue() {
+			this.getEstimatedMintedNuon();
 			if (this.selectedCollateralRatio) this.liquidationPrice = (this.inputValue * this.tokenPrice) / (this.selectedCollateralRatio / 100);
 		},
 		selectedCollateralRatio(newValue) {
@@ -169,9 +169,8 @@ export default {
 					}
 				});
 		},
-		async getEstimatedMintedUsx() {
-			const test = new BigNumber(1e18);
-			const ans = await this.$store.getters["collateralVaultStore/getEstimateMintedNUONAmount"](test, new BigNumber(0.4e18));
+		async getEstimatedMintedNuon() {
+			const ans = await this.$store.getters["collateralVaultStore/getEstimateMintedNUONAmount"](new BigNumber(toWei(this.inputValue)), new BigNumber(0.4e18));
 			this.estimatedMintedNuonValue = ans[0];
 		},
 		async mint() {

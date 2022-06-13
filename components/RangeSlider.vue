@@ -1,6 +1,6 @@
 <template>
 	<div class="range-slider">
-		<input v-model="selectedValue" :disabled="sliderDisabled" type="range" :min="min" :max="max" class="range-slider__input">
+		<input v-model="selectedValue" type="range" :min="min" :max="max" :disabled="sliderDisabled" class="range-slider__input">
 	</div>
 </template>
 
@@ -21,7 +21,7 @@ export default {
 			default: true
 		},
 		selectedCollateralRatio: {
-			type: Number,
+			type: String,
 			required: true
 		}
 	},

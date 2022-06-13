@@ -53,7 +53,7 @@ export default {
 			required: true
 		},
 		collateralRatio: {
-			type: Number,
+			type: String,
 			required: true
 		},
 		liquidationPrice: {
