@@ -10,7 +10,7 @@
 							class="u-mr-24 u-no-transition u-p-0"
 							title="Click to go back"
 							@click="getPreviousPage"><ChevronLeftIcon /></TheButton>
-						<img src="~/assets/images/borrow/eth.png" :alt="`${collateralToken } logo`" height="48" width="48" class="u-mr-24">
+						<img src="~/assets/images/borrow/ETH.png" :alt="`${collateralToken} logo`" height="48" width="48" class="u-mr-24">
 						<h1>{{ collateralToken }}</h1>
 					</LayoutFlex>
 				</PageTitle>
