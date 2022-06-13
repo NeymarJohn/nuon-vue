@@ -187,7 +187,7 @@ export default {
 			this.activeStep = "loading";
 			this.minting = true;
 			const amount = toWei(this.actualDepositAmount, this.$store.state.erc20Store.decimals.HX);
-			const collateralRatioToWei = (10 ** 20 / parseInt(this.selectedCollateralRatio));
+			const collateralRatioToWei = toWei(10 ** 20 / parseInt(this.selectedCollateralRatio));
 
 			await this.$store.dispatch("collateralVaultStore/mintNuon",
 				{
