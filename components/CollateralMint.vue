@@ -111,7 +111,7 @@ export default {
 		return {
 			selectedCollateralRatio: "190",
 			collateralPrice: 0,
-			inputValue: 0,
+			inputValue: "0.0",
 			estimatedMintedNuonValue: "0",
 			maxUsxMinted: 3401,
 			activeStep: 1,
