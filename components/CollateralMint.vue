@@ -29,10 +29,6 @@
 				<p v-if="isMoreThanBalance" class="u-is-warning l-flex--align-self-end">Insufficient balance</p>
 			</DataCard>
 			<DataCard class="u-full-width">
-				<p>Estimated NUON minted</p>
-				<h4 class="collateral-estimate">{{ estimatedMintedNuonValue | toFixed | numberWithCommas }} NUON</h4>
-			</DataCard>
-			<DataCard class="u-full-width">
 				<p>Set Your Collateral Ratio</p>
 				<div class="collateral">
 					<LayoutFlex direction="row-space-between" class="u-full-width">
@@ -58,6 +54,10 @@
 					</LayoutFlex>
 				</div>
 			</DataCard>
+			<DataCard class="u-full-width">
+				<p>Estimated NUON minted</p>
+				<h4 class="collateral-estimate">{{ estimatedMintedNuonValue | toFixed | numberWithCommas }} NUON</h4>
+			</DataCard>
 			<div class="toggle__transaction">
 				<TheButton
 					:disabled="isApproved || isApproving"
@@ -79,7 +79,7 @@
 		</template>
 		<template #step-two>
 			<TransactionSummaryChub
-				:deposit-amount="`${actualDepositAmount}`"
+				:deposit-amount="`${inputValue}`"
 				:mint-amount="estimatedMintedNuonValue"
 				:collateral-ratio="selectedCollateralRatio"
 				:liquidation-price="liquidationPrice"
@@ -112,7 +112,7 @@ export default {
 			selectedCollateralRatio: "190",
 			collateralPrice: 0,
 			inputValue: 0,
-			estimatedMintedNuonValue: 0,
+			estimatedMintedNuonValue: "0",
 			maxUsxMinted: 3401,
 			activeStep: 1,
 			isApproving: false,
@@ -145,9 +145,6 @@ export default {
 		readyToDeposit() {
 			return !!this.inputValue && !this.isMoreThanBalance;
 		},
-		actualDepositAmount() {
-			return this.inputValue * (1 + (this.selectedCollateralRatio / 100));
-		}
 	},
 	watch: {
 		inputValue() {
@@ -155,7 +152,10 @@ export default {
 			if (this.selectedCollateralRatio) this.liquidationPrice = (this.inputValue * this.collateralPrice) / (this.selectedCollateralRatio / 100);
 		},
 		selectedCollateralRatio(newValue) {
-			if (newValue) this.liquidationPrice = (this.inputValue * this.collateralPrice) / (this.selectedCollateralRatio / 100);
+			if (newValue) {
+				this.liquidationPrice = (this.inputValue * this.collateralPrice) / (this.selectedCollateralRatio / 100);
+				this.getEstimatedMintedNuon();
+			}
 		}
 	},
 	async mounted() {
@@ -180,29 +180,35 @@ export default {
 				});
 		},
 		async getEstimatedMintedNuon() {
-			const ans = await this.$store.getters["collateralVaultStore/getEstimateMintedNUONAmount"](new BigNumber(toWei(this.inputValue)), new BigNumber(0.4e18));
+			const collateralRatio = (10 ** 18) / (this.selectedCollateralRatio / 100);
+			const ans = await this.$store.getters["collateralVaultStore/getEstimateMintedNUONAmount"](new BigNumber(toWei(this.inputValue)), new BigNumber(collateralRatio));
 			this.estimatedMintedNuonValue = ans[0];
 		},
 		async mint() {
 			this.activeStep = "loading";
 			this.minting = true;
 			const amount = toWei(this.actualDepositAmount, this.$store.state.erc20Store.decimals.HX);
-			const collateralRatioToWei = toWei(10 ** 20 / parseInt(this.selectedCollateralRatio));
+			const collateralRatioToWei = 10 ** 18 / parseInt(this.selectedCollateralRatio / 100);
 
-			await this.$store.dispatch("collateralVaultStore/mintNuon",
-				{
-					collateralRatio: `${collateralRatioToWei}`,
-					collateralAmount: amount,
-					onConfirm: (_confNumber, receipt, _latestBlockHash) => {
-						this.$store.commit("collateralVaultStore/setUserJustMinted", true);
-						this.successToast(null, `You've successfully minted ${this.estimatedMintedNuonValue} Nuon`, receipt.transactionHash);
-					},
-					onReject: (err) => {
-						this.failureToast(null, err, "Transaction failed");
-					}
-				});
-			this.minting = false;
-			this.activeStep = 1;
+			try {
+				await this.$store.dispatch("collateralVaultStore/mintNuon",
+					{
+						collateralRatio: `${collateralRatioToWei}`,
+						collateralAmount: amount,
+						onConfirm: (_confNumber, receipt, _latestBlockHash) => {
+							this.$store.commit("collateralVaultStore/setUserJustMinted", true);
+							this.successToast(null, `You've successfully minted ${this.estimatedMintedNuonValue} Nuon`, receipt.transactionHash);
+						},
+						onReject: (err) => {
+							this.failureToast(null, err, "Transaction failed");
+						}
+					});
+			} catch (e) {
+				// pass
+			} finally {
+				this.minting = false;
+				this.activeStep = 1;
+			}
 		},
 		inputMaxBalance() {
 			this.inputValue = this.tokenBalance;
