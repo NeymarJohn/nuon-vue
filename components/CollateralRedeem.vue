@@ -3,8 +3,8 @@
 		<template #step-one>
 			<DataCard class="u-full-width u-mb-48">
 				<LayoutFlex direction="row-space-between" class="u-full-width">
-					<p>{{ withdrawToken.symbol }} amount</p>
-					<p>Available balance: {{ (withdrawToken.balance || 0) | formatLongNumber }}</p>
+					<p>NUON amount</p>
+					<p>Available balance: {{ (userMintedNuon || 0) | formatLongNumber }}</p>
 				</LayoutFlex>
 				<div class="input u-mb-12">
 					<div class="input__container">
@@ -13,20 +13,20 @@
 							placeholder="0.0"
 							type="number"
 							min="0"
-							max="79"
 							autocomplete="off"
 							autocorrect="off"
 							spellcheck="false"
 							inputmode="decimal" />
-						<TheButton :disabled="isMaxInputDisabled(withdrawToken ? withdrawToken.balance : 0)" size="sm" title="Click to input your max balance" @click="inputMaxBalance">Max</TheButton>
+						<TheButton :disabled="isMaxInputDisabled(userMintedNuon ? userMintedNuon : 0)" size="sm" title="Click to input your max balance" @click="inputMaxBalance">Max</TheButton>
 					</div>
 				</div>
-				<h5 v-if="withdrawToken" class="u-mb-0 l-flex--align-self-end">~ ${{ numberWithCommas(getDollarValue(inputValue, withdrawToken.price).toFixed(2)) }}</h5>
-				<p v-if="readyToDeposit" class="u-is-success l-flex--align-self-end">Ready to repay</p>
+				<h5 v-if="inputValue" class="u-mb-0 l-flex--align-self-end">~ ${{ numberWithCommas(getDollarValue(inputValue, nuonPrice).toFixed(2)) }}</h5>
+				<p v-if="readyToRepay" class="u-is-success l-flex--align-self-end">Ready to repay</p>
+				<p v-if="amountMoreThanUserMinted" class="u-is-warning l-flex--align-self-end">insufficient balance</p>
 			</DataCard>
 			<DataCard class="u-full-width">
 				<p>Estimated ETH Redeemed</p>
-				<h4 class="collateral-estimate">{{ collateralEstimate | toFixed | numberWithCommas }}<sup>ETH</sup></h4>
+				<h4 class="collateral-estimate">{{ estimatedWithdrawnNuonValue | toFixed | numberWithCommas }}<sup>ETH</sup></h4>
 			</DataCard>
 			<TheButton
 				class="u-full-width"
@@ -35,7 +35,12 @@
 				@click="activeStep = 2">Next</TheButton>
 		</template>
 		<template #step-two>
-			<TransactionSummaryChub :values="summary" />
+			<TransactionSummaryChub
+				:convert-from-amount="`${inputValue}`"
+				convert-from-title="Repay"
+				:convert-to-amount="estimatedWithdrawnNuonValue"
+				convert-to-title="Redeem"
+			/>
 			<div class="toggle__transaction">
 				<TheButton
 					title="Click to go back"
@@ -54,130 +59,68 @@
 </template>
 
 <script>
-import { HX, TOKENS_MAP } from "~/constants/tokens";
+import { BigNumber } from "bignumber.js";
 import { fromWei, toWei } from "~/utils/bnTools";
 
 export default {
 	name: "CollateralRedeem",
 	data() {
 		return {
+			nuonPrice: 0,
 			withdrawCollateral: 3223,
 			maxUsxRedeemed: 3401,
 			activeStep: 1,
-			collateralEstimate: 1.3,
-			withdrawToken: {
-				symbol: HX.symbol,
-				price: 0,
-				balance: 0
-			},
-			withdrawAmount: 0,
-			estimatedWithdrawnUsxValue: 0,
+			estimatedWithdrawnNuonValue: 0,
 			allCollaterals: [],
-			feeAmount: 0,
-			withdrawing: false
+			withdrawing: false,
+			inputValue: null,
+			userMintedNuon: 0
 		};
 	},
 	computed: {
 		isApproved() {
-			// !!this.$store.state.collateralVaultStore.allowance[this.withdrawToken.symbol]
-			return true;
+			return !!this.$store.state.collateralVaultStore.allowance.NUON;
 		},
 		tokenBalance() {
-			return parseFloat(this.withdrawToken.balance);
+			return parseFloat(this.$store.state.erc20Store.balance.NUON);
 		},
 		isNextDisabled() {
-			// !this.isApproved || !this.withdrawAmount || this.withdrawAmount > this.tokenBalance
-			return false;
+			return !this.isApproved || !parseFloat(this.inputValue) || parseFloat(this.inputValue) > parseFloat(this.userMintedNuon);
 		},
-		feeDollarValue() {
-			return (this.withdrawAmount * this.withdrawToken.price * this.feeAmount).toFixed(2);
+		readyToRepay() {
+			return !!parseFloat(this.inputValue) && parseFloat(this.inputValue) <= parseFloat(this.userMintedNuon);
 		},
-		summary() {
-			return [
-				// {
-				// 	title: "Collateral to Withdraw",
-				// 	val: this.numberWithCommas(parseFloat(this.withdrawAmount).toFixed(2)),
-				// 	currency: this.withdrawToken.symbol,
-				// 	dollar: this.numberWithCommas((this.withdrawAmount * this.withdrawToken.price).toFixed(2))
-				// },
-				// {
-				// 	title: "Maximum Withdrawn Nuon",
-				// 	val: this.numberWithCommas(this.estimatedWithdrawnUsxValue),
-				// 	currency: "Nuon",
-				// 	dollar: this.numberWithCommas((this.estimatedWithdrawnUsxValue * this.tokenPrices.USX).toFixed(2))
-				// },
-				// {
-				// 	title: "Fee",
-				// 	val: `${this.redeemFee * 100}%`,
-				// 	dollar: this.numberWithCommas(this.feeDollarValue)
-				// },
-				// {
-				// 	title: "Total Received",
-				// 	val: this.numberWithCommas((this.estimatedWithdrawnUsxValue * (1 - this.feeAmount)).toFixed(2)),
-				// 	currency: "HX",
-				// 	dollar: this.numberWithCommas((this.estimatedWithdrawnUsxValue * this.tokenPrices.USX).toFixed(2) - this.feeDollarValue)
-				// }
-			];
-		},
-		redeemFee() {
-			// this.$store.state.collateralVaultStore.redeemFee
-			return 0;
+		amountMoreThanUserMinted() {
+			return parseFloat(this.inputValue) > parseFloat(this.userMintedNuon);
+		}
+	},
+	watch: {
+		async inputValue() {
+			let result = {0: 0};
+			try {
+				result = await this.$store.getters["collateralVaultStore/getEstimateCollateralsOut"](this.connectedAccount, toWei(this.inputValue));
+			} catch (e) {
+				const jsonRPCErrorMessage = this.getRPCErrorMessage(e);
+				this.failureToast(null, jsonRPCErrorMessage, "Transaction failed");
+			} finally {
+				this.estimatedWithdrawnNuonValue = fromWei(result[0]);
+			}
 		}
 	},
 	async mounted () {
-		// const hxPrice = parseFloat(this.tokenPrices.HX);
-		// this.withdrawToken.price = hxPrice;
-		// this.allCollaterals = await this.$store.getters["collateralVaultStore/getCollaterals"]();
-		// const cid = this.allCollaterals.findIndex(c => c === TOKENS_MAP.HX.address);
-		// if (cid !== -1) {
-		// 	const userAmounts = await this.$store.getters["collateralVaultStore/getUserAmounts"](this.connectedAccount, cid);
-		// 	const balance = parseFloat(userAmounts[1]) / (10 ** this.$store.state.erc20Store.decimals[token.symbol]);
-		// 	this.withdrawToken = {...this.withdrawToken, balance};
-		// }
+		this.userMintedNuon = fromWei(await this.$store.getters["collateralVaultStore/getUserMintedAmount"](this.connectedAccount));
+		this.nuonPrice = fromWei(await this.$store.getters["collateralVaultStore/getNuonPrice"]());
 	},
 	methods: {
-		async selectClaimToken(token) {
-			let price = 0;
-			let balance = 0;
-			const selectedTokenAddress = TOKENS_MAP[token.symbol].address;
-			const decimals = (10 ** this.$store.state.erc20Store.decimals[token.symbol]);
-			price = this.tokenPrices[token.symbol] || 0;
-			price = price / decimals;
-
-			const cid = this.allCollaterals.findIndex(c => c === selectedTokenAddress);
-			if (cid !== -1) {
-				const userAmounts = await this.$store.getters["collateralVaultStore/getUserAmounts"](this.connectedAccount, cid);
-				balance = parseFloat(userAmounts[1]) / decimals;
-			}
-			this.withdrawToken = {...token, price, cid, balance, address: selectedTokenAddress};
-		},
-		async changeWithdrawValue(value) {
-			if (!value) return;
-			this.withdrawAmount = value;
-
-			const cid = this.allCollaterals.findIndex(c => c === this.withdrawToken.address);
-			const usxValueWithDecimals = toWei(value);
-			let estimatedValue = null;
-			try {
-				estimatedValue = await this.$store.getters["collateralVaultStore/getEstimateCollateralsOut"](cid, this.connectedAccount, usxValueWithDecimals);
-				this.estimatedWithdrawnUsxValue = estimatedValue[0] / (10 ** this.$store.state.erc20Store.decimals[this.withdrawToken.symbol]);
-				this.feeAmount = fromWei(estimatedValue[2]);
-			} catch (e) {
-				this.failureToast(null, e, "An error occurred");
-			}
-		},
 		async withdraw() {
 			this.activeStep = "loading";
 			this.withdrawing = true;
-			const selectedTokenAddress = TOKENS_MAP[this.withdrawToken.symbol].address;
-			const cid = this.allCollaterals.findIndex(c => c === selectedTokenAddress);
-			const usxAmount = (this.withdrawAmount * (10 ** this.$store.state.erc20Store.decimals.USX)).toString();
+			const nuonAmount = (this.inputValue * (10 ** this.$store.state.erc20Store.decimals.NUON)).toString();
 
 			try {
 				await this.$store.dispatch("collateralVaultStore/redeem",
 					{
-						usxAmount,
-						cid,
+						nuonAmount: new BigNumber(nuonAmount),
 						onConfirm: (txHash) => {
 							this.successToast(null, "Withdraw successful", txHash);
 						},
@@ -190,6 +133,9 @@ export default {
 				this.withdrawing = false;
 				this.activeStep = 1;
 			}
+		},
+		inputMaxBalance() {
+			this.inputValue = this.userMintedNuon;
 		}
 	}
 };

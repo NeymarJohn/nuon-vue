@@ -2,30 +2,30 @@
 	<LayoutFlex direction="column">
 		<h5 class="u-mb-12 u-color-light-grey">Transaction Summary</h5>
 		<div class="l-flex l-flex--column u-full-width transaction-summary--chub">
-			<p class="u-color-light-grey">Deposit</p>
+			<p class="u-color-light-grey">{{ convertFromTitle }}</p>
 			<LayoutFlex direction="row-center-space-between">
 				<LayoutFlex direction="row-center">
 					<img :src="require('~/assets/images/tokens/USDC.png')" alt="usdc image" height="50" width="50" class="u-mr-8">
 					test
 				</LayoutFlex>
-				<h3>{{ depositAmount | toFixed }}</h3>
+				<h3>{{ convertFromAmount | toFixed | numberWithCommas }}</h3>
 			</LayoutFlex>
 			<ArrowDownIcon class="u-mt-24 u-ml-8 u-mb-24" />
-			<p class="u-color-light-grey">Mint</p>
+			<p class="u-color-light-grey">{{ convertToTitle }}</p>
 			<LayoutFlex direction="row-center-space-between u-pb-32 u-bb-medium-light-grey">
 				<LayoutFlex direction="row-center">
 					<img :src="require('~/assets/images/tokens/USDC.png')" alt="usdc image" height="50" width="50" class="u-mr-8">
 					test
 				</LayoutFlex>
-				<h3>{{ mintAmount }}</h3>
+				<h3>{{ convertToAmount | toFixed | numberWithCommas }}</h3>
 			</LayoutFlex>
-			<div class="u-mt-32 u-full-width l-flex l-flex--row-space-between">
+			<div v-if="collateralRatio" class="u-mt-32 u-full-width l-flex l-flex--row-space-between">
 				<h4>Collateral Ratio</h4>
-				<h4>{{ collateralRatio }}%</h4>
+				<h4>{{ collateralRatio | numberWithCommas }}%</h4>
 			</div>
-			<div class="u-full-width l-flex l-flex--row-space-between">
+			<div v-if="liquidationPrice" class="u-full-width l-flex l-flex--row-space-between">
 				<h4>Liquidation Price</h4>
-				<h4>${{ liquidationPrice | toFixed }}</h4>
+				<h4>${{ liquidationPrice | toFixed | numberWithCommas }}</h4>
 			</div>
 			<div class="u-full-width l-flex l-flex--row-space-between">
 				<h4>Fee</h4>
@@ -44,21 +44,31 @@ export default {
 		ArrowDownIcon
 	},
 	props: {
-		depositAmount: {
+		convertFromAmount: {
 			type: String,
 			required: true
 		},
-		mintAmount: {
+		convertFromTitle: {
+			type: String,
+			required: true
+		},
+		convertToAmount: {
+			type: String,
+			required: true
+		},
+		convertToTitle: {
 			type: String,
 			required: true
 		},
 		collateralRatio: {
 			type: String,
-			required: true
+			required: false,
+			default: ""
 		},
 		liquidationPrice: {
 			type: Number,
-			required: true
+			required: false,
+			default: 0
 		}
 	}
 };

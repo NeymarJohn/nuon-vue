@@ -201,10 +201,9 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 				if (onReject) onReject(err);
 			});
 	},
-	async redeem(ctx: any, {usxAmount, cid, onConfirm, onReject}) {
-		if (cid === -1) return;
+	async redeem(ctx: any, {nuonAmount, onConfirm, onReject}) {
 		const accountAddress = ctx.rootState.web3Store.account;
-		return await ctx.getters.collateralHubContract.methods.redeem(usxAmount, cid).send({from: accountAddress})
+		return await ctx.getters.collateralHubContract.methods.redeem(nuonAmount).send({from: accountAddress})
 			.on("transactionHash", (txHash: string) => {
 				if (onConfirm) onConfirm(txHash);
 			})

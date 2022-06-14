@@ -18,7 +18,7 @@
 							spellcheck="false"
 							inputmode="decimal" />
 						<TheButton
-							:disabled="isMaxInputDisabled(selectedToken ? selectedToken.balance : 0)"
+							:disabled="isMaxInputDisabled(tokenBalance ? tokenBalance : 0)"
 							size="sm"
 							title="Click to input your max balance"
 							@click="inputMaxBalance">Max</TheButton>
@@ -79,8 +79,10 @@
 		</template>
 		<template #step-two>
 			<TransactionSummaryChub
-				:deposit-amount="`${inputValue}`"
-				:mint-amount="estimatedMintedNuonValue"
+				:convert-from-amount="`${inputValue}`"
+				convert-from-title="Deposit"
+				:convert-to-amount="estimatedMintedNuonValue"
+				convert-to-title="Mint"
 				:collateral-ratio="selectedCollateralRatio"
 				:liquidation-price="liquidationPrice"
 			/>
@@ -111,7 +113,7 @@ export default {
 		return {
 			selectedCollateralRatio: "190",
 			collateralPrice: 0,
-			inputValue: "0.0",
+			inputValue: null,
 			estimatedMintedNuonValue: "0",
 			maxUsxMinted: 3401,
 			activeStep: 1,
@@ -187,7 +189,7 @@ export default {
 		async mint() {
 			this.activeStep = "loading";
 			this.minting = true;
-			const amount = toWei(this.actualDepositAmount, this.$store.state.erc20Store.decimals.HX);
+			const amount = toWei(this.inputValue, this.$store.state.erc20Store.decimals.HX);
 			const collateralRatioToWei = 10 ** 18 / parseInt(this.selectedCollateralRatio / 100);
 
 			try {
@@ -197,14 +199,13 @@ export default {
 						collateralAmount: amount,
 						onConfirm: (_confNumber, receipt, _latestBlockHash) => {
 							this.$store.commit("collateralVaultStore/setUserJustMinted", true);
-							this.successToast(null, `You've successfully minted ${this.estimatedMintedNuonValue} Nuon`, receipt.transactionHash);
+							this.successToast(null, `You've successfully minted ${this.estimatedMintedNuonValue} NUON`, receipt.transactionHash);
 						},
 						onReject: (err) => {
 							this.failureToast(null, err, "Transaction failed");
 						}
 					});
 			} catch (e) {
-				// pass
 			} finally {
 				this.minting = false;
 				this.activeStep = 1;
