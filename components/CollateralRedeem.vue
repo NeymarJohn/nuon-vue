@@ -67,11 +67,8 @@ export default {
 	data() {
 		return {
 			nuonPrice: 0,
-			withdrawCollateral: 3223,
-			maxUsxRedeemed: 3401,
 			activeStep: 1,
 			estimatedWithdrawnNuonValue: 0,
-			allCollaterals: [],
 			withdrawing: false,
 			inputValue: null,
 			userMintedNuon: 0

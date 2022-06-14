@@ -3,7 +3,7 @@
 		<template #step-one>
 			<DataCard class="u-full-width u-mb-48">
 				<LayoutFlex direction="row-space-between" class="u-full-width">
-					<p>{{ selectedToken.symbol }} amount</p>
+					<p>ETH amount</p>
 					<p>Available balance: {{ (tokenBalance || 0) | formatLongNumber }}</p>
 				</LayoutFlex>
 				<div class="input u-mb-12">
@@ -24,7 +24,7 @@
 							@click="inputMaxBalance">Max</TheButton>
 					</div>
 				</div>
-				<h5 v-if="selectedToken" class="u-mb-0 l-flex--align-self-end">~ ${{ numberWithCommas(getDollarValue(inputValue, collateralPrice).toFixed(2)) }}</h5>
+				<h5 v-if="inputValue" class="u-mb-0 l-flex--align-self-end">~ ${{ numberWithCommas(getDollarValue(inputValue, collateralPrice).toFixed(2)) }}</h5>
 				<p v-if="readyToDeposit" class="u-is-success l-flex--align-self-end">Ready to deposit</p>
 				<p v-if="isMoreThanBalance" class="u-is-warning l-flex--align-self-end">Insufficient balance</p>
 			</DataCard>
@@ -115,15 +115,9 @@ export default {
 			collateralPrice: 0,
 			inputValue: null,
 			estimatedMintedNuonValue: "0",
-			maxUsxMinted: 3401,
 			activeStep: 1,
 			isApproving: false,
 			minting: false,
-			allCollaterals: [],
-			selectedToken: {
-				symbol: "ETH",
-				balance: 0
-			},
 			liquidationPrice: 0,
 			sliderMin: "0",
 		};
@@ -140,9 +134,6 @@ export default {
 		},
 		tokenBalance() {
 			return parseFloat(this.$store.state.erc20Store.balance.HX);
-		},
-		mintingFee() {
-			return this.$store.state.collateralVaultStore.mintingFee;
 		},
 		readyToDeposit() {
 			return !!this.inputValue && !this.isMoreThanBalance;
