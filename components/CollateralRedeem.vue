@@ -22,7 +22,7 @@
 				</div>
 				<h5 v-if="inputValue" class="u-mb-0 l-flex--align-self-end">~ ${{ numberWithCommas(getDollarValue(inputValue, nuonPrice).toFixed(2)) }}</h5>
 				<p v-if="readyToRepay" class="u-is-success l-flex--align-self-end">Ready to repay</p>
-				<p v-if="amountMoreThanUserMinted" class="u-is-warning l-flex--align-self-end">insufficient balance</p>
+				<p v-if="amountMoreThanUserMinted" class="u-is-warning l-flex--align-self-end">Insufficient balance.</p>
 			</DataCard>
 			<DataCard class="u-full-width">
 				<p>Estimated ETH Redeemed</p>
