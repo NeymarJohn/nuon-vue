@@ -23,7 +23,7 @@
 	border-radius: $BORDER_RADIUS_32;
 	padding: $SPACING_16 $SPACING_16 $SPACING_16 $SPACING_56;
 	height: $SPACING_48;
-	width: $SPACING_350;
+	width: $SPACING_350 !important;
 }
 .transaction-search__input,
 .transaction-search__input::placeholder {
@@ -41,5 +41,16 @@
 	.transaction-search__input::placeholder {
 		font-size: $BODY_TEXT_SM;
 		line-height: $SPACING_24;
+	}
+}
+@media screen and (max-width: $SPACING_990) {
+	.transaction-search,
+	.transaction-search__input {
+		width: 100% !important;
+	}
+}
+@media screen and (max-width: $SPACING_480) {
+	.transaction-search {
+		margin-bottom: $SPACING_24;
 	}
 }

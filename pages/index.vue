@@ -1,6 +1,6 @@
 <template>
 	<LayoutContainer>
-		<LayoutFlex class="u-mb-48 l-flex-column-start-sm" direction="row-center-space-between">
+		<LayoutFlex class="u-mb-48 l-flex--column-start-sm" direction="row-center-space-between">
 			<PageTitle>
 				<h4>Dashboard</h4>
 				<h1>Nuon Protocol Information</h1>

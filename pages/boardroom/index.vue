@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<LayoutContainer>
-			<LayoutFlex class="u-mb-48 u-mb-md-36 l-flex-column-sm l-flex-column-start-md" direction="row-center-space-between">
+			<LayoutFlex class="u-mb-48 u-mb-md-36 l-flex--column-sm l-flex--column-start-md" direction="row-center-space-between">
 				<PageTitle class="u-mb-md-36">
 					<h4>Boardroom</h4>
 					<h1>Stake - Vote - Earn Rewards</h1>
@@ -106,7 +106,7 @@
 				</StatCard>
 				<StatCard>
 					<label class="u-mb-sm-12">Reward Information<TooltipIcon v-tooltip="'Enter Reward Info tooltip content here'" /></label>
-					<LayoutFlex class="l-flex-column-sm">
+					<LayoutFlex class="l-flex--column-sm">
 						<TheLoader component="h3">
 							<h3 class="u-mr-32 u-mb-sm-12">APR {{ apr | toFixed | numberWithCommas }}%</h3>
 						</TheLoader>
@@ -119,7 +119,7 @@
 					</LayoutFlex>
 				</StatCard>
 			</LayoutGrid>
-			<LayoutFlex class="u-mb-36 u-mb-md-24 l-flex-column-start-sm" direction="row-space-between">
+			<LayoutFlex class="u-mb-36 u-mb-md-24 l-flex--column-start-sm" direction="row-space-between">
 				<PageTitle>
 					<h2>Proposals<TooltipIcon v-tooltip="'Enter proposals tooltip content here.'" /></h2>
 					<h5>Create proposals and vote to improve the Nuon protocol.</h5>
@@ -128,7 +128,7 @@
 					<NuxtLink :disabled="!isConnectedWallet" :event="!isConnectedWallet ? '' : 'click'" class="btn btn--lg u-full-width-sm u-text-center-sm" to="/boardroom/create-new-proposal" title="Click to create a new proposal">Create New Proposal</NuxtLink>
 				</DataCard>
 			</LayoutFlex>
-			<LayoutFlex class="u-mb-36 u-mb-md-24 l-flex-column-start-sm" direction="row-center-space-between">
+			<LayoutFlex class="u-mb-36 u-mb-md-24 l-flex--column-start-sm" direction="row-center-space-between">
 				<LayoutFlex class="u-full-width-sm">
 					<ul class="icon-list">
 						<li v-if="totalProposals !== null">Total Proposals <TheBadge>{{ totalProposals }}</TheBadge></li>

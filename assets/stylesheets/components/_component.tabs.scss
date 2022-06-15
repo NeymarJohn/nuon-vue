@@ -107,4 +107,20 @@
 	.tabs__filter {
 		flex-direction: column;
 	}
+	.tabs--mobile-scroll {
+		width: $SPACING_375;
+	}
+	.tabs--mobile-scroll ul {
+		display: grid !important;
+		grid-template-columns: $SPACING_170;
+		grid-auto-flow: column;
+		grid-auto-columns: $SPACING_170 !important;
+		overflow-x: scroll;
+		scroll-snap-type: x proximity;
+	}
+	.tabs--mobile-scroll ul li.is-active,
+	.tabs--mobile-scroll ul li {
+		scroll-snap-align: center;
+		text-align: center;
+	}
 }

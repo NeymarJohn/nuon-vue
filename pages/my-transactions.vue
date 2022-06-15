@@ -6,7 +6,7 @@
 		</PageTitle>
 		<h2 class="u-mb-24">Account Balance</h2>
 		<div class="l-chart l-chart--account-balance u-mb-80">
-			<LayoutFlex class="l-flex-column-sm">
+			<LayoutFlex class="l-flex--column-sm">
 				<div class="chart">
 					<p>Total Value</p>
 					<h1 class="u-mb-24">$63,334.34</h1>
@@ -39,17 +39,17 @@
 						<h1 class="u-mb-4">1,233.00<sup>HX</sup></h1>
 						<h5>$12,343.34</h5>
 					</LayoutFlex>
-					<LayoutFlex direction="row-start-space-between" class="l-flex-column-sm">
+					<LayoutFlex direction="row-start-space-between" class="l-flex--column-sm">
 						<TheLoader component="donut-claimable" class="u-mb-24 u-full-width u-mr-24 u-mr-sm-0">
 							<DonutChartRewards />
 						</TheLoader>
 						<LayoutFlex direction="column">
-							<LayoutFlex class="u-mb-8" direction="column-end">
+							<LayoutFlex class="u-mb-8 l-flex--column-start-sm" direction="column-end">
 								<p class="u-mb-8"><TheBadge class="u-mr-4" color="key badge--light-green" /> Staked Rewards</p>
 								<h1 class="u-mb-8">234.00<sup>HX</sup></h1>
 								<TheButton title="Click to start claiming">Start Claiming</TheButton>
 							</LayoutFlex>
-							<LayoutFlex direction="column-end">
+							<LayoutFlex class="l-flex--column-start-sm" direction="column-end">
 								<p class="u-mb-8"><TheBadge class="u-mr-4" color="key badge--orange" /> Burned Token Rewards</p>
 								<h1 class="u-mb-8">999.00<sup>HX</sup></h1>
 								<TheButton title="Click to start claiming">Start Claiming</TheButton>
@@ -60,7 +60,7 @@
 			</LayoutFlex>
 		</div>
 		<h2 class="u-mb-24">Transaction History</h2>
-		<TheTabs size="full-width">
+		<TheTabs size="full-width" color="mobile-scroll tabs--dark" margin="sm-24">
 			<TheTab title="Collateral Hub">
 				<TabCollateralHub />
 			</TheTab>

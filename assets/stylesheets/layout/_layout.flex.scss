@@ -86,19 +86,19 @@
 
 // 4. Flex responsive
 @media screen and (max-width: $SPACING_990) {
-	.l-flex-column-start-md {
+	.l-flex--column-start-md {
 		flex-direction: column;
 		align-items: flex-start;
 	}
-	.l-flex-column-md {
+	.l-flex--column-md {
 		flex-direction: column;
 	}
 }
 @media screen and (max-width: $SPACING_480) {
-	.l-flex-column-sm {
+	.l-flex--column-sm {
 		flex-direction: column;
 	}
-	.l-flex-column-start-sm {
+	.l-flex--column-start-sm {
 		flex-direction: column;
 		align-items: flex-start;
 	}
