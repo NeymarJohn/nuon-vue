@@ -28,11 +28,24 @@
 				<p>Estimated ETH Redeemed</p>
 				<h4 class="collateral-estimate">{{ estimatedWithdrawnNuonValue | toFixed | numberWithCommas }}<sup>ETH</sup></h4>
 			</DataCard>
-			<TheButton
-				class="u-full-width"
-				title="Click to deposit"
-				:disabled="isNextDisabled"
-				@click="activeStep = 2">Next</TheButton>
+			<div class="toggle__transaction">
+				<TheButton
+					:disabled="isApproved || isApproving"
+					:class="isApproved"
+					title="Click to approve"
+					size="approved"
+					class="u-min-width-185"
+					@click="approveTokens">
+					<span v-if="isApproved">Approved</span>
+					<span v-else-if="isApproving">Approving...</span>
+					<span v-else>Approve</span>
+				</TheButton>
+				<TheButton
+					class="u-full-width"
+					title="Click to deposit"
+					:disabled="isNextDisabled"
+					@click="activeStep = 2">Next</TheButton>
+			</div>
 		</template>
 		<template #step-two>
 			<TransactionSummaryChub
@@ -71,7 +84,8 @@ export default {
 			estimatedWithdrawnNuonValue: 0,
 			withdrawing: false,
 			inputValue: null,
-			userMintedNuon: 0
+			userMintedNuon: 0,
+			isApproving: false
 		};
 	},
 	computed: {
@@ -109,6 +123,18 @@ export default {
 		this.nuonPrice = fromWei(await this.$store.getters["collateralVaultStore/getNuonPrice"]());
 	},
 	methods: {
+		approveTokens() {
+			this.isApproving = true;
+			this.$store.dispatch("collateralVaultStore/approveToken",
+				{
+					tokenSymbol: "NUON",
+					onConfirm: () => { },
+					onReject: () => { },
+					onCallback: () => {
+						this.isApproving = false;
+					}
+				});
+		},
 		async withdraw() {
 			this.activeStep = "loading";
 			this.withdrawing = true;

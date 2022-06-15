@@ -124,7 +124,7 @@ export default {
 	},
 	computed: {
 		isApproved() {
-			return this.$store.state.collateralVaultStore.allowance.HX;
+			return !!this.$store.state.collateralVaultStore.allowance.HX;
 		},
 		disabledMint() {
 			return !this.isApproved || !parseFloat(this.inputValue) || this.isMoreThanBalance;
