@@ -4,6 +4,10 @@
 */
 
 // 1. Toggle default
+.toggle {
+	max-width: $SPACING_870;
+	margin: $SPACING_32 auto;
+}
 .toggle,
 .toggle__buttons,
 .toggle__content {

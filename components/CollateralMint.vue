@@ -29,10 +29,6 @@
 				<p v-if="isMoreThanBalance" class="u-is-warning l-flex--align-self-end">Insufficient balance</p>
 			</DataCard>
 			<DataCard class="u-full-width">
-				<p>Estimated NUON minted</p>
-				<h4 class="collateral-estimate">{{ estimatedMintedNuonValue | toFixed | numberWithCommas }} NUON</h4>
-			</DataCard>
-			<DataCard class="u-full-width">
 				<p>Set Your Collateral Ratio</p>
 				<div class="collateral">
 					<LayoutFlex direction="row-space-between" class="u-full-width">
@@ -57,6 +53,10 @@
 						</div>
 					</LayoutFlex>
 				</div>
+			</DataCard>
+			<DataCard class="u-full-width">
+				<p>Estimated NUON minted</p>
+				<h4 class="collateral-estimate">{{ estimatedMintedNuonValue | toFixed | numberWithCommas }} NUON</h4>
 			</DataCard>
 			<div class="toggle__transaction">
 				<TheButton
