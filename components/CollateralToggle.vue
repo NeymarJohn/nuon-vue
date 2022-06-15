@@ -22,16 +22,11 @@ import { HX } from "~/constants/tokens";
 
 export default {
 	name: "CollateralToggle",
-	props: {
-		mintedTokens: {
-			type: Number,
-			required: true
-		}
-	},
 	data() {
 		return {
 			isMintView: true,
 			isWithdrawView: false,
+			mintedTokens: 0
 		};
 	},
 	computed: {
@@ -50,9 +45,14 @@ export default {
 		},
 		claimRewardsToken() {
 			return { symbol: HX.symbol, price: this.hxPrice, balance: this.myRewards };
-		}
+		},
 	},
-	async mounted() {
+	mounted() {
+		setTimeout(async () => {
+			if (this.connectedAccount) {
+				this.mintedTokens = fromWei(await this.$store.getters["collateralVaultStore/getUserMintedAmount"](this.connectedAccount));
+			}
+		}, 1000);
 	},
 	methods: {
 		toggleMintView() {

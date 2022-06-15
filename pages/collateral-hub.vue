@@ -99,7 +99,7 @@
 						<h2>Manage Your USDT Collateral<TooltipIcon v-tooltip="'Enter manage your USDT tooltip content here.'" /></h2>
 						<p>Instanly mint Nuon by depositing your collateral and redeem anytime.</p>
 					</PageTitle>
-					<CollateralToggle :minted-tokens="0" />
+					<CollateralToggle />
 				</TheTab>
 			</TheTabs>
 		</LayoutContainer>
@@ -135,13 +135,6 @@ export default {
 		isCollateralModalVisible() {
 			return this.$store.state.modalStore.modalVisible.collateralModal;
 		},
-		// userMintedAmount() {
-		// 	return parseFloat(this.$store.getters["erc20Store/usxBalance"]);
-		// },
-	},
-	async mounted() {
-		// this.getUserTVL(this.connectedAccount);
-		// this.minCollateralizationRatio = (1 / parseFloat(fromWei(await this.$store.getters["collateralVaultStore/getGlobalCollateralRatio"]()))) * 100;
 	},
 	methods: {
 		// async getUserTVL(userAddress) {
