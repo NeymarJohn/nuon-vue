@@ -6,108 +6,37 @@
 					<h4>Collateral Hub</h4>
 					<TheNotification
 						:class="isRiskLevel"
-						:my-collateralization-ratio="myCollateralizationRatio"
-						:min-collateralization-ratio="minCollateralizationRatio" />
+						:my-collateralization-ratio="userCollateralizationRatio"
+						:min-collateralization-ratio="minimumCollateralizationRatio" />
 				</LayoutFlex>
 			</PageTitle>
-			<TheTabs size="thin" color="light" margin="24">
-				<TheTab title="ETH">
-					<CollateralOverview
-						collateral-token="ETH"
-						:my-total-locked-collateral="0"
-						:my-total-locked-collateral-dollar="0"
-						:my-total-minted-tokens="0"
-						:my-total-minted-tokens-dollar="0"
-						:my-collateralization-ratio="0"
-						:current-price="1194.35" />
-					<CollateralEcosystemStatus
-						:min-collateralization-ratio="170"
-						:liquidation-price="1777.70" />
-					<PageTitle>
-						<h2>Manage Your ETH Collateral<TooltipIcon v-tooltip="'Enter manage your ETH tooltip content here.'" /></h2>
-						<p>Instanly mint Nuon by depositing your collateral and redeem anytime.</p>
-					</PageTitle>
-					<CollateralToggle :minted-tokens="0" />
-				</TheTab>
-				<TheTab title="BTC">
-					<CollateralOverview
-						collateral-token="BTC"
-						:my-total-locked-collateral="0"
-						:my-total-locked-collateral-dollar="0"
-						:my-total-minted-tokens="0"
-						:my-total-minted-tokens-dollar="0"
-						:my-collateralization-ratio="0"
-						:current-price="21948.85" />
-					<CollateralEcosystemStatus
-						:min-collateralization-ratio="170"
-						:liquidation-price="1777.70" />
-					<PageTitle>
-						<h2>Manage Your BTC Collateral<TooltipIcon v-tooltip="'Enter manage your BTC tooltip content here.'" /></h2>
-						<p>Instanly mint Nuon by depositing your collateral and redeem anytime.</p>
-					</PageTitle>
-					<CollateralToggle :minted-tokens="0" />
-				</TheTab>
-				<TheTab title="AVAX">
-					<CollateralOverview
-						collateral-token="AVAX"
-						:my-total-locked-collateral="0"
-						:my-total-locked-collateral-dollar="0"
-						:my-total-minted-tokens="0"
-						:my-total-minted-tokens-dollar="0"
-						:my-collateralization-ratio="0"
-						:current-price="16.52" />
-					<CollateralEcosystemStatus
-						:min-collateralization-ratio="170"
-						:liquidation-price="1777.70" />
-					<PageTitle>
-						<h2>Manage Your AVAX Collateral<TooltipIcon v-tooltip="'Enter manage your AVAX tooltip content here.'" /></h2>
-						<p>Instanly mint Nuon by depositing your collateral and redeem anytime.</p>
-					</PageTitle>
-					<CollateralToggle :minted-tokens="0" />
-				</TheTab>
-				<TheTab title="USDC">
-					<CollateralOverview
-						collateral-token="USDC"
-						:my-total-locked-collateral="0"
-						:my-total-locked-collateral-dollar="0"
-						:my-total-minted-tokens="0"
-						:my-total-minted-tokens-dollar="0"
-						:my-collateralization-ratio="0"
-						:current-price="1" />
-					<CollateralEcosystemStatus
-						:min-collateralization-ratio="170"
-						:liquidation-price="1777.70" />
-					<PageTitle>
-						<h2>Manage Your USDC Collateral<TooltipIcon v-tooltip="'Enter manage your USDC tooltip content here.'" /></h2>
-						<p>Instanly mint Nuon by depositing your collateral and redeem anytime.</p>
-					</PageTitle>
-					<CollateralToggle :minted-tokens="0" />
-				</TheTab>
-				<TheTab title="USDT">
-					<CollateralOverview
-						collateral-token="USDT"
-						:my-total-locked-collateral="0"
-						:my-total-locked-collateral-dollar="0"
-						:my-total-minted-tokens="0"
-						:my-total-minted-tokens-dollar="0"
-						:my-collateralization-ratio="0"
-						:current-price="0.9989" />
-					<CollateralEcosystemStatus
-						:min-collateralization-ratio="170"
-						:liquidation-price="1777.70" />
-					<PageTitle>
-						<h2>Manage Your USDT Collateral<TooltipIcon v-tooltip="'Enter manage your USDT tooltip content here.'" /></h2>
-						<p>Instanly mint Nuon by depositing your collateral and redeem anytime.</p>
-					</PageTitle>
-					<CollateralToggle />
-				</TheTab>
+			<TheTabs size="thin" color="light" margin="24" @tab-changed="tabChanged">
+				<TheTab v-for="(collateral, cIdx) in collaterals" :key="cIdx" :title="collateral" />
 			</TheTabs>
+			<CollateralOverview
+				:collateral-token="currentlySelectedCollateral"
+				:my-total-locked-collateral="userCollateralAmount"
+				:my-total-locked-collateral-dollar="totalLockedCollateralDollarValue"
+				:my-total-minted-tokens="userMintedAmount"
+				:my-total-minted-tokens-dollar="totalMintedTokensDollarValue"
+				:my-collateralization-ratio="userCollateralizationRatio"
+				:current-price="collateralPrice" />
+			<CollateralEcosystemStatus
+				:min-collateralization-ratio="minimumCollateralizationRatio"
+				:liquidation-price="1777.70"
+				:nuon-price="nuonPrice" />
+			<PageTitle>
+				<h2>Manage Your {{currentlySelectedCollateral}} Collateral<TooltipIcon v-tooltip="`Enter manage your ${currentlySelectedCollateral} tooltip content here.`" /></h2>
+				<p>Instanly mint Nuon by depositing your collateral and redeem anytime.</p>
+			</PageTitle>
+			<CollateralToggle />
 		</LayoutContainer>
 	</div>
 </template>
 
 <script>
 import TooltipIcon from "@/assets/images/svg/svg-tooltip.svg";
+import { fromWei } from "~/utils/bnTools";
 
 export default {
 	name: "TheCollateralHub",
@@ -117,7 +46,14 @@ export default {
 	data () {
 		return {
 			myCollateralizationRatio: 0,
-			minCollateralizationRatio: 170,
+			minimumCollateralizationRatio: 0,
+			collaterals: ["ETH", "BTC", "AVAX", "USDC", "USDT"],
+			currentlySelectedCollateral: "ETH",
+			collateralPrice: 0,
+			userMintedAmount: 0,
+			nuonPrice: 0,
+			userCollateralAmount: 0,
+			userCollateralizationRatio: 0
 		};
 	},
 	head () {
@@ -129,26 +65,95 @@ export default {
 		usxPrice() {
 			return this.tokenPrices.USX;
 		},
-		// userJustMinted() {
-		// 	return this.$store.state.collateralVaultStore.userJustMinted;
-		// },
 		isCollateralModalVisible() {
 			return this.$store.state.modalStore.modalVisible.collateralModal;
 		},
+		totalMintedTokensDollarValue() {
+			return this.nuonPrice * this.userMintedAmount;
+		},
+		totalLockedCollateralDollarValue() {
+			return this.collateralPrice * this.userCollateralAmount;
+		}
+	},
+	watch: {
+		currentlySelectedCollateral() {
+			this.initialize();
+		}
+	},
+	mounted() {
+		this.initialize();
 	},
 	methods: {
-		// async getUserTVL(userAddress) {
-		// 	if (this.connectedAccount) {
-		// 		this.userTVL = 0;
-		// 		this.collateralAddresses = await this.$store.getters["collateralVaultStore/getCollaterals"]();
-		// 		this.collateralAddresses.forEach(async (_, idx) => {
-		// 			const userAmounts = await this.$store.getters["collateralVaultStore/getUserAmounts"](userAddress, idx);
-		// 			const weiBalance = userAmounts[0];
-		// 			const usdBalance = fromWei(weiBalance);
-		// 			this.userTVL += parseFloat(usdBalance);
-		// 		});
-		// 	}
-		// }
+		tabChanged(e) {
+			this.currentlySelectedCollateral = this.collaterals[e];
+		},
+		async getCollateralPrice() {
+			let result = 0;
+			try {
+				result = parseFloat(fromWei(await this.$store.getters["collateralVaultStore/getCollateralPrice"]()));
+			} catch (e) {
+			} finally {
+				this.collateralPrice = result;
+			}
+		},
+		async getUserMintedAmount() {
+			let result = 0;
+			try {
+				result = parseFloat(fromWei(await this.$store.getters["collateralVaultStore/getUserMintedAmount"](this.connectedAccount)));
+			} catch (e) {
+			} finally {
+				this.userMintedAmount = result;
+			}
+		},
+		async getNuonPrice() {
+			let result = 0;
+			try {
+				result = parseFloat(fromWei(await this.$store.getters["collateralVaultStore/getNuonPrice"]()));
+			} catch (e) {
+			} finally {
+				this.nuonPrice = result;
+			}
+		},
+		async getUserCollateralAmount() {
+			let result = 0;
+			try {
+				result = parseFloat(fromWei(await this.$store.getters["collateralVaultStore/getUserCollateralAmount"](this.connectedAccount)));
+			} catch (e) {
+			} finally {
+				this.userCollateralAmount = result;
+			}
+		},
+		async getUserCollateralizationRatio() {
+			let result = 0;
+			try {
+				result = parseFloat(fromWei(await this.$store.getters["collateralVaultStore/getUserCollateralRatioInPercent"](this.connectedAccount)));
+			} catch (e) {
+			} finally {
+				this.userCollateralizationRatio = result;
+			}
+		},
+		async getMinimumCollateralizationRatio() {
+			let result = 0;
+			try {
+				const min = await this.$store.getters["collateralVaultStore/getGlobalCR"]();
+				result = (10 ** 20 / min).toFixed();
+			} catch (e) {
+			} finally {
+				this.minimumCollateralizationRatio = result;
+			}
+		},
+		initialize() {
+			this.getCollateralPrice();
+			this.getNuonPrice();
+			this.getMinimumCollateralizationRatio();
+			setTimeout(() => {
+				if (this.connectedAccount) {
+					this.getUserCollateralAmount();
+					this.getUserMintedAmount();
+					this.getUserCollateralizationRatio();
+				}
+			}, 1000);
+		}
 	}
 };
 </script>

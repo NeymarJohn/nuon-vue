@@ -1,6 +1,6 @@
 <template>
 	<div class="accordion accordion--claim" :class="{ active: isActive }">
-		<LayoutFlex class="l-flex-column-start-sm" direction="row-center-space-between">
+		<LayoutFlex class="l-flex--column-start-sm" direction="row-center-space-between">
 			<LayoutFlex
 				direction="row-center"
 				class="accordion__header"

@@ -18,7 +18,7 @@
 			<p>TVL</p>
 			<h4>${{ tvl | toFixed | numberWithCommas }}</h4>
 		</div>
-		<LayoutFlex direction="center-space-between" class="u-mb-32 u-mb-sm-0 l-flex-column-md">
+		<LayoutFlex direction="center-space-between" class="u-mb-32 u-mb-sm-0 l-flex--column-md">
 			<NuxtLink to="/collateral-hub/collateral" class="btn btn--md u-mr-24 u-mr-md-0 u-mb-md-12" title="Click to deposit assets">Deposit</NuxtLink>
 			<NuxtLink to="/collateral-hub/collateral" class="btn btn--md" title="Click to redeem assets" disabled>Redeem</NuxtLink>
 		</LayoutFlex>

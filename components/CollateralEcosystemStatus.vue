@@ -42,18 +42,17 @@ export default {
 	},
 	props: {
 		minCollateralizationRatio: {
-			type: Number,
+			type: [Number, String],
 			required: true
 		},
 		liquidationPrice: {
 			type: Number,
 			required: true
 		},
+		nuonPrice: {
+			type: Number,
+			required: true
+		}
 	},
-	data() {
-		return {
-			nuonPrice: 1.1
-		};
-	}
 };
 </script>

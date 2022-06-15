@@ -41,6 +41,7 @@ export default {
 	methods: {
 		selectTab (i) {
 			this.selectedIndex = i;
+			this.$emit("tab-changed", i);
 			this.tabs.forEach((tab, index) => {
 				tab.isActive = (index === i);
 			});
