@@ -52,7 +52,7 @@
 							<p>Decreased Risk</p>
 						</div>
 					</LayoutFlex>
-					<p v-if="inputValue && selectedCollateralRatio < 200" class="u-is-caution l-flex--align-self-end">Transaction will likely fail due to low collateral ratio. Please increase the collateral ratio.</p>
+					<p v-if="inputValue && selectedCollateralRatio < 200" class="u-is-caution l-flex--align-self-end u-mt-16">Transaction will likely fail due to a low collateral ratio. Please increase your collateral ratio.</p>
 				</div>
 			</DataCard>
 			<DataCard class="u-full-width">
