@@ -78,6 +78,9 @@ export default {
 	watch: {
 		currentlySelectedCollateral() {
 			this.initialize();
+		},
+		connectedAccount(newValue) {
+			if (newValue) this.initialize();
 		}
 	},
 	mounted() {
