@@ -79,8 +79,8 @@ export default {
 		currentlySelectedCollateral() {
 			this.initialize();
 		},
-		connectedAccount(newValue) {
-			if (newValue) this.initialize();
+		connectedAccount() {
+			this.initialize();
 		}
 	},
 	mounted() {
