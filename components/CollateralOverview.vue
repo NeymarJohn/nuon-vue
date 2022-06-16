@@ -1,7 +1,7 @@
 <template>
 	<LayoutInfo size="row-space-between" class="u-mb-48">
 		<DataCard>
-			<label>My Total Locked Collateral</label>
+			<label>My Total {{ collateralToken }} Locked Collateral</label>
 			<TheLoader component="h1">
 				<h3>{{ myTotalLockedCollateral | toFixed | numberWithCommas }}<sup>{{ collateralToken }}</sup></h3>
 			</TheLoader>
@@ -10,7 +10,7 @@
 			</TheLoader>
 		</DataCard>
 		<DataCard>
-			<label>My Total Minted Tokens</label>
+			<label>My Total NUON Minted Using {{ collateralToken }}</label>
 			<TheLoader component="h1">
 				<h3>{{ myTotalMintedTokens | toFixed | numberWithCommas }}<sup>NUON</sup></h3>
 			</TheLoader>
@@ -19,7 +19,7 @@
 			</TheLoader>
 		</DataCard>
 		<DataCard>
-			<label>My Collateralization Ratio<TooltipIcon v-tooltip="'Enter my collateralization ratio tooltip content here.'" /></label>
+			<label>My {{ collateralToken }} Collateralization Ratio<TooltipIcon v-tooltip="'Enter my collateralization ratio tooltip content here.'" /></label>
 			<TheLoader component="h1">
 				<h3 :class="isRiskLevel">{{ myCollateralizationRatio | toFixed }}<sup>%</sup></h3>
 			</TheLoader>
