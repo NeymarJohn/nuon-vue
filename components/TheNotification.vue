@@ -1,5 +1,5 @@
 <template>
-	<div class="notification" :class="color">
+	<div class="notification">
 		<p>{{ message }}</p>
 	</div>
 </template>
@@ -23,12 +23,6 @@ export default {
 			if (this.myCollateralizationRatio && this.myCollateralizationRatio <= this.minCollateralizationRatio) return "Your collateralization ratio is low and at high risk of liquidation. Please deposit more collateral.";
 			if (this.myCollateralizationRatio && this.myCollateralizationRatio === 0) return "Hi there, please deposit your collaterals to mint NUON.";
 			return "Please connect your wallet to deposit collateral.";
-		},
-		color() {
-			if (this.myCollateralizationRatio && this.myCollateralizationRatio > this.minCollateralizationRatio) return "low";
-			if (this.myCollateralizationRatio && this.myCollateralizationRatio <= this.minCollateralizationRatio) return "high";
-			if (this.myCollateralizationRatio && this.myCollateralizationRatio === 0) return "normal";
-			return null;
 		}
 	}
 };
