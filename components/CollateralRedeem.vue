@@ -53,6 +53,8 @@
 				convert-from-title="Repay"
 				:convert-to-amount="estimatedWithdrawnNuonValue"
 				convert-to-title="Redeem"
+				:from-token="'NUON'"
+				:to-token="currentlySelectedCollateral"
 			/>
 			<div class="toggle__transaction">
 				<TheButton
@@ -77,6 +79,12 @@ import { fromWei, toWei } from "~/utils/bnTools";
 
 export default {
 	name: "CollateralRedeem",
+	props: {
+		currentlySelectedCollateral: {
+			type: String,
+			required: true
+		}
+	},
 	data() {
 		return {
 			nuonPrice: 0,

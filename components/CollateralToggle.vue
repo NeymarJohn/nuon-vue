@@ -11,8 +11,8 @@
 				:disabled="isDisabled"
 				@click="toggleRedeemView">Redeem</TheButton>
 		</div>
-		<CollateralMint v-if="isMintView" />
-		<CollateralRedeem v-else />
+		<CollateralMint v-if="isMintView" :currently-selected-collateral="currentlySelectedCollateral" />
+		<CollateralRedeem v-else :currently-selected-collateral="currentlySelectedCollateral" />
 	</div>
 </template>
 
@@ -22,6 +22,12 @@ import { HX } from "~/constants/tokens";
 
 export default {
 	name: "CollateralToggle",
+	props: {
+		currentlySelectedCollateral: {
+			type: String,
+			required: true
+		}
+	},
 	data() {
 		return {
 			isMintView: true,

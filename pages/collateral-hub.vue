@@ -29,7 +29,7 @@
 				<h2>Manage Your {{currentlySelectedCollateral}} Collateral<TooltipIcon v-tooltip="`Enter manage your ${currentlySelectedCollateral} tooltip content here.`" /></h2>
 				<p>Instanly mint Nuon by depositing your collateral and redeem anytime.</p>
 			</PageTitle>
-			<CollateralToggle />
+			<CollateralToggle :currently-selected-collateral="currentlySelectedCollateral" />
 		</LayoutContainer>
 	</div>
 </template>

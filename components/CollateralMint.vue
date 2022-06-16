@@ -52,6 +52,7 @@
 							<p>Decreased Risk</p>
 						</div>
 					</LayoutFlex>
+					<p v-if="inputValue && selectedCollateralRatio < 200" class="u-is-caution l-flex--align-self-end">Transaction will likely fail due to low collateral ratio. Please increase the collateral ratio.</p>
 				</div>
 			</DataCard>
 			<DataCard class="u-full-width">
@@ -85,6 +86,8 @@
 				convert-to-title="Mint"
 				:collateral-ratio="selectedCollateralRatio"
 				:liquidation-price="liquidationPrice"
+				:from-token="currentlySelectedCollateral"
+				:to-token="'NUON'"
 			/>
 			<div class="toggle__transaction">
 				<TheButton
@@ -109,6 +112,12 @@ import { fromWei, toWei } from "~/utils/bnTools";
 
 export default {
 	name: "CollateralMint",
+	props: {
+		currentlySelectedCollateral: {
+			type: String,
+			required: true
+		}
+	},
 	data() {
 		return {
 			selectedCollateralRatio: "190",
@@ -173,7 +182,8 @@ export default {
 				});
 		},
 		async getEstimatedMintedNuon() {
-			const collateralRatio = (10 ** 18) / (this.selectedCollateralRatio / 100);
+			const currentRatio = this.selectedCollateralRatio === "190" ? parseInt(this.selectedCollateralRatio) + 1 : this.selectedCollateralRatio;
+			const collateralRatio = (10 ** 18) / (currentRatio / 100);
 			const ans = await this.$store.getters["collateralVaultStore/getEstimateMintedNUONAmount"](new BigNumber(toWei(this.inputValue)), new BigNumber(collateralRatio));
 			this.estimatedMintedNuonValue = ans[0];
 		},
