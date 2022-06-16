@@ -1,15 +1,16 @@
 <template>
 	<div>
 		<LayoutContainer>
-			<PageTitle class="u-mb-16">
-				<LayoutFlex direction="row-center-space-between">
+			<LayoutFlex direction="row-center-space-between">
+				<PageTitle class="u-mb-48">
 					<h4>Collateral Hub</h4>
-					<TheNotification
-						:class="isRiskLevel"
-						:my-collateralization-ratio="userCollateralizationRatio"
-						:min-collateralization-ratio="minimumCollateralizationRatio" />
-				</LayoutFlex>
-			</PageTitle>
+					<h1>Borrow NUON</h1>
+				</PageTitle>
+				<TheNotification
+					:class="isRiskLevel"
+					:my-collateralization-ratio="userCollateralizationRatio"
+					:min-collateralization-ratio="minimumCollateralizationRatio" />
+			</LayoutFlex>
 			<TheTabsImage size="full-width" color="dark" margin="24" @tab-changed="tabChanged">
 				<TheTab v-for="(collateral, cIdx) in collaterals" :key="cIdx" :title="collateral" />
 			</TheTabsImage>
