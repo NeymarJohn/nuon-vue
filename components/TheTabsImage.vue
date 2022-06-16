@@ -1,7 +1,7 @@
 <template>
 	<div class="tabs tabs--default tabs--image">
 		<ul class="tabs__header">
-			<li v-for="(tab, index) in tabs" :key="tab.index" :class="{'is-active': (index === selectedIndex)}" :title="`Click to view ${tab.title.toLowerCase()} transactions`" @click="selectTab(index)">
+			<li v-for="(tab, index) in tabs" :key="tab.index" :class="{'is-active': (index === selectedIndex)}" :title="`Click to view ${tab.title.toLowerCase()} hub`" @click="selectTab(index)">
 				<img :src="require(`~/assets/images/borrow/${tab.title}.png`)" />
 				<h5>{{ tab.title }}</h5>
 			</li>
