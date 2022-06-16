@@ -11,7 +11,7 @@
 					:my-collateralization-ratio="userCollateralizationRatio"
 					:min-collateralization-ratio="minimumCollateralizationRatio" />
 			</LayoutFlex>
-			<TheTabsImage size="full-width" color="dark" margin="24" @tab-changed="tabChanged" />
+			<TheTabsImage size="full-width" color="dark" margin="24" :user-total-collateral-amount="userTotalLockedCollateralAmount" :user-total-minted-nuon="userTotalMintedNuon" @tab-changed="tabChanged" />
 			<CollateralOverview
 				:collateral-token="currentlySelectedCollateral"
 				:my-total-locked-collateral="userCollateralAmount"
@@ -52,7 +52,10 @@ export default {
 			userMintedAmount: 0,
 			nuonPrice: 0,
 			userCollateralAmount: 0,
-			userCollateralizationRatio: 0
+			userCollateralizationRatio: 0,
+			userTotalLockedCollateralAmountStore: {},
+			userTotalMintedNuonStore: {},
+			collateralPrices: {}
 		};
 	},
 	head () {
@@ -72,6 +75,12 @@ export default {
 		},
 		totalLockedCollateralDollarValue() {
 			return this.collateralPrice * this.userCollateralAmount;
+		},
+		userTotalLockedCollateralAmount() {
+			return Object.entries(this.userTotalLockedCollateralAmountStore).reduce((acc, [k, v]) => acc + this.collateralPrices[k] * v, 0);
+		},
+		userTotalMintedNuon() {
+			return Object.values(this.userTotalMintedNuonStore).reduce((acc, val) => acc + val, 0);
 		}
 	},
 	watch: {
@@ -93,6 +102,7 @@ export default {
 			let result = 0;
 			try {
 				result = parseFloat(fromWei(await this.$store.getters["collateralVaultStore/getCollateralPrice"]()));
+				this.$set(this.collateralPrices, this.currentlySelectedCollateral, result);
 			} catch (e) {
 			} finally {
 				this.collateralPrice = result;
@@ -102,6 +112,7 @@ export default {
 			let result = 0;
 			try {
 				result = parseFloat(fromWei(await this.$store.getters["collateralVaultStore/getUserMintedAmount"](this.connectedAccount)));
+				this.$set(this.userTotalMintedNuonStore, this.currentlySelectedCollateral, result);
 			} catch (e) {
 			} finally {
 				this.userMintedAmount = result;
@@ -120,6 +131,7 @@ export default {
 			let result = 0;
 			try {
 				result = parseFloat(fromWei(await this.$store.getters["collateralVaultStore/getUserCollateralAmount"](this.connectedAccount)));
+				this.$set(this.userTotalLockedCollateralAmountStore, this.currentlySelectedCollateral, result);
 			} catch (e) {
 			} finally {
 				this.userCollateralAmount = result;
