@@ -13,17 +13,17 @@
 			v-show="isHubOverviewModalVisible"
 			title="Hub Overview"
 			@close-modal="setModalVisibility('hubOverviewModal', false)">
-			<LayoutInfo size="row-space-between">
+			<LayoutInfo size="row-space-between" class="u-mb-48">
 				<DataCard>
 					<label>My Total Collateral Locked</label>
 					<TheLoader component="h1">
-						<h3>${{ userTotalCollateralAmount | toFixed | numberWithCommas }}</h3>
+						<h3>${{ allMyTotalLockedCollateral | toFixed | numberWithCommas }}</h3>
 					</TheLoader>
 				</DataCard>
 				<DataCard>
 					<label>My Total Minted</label>
 					<TheLoader component="h1">
-						<h3>{{ userTotalMintedNuon | toFixed | numberWithCommas }}<sup>NUON</sup></h3>
+						<h3>{{ allMyTotalMintedTokens | toFixed | numberWithCommas }}<sup>NUON</sup></h3>
 					</TheLoader>
 				</DataCard>
 			</LayoutInfo>
@@ -35,15 +35,15 @@
 export default {
 	name: "TheTabsImage",
 	props: {
-		userTotalCollateralAmount: {
-			type: Number,
+		allMyTotalLockedCollateral: {
+			type: String,
 			required: true,
-			default: 0
+			default: "0"
 		},
-		userTotalMintedNuon: {
-			type: Number,
+		allMyTotalMintedTokens: {
+			type: String,
 			required: true,
-			default: 0
+			default: "0"
 		}
 	},
 	data() {
