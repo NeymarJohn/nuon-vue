@@ -22,7 +22,7 @@ export default {
 			if (this.myCollateralizationRatio && this.myCollateralizationRatio > this.minCollateralizationRatio) return "Your collateralization ratio is good and at low risk of liquidation.";
 			if (this.myCollateralizationRatio && this.myCollateralizationRatio <= this.minCollateralizationRatio) return "Your collateralization ratio is low and at high risk of liquidation. Please deposit more collateral.";
 			if (this.myCollateralizationRatio && this.myCollateralizationRatio === 0) return "Hi there, please deposit your collaterals to mint NUON.";
-			return "";
+			return "Please connect your wallet to deposit collateral.";
 		}
 	}
 };

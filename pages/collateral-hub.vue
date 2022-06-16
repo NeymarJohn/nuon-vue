@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<LayoutContainer>
-			<PageTitle>
+			<PageTitle class="u-mb-16">
 				<LayoutFlex direction="row-center-space-between">
 					<h4>Collateral Hub</h4>
 					<TheNotification
@@ -10,9 +10,9 @@
 						:min-collateralization-ratio="minimumCollateralizationRatio" />
 				</LayoutFlex>
 			</PageTitle>
-			<TheTabs size="thin" color="light" margin="24" @tab-changed="tabChanged">
+			<TheTabsImage size="full-width" color="dark" margin="24" @tab-changed="tabChanged">
 				<TheTab v-for="(collateral, cIdx) in collaterals" :key="cIdx" :title="collateral" />
-			</TheTabs>
+			</TheTabsImage>
 			<CollateralOverview
 				:collateral-token="currentlySelectedCollateral"
 				:my-total-locked-collateral="userCollateralAmount"
