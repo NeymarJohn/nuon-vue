@@ -18,7 +18,8 @@ export const state = () => ({
 		withdrawCollateralModal: false,
 		claimResultModal: false,
 		alertModal: false,
-		connectWalletModal: false
+		connectWalletModal: false,
+		hubOverviewModal: false
 	},
 	modalInfo: {
 		claimResultModal: "",

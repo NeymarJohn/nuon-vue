@@ -11,9 +11,7 @@
 					:my-collateralization-ratio="userCollateralizationRatio"
 					:min-collateralization-ratio="minimumCollateralizationRatio" />
 			</LayoutFlex>
-			<TheTabsImage size="full-width" color="dark" margin="24" @tab-changed="tabChanged">
-				<TheTab v-for="(collateral, cIdx) in collaterals" :key="cIdx" :title="collateral" />
-			</TheTabsImage>
+			<TheTabsImage size="full-width" color="dark" margin="24" @tab-changed="tabChanged" />
 			<CollateralOverview
 				:collateral-token="currentlySelectedCollateral"
 				:my-total-locked-collateral="userCollateralAmount"
