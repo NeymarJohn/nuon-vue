@@ -1,5 +1,6 @@
 /* #COMPONENT - COLLATERAL
 		1. Collateral default
+		2. Collateral responsive
 */
 
 // 1. Collateral default
@@ -20,4 +21,17 @@
 }
 .collateral-estimate sup {
 	top: -$SPACING_10 !important;
+}
+
+// 2. Collateral responsive
+@media screen and (max-width: $SPACING_480) {
+	.collateral,
+	.collateral-estimate {
+		padding: $SPACING_24;
+	}
+	.collateral__text h4,
+	.collateral-estimate {
+		font-size: $HEADING_THREE_480 !important;
+		line-height: $SPACING_36;
+	}
 }

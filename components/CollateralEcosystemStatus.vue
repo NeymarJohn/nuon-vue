@@ -2,7 +2,7 @@
 	<div>
 		<h2 class="u-mb-20 u-mb-lg-14">Ecosystem Status</h2>
 		<LayoutGrid class="u-mb-48" :size="'3'">
-			<StatCard class="u-mb-sm-12">
+			<StatCard class="u-mb-md-12">
 				<label>NUON Price<TooltipIcon v-tooltip="'Enter NUON price tooltip content here.'" /></label>
 				<TheLoader component="h3">
 					<LayoutFlex direction="row-center-space-between">
@@ -12,7 +12,7 @@
 					</LayoutFlex>
 				</TheLoader>
 			</StatCard>
-			<StatCard>
+			<StatCard class="u-mb-md-12">
 				<label>Liquidation Price<TooltipIcon v-tooltip="'Enter liquidation price tooltip content here.'" /></label>
 				<LayoutFlex>
 					<TheLoader component="h3">

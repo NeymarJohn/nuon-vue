@@ -1,5 +1,6 @@
 /* #COMPONENT - RANGE SLIDER
 		1. Range slider default
+		2. Range slider responsive
 */
 
 // 1. Range slider default
@@ -48,4 +49,13 @@
 }
 .range-slider__value:last-child {
 	text-align: right;
+}
+
+// 2. Range slider responsive
+@media screen and (max-width: $SPACING_480) {
+	.range-slider__input::-webkit-slider-thumb,
+	.range-slider__input::-moz-range-thumb {
+		width: $SPACING_24;
+		height: $SPACING_24;
+	}
 }

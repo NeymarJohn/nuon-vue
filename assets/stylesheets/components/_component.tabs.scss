@@ -118,7 +118,7 @@
 		padding: $SPACING_8;
 	}
 	.tabs__header li {
-		padding: $SPACING_11 $SPACING_24;
+		padding: $SPACING_8 $SPACING_16;
 	}
 	.tabs__header li h5 {
 		font-size: $BODY_TEXT_SM;
@@ -130,7 +130,7 @@
 		flex-direction: column;
 	}
 	.tabs--mobile-scroll {
-		width: $SPACING_375;
+		width: $SPACING_350;
 	}
 	.tabs--mobile-scroll ul {
 		display: grid !important;

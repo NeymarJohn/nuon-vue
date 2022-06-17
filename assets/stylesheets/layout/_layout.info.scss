@@ -45,6 +45,15 @@
 	.l-info--4 {
 		grid-template-columns: repeat(2, minmax(0, 1fr));
 	}
+	.l-info--chub {
+		flex-wrap: wrap;
+	}
+	.l-info--chub .data-card {
+		width: 47%;
+	}
+	.l-info--chub .data-card:first-child {
+		margin-bottom: $SPACING_36;
+	}
 }
 @media screen and (max-width: $SPACING_480) {
 	.l-info {
@@ -57,5 +66,8 @@
 	}
 	.l-info .data-card:last-child {
 		margin-bottom: 0;
+	}
+	.l-info--chub .data-card {
+		width: 100%;
 	}
 }

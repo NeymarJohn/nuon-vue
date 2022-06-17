@@ -4,7 +4,7 @@
 		3. Modal boardroom
 		4. Modal confirm
 		5. Modal connect
-		6. Modal collateral table
+		6. Modal hub overview
 		7. Modal states
 		8. Modal responsive
 */
@@ -157,10 +157,12 @@
 	margin-bottom: $SPACING_40;
 }
 
-// 6. Modal collateral table
-.modal--collateral-table .modal__container {
+// 6. Modal hub overview
+.modal--hub-overview .modal__container {
 	width: $SPACING_870;
-	overflow: hidden;
+}
+.modal--hub-overview .modal__container sup {
+	top: -$SPACING_20;
 }
 
 // 7. Modal states
@@ -186,12 +188,17 @@
 
 // 8. Modal responsive
 @media screen and (max-width: $SPACING_1440) {
-	.modal--collateral-table .modal__container {
+	.modal--collateral-table .modal__container,
+	.modal--hub-overview .modal__container {
 		width: $SPACING_660;
 		padding: $SPACING_48 $SPACING_32;
 	}
+	.modal--hub-overview .modal__container sup {
+		top: -$SPACING_15;
+	}
 }
 @media screen and (max-width: $SPACING_990) {
+	.modal--hub-overview .modal__container,
 	.modal__container {
 		position: absolute;
 		top: 0;
