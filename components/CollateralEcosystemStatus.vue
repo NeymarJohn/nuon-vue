@@ -4,28 +4,26 @@
 		<LayoutGrid class="u-mb-48" :size="'3'">
 			<StatCard class="u-mb-md-12">
 				<label>NUON Price<TooltipIcon v-tooltip="'Enter NUON price tooltip content here.'" /></label>
-				<TheLoader component="h3">
-					<LayoutFlex direction="row-center-space-between">
-						<h3>{{ nuonPrice | toFixed | numberWithCommas }}</h3>
-						<TheBadge v-if="nuonPrice > 1">Above</TheBadge>
-						<TheBadge v-else-if="nuonPrice < 1">Below</TheBadge>
-					</LayoutFlex>
-				</TheLoader>
+				<ComponentLoader component="h3" :loaded="nuonPrice !== null" slot-classes="l-flex--row-center-space-between">
+					<h3>{{ nuonPrice | toFixed | numberWithCommas }}</h3>
+					<TheBadge v-if="nuonPrice > 1">Above</TheBadge>
+					<TheBadge v-else-if="nuonPrice < 1">Below</TheBadge>
+				</ComponentLoader>
 			</StatCard>
 			<StatCard class="u-mb-md-12">
 				<label>Liquidation Price<TooltipIcon v-tooltip="'Enter liquidation price tooltip content here.'" /></label>
 				<LayoutFlex>
-					<TheLoader component="h3">
+					<ComponentLoader component="h3" :loaded="liquidationPrice !== null">
 						<h3>${{ liquidationPrice | toFixed | numberWithCommas }}</h3>
-					</TheLoader>
+					</ComponentLoader>
 				</LayoutFlex>
 			</StatCard>
 			<StatCard>
 				<label>Min. Collateralization Ratio<TooltipIcon v-tooltip="'Enter min collateralization ratio tooltip content here.'" /></label>
 				<LayoutFlex>
-					<TheLoader component="h3">
+					<ComponentLoader component="h3" :loaded="minCollateralizationRatio !== null">
 						<h3>{{ minCollateralizationRatio }}%</h3>
-					</TheLoader>
+					</ComponentLoader>
 				</LayoutFlex>
 			</StatCard>
 		</LayoutGrid>
@@ -43,15 +41,15 @@ export default {
 	props: {
 		minCollateralizationRatio: {
 			type: [Number, String],
-			required: true
+			default: null
 		},
 		liquidationPrice: {
 			type: Number,
-			required: true
+			default: null
 		},
 		nuonPrice: {
 			type: Number,
-			required: true
+			default: null
 		}
 	},
 };

@@ -130,6 +130,10 @@
 	height: $SPACING_375;
 }
 
+.loader--notification {
+	width: $SPACING_500;
+	height: $SPACING_30;
+}
 // 13. Loader responsive
 @media screen and (max-width: $SPACING_1440) {
 	.loader--h1 {

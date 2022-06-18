@@ -281,6 +281,9 @@
 .u-min-width-185 {
 	min-width: $SPACING_185 !important;
 }
+.u-width-auto {
+	width: auto !important;
+}
 @media screen and (max-width: $SPACING_480) {
 	.u-full-width-sm {
 		width: 100% !important;

@@ -10,11 +10,11 @@ export default {
 	props: {
 		myCollateralizationRatio: {
 			type: Number,
-			required: true
+			default: null
 		},
 		minCollateralizationRatio: {
 			type: [Number, String],
-			required: true
+			default: null
 		},
 	},
 	data() {

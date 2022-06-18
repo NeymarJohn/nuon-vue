@@ -79,13 +79,6 @@ Vue.mixin({
 
 			return data;
 		},
-		isRiskLevel() {
-			return {
-				low: this.myCollateralizationRatio > this.minCollateralizationRatio,
-				high: this.myCollateralizationRatio <= this.minCollateralizationRatio && this.myCollateralizationRatio !== 0,
-				normal: this.myCollateralizationRatio === 0
-			};
-		},
 	},
 	methods: {
 		numberWithCommas (x) {

@@ -6,10 +6,11 @@
 					<h4>Collateral Hub</h4>
 					<h1>Borrow NUON</h1>
 				</PageTitle>
-				<TheNotification
-					:class="isRiskLevel"
-					:my-collateralization-ratio="userCollateralizationRatio"
-					:min-collateralization-ratio="minimumCollateralizationRatio" />
+				<ComponentLoader :loaded="userCollateralizationRatio !== null && minimumCollateralizationRatio !== null" component="notification" slot-classes="u-width-auto">
+					<TheNotification
+						:my-collateralization-ratio="userCollateralizationRatio"
+						:min-collateralization-ratio="minimumCollateralizationRatio" />
+				</ComponentLoader>
 			</LayoutFlex>
 			<TheTabsImage
 				:user-total-collateral-amount="userTotalLockedCollateralAmount" :user-total-minted-nuon="userTotalMintedNuon" @tab-changed="tabChanged" />
@@ -45,15 +46,15 @@ export default {
 	},
 	data () {
 		return {
-			myCollateralizationRatio: 0,
-			minimumCollateralizationRatio: 0,
+			myCollateralizationRatio: null,
+			minimumCollateralizationRatio: null,
 			collaterals: ["ETH", "BTC", "AVAX", "USDC", "USDT"],
 			currentlySelectedCollateral: "ETH",
-			collateralPrice: 0,
-			userMintedAmount: 0,
-			nuonPrice: 0,
-			userCollateralAmount: 0,
-			userCollateralizationRatio: 0,
+			collateralPrice: null,
+			userMintedAmount: null,
+			nuonPrice: null,
+			userCollateralAmount: null,
+			userCollateralizationRatio: null,
 			userTotalLockedCollateralAmountStore: {},
 			userTotalMintedNuonStore: {},
 			collateralPrices: {}

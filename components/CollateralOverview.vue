@@ -1,40 +1,40 @@
 <template>
 	<LayoutInfo size="row-space-between" class="u-mb-48 l-info--chub">
-		<DataCard>
+		<DataCard align="min-width">
 			<label>My Total Locked Collateral</label>
-			<TheLoader component="h1">
+			<ComponentLoader component="h1" :loaded="myTotalLockedCollateral !== null">
 				<h3>{{ myTotalLockedCollateral | toFixed | numberWithCommas }}<sup>{{ collateralToken }}</sup></h3>
-			</TheLoader>
-			<TheLoader component="h5">
+			</ComponentLoader>
+			<ComponentLoader component="h5" :loaded="myTotalLockedCollateralDollar !== null">
 				<h5>${{ myTotalLockedCollateralDollar | toFixed | numberWithCommas }}</h5>
-			</TheLoader>
+			</ComponentLoader>
 		</DataCard>
-		<DataCard>
+		<DataCard align="min-width">
 			<label>My Total NUON Minted</label>
-			<TheLoader component="h1">
+			<ComponentLoader component="h1" :loaded="myTotalMintedTokens !== null">
 				<h3>{{ myTotalMintedTokens | toFixed | numberWithCommas }}<sup>NUON</sup></h3>
-			</TheLoader>
-			<TheLoader component="h5">
+			</ComponentLoader>
+			<ComponentLoader component="h5" :loaded="myTotalMintedTokensDollar !== null">
 				<h5>${{ myTotalMintedTokensDollar | toFixed | numberWithCommas }}</h5>
-			</TheLoader>
+			</ComponentLoader>
 		</DataCard>
-		<DataCard>
+		<DataCard align="min-width">
 			<label>My Collateralization Ratio<TooltipIcon v-tooltip="'Enter my collateralization ratio tooltip content here.'" /></label>
-			<TheLoader component="h1">
-				<h3 :class="isRiskLevel">{{ myCollateralizationRatio | toFixed }}<sup>%</sup></h3>
-			</TheLoader>
-			<TheLoader component="h5">
+			<ComponentLoader component="h1" :loaded="myCollateralizationRatio !== null">
+				<h3 :class="myCollateralizationRatio < 730 ? myCollateralizationRatio < 460 ? 'u-is-warning' : 'u-is-caution' : 'u-is-success'">{{ myCollateralizationRatio | toFixed }}<sup>%</sup></h3>
+			</ComponentLoader>
+			<!-- <TheLoader component="h5">
 				<TheBadge color="price-up">+ 0.03%</TheBadge>
-			</TheLoader>
+			</TheLoader> -->
 		</DataCard>
-		<DataCard>
+		<DataCard align="min-width">
 			<label>Current {{ collateralToken }} Price<TooltipIcon v-tooltip="'Enter current ETH price tooltip content here.'" /></label>
-			<TheLoader component="h1">
+			<ComponentLoader component="h1" :loaded="currentPrice !== null">
 				<h3>${{ currentPrice | toFixed | numberWithCommas }}</h3>
-			</TheLoader>
-			<TheLoader component="h5">
+			</ComponentLoader>
+			<!-- <TheLoader component="h5">
 				<TheBadge color="price-down">- 4.56%</TheBadge>
-			</TheLoader>
+			</TheLoader> -->
 		</DataCard>
 	</LayoutInfo>
 </template>
@@ -50,31 +50,31 @@ export default {
 	props: {
 		collateralToken: {
 			type: String,
-			required: true
+			default: null
 		},
 		myTotalLockedCollateral: {
 			type: Number,
-			required: true
+			default: null
 		},
 		myTotalLockedCollateralDollar: {
 			type: Number,
-			required: true
+			default: null
 		},
 		myTotalMintedTokens: {
 			type: Number,
-			required: true
+			default: null
 		},
 		myTotalMintedTokensDollar: {
 			type: Number,
-			required: true
+			default: null
 		},
 		myCollateralizationRatio: {
 			type: Number,
-			required: true
+			default: null
 		},
 		currentPrice: {
 			type: Number,
-			required: true
+			default: null
 		},
 	},
 };

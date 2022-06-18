@@ -68,7 +68,9 @@
 .data-card--end .btn {
 	align-items: flex-end;
 }
-
+.data-card--min-width {
+	min-width: 230px;
+}
 // 2. Data card responsive
 @media screen and (max-width: $SPACING_1440) {
 	.data-card label {
