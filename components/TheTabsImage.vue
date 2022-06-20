@@ -2,7 +2,7 @@
 	<div class="tabs tabs--default tabs--image tabs--mobile-scroll">
 		<ul class="tabs__header">
 			<li v-for="(tab, index) in tabs" :key="tab.index" :class="{'is-active': (index === selectedIndex)}" :title="`Click to view ${tab.toLowerCase()} hub`" @click="selectTab(index)">
-				<img :src="require(`~/assets/images/borrow/${tab}.png`)" />
+				<img :src="require(`~/assets/images/borrow/${tab}.png`)" height="24" width="24" />
 				<h5>{{ tab }}</h5>
 			</li>
 			<li title="Click to view hub overview" @click="setModalVisibility('hubOverviewModal', true)">

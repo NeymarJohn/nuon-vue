@@ -88,6 +88,7 @@
 				:liquidation-price="liquidationPrice"
 				:from-token="currentlySelectedCollateral"
 				:to-token="'NUON'"
+				:fee="mintFee"
 			/>
 			<div class="toggle__transaction">
 				<TheButton
@@ -147,6 +148,9 @@ export default {
 		readyToDeposit() {
 			return !!this.inputValue && !this.isMoreThanBalance;
 		},
+		mintFee() {
+			return this.$store.state.collateralVaultStore.mintingFee;
+		}
 	},
 	watch: {
 		inputValue() {

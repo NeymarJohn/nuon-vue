@@ -169,7 +169,7 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 			ctx.commit("setLastSnapshot", {lastSnapshotIndex: lastSnapshot, rewardEarned: new BN(0), epochTimerStart: 0});
 		});
 	},
-	updateStatus({dispatch}) { // {getters, commit}
+	async updateStatus({dispatch, getters, commit}) {
 		dispatch("getAllowance");
 
 		// const allCollaterals = await getters.getCollaterals();
@@ -177,10 +177,10 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 		// const totalLockedCollateral = await getters.getTotalLockedCollareralValue();
 		// commit("setTotalLockedCollateral", totalLockedCollateral);
 
-		// const mintingFee = await getters.getMintingFee();
-		// commit("setMintingFee",  fromWei(mintingFee));
-		// const redeemFee = await getters.getRedeemFee();
-		// commit("setRedeemFee", fromWei(redeemFee));
+		const mintingFee = await getters.getMintingFee();
+		commit("setMintingFee",  fromWei(mintingFee));
+		const redeemFee = await getters.getRedeemFee();
+		commit("setRedeemFee", fromWei(redeemFee));
 
 		// const inflation = Number(await getters.getInflation());
 		// commit("setInflation", inflation);

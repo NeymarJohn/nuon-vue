@@ -55,6 +55,7 @@
 				convert-to-title="Redeem"
 				:from-token="'NUON'"
 				:to-token="currentlySelectedCollateral"
+				:fee="redeemFee"
 			/>
 			<div class="toggle__transaction">
 				<TheButton
@@ -111,6 +112,9 @@ export default {
 		},
 		amountMoreThanUserMinted() {
 			return parseFloat(this.inputValue) > parseFloat(this.userMintedNuon);
+		},
+		redeemFee() {
+			return this.$store.state.collateralVaultStore.redeemFee;
 		}
 	},
 	watch: {
