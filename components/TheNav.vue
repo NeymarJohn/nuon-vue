@@ -3,17 +3,17 @@
 		<li>
 			<NuxtLink
 				to="/"
-				title="Click to visit the Dashboard"
+				title="Click to see the Ecosystem Overview"
 				:class="{'active-link': isRouteActive('/')}">
-				<DashboardIcon /> Dashboard
+				<DashboardIcon /> Ecosystem Overview
 			</NuxtLink>
 		</li>
 		<li>
 			<NuxtLink
-				to="/my-transactions"
+				to="/my-dashboard"
 				title="Click to visit My Page"
-				:class="{'active-link': isRouteActive('/my-transactions')}">
-				<MyTransactionsIcon /> My Transactions
+				:class="{'active-link': isRouteActive('/my-dashboard')}">
+				<MyTransactionsIcon /> My Dashboard
 			</NuxtLink>
 		</li>
 		<li>

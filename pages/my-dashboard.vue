@@ -1,7 +1,7 @@
 <template>
 	<LayoutContainer>
 		<PageTitle class="u-mb-48">
-			<h4>My Transactions</h4>
+			<h4>My Dashboard</h4>
 			<h1>Portfolio Details</h1>
 		</PageTitle>
 		<h2 class="u-mb-24">Account Balance</h2>
@@ -79,10 +79,10 @@
 
 <script>
 export default {
-	name: "MyTransactions",
+	name: "MyDashboard",
 	head () {
 		return {
-			title: "My Transactions | Nuon"
+			title: "My Dashboard | Nuon"
 		};
 	},
 };

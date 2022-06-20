@@ -2,12 +2,12 @@
 	<LayoutContainer>
 		<LayoutFlex class="u-mb-48 l-flex--column-start-sm" direction="row-center-space-between">
 			<PageTitle>
-				<h4>Dashboard</h4>
+				<h4>Ecosystem Overview</h4>
 				<h1>Nuon Protocol Information</h1>
 			</PageTitle>
-			<NuxtLink class="btn btn--lg btn--user" to="/my-transactions" title="Click to view my page">
+			<NuxtLink class="btn btn--lg btn--user" to="/my-dashboard" title="Click to view my page">
 				<UserIcon />
-				My Transactions
+				My Dashboard
 			</NuxtLink>
 		</LayoutFlex>
 		<VaultOverview />
@@ -19,13 +19,13 @@
 import UserIcon from "@/assets/images/svg/svg-user.svg";
 
 export default {
-	name: "TheDashboard",
+	name: "EcosystemOverview",
 	components: {
 		UserIcon,
 	},
 	head () {
 		return {
-			title: "Dashboard | Nuon",
+			title: "Ecosystem Overview | Nuon",
 			script: [
 				{ src: "https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js" },
 			]
