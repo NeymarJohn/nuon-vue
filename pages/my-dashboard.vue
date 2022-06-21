@@ -33,30 +33,6 @@
 						<h5>{{stakedBalancePercentage | toFixed}}%</h5>
 					</div>
 				</div>
-				<div class="chart chart--donut">
-					<LayoutFlex class="u-mb-16" direction="column">
-						<p class="u-mb-4">Total claimable rewards</p>
-						<h1 class="u-mb-4">1,233.00<sup>HX</sup></h1>
-						<h5>$12,343.34</h5>
-					</LayoutFlex>
-					<LayoutFlex direction="row-start-space-between" class="l-flex--column-sm">
-						<TheLoader component="donut-claimable" class="u-mb-24 u-full-width u-mr-24 u-mr-sm-0">
-							<DonutChartRewards />
-						</TheLoader>
-						<LayoutFlex direction="column">
-							<LayoutFlex class="u-mb-8 l-flex--column-start-sm" direction="column-end">
-								<p class="u-mb-8"><TheBadge class="u-mr-4" color="key badge--light-green" /> Staked Rewards</p>
-								<h1 class="u-mb-8">234.00<sup>HX</sup></h1>
-								<TheButton title="Click to start claiming">Start Claiming</TheButton>
-							</LayoutFlex>
-							<LayoutFlex class="l-flex--column-start-sm" direction="column-end">
-								<p class="u-mb-8"><TheBadge class="u-mr-4" color="key badge--orange" /> Burned Token Rewards</p>
-								<h1 class="u-mb-8">999.00<sup>HX</sup></h1>
-								<TheButton title="Click to start claiming">Start Claiming</TheButton>
-							</LayoutFlex>
-						</LayoutFlex>
-					</LayoutFlex>
-				</div>
 			</LayoutFlex>
 		</div>
 		<h2 class="u-mb-24">Transaction History</h2>
