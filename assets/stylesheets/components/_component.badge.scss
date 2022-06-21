@@ -56,7 +56,7 @@
 .badge--balance {
 	background: $DARK_GREY;
 	color: $LIME;
-	padding: $SPACING_1 $SPACING_16;
+	padding: calc($SPACING_1 + 2px) $SPACING_16 $SPACING_1 $SPACING_16;
 	border-radius: $BORDER_RADIUS_8;
 }
 

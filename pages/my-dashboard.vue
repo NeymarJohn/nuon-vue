@@ -14,7 +14,7 @@
 					<h3>${{balancesValue | toFixed | numberWithCommas}}</h3>
 					<div class="progress u-mb-10">
 						<div class="progress__bar progress__bar--balance" :style="`width: ${balancesPercentage}%`"></div>
-						<h5>{{balancesPercentage | toFixed}}%</h5>
+						<h5 class="u-white-space-nowrap">{{balancesPercentage | toFixed}}%</h5>
 					</div>
 					<LayoutFlex class="u-mb-20">
 						<TheBadge class="u-mr-8" color="balance">{{tokenBalances.HX | toFixed | numberWithCommas}} HX</TheBadge>
@@ -24,13 +24,13 @@
 					<h3>${{myCollateralLocked | toFixed | numberWithCommas}}</h3>
 					<div class="progress u-mb-20">
 						<div class="progress__bar progress__bar--locked" :style="`width: ${myCollateralLockedPercentage}%`"></div>
-						<h5>{{myCollateralLockedPercentage | toFixed}}%</h5>
+						<h5 class="u-white-space-nowrap">{{myCollateralLockedPercentage | toFixed}}%</h5>
 					</div>
 					<p>Staked</p>
 					<h3>${{stakedBalance | toFixed | numberWithCommas}}</h3>
 					<div class="progress">
 						<div class="progress__bar progress__bar--staked" :style="`width: ${stakedBalancePercentage}%`"></div>
-						<h5>{{stakedBalancePercentage | toFixed}}%</h5>
+						<h5 class="u-white-space-nowrap">{{stakedBalancePercentage | toFixed}}%</h5>
 					</div>
 				</div>
 			</LayoutFlex>
