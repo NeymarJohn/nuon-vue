@@ -9,28 +9,28 @@
 			<LayoutFlex class="l-flex--column-sm">
 				<div class="chart">
 					<p>Total Value</p>
-					<h1 class="u-mb-24">$63,334.34</h1>
+					<h1 class="u-mb-24">${{totalValue | toFixed | numberWithCommas}}</h1>
 					<p>Balance</p>
-					<h3>$5,485.12</h3>
+					<h3>${{balancesValue | toFixed | numberWithCommas}}</h3>
 					<div class="progress u-mb-10">
-						<div class="progress__bar progress__bar--balance" style="width: 59.76%"></div>
-						<h5>59.76%</h5>
+						<div class="progress__bar progress__bar--balance" :style="`width: ${balancesPercentage}%`"></div>
+						<h5>{{balancesPercentage | toFixed}}%</h5>
 					</div>
 					<LayoutFlex class="u-mb-20">
-						<TheBadge class="u-mr-8" color="balance">2,343.00 HX</TheBadge>
-						<TheBadge color="balance">3,023.00 Nuon</TheBadge>
+						<TheBadge class="u-mr-8" color="balance">{{tokenBalances.HX | toFixed | numberWithCommas}} HX</TheBadge>
+						<TheBadge color="balance">{{tokenBalances.NUON | toFixed | numberWithCommas}} Nuon</TheBadge>
 					</LayoutFlex>
 					<p>Collateral locked</p>
-					<h3>$3,485.20</h3>
+					<h3>${{myCollateralLocked | toFixed | numberWithCommas}}</h3>
 					<div class="progress u-mb-20">
-						<div class="progress__bar progress__bar--locked" style="width: 23.01%"></div>
-						<h5>23.01%</h5>
+						<div class="progress__bar progress__bar--locked" :style="`width: ${myCollateralLockedPercentage}%`"></div>
+						<h5>{{myCollateralLockedPercentage | toFixed}}%</h5>
 					</div>
 					<p>Staked</p>
-					<h3>$504.32</h3>
+					<h3>${{stakedBalance | toFixed | numberWithCommas}}</h3>
 					<div class="progress">
-						<div class="progress__bar progress__bar--staked" style="width: 17.23%"></div>
-						<h5>17.23%</h5>
+						<div class="progress__bar progress__bar--staked" :style="`width: ${stakedBalancePercentage}%`"></div>
+						<h5>{{stakedBalancePercentage | toFixed}}%</h5>
 					</div>
 				</div>
 				<div class="chart chart--donut">
@@ -78,12 +78,37 @@
 </template>
 
 <script>
+import { fromWei } from "~/utils/bnTools";
 export default {
 	name: "MyDashboard",
 	head () {
 		return {
 			title: "My Dashboard | Nuon"
 		};
+	},
+	computed: {
+		balancesValue() {
+			return this.tokenBalances.HX * this.tokenPrices.HX + this.tokenBalances.NUON * this.tokenPrices.NUON; 
+		},
+		stakedBalance() {
+			const stakedBalance = this.$store.state.boardroomStore.stakedBalance;
+			return fromWei(stakedBalance);
+		},
+		myCollateralLocked() {
+			return fromWei(this.$store.state.collateralVaultStore.userCollateralAmount);
+		},
+		totalValue() {
+			return Number(this.balancesValue) + Number(this.stakedBalance) + Number(this.myCollateralLocked);
+		},
+		balancesPercentage() {
+			return Number(this.balancesValue) / this.totalValue * 100;
+		},
+		stakedBalancePercentage() {
+			return Number(this.stakedBalance) / this.totalValue * 100;
+		},
+		myCollateralLockedPercentage() {
+			return Number(this.myCollateralLocked) / this.totalValue * 100;
+		}
 	},
 };
 </script>

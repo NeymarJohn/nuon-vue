@@ -1,30 +1,49 @@
 <template>
-	<div id="lineChart" class="chart__container"></div>
+	<div>
+		<TheTabs size="thin" color="light" margin="24" @tab-changed="handleTabChanged">
+			<TheTab title="D" />
+			<TheTab title="W" />
+			<TheTab title="M" />
+		</TheTabs>
+		<div id="lineChart" class="chart__container"></div>
+	</div>
 </template>
 
 <script>
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
-import DayData from "@/assets/json/day-data.json";
-import WeekData from "@/assets/json/week-data.json";
-import MonthData from "@/assets/json/month-data.json";
 
 dayjs.extend(utc);
 
 export default {
 	name: "LightweightChart",
+	props: {
+		dayData: {
+			type:Array,
+			default: () => [],
+		},
+		monthData: {
+			type: Array,
+			default: () => []
+		},
+		weekData: {
+			type: Array,
+			default: () => []
+		}
+	},
 	data() {
 		return {
-			DayData,
-			WeekData,
-			MonthData,
-			chartData: DayData, // Needs to be replaced / removed
-			activeTab: "dialy", // "weekly" "mothly"
+			chartData: this.dayData, // Needs to be replaced / removed
+			activeTab: "daily", // "weekly" "monthly",
+			currentTabIndex: 0,
+			chartObj: null,
+			seriesesData: [this.dayData, this.weekData, this.monthData],
+			lineSeries: null,
+			tooltipDom: null
 		};
 	},
 	mounted() {
 		const container = document.getElementById("lineChart");
-
 		const data = this.chartData; // Needs to be replaced / removed
 
 		const chartOptions = {
@@ -76,68 +95,12 @@ export default {
 		};
 
 		const chart = window.tvchart = LightweightCharts.createChart(container, chartOptions);
-
+		this.chartObj = chart;
 		const tooltip = document.createElement("div");
+		this.tooltipDom = tooltip;
 		container.prepend(tooltip);
 
-		function createTimePeriodToggle(items, activeItem, activeItemChangedCallback) {
-			const timePeriodToggle = document.createElement("ul");
-			timePeriodToggle.classList.add("tabs__header", "u-mb-24");
-
-			const timePeriodItems = items.map(function(item) {
-				const timePeriod = document.createElement("li");
-				timePeriod.innerHTML = `<h5>${item}</h5>`;
-				timePeriod.classList.toggle("is-active", item === activeItem);
-				timePeriod.addEventListener("click", function() {
-					onItemClicked(item);
-				});
-				timePeriodToggle.appendChild(timePeriod);
-				return timePeriod;
-			});
-
-			function onItemClicked(item) {
-				if (item === activeItem) {
-					return;
-				}
-				timePeriodItems.forEach(function(element, index) {
-					element.classList.toggle("is-active", items[index] === item);
-				});
-				activeItem = item;
-				activeItemChangedCallback(item);
-			}
-
-			return timePeriodToggle;
-		}
-
-		const timePeriod = ["D", "W", "M"];
-		let currentInterval = "D";
-		const seriesesData = new Map([
-			["D", this.DayData ],
-			["W", this.WeekData ],
-			["M", this.MonthData ],
-		]);
-
-		const timePeriodToggle = createTimePeriodToggle(timePeriod, timePeriod[0], getTimePeriod);
-
-		container.prepend(timePeriodToggle);
-
-		let lineSeries = null;
-
-
-		function getTimePeriod(interval) {
-			currentInterval = interval;
-			if (lineSeries) {
-				chart.removeSeries(lineSeries);
-				lineSeries = null;
-			}
-			lineSeries = chart.addLineSeries({
-				color: "#DFFF65",
-				lineWidth: 2
-			});
-			lineSeries.setData(seriesesData.get(interval));
-		}
-
-		getTimePeriod(timePeriod[0]);
+		this.setChartData();
 
 		function getMonthName(x) {
 			const date = new Date();
@@ -146,54 +109,18 @@ export default {
 			return monthName;
 		}
 
-		let dateStr = `
+		const dateStr = `
 			${getMonthName(data[data.length - 1].time.month)}
 			${data[data.length - 1].time.day},
 			${data[data.length - 1].time.year}
 		`;
 
-		function getTooltipValue() {
-			tooltip.innerHTML =	`
-				<p>TVL</p>
-				<h1>$${numberWithCommas(data[data.length - 1].value)}</h1>
-				<p class="u-colour-white u-mb-16">${dateStr}</p>
-			`;
-		}
+		this.tooltipDom.innerHTML =	`
+			<p>TVL</p>
+			<h1>$${numberWithCommas(data[data.length - 1].value.toFixed(2))}</h1>
+			<p class="u-colour-white u-mb-16">${dateStr}</p>
+		`;
 
-		getTooltipValue();
-
-		chart.subscribeCrosshairMove(function(param) {
-			if (param === undefined || param.time === undefined || param.point.x < 0 || param.point.x > 600 || param.point.y < 0 || param.point.y > 300) {
-				getTooltipValue();
-			} else {
-				const now = dayjs();
-				const time = param?.time;
-				const timeString = dayjs(time.year + "-" + time.month + "-" + time.day).format("YYYY-MM-DD");
-				const formattedTime = dayjs(timeString).format("MMM D");
-				const formattedTimeDaily = dayjs(timeString).format("MMM D YYYY");
-				const formattedTimePlusWeek = dayjs(timeString).add(1, "week");
-				const formattedTimePlusMonth = dayjs(timeString).add(1, "month");
-
-				if (currentInterval === "W") {
-					const isCurrent = formattedTimePlusWeek.isAfter(now);
-					dateStr = formattedTime + "-" + (isCurrent ? "current" : formattedTimePlusWeek.format("MMM D, YYYY"));
-				} else if (currentInterval === "M") {
-					const isCurrent = formattedTimePlusMonth.isAfter(now);
-					dateStr = formattedTime + "-" + (isCurrent ? "current" : formattedTimePlusMonth.format("MMM D, YYYY"));
-				} else {
-					dateStr = formattedTimeDaily;
-				}
-				
-				
-				const price = param.seriesPrices.get(lineSeries);
-				tooltip.innerHTML =	`
-					<p>TVL</p>
-					<h1>$${numberWithCommas((Math.round(price * 100) / 100).toFixed(2))}</h1>
-					<p class="u-colour-white u-mb-16">${dateStr}</p>
-				`;
-			}
-
-		});
 
 		function numberWithCommas (x) {
 			if (!x) return 0;
@@ -210,6 +137,72 @@ export default {
 				return parseFloat((num / 1000000).toFixed(1)) + "M"; // convert to M for number from > 1 million
 			} else {
 				return parseFloat((num / 1000000000).toFixed(1)) + "B"; // convert to M for number from > 1 billion
+			}
+		}
+	},
+	methods: {
+		handleTabChanged(tabIndex) {
+			this.currentTabIndex = tabIndex;
+			this.setChartData();
+		},
+		setChartData() {
+			if (this.chartObj) {
+				if (this.lineSeries) {
+					this.chartObj.removeSeries(this.lineSeries);
+					this.lineSeries = null;
+				}
+				this.lineSeries = this.chartObj.addLineSeries({
+					color: "#DFFF65",
+					lineWidth: 2
+				});
+				this.lineSeries.setData(this.seriesesData[this.currentTabIndex]);
+				const data = this.seriesesData[this.currentTabIndex];
+				this.chartObj.subscribeCrosshairMove((param) => {
+					function getMonthName(x) {
+						const date = new Date();
+						date.setMonth(x - 1);
+						const monthName = date.toLocaleString("default", { month: "short" });
+						return monthName;
+					}
+					let dateStr = `
+						${getMonthName(data[data.length - 1].time.month)}
+						${data[data.length - 1].time.day},
+						${data[data.length - 1].time.year}
+					`;
+					if (param === undefined || param.time === undefined || param.point.x < 0 || param.point.x > 600 || param.point.y < 0 || param.point.y > 300) {
+						this.tooltipDom.innerHTML =	`
+							<p>TVL</p>
+							<h1>$${this.$options.filters.numberWithCommas(data[data.length - 1].value.toFixed(2))}</h1>
+							<p class="u-colour-white u-mb-16">${dateStr}</p>
+						`;
+					} else {
+						const now = dayjs();
+						const time = param?.time;
+						const timeString = dayjs(time.year + "-" + time.month + "-" + time.day).format("YYYY-MM-DD");
+						const formattedTime = dayjs(timeString).format("MMM D");
+						const formattedTimeDaily = dayjs(timeString).format("MMM D YYYY");
+						const formattedTimePlusWeek = dayjs(timeString).add(1, "week");
+						const formattedTimePlusMonth = dayjs(timeString).add(1, "month");
+
+						if (this.currentTabIndex === 1) { // weekly
+							const isCurrent = formattedTimePlusWeek.isAfter(now);
+							dateStr = formattedTime + "-" + (isCurrent ? "current" : formattedTimePlusWeek.format("MMM D, YYYY"));
+						} else if (this.currentTabIndex === 2) { // Monthly
+							const isCurrent = formattedTimePlusMonth.isAfter(now);
+							dateStr = formattedTime + "-" + (isCurrent ? "current" : formattedTimePlusMonth.format("MMM D, YYYY"));
+						} else {
+							dateStr = formattedTimeDaily;
+						}
+
+						const price = param.seriesPrices.get(this.lineSeries);
+						this.tooltipDom.innerHTML =	`
+							<p>TVL</p>
+							<h1>$${this.$options.filters.numberWithCommas((Math.round(price * 100) / 100).toFixed(2))}</h1>
+							<p class="u-colour-white u-mb-16">${dateStr}</p>
+						`;
+					}
+
+				});
 			}
 		}
 	},

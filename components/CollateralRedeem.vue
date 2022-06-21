@@ -75,7 +75,6 @@
 </template>
 
 <script>
-import { BigNumber } from "bignumber.js";
 import { fromWei, toWei } from "~/utils/bnTools";
 
 export default {
@@ -150,12 +149,12 @@ export default {
 		async withdraw() {
 			this.activeStep = "loading";
 			this.withdrawing = true;
-			const nuonAmount = (this.inputValue * (10 ** this.$store.state.erc20Store.decimals.NUON)).toString();
+			const nuonAmount = toWei(this.inputValue, this.$store.state.erc20Store.decimals.NUON);
 
 			try {
 				await this.$store.dispatch("collateralVaultStore/redeem",
 					{
-						nuonAmount: new BigNumber(nuonAmount),
+						nuonAmount,
 						onConfirm: (txHash) => {
 							this.successToast(null, "Withdraw successful", txHash);
 						},

@@ -9,6 +9,7 @@ import { COLLATERAL_HUB_ADDRESS, TRUFLATION_ADDRESS, NUON_CONTROLLER_ADDRESS } f
 
 type StateType = {
 	allowance: any,
+	userCollateralAmount: number,
 	targetCollateralValue: number,
 	globalCollateralRatioValue: number,
 	aprInflation: number,
@@ -25,6 +26,7 @@ type StateType = {
 }
 export const state = (): StateType => ({
 	allowance: {HX:0, NUON: 0},
+	userCollateralAmount: 0,
 	targetCollateralValue: 0,
 	globalCollateralRatioValue: 0,
 	aprInflation: 0,
@@ -45,6 +47,9 @@ export type BoardroomState = ReturnType<typeof state>;
 export const mutations: MutationTree<BoardroomState> = {
 	setAllowance(state, payload: {HX:number, USX: number}) {
 		state.allowance = payload;
+	},
+	setUserCollateralAmount(state, payload) {
+		state.userCollateralAmount = payload;
 	},
 	setTargetCollateralValue(state, payload) {
 		state.targetCollateralValue = payload;
@@ -169,11 +174,14 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 			ctx.commit("setLastSnapshot", {lastSnapshotIndex: lastSnapshot, rewardEarned: new BN(0), epochTimerStart: 0});
 		});
 	},
-	async updateStatus({dispatch, getters, commit}) {
+	async updateStatus({dispatch, commit, getters, rootState}: {dispatch:any, commit:any, getters:any, rootState:any}) {
 		dispatch("getAllowance");
+		const accountAddress = rootState?.web3Store.account;
+		if (!accountAddress) return;
 
-		// const allCollaterals = await getters.getCollaterals();
-		// commit("setAllCollaterals", allCollaterals);
+		const myCollateralAmount = await getters.getUserCollateralAmount(accountAddress);
+		commit("setUserCollateralAmount", myCollateralAmount);
+
 		// const totalLockedCollateral = await getters.getTotalLockedCollareralValue();
 		// commit("setTotalLockedCollateral", totalLockedCollateral);
 
