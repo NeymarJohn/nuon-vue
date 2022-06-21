@@ -24,7 +24,7 @@
 				:current-price="collateralPrice" />
 			<CollateralEcosystemStatus
 				:min-collateralization-ratio="minimumCollateralizationRatio"
-				:liquidation-price="1777.70"
+				:liquidation-price="liquidationPrice"
 				:nuon-price="nuonPrice" />
 			<PageTitle>
 				<h2>Manage Your {{currentlySelectedCollateral}} Collateral<TooltipIcon v-tooltip="`Enter manage your ${currentlySelectedCollateral} tooltip content here.`" /></h2>
@@ -54,7 +54,7 @@ export default {
 			userMintedAmount: null,
 			nuonPrice: null,
 			userCollateralAmount: null,
-			userCollateralizationRatio: null,
+			userCollateralizationRatioStore: {},
 			userTotalLockedCollateralAmountStore: {},
 			userTotalMintedNuonStore: {},
 			collateralPrices: {}
@@ -66,12 +66,6 @@ export default {
 		};
 	},
 	computed: {
-		usxPrice() {
-			return this.tokenPrices.USX;
-		},
-		isCollateralModalVisible() {
-			return this.$store.state.modalStore.modalVisible.collateralModal;
-		},
 		totalMintedTokensDollarValue() {
 			return this.nuonPrice * this.userMintedAmount;
 		},
@@ -79,10 +73,20 @@ export default {
 			return this.collateralPrice * this.userCollateralAmount;
 		},
 		userTotalLockedCollateralAmount() {
-			return Object.entries(this.userTotalLockedCollateralAmountStore).reduce((acc, [k, v]) => acc + this.collateralPrices[k] * v, 0);
+			return Object.entries(this.userTotalLockedCollateralAmountStore).reduce((acc, [collateral, amount]) => acc + this.collateralPrices[collateral] * amount, 0);
 		},
 		userTotalMintedNuon() {
 			return Object.values(this.userTotalMintedNuonStore).reduce((acc, val) => acc + val, 0);
+		},
+		liquidationPrice() {
+			const collateralPrice = this.collateralPrices[this.currentlySelectedCollateral];
+			const collateralAmount = this.userTotalLockedCollateralAmountStore[this.currentlySelectedCollateral];
+			const collateralRatio = this.userCollateralizationRatioStore[this.currentlySelectedCollateral];
+			return [collateralPrice, collateralAmount, collateralRatio].includes(undefined) ? null : parseFloat(((collateralPrice * collateralAmount) / (collateralRatio / 100)).toFixed(2));
+		},
+		userCollateralizationRatio() {
+			const collateralRatio = this.userCollateralizationRatioStore[this.currentlySelectedCollateral];
+			return collateralRatio === undefined ? null : collateralRatio;
 		}
 	},
 	watch: {
@@ -143,9 +147,8 @@ export default {
 			let result = 0;
 			try {
 				result = parseFloat(fromWei(await this.$store.getters["collateralVaultStore/getUserCollateralRatioInPercent"](this.connectedAccount)));
+				this.$set(this.userCollateralizationRatioStore, this.currentlySelectedCollateral, result);
 			} catch (e) {
-			} finally {
-				this.userCollateralizationRatio = result;
 			}
 		},
 		async getMinimumCollateralizationRatio() {

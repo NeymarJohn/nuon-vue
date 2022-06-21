@@ -242,26 +242,11 @@ export const getters: GetterTree<BoardroomState, Web3State> = {
 	checkApprovedToken: (state:any) => (tokenName: string):boolean => {
 		return state.allowance[tokenName] > 0;
 	},
-	getCollaterals: (_state:any, getters: any) => async () => {
-		return await getters.collateralHubContract.methods.getCollaterals().call();
-	},
-	getEstimatedMintedUSXAmount: (_state:any, getters: any) => async (amount: number, cid: string) => {
-		return await getters.collateralHubContract.methods.estimateMintedUSXAmount(amount, cid).call();
-	},
 	getMintingFee: (_state: any, getters: any) => async () => {
 		return await getters.nuonControllerContract.methods.getMintingFee().call();
 	},
-	getCollateralPriceDeprecated: (_state: any, getters: any) => async (tokenAddress: string) => {
-		return await getters.collateralHubContract.methods.viewCollateralPrice(tokenAddress).call();
-	},
-	getUserCollateralInVault: (_state: any, getters: any) => async (address: string, cid: number) => {
-		return await getters.collateralHubContract.methods.getUserCollateralInVault(address, cid).call();
-	},
 	getRedeemFee: (_state: any, getters: any) => async () => {
 		return await getters.nuonControllerContract.methods.getRedeemFee().call();
-	},
-	getEstimateCollateralsOutDeprecated: (_state: any, getters: any) => async (cid: number, userAddress: string, usxAmount: number) => {
-		return await getters.collateralHubContract.methods.estimateCollateralsOut(cid, userAddress, usxAmount).call();
 	},
 	getAmountsStakedInVault: (_state: any, getters: any) => async (cid: number) => {
 		return await getters.collateralHubContract.methods.getAmountsStakedInVault(cid).call();
@@ -271,9 +256,6 @@ export const getters: GetterTree<BoardroomState, Web3State> = {
 	},
 	getDailyInflationRate: (_state: any, getters: any) => async () => {
 		return await getters.truflationContract.methods.getDailyInflationRate().call();
-	},
-	getUserAmounts: (_state: any, getters: any) => async (userAddress: string, cid: number) => {
-		return await getters.collateralHubContract.methods.getUsersAmounts(userAddress, cid).call();
 	}, // old methods end here
 	getGlobalCollateralRatio: (_state: any, getters: any) => async () => {
 		return await getters.nuonControllerContract.methods.getGlobalCollateralRatio().call();
