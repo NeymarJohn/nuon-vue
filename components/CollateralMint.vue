@@ -186,10 +186,10 @@ export default {
 				});
 		},
 		async getEstimatedMintedNuon() {
-			const currentRatio = this.selectedCollateralRatio === "190" ? parseInt(this.selectedCollateralRatio) + 1 : this.selectedCollateralRatio;
+			const currentRatio = this.selectedCollateralRatio === this.sliderMin ? parseInt(this.selectedCollateralRatio) + 1 : this.selectedCollateralRatio;
 			const collateralRatio = (10 ** 18) / (currentRatio / 100);
 			const ans = await this.$store.getters["collateralVaultStore/getEstimateMintedNUONAmount"](new BigNumber(toWei(this.inputValue)), new BigNumber(collateralRatio));
-			this.estimatedMintedNuonValue = ans[0];
+			this.estimatedMintedNuonValue = fromWei(ans[0]);
 		},
 		async mint() {
 			this.activeStep = "loading";
