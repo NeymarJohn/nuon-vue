@@ -313,5 +313,8 @@ export const getters: GetterTree<BoardroomState, Web3State> = {
 	},
 	getMaxCRatio: (_state: any, getters: any) => async () => {
 		return await getters.nuonControllerContract.methods.getMaxCratio().call();
+	},
+	getNUONSupply: (_state: any, getters: any) => async () => {
+		return await getters.nuonControllerContract.methods.getNUONSupply().call();
 	}
 };

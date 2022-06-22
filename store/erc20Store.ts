@@ -17,6 +17,10 @@ type StateType = {
 		HX: number,
 		USDC: number,
 		ETH: number
+	},
+	supply: {
+		NUON: string,
+		HX: string
 	}
 }
 /**
@@ -34,6 +38,10 @@ export const state = (): StateType => ({
 		HX: 18,
 		USDC: 6,
 		ETH: 18
+	},
+	supply: {
+		NUON: "0",
+		HX: "0"
 	}
 });
 
@@ -45,6 +53,9 @@ export const mutations: MutationTree<Erc20State> = {
 	},
 	setDecimals(state, payload: any) {
 		state.decimals = payload;
+	},
+	setSupply(state, payload: any) {
+		state.supply = payload;
 	}
 };
 
@@ -55,6 +66,9 @@ export const actions: ActionTree<Erc20State, Erc20State> = {
 		const hydroBalance = fromWei(await ctx.getters.hydro.methods.balanceOf(address).call(), ctx.state.decimals.HX) ;
 		const usdcBalance = fromWei(await ctx.getters.usdc.methods.balanceOf(address).call(), usdcDecimals);
 		const ethBalance = fromWei(await ctx.getters.eth.methods.balanceOf(address).call(), ctx.state.decimals.ETH);
+
+		const nuonSupply = fromWei(await ctx.rootGetters["collateralVaultStore/getNUONSupply"]());
+		const hydroSupply = fromWei(await ctx.getters.hydro.methods.totalSupply().call());
 
 		ctx.commit("setBalance", {
 			HX: hydroBalance,
@@ -67,6 +81,10 @@ export const actions: ActionTree<Erc20State, Erc20State> = {
 			NUON: 18,
 			USDC: usdcDecimals,
 			ETH: 18
+		});
+		ctx.commit("setSupply", {
+			NUON: nuonSupply,
+			HX: hydroSupply
 		});
 	},
 
