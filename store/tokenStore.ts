@@ -27,11 +27,13 @@ export const mutations: MutationTree<Web3State> = {
 export const actions: ActionTree<Web3State, Web3State> = {
 	async getTokenPrices(ctx: any) {
 		const nuonController = ctx.rootGetters["contractStore/nuonController"];
+		const hxUsdcPair = ctx.rootGetters["contractStore/uniswapV2Pair"](["HX", "USDC"]);
 		const nuonPrice = await nuonController.methods.getNUONPrice().call();
-		const hxPrice = await nuonController.methods.getNUONPrice().call();
+		const reserves = await hxUsdcPair.methods.getReserves().call();
+		const hxPrice = Number(fromWei(reserves[1], ctx.rootState.erc20Store.decimals.USDC)) / Number(fromWei(reserves[0], ctx.rootState.erc20Store.decimals.HX));
 		ctx.commit("setPrice", {
-			NUON: fromWei(nuonPrice, ctx.rootState.erc20Store.decimals.NUON),
-			HX: fromWei(hxPrice, ctx.rootState.erc20Store.decimals.HX),
+			NUON: Number(fromWei(nuonPrice, ctx.rootState.erc20Store.decimals.NUON)),
+			HX: hxPrice,
 			DAI: 1,
 			USDC: 1,
 		});

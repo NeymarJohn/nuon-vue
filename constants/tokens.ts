@@ -1,4 +1,4 @@
-import { DAI_ADDRESS, ETH_ADDRESS, HYDRO_ADDRESS, NUON_ADDRESS, USDC_ADDRESS, USDT_ADDRESS, USDC_USDT_PAIR_ADDRESS } from "./addresses";
+import { ETH_ADDRESS, HYDRO_ADDRESS, NUON_ADDRESS, USDC_ADDRESS, USDT_ADDRESS, USDC_USDT_PAIR_ADDRESS } from "./addresses";
 
 export const HX = {
 	address: HYDRO_ADDRESS,
@@ -10,12 +10,6 @@ export const NUON = {
 	address: NUON_ADDRESS,
 	symbol: "NUON",
 	name: "NUON TOKEN"
-};
-
-export const DAI = {
-	address: DAI_ADDRESS,
-	symbol: "DAI",
-	name: "DAI STABLE COIN"
 };
 
 export const USDC = {
@@ -45,7 +39,6 @@ export const USDC_USDT_LP_TOKEN = {
 export const TOKENS_MAP:any = {
 	HX,
 	NUON,
-	DAI,
 	USDC,
 	USDT,
 	USDC_USDT_LP_TOKEN,
@@ -55,19 +48,19 @@ export const TOKENS_MAP:any = {
 const paths:any =  {
 	NUON_USDC: {
 		tokens: [NUON.symbol, USDC.symbol],
-		addresses: [NUON_ADDRESS, DAI_ADDRESS],
+		addresses: [NUON_ADDRESS, USDC_ADDRESS],
 	},
 	DAI_NUON: {
 		tokens: [USDC.symbol, NUON.symbol],
-		addresses: [DAI_ADDRESS, NUON_ADDRESS]
+		addresses: [USDC_ADDRESS, NUON_ADDRESS]
 	},
 	HX_USDC: {
 		tokens: [HX.symbol, USDC.symbol],
-		addresses: [HYDRO_ADDRESS, DAI_ADDRESS]
+		addresses: [HYDRO_ADDRESS, USDC_ADDRESS]
 	},
 	USDC_HX: {
 		tokens: [USDC.symbol, HX.symbol],
-		addresses: [DAI_ADDRESS, HYDRO_ADDRESS]
+		addresses: [USDC_ADDRESS, HYDRO_ADDRESS]
 	},
 	HX_NUON: {
 		tokens: [HX.symbol, USDC.symbol, NUON.symbol],
@@ -88,7 +81,6 @@ export const getPath = (inputToken:string, outputToken:string) => {
 export const collateralTokens = [
 	{ "symbol": USDC_USDT_LP_TOKEN.symbol, "name": USDC_USDT_LP_TOKEN.name, "icon": "USDC.png" },
 	{ "symbol": USDC.symbol, "name": USDC.name, "icon": "USDC.png"  },
-	{ "symbol": DAI.symbol, "name": DAI.name, "icon": "Dai.png"  },
 ];
 
 export const mainTokens = [
