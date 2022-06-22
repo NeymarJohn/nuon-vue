@@ -49,6 +49,8 @@
 </template>
 
 <script>
+import { getTokenPricesDayData } from "~/services/theGraph";
+
 export default {
 	name: "TokenPrice",
 	data() {
@@ -56,6 +58,7 @@ export default {
 			currentlySelectedTab: "",
 			tabs: ["HX", "NUON"],
 			priceTabs: ["Price", "Market Cap", "Circulating Supply"],
+			priceHistoryData: []
 		};
 	},
 	computed: {
@@ -71,6 +74,11 @@ export default {
 			if ([undefined, null].includes(this.$store.state.tokenStore.price[this.currentlySelectedTab])) return null;
 			return parseFloat(this.$store.state.tokenStore.price[this.currentlySelectedTab]).toFixed(2);
 		}
+	},
+	mounted () {
+		getTokenPricesDayData().then(res => {
+			console.log("data", res.data.data.tokenPriceDayDatas);
+		});
 	},
 	methods: {
 		handleTabChanged(e) {
