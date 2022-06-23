@@ -24,16 +24,21 @@ export default {
 		margin: {
 			type: String,
 			default: "48"
+		},
+		defaultSelectTab: {
+			type: Boolean,
+			required: false,
+			default: true
 		}
 	},
 	data() {
 		return {
-			selectedIndex: 0,
+			selectedIndex: null,
 			tabs: []
 		};
 	},
 	mounted() {
-		this.selectTab(0);
+		this.defaultSelectTab && this.selectTab(0);
 	},
 	created() {
 		this.tabs = this.$children;

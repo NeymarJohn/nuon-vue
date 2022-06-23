@@ -21,6 +21,7 @@
 		20. White space
 		21. Colour
 		22. Prompt
+		23. Height
 */
 
 // 1. Margin bottom
@@ -382,4 +383,9 @@
 }
 .u-green-prompt p {
 	color: $WHITE !important;
+}
+
+// 23. Height
+.u-min-height-600 {
+	min-height: 600px;
 }

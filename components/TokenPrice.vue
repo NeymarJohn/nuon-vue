@@ -21,23 +21,23 @@
 						<h3>{{ tokenPrice }}<sup>Nuon</sup></h3>
 					</ComponentLoader>
 				</div>
-				<div class="chart chart--token-price">
+				<div class="chart chart--token-price u-min-height-600">
 					<div class="chart--overview">
-						<p>Price</p>
-						<h1>1.03<sup>Nuon</sup></h1>
-						<p class="u-colour-white">Apr 14, 2022</p>
+						<p>{{ selectedPriceTab }}</p>
+						<h1>{{ graphSelection ? graphSelection : '0.00' }}</h1>
+						<p class="u-colour-white">{{ dateSelection ? dateSelection : "00/00/00" }}</p>
 					</div>
-					<TheTabs size="thin" color="light" margin="0">
-						<TheTab v-for="(priceTab, priceTabIdx) in priceTabs" :key="`priceTab-${priceTabIdx}`" :title="priceTab" @tab-changed="handlePriceTabChanged">
-							<TheTabs size="thin" color="light" margin="absolute">
-								<TheTab title="D">
-									<LineChart />
-								</TheTab>
-								<TheTab title="W">
-									<LineChart />
-								</TheTab>
-								<TheTab title="M">
-									<LineChart />
+					<TheTabs size="thin" color="light" margin="0" :default-select-tab="false" @tab-changed="handlePriceTabChanged">
+						<TheTab v-for="(priceTab, priceTabIdx) in priceTabs" :key="`priceTab-${priceTabIdx}`" :title="priceTab">
+							<TheTabs size="thin" color="light" margin="absolute" @tab-changed="handlePeriodTabChanged">
+								<TheTab v-for="(period, periodIdx) in periodTabs" :key="`${currentlySelectedTab}-periodTab-${periodIdx}`" :title="period">
+									<LineChart
+										class="u-mt-32"
+										:name="selectedPeriodTab"
+										:x-axis-labels="xAxisLabels"
+										:chart-data="yAxisData"
+										@mouseOverDataPoint="handleMouseOverChart"
+									/>
 								</TheTab>
 							</TheTabs>
 						</TheTab>
@@ -56,9 +56,14 @@ export default {
 	data() {
 		return {
 			currentlySelectedTab: "",
+			selectedPriceTab: "Price",
+			selectedPeriodTab: "",
 			tabs: ["HX", "NUON"],
 			priceTabs: ["Price", "Market Cap", "Circulating Supply"],
-			priceHistoryData: []
+			periodTabs: ["W", "M"],
+			priceHistoryData: [],
+			graphSelection: "",
+			dateSelection: ""
 		};
 	},
 	computed: {
@@ -73,12 +78,36 @@ export default {
 		tokenPrice() {
 			if ([undefined, null].includes(this.$store.state.tokenStore.price[this.currentlySelectedTab])) return null;
 			return parseFloat(this.$store.state.tokenStore.price[this.currentlySelectedTab]).toFixed(2);
-		}
+		},
+		graphData() {
+			const tokenIdx = this.currentlySelectedTab === "NUON" ? 0 : 1;
+			return this.priceHistoryData.map(d => ({
+				date: new Date(d.date * 1000).toLocaleDateString(),
+				price: parseFloat(d.prices[tokenIdx].price).toFixed(2)
+			}));
+		},
+		xAxisLabels() {
+			const numberOfDaysInPast = this.selectedPeriodTab === "W" ? 7 : 30;
+			const data = this.graphData.map(d => d.date).slice(this.graphData.length - numberOfDaysInPast);
+			data.push("");
+			data.unshift("");
+			return data;
+		},
+		yAxisData() {
+			const numberOfDaysInPast = this.selectedPeriodTab === "W" ? 7 : 30;
+			const data = this.graphData.map(d => d.price).slice(this.graphData.length - numberOfDaysInPast);
+			data.push(null);
+			data.unshift(null);
+			return data;
+		},
 	},
-	mounted () {
-		getTokenPricesDayData().then(res => {
-			console.log("data", res.data.data.tokenPriceDayDatas);
-		});
+	async mounted() {
+		try {
+			const response = await getTokenPricesDayData();
+			this.priceHistoryData = response.data.data.tokenPriceDayDatas;
+		} catch (e) {
+			this.failureToast(null, e, "An error occurred when fetching data");
+		}
 	},
 	methods: {
 		handleTabChanged(e) {
@@ -86,6 +115,13 @@ export default {
 		},
 		handlePriceTabChanged(e) {
 			this.selectedPriceTab = this.priceTabs[e];
+		},
+		handlePeriodTabChanged(e) {
+			this.selectedPeriodTab = this.periodTabs[e];
+		},
+		handleMouseOverChart(e) {
+			this.graphSelection = this.yAxisData[e];
+			this.dateSelection = this.xAxisLabels[e];
 		}
 	}
 };

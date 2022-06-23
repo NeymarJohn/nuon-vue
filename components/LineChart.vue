@@ -7,11 +7,25 @@
 
 export default {
 	name: "LineChart",
+	props: {
+		xAxisLabels: {
+			type: Array,
+			required: true
+		},
+		chartData: {
+			type: Array,
+			required: true
+		},
+		name: {
+			type: String,
+			required: true
+		}
+	},
 	data() {
 		return {
 			series: [{
-				name: "TVL",
-				data: [10, 41, 35, 51, 49, 62, 69, 91, 148]
+				name: this.name,
+				data: this.chartData
 			}],
 			chartOptions: {
 				colors: ["#DFFF65"],
@@ -24,6 +38,11 @@ export default {
 					foreColor: "#B7B7B7",
 					toolbar: {
 						show: false,
+					},
+					events: {
+						mouseMove: (_event, _chartContext, config) => {
+							this.$emit("mouseOverDataPoint", config.dataPointIndex);
+						}
 					}
 				},
 				grid: {
@@ -37,9 +56,9 @@ export default {
 							fontWeight: "400",
 							fontFamily: "Plus Jakarta Sans",
 						},
-						formatter (value) {
-							return value + "M";
-						}
+						// formatter (value) {
+						// 	return value + "M";
+						// }
 					}
 				},
 				dataLabels: {
@@ -50,7 +69,7 @@ export default {
 					width: [2]
 				},
 				xaxis: {
-					categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep"],
+					categories: this.xAxisLabels,
 					axisTicks: {
 						show: false
 					},
