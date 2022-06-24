@@ -10,10 +10,8 @@ const WALLET_CONNECTED = "wallet_connected";
 const DEFAULT_CHAIN_ID = 31010;
 
 export const state = () => ({
-	// new Web3.providers.HttpProvider("https://eth-private-testnet-poa.hydrogenx.tk/")
-	// https://rinkeby.infura.io/v3/950e2e1f336a4e3bade855464f024942
 	instance: () => (
-		new Web3(new Web3.providers.HttpProvider("https://rinkeby.infura.io/v3/950e2e1f336a4e3bade855464f024942"))
+		new Web3(new Web3.providers.HttpProvider("https://eth-private-testnet-poa.hydrogenx.tk/"))
 	),
 	balance: 0,
 	account: "",
@@ -43,10 +41,8 @@ export const actions: ActionTree<Web3State, Web3State> = {
    * @dev initialize with default web3 values
    */
 	init ({ commit, dispatch }) {
-		// DEFAULT_CHAIN_ID
-		const chainId = 4;
-		// new Web3.providers.HttpProvider("https://eth-private-testnet-poa.hydrogenx.tk/")
-		const web3 = new Web3(new Web3.providers.HttpProvider("https://rinkeby.infura.io/v3/950e2e1f336a4e3bade855464f024942"));
+		const chainId = DEFAULT_CHAIN_ID;
+		const web3 = new Web3(new Web3.providers.HttpProvider("https://eth-private-testnet-poa.hydrogenx.tk/"));
 
 		commit("setWeb3", () => web3);
 		commit("setChainId", chainId);
@@ -69,12 +65,9 @@ export const actions: ActionTree<Web3State, Web3State> = {
 					const [account] = await window.ethereum.request({ method: "eth_requestAccounts" });
 					const chainId = Web3.utils.hexToNumber(await window.ethereum.request({ method: "eth_chainId" }));
 					const web3 = new Web3(Web3.givenProvider);
-					const balance = await web3.eth.getBalance(account);
-					console.log("balance: ", balance);
 					commit("setAccount", account);
 					commit("setWeb3", () => web3);
 					dispatch("updateChain", chainId);
-					console.log(chainId);
 					localStorage.setItem(WALLET_CONNECTED, "connected");
 					localStorage.setItem("nuon-wallet", wallet);
 					// Dispatch other modules actions
@@ -172,12 +165,12 @@ export const actions: ActionTree<Web3State, Web3State> = {
 	},
 
 	async updateChain({commit, state}, chainIdHex:string) {
-		const chainId = Web3.utils.hexToNumber(chainIdHex);
-		// if (!VALID_NETWORKS.includes(chainId)) {
-		// 	commit("modalStore/setModalInfo",{name: "alertModal", info: {title:"Wrong Network", message: "Please connect to a supported network in your wallet"}}, {root: true});
-		// 	commit("modalStore/setModalVisibility", {name: "alertModal", visibility: true}, {root:true});
-		// 	chainId = DEFAULT_CHAIN_ID;
-		// }
+		let chainId = Web3.utils.hexToNumber(chainIdHex);
+		if (!VALID_NETWORKS.includes(chainId)) {
+			commit("modalStore/setModalInfo",{name: "alertModal", info: {title:"Wrong Network", message: "Please connect to a supported network in your wallet"}}, {root: true});
+			commit("modalStore/setModalVisibility", {name: "alertModal", visibility: true}, {root:true});
+			chainId = DEFAULT_CHAIN_ID;
+		}
 		const web3 = new Web3(Web3.givenProvider);
 		const balance = await web3.eth.getBalance(state.account);
 		commit("setChainId", chainId);
