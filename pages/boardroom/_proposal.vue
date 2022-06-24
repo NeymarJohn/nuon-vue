@@ -279,7 +279,7 @@ export default {
 
 			try {
 				await client.vote(provider, account, {
-					space: "caldron.eth",
+					space: "calon.eth",
 					proposal: this.$route.params.proposal,
 					type: "single-choice",
 					choice: this.vote + 1,

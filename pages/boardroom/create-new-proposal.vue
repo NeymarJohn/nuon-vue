@@ -187,7 +187,7 @@ export default {
 
 			try {
 				await client.proposal(provider, account, {
-					space: "caldron.eth",
+					space: "calon.eth",
 					type: "single-choice",
 					title: this.proposal.title,
 					body: this.proposal.description,

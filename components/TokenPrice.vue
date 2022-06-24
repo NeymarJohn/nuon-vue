@@ -21,26 +21,27 @@
 						<h3>{{ tokenPrice }}<sup>Nuon</sup></h3>
 					</ComponentLoader>
 				</div>
-				<div class="chart u-min-height-600">
-					<LayoutFlex direction="row-space-between">
-						<div class="u-min-height-96">
-							<p>{{ selectedPriceTab }}</p>
-							<h1 v-show="graphSelection">{{ graphSelection }}</h1>
-							<p v-show="graphSelection" class="u-colour-white">{{ dateSelection }}</p>
-						</div>
-						<LayoutFlex direction="column-justify-between">
-							<Pills :pills="priceTabs" default-active @pill-clicked="handlePriceTabChanged" />
-							<Pills v-if="selectedPriceTab !== 'Price' && selectedPriceTab !== null" :pills="periodTabs" default-active @pill-clicked="handlePeriodTabChanged" />
-						</LayoutFlex>
-					</LayoutFlex>
-					<LineChart
-						:key="`${currentlySelectedTab}-${selectedPriceTab}-${selectedPeriodTab}`"
-						class="u-mt-32"
-						:name="selectedPriceTab || ''"
-						:x-axis-labels="xAxisLabels"
-						:chart-data="yAxisData"
-						@mouseOverDataPoint="handleMouseOverChart"
-					/>
+				<div class="chart chart--token-price u-min-height-600">
+					<div class="chart--overview">
+						<p>{{ selectedPriceTab }}</p>
+						<h1>{{ graphSelection ? graphSelection : '0.00' }}</h1>
+						<p class="u-colour-white">{{ dateSelection ? dateSelection : "00/00/00" }}</p>
+					</div>
+					<TheTabs size="thin" color="light" margin="0" :default-select-tab="false" @tab-changed="handlePriceTabChanged">
+						<TheTab v-for="(priceTab, priceTabIdx) in priceTabs" :key="`priceTab-${priceTabIdx}`" :title="priceTab">
+							<TheTabs size="thin" color="light" margin="absolute" @tab-changed="handlePeriodTabChanged">
+								<TheTab v-for="(period, periodIdx) in periodTabs" :key="`${currentlySelectedTab}-periodTab-${periodIdx}`" :title="period">
+									<LineChart
+										class="u-mt-32"
+										:name="selectedPeriodTab"
+										:x-axis-labels="xAxisLabels"
+										:chart-data="yAxisData"
+										@mouseOverDataPoint="handleMouseOverChart"
+									/>
+								</TheTab>
+							</TheTabs>
+						</TheTab>
+					</TheTabs>
 				</div>
 			</LayoutFlex>
 		</div>
@@ -86,21 +87,15 @@ export default {
 			}));
 		},
 		xAxisLabels() {
-			const data = this.graphData.map(d => d.date);
-			if (this.selectedPriceTab !== "Price") {
-				const numberOfDaysInPast = this.selectedPeriodTab === "W" ? 7 : 30;
-				data.slice(this.graphData.length - numberOfDaysInPast);
-			}
+			const numberOfDaysInPast = this.selectedPeriodTab === "W" ? 7 : 30;
+			const data = this.graphData.map(d => d.date).slice(this.graphData.length - numberOfDaysInPast);
 			data.push("");
 			data.unshift("");
 			return data;
 		},
 		yAxisData() {
-			const data = this.graphData.map(d => d.price);
-			if (this.selectedPriceTab !== "Price") {
-				const numberOfDaysInPast = this.selectedPeriodTab === "W" ? 7 : 30;
-				data.slice(this.graphData.length - numberOfDaysInPast);
-			}
+			const numberOfDaysInPast = this.selectedPeriodTab === "W" ? 7 : 30;
+			const data = this.graphData.map(d => d.price).slice(this.graphData.length - numberOfDaysInPast);
 			data.push(null);
 			data.unshift(null);
 			return data;
@@ -110,7 +105,6 @@ export default {
 		try {
 			const response = await getTokenPricesDayData();
 			this.priceHistoryData = response.data.data.tokenPriceDayDatas;
-			this.handlePeriodTabChanged(0);
 		} catch (e) {
 			this.failureToast(null, e, "An error occurred when fetching data");
 		}

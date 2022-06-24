@@ -107,7 +107,7 @@ export default {
 									first: 20000,
 									skip: $numberToSkip,
 									where: {
-										space_in: ["caldron.eth"]
+										space_in: ["calon.eth"]
 									}
 								) {
 									id
