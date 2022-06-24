@@ -21,27 +21,26 @@
 						<h3>{{ tokenPrice }}<sup>Nuon</sup></h3>
 					</ComponentLoader>
 				</div>
-				<div class="chart chart--token-price u-min-height-600">
-					<div class="chart--overview">
-						<p>{{ selectedPriceTab }}</p>
-						<h1>{{ graphSelection ? graphSelection : '0.00' }}</h1>
-						<p class="u-colour-white">{{ dateSelection ? dateSelection : "00/00/00" }}</p>
-					</div>
-					<TheTabs size="thin" color="light" margin="0" :default-select-tab="false" @tab-changed="handlePriceTabChanged">
-						<TheTab v-for="(priceTab, priceTabIdx) in priceTabs" :key="`priceTab-${priceTabIdx}`" :title="priceTab">
-							<TheTabs size="thin" color="light" margin="absolute" @tab-changed="handlePeriodTabChanged">
-								<TheTab v-for="(period, periodIdx) in periodTabs" :key="`${currentlySelectedTab}-periodTab-${periodIdx}`" :title="period">
-									<LineChart
-										class="u-mt-32"
-										:name="selectedPeriodTab"
-										:x-axis-labels="xAxisLabels"
-										:chart-data="yAxisData"
-										@mouseOverDataPoint="handleMouseOverChart"
-									/>
-								</TheTab>
-							</TheTabs>
-						</TheTab>
-					</TheTabs>
+				<div class="chart u-min-height-600">
+					<LayoutFlex direction="row-space-between">
+						<div class="chart--overview">
+							<p>{{ selectedPriceTab }}</p>
+							<h1>{{ graphSelection ? graphSelection : '0.00' }}</h1>
+							<p class="u-colour-white">{{ dateSelection ? dateSelection : "00/00/00" }}</p>
+						</div>
+						<LayoutFlex direction="column-justify-between">
+							<Pills :pills="priceTabs" @pill-clicked="handlePriceTabChanged" />
+							<Pills v-if="selectedPriceTab !== 'Price' && selectedPriceTab !== null" :pills="periodTabs" default-active @pill-clicked="handlePeriodTabChanged" />
+						</LayoutFlex>
+					</LayoutFlex>
+					<LineChart
+						:key="`${selectedPriceTab}-${selectedPeriodTab}`"
+						class="u-mt-32"
+						:name="selectedPriceTab || ''"
+						:x-axis-labels="xAxisLabels"
+						:chart-data="yAxisData"
+						@mouseOverDataPoint="handleMouseOverChart"
+					/>
 				</div>
 			</LayoutFlex>
 		</div>
@@ -56,11 +55,11 @@ export default {
 	data() {
 		return {
 			currentlySelectedTab: "",
-			selectedPriceTab: "Price",
+			selectedPriceTab: null,
 			selectedPeriodTab: "",
 			tabs: ["HX", "NUON"],
 			priceTabs: ["Price", "Market Cap", "Circulating Supply"],
-			periodTabs: ["W", "M"],
+			periodTabs: ["D", "W", "M"],
 			priceHistoryData: [],
 			graphSelection: "",
 			dateSelection: ""
@@ -87,14 +86,16 @@ export default {
 			}));
 		},
 		xAxisLabels() {
-			const numberOfDaysInPast = this.selectedPeriodTab === "W" ? 7 : 30;
+			let numberOfDaysInPast = this.selectedPeriodTab === "W" ? 7 : 30;
+			if (this.selectedPriceTab === "Price") numberOfDaysInPast = 0;
 			const data = this.graphData.map(d => d.date).slice(this.graphData.length - numberOfDaysInPast);
 			data.push("");
 			data.unshift("");
 			return data;
 		},
 		yAxisData() {
-			const numberOfDaysInPast = this.selectedPeriodTab === "W" ? 7 : 30;
+			let numberOfDaysInPast = this.selectedPeriodTab === "W" ? 7 : 30;
+			if (this.selectedPriceTab === "Price") numberOfDaysInPast = 0;
 			const data = this.graphData.map(d => d.price).slice(this.graphData.length - numberOfDaysInPast);
 			data.push(null);
 			data.unshift(null);

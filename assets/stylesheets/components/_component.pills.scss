@@ -1,0 +1,20 @@
+.pill {
+	border-radius: $SPACING_24;
+	color: $LIGHT_GREY;
+	padding: $SPACING_8 $SPACING_20;
+	margin-right: $SPACING_20;
+	cursor: pointer;
+	&:hover {
+		color: $LIME;
+		background-color: $DARK_GREY;
+	}
+}
+
+.pill:last-child {
+	margin-right: auto;
+}
+
+.pill.active {
+	background-color: $DARK_GREY;
+	color: $LIME;
+}
