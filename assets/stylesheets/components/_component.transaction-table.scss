@@ -37,6 +37,9 @@
 		line-height: $SPACING_18;
 		padding: $SPACING_32;
 	}
+	.transaction-table__row:first-child {
+		padding-bottom: $SPACING_32;
+	}
 }
 @media screen and (max-width: $SPACING_990) {
 	.transaction-table {
@@ -44,5 +47,8 @@
 	}
 	.transaction-table__cell {
 		padding: $SPACING_16 0;
+	}
+	.transaction-table__row:first-child {
+		padding-bottom: $SPACING_16;
 	}
 }
