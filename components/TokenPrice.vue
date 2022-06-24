@@ -23,18 +23,18 @@
 				</div>
 				<div class="chart u-min-height-600">
 					<LayoutFlex direction="row-space-between">
-						<div class="chart--overview">
+						<div class="u-min-height-96">
 							<p>{{ selectedPriceTab }}</p>
-							<h1>{{ graphSelection ? graphSelection : '0.00' }}</h1>
-							<p class="u-colour-white">{{ dateSelection ? dateSelection : "00/00/00" }}</p>
+							<h1 v-show="graphSelection">{{ graphSelection }}</h1>
+							<p v-show="graphSelection" class="u-colour-white">{{ dateSelection }}</p>
 						</div>
 						<LayoutFlex direction="column-justify-between">
-							<Pills :pills="priceTabs" @pill-clicked="handlePriceTabChanged" />
+							<Pills :pills="priceTabs" default-active @pill-clicked="handlePriceTabChanged" />
 							<Pills v-if="selectedPriceTab !== 'Price' && selectedPriceTab !== null" :pills="periodTabs" default-active @pill-clicked="handlePeriodTabChanged" />
 						</LayoutFlex>
 					</LayoutFlex>
 					<LineChart
-						:key="`${selectedPriceTab}-${selectedPeriodTab}`"
+						:key="`${currentlySelectedTab}-${selectedPriceTab}-${selectedPeriodTab}`"
 						class="u-mt-32"
 						:name="selectedPriceTab || ''"
 						:x-axis-labels="xAxisLabels"
@@ -55,11 +55,11 @@ export default {
 	data() {
 		return {
 			currentlySelectedTab: "",
-			selectedPriceTab: null,
+			selectedPriceTab: "Price",
 			selectedPeriodTab: "",
 			tabs: ["HX", "NUON"],
 			priceTabs: ["Price", "Market Cap", "Circulating Supply"],
-			periodTabs: ["D", "W", "M"],
+			periodTabs: ["W", "M"],
 			priceHistoryData: [],
 			graphSelection: "",
 			dateSelection: ""
@@ -86,17 +86,21 @@ export default {
 			}));
 		},
 		xAxisLabels() {
-			let numberOfDaysInPast = this.selectedPeriodTab === "W" ? 7 : 30;
-			if (this.selectedPriceTab === "Price") numberOfDaysInPast = 0;
-			const data = this.graphData.map(d => d.date).slice(this.graphData.length - numberOfDaysInPast);
+			const data = this.graphData.map(d => d.date);
+			if (this.selectedPriceTab !== "Price") {
+				const numberOfDaysInPast = this.selectedPeriodTab === "W" ? 7 : 30;
+				data.slice(this.graphData.length - numberOfDaysInPast);
+			}
 			data.push("");
 			data.unshift("");
 			return data;
 		},
 		yAxisData() {
-			let numberOfDaysInPast = this.selectedPeriodTab === "W" ? 7 : 30;
-			if (this.selectedPriceTab === "Price") numberOfDaysInPast = 0;
-			const data = this.graphData.map(d => d.price).slice(this.graphData.length - numberOfDaysInPast);
+			const data = this.graphData.map(d => d.price);
+			if (this.selectedPriceTab !== "Price") {
+				const numberOfDaysInPast = this.selectedPeriodTab === "W" ? 7 : 30;
+				data.slice(this.graphData.length - numberOfDaysInPast);
+			}
 			data.push(null);
 			data.unshift(null);
 			return data;
@@ -106,6 +110,7 @@ export default {
 		try {
 			const response = await getTokenPricesDayData();
 			this.priceHistoryData = response.data.data.tokenPriceDayDatas;
+			this.handlePeriodTabChanged(0);
 		} catch (e) {
 			this.failureToast(null, e, "An error occurred when fetching data");
 		}
