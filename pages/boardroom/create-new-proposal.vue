@@ -140,7 +140,7 @@ export default {
 				description: "",
 				startDate: null,
 			},
-			minimumStake: 10,
+			minimumStake: 100,
 			votingPower: 23.4,
 			errors: {
 				date: "",
