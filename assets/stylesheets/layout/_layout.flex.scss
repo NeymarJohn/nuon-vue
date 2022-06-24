@@ -83,6 +83,10 @@
 	flex-direction: column;
 	flex-wrap: wrap;
 }
+.l-flex--column-justify-between {
+	flex-direction: column;
+	justify-content: space-between;
+}
 
 // 4. Flex responsive
 @media screen and (max-width: $SPACING_990) {
