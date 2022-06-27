@@ -13,8 +13,8 @@
 				</div>
 				<div class="chart chart--donut">
 					<p class="u-mb-4">Collateral Distribution</p>
-					<p class="u-colour-white u-mb-16">{{dateStr}}</p>
-					<DonutChartCollateral v-if="donutChartData" class="u-mb-24" :chart-data="donutChartData"/>
+					<p class="u-colour-white u-mb-16">Apr 14, 2022</p>
+					<DonutChartCollateral class="u-mb-24" />
 					<p>APY <TooltipIcon v-tooltip="'Enter APY tooltip content here.'" /></p>
 					<h3 class="u-mb-24">Inflation 34.3%</h3>
 					<p>Collateralization Ratio<TooltipIcon v-tooltip="'Enter collateralization ratio tooltip content here.'" /></p>
@@ -42,9 +42,7 @@ export default {
 			monthData: [],
 			isLoadedData: false,
 			loadingData: false,
-			error: false,
-			dateStr: "",
-			donutChartData: null
+			error: false
 		};
 	},
 	mounted () {
@@ -62,20 +60,15 @@ export default {
 				chartData.push({
 					...item,
 					time: currentDate.format("YYYY-MM-DD"),
-					value: totalValue,
-					formattedDate: currentDate.format("YYYY-MM-DD"),
+					value: totalValue 
 				});
 				weekData[currentDate.startOf("week").format("YYYY-MM-DD")] = {
-					...item,
 					time: currentDate.startOf("week").format("YYYY-MM-DD"),
-					value: totalValue,
-					formattedDate: currentDate.format("YYYY-MM-DD"),
+					value: totalValue
 				};
 				monthData[currentDate.startOf("month").format("YYYY-MM-DD")] = {
-					...item,
 					time: currentDate.startOf("month").format("YYYY-MM-DD"),
-					value: totalValue,
-					formattedDate: currentDate.format("YYYY-MM-DD"),
+					value: totalValue
 				};
 			});
 			this.dayData = chartData;
@@ -86,11 +79,6 @@ export default {
 		}).catch(() => {
 			this.isLoadedData = false;
 			this.error = true;
-		});
-
-		this.$root.$on("tvl-chart-move", ({dateStr, data}) => {
-			this.dateStr = dateStr;
-			this.donutChartData = data;
 		});
 	},
 };

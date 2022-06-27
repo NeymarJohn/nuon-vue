@@ -11,16 +11,6 @@ export const getCollateralTVLDayData = () => axios.post(THE_GRAPH_URL, {
 				price
 				totalValue
 				value
-				collateralTokens {
-					id
-					date
-					amount
-					token {
-						id
-						symbol
-						tokenAddress
-					}
-				}
 			}
 		}`
 });

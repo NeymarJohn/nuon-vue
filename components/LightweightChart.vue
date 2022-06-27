@@ -121,7 +121,7 @@ export default {
 			<p class="u-colour-white u-mb-16">${dateStr}</p>
 		`;
 
-		this.$root.$emit("tvl-chart-move", {data: data[data.length - 1], dateStr});
+
 		function numberWithCommas (x) {
 			if (!x) return 0;
 			return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -200,11 +200,8 @@ export default {
 							<h1>$${this.$options.filters.numberWithCommas((Math.round(price * 100) / 100).toFixed(2))}</h1>
 							<p class="u-colour-white u-mb-16">${dateStr}</p>
 						`;
-
-						// Emit move event for update donut chart
-						const currentData = this.seriesesData[this.currentTabIndex].find(item => item.formattedDate === timeString);
-						this.$root.$emit("tvl-chart-move", {data: currentData, dateStr, param});
 					}
+
 				});
 			}
 		}
