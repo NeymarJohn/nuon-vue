@@ -8,7 +8,8 @@ declare let ethereum: any;
 
 const WALLET_CONNECTED = "wallet_connected";
 const DEFAULT_CHAIN_ID = 31010;
-
+const RINKEBY_PROVIDER = "https://rinkeby.infura.io/v3/950e2e1f336a4e3bade855464f024942";
+const PRIVATE_PROVIDER = "https://eth-private-testnet-poa.hydrogenx.tk/";
 export const state = () => ({
 	// new Web3.providers.HttpProvider("https://eth-private-testnet-poa.hydrogenx.tk/")
 	// https://rinkeby.infura.io/v3/950e2e1f336a4e3bade855464f024942
@@ -43,13 +44,9 @@ export const actions: ActionTree<Web3State, Web3State> = {
    * @dev initialize with default web3 values
    */
 	init ({ commit, dispatch }) {
-		// DEFAULT_CHAIN_ID
-		const chainId = 4;
-		// new Web3.providers.HttpProvider("https://eth-private-testnet-poa.hydrogenx.tk/")
 		const web3 = new Web3(new Web3.providers.HttpProvider("https://rinkeby.infura.io/v3/950e2e1f336a4e3bade855464f024942"));
 
 		commit("setWeb3", () => web3);
-		commit("setChainId", chainId);
 		if (localStorage.getItem(WALLET_CONNECTED)) {
 			const wallet = localStorage.getItem("nuon-wallet");
 			if (wallet === "metamask") {
@@ -70,11 +67,11 @@ export const actions: ActionTree<Web3State, Web3State> = {
 					const chainId = Web3.utils.hexToNumber(await window.ethereum.request({ method: "eth_chainId" }));
 					const web3 = new Web3(Web3.givenProvider);
 					const balance = await web3.eth.getBalance(account);
-					console.log("balance: ", balance);
+					commit("setChainId", chainId);
 					commit("setAccount", account);
 					commit("setWeb3", () => web3);
 					dispatch("updateChain", chainId);
-					console.log(chainId);
+
 					localStorage.setItem(WALLET_CONNECTED, "connected");
 					localStorage.setItem("nuon-wallet", wallet);
 					// Dispatch other modules actions

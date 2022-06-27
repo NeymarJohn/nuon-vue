@@ -1,6 +1,6 @@
 import { GetterTree } from "vuex";
 import { Web3State } from "./web3Store";
-import { BOARDROOM_ADDRESS, HYDRO_ADDRESS, NUON_USDC_PAIR_ADDRESS, ROUTER_ADDRESS, tokenPairs, TREASURY_ADDRESS, WETH_ADDRESS, USDC_ADDRESS, NUON_CONTROLLER_ADDRESS, NUON_ADDRESS } from "~/constants/addresses";
+import { BOARDROOM_ADDRESS, HYDRO_ADDRESS, NUON_USDC_PAIR_ADDRESS, ROUTER_ADDRESS, tokenPairs, TREASURY_ADDRESS, WETH_ADDRESS, USDC_ADDRESS, NUON_CONTROLLER_ADDRESS, NUON_ADDRESS, COLLATERAL_HUB_ADDRESS } from "~/constants/addresses";
 
 export const state = () => ({
 	addr: {
@@ -17,7 +17,8 @@ export const state = () => ({
 			nuon: NUON_ADDRESS,
 			usdc: USDC_ADDRESS,
 			treasury: TREASURY_ADDRESS,
-			uniswapV2Pair: tokenPairs
+			uniswapV2Pair: tokenPairs,
+			collateralHub: COLLATERAL_HUB_ADDRESS
 		},
 		4: {
 			boardroom: "0x0a5e2EeA70B9Db9f801750feEcA9b245aBC7a388",
@@ -29,7 +30,8 @@ export const state = () => ({
 			nuon: "0xE66Edfc2F5B2E98A35074eeAd30f5B6Ed2cccE4E",
 			usdc: "0xBD9c0bc5AeB998A9d6C4e8293d2A49111EdE5509",
 			treasury: "0xD3902ce5C4b4c4bdC7Fb5E7481b2B70fA1e4aB75",
-			uniswapV2Pair: tokenPairs
+			uniswapV2Pair: tokenPairs,
+			collateralHub: "0xe28f09211CF4565386FDC2a384997667e367D077"
 		}
 	},
 	tokens: {
@@ -86,5 +88,10 @@ export const getters: GetterTree<ContractState, Web3State> = {
 	uniswapV2Pair: (state: any, _getters: any, store: any) => {
 		const addr = state.addr[store.web3Store.chainId as number].uniswapV2Pair;
 		return addr;
-	}
+	},
+
+	addresses: (state: any, _getters, store: any) => {
+		const addr = state.addr[store.web3Store.chainId as number];
+		return addr;
+	},
 };
