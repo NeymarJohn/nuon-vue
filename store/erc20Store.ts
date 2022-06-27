@@ -61,11 +61,9 @@ export const mutations: MutationTree<Erc20State> = {
 
 export const actions: ActionTree<Erc20State, Erc20State> = {
 	async initializeBalance (ctx: any, {address}) {
-		console.log("test");
 		const usdcDecimals = await ctx.getters.usdc.methods.decimals().call();
 		const nuonBalance = fromWei(await ctx.getters.nuon.methods.balanceOf(address).call(), ctx.state.decimals.NUON);
-		const hydroBalance = fromWei(await ctx.getters.hydro.methods.balanceOf(address).call(), ctx.state.decimals.HX);
-		console.log("hydroBalance: ", hydroBalance);
+		const hydroBalance = fromWei(await ctx.getters.hydro.methods.balanceOf(address).call(), ctx.state.decimals.HX) ;
 		const usdcBalance = fromWei(await ctx.getters.usdc.methods.balanceOf(address).call(), usdcDecimals);
 		const ethBalance = fromWei(await ctx.getters.eth.methods.balanceOf(address).call(), ctx.state.decimals.ETH);
 

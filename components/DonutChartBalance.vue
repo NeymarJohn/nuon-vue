@@ -4,29 +4,28 @@
 	</client-only>
 </template>
 <script>
-import { fromWei } from "~/utils/bnTools";
-
 export default {
-	name: "DonutChartCollateral",
+	name: "DonutChartBalance",
 	props: {
 		chartData: {
-			type: Object,
-			default: () => {}
+			type: Array,
+			required: true
 		},
 	},
 	data() {
 		return {
-			series: [],
+			series: this.chartData,
 			dateStr: "",
 			chartOptions: {
 				width: "100%",
-				labels: ["HX", "TNode", "Osmosis", "ANC", "Others"],
-				colors: ["#FFC165", "#65B5FF", "#65FFED", "#E965FF", "#C4C4C4"],
+				labels: ["Balance", "Collateral Locked", "Staked"],
+				colors: ["#FFC165", "#65F6FF", "#65FFED"],
 				chart: {
 					type: "donut",
 					foreColor: "#B7B7B7"
 				},
 				legend: {
+					show: false,
 					position: "bottom",
 					fontSize: "16",
 					fontWeight: "400",
@@ -37,7 +36,7 @@ export default {
 					width: 0
 				},
 				dataLabels: {
-					enabled: true,
+					enabled: false,
 					dropShadow: false,
 					textAnchor: "start",
 					style: {
@@ -75,16 +74,6 @@ export default {
 				}
 			},
 		};
-	},
-	mounted () {
-		this.updateData();
-	},
-	methods: {
-		updateData() {
-			const newSeriess = this.chartData.collateralTokens.map((item) => Number(fromWei(item.amount)));
-			this.series = newSeriess;
-			this.chartOptions.labels = this.chartData.collateralTokens.map((item) => item.token.symbol);
-		}
 	},
 };
 </script>

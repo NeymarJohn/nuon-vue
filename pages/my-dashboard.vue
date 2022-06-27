@@ -5,36 +5,43 @@
 			<h1>Portfolio Details</h1>
 		</PageTitle>
 		<h2 class="u-mb-24">Account Balance</h2>
-		<div class="l-chart l-chart--account-balance u-mb-80">
-			<LayoutFlex class="l-flex--column-sm">
-				<div class="chart">
-					<p>Total Value</p>
+		<LayoutFlex direction="row l-chart chart">
+			<LayoutFlex direction="column" class="balance-first">
+				<LayoutFlex direction="column">
+					<p>Total value</p>
 					<h1 class="u-mb-24">${{totalValue | toFixed | numberWithCommas}}</h1>
-					<p>Balance</p>
-					<h3>${{balancesValue | toFixed | numberWithCommas}}</h3>
-					<div class="progress u-mb-10">
-						<div class="progress__bar progress__bar--balance" :style="`width: ${balancesPercentage}%`"></div>
-						<h5 class="u-white-space-nowrap">{{balancesPercentage | toFixed}}%</h5>
+				</LayoutFlex>
+				<LayoutFlex direction="row-center-space-around">
+					<div><DonutChartBalance :chart-data="[1,2,3]" /></div>
+					<div>
+						<LayoutFlex direction="row-center">
+							<div class="dot orange"></div>
+							<p>Balance</p>
+						</LayoutFlex>
+						<h3>${{balancesValue | toFixed | numberWithCommas}}</h3>
 					</div>
-					<LayoutFlex class="u-mb-20">
-						<TheBadge class="u-mr-8" color="balance">{{tokenBalances.HX | toFixed | numberWithCommas}} HX</TheBadge>
-						<TheBadge color="balance">{{tokenBalances.NUON | toFixed | numberWithCommas}} Nuon</TheBadge>
-					</LayoutFlex>
-					<p>Collateral locked</p>
-					<h3>${{myCollateralLocked | toFixed | numberWithCommas}}</h3>
-					<div class="progress u-mb-20">
-						<div class="progress__bar progress__bar--locked" :style="`width: ${myCollateralLockedPercentage}%`"></div>
-						<h5 class="u-white-space-nowrap">{{myCollateralLockedPercentage | toFixed}}%</h5>
+					<div>
+						<LayoutFlex direction="row-center">
+							<div class="dot blue"></div>
+							<p>Collateral locked</p>
+						</LayoutFlex>
+						<h3>${{myCollateralLocked | toFixed | numberWithCommas}}</h3>
 					</div>
-					<p>Staked</p>
-					<h3>${{stakedBalance | toFixed | numberWithCommas}}</h3>
-					<div class="progress">
-						<div class="progress__bar progress__bar--staked" :style="`width: ${stakedBalancePercentage}%`"></div>
-						<h5 class="u-white-space-nowrap">{{stakedBalancePercentage | toFixed}}%</h5>
+					<div>
+						<LayoutFlex direction="row-center">
+							<div class="dot tourquise"></div>
+							<p>Staked</p>
+						</LayoutFlex>
+						<h3>${{stakedBalance | toFixed | numberWithCommas}}</h3>
 					</div>
-				</div>
+				</LayoutFlex>
 			</LayoutFlex>
-		</div>
+			<div class="balance-second">
+				<p>Pending Rewards</p>
+				<h1>{{pendingRewards | toFixed | numberWithCommas}}<sup>HX</sup></h1>
+				<h3>${{rewardsDollarValue | toFixed | numberWithCommas }}</h3>
+			</div>
+		</LayoutFlex>
 		<h2 class="u-mb-24">Transaction History</h2>
 		<TheTabs size="full-width" color="mobile-scroll tabs--dark" margin="sm-24">
 			<TheTab title="Collateral Hub">
@@ -57,6 +64,12 @@
 import { fromWei } from "~/utils/bnTools";
 export default {
 	name: "MyDashboard",
+	data() {
+		return {
+			pendingRewards: 0,
+			rewardsDollarValue: 0
+		};
+	},
 	head () {
 		return {
 			title: "My Dashboard | Nuon"

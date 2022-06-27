@@ -5,7 +5,7 @@ import collateralHubAbi from "./abi/collateral_hub_native.json";
 import nuonControllerAbi from "./abi/nuon_controller.json";
 import truflationAbi from "./abi/truflation.json";
 import { fromWei, toWei } from "~/utils/bnTools";
-import { TRUFLATION_ADDRESS, NUON_CONTROLLER_ADDRESS } from "~/constants/addresses";
+import { COLLATERAL_HUB_ADDRESS, TRUFLATION_ADDRESS, NUON_CONTROLLER_ADDRESS } from "~/constants/addresses";
 
 type StateType = {
 	allowance: any,
@@ -93,14 +93,14 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 	async getAllowance (ctx: any) {
 		const address = ctx.rootGetters["web3Store/account"];
 		if (!address) return;
-		const collateralHubAddress = ctx.rootGetters["addressStore/addresses"].collateralHub;
-		const getNuonAllowance = fromWei(await ctx.rootGetters["erc20Store/nuon"].methods.allowance(address, collateralHubAddress).call());
-		const getHydroAllowance = fromWei(await  ctx.rootGetters["erc20Store/hydro"].methods.allowance(address, collateralHubAddress).call());
-		const getUSDCAllowance = fromWei(await  ctx.rootGetters["erc20Store/usdc"].methods.allowance(address, collateralHubAddress).call());
+		const getNuonAllowance = fromWei(await ctx.rootGetters["erc20Store/nuon"].methods.allowance(address, COLLATERAL_HUB_ADDRESS).call());
+		const getHydroAllowance = fromWei(await  ctx.rootGetters["erc20Store/hydro"].methods.allowance(address, COLLATERAL_HUB_ADDRESS).call());
+		// const getDaiAllowance = fromWei(await  ctx.rootGetters["erc20Store/dai"].methods.allowance(address, COLLATERAL_HUB_ADDRESS).call());
+		const getUSDCAllowance = fromWei(await  ctx.rootGetters["erc20Store/usdc"].methods.allowance(address, COLLATERAL_HUB_ADDRESS).call());
 		ctx.commit("setAllowance", {HX: getHydroAllowance, NUON: getNuonAllowance, USDC: getUSDCAllowance});
 	},
 	approveToken(ctx: any, {tokenSymbol,  onConfirm, onReject, onCallback}): void {
-		const contractAddress = ctx.rootGetters["addressStore/addresses"].collateralHub;
+		const contractAddress = COLLATERAL_HUB_ADDRESS;
 		ctx.dispatch("erc20Store/approveToken", {tokenSymbol, contractAddress, onConfirm, onReject, onCallback}, {root:true} )
 			.then(() => {
 				ctx.dispatch("getAllowance").then(() => {
@@ -224,7 +224,7 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 export const getters: GetterTree<BoardroomState, Web3State> = {
 	collateralHubContract: (_state: any, _getters: any, store: any) => {
 		const web3 = store.web3Store.instance();
-		return new web3.eth.Contract(collateralHubAbi, _getters["addressStore/addresses"].collateralHub);
+		return new web3.eth.Contract(collateralHubAbi, COLLATERAL_HUB_ADDRESS);
 	},
 	libraryContract: (_state: any, _getters: any, store: any) => {
 		const web3 = store.web3Store.instance();
