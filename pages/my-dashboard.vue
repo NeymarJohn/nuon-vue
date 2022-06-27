@@ -29,7 +29,7 @@
 					</div>
 					<div>
 						<LayoutFlex direction="row-center">
-							<div class="dot cyan"></div>
+							<div class="dot tourquise"></div>
 							<p>Staked</p>
 						</LayoutFlex>
 						<h3>${{stakedBalance | toFixed | numberWithCommas}}</h3>
