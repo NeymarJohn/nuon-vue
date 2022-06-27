@@ -201,7 +201,6 @@ export default {
 							<p class="u-colour-white u-mb-16">${dateStr}</p>
 						`;
 
-
 						// Emit move event for update donut chart
 						const currentData = this.seriesesData[this.currentTabIndex].find(item => item.formattedDate === timeString);
 						this.$root.$emit("tvl-chart-move", {data: currentData, dateStr, param});

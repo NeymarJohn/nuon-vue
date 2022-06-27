@@ -87,6 +87,7 @@ export default {
 			this.isLoadedData = false;
 			this.error = true;
 		});
+
 		this.$root.$on("tvl-chart-move", ({dateStr, data}) => {
 			this.dateStr = dateStr;
 			this.donutChartData = data;

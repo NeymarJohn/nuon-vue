@@ -23,18 +23,18 @@
 			<ComponentLoader component="h1" :loaded="myCollateralizationRatio !== null">
 				<h3 :class="myCollateralizationRatio < 730 ? myCollateralizationRatio < 460 ? 'u-is-warning' : 'u-is-caution' : 'u-is-success'">{{ myCollateralizationRatio | toFixed }}<sup>%</sup></h3>
 			</ComponentLoader>
-			<!-- <TheLoader component="h5">
+			<TheLoader component="h5">
 				<TheBadge color="price-up">+ 0.03%</TheBadge>
-			</TheLoader> -->
+			</TheLoader>
 		</DataCard>
 		<DataCard align="min-width">
 			<label>Current {{ collateralToken }} Price<TooltipIcon v-tooltip="'Enter current ETH price tooltip content here.'" /></label>
 			<ComponentLoader component="h1" :loaded="currentPrice !== null">
 				<h3>${{ currentPrice | toFixed | numberWithCommas }}</h3>
 			</ComponentLoader>
-			<!-- <TheLoader component="h5">
+			<TheLoader component="h5">
 				<TheBadge color="price-down">- 4.56%</TheBadge>
-			</TheLoader> -->
+			</TheLoader>
 		</DataCard>
 	</LayoutInfo>
 </template>
