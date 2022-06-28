@@ -28,7 +28,7 @@ export const ETH_ADDRESS = "0x49eB01E821fC978db9e1f127F6F66EFEDad4B260"; // ETHM
 
 export const EPOCH_PERIOD = 6; // 6 hours from Treasury.sol
 
-export const VALID_NETWORKS = [31010];
+export const VALID_NETWORKS = [4, 31010];
 
 export const tokenPairs = [
 	{

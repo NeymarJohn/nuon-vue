@@ -36,9 +36,8 @@
 					<LineChart
 						:key="`${currentlySelectedTab}-${selectedPriceTab}-${selectedPeriodTab}`"
 						class="u-mt-32"
-						:name="selectedPriceTab || ''"
 						:x-axis-labels="xAxisLabels"
-						:chart-data="yAxisData"
+						:series-data="[{name: selectedPriceTab || '',  data: yAxisData}]"
 						@mouseOverDataPoint="handleMouseOverChart"
 					/>
 				</div>
