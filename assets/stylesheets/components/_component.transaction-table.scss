@@ -10,24 +10,26 @@
 	margin-bottom: $SPACING_48;
 	padding: $SPACING_40 $SPACING_32;
 	border-radius: $BORDER_RADIUS_8;
-	max-width: 1932px;
-	overflow-x: scroll;
 }
 .transaction-table__row {
 	display: flex;
+	flex-flow: row wrap;
+	border-bottom: $SPACING_1 solid $LIGHER_GREY;
+}
+.transaction-table__row:first-child {
+	padding-bottom: $SPACING_40;
 }
 .transaction-table__cell {
 	padding: $SPACING_20 0;
-	border-bottom: $SPACING_1 solid $LIGHER_GREY;
 }
 .transaction-table__row:first-child .transaction-table__cell {
 	color: $LIGHT_GREY;
-	padding-bottom: $SPACING_40;
+	padding: 0;
 }
 
 // 2. Transaction table 4 columns
 .transaction-table--4 .transaction-table__cell {
-	min-width: calc(100% / 4);
+	width: calc(100% / 4);
 }
 
 // 3. Transaction table responsive

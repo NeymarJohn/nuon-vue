@@ -1,5 +1,5 @@
 import axios from "axios";
-const THE_GRAPH_URL = "https://graphiql-nuon.hydrogenx.tk/subgraphs/name/nuon";
+const THE_GRAPH_URL = "https://graphiql-nuon.hydrogenx.live/subgraphs/name/nuon";
 
 export const getCollateralTVLDayData = () => axios.post(THE_GRAPH_URL, {
 	query: `

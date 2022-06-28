@@ -19,10 +19,7 @@
 					class="transaction-table__cell"
 					role="cell">
 					<span v-if="obj.id === 'date'">{{ new Date(row[obj.id]).toLocaleDateString() }}</span>
-					<span v-else class="l-flex l-flex--row-center">
-						<img v-if="misc.hasImage && misc.hasImage[obj.id]" :src="require(`~/assets/images/borrow/${misc.hasImage[obj.id]}.png`)" class="u-mr-8" height="17" width="17" alt="">
-						{{ row[obj.id] }}
-					</span>
+					<span v-else>{{ row[obj.id] }}</span>
 				</div>
 			</div>
 		</template>
@@ -34,7 +31,7 @@
 			</div>
 		</template>
 		<ThePagination
-			v-if="data.length && data.length > 10"
+			v-if="data.length"
 			:max-visible-buttons="10"
 			:total-pages="Math.ceil(data.length / 10)"
 			:per-page="10"
@@ -62,13 +59,6 @@ export default {
 		size: {
 			type: String,
 			required: true
-		},
-		misc: {
-			type: Object,
-			required: false,
-			default() {
-				return {hasImage: {}};
-			}
 		}
 	},
 	data() {

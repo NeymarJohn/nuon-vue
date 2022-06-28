@@ -12,14 +12,21 @@ export default {
 			type: Array,
 			required: true
 		},
-		seriesData: {
+		chartData: {
 			type: Array,
 			required: true
 		},
+		name: {
+			type: String,
+			required: true
+		}
 	},
 	data() {
 		return {
-			series: this.seriesData,
+			series: [{
+				name: this.name,
+				data: this.chartData
+			}],
 			chartOptions: {
 				colors: ["#DFFF65"],
 				chart: {

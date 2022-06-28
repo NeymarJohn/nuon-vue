@@ -94,34 +94,6 @@ export default {
 			},
 		};
 
-		const chart = window.tvchart = LightweightCharts.createChart(container, chartOptions);
-		this.chartObj = chart;
-		const tooltip = document.createElement("div");
-		this.tooltipDom = tooltip;
-		container.prepend(tooltip);
-
-		this.setChartData();
-
-		function getMonthName(x) {
-			const date = new Date();
-			date.setMonth(x - 1);
-			const monthName = date.toLocaleString("default", { month: "short" });
-			return monthName;
-		}
-
-		const dateStr = `
-			${getMonthName(data[data.length - 1].time.month)}
-			${data[data.length - 1].time.day},
-			${data[data.length - 1].time.year}
-		`;
-
-		this.tooltipDom.innerHTML =	`
-			<p>TVL</p>
-			<h1>$${numberWithCommas(data[data.length - 1].value.toFixed(2))}</h1>
-			<p class="u-colour-white u-mb-16">${dateStr}</p>
-		`;
-
-		this.$root.$emit("tvl-chart-move", {data: data[data.length - 1], dateStr});
 		function numberWithCommas (x) {
 			if (!x) return 0;
 			return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -139,6 +111,37 @@ export default {
 				return parseFloat((num / 1000000000).toFixed(1)) + "B"; // convert to M for number from > 1 billion
 			}
 		}
+
+		const chart = window.tvchart = LightweightCharts.createChart(container, chartOptions);
+		this.chartObj = chart;
+		const tooltip = document.createElement("div");
+		this.tooltipDom = tooltip;
+		container.prepend(tooltip);
+
+		this.setChartData();
+
+		function getMonthName(x) {
+			const date = new Date();
+			date.setMonth(x - 1);
+			const monthName = date.toLocaleString("default", { month: "short" });
+			return monthName;
+		}
+
+		if (data.length === 0) return;
+
+		const dateStr = `
+			${getMonthName(data[data.length - 1].time.month)}
+			${data[data.length - 1].time.day},
+			${data[data.length - 1].time.year}
+		`;
+
+		this.tooltipDom.innerHTML =	`
+			<p>TVL</p>
+			<h1>$${numberWithCommas(data[data.length - 1].value.toFixed(2))}</h1>
+			<p class="u-colour-white u-mb-16">${dateStr}</p>
+		`;
+
+		this.$root.$emit("tvl-chart-move", {data: data[data.length - 1], dateStr});
 	},
 	methods: {
 		handleTabChanged(tabIndex) {
@@ -200,6 +203,7 @@ export default {
 							<h1>$${this.$options.filters.numberWithCommas((Math.round(price * 100) / 100).toFixed(2))}</h1>
 							<p class="u-colour-white u-mb-16">${dateStr}</p>
 						`;
+
 
 						// Emit move event for update donut chart
 						const currentData = this.seriesesData[this.currentTabIndex].find(item => item.formattedDate === timeString);

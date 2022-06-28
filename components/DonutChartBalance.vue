@@ -19,7 +19,7 @@ export default {
 			chartOptions: {
 				width: "100%",
 				labels: ["Balance", "Collateral Locked", "Staked"],
-				colors: ["#FFC165", "#65b5FF", "#65F6FF"],
+				colors: ["#FFC165", "#65F6FF", "#65FFED"],
 				chart: {
 					type: "donut",
 					foreColor: "#B7B7B7"
