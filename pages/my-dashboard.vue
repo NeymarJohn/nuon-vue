@@ -11,7 +11,7 @@
 					<p>Total value</p>
 					<h1 class="u-mb-24">${{totalValue | toFixed | numberWithCommas}}</h1>
 				</LayoutFlex>
-				<LayoutFlex direction="row-center-space-around">
+				<LayoutFlex direction="row-center-space-around l-flex--wrap">
 					<div><DonutChartBalance :chart-data="[1,2,3]" /></div>
 					<div>
 						<LayoutFlex direction="row-center">
