@@ -4,8 +4,9 @@ import { Web3State } from "./web3Store";
 import collateralHubAbi from "./abi/collateral_hub_native.json";
 import nuonControllerAbi from "./abi/nuon_controller.json";
 import truflationAbi from "./abi/truflation.json";
+import boardroomAbi from "./abi/boardroom.json";
 import { fromWei, toWei } from "~/utils/bnTools";
-import { TRUFLATION_ADDRESS, NUON_CONTROLLER_ADDRESS } from "~/constants/addresses";
+import { TRUFLATION_ADDRESS } from "~/constants/addresses";
 
 type StateType = {
 	allowance: any,
@@ -222,18 +223,20 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 };
 
 export const getters: GetterTree<BoardroomState, Web3State> = {
-	collateralHubContract: (_state: any, _getters: any, store: any) => {
+	collateralHubContract: (_state: any, _getters: any, store: any, rootGetters: any) => {
 		const web3 = store.web3Store.instance();
-		return new web3.eth.Contract(collateralHubAbi, _getters["addressStore/addresses"].collateralHub);
-	},
-	libraryContract: (_state: any, _getters: any, store: any) => {
-		const web3 = store.web3Store.instance();
-		const addr = store.addressStore.addr[store.web3Store.chainId as number].boardroom;
+		const addr = rootGetters["addressStore/addresses"].collateralHub;
 		return new web3.eth.Contract(collateralHubAbi, addr);
 	},
-	nuonControllerContract:  (_state: any, _getters: any, store: any) => {
+	boardroomContract: (_state: any, _getters: any, store: any, rootGetters) => {
 		const web3 = store.web3Store.instance();
-		return new web3.eth.Contract(nuonControllerAbi, NUON_CONTROLLER_ADDRESS);
+		const addr = rootGetters["addressStore/addresses"].boardroom;
+		return new web3.eth.Contract(boardroomAbi, addr);
+	},
+	nuonControllerContract:  (_state: any, _getters: any, store: any, rootGetters: any) => {
+		const web3 = store.web3Store.instance();
+		const addr = rootGetters["addressStore/addresses"].nuonController;
+		return new web3.eth.Contract(nuonControllerAbi, addr);
 	},
 	truflationContract: (_state: any, _getters: any, store: any) => {
 		const web3 = store.web3Store.instance();
