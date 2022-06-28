@@ -167,6 +167,9 @@ export default {
 						const monthName = date.toLocaleString("default", { month: "short" });
 						return monthName;
 					}
+
+					if (data.length === 0) return;
+
 					let dateStr = `
 						${getMonthName(data[data.length - 1].time.month)}
 						${data[data.length - 1].time.day},
