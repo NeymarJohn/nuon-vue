@@ -95,7 +95,6 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 		if (!address) return;
 		const getNuonAllowance = fromWei(await ctx.rootGetters["erc20Store/nuon"].methods.allowance(address, COLLATERAL_HUB_ADDRESS).call());
 		const getHydroAllowance = fromWei(await  ctx.rootGetters["erc20Store/hydro"].methods.allowance(address, COLLATERAL_HUB_ADDRESS).call());
-		// const getDaiAllowance = fromWei(await  ctx.rootGetters["erc20Store/dai"].methods.allowance(address, COLLATERAL_HUB_ADDRESS).call());
 		const getUSDCAllowance = fromWei(await  ctx.rootGetters["erc20Store/usdc"].methods.allowance(address, COLLATERAL_HUB_ADDRESS).call());
 		ctx.commit("setAllowance", {HX: getHydroAllowance, NUON: getNuonAllowance, USDC: getUSDCAllowance});
 	},
@@ -316,5 +315,8 @@ export const getters: GetterTree<BoardroomState, Web3State> = {
 	},
 	getNUONSupply: (_state: any, getters: any) => async () => {
 		return await getters.nuonControllerContract.methods.getNUONSupply().call();
-	}
+	},
+	getCollateralRatioInPercent: (_state: any, getters: any) => async () => {
+		return await getters.nuonControllerContract.methods.getCollateralRatioInPercent().call();
+	},
 };

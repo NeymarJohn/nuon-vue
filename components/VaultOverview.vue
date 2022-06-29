@@ -18,7 +18,7 @@
 					<p>APY <TooltipIcon v-tooltip="'Enter APY tooltip content here.'" /></p>
 					<h3 class="u-mb-24">Inflation 34.3%</h3>
 					<p>Collateralization Ratio<TooltipIcon v-tooltip="'Enter collateralization ratio tooltip content here.'" /></p>
-					<h3>150%</h3>
+					<h3>{{collateralRatio}}%</h3>
 				</div>
 			</LayoutFlex>
 		</div>
@@ -29,6 +29,7 @@
 import dayjs from "dayjs";
 import TooltipIcon from "@/assets/images/svg/svg-tooltip.svg";
 import { getCollateralTVLDayData } from "~/services/theGraph";
+import { fromWei } from "~/utils/bnTools";
 
 export default {
 	name: "VaultOverview",
@@ -44,10 +45,11 @@ export default {
 			loadingData: false,
 			error: false,
 			dateStr: "",
-			donutChartData: null
+			donutChartData: null,
+			collateralRatio: 0,
 		};
 	},
-	mounted () {
+	async mounted () {
 	// getCollateralTVLDayData
 		this.loadingData = true;
 		getCollateralTVLDayData().then((res) => {
@@ -91,6 +93,7 @@ export default {
 			this.dateStr = dateStr;
 			this.donutChartData = data;
 		});
+		this.collateralRatio = fromWei(await this.$store.getters["collateralVaultStore/getCollateralRatioInPercent"]());
 	},
 };
 </script>
