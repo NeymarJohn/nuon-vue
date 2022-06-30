@@ -40,15 +40,21 @@ export const getTokenPricesDayData = () => axios.post(THE_GRAPH_URL, {
 			}
 	}`
 });
-export const getTVLMonthData = axios.post(THE_GRAPH_URL, {
-	query: `
-		query collateralDayDatas {
-			collateralDayDatas {
-				amount
-				date
+
+export const getTotalSupplyWithToken = (token) => axios.post(THE_GRAPH_URL, {
+	query:`
+		query {
+			totalSupplyDayDatas(where: {token: "${token}"})  {
 				id
-				txCount
+				date
+				marketVal
+				token
 				value
+				price {
+					price
+					tokenAddress
+					time
+				}
 			}
-		}`
+	}`
 });

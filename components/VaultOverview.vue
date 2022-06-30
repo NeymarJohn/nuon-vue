@@ -49,7 +49,7 @@ export default {
 			collateralRatio: 0,
 		};
 	},
-	async mounted () {
+	mounted () {
 	// getCollateralTVLDayData
 		this.loadingData = true;
 		getCollateralTVLDayData().then((res) => {
@@ -93,7 +93,11 @@ export default {
 			this.dateStr = dateStr;
 			this.donutChartData = data;
 		});
-		this.collateralRatio = fromWei(await this.$store.getters["collateralVaultStore/getCollateralRatioInPercent"]());
+		this.$store.getters["collateralVaultStore/getCollateralRatioInPercent"]().then(res => {
+			this.collateralRatio = res;
+		}).catch(e => {
+			this.collateralRatio = 0;
+		});
 	},
 };
 </script>
