@@ -79,7 +79,9 @@ export default {
 		},
 		tokenPrice() {
 			if ([undefined, null].includes(this.$store.state.tokenStore.price[this.currentlySelectedTab])) return null;
-			return parseFloat(this.$store.state.tokenStore.price[this.currentlySelectedTab]).toFixed(9);
+			let data = parseFloat(this.$store.state.tokenStore.price[this.currentlySelectedTab]).toFixed(2);
+			if (data === "0.00") data = parseFloat(this.$store.state.tokenStore.price[this.currentlySelectedTab]).toFixed(9);
+			return data;
 		},
 		graphData() {
 			const dataToUse = this.currentlySelectedTab === "NUON" ? this.nuonSupplyInfo : this.hydroSupplyInfo;
