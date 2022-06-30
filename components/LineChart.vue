@@ -16,11 +16,6 @@ export default {
 			type: Array,
 			required: true
 		},
-		animate: {
-			type: Boolean,
-			required: false,
-			default: true
-		},
 	},
 	data() {
 		return {
@@ -28,10 +23,6 @@ export default {
 			chartOptions: {
 				colors: ["#DFFF65"],
 				chart: {
-					animations: {
-						enabled: this.animate,
-						 easing: "easeinout",
-					},
 					height: 300,
 					type: "line",
 					zoom: {
