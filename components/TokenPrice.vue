@@ -38,6 +38,7 @@
 						class="u-mt-32"
 						:x-axis-labels="xAxisLabels"
 						:series-data="[{name: selectedPriceTab || '',  data: yAxisData}]"
+						:animate="false"
 						@mouseOverDataPoint="handleMouseOverChart"
 					/>
 				</div>
@@ -47,7 +48,8 @@
 </template>
 
 <script>
-import { getTokenPricesDayData } from "~/services/theGraph";
+import { getTotalSupplyWithToken} from "~/services/theGraph";
+import { NUON_ADDRESS, HYDRO_ADDRESS } from "~/constants/addresses";
 
 export default {
 	name: "TokenPrice",
@@ -61,7 +63,9 @@ export default {
 			periodTabs: ["W", "M"],
 			priceHistoryData: [],
 			graphSelection: "",
-			dateSelection: ""
+			dateSelection: "",
+			nuonSupplyInfo: [],
+			hydroSupplyInfo: []
 		};
 	},
 	computed: {
@@ -75,13 +79,18 @@ export default {
 		},
 		tokenPrice() {
 			if ([undefined, null].includes(this.$store.state.tokenStore.price[this.currentlySelectedTab])) return null;
-			return parseFloat(this.$store.state.tokenStore.price[this.currentlySelectedTab]).toFixed(2);
+			return parseFloat(this.$store.state.tokenStore.price[this.currentlySelectedTab]).toFixed(9);
 		},
 		graphData() {
-			const tokenIdx = this.currentlySelectedTab === "NUON" ? 0 : 1;
-			return this.priceHistoryData.map(d => ({
+			const dataToUse = this.currentlySelectedTab === "NUON" ? this.nuonSupplyInfo : this.hydroSupplyInfo;
+			let dataKey;
+			if (this.selectedPriceTab === "Price") dataKey = "price";
+			if (this.selectedPriceTab === "Market Cap") dataKey = "marketVal";
+			if (this.selectedPriceTab === "Circulating Supply") dataKey = "value";
+
+			return dataToUse.map(d => ({
 				date: new Date(d.date * 1000).toLocaleDateString(),
-				price: parseFloat(d.prices[tokenIdx].price).toFixed(2)
+				data: d[dataKey]
 			}));
 		},
 		xAxisLabels() {
@@ -95,11 +104,14 @@ export default {
 			return data;
 		},
 		yAxisData() {
-			const data = this.graphData.map(d => d.price);
-			if (this.selectedPriceTab !== "Price") {
+			let data = this.graphData.map(d => d.data);
+			if (this.selectedPriceTab === "Price") {
+				data = data.map(d => d.price);
+			} else {
 				const numberOfDaysInPast = this.selectedPeriodTab === "W" ? 7 : 30;
 				data.slice(this.graphData.length - numberOfDaysInPast);
 			}
+			data = data.map(d => parseFloat(d).toFixed(2));
 			data.push(null);
 			data.unshift(null);
 			return data;
@@ -107,8 +119,11 @@ export default {
 	},
 	async mounted() {
 		try {
-			const response = await getTokenPricesDayData();
-			this.priceHistoryData = response.data.data.tokenPriceDayDatas;
+			const nuonSupplyResponse = await getTotalSupplyWithToken(NUON_ADDRESS);
+			this.nuonSupplyInfo = nuonSupplyResponse.data.data.totalSupplyDayDatas;
+
+			const hydroSupplyResponse = await getTotalSupplyWithToken(HYDRO_ADDRESS);
+			this.hydroSupplyInfo = hydroSupplyResponse.data.data.totalSupplyDayDatas;
 			this.handlePeriodTabChanged(0);
 		} catch (e) {
 			this.failureToast(null, e, "An error occurred when fetching data");
