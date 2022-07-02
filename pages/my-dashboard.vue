@@ -12,7 +12,7 @@
 					<h1 class="u-mb-24">${{totalValue | toFixed | numberWithCommas}}</h1>
 				</LayoutFlex>
 				<LayoutFlex direction="row-center-space-around l-flex--wrap">
-					<div><DonutChartBalance :chart-data="[balancesValue, parseFloat(totalValue), parseFloat(stakedBalance)]" /></div>
+					<div><DonutChartBalance :key="`balances-${balancesValue}-${totalValue}-${stakedBalance}`" :chart-data="[balancesValue, parseFloat(totalValue), parseFloat(stakedBalance)]" /></div>
 					<div>
 						<LayoutFlex direction="row-center">
 							<div class="dot orange"></div>
@@ -115,16 +115,25 @@ export default {
 	},
 	computed: {
 		balancesValue() {
-			return this.tokenBalances.HX * this.tokenPrices.HX + this.tokenBalances.NUON * this.tokenPrices.NUON;
+			if (this.tokenBalances.HX && this.tokenPrices.HX && this.tokenBalances.NUON && this.tokenPrices.NUON) {
+				return parseFloat((this.tokenBalances.HX * this.tokenPrices.HX + this.tokenBalances.NUON * this.tokenPrices.NUON).toFixed(2));
+			} else {
+				return 0;
+			}
 		},
 		stakedBalance() {
 			const stakedBalance = this.$store.state.boardroomStore.stakedBalance;
-			return fromWei(stakedBalance) * this.collateralPrices.ETH;
+			if (stakedBalance && this.collateralPrices.ETH) {
+				return fromWei(stakedBalance) * this.collateralPrices.ETH;
+			} else {
+				return 0;
+			}
 		},
 		myCollateralLocked() {
 			return this.userTotalLockedCollateralAmount.ETH;
 		},
 		totalValue() {
+			if (Object.entries(this.userTotalLockedCollateralAmount).length === 0) return 0;
 			return Object.entries(this.userTotalLockedCollateralAmount).reduce((acc, [collateral, amount]) => acc + this.collateralPrices[collateral] * amount, 0);
 		},
 		myCollateralLockedPercentage() {
