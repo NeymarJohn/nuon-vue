@@ -2,7 +2,7 @@
 	<div class="select" :class="{ active: isActive }" @click="toggleSelect" >
 		<label>{{ label }}</label>
 		<div class="select__selected">
-			{{ value || this.default }}
+			{{ options[selectedIndex].label || options[selectedIndex]}}
 			<ChevronDownIcon v-if="!isActive" />
 			<ChevronUpIcon v-else />
 		</div>
@@ -10,10 +10,10 @@
 			<div
 				v-for="(option, index) in options"
 				:key="index"
-				:class="{ selected: option === value }"
+				:class="{ selected: option.value === value || option === value }"
 				class="select__option"
-				@click="selectOption(option)">
-				{{ option }} <SelectedIcon v-if="option === value" />
+				@click="selectOption(option, index)">
+				{{ option.label || option }} <SelectedIcon v-if="option.value === value || option === value" />
 			</div>
 		</div>
 	</div>
@@ -50,7 +50,8 @@ export default {
 	data() {
 		return {
 			value: "",
-			isActive: false
+			isActive: false,
+			selectedIndex: 0
 		};
 	},
 	mounted() {
@@ -64,8 +65,9 @@ export default {
 		toggleSelect() {
 			this.isActive = !this.isActive;
 		},
-		selectOption(option) {
+		selectOption(option, index) {
 			this.value = option;
+			this.selectedIndex = index;
 			this.$emit("filter-select", option);
 		}
 	}

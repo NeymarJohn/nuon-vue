@@ -78,21 +78,7 @@
 					:config="configData" />
 			</TheLoader>
 		</LayoutFlex>
-		<h2 class="u-mb-24">Transaction History</h2>
-		<TheTabs size="full-width" color="mobile-scroll tabs--dark" margin="sm-24">
-			<TheTab title="Collateral Hub">
-				<TabCollateralHub />
-			</TheTab>
-			<TheTab title="Swap">
-				<TabSwap />
-			</TheTab>
-			<TheTab title="Boardroom">
-				<TabBoardroom />
-			</TheTab>
-			<TheTab title="Rewards">
-				<TabRewards />
-			</TheTab>
-		</TheTabs>
+		<TransactionHistory />
 	</LayoutContainer>
 </template>
 
@@ -136,7 +122,7 @@ export default {
 			return fromWei(stakedBalance) * this.collateralPrices.ETH;
 		},
 		myCollateralLocked() {
-			return fromWei(this.userTotalLockedCollateralAmount.ETH);
+			return this.userTotalLockedCollateralAmount.ETH;
 		},
 		totalValue() {
 			return Object.entries(this.userTotalLockedCollateralAmount).reduce((acc, [collateral, amount]) => acc + this.collateralPrices[collateral] * amount, 0);
