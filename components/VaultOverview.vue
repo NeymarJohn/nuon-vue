@@ -29,6 +29,7 @@
 import dayjs from "dayjs";
 import TooltipIcon from "@/assets/images/svg/svg-tooltip.svg";
 import { getCollateralTVLDayData } from "~/services/theGraph";
+import { fromWei } from "~/utils/bnTools";
 
 export default {
 	name: "VaultOverview",
@@ -93,7 +94,7 @@ export default {
 			this.donutChartData = data;
 		});
 		this.$store.getters["collateralVaultStore/getCollateralRatioInPercent"]().then(res => {
-			this.collateralRatio = res;
+			this.collateralRatio = parseFloat(fromWei(res)).toFixed(2);
 		}).catch(() => {
 			this.collateralRatio = 0;
 		});
