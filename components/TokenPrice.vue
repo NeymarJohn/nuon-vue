@@ -126,6 +126,7 @@ export default {
 
 			const hydroSupplyResponse = await getTotalSupplyWithToken(HYDRO_ADDRESS);
 			this.hydroSupplyInfo = hydroSupplyResponse.data.data.totalSupplyDayDatas;
+
 			this.handlePeriodTabChanged(0);
 		} catch (e) {
 			this.failureToast(null, e, "An error occurred when fetching data");
