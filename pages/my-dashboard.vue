@@ -55,7 +55,7 @@
 				</LayoutFlex>
 				<LayoutFlex direction="column" class="u-flex-1">
 					<p>My Collateralization Ratio</p>
-					<h1 class="u-mb-24">${{userCollateralizationRatios.ETH | toFixed | numberWithCommas}}</h1>
+					<h1 class="u-mb-24">{{userCollateralizationRatios.ETH | toFixed | numberWithCommas}}%</h1>
 				</LayoutFlex>
 			</LayoutFlex>
 			<LineChart
