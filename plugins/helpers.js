@@ -199,13 +199,6 @@ Vue.mixin({
 			} else {
 				return false;
 			}
-		},
-		calcPercentChange(x, y) {
-			if (x === 0) return 0;
-			const first = parseFloat(x);
-			const second = parseFloat(y);
-			const val = (((second - first) / first) * 100).toFixed(2);
-			return val === "-0.00" ? "0.00" : val;
 		}
 	},
 });

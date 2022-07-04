@@ -1,23 +1,26 @@
 <template>
 	<div>
-		<h2 class="u-mb-24">Vault Overview</h2>
+		<h2 class="u-mb-24">Collateral Hub Overview</h2>
 		<LayoutFlex class="l-chart l-chart--vault-overview l-flex--wrap">
 			<div class="chart">
-				<LightweightChart v-if="isLoadedData && !error" :day-data="dayData" :week-data="weekData" :month-data="monthData"/>
-				<div v-if="error" class="warn">
+				<LightweightChart
+					v-if="isLoadedData && !error"
+					:day-data="dayData"
+					:week-data="weekData"
+					:month-data="monthData"/>
+				<div v-if="error">
 					<p>TVL</p>
 					<p>Data is not ready...</p>
 				</div>
-					
 			</div>
 			<div class="chart chart--donut">
 				<p class="u-mb-4">Collateral Distribution</p>
-				<p class="u-colour-white u-mb-16">{{dateStr}}</p>
+				<p class="u-colour-white u-mb-16">{{ dateStr }}</p>
 				<DonutChartCollateral v-if="donutChartData" class="u-mb-24" :chart-data="donutChartData"/>
 				<p>APY <TooltipIcon v-tooltip="'Enter APY tooltip content here.'" /></p>
 				<h3 class="u-mb-24">Inflation 34.3%</h3>
 				<p>Collateralization Ratio<TooltipIcon v-tooltip="'Enter collateralization ratio tooltip content here.'" /></p>
-				<h3>{{collateralRatio}}%</h3>
+				<h3>{{ collateralRatio }}%</h3>
 			</div>
 		</LayoutFlex>
 	</div>
@@ -48,7 +51,6 @@ export default {
 		};
 	},
 	mounted () {
-	// getCollateralTVLDayData
 		this.loadingData = true;
 		getCollateralTVLDayData().then((res) => {
 			const data = res.data.data.collateralDayDatas;

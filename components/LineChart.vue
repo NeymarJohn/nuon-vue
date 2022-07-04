@@ -58,9 +58,6 @@ export default {
 							fontWeight: "400",
 							fontFamily: "Plus Jakarta Sans",
 						},
-						// formatter (value) {
-						// 	return value + "M";
-						// }
 					}
 				},
 				dataLabels: {

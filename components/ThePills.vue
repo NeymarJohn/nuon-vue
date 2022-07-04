@@ -1,6 +1,10 @@
 <template>
 	<LayoutFlex>
-		<div v-for="(pill, pillIdx) in pills" :key="pillIdx" :class="['pill', activeIndex === pillIdx && 'active']" @click="pillClicked(pillIdx)">
+		<div
+			v-for="(pill, pillIdx) in pills"
+			:key="pillIdx"
+			:class="['pill', activeIndex === pillIdx && 'active']"
+			@click="pillClicked(pillIdx)">
 			{{ pill }}
 		</div>
 	</LayoutFlex>
@@ -8,7 +12,7 @@
 
 <script>
 export default {
-	name: "Pills",
+	name: "ThePills",
 	props: {
 		pills: {
 			type: Array,

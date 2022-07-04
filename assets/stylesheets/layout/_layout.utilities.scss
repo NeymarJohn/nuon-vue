@@ -9,19 +9,18 @@
 		8. Padding top + bottom
 		9. Color
 		10. Border
-		11. Border Radius
-		12. Cursor
-		13. Width
-		14. Display
-		15. Validation
-		16. Position
-		17. Transition
-		18. Text alignment
-		19. Flex
-		20. White space
-		21. Colour
-		22. Prompt
-		23. Height
+		11. Cursor
+		12. Width
+		13. Display
+		14. Validation
+		15. Position
+		16. Transition
+		17. Text alignment
+		18. Flex
+		19. White space
+		20. Colour
+		21. Prompt
+		22. Height
 */
 
 // 1. Margin bottom
@@ -253,12 +252,7 @@
 	border-bottom: $SPACING_1 solid $MEDIUM_LIGHT_GREY !important;
 }
 
-// 11. Border Radius
-.u-border-radius-10 {
-	border-radius: $BORDER_RADIUS_8;
-}
-
-// 12. Cursor
+// 11. Cursor
 .u-cursor-pointer {
 	cursor: pointer !important;
 }
@@ -269,7 +263,7 @@
 	color: $LIME !important;
 }
 
-// 13. Width
+// 12. Width
 .u-width-20 {
 	width: 20% !important;
 }
@@ -294,7 +288,7 @@
 	}
 }
 
-// 14. Display
+// 13. Display
 .u-display-desktop {
 	display: none !important;
 }
@@ -311,7 +305,7 @@
 	}
 }
 
-// 15. Validation
+// 14. Validation
 .u-is-warning {
 	color: $ERROR !important;
 }
@@ -322,7 +316,7 @@
 	color: $WARNING !important;
 }
 
-// 16. Position
+// 15. Position
 .u-position-sticky {
 	position: sticky !important;
 	top: 0 !important;
@@ -330,7 +324,7 @@
 	z-index: 3 !important;
 }
 
-// 17. Transition
+// 16. Transition
 .u-no-transition {
 	transition: none !important;
 }
@@ -338,7 +332,7 @@
 	transform: none !important;
 }
 
-// 18. Text alignment
+// 17. Text alignment
 .u-text-center {
 	text-align: center !important;
 }
@@ -351,7 +345,7 @@
 	text-align: right !important;
 }
 
-// 19. Flex
+// 18. Flex
 .u-flex-1 {
 	flex: 1 !important;
 }
@@ -361,7 +355,7 @@
 	align-items: center !important;
 }
 
-// 20. White space
+// 19. White space
 .u-white-space-pre {
 	white-space: pre-line !important;
 }
@@ -369,7 +363,7 @@
 	white-space: nowrap !important;
 }
 
-// 21. Colour
+// 20. Colour
 .u-colour-dark-grey {
 	color: $DARK_GREY !important;
 }
@@ -380,7 +374,7 @@
 	color: $WHITE !important;
 }
 
-// 22. Prompt
+// 21. Prompt
 .u-green-prompt {
 	background: $SUCCESS !important;
 }
@@ -388,12 +382,9 @@
 	color: $WHITE !important;
 }
 
-// 23. Height
+// 22. Height
 .u-min-height-96 {
-	min-height: 96px;
-}
-.u-min-height-600 {
-	min-height: 600px;
+	min-height: $SPACING_96 !important;
 }
 .u-full-height {
 	height: 100% !important;

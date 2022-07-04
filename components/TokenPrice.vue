@@ -4,24 +4,24 @@
 		<div class="l-chart l-chart--token-price">
 			<TheTabs margin="24" @tab-changed="handleTabChanged">
 				<TheTab title="HX" />
-				<TheTab title="Nuon" />
+				<TheTab title="NUON" />
 			</TheTabs>
 			<LayoutFlex>
 				<div class="chart">
-					<p>Market Cap <TheBadge :color="getPercentChangeBadgeClass('marketVal')" class="u-ml-8">{{ getChangePercent('marketVal') }}%</TheBadge></p>
+					<p>Market Cap <TheBadge color="price-down" class="u-ml-8">-1.79%</TheBadge></p>
 					<ComponentLoader component="h3" :loaded="marketCap !== null">
 						<h3 class="u-mb-48">${{ marketCap | numberWithCommas }}</h3>
 					</ComponentLoader>
-					<p>Circulating Supply <TheBadge :color="getPercentChangeBadgeClass('value')" class="u-ml-8">{{ getChangePercent('value') }}%</TheBadge></p>
+					<p>Circulating Supply <TheBadge color="price-up" class="u-ml-8">+1.79%</TheBadge></p>
 					<ComponentLoader component="h3" :loaded="circulatingSupply !== null">
 						<h3 class="u-mb-48">{{ circulatingSupply | numberWithCommas }}</h3>
 					</ComponentLoader>
-					<p>Price <TheBadge :color="getPercentChangeBadgeClass('price')" class="u-ml-8">{{ getChangePercent('price') }}%</TheBadge></p>
+					<p>Price <TheBadge color="price-up" class="u-ml-8">+1.79%</TheBadge></p>
 					<ComponentLoader component="h3" :loaded="tokenPrice !== null">
 						<h3>{{ tokenPrice }}<sup>Nuon</sup></h3>
 					</ComponentLoader>
 				</div>
-				<div class="chart u-min-height-600">
+				<div class="chart">
 					<LayoutFlex direction="row-space-between">
 						<div class="u-min-height-96">
 							<p>{{ selectedPriceTab }}</p>
@@ -29,8 +29,15 @@
 							<p v-show="graphSelection" class="u-colour-white">{{ dateSelection }}</p>
 						</div>
 						<LayoutFlex direction="column-justify-between">
-							<Pills :pills="priceTabs" default-active @pill-clicked="handlePriceTabChanged" />
-							<Pills v-if="selectedPriceTab !== 'Price' && selectedPriceTab !== null" :pills="periodTabs" default-active @pill-clicked="handlePeriodTabChanged" />
+							<ThePills
+								:pills="priceTabs"
+								default-active
+								@pill-clicked="handlePriceTabChanged" />
+							<ThePills
+								v-if="selectedPriceTab !== 'Price' && selectedPriceTab !== null"
+								:pills="periodTabs"
+								default-active
+								@pill-clicked="handlePeriodTabChanged" />
 						</LayoutFlex>
 					</LayoutFlex>
 					<LineChart
@@ -39,8 +46,7 @@
 						:x-axis-labels="xAxisLabels"
 						:series-data="[{name: selectedPriceTab || '',  data: yAxisData}]"
 						:animate="false"
-						@mouseOverDataPoint="handleMouseOverChart"
-					/>
+						@mouseOverDataPoint="handleMouseOverChart" />
 				</div>
 			</LayoutFlex>
 		</div>
@@ -69,9 +75,6 @@ export default {
 		};
 	},
 	computed: {
-		dataToUse() {
-			return this.currentlySelectedTab === "NUON" ? this.nuonSupplyInfo : this.hydroSupplyInfo;
-		},
 		marketCap() {
 			if ([this.tokenPrice, this.circulatingSupply].some(v => [undefined, null].includes(v))) return null;
 			return parseFloat(this.tokenPrice * this.circulatingSupply).toFixed(2);
@@ -87,12 +90,13 @@ export default {
 			return data;
 		},
 		graphData() {
+			const dataToUse = this.currentlySelectedTab === "NUON" ? this.nuonSupplyInfo : this.hydroSupplyInfo;
 			let dataKey;
 			if (this.selectedPriceTab === "Price") dataKey = "price";
 			if (this.selectedPriceTab === "Market Cap") dataKey = "marketVal";
 			if (this.selectedPriceTab === "Circulating Supply") dataKey = "value";
 
-			return this.dataToUse.map(d => ({
+			return dataToUse.map(d => ({
 				date: new Date(d.date * 1000).toLocaleDateString(),
 				data: d[dataKey]
 			}));
@@ -147,24 +151,6 @@ export default {
 		handleMouseOverChart(e) {
 			this.graphSelection = this.yAxisData[e];
 			this.dateSelection = this.xAxisLabels[e];
-		},
-		getChangePercent(key) {
-			const dataLength = this.dataToUse.length;
-
-			if (dataLength < 2) return 0;
-			let first = this.dataToUse[dataLength - 2][key];
-			let second = this.dataToUse[dataLength - 1][key];
-
-			if (key === "price") {
-				first = first.price;
-				second = second.price;
-			}
-			return this.calcPercentChange(first, second);
-		},
-		getPercentChangeBadgeClass(key) {
-			const val = this.getChangePercent(key);
-			if (val === "0.00") return "price-same";
-			return val < 0 ? "price-down" : "price-up";
 		}
 	}
 };
