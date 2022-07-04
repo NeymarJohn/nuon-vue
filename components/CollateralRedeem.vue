@@ -113,7 +113,7 @@ export default {
 			return parseFloat(this.inputValue) > parseFloat(this.userMintedNuon);
 		},
 		redeemFee() {
-			return this.$store.state.collateralVaultStore.redeemFee;
+			return parseFloat(this.$store.state.collateralVaultStore.redeemFee);
 		}
 	},
 	watch: {
