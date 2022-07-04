@@ -165,14 +165,9 @@ export default {
 		}
 	},
 	async mounted() {
-		try {
-			const min = await this.$store.getters["collateralVaultStore/getGlobalCR"]();
-			this.sliderMin = (10 ** 20 / min).toFixed();
-			const collateralPrice = await this.$store.getters["collateralVaultStore/getCollateralPrice"]();
-			this.collateralPrice = fromWei(collateralPrice);
-		} catch (e) {
-			this.failureToast(null, e, "An error occurred");
-		}
+		const min = await this.$store.getters["collateralVaultStore/getGlobalCR"]();
+		this.sliderMin = (10 ** 20 / min).toFixed();
+		this.collateralPrice = fromWei(await this.$store.getters["collateralVaultStore/getCollateralPrice"]());
 	},
 	methods: {
 		sliderChanged(e) {
@@ -193,14 +188,8 @@ export default {
 		async getEstimatedMintedNuon() {
 			const currentRatio = this.selectedCollateralRatio === this.sliderMin ? parseInt(this.selectedCollateralRatio) + 1 : this.selectedCollateralRatio;
 			const collateralRatio = (10 ** 18) / (currentRatio / 100);
-			let ans = [0];
-			try {
-				ans = await this.$store.getters["collateralVaultStore/getEstimateMintedNUONAmount"](new BigNumber(toWei(this.inputValue)), new BigNumber(collateralRatio));
-			} catch(e) {
-				this.failureToast(null, e, "An error occurred");
-			} finally {
-				this.estimatedMintedNuonValue = fromWei(ans[0]);
-			}
+			const ans = await this.$store.getters["collateralVaultStore/getEstimateMintedNUONAmount"](new BigNumber(toWei(this.inputValue)), new BigNumber(collateralRatio));
+			this.estimatedMintedNuonValue = fromWei(ans[0]);
 		},
 		async mint() {
 			this.activeStep = "loading";
@@ -222,7 +211,6 @@ export default {
 						}
 					});
 			} catch (e) {
-				this.failureToast(null, e, "Minting failed");
 			} finally {
 				this.minting = false;
 				this.activeStep = 1;

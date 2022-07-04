@@ -113,7 +113,7 @@ export default {
 			return parseFloat(this.inputValue) > parseFloat(this.userMintedNuon);
 		},
 		redeemFee() {
-			return parseFloat(this.$store.state.collateralVaultStore.redeemFee);
+			return this.$store.state.collateralVaultStore.redeemFee;
 		}
 	},
 	watch: {
@@ -122,21 +122,16 @@ export default {
 			try {
 				result = await this.$store.getters["collateralVaultStore/getEstimateCollateralsOut"](this.connectedAccount, toWei(this.inputValue));
 			} catch (e) {
-				this.failureToast(null, e, "Transaction failed");
+				const jsonRPCErrorMessage = this.getRPCErrorMessage(e);
+				this.failureToast(null, jsonRPCErrorMessage, "Transaction failed");
 			} finally {
 				this.estimatedWithdrawnNuonValue = fromWei(result[0]);
 			}
 		}
 	},
 	async mounted () {
-		try {
-			const userMintedAmount = await this.$store.getters["collateralVaultStore/getUserMintedAmount"](this.connectedAccount);
-			this.userMintedNuon = fromWei(userMintedAmount);
-			const nuonPrice = await this.$store.getters["collateralVaultStore/getNuonPrice"]();
-			this.nuonPrice = fromWei(nuonPrice);
-		} catch(e) {
-			this.failureToast(null, e, "An error occurred");
-		}
+		this.userMintedNuon = fromWei(await this.$store.getters["collateralVaultStore/getUserMintedAmount"](this.connectedAccount));
+		this.nuonPrice = fromWei(await this.$store.getters["collateralVaultStore/getNuonPrice"]());
 	},
 	methods: {
 		approveTokens() {
