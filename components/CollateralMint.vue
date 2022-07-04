@@ -197,7 +197,7 @@ export default {
 			try {
 				ans = await this.$store.getters["collateralVaultStore/getEstimateMintedNUONAmount"](new BigNumber(toWei(this.inputValue)), new BigNumber(collateralRatio));
 			} catch(e) {
-				this.failureToast(null, "Estimating minted NUON amount failed", "An error occurred");
+				this.failureToast(null, e, "An error occurred");
 			} finally {
 				this.estimatedMintedNuonValue = fromWei(ans[0]);
 			}
