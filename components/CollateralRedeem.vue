@@ -120,18 +120,23 @@ export default {
 		async inputValue() {
 			let result = {0: 0};
 			try {
-				result = await this.$store.getters["collateralVaultStore/getEstimateCollateralsOut"](this.connectedAccount, toWei(this.inputValue));
+				result = await this.$store.getters["collateralVaultStore/getEstimateCollateralsOut"]("123", toWei(this.inputValue));
 			} catch (e) {
-				const jsonRPCErrorMessage = this.getRPCErrorMessage(e);
-				this.failureToast(null, jsonRPCErrorMessage, "Transaction failed");
+				this.failureToast(null, e, "Transaction failed");
 			} finally {
 				this.estimatedWithdrawnNuonValue = fromWei(result[0]);
 			}
 		}
 	},
 	async mounted () {
-		this.userMintedNuon = fromWei(await this.$store.getters["collateralVaultStore/getUserMintedAmount"](this.connectedAccount));
-		this.nuonPrice = fromWei(await this.$store.getters["collateralVaultStore/getNuonPrice"]());
+		try {
+			const userMintedAmount = await this.$store.getters["collateralVaultStore/getUserMintedAmount"](this.connectedAccount);
+			this.userMintedNuon = fromWei(userMintedAmount);
+			const nuonPrice = await this.$store.getters["collateralVaultStore/getNuonPrice"]();
+			this.nuonPrice = fromWei(nuonPrice);
+		} catch(e) {
+			this.failureToast(null, e, "An error occurred");
+		}
 	},
 	methods: {
 		approveTokens() {
