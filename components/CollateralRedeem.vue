@@ -120,7 +120,7 @@ export default {
 		async inputValue() {
 			let result = {0: 0};
 			try {
-				result = await this.$store.getters["collateralVaultStore/getEstimateCollateralsOut"]("123", toWei(this.inputValue));
+				result = await this.$store.getters["collateralVaultStore/getEstimateCollateralsOut"](this.connectedAccount, toWei(this.inputValue));
 			} catch (e) {
 				this.failureToast(null, e, "Transaction failed");
 			} finally {
