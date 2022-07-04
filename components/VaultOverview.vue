@@ -16,8 +16,8 @@
 			<div class="chart chart--donut">
 				<p class="u-mb-4">Collateral Distribution</p>
 				<p class="u-colour-white u-mb-16">{{ dateStr }}</p>
-				<DonutChartCollateral v-if="donutChartData" class="u-mb-24" :chart-data="donutChartData"/>
-				<p>APY <TooltipIcon v-tooltip="'Enter APY tooltip content here.'" /></p>
+				<DonutChartCollateral v-if="donutChartData" class="u-mb-24" :chart-data="donutChartData" />
+				<p>APY<TooltipIcon v-tooltip="'Enter APY tooltip content here.'" /></p>
 				<h3 class="u-mb-24">Inflation 34.3%</h3>
 				<p>Collateralization Ratio<TooltipIcon v-tooltip="'Enter collateralization ratio tooltip content here.'" /></p>
 				<h3>{{ collateralRatio }}%</h3>

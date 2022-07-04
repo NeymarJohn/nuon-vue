@@ -9,37 +9,39 @@
 			<LayoutFlex direction="column" class="balance-first">
 				<LayoutFlex direction="column">
 					<p>Total value</p>
-					<h1 class="u-mb-24">${{totalValue | toFixed | numberWithCommas}}</h1>
+					<h1 class="u-mb-24">${{ totalValue | toFixed | numberWithCommas }}</h1>
 				</LayoutFlex>
 				<LayoutFlex direction="row-center-space-around l-flex--wrap">
-					<div><DonutChartBalance :key="`balances-${balancesValue}-${totalValue}-${stakedBalance}`" :chart-data="[balancesValue, parseFloat(totalValue), parseFloat(stakedBalance)]" /></div>
+					<div>
+						<DonutChartBalance :key="`balances-${balancesValue}-${totalValue}-${stakedBalance}`" :chart-data="[balancesValue, parseFloat(totalValue), parseFloat(stakedBalance)]" />
+					</div>
 					<div>
 						<LayoutFlex direction="row-center">
 							<div class="dot orange"></div>
 							<p>Balance</p>
 						</LayoutFlex>
-						<h3>${{balancesValue | toFixed | numberWithCommas}}</h3>
+						<h3>${{ balancesValue | toFixed | numberWithCommas }}</h3>
 					</div>
 					<div>
 						<LayoutFlex direction="row-center">
 							<div class="dot blue"></div>
 							<p>Collateral locked</p>
 						</LayoutFlex>
-						<h3>${{totalValue | toFixed | numberWithCommas}}</h3>
+						<h3>${{ totalValue | toFixed | numberWithCommas }}</h3>
 					</div>
 					<div>
 						<LayoutFlex direction="row-center">
 							<div class="dot tourquise"></div>
 							<p>Staked</p>
 						</LayoutFlex>
-						<h3>${{stakedBalance | toFixed | numberWithCommas}}</h3>
+						<h3>${{ stakedBalance | toFixed | numberWithCommas }}</h3>
 					</div>
 				</LayoutFlex>
 			</LayoutFlex>
 			<div class="balance-second">
 				<p>Pending Rewards</p>
-				<h1>{{pendingRewards | toFixed | numberWithCommas}}<sup>HX</sup></h1>
-				<h3>${{rewardsDollarValue | toFixed | numberWithCommas }}</h3>
+				<h1>{{ pendingRewards | toFixed | numberWithCommas }}<sup>HX</sup></h1>
+				<h3>${{ rewardsDollarValue | toFixed | numberWithCommas }}</h3>
 			</div>
 		</LayoutFlex>
 		<h2 class="u-mb-24">My Collateral Hub</h2>
@@ -47,23 +49,22 @@
 			<LayoutFlex direction="row">
 				<LayoutFlex direction="column" class="u-flex-1">
 					<p>My Total Value Locked</p>
-					<h1 class="u-mb-24">${{totalValue | toFixed | numberWithCommas}}</h1>
+					<h1 class="u-mb-24">${{ totalValue | toFixed | numberWithCommas }}</h1>
 				</LayoutFlex>
 				<LayoutFlex direction="column" class="u-flex-1">
 					<p>My Total Minted Nuon Value</p>
-					<h1 class="u-mb-24">${{totalMintedNuon | toFixed | numberWithCommas}}</h1>
+					<h1 class="u-mb-24">${{ totalMintedNuon | toFixed | numberWithCommas }}</h1>
 				</LayoutFlex>
 				<LayoutFlex direction="column" class="u-flex-1">
 					<p>My Collateralization Ratio</p>
-					<h1 class="u-mb-24">{{userCollateralizationRatios.ETH | toFixed | numberWithCommas}}%</h1>
+					<h1 class="u-mb-24">{{ userCollateralizationRatios.ETH | toFixed | numberWithCommas }}%</h1>
 				</LayoutFlex>
 			</LayoutFlex>
 			<LineChart
 				class="u-mt-32"
 				:x-axis-labels="['a', 'b', 'c']"
 				:series-data="[{name: 'test1', data: [1, 2, 3]}, {name: 'test2', data: [2, 3, 4]}]"
-				@mouseOverDataPoint="handleMouseOverChart"
-			/>
+				@mouseOverDataPoint="handleMouseOverChart" />
 			<TheLoader component="table">
 				<TransactionTable
 					v-if="!mobileView"
