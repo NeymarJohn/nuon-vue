@@ -75,7 +75,8 @@
 		font-size: $BODY_TEXT_SM;
 		line-height: $SPACING_30;
 	}
-	.data-card h3 {
+	.data-card h3,
+	.data-card .countdown__block h3 {
 		font-size: $HEADING_ONE_1440;
 		margin-bottom: $SPACING_4;
 	}
