@@ -33,7 +33,7 @@ import { getCollateralTVLDayData } from "~/services/theGraph";
 import { fromWei } from "~/utils/bnTools";
 
 export default {
-	name: "VaultOverview",
+	name: "CollateralHubOverview",
 	components: {
 		TooltipIcon
 	},

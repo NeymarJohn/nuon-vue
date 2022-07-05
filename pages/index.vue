@@ -10,7 +10,7 @@
 				My Dashboard
 			</NuxtLink>
 		</LayoutFlex>
-		<VaultOverview />
+		<CollateralHubOverview />
 		<TokenPrice />
 	</LayoutContainer>
 </template>
