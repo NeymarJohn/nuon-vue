@@ -1,6 +1,6 @@
 <template>
 	<client-only>
-		<apexchart type="line" height="350" :options="chartOptions" :series="series"></apexchart>
+		<apexchart type="line" height="320" :options="chartOptions" :series="series"></apexchart>
 	</client-only>
 </template>
 <script>
@@ -26,13 +26,12 @@ export default {
 		return {
 			series: this.seriesData,
 			chartOptions: {
-				colors: ["#DFFF65"],
+				colors: ["#DFFF65", "#65FFB5"],
 				chart: {
 					animations: {
 						enabled: this.animate,
 						 easing: "easeinout",
 					},
-					height: 300,
 					type: "line",
 					zoom: {
 						enabled: false
@@ -51,21 +50,17 @@ export default {
 					show: false,
 				},
 				yaxis: {
-					opposite: true,
-					labels: {
-						style: {
-							fontSize: "12",
-							fontWeight: "400",
-							fontFamily: "Plus Jakarta Sans",
-						},
-					}
+					show: false,
 				},
 				dataLabels: {
 					enabled: false
 				},
 				stroke: {
 					curve: "smooth",
-					width: [2]
+					width: 2
+				},
+				legend: {
+					show: false
 				},
 				xaxis: {
 					categories: this.xAxisLabels,

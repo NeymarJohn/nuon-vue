@@ -77,8 +77,17 @@
 			</LayoutFlex>
 			<LineChart
 				class="u-mt-32"
-				:x-axis-labels="['a', 'b', 'c']"
-				:series-data="[{name: 'test1', data: [1, 2, 3]}, {name: 'test2', data: [2, 3, 4]}]"
+				:x-axis-labels="['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']"
+				:series-data="[
+					{
+						name: 'My Total Minted Value (NUON)',
+						data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+					},
+					{
+						name: 'My Total Value Locked',
+						data: [13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]
+					}
+				]"
 				@mouseOverDataPoint="handleMouseOverChart" />
 			<TheLoader component="table">
 				<TransactionTable
