@@ -110,7 +110,8 @@ export default {
 					this.collateralRatioDiff = 0;
 				}
 			}).catch(() => {
-				
+				this.collateralRatioDiff = 0;
+				this.failureToast(() => {}, "An error occurred");
 			});
 		}
 	},
