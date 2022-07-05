@@ -134,7 +134,7 @@ export default {
 	},
 	computed: {
 		isApproved() {
-			return !!this.$store.state.collateralVaultStore.allowance.HX;
+			return !!parseFloat(this.$store.state.collateralVaultStore.allowance.HX);
 		},
 		disabledMint() {
 			return !this.isApproved || !parseFloat(this.inputValue) || this.isMoreThanBalance;
@@ -168,6 +168,7 @@ export default {
 		try {
 			const min = await this.$store.getters["collateralVaultStore/getGlobalCR"]();
 			this.sliderMin = (10 ** 20 / min).toFixed();
+			this.selectedCollateralRatio = this.sliderMin;
 			const collateralPrice = await this.$store.getters["collateralVaultStore/getCollateralPrice"]();
 			this.collateralPrice = fromWei(collateralPrice);
 		} catch (e) {
@@ -191,13 +192,15 @@ export default {
 				});
 		},
 		async getEstimatedMintedNuon() {
+			if (!this.inputValue) return;
 			const currentRatio = this.selectedCollateralRatio === this.sliderMin ? parseInt(this.selectedCollateralRatio) + 1 : this.selectedCollateralRatio;
 			const collateralRatio = (10 ** 18) / (currentRatio / 100);
 			let ans = [0];
 			try {
 				ans = await this.$store.getters["collateralVaultStore/getEstimateMintedNUONAmount"](new BigNumber(toWei(this.inputValue)), new BigNumber(collateralRatio));
 			} catch(e) {
-				this.failureToast(null, e, "An error occurred");
+				const message = this.getRPCErrorMessage(e);
+				this.failureToast(null, message, "An error occurred");
 			} finally {
 				this.estimatedMintedNuonValue = fromWei(ans[0]);
 			}

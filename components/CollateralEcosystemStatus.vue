@@ -4,7 +4,7 @@
 		<LayoutGrid class="u-mb-48" :size="'3'">
 			<StatCard class="u-mb-md-12">
 				<label>NUON Price<TooltipIcon v-tooltip="'Enter NUON price tooltip content here.'" /></label>
-				<ComponentLoader component="h3" :loaded="nuonPrice !== null" slot-classes="l-flex--row-center-space-between">
+				<ComponentLoader component="h3" :loaded="nuonPrice !== null" slot-classes="l-flex l-flex--row-center-space-between">
 					<h3>{{ nuonPrice | toFixed | numberWithCommas }}</h3>
 					<TheBadge v-if="nuonPrice > 1">Above</TheBadge>
 					<TheBadge v-else-if="nuonPrice < 1">Below</TheBadge>

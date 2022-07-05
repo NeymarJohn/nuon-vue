@@ -306,7 +306,8 @@
 }
 
 // 14. Validation
-.u-is-warning {
+.u-is-warning,
+.u-is-warning sup {
 	color: $ERROR !important;
 }
 .u-is-success {

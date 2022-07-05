@@ -1,6 +1,6 @@
 <template>
 	<div v-if="!loaded" :class="`loader loader--${ component }`" />
-	<div v-else :class="`u-full-width l-flex ${slotClasses}`"><slot /></div>
+	<div v-else :class="`${slotClasses}`"><slot /></div>
 </template>
 
 <script>

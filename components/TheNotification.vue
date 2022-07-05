@@ -26,6 +26,7 @@ export default {
 	},
 	computed: {
 		message() {
+			if (this.myCollateralizationRatio === 0 && this.connectedAccount) return this.normal;
 			if (this.myCollateralizationRatio && this.myCollateralizationRatio > this.minCollateralizationRatio) return this.low;
 			if (this.myCollateralizationRatio && this.myCollateralizationRatio <= this.minCollateralizationRatio) return this.high;
 			if (this.myCollateralizationRatio && this.myCollateralizationRatio === 0) return this.normal;
