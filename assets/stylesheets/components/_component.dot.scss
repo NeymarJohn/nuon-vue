@@ -1,0 +1,26 @@
+/* #COMPONENT - DOT
+		1. Dot default
+		2. Dot colors
+*/
+
+// 1. Dot default
+.dot {
+	height: $SPACING_12;
+	width: $SPACING_12;
+	border-radius: 50%;
+	margin-right: $SPACING_8;
+}
+
+// 2. Dot colors
+.dot--light-green {
+	background-color: $LIGHT_GREEN;
+}
+.dot--blue {
+	background-color: $BLUE;
+}
+.dot--orange {
+	background-color: $ORANGE;
+}
+.dot--lime {
+	background-color: $LIME;
+}

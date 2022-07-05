@@ -14,11 +14,11 @@
 					</ComponentLoader>
 					<p>Circulating Supply <TheBadge :color="getPercentChangeBadgeClass('value', dataToUse)" class="u-ml-8">{{ getChangePercent('value', dataToUse) }}%</TheBadge></p>
 					<ComponentLoader component="h3" :loaded="circulatingSupply !== null">
-						<h3 class="u-mb-48">{{ circulatingSupply | numberWithCommas }}</h3>
+						<h3 class="u-mb-48">${{ circulatingSupply | numberWithCommas }}</h3>
 					</ComponentLoader>
 					<p>Price <TheBadge :color="getPercentChangeBadgeClass('price', dataToUse)" class="u-ml-8">{{ getChangePercent('price', dataToUse) }}%</TheBadge></p>
 					<ComponentLoader component="h3" :loaded="tokenPrice !== null">
-						<h3>{{ tokenPrice }}<sup>Nuon</sup></h3>
+						<h3>{{ tokenPrice }}<sup>NUON</sup></h3>
 					</ComponentLoader>
 				</div>
 				<div class="chart">

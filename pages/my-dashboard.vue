@@ -6,59 +6,74 @@
 		</PageTitle>
 		<h2 class="u-mb-24">Account Balance</h2>
 		<LayoutFlex direction="row l-chart chart">
-			<LayoutFlex direction="column" class="balance-first">
+			<LayoutFlex direction="column">
 				<LayoutFlex direction="column">
 					<p>Total value</p>
 					<h1 class="u-mb-24">${{ totalValue | toFixed | numberWithCommas }}</h1>
 				</LayoutFlex>
-				<LayoutFlex direction="row-center-space-around l-flex--wrap">
-					<div>
-						<DonutChartBalance :key="`balances-${balancesValue}-${totalValue}-${stakedBalance}`" :chart-data="[balancesValue, parseFloat(totalValue), parseFloat(stakedBalance)]" />
-					</div>
-					<div>
-						<LayoutFlex direction="row-center">
-							<div class="dot orange"></div>
-							<p>Balance</p>
-						</LayoutFlex>
-						<h3>${{ balancesValue | toFixed | numberWithCommas }}</h3>
-					</div>
-					<div>
-						<LayoutFlex direction="row-center">
-							<div class="dot blue"></div>
-							<p>Collateral locked</p>
-						</LayoutFlex>
-						<h3>${{ totalValue | toFixed | numberWithCommas }}</h3>
-					</div>
-					<div>
-						<LayoutFlex direction="row-center">
-							<div class="dot tourquise"></div>
-							<p>Staked</p>
-						</LayoutFlex>
-						<h3>${{ stakedBalance | toFixed | numberWithCommas }}</h3>
-					</div>
+				<LayoutFlex direction="row-center-space-around">
+					<DonutChartBalance
+						:key="`balances-${balancesValue}-${totalValue}-${stakedBalance}`"
+						:chart-data="[balancesValue, parseFloat(totalValue), parseFloat(stakedBalance)]" />
+					<DataCard>
+						<label><TheDot color="light-green" /> My Balance</label>
+						<ComponentLoader component="h1" :loaded="balancesValue !== null">
+							<h3>${{ balancesValue | toFixed | numberWithCommas }}</h3>
+						</ComponentLoader>
+					</DataCard>
+					<DataCard>
+						<label><TheDot color="blue" /> My Collateral Locked</label>
+						<ComponentLoader component="h1" :loaded="totalValue !== null">
+							<h3>${{ totalValue | toFixed | numberWithCommas }}</h3>
+						</ComponentLoader>
+					</DataCard>
+					<DataCard>
+						<label><TheDot color="orange" /> My Staked</label>
+						<ComponentLoader component="h1" :loaded="stakedBalance !== null">
+							<h3>${{ stakedBalance | toFixed | numberWithCommas }}</h3>
+						</ComponentLoader>
+					</DataCard>
 				</LayoutFlex>
 			</LayoutFlex>
-			<div class="balance-second">
-				<p>Pending Rewards</p>
-				<h1>{{ pendingRewards | toFixed | numberWithCommas }}<sup>HX</sup></h1>
-				<h3>${{ rewardsDollarValue | toFixed | numberWithCommas }}</h3>
-			</div>
+			<DataCard>
+				<label>Pending Rewards</label>
+				<ComponentLoader component="h1" :loaded="pendingRewards !== null">
+					<h3>{{ pendingRewards | toFixed | numberWithCommas }}<sup>HX</sup></h3>
+				</ComponentLoader>
+				<ComponentLoader component="h5" :loaded="rewardsDollarValue !== null">
+					<h5>${{ rewardsDollarValue | toFixed | numberWithCommas }}</h5>
+				</ComponentLoader>
+			</DataCard>
 		</LayoutFlex>
 		<h2 class="u-mb-24">My Collateral Hub</h2>
 		<LayoutFlex direction="column l-chart chart">
-			<LayoutFlex direction="row">
-				<LayoutFlex direction="column" class="u-flex-1">
-					<p>My Total Value Locked</p>
-					<h1 class="u-mb-24">${{ totalValue | toFixed | numberWithCommas }}</h1>
-				</LayoutFlex>
-				<LayoutFlex direction="column" class="u-flex-1">
-					<p>My Total Minted Nuon Value</p>
-					<h1 class="u-mb-24">${{ totalMintedNuon | toFixed | numberWithCommas }}</h1>
-				</LayoutFlex>
-				<LayoutFlex direction="column" class="u-flex-1">
-					<p>My Collateralization Ratio</p>
-					<h1 class="u-mb-24">{{ userCollateralizationRatios.ETH | toFixed | numberWithCommas }}%</h1>
-				</LayoutFlex>
+			<LayoutFlex direction="row-space-between">
+				<DataCard>
+					<label>
+						<TheDot color="light-green" />
+						My Total Value Locked
+						<TheBadge class="u-ml-8" color="price-up">+ 0.03%</TheBadge>
+					</label>
+					<ComponentLoader component="h1" :loaded="totalValue !== null">
+						<h3>${{ totalValue | toFixed | numberWithCommas }}</h3>
+					</ComponentLoader>
+				</DataCard>
+				<DataCard>
+					<label>
+						<TheDot color="lime" />
+						My Total Minted Value (NUON)
+						<TheBadge class="u-ml-8" color="price-up">+ 0.03%</TheBadge>
+					</label>
+					<ComponentLoader component="h1" :loaded="totalMintedNuon !== null">
+						<h3>${{ totalMintedNuon | toFixed | numberWithCommas }}</h3>
+					</ComponentLoader>
+				</DataCard>
+				<DataCard>
+					<label>My Collateralization Ratio<TooltipIcon v-tooltip="'Enter My Collateralization Ratio tooltip content here.'" /></label>
+					<ComponentLoader component="h1" :loaded=" userCollateralizationRatios.ETH !== null">
+						<h3>{{ userCollateralizationRatios.ETH | numberWithCommas }}%</h3>
+					</ComponentLoader>
+				</DataCard>
 			</LayoutFlex>
 			<LineChart
 				class="u-mt-32"
@@ -85,8 +100,13 @@
 
 <script>
 import { fromWei } from "~/utils/bnTools";
+import TooltipIcon from "@/assets/images/svg/svg-tooltip.svg";
+
 export default {
 	name: "MyDashboard",
+	components: {
+		TooltipIcon
+	},
 	data() {
 		return {
 			pendingRewards: 0,
