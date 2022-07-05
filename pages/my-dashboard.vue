@@ -76,7 +76,7 @@
 				</DataCard>
 			</LayoutFlex>
 			<LineChart
-				class="u-mt-32"
+				class="u-mt-16"
 				:x-axis-labels="['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']"
 				:series-data="[
 					{
@@ -92,8 +92,9 @@
 			<TheLoader component="table">
 				<TransactionTable
 					v-if="!mobileView"
-					size="4"
-					aria=""
+					size="5"
+					class="u-p-0"
+					aria="Collateral Hub transactions"
 					:data="chubData"
 					:config="configData"
 					:misc="miscConfig" />

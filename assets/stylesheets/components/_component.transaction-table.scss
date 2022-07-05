@@ -1,7 +1,8 @@
 /* #COMPONENT - TRANSACTION TABLE
 		1. Transaction table default
 		2. Transaction table 4 columns
-		3. Transaction table responsive
+		3. Transaction table 5 columns
+		4. Transaction table responsive
 */
 
 // 1. Transaction table default
@@ -10,8 +11,6 @@
 	margin-bottom: $SPACING_48;
 	padding: $SPACING_40 $SPACING_32;
 	border-radius: $BORDER_RADIUS_8;
-	max-width: 1932px;
-	overflow-x: scroll;
 }
 .transaction-table__row {
 	display: flex;
@@ -30,7 +29,12 @@
 	min-width: calc(100% / 4);
 }
 
-// 3. Transaction table responsive
+// 3. Transaction table 5 columns
+.transaction-table--5 .transaction-table__cell {
+	min-width: calc(100% / 5);
+}
+
+// 4. Transaction table responsive
 @media screen and (max-width: $SPACING_1440) {
 	.transaction-table {
 		font-size: $BODY_TEXT_SM;
