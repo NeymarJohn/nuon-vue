@@ -58,7 +58,7 @@ export default {
 					},
 				},
 				tooltip: {
-					theme: "dark",
+					enabled: false
 				},
 				states: {
 					hover: {
