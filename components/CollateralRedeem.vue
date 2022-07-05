@@ -98,7 +98,7 @@ export default {
 	},
 	computed: {
 		isApproved() {
-			return !!parseFloat(this.$store.state.collateralVaultStore.allowance.NUON);
+			return !!this.$store.state.collateralVaultStore.allowance.NUON;
 		},
 		tokenBalance() {
 			return parseFloat(this.$store.state.erc20Store.balance.NUON);
@@ -122,8 +122,7 @@ export default {
 			try {
 				result = await this.$store.getters["collateralVaultStore/getEstimateCollateralsOut"](this.connectedAccount, toWei(this.inputValue));
 			} catch (e) {
-				const message = this.getRPCErrorMessage(e);
-				this.failureToast(null, message, "Transaction failed");
+				this.failureToast(null, e, "Transaction failed");
 			} finally {
 				this.estimatedWithdrawnNuonValue = fromWei(result[0]);
 			}

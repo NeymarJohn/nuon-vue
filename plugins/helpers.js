@@ -206,6 +206,25 @@ Vue.mixin({
 			const second = parseFloat(y);
 			const val = (((second - first) / first) * 100).toFixed(2);
 			return val === "-0.00" ? "0.00" : val;
+		},
+		getChangePercent(key, dataToUse) {
+			if (!dataToUse) return 0;
+			const dataLength = dataToUse.length;
+
+			if (dataLength < 2) return 0;
+			let first = dataToUse[dataLength - 2][key];
+			let second = dataToUse[dataLength - 1][key];
+
+			if (key === "price") {
+				first = first.price;
+				second = second.price;
+			}
+			return this.calcPercentChange(first, second);
+		},
+		getPercentChangeBadgeClass(key, dataToUse) {
+			const val = this.getChangePercent(key, dataToUse);
+			if (parseFloat(val) === 0) return "price-same";
+			return val < 0 ? "price-down" : "price-up";
 		}
 	},
 });

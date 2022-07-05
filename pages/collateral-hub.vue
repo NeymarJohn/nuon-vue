@@ -21,7 +21,8 @@
 				:my-total-minted-tokens="userMintedAmount"
 				:my-total-minted-tokens-dollar="totalMintedTokensDollarValue"
 				:my-collateralization-ratio="userCollateralizationRatio"
-				:current-price="collateralPrice" />
+				:current-price="collateralPrice"
+				:collateral-price-change="collateralPriceChange" />
 			<CollateralEcosystemStatus
 				:min-collateralization-ratio="minimumCollateralizationRatio"
 				:liquidation-price="liquidationPrice"
@@ -57,7 +58,8 @@ export default {
 			userCollateralizationRatioStore: {},
 			userTotalLockedCollateralAmountStore: {},
 			userTotalMintedNuonStore: {},
-			collateralPrices: {}
+			collateralPrices: {},
+			collateralHistoricalPrices: {}
 		};
 	},
 	head () {
@@ -87,6 +89,10 @@ export default {
 		userCollateralizationRatio() {
 			const collateralRatio = this.userCollateralizationRatioStore[this.currentlySelectedCollateral];
 			return collateralRatio === undefined ? null : collateralRatio;
+		},
+		collateralPriceChange() {
+			const dataToUse = this.collateralHistoricalPrices[this.currentlySelectedCollateral];
+			return [this.getChangePercent("price", dataToUse), this.getPercentChangeBadgeClass("price", dataToUse)];
 		}
 	},
 	watch: {
@@ -161,10 +167,22 @@ export default {
 				this.minimumCollateralizationRatio = result;
 			}
 		},
+		async getCollateralHistoricalPrices() {
+			let result = [];
+			try {
+				const hydroSupplyResponse = await getTotalSupplyWithToken(HYDRO_ADDRESS);
+				result = hydroSupplyResponse.data.data.totalSupplyDayDatas;
+				console.log(result);
+			} catch(e) {
+			} finally {
+				this.$set(this.collateralHistoricalPrices, this.currentlySelectedCollateral, result);
+			}
+		},
 		initialize() {
 			this.getCollateralPrice();
 			this.getNuonPrice();
 			this.getMinimumCollateralizationRatio();
+			this.getCollateralHistoricalPrices();
 			setTimeout(() => {
 				if (this.connectedAccount) {
 					this.getUserCollateralAmount();
