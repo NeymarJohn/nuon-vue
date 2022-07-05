@@ -24,7 +24,7 @@
 				<h3 :class="myCollateralizationRatio < 730 ? myCollateralizationRatio < 460 ? 'u-is-warning' : 'u-is-caution' : 'u-is-success'">{{ myCollateralizationRatio | toFixed }}<sup>%</sup></h3>
 			</ComponentLoader>
 			<TheLoader component="h5">
-				<TheBadge class="u-half-width u-text-center" color="price-up">+ 0.03%</TheBadge>
+				<TheBadge color="price-up">+ 0.03%</TheBadge>
 			</TheLoader>
 		</DataCard>
 		<DataCard align="min-width">
@@ -33,7 +33,7 @@
 				<h3>${{ currentPrice | toFixed | numberWithCommas }}</h3>
 			</ComponentLoader>
 			<TheLoader component="h5">
-				<TheBadge class="u-half-width u-text-center" :color="collateralPriceChange[1]">{{collateralPriceChange[0]}}%</TheBadge>
+				<TheBadge color="price-down">- 4.56%</TheBadge>
 			</TheLoader>
 		</DataCard>
 	</LayoutInfo>
@@ -76,10 +76,6 @@ export default {
 			type: Number,
 			default: null
 		},
-		collateralPriceChange: {
-			type: Array,
-			required: true
-		}
 	},
 };
 </script>

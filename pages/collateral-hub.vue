@@ -21,8 +21,7 @@
 				:my-total-minted-tokens="userMintedAmount"
 				:my-total-minted-tokens-dollar="totalMintedTokensDollarValue"
 				:my-collateralization-ratio="userCollateralizationRatio"
-				:current-price="collateralPrice"
-				:collateral-price-change="collateralPriceChange" />
+				:current-price="collateralPrice" />
 			<CollateralEcosystemStatus
 				:min-collateralization-ratio="minimumCollateralizationRatio"
 				:liquidation-price="liquidationPrice"
@@ -58,8 +57,7 @@ export default {
 			userCollateralizationRatioStore: {},
 			userTotalLockedCollateralAmountStore: {},
 			userTotalMintedNuonStore: {},
-			collateralPrices: {},
-			collateralHistoricalPrices: {}
+			collateralPrices: {}
 		};
 	},
 	head () {
@@ -84,15 +82,12 @@ export default {
 			const collateralPrice = this.collateralPrices[this.currentlySelectedCollateral];
 			const collateralAmount = this.userTotalLockedCollateralAmountStore[this.currentlySelectedCollateral];
 			const collateralRatio = this.userCollateralizationRatioStore[this.currentlySelectedCollateral];
+			if (collateralRatio === 0) return 0;
 			return [collateralPrice, collateralAmount, collateralRatio].includes(undefined) ? null : parseFloat(((collateralPrice * collateralAmount) / (collateralRatio / 100)).toFixed(2));
 		},
 		userCollateralizationRatio() {
 			const collateralRatio = this.userCollateralizationRatioStore[this.currentlySelectedCollateral];
 			return collateralRatio === undefined ? null : collateralRatio;
-		},
-		collateralPriceChange() {
-			const dataToUse = this.collateralHistoricalPrices[this.currentlySelectedCollateral];
-			return [this.getChangePercent("price", dataToUse), this.getPercentChangeBadgeClass("price", dataToUse)];
 		}
 	},
 	watch: {
@@ -114,9 +109,9 @@ export default {
 			let result = 0;
 			try {
 				result = parseFloat(fromWei(await this.$store.getters["collateralVaultStore/getCollateralPrice"]()));
-				this.$set(this.collateralPrices, this.currentlySelectedCollateral, result);
 			} catch (e) {
 			} finally {
+				this.$set(this.collateralPrices, this.currentlySelectedCollateral, result);
 				this.collateralPrice = result;
 			}
 		},
@@ -124,9 +119,9 @@ export default {
 			let result = 0;
 			try {
 				result = parseFloat(fromWei(await this.$store.getters["collateralVaultStore/getUserMintedAmount"](this.connectedAccount)));
-				this.$set(this.userTotalMintedNuonStore, this.currentlySelectedCollateral, result);
 			} catch (e) {
 			} finally {
+				this.$set(this.userTotalMintedNuonStore, this.currentlySelectedCollateral, result);
 				this.userMintedAmount = result;
 			}
 		},
@@ -143,9 +138,9 @@ export default {
 			let result = 0;
 			try {
 				result = parseFloat(fromWei(await this.$store.getters["collateralVaultStore/getUserCollateralAmount"](this.connectedAccount)));
-				this.$set(this.userTotalLockedCollateralAmountStore, this.currentlySelectedCollateral, result);
 			} catch (e) {
 			} finally {
+				this.$set(this.userTotalLockedCollateralAmountStore, this.currentlySelectedCollateral, result);
 				this.userCollateralAmount = result;
 			}
 		},
@@ -153,8 +148,9 @@ export default {
 			let result = 0;
 			try {
 				result = parseFloat(fromWei(await this.$store.getters["collateralVaultStore/getUserCollateralRatioInPercent"](this.connectedAccount)));
-				this.$set(this.userCollateralizationRatioStore, this.currentlySelectedCollateral, result);
 			} catch (e) {
+			} finally {
+				this.$set(this.userCollateralizationRatioStore, this.currentlySelectedCollateral, result);
 			}
 		},
 		async getMinimumCollateralizationRatio() {
@@ -167,28 +163,14 @@ export default {
 				this.minimumCollateralizationRatio = result;
 			}
 		},
-		async getCollateralHistoricalPrices() {
-			let result = [];
-			try {
-				const hydroSupplyResponse = await getTotalSupplyWithToken(HYDRO_ADDRESS);
-				result = hydroSupplyResponse.data.data.totalSupplyDayDatas;
-				console.log(result);
-			} catch(e) {
-			} finally {
-				this.$set(this.collateralHistoricalPrices, this.currentlySelectedCollateral, result);
-			}
-		},
 		initialize() {
 			this.getCollateralPrice();
 			this.getNuonPrice();
 			this.getMinimumCollateralizationRatio();
-			this.getCollateralHistoricalPrices();
 			setTimeout(() => {
-				if (this.connectedAccount) {
-					this.getUserCollateralAmount();
-					this.getUserMintedAmount();
-					this.getUserCollateralizationRatio();
-				}
+				this.getUserCollateralAmount();
+				this.getUserMintedAmount();
+				this.getUserCollateralizationRatio();
 			}, 1000);
 		}
 	}

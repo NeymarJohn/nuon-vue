@@ -8,15 +8,15 @@
 			</TheTabs>
 			<LayoutFlex>
 				<div class="chart">
-					<p>Market Cap <TheBadge :color="getPercentChangeBadgeClass('marketVal', dataToUse)" class="u-ml-8">{{ getChangePercent('marketVal', dataToUse) }}%</TheBadge></p>
+					<p>Market Cap <TheBadge :color="getPercentChangeBadgeClass('marketVal')" class="u-ml-8">{{ getChangePercent('marketVal') }}%</TheBadge></p>
 					<ComponentLoader component="h3" :loaded="marketCap !== null">
 						<h3 class="u-mb-48">${{ marketCap | numberWithCommas }}</h3>
 					</ComponentLoader>
-					<p>Circulating Supply <TheBadge :color="getPercentChangeBadgeClass('value', dataToUse)" class="u-ml-8">{{ getChangePercent('value', dataToUse) }}%</TheBadge></p>
+					<p>Circulating Supply <TheBadge :color="getPercentChangeBadgeClass('value')" class="u-ml-8">{{ getChangePercent('value') }}%</TheBadge></p>
 					<ComponentLoader component="h3" :loaded="circulatingSupply !== null">
 						<h3 class="u-mb-48">{{ circulatingSupply | numberWithCommas }}</h3>
 					</ComponentLoader>
-					<p>Price <TheBadge :color="getPercentChangeBadgeClass('price', dataToUse)" class="u-ml-8">{{ getChangePercent('price', dataToUse) }}%</TheBadge></p>
+					<p>Price <TheBadge :color="getPercentChangeBadgeClass('price')" class="u-ml-8">{{ getChangePercent('price') }}%</TheBadge></p>
 					<ComponentLoader component="h3" :loaded="tokenPrice !== null">
 						<h3>{{ tokenPrice }}<sup>Nuon</sup></h3>
 					</ComponentLoader>
@@ -154,6 +154,24 @@ export default {
 			this.graphSelection = this.yAxisData[e];
 			this.dateSelection = this.xAxisLabels[e];
 		},
+		getChangePercent(key) {
+			const dataLength = this.dataToUse.length;
+
+			if (dataLength < 2) return 0;
+			let first = this.dataToUse[dataLength - 2][key];
+			let second = this.dataToUse[dataLength - 1][key];
+
+			if (key === "price") {
+				first = first.price;
+				second = second.price;
+			}
+			return this.calcPercentChange(first, second);
+		},
+		getPercentChangeBadgeClass(key) {
+			const val = this.getChangePercent(key);
+			if (val === "0.00") return "price-same";
+			return val < 0 ? "price-down" : "price-up";
+		}
 	}
 };
 </script>
