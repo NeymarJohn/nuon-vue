@@ -1,7 +1,5 @@
 <template>
-	<div class="u-full-height">
-		<div id="lineChart" class="chart__container"></div>
-	</div>
+	<div id="lineChart" class="chart__container"></div>
 </template>
 
 <script>
@@ -51,7 +49,7 @@ export default {
 		const data = this.chartData; // Needs to be replaced / removed
 
 		const chartOptions = {
-			height: "500",
+			height: "300",
 			layout: {
 				textColor: "#B7B7B7",
 				background: {
