@@ -1,3 +1,10 @@
+.pill-container {
+	border-radius: $BORDER_RADIUS_32;
+	padding: $SPACING_8;
+	background-color: $DARK_GREY;
+	width: fit-content;
+}
+
 .pill {
 	border-radius: $SPACING_24;
 	color: $LIGHT_GREY;
@@ -6,7 +13,7 @@
 	cursor: pointer;
 	&:hover {
 		color: $LIME;
-		background-color: $DARK_GREY;
+		background-color: $MEDIUM_LIGHT_GREY;
 	}
 }
 
@@ -15,6 +22,6 @@
 }
 
 .pill.active {
-	background-color: $DARK_GREY;
+	background-color: $MEDIUM_LIGHT_GREY;
 	color: $LIME;
 }

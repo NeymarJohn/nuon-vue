@@ -88,6 +88,7 @@
 			<LineChart
 				class="u-mt-16"
 				:x-axis-labels="['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']"
+				:y-axis-options="{showYAxis: false, opposite: false, labels: {formatter: (val) => {}}}"
 				:series-data="[
 					{
 						name: 'My Total Minted Value (NUON)',

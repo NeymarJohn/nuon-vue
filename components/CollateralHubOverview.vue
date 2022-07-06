@@ -1,27 +1,31 @@
 <template>
 	<div>
 		<h2 class="u-mb-24">Collateral Hub Overview</h2>
-		<LayoutFlex class="l-chart l-chart--vault-overview l-flex--wrap">
-			<div class="chart">
-				<LightweightChart
-					v-if="isLoadedData && !error"
-					:day-data="dayData"
-					:week-data="weekData"
-					:month-data="monthData"/>
-				<div v-if="error">
-					<p>TVL</p>
-					<p>Data is not ready...</p>
+		<LayoutFlex direction="column" class="l-chart l-chart--vault-overview">
+			<TheTabs size="thin" color="light" margin="24" @tab-changed="handleTabChanged">
+				<TheTab v-for="(period, periodIdx) in periods" :key="periodIdx" :title="period" />
+			</TheTabs>
+			<LayoutFlex>
+				<div class="chart chart-container">
+					<LightweightChart
+						v-if="isLoadedData && !error"
+						:day-data="dayData"
+						:week-data="weekData"
+						:month-data="monthData"
+						:selected-tab-idx="selectedPeriod" />
+					<div v-if="error">
+						<p>TVL</p>
+						<p>Data is not ready...</p>
+					</div>
 				</div>
-			</div>
-			<div class="chart chart--donut">
-				<p class="u-mb-4">Collateral Distribution</p>
-				<p class="u-colour-white u-mb-16">{{ dateStr }}</p>
-				<DonutChartCollateral v-if="donutChartData" class="u-mb-24" :chart-data="donutChartData" />
-				<p>APY<TooltipIcon v-tooltip="'Enter APY tooltip content here.'" /></p>
-				<h3 class="u-mb-24">Inflation 34.3%</h3>
-				<p>Collateralization Ratio<TooltipIcon v-tooltip="'Enter collateralization ratio tooltip content here.'" /></p>
-				<h3>{{ collateralRatio }}%</h3>
-			</div>
+				<div class="chart chart--donut">
+					<p class="u-mb-4">Collateral Distribution</p>
+					<p class="u-colour-white u-mb-16">{{ dateStr }}</p>
+					<DonutChartCollateral v-if="donutChartData" class="u-mb-24" :chart-data="donutChartData" />
+					<p>Collateralization Ratio<TooltipIcon v-tooltip="'Enter collateralization ratio tooltip content here.'" /></p>
+					<h3>{{ collateralRatio }}%</h3>
+				</div>
+			</LayoutFlex>
 		</LayoutFlex>
 	</div>
 </template>
@@ -48,6 +52,8 @@ export default {
 			dateStr: "",
 			donutChartData: null,
 			collateralRatio: 0,
+			selectedPeriod: "",
+			periods: ["D", "W", "M"],
 		};
 	},
 	mounted () {
@@ -94,10 +100,15 @@ export default {
 			this.donutChartData = data;
 		});
 		this.$store.getters["collateralVaultStore/getCollateralRatioInPercent"]().then(res => {
-			this.collateralRatio = parseFloat(fromWei(res)).toFixed(2);
+			this.collateralRatio = parseFloat(fromWei(res)).toFixed(0);
 		}).catch(() => {
 			this.collateralRatio = 0;
 		});
 	},
+	methods: {
+		handleTabChanged(e) {
+			this.selectedPeriod = e;
+		},
+	}
 };
 </script>

@@ -8,33 +8,41 @@
 			</TheTabs>
 			<LayoutFlex>
 				<div class="chart">
-					<p>Market Cap <TheBadge :color="getPercentChangeBadgeClass('marketVal', dataToUse)" class="u-ml-8">{{ getChangePercent('marketVal', dataToUse) }}%</TheBadge></p>
+					<LayoutFlex>
+						<p>Market Cap</p><TheBadge :color="getPercentChangeBadgeClass('marketVal', dataToUse)" class="u-ml-8">{{ getChangePercent('marketVal', dataToUse) }}%</TheBadge>
+					</LayoutFlex>
 					<ComponentLoader component="h3" :loaded="marketCap !== null">
 						<h3 class="u-mb-48">${{ marketCap | numberWithCommas }}</h3>
 					</ComponentLoader>
-					<p>Circulating Supply <TheBadge :color="getPercentChangeBadgeClass('value', dataToUse)" class="u-ml-8">{{ getChangePercent('value', dataToUse) }}%</TheBadge></p>
+					<LayoutFlex>
+						<p>Circulating Supply</p><TheBadge :color="getPercentChangeBadgeClass('value', dataToUse)" class="u-ml-8">{{ getChangePercent('value', dataToUse) }}%</TheBadge>
+					</LayoutFlex>
 					<ComponentLoader component="h3" :loaded="circulatingSupply !== null">
 						<h3 class="u-mb-48">${{ circulatingSupply | numberWithCommas }}</h3>
 					</ComponentLoader>
-					<p>Price <TheBadge :color="getPercentChangeBadgeClass('price', dataToUse)" class="u-ml-8">{{ getChangePercent('price', dataToUse) }}%</TheBadge></p>
+					<LayoutFlex>
+						<p>Price</p><TheBadge :color="getPercentChangeBadgeClass('price', dataToUse)" class="u-ml-8">{{ getChangePercent('price', dataToUse) }}%</TheBadge>
+					</LayoutFlex>
 					<ComponentLoader component="h3" :loaded="tokenPrice !== null">
-						<h3>{{ tokenPrice }}<sup>NUON</sup></h3>
+						<h3>${{ tokenPrice }}</h3>
 					</ComponentLoader>
 				</div>
 				<div class="chart">
 					<LayoutFlex direction="row-space-between">
 						<div class="u-min-height-96">
 							<p>{{ selectedPriceTab }}</p>
-							<h1 v-show="graphSelection">{{ graphSelection }}</h1>
-							<p v-show="graphSelection" class="u-colour-white">{{ dateSelection }}</p>
+							<h1>{{ graphSelection }}</h1>
+							<p class="u-colour-white">{{ dateSelection }}</p>
 						</div>
 						<LayoutFlex direction="column-justify-between">
 							<ThePills
+								class="u-mb-8"
 								:pills="priceTabs"
 								default-active
 								@pill-clicked="handlePriceTabChanged" />
 							<ThePills
-								v-if="selectedPriceTab !== 'Price' && selectedPriceTab !== null"
+								v-show="selectedPriceTab !== 'Price' && selectedPriceTab !== null"
+								class="l-flex--align-self-end"
 								:pills="periodTabs"
 								default-active
 								@pill-clicked="handlePeriodTabChanged" />
@@ -44,8 +52,12 @@
 						:key="`${currentlySelectedTab}-${selectedPriceTab}-${selectedPeriodTab}`"
 						class="u-mt-32"
 						:x-axis-labels="xAxisLabels"
-						:series-data="[{name: selectedPriceTab || '',  data: yAxisData}]"
+						:series-data="[{name: selectedPriceTab || '',  data: yAxisData}, {name: 'Latest', data: dottedYAxisData}]"
 						:animate="false"
+						:y-axis-options="{showYAxis: false, opposite: false, labels: {formatter: (val) => {}}}"
+						:show-tooltip="true"
+						:dash-array="[0, 4]"
+						:colors="['#DFFF65', 'grey']"
 						@mouseOverDataPoint="handleMouseOverChart" />
 				</div>
 			</LayoutFlex>
@@ -66,7 +78,7 @@ export default {
 			selectedPeriodTab: "",
 			tabs: ["HX", "NUON"],
 			priceTabs: ["Price", "Market Cap", "Circulating Supply"],
-			periodTabs: ["W", "M"],
+			periodTabs: ["D", "W", "M"],
 			priceHistoryData: [],
 			graphSelection: "",
 			dateSelection: "",
@@ -106,7 +118,8 @@ export default {
 		xAxisLabels() {
 			const data = this.graphData.map(d => d.date);
 			if (this.selectedPriceTab !== "Price") {
-				const numberOfDaysInPast = this.selectedPeriodTab === "W" ? 7 : 30;
+				let numberOfDaysInPast = this.selectedPeriodTab === "W" ? 7 : 30;
+				if (this.selectedPeriodTab === "D") numberOfDaysInPast = 0;
 				data.slice(this.graphData.length - numberOfDaysInPast);
 			}
 			data.push("");
@@ -118,7 +131,8 @@ export default {
 			if (this.selectedPriceTab === "Price") {
 				data = data.map(d => d.price);
 			} else {
-				const numberOfDaysInPast = this.selectedPeriodTab === "W" ? 7 : 30;
+				let numberOfDaysInPast = this.selectedPeriodTab === "W" ? 7 : 30;
+				if (this.selectedPeriodTab === "D") numberOfDaysInPast = 0;
 				data.slice(this.graphData.length - numberOfDaysInPast);
 			}
 			data = data.map(d => parseFloat(d).toFixed(2));
@@ -126,6 +140,9 @@ export default {
 			data.unshift(null);
 			return data;
 		},
+		dottedYAxisData() {
+			return this.yAxisData.map(d => d ? this.yAxisData[this.yAxisData.length - 2] : null);
+		}
 	},
 	async mounted() {
 		try {
@@ -143,12 +160,15 @@ export default {
 	methods: {
 		handleTabChanged(e) {
 			this.currentlySelectedTab = this.tabs[e];
+			this.handleMouseOverChart(this.yAxisData.length - 2);
 		},
 		handlePriceTabChanged(e) {
 			this.selectedPriceTab = this.priceTabs[e];
+			this.handleMouseOverChart(this.yAxisData.length - 2);
 		},
 		handlePeriodTabChanged(e) {
 			this.selectedPeriodTab = this.periodTabs[e];
+			this.handleMouseOverChart(this.yAxisData.length - 2);
 		},
 		handleMouseOverChart(e) {
 			this.graphSelection = this.yAxisData[e];
