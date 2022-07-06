@@ -5,7 +5,7 @@
 			<TheTabs size="thin" color="light" margin="24" @tab-changed="handleTabChanged">
 				<TheTab v-for="(period, periodIdx) in periods" :key="periodIdx" :title="period" />
 			</TheTabs>
-			<LayoutFlex>
+			<LayoutFlex class="l-flex--column-md">
 				<div class="chart chart-container">
 					<LightweightChart
 						v-if="isLoadedData && !error"

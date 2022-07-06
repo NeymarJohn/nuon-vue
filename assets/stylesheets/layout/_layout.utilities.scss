@@ -81,8 +81,14 @@
 	}
 }
 @media screen and (max-width: $SPACING_990) {
+	.u-mb-md-4 {
+		margin-bottom: $SPACING_4 !important;
+	}
 	.u-mb-md-12 {
 		margin-bottom: $SPACING_12 !important;
+	}
+	.u-mb-md-16 {
+		margin-bottom: $SPACING_16 !important;
 	}
 	.u-mb-md-20 {
 		margin-bottom: $SPACING_20 !important;
@@ -384,9 +390,6 @@
 }
 
 // 22. Height
-.u-min-height-96 {
-	min-height: $SPACING_96 !important;
-}
 .u-full-height {
 	height: 100% !important;
 }

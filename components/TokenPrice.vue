@@ -6,21 +6,21 @@
 				<TheTab title="HX" />
 				<TheTab title="NUON" />
 			</TheTabs>
-			<LayoutFlex>
+			<LayoutFlex class="l-flex--column-md">
 				<div class="chart">
-					<LayoutFlex>
+					<LayoutFlex class="u-mb-md-4">
 						<p>Market Cap</p><TheBadge :color="getPercentChangeBadgeClass('marketVal', dataToUse)" class="u-ml-8">{{ getChangePercent('marketVal', dataToUse) }}%</TheBadge>
 					</LayoutFlex>
 					<ComponentLoader component="h3" :loaded="marketCap !== null">
 						<h3 class="u-mb-48">${{ marketCap | numberWithCommas }}</h3>
 					</ComponentLoader>
-					<LayoutFlex>
+					<LayoutFlex class="u-mb-md-4">
 						<p>Circulating Supply</p><TheBadge :color="getPercentChangeBadgeClass('value', dataToUse)" class="u-ml-8">{{ getChangePercent('value', dataToUse) }}%</TheBadge>
 					</LayoutFlex>
 					<ComponentLoader component="h3" :loaded="circulatingSupply !== null">
 						<h3 class="u-mb-48">${{ circulatingSupply | numberWithCommas }}</h3>
 					</ComponentLoader>
-					<LayoutFlex>
+					<LayoutFlex class="u-mb-md-4">
 						<p>Price</p><TheBadge :color="getPercentChangeBadgeClass('price', dataToUse)" class="u-ml-8">{{ getChangePercent('price', dataToUse) }}%</TheBadge>
 					</LayoutFlex>
 					<ComponentLoader component="h3" :loaded="tokenPrice !== null">
@@ -28,12 +28,16 @@
 					</ComponentLoader>
 				</div>
 				<div class="chart">
-					<LayoutFlex direction="row-space-between">
-						<div class="u-min-height-96">
-							<p>{{ selectedPriceTab }}</p>
-							<h1>{{ graphSelection }}</h1>
-							<p class="u-colour-white">{{ dateSelection }}</p>
-						</div>
+					<LayoutFlex direction="row-space-between" class="l-flex--column-reverse-md">
+						<DataCard>
+							<label>{{ selectedPriceTab }}</label>
+							<ComponentLoader component="h1" :loaded="graphSelection !== null">
+								<h4 class="u-mb-8">{{ graphSelection }}</h4>
+							</ComponentLoader>
+							<ComponentLoader component="h5" :loaded="dateSelection !== null">
+								<h5>{{ dateSelection }}</h5>
+							</ComponentLoader>
+						</DataCard>
 						<LayoutFlex direction="column-justify-between">
 							<ThePills
 								class="u-mb-8"
@@ -42,7 +46,7 @@
 								@pill-clicked="handlePriceTabChanged" />
 							<ThePills
 								v-show="selectedPriceTab !== 'Price' && selectedPriceTab !== null"
-								class="l-flex--align-self-end"
+								class="l-flex--align-self-end l-flex--align-self-start-md u-mb-md-16"
 								:pills="periodTabs"
 								default-active
 								@pill-clicked="handlePeriodTabChanged" />

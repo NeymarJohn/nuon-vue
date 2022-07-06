@@ -45,6 +45,21 @@
 }
 
 // 5. Chart responsive
+@media screen and (max-width: $SPACING_990) {
+	.l-chart--vault-overview .chart:first-child,
+	.l-chart--vault-overview .chart:last-child {
+		flex-basis: calc(100%);
+		margin-right: 0;
+	}
+	.l-chart--token-price .chart:first-child,
+	.l-chart--token-price .chart:last-child {
+		width: 100%;
+	}
+	.l-chart--vault-overview .chart:first-child,
+	.l-chart--token-price .chart:first-child {
+		margin-bottom: $SPACING_16;
+	}
+}
 @media screen and (max-width: $SPACING_480) {
 	.l-chart--account-balance .chart:first-child,
 	.l-chart--account-balance .chart:last-child {
