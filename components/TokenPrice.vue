@@ -24,7 +24,7 @@
 						<p>Price</p><TheBadge :color="getPercentChangeBadgeClass('price', dataToUse)" class="u-ml-8">{{ getChangePercent('price', dataToUse) }}%</TheBadge>
 					</LayoutFlex>
 					<ComponentLoader component="h3" :loaded="tokenPrice !== null">
-						<h3>${{ tokenPrice }}</h3>
+						<h3>${{ tokenPrice && tokenPrice.includes("0.") ? tokenPrice : numberWithCommas(tokenPrice) }}</h3>
 					</ComponentLoader>
 				</div>
 				<div class="chart">

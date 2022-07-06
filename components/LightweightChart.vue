@@ -51,7 +51,7 @@ export default {
 		const data = this.chartData; // Needs to be replaced / removed
 
 		const chartOptions = {
-			height: "300",
+			height: "500",
 			layout: {
 				textColor: "#B7B7B7",
 				background: {
