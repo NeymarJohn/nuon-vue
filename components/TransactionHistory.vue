@@ -41,9 +41,9 @@ export default {
 			filterLastDays: 0,
 			locations: ["collateral", "swap", "boardroom", "rewoard"],
 			selectOptions: [
-				{label: "All", value: 0},
-				{label: "Past 7 Days", value: 7},
-				{label: "Past 30 Days", value: 30},
+				{label: "All", value: 0},  
+				{label: "Past 7 Days", value: 7}, 
+				{label: "Past 30 Days", value: 30}, 
 				{label: "Past 90 Days", value:90},
 			],
 			mobileView: false,
@@ -53,6 +53,7 @@ export default {
 		searchQuery() {
 			return this.$store.state.transactionStore.search;
 		},
+		
 	},
 	watch: {
 		searchQuery() {
@@ -79,6 +80,7 @@ export default {
 					this.tableData = res.data.data.userTransactions.map(item => ({...item, date: item.date * 1000}));
 				});
 			}
+			
 		},
 		changeTab(tabIndex) {
 			this.selectedTab = tabIndex;

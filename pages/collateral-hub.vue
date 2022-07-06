@@ -4,8 +4,7 @@
 			<LayoutFlex direction="row-center-space-between" class="l-flex--column-start-sm u-mb-48">
 				<PageTitle>
 					<h4>Collateral Hub</h4>
-					<h1 class="u-mb-sm-12">Borrow NUON</h1>
-					<h5 v-if="mobileView" class="u-color-white u-text-decoration-underline" title="Click to view hub overview" @click="setModalVisibility('hubOverviewModal', true)">Hub Overview</h5>
+					<h1>Borrow NUON</h1>
 				</PageTitle>
 				<ComponentLoader :loaded="userCollateralizationRatio !== null && minimumCollateralizationRatio !== null" component="notification" slot-classes="u-width-auto">
 					<TheNotification
@@ -60,8 +59,7 @@ export default {
 			userTotalLockedCollateralAmountStore: {},
 			userTotalMintedNuonStore: {},
 			collateralPrices: {},
-			collateralHistoricalPrices: {},
-			mobileView: false,
+			collateralHistoricalPrices: {}
 		};
 	},
 	head () {
@@ -108,7 +106,6 @@ export default {
 	},
 	mounted() {
 		this.initialize();
-		this.mobileView = this.isMobile();
 	},
 	methods: {
 		tabChanged(e) {

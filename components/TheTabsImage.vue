@@ -5,8 +5,8 @@
 				<img :src="require(`~/assets/images/borrow/${tab}.png`)" height="24" width="24" />
 				<h5>{{ tab }}</h5>
 			</li>
-			<li v-if="!mobileView" title="Click to view hub overview" @click="setModalVisibility('hubOverviewModal', true)">
-				<h5 class="u-color-white u-bb-white">Hub Overview</h5>
+			<li title="Click to view hub overview" @click="setModalVisibility('hubOverviewModal', true)">
+				<h5>Hub Overview</h5>
 			</li>
 		</ul>
 		<TheModal
@@ -51,7 +51,6 @@ export default {
 		return {
 			selectedIndex: 0,
 			tabs: ["ETH", "BTC", "AVAX", "USDC", "USDT"],
-			mobileView: false,
 		};
 	},
 	computed: {
@@ -61,7 +60,6 @@ export default {
 	},
 	mounted() {
 		this.selectTab(0);
-		this.mobileView = this.isMobile();
 	},
 	methods: {
 		selectTab (i) {

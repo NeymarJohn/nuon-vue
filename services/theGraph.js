@@ -119,3 +119,34 @@ export const getUserCollateralHistory = (filters) => {
 		variables
 	});
 };
+
+export const getUserCollateralHistoryData = (user) => {
+	const variables = {
+		user,
+	};
+	return axios.post(THE_GRAPH_URL, {
+		query:`
+			query getUserCollateralHistory($user: String!) {
+				userCollateralHistories(
+					orderBy: dateTime
+					orderDirection: desc
+					where: {user: $user}
+				) {
+					id
+					user
+					mintedNuon
+					collateralRatio
+					dateTime
+					collateralTokens {
+						amount
+						value
+						collateralToken {
+							symbol
+							tokenAddress
+						}
+					}
+				}
+			}`,
+		variables
+	});
+};

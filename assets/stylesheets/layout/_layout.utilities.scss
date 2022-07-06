@@ -21,7 +21,6 @@
 		20. Colour
 		21. Prompt
 		22. Height
-		23. Text decoration
 */
 
 // 1. Margin bottom
@@ -317,12 +316,10 @@
 .u-is-warning sup {
 	color: $ERROR !important;
 }
-.u-is-success,
-.u-is-success sup {
+.u-is-success {
 	color: $SUCCESS !important;
 }
-.u-is-caution,
-.u-is-caution sup {
+.u-is-caution {
 	color: $WARNING !important;
 }
 
@@ -395,9 +392,4 @@
 // 22. Height
 .u-full-height {
 	height: 100% !important;
-}
-
-// 23. Text decoration
-.u-text-decoration-underline {
-	text-decoration: underline !important;
 }
