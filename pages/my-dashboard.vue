@@ -81,7 +81,7 @@
 				<DataCard>
 					<label>My Collateralization Ratio<TooltipIcon v-tooltip="'Enter My Collateralization Ratio tooltip content here.'" /></label>
 					<ComponentLoader component="h1" :loaded=" userCollateralizationRatios.ETH !== null">
-						<h3>{{ userCollateralizationRatios.ETH | numberWithCommas }}%</h3>
+						<h3>{{ userCollateralizationRatios.ETH | toFixed }}%</h3>
 					</ComponentLoader>
 				</DataCard>
 			</LayoutFlex>
