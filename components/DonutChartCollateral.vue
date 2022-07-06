@@ -59,6 +59,7 @@ export default {
 					},
 				},
 				tooltip: {
+					enabled: false,
 					theme: "dark",
 				},
 				states: {
