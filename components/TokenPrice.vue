@@ -32,7 +32,7 @@
 						<DataCard>
 							<label>{{ selectedPriceTab }}</label>
 							<ComponentLoader component="h1" :loaded="graphSelection !== null">
-								<h4 class="u-mb-8">{{ graphSelection }}</h4>
+								<h3>{{ graphSelection | numberWithCommas }}<sup>{{ currentlySelectedTab }}</sup></h3>
 							</ComponentLoader>
 							<ComponentLoader component="h5" :loaded="dateSelection !== null">
 								<h5>{{ dateSelection }}</h5>
@@ -56,7 +56,16 @@
 						:key="`${currentlySelectedTab}-${selectedPriceTab}-${selectedPeriodTab}`"
 						class="u-mt-32"
 						:x-axis-labels="xAxisLabels"
-						:series-data="[{name: selectedPriceTab || '',  data: yAxisData}, {name: 'Latest', data: dottedYAxisData}]"
+						:series-data="[
+							{
+								name: selectedPriceTab || '',
+								data: yAxisData
+							},
+							{
+								name: 'Latest',
+								data: dottedYAxisData
+							}
+						]"
 						:animate="false"
 						:y-axis-options="{showYAxis: false, opposite: false, labels: {formatter: (val) => {}}}"
 						:show-tooltip="true"
