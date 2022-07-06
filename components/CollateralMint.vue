@@ -57,7 +57,7 @@
 			</DataCard>
 			<DataCard class="u-full-width">
 				<p>Estimated NUON minted</p>
-				<h4 class="collateral-estimate">{{ estimatedMintedNuonValue | toFixed | numberWithCommas }} NUON</h4>
+				<h4 class="collateral-estimate">{{ estimatedMintedNuonValue | toFixed | numberWithCommas }} <sup>NUON</sup></h4>
 			</DataCard>
 			<div class="toggle__transaction">
 				<TheButton
@@ -232,7 +232,7 @@ export default {
 			}
 		},
 		inputMaxBalance() {
-			this.inputValue = this.tokenBalance;
+			this.inputValue = this.tokenBalance.toFixed(2);
 		}
 	}
 };

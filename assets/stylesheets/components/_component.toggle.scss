@@ -102,4 +102,11 @@
 		padding: $SPACING_24;
 		margin-bottom: $SPACING_24;
 	}
+	.toggle__buttons .btn,
+	.toggle__transaction .btn {
+		width: 50%;
+	}
+	.toggle__transaction .btn:first-child {
+		margin-right: $SPACING_16;
+	}
 }

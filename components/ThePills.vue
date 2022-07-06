@@ -1,5 +1,5 @@
 <template>
-	<LayoutFlex>
+	<LayoutFlex class="pill-container">
 		<div
 			v-for="(pill, pillIdx) in pills"
 			:key="pillIdx"
