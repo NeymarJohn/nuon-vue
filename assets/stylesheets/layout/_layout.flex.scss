@@ -98,15 +98,9 @@
 
 // 4. Flex responsive
 @media screen and (max-width: $SPACING_990) {
-	.l-flex--column-reverse-md {
-		flex-direction: column-reverse;
-	}
 	.l-flex--column-start-md {
 		flex-direction: column;
 		align-items: flex-start;
-	}
-	.l-flex--align-self-start-md {
-		align-self: flex-start;
 	}
 	.l-flex--column-md {
 		flex-direction: column;

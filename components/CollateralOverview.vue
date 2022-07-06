@@ -24,7 +24,7 @@
 				<h3 :class="myCollateralizationRatio < 730 ? myCollateralizationRatio < 460 ? 'u-is-warning' : 'u-is-caution' : 'u-is-success'">{{ myCollateralizationRatio | toFixed }}<sup>%</sup></h3>
 			</ComponentLoader>
 			<TheLoader component="h5">
-				<TheBadge color="price-up">{{collateralRatioDiff>=0?"+":"-"}} {{Math.abs(collateralRatioDiff) | toFixed}}%</TheBadge>
+				<TheBadge color="price-up">+ 0.03%</TheBadge>
 			</TheLoader>
 		</DataCard>
 		<DataCard>
@@ -41,7 +41,6 @@
 
 <script>
 import TooltipIcon from "@/assets/images/svg/svg-tooltip.svg";
-import { getUserCollateralHistory } from "~/services/theGraph";
 
 export default {
 	name: "CollateralOverview",
@@ -80,39 +79,6 @@ export default {
 		collateralPriceChange: {
 			type: Array,
 			required: true
-		}
-	},
-	data() {
-		return {
-			collateralRatioDiff: 0
-		};
-	},
-	watch: {
-		connectedAccount(value) {
-			if (value) {
-				this.getCalcDiffCollateralRatio();
-			}
-		}
-	},
-	mounted () {
-		this.getCalcDiffCollateralRatio();
-	},
-	methods: {
-		getCalcDiffCollateralRatio() {
-			if (!this.connectedAccount) return;
-			getUserCollateralHistory({user: this.connectedAccount}).then(res => {
-				const latestCollateralHistory = res.data.data.userCollateralHistories;
-				if (latestCollateralHistory.length >= 2) {
-					this.collateralRatioDiff = Number(latestCollateralHistory[0].collateralRatio) - Number(latestCollateralHistory[1].collateralRatio);
-				} else if (latestCollateralHistory.length === 1) {
-					this.collateralRatioDiff = Number(latestCollateralHistory[0].collateralRatio);
-				} else {
-					this.collateralRatioDiff = 0;
-				}
-			}).catch(() => {
-				this.collateralRatioDiff = 0;
-				this.failureToast(() => {}, "An error occurred");
-			});
 		}
 	},
 };

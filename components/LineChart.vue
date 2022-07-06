@@ -21,38 +21,12 @@ export default {
 			required: false,
 			default: true
 		},
-		yAxisOptions: {
-			type: Object,
-			default() {
-				return {showYAxis: false, opposite: false, labels: {align: "right", formatter: () => {}}};
-			},
-			required: false
-		},
-		showTooltip: {
-			type: Boolean,
-			required: false,
-			default: true
-		},
-		dashArray: {
-			type: Array,
-			required: false,
-			default() {
-				return new Array(this.yAxisOptions.length).fill(0);
-			}
-		},
-		colors: {
-			type: Array,
-			required: false,
-			default() {
-				return ["#DFFF65", "#65FFB5"];
-			}
-		},
 	},
 	data() {
 		return {
 			series: this.seriesData,
 			chartOptions: {
-				colors: this.colors,
+				colors: ["#DFFF65", "#65FFB5"],
 				chart: {
 					animations: {
 						enabled: this.animate,
@@ -69,24 +43,21 @@ export default {
 					events: {
 						mouseMove: (_event, _chartContext, config) => {
 							this.$emit("mouseOverDataPoint", config.dataPointIndex);
-						},
+						}
 					}
 				},
 				grid: {
 					show: false,
 				},
 				yaxis: {
-					opposite: this.yAxisOptions.opposite,
-					show: this.yAxisOptions.showYAxis,
-					labels: this.yAxisOptions.labels
+					show: false,
 				},
 				dataLabels: {
 					enabled: false
 				},
 				stroke: {
 					curve: "smooth",
-					width: 2,
-					dashArray: this.dashArray
+					width: 2
 				},
 				legend: {
 					show: false
@@ -101,14 +72,13 @@ export default {
 					},
 					labels: {
 						style: {
-							fontSize: "14",
+							fontSize: "12",
 							fontWeight: "400",
 							fontFamily: "Plus Jakarta Sans",
 						}
 					}
 				},
 				tooltip: {
-					enabled: this.showTooltip,
 					theme: "dark"
 				}
 			},

@@ -1,5 +1,12 @@
 <template>
-	<div id="lineChart" class="chart__container"></div>
+	<div>
+		<TheTabs size="thin" color="light" margin="24" @tab-changed="handleTabChanged">
+			<TheTab title="D" />
+			<TheTab title="W" />
+			<TheTab title="M" />
+		</TheTabs>
+		<div id="lineChart" class="chart__container"></div>
+	</div>
 </template>
 
 <script>
@@ -22,10 +29,6 @@ export default {
 		weekData: {
 			type: Array,
 			default: () => []
-		},
-		selectedTabIdx: {
-			type: Number,
-			required: true
 		}
 	},
 	data() {
@@ -39,17 +42,12 @@ export default {
 			tooltipDom: null
 		};
 	},
-	watch: {
-		selectedTabIdx(newVal) {
-			this.handleTabChanged(newVal);
-		}
-	},
 	mounted() {
 		const container = document.getElementById("lineChart");
 		const data = this.chartData; // Needs to be replaced / removed
 
 		const chartOptions = {
-			height: "300",
+			height: "270",
 			layout: {
 				textColor: "#B7B7B7",
 				background: {
