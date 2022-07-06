@@ -5,46 +5,56 @@
 			<h1>Portfolio Details</h1>
 		</PageTitle>
 		<h2 class="u-mb-24">Account Balance</h2>
-		<LayoutFlex direction="row l-chart chart">
-			<LayoutFlex direction="column">
-				<LayoutFlex direction="column">
-					<p>Total value</p>
-					<h1 class="u-mb-24">${{ totalValue | toFixed | numberWithCommas }}</h1>
-				</LayoutFlex>
-				<LayoutFlex direction="row-center-space-around">
-					<DonutChartBalance
-						:key="`balances-${balancesValue}-${totalValue}-${stakedBalance}`"
-						:chart-data="[balancesValue, parseFloat(totalValue), parseFloat(stakedBalance)]" />
-					<DataCard>
-						<label><TheDot color="light-green" /> My Balance</label>
-						<ComponentLoader component="h1" :loaded="balancesValue !== null">
-							<h3>${{ balancesValue | toFixed | numberWithCommas }}</h3>
-						</ComponentLoader>
-					</DataCard>
-					<DataCard>
-						<label><TheDot color="blue" /> My Collateral Locked</label>
-						<ComponentLoader component="h1" :loaded="totalValue !== null">
-							<h3>${{ totalValue | toFixed | numberWithCommas }}</h3>
-						</ComponentLoader>
-					</DataCard>
-					<DataCard>
-						<label><TheDot color="orange" /> My Staked</label>
-						<ComponentLoader component="h1" :loaded="stakedBalance !== null">
-							<h3>${{ stakedBalance | toFixed | numberWithCommas }}</h3>
-						</ComponentLoader>
-					</DataCard>
-				</LayoutFlex>
-			</LayoutFlex>
-			<DataCard>
-				<label>Pending Rewards</label>
-				<ComponentLoader component="h1" :loaded="pendingRewards !== null">
-					<h3>{{ pendingRewards | toFixed | numberWithCommas }}<sup>HX</sup></h3>
-				</ComponentLoader>
-				<ComponentLoader component="h5" :loaded="rewardsDollarValue !== null">
-					<h5>${{ rewardsDollarValue | toFixed | numberWithCommas }}</h5>
-				</ComponentLoader>
-			</DataCard>
-		</LayoutFlex>
+		<LayoutAccountBalance>
+			<template #panel-one>
+				<DataCard>
+					<label>Total Value</label>
+					<ComponentLoader component="h1" :loaded="totalValue !== null">
+						<h3>${{ totalValue | toFixed | numberWithCommas }}</h3>
+					</ComponentLoader>
+				</DataCard>
+			</template>
+			<template #panel-two>
+				<DonutChartBalance
+					:key="`balances-${balancesValue}-${totalValue}-${stakedBalance}`"
+					:chart-data="[balancesValue, parseFloat(totalValue), parseFloat(stakedBalance)]" />
+			</template>
+			<template #panel-three>
+				<DataCard>
+					<label><TheDot color="light-green" /> My Balance</label>
+					<ComponentLoader component="h1" :loaded="balancesValue !== null">
+						<h4>${{ balancesValue | toFixed | numberWithCommas }}</h4>
+					</ComponentLoader>
+				</DataCard>
+			</template>
+			<template #panel-four>
+				<DataCard>
+					<label><TheDot color="blue" /> My Collateral Locked</label>
+					<ComponentLoader component="h1" :loaded="totalValue !== null">
+						<h4>${{ totalValue | toFixed | numberWithCommas }}</h4>
+					</ComponentLoader>
+				</DataCard>
+			</template>
+			<template #panel-five>
+				<DataCard>
+					<label><TheDot color="orange" /> My Staked</label>
+					<ComponentLoader component="h1" :loaded="stakedBalance !== null">
+						<h4>${{ stakedBalance | toFixed | numberWithCommas }}</h4>
+					</ComponentLoader>
+				</DataCard>
+			</template>
+			<template #panel-six>
+				<DataCard>
+					<label>Pending Rewards</label>
+					<ComponentLoader component="h1" :loaded="pendingRewards !== null">
+						<h3>{{ pendingRewards | toFixed | numberWithCommas }}<sup>HX</sup></h3>
+					</ComponentLoader>
+					<ComponentLoader component="h5" :loaded="rewardsDollarValue !== null">
+						<h5>${{ rewardsDollarValue | toFixed | numberWithCommas }}</h5>
+					</ComponentLoader>
+				</DataCard>
+			</template>
+		</LayoutAccountBalance>
 		<h2 class="u-mb-24">My Collateral Hub</h2>
 		<LayoutFlex direction="column l-chart chart">
 			<LayoutFlex direction="row-space-between">
