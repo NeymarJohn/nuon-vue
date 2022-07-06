@@ -60,7 +60,7 @@
 .l-grid-account-balance {
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr 1fr 1.1fr;
-	grid-template-rows: repeat(2, 1fr);
+	grid-template-rows: auto;
 	grid-column-gap: $SPACING_30;
 	background: $MEDIUM_LIGHT_GREY;
 	border-radius: $BORDER_RADIUS_16;
