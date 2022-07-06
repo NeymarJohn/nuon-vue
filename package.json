@@ -19,7 +19,7 @@
 		"@snapshot-labs/snapshot.js": "^0.3.54",
 		"@uniswap/token-lists": "^1.0.0-beta.28",
 		"@walletconnect/web3-provider": "^1.7.5",
-		"apexcharts": "^3.35.3",
+		"apexcharts": "^3.35.2",
 		"core-js": "^3.19.3",
 		"dayjs": "^1.11.2",
 		"floating-vue": "^1.0.0-beta.5",
