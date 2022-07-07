@@ -5,7 +5,9 @@
 				v-for="(column, index) in config"
 				:key="index"
 				class="transaction-table__cell"
-				role="columnheader">{{ column.title }}</div>
+				role="columnheader">{{ column.title }}
+				<TooltipIcon v-if="misc.headerTooltips && misc.headerTooltips[column.id]" v-tooltip="misc.headerTooltips[column.id]" class="table-header-tooltip" />
+			</div>
 		</div>
 		<template v-if="data.length">
 			<div
@@ -44,8 +46,13 @@
 </template>
 
 <script>
+import TooltipIcon from "@/assets/images/svg/svg-tooltip.svg";
+
 export default {
 	name: "TransactionTable",
+	components: {
+		TooltipIcon
+	},
 	props: {
 		data: {
 			type: Array,
@@ -67,7 +74,7 @@ export default {
 			type: Object,
 			required: false,
 			default() {
-				return {hasImage: {}};
+				return {hasImage: {}, headerTooltips: {}};
 			}
 		}
 	},

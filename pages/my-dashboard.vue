@@ -134,11 +134,20 @@ export default {
 			totalMintedNuonValue: 0,
 			myCollateralizationRatio: 0,
 			configData: [{title: "My Locked Collateral", id: "lockedCollateral"},
-				{title: "My Total Locked Value", id: "lockedValue"},
-				{title: "My Total Minted Nuon", id: "mintedNuon"},
-				{title: "My Collateralization Ratio", id: "collateralizationRatio"},
-				{title: "Collateral Current Price", id: "currentPrice"}],
-			miscConfig: {hasImage: {lockedCollateral: "ETH"}},
+				{title: "Price", id: "currentPrice"},
+				{title: "My Total Value Locked", id: "lockedValue"},
+				{title: "My Total Minted (NUON)", id: "mintedNuon"},
+				{title: "My Collateralization Ratio", id: "collateralizationRatio"}],
+			miscConfig: {
+				hasImage: {lockedCollateral: "ETH"},
+				headerTooltips: {
+					lockedCollateral: "Enter tooltip content here.",
+					currentPrice: "Enter tooltip content here.",
+					lockedValue: "Enter tooltip content here.",
+					mintedNuon: "Enter tooltip content here.",
+					collateralizationRatio: "Enter tooltip content here."
+				}
+			},
 			mobileView: false,
 			collaterals: ["ETH"],
 			collateralPrices: {},
@@ -197,7 +206,7 @@ export default {
 				lockedValue: `$${this.numberWithCommas((this.myCollateralLocked * this.collateralPrices.ETH).toFixed(2))}`,
 				mintedNuon: this.numberWithCommas(parseFloat(this.userMintedAmounts.ETH).toFixed(2)),
 				collateralizationRatio: `${this.numberWithCommas(parseFloat(this.userCollateralizationRatios.ETH).toFixed(2))}%`,
-				currentPrice: this.numberWithCommas(parseFloat(this.collateralPrices.ETH).toFixed(2))
+				currentPrice: `$${this.numberWithCommas(parseFloat(this.collateralPrices.ETH).toFixed(2))}`
 			};
 			data.push(obj);
 
