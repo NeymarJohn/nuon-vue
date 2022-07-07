@@ -199,8 +199,7 @@ export default {
 			try {
 				ans = await this.$store.getters["collateralVaultStore/getEstimateMintedNUONAmount"](new BigNumber(toWei(this.inputValue)), new BigNumber(collateralRatio));
 			} catch(e) {
-				const message = this.getRPCErrorMessage(e);
-				this.failureToast(null, message, "An error occurred");
+				this.failureToast(null, e, "An error occurred");
 			} finally {
 				this.estimatedMintedNuonValue = fromWei(ans[0]);
 			}
