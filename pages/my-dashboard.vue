@@ -72,7 +72,7 @@
 					<label>
 						<TheDot color="lime" />
 						My Total Minted Value (NUON)
-						<TheBadge class="u-ml-8" color="price-up">{{mintedDiff?"+":"-"}} {{Math.abs(mintedDiff) | toFixed | numberWithCommas}}%</TheBadge>
+						<TheBadge class="u-ml-8" color="price-up">+ 0.03%</TheBadge>
 					</label>
 					<ComponentLoader component="h1" :loaded="totalMintedNuon !== null">
 						<h3>${{ totalMintedNuon | toFixed | numberWithCommas }}</h3>
@@ -81,7 +81,7 @@
 				<DataCard>
 					<label>My Collateralization Ratio<TooltipIcon v-tooltip="'Enter My Collateralization Ratio tooltip content here.'" /></label>
 					<ComponentLoader component="h1" :loaded=" userCollateralizationRatios.ETH !== null">
-						<h3>{{ userCollateralizationRatios.ETH | toFixed | numberWithCommas }}%</h3>
+						<h3>{{ userCollateralizationRatios.ETH | toFixed }}%</h3>
 					</ComponentLoader>
 				</DataCard>
 			</LayoutFlex>
@@ -122,7 +122,6 @@
 <script>
 import { fromWei } from "~/utils/bnTools";
 import TooltipIcon from "@/assets/images/svg/svg-tooltip.svg";
-import { getUserCollateralHistory } from "~/services/theGraph";
 
 export default {
 	name: "MyDashboard",
@@ -148,8 +147,7 @@ export default {
 			userMintedAmounts: {},
 			userCollateralizationRatios: {},
 			userTotalLockedCollateralAmount: {},
-			nuonPrice: null,
-			mintedDiff: 0
+			nuonPrice: null
 		};
 	},
 	head () {
@@ -208,7 +206,6 @@ export default {
 		this.getUserCollateralizationRatio();
 		this.getUserCollateralAmount();
 		this.getNuonPrice();
-		this.getDiffMinted();
 	},
 	methods: {
 		handleMouseOverChart(e) {
@@ -268,20 +265,6 @@ export default {
 				this.nuonPrice = result;
 			}
 		},
-		getDiffMinted() {
-			getUserCollateralHistory({user: this.connectedAccount}).then(res => {
-				const latestCollateralHistory = res.data.data.userCollateralHistories;
-				if (latestCollateralHistory.length >= 2) {
-					this.mintedDiff = (Number(latestCollateralHistory[0].mintedNuon) - Number(latestCollateralHistory[1].mintedNuon)) / Number(latestCollateralHistory[1].mintedNuon) * 100;
-				} else if (latestCollateralHistory.length === 1) {
-					this.mintedDiff = 0;
-				} else {
-					this.mintedDiff = 0;
-				}
-			}).catch(() => {
-				
-			});
-		}
 	}
 };
 </script>

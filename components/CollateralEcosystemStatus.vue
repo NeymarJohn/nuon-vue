@@ -5,7 +5,7 @@
 			<StatCard class="u-mb-md-12">
 				<label>NUON Price<TooltipIcon v-tooltip="'Enter NUON price tooltip content here.'" /></label>
 				<ComponentLoader component="h3" :loaded="nuonPrice !== null" slot-classes="l-flex l-flex--row-center-space-between">
-					<h3>{{ nuonPrice | toFixed | numberWithCommas }}</h3>
+					<h3>{{ computedNuonPrice }}</h3>
 					<TheBadge v-if="nuonPrice > 1">Above</TheBadge>
 					<TheBadge v-else-if="nuonPrice < 1">Below</TheBadge>
 				</ComponentLoader>
@@ -50,6 +50,14 @@ export default {
 		nuonPrice: {
 			type: Number,
 			default: null
+		}
+	},
+	computed: {
+		computedNuonPrice() {
+			if (!this.nuonPrice) return 0;
+			if (this.nuonPrice < 1) return this.nuonPrice.toFixed(9);
+			if (this.nuonPrice > 1) return this.numberWithCommas(this.nuonPrice.toFixed(2));
+			return 0;
 		}
 	},
 };

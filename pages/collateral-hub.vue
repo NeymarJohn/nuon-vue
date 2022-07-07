@@ -4,7 +4,8 @@
 			<LayoutFlex direction="row-center-space-between" class="l-flex--column-start-sm u-mb-48">
 				<PageTitle>
 					<h4>Collateral Hub</h4>
-					<h1>Borrow NUON</h1>
+					<h1 class="u-mb-sm-12">Borrow NUON</h1>
+					<h5 v-if="mobileView" class="u-color-white u-text-decoration-underline" title="Click to view hub overview" @click="setModalVisibility('hubOverviewModal', true)">Hub Overview</h5>
 				</PageTitle>
 				<ComponentLoader :loaded="userCollateralizationRatio !== null && minimumCollateralizationRatio !== null" component="notification" slot-classes="u-width-auto">
 					<TheNotification
@@ -59,7 +60,8 @@ export default {
 			userTotalLockedCollateralAmountStore: {},
 			userTotalMintedNuonStore: {},
 			collateralPrices: {},
-			collateralHistoricalPrices: {}
+			collateralHistoricalPrices: {},
+			mobileView: false,
 		};
 	},
 	head () {
@@ -94,6 +96,9 @@ export default {
 		collateralPriceChange() {
 			const dataToUse = this.collateralHistoricalPrices[this.currentlySelectedCollateral];
 			return [this.getChangePercent("price", dataToUse), this.getPercentChangeBadgeClass("price", dataToUse)];
+		},
+		userJustMinted() {
+			return this.$store.state.collateralVaultStore.userJustMinted;
 		}
 	},
 	watch: {
@@ -102,10 +107,15 @@ export default {
 		},
 		connectedAccount() {
 			this.initialize();
+		},
+		userJustMinted() {
+			if (this.userJustMinted) this.initialize();
+			this.$store.commit("collateralVaultStore/setUserJustMinted", false);
 		}
 	},
 	mounted() {
 		this.initialize();
+		this.mobileView = this.isMobile();
 	},
 	methods: {
 		tabChanged(e) {
@@ -174,7 +184,6 @@ export default {
 			try {
 				const hydroSupplyResponse = await getTotalSupplyWithToken(HYDRO_ADDRESS);
 				result = hydroSupplyResponse.data.data.totalSupplyDayDatas;
-				console.log(result);
 			} catch(e) {
 			} finally {
 				this.$set(this.collateralHistoricalPrices, this.currentlySelectedCollateral, result);
