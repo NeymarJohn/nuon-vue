@@ -21,10 +21,10 @@
 		<DataCard>
 			<label>My Collateralization Ratio<TooltipIcon v-tooltip="'Enter my collateralization ratio tooltip content here.'" /></label>
 			<ComponentLoader component="h1" :loaded="myCollateralizationRatio !== null">
-				<h3 :class="getUserCrClass">{{ myCollateralizationRatio | toFixed }}<sup>%</sup></h3>
+				<h3 :class="myCollateralizationRatio < 730 ? myCollateralizationRatio < 460 ? 'u-is-warning' : 'u-is-caution' : 'u-is-success'">{{ myCollateralizationRatio | toFixed }}<sup>%</sup></h3>
 			</ComponentLoader>
 			<TheLoader component="h5">
-				<TheBadge :color="getPercentChangeBadgeClass('collateralRatio', collateralRatioArr)">{{ getUserCrSign }}{{ Math.abs(getChangePercent('collateralRatio', collateralRatioArr)) }}%</TheBadge>
+				<TheBadge color="price-up">{{collateralRatioDiff>=0?"+":"-"}} {{Math.abs(collateralRatioDiff) | toFixed}}%</TheBadge>
 			</TheLoader>
 		</DataCard>
 		<DataCard>
@@ -84,19 +84,8 @@ export default {
 	},
 	data() {
 		return {
-			collateralRatioArr: []
+			collateralRatioDiff: 0
 		};
-	},
-	computed: {
-		getUserCrClass() {
-			if (this.myCollateralizationRatio === 0) return "";
-			return this.myCollateralizationRatio < 730 ? this.myCollateralizationRatio < 460 ? "u-is-warning" : "u-is-caution" : "u-is-success";
-		},
-		getUserCrSign() {
-			const changePercent = this.getChangePercent("collateralRatio", this.collateralRatioArr);
-			if (changePercent === 0) return "";
-			return changePercent > 0 ? "+ ":"- ";
-		}
 	},
 	watch: {
 		connectedAccount(value) {
@@ -112,11 +101,19 @@ export default {
 		getCalcDiffCollateralRatio() {
 			if (!this.connectedAccount) return;
 			getUserCollateralHistory({user: this.connectedAccount}).then(res => {
-				this.collateralRatioArr = res.data.data.userCollateralHistories;
+				const latestCollateralHistory = res.data.data.userCollateralHistories;
+				if (latestCollateralHistory.length >= 2) {
+					this.collateralRatioDiff = Number(latestCollateralHistory[0].collateralRatio) - Number(latestCollateralHistory[1].collateralRatio);
+				} else if (latestCollateralHistory.length === 1) {
+					this.collateralRatioDiff = Number(latestCollateralHistory[0].collateralRatio);
+				} else {
+					this.collateralRatioDiff = 0;
+				}
 			}).catch(() => {
+				this.collateralRatioDiff = 0;
 				this.failureToast(() => {}, "An error occurred");
 			});
 		}
-	}
+	},
 };
 </script>

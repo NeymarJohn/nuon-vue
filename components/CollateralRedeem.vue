@@ -104,7 +104,7 @@ export default {
 			return parseFloat(this.$store.state.erc20Store.balance.NUON);
 		},
 		isNextDisabled() {
-			return !this.isApproved || !parseFloat(this.inputValue) || parseFloat(this.inputValue) > parseFloat(this.userMintedNuon) || !this.connectedAccount;
+			return !this.isApproved || !parseFloat(this.inputValue) || parseFloat(this.inputValue) > parseFloat(this.userMintedNuon);
 		},
 		readyToRepay() {
 			return !!parseFloat(this.inputValue) && parseFloat(this.inputValue) <= parseFloat(this.userMintedNuon);
@@ -162,7 +162,6 @@ export default {
 					{
 						nuonAmount,
 						onConfirm: (txHash) => {
-							this.$store.commit("collateralVaultStore/setUserJustMinted", true);
 							this.successToast(null, "Withdraw successful", txHash);
 						},
 						onReject: null
@@ -176,7 +175,7 @@ export default {
 			}
 		},
 		inputMaxBalance() {
-			this.inputValue = parseFloat(this.userMintedNuon).toFixed(2);
+			this.inputValue = this.userMintedNuon;
 		}
 	}
 };

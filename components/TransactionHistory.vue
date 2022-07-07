@@ -76,7 +76,7 @@ export default {
 					query: this.searchQuery
 				};
 				getUserTransactionHistory(filter).then(res => {
-					this.tableData = res.data.data.userTransactions.map(item => ({...item, date: item.date * 1000}));
+					this.tableData = res.data.data.userTransactions.map(item => ({...item, amount: parseFloat(item.amount).toFixed(2), date: item.date * 1000}));
 				});
 			}
 		},

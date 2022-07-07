@@ -6,7 +6,7 @@ const defaultState = {
 	transactionConfig: [
 		{ id: "transactionType", title: "TX Type" },
 		{ id: "amount", title: "Amount" },
-		{ id: "amount", title: "Total Amount" },
+		{ id: "totalAmount", title: "Total Amount" },
 		{ id: "date", title: "Date" },
 	],
 	dateFilter: "",

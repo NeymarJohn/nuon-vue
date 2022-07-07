@@ -10,7 +10,7 @@
 				<DataCard>
 					<label>Total Value</label>
 					<ComponentLoader component="h1" :loaded="totalValue !== null">
-						<h3>${{ totalValue | toFixed | numberWithCommas }}</h3>
+						<h3>${{ totalValue + balancesValue + stakedBalance | toFixed | numberWithCommas }}</h3>
 					</ComponentLoader>
 				</DataCard>
 			</template>
@@ -130,8 +130,6 @@ export default {
 	},
 	data() {
 		return {
-			pendingRewards: 0,
-			rewardsDollarValue: 0,
 			tvl: 0,
 			totalMintedNuonValue: 0,
 			myCollateralizationRatio: 0,
@@ -156,6 +154,13 @@ export default {
 		};
 	},
 	computed: {
+		pendingRewards() {
+			return this.$store.state.boardroomStore.earned;
+		},
+		rewardsDollarValue() {
+			if (!parseFloat(this.pendingRewards)) return 0;
+			return this.pendingRewards * this.tokenPrices.HX;
+		},
 		balancesValue() {
 			if (this.tokenBalances.HX && this.tokenPrices.HX && this.tokenBalances.NUON && this.tokenPrices.NUON) {
 				return parseFloat((this.tokenBalances.HX * this.tokenPrices.HX + this.tokenBalances.NUON * this.tokenPrices.NUON).toFixed(2));
@@ -189,10 +194,10 @@ export default {
 
 			const obj = {
 				lockedCollateral: "ETH",
-				lockedValue: this.myCollateralLocked * this.collateralPrices.ETH,
-				mintedNuon: this.userMintedAmounts.ETH,
-				collateralizationRatio: this.userCollateralizationRatios.ETH,
-				currentPrice: this.collateralPrices.ETH
+				lockedValue: `$${this.numberWithCommas((this.myCollateralLocked * this.collateralPrices.ETH).toFixed(2))}`,
+				mintedNuon: this.numberWithCommas(parseFloat(this.userMintedAmounts.ETH).toFixed(2)),
+				collateralizationRatio: `${this.numberWithCommas(parseFloat(this.userCollateralizationRatios.ETH).toFixed(2))}%`,
+				currentPrice: this.numberWithCommas(parseFloat(this.collateralPrices.ETH).toFixed(2))
 			};
 			data.push(obj);
 
