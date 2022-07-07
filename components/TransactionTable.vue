@@ -6,7 +6,7 @@
 				:key="index"
 				class="transaction-table__cell"
 				role="columnheader">{{ column.title }}
-				<TooltipIcon v-if="misc.headerTooltips && misc.headerTooltips[column.id]" v-tooltip="misc.headerTooltips[column.id]" class="table-header-tooltip" />
+				<TooltipIcon v-if="misc.headerTooltips && misc.headerTooltips[column.id]" v-tooltip="misc.headerTooltips[column.id]" class="tooltip--table-header" />
 			</div>
 		</div>
 		<template v-if="data.length">
