@@ -35,7 +35,7 @@
 								<h3 :style="{color: graphSelection ? 'white' : '#3a3a3e'}">{{ graphSelection ? numberWithCommas(graphSelection) : 0 }}<sup :style="{color: graphSelection ? 'white' : '#3a3a3e'}">{{ currentlySelectedTab }}</sup></h3>
 							</ComponentLoader>
 							<ComponentLoader component="h5" :loaded="dateSelection !== null">
-								<h5 :style="{color: dateSelection ? 'white' : '#3a3a3e'}">{{ dateSelection ? numberWithCommas(dateSelection) : 0 }}</h5>
+								<h5 :style="{color: dateSelection ? 'white' : '#3a3a3e'}">{{ dateSelection ? dateSelection : 0 }}</h5>
 							</ComponentLoader>
 						</DataCard>
 						<LayoutFlex direction="column-justify-between">
