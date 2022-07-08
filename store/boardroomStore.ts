@@ -3,9 +3,9 @@ import BN from "bn.js";
 import { Web3State } from "./web3Store";
 import boardroomAbi from "./abi/boardroom.json";
 import { fromWei, toWei } from "~/utils/bnTools";
-import { BOARDROOM_ADDRESS } from "~/constants/addresses";
 
 type StateType = {
+	boardroomAddress: string,
 	stakedBalance: BN,
 	earned: BN,
 	totalSupply: BN,
@@ -19,6 +19,7 @@ type StateType = {
 	director: any
 }
 export const state = (): StateType => ({
+	boardroomAddress: "",
 	stakedBalance: new BN(0),
 	earned: new BN(0),
 	totalSupply: new BN(0),
@@ -67,22 +68,26 @@ export const mutations: MutationTree<BoardroomState> = {
 	},
 	setDirector(state, payload: any) {
 		state.director = payload;
+	},
+	setBoardroomAddress(state, payload: any) {
+		state.boardroomAddress = payload;
 	}
 };
 
 export const actions: ActionTree<BoardroomState, BoardroomState> = {
 	initialize(ctx:any) {
+		ctx.commit("setBoardroomAddress", ctx.rootGetters["addressStore/boardroom"]);
 		ctx.dispatch("updateStatus");
 	},
 	async getAllowance (ctx: any) {
 		const address = ctx.rootGetters["web3Store/account"];
 		if (!address) return;
-		const getNuonAllowance = fromWei(await ctx.rootGetters["erc20Store/nuon"].methods.allowance(address, BOARDROOM_ADDRESS).call());
-		const getHydroAllowance = fromWei(await  ctx.rootGetters["erc20Store/hydro"].methods.allowance(address, BOARDROOM_ADDRESS).call());
+		const getNuonAllowance = fromWei(await ctx.rootGetters["erc20Store/nuon"].methods.allowance(address, ctx.state.boardroomAddress).call());
+		const getHydroAllowance = fromWei(await  ctx.rootGetters["erc20Store/hydro"].methods.allowance(address, ctx.state.boardroomAddress).call());
 		ctx.commit("setAllowance", {HX: getHydroAllowance, NUON: getNuonAllowance});
 	},
 	approveToken(ctx: any, {tokenName,  onConfirm, onReject, onCallback}): void {
-		const contractAddress = BOARDROOM_ADDRESS;
+		const contractAddress = ctx.state.boardroomAddress;
 		ctx.dispatch("erc20Store/approveToken", {tokenName, contractAddress, onConfirm, onReject, onCallback}, {root:true} )
 			.then(() =>{
 				ctx.dispatch("getAllowance").then(() => {

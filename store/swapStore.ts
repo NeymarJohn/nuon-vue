@@ -4,15 +4,17 @@ import { Web3State } from "./web3Store";
 import router from "./abi/router.json";
 import { fromWei, toWei } from "~/utils/bnTools";
 import { getPath } from "~/constants/tokens";
-import { ROUTER_ADDRESS , tokenPairs } from "~/constants/addresses";
+import { tokenPairs } from "~/constants/addresses";
 
 type SwapStateType = {
 	allowance: {HX: number, NUON: number, USDC: number},
-	swapFee: number
+	swapFee: number,
+	uniswapRouterAddress: string
 }
 export const state = (): SwapStateType => ({
 	allowance: {HX:0, NUON: 0, USDC: 0},
-	swapFee: 0.25
+	swapFee: 0.25,
+	uniswapRouterAddress: ""
 });
 
 export type SwapState = ReturnType<typeof state>
@@ -27,13 +29,15 @@ const convertPathIntoMap = (values: Array<any>, tokens: Array<any>) => {
 export const mutations: MutationTree<SwapState> = {
 	setAllowance(state, payload: {HX:number, NUON: number, USDC: number}) {
 		state.allowance = payload;
+	},
+	setRouterAddress(state, payload: string) {
+		state.uniswapRouterAddress = payload;
 	}
 };
 export const getters: GetterTree<SwapState, Web3State> = {
-	contract: (_state: any, _getters: any, store: any) => {
+	contract: (state: any, _getters: any, store: any) => {
 		const web3 = store.web3Store.instance();
-		const routerAddress = ROUTER_ADDRESS;
-		return new web3.eth.Contract(router, routerAddress);
+		return new web3.eth.Contract(router, state.uniswapRouterAddress);
 	},
 	getMinOutputWithSlippage: (_state: any) => ({value, slippage, formatted}: any) => {
 		let minOutput = Web3.utils.toBN(toWei(value));
@@ -51,17 +55,22 @@ export const getters: GetterTree<SwapState, Web3State> = {
 
 export const actions: ActionTree<SwapState, SwapState> = {
 	initialize(ctx: any) {
+		const routerAddress = ctx.rootGetters["addressStore/router"];
+		ctx.commit("setRouterAddress", routerAddress);
+
 		ctx.dispatch("getAllowance");
 	},
 	async getAllowance (ctx: any) {
 		const address = ctx.rootGetters["web3Store/account"];
-		const nuonAllowance = fromWei(await ctx.rootGetters["erc20Store/nuon"].methods.allowance(address, ROUTER_ADDRESS).call());
-		const hydroAllowance = fromWei(await ctx.rootGetters["erc20Store/hydro"].methods.allowance(address, ROUTER_ADDRESS).call());
-		const usdcAllowance = fromWei(await ctx.rootGetters["erc20Store/usdc"].methods.allowance(address, ROUTER_ADDRESS).call());
+		const routerAddress = ctx.state.uniswapRouterAddress;
+		const nuonAllowance = fromWei(await ctx.rootGetters["erc20Store/nuon"].methods.allowance(address, routerAddress).call());
+		const hydroAllowance = fromWei(await ctx.rootGetters["erc20Store/hydro"].methods.allowance(address, routerAddress).call());
+		const usdcAllowance = fromWei(await ctx.rootGetters["erc20Store/usdc"].methods.allowance(address, routerAddress).call());
 		ctx.commit("setAllowance", {HX: hydroAllowance, NUON: nuonAllowance, USDC: usdcAllowance});
 	},
 	approveToken(ctx: any, {tokenName, onConfirm, onReject, onCallback}): void {
-		ctx.dispatch("erc20Store/approveToken", {tokenSymbol: tokenName, contractAddress: ROUTER_ADDRESS, onConfirm, onReject, onCallback}, {root:true} )
+		const routerAddress = ctx.state.uniswapRouterAddress;
+		ctx.dispatch("erc20Store/approveToken", {tokenSymbol: tokenName, contractAddress: routerAddress, onConfirm, onReject, onCallback}, {root:true} )
 			.then(() =>{
 				ctx.dispatch("getAllowance").then(() => {
 					if (onCallback) onCallback(null);
@@ -72,21 +81,24 @@ export const actions: ActionTree<SwapState, SwapState> = {
 	},
 	async getAmountsOut(ctx: any, { inputToken, outputToken, amount }) {
 		const path = getPath(inputToken, outputToken);
-		const res =  await ctx.getters.contract.methods.getAmountsOut(Web3.utils.toWei(amount), path.addresses).call();
+		const pathAddresses = path.tokens.map((token: string) => ctx.rootGetters["addressStore/tokens"][token]);
+		const res =  await ctx.getters.contract.methods.getAmountsOut(Web3.utils.toWei(amount), pathAddresses).call();
 		return convertPathIntoMap(res, path.tokens);
 	},
 	async getAmountsIn(ctx: any, { inputToken, outputToken, amount }) {
 		const path = getPath(inputToken, outputToken);
-		const res = await ctx.getters.contract.methods.getAmountsIn(Web3.utils.toWei(amount),path.addresses).call();
+		const pathAddresses = path.tokens.map((token: string) => ctx.rootGetters["addressStore/tokens"][token]);
+		const res = await ctx.getters.contract.methods.getAmountsIn(Web3.utils.toWei(amount),pathAddresses).call();
 		return convertPathIntoMap(res, path.tokens);
 	},
 	swapExactTokensForTokens(ctx: any, { inputToken, inputAmount, outputToken, outputAmount:_outputAmount, callback, slippage:_slippiage }) {
 		const accountAddress = ctx.rootState.web3Store.account;
 		const path = getPath(inputToken, outputToken);
+		const pathAddresses = path.tokens.map((token: string) => ctx.rootGetters["addressStore/tokens"][token]);
 		return ctx.getters.contract.methods.swapExactTokensForTokensSupportingFeeOnTransferTokens(
 			Web3.utils.toWei(inputAmount),
 			0,
-			path.addresses,
+			pathAddresses,
 			accountAddress,
 			new Date().getTime()
 		).send({from: accountAddress}).on("transactionHash", function(){
@@ -97,11 +109,12 @@ export const actions: ActionTree<SwapState, SwapState> = {
 		const accountAddress = ctx.rootState.web3Store.account;
 		const amountInMax = ctx.getters.getMaxInputWithSlippage({value: inputAmount, slippage});
 		const path = getPath(inputToken, outputToken);
+		const pathAddresses = path.tokens.map((token: string) => ctx.rootGetters["addressStore/tokens"][token]);
 
 		return ctx.getters.contract.methods.swapExactTokensForTokensSupportingFeeOnTransferTokens(
 			amountInMax,
 			Web3.utils.toWei(outputAmount),
-			path.addresses,
+			pathAddresses,
 			accountAddress,
 			new Date().getTime()
 		).send({from: accountAddress}).on("transactionHash", function(){

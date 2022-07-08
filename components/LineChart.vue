@@ -108,11 +108,8 @@ export default {
 					}
 				},
 				tooltip: {
-					followCursor: true,
-					theme: "dark",
-					custom() {
-						return "";
-					}
+					enabled: this.showTooltip,
+					theme: "dark"
 				}
 			},
 		};
