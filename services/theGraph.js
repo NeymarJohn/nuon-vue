@@ -120,9 +120,9 @@ export const getUserCollateralHistory = (filters) => {
 	});
 };
 
-export const getUserCollateralHistoryData = (user) => {
+export const getUserCollateralHistoryData = (filters) => {
 	const variables = {
-		user,
+		user: filters.user
 	};
 	return axios.post(THE_GRAPH_URL, {
 		query:`

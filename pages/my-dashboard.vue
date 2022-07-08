@@ -62,7 +62,7 @@
 					<label>
 						<TheDot color="light-green" />
 						My Total Value Locked
-						<TheBadge class="u-ml-8" color="price-up">+ 0.03%</TheBadge>
+						<TheBadge class="u-ml-8" :color="getPercentChangeBadgeClass('mintedNuon', collateralRatioArr, true)">{{ getUserMintedNuonSign }}{{ Math.abs(getChangePercent('mintedNuon', collateralRatioArr, true)) }}%</TheBadge>
 					</label>
 					<ComponentLoader component="h1" :loaded="totalValue !== null">
 						<h3>${{ totalValue | toFixed | numberWithCommas }}</h3>
@@ -72,7 +72,7 @@
 					<label>
 						<TheDot color="lime" />
 						My Total Minted Value (NUON)
-						<TheBadge class="u-ml-8" color="price-up">{{mintedDiff?"+":"-"}} {{Math.abs(mintedDiff) | toFixed | numberWithCommas}}%</TheBadge>
+						<TheBadge class="u-ml-8" :color="getPercentChangeBadgeClass('mintedNuon', collateralRatioArr, true)">{{ getUserMintedNuonSign }}{{ Math.abs(getChangePercent('mintedNuon', collateralRatioArr, true)) }}%</TheBadge>
 					</label>
 					<ComponentLoader component="h1" :loaded="totalMintedNuon !== null">
 						<h3>${{ totalMintedNuon | toFixed | numberWithCommas }}</h3>
@@ -122,7 +122,7 @@
 <script>
 import { fromWei } from "~/utils/bnTools";
 import TooltipIcon from "@/assets/images/svg/svg-tooltip.svg";
-import { getUserCollateralHistory } from "~/services/theGraph";
+import { getUserCollateralHistoryData } from "~/services/theGraph";
 
 export default {
 	name: "MyDashboard",
@@ -156,7 +156,7 @@ export default {
 			userCollateralizationRatios: {},
 			userTotalLockedCollateralAmount: {},
 			nuonPrice: null,
-			mintedDiff: 0
+			collateralRatioArr: []
 		};
 	},
 	head () {
@@ -213,6 +213,11 @@ export default {
 			data.push(obj);
 
 			return data;
+		},
+		getUserMintedNuonSign() {
+			const changePercent = this.getChangePercent("mintedNuon", this.collateralRatioArr, true);
+			if (changePercent === 0) return "";
+			return changePercent > 0 ? "+ ":"- ";
 		}
 	},
 	mounted() {
@@ -283,17 +288,10 @@ export default {
 			}
 		},
 		getDiffMinted() {
-			getUserCollateralHistory({user: this.connectedAccount}).then(res => {
-				const latestCollateralHistory = res.data.data.userCollateralHistories;
-				if (latestCollateralHistory.length >= 2) {
-					this.mintedDiff = (Number(latestCollateralHistory[0].mintedNuon) - Number(latestCollateralHistory[1].mintedNuon)) / Number(latestCollateralHistory[1].mintedNuon) * 100;
-				} else if (latestCollateralHistory.length === 1) {
-					this.mintedDiff = 0;
-				} else {
-					this.mintedDiff = 0;
-				}
-			}).catch(() => {
-				
+			getUserCollateralHistoryData({user: this.connectedAccount}).then(res => {
+				this.collateralRatioArr = res.data.data.userCollateralHistories;
+			}).catch((err) => {
+				this.failureToast(() => {}, err, "An error occurred");
 			});
 		}
 	}

@@ -219,13 +219,21 @@ Vue.mixin({
 			const val = ((second - first) / first) * 100;
 			return val === "-0.00" ? "0.00" : this.twoDecimalPlaces(val);
 		},
-		getChangePercent(key, dataToUse) {
+		getChangePercent(key, dataToUse, reverse=false) {
 			if (!dataToUse) return 0;
 			const dataLength = dataToUse.length;
 
 			if (dataLength < 2) return 0;
-			let first = dataToUse[dataLength - 2][key];
-			let second = dataToUse[dataLength - 1][key];
+			let first;
+			let second;
+
+			if (reverse) {
+				first = dataToUse[0][key];
+				second = dataToUse[1][key];
+			} else {
+				first = dataToUse[dataLength - 2][key];
+				second = dataToUse[dataLength - 1][key];
+			}
 
 			if (key === "price") {
 				first = first.price;
@@ -233,8 +241,8 @@ Vue.mixin({
 			}
 			return this.calcPercentChange(first, second);
 		},
-		getPercentChangeBadgeClass(key, dataToUse) {
-			const val = this.getChangePercent(key, dataToUse);
+		getPercentChangeBadgeClass(key, dataToUse, reverse=false) {
+			const val = this.getChangePercent(key, dataToUse, reverse);
 			if (parseFloat(val) === 0) return "price-same";
 			return val < 0 ? "price-down" : "price-up";
 		}
