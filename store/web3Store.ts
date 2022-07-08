@@ -141,11 +141,6 @@ export const actions: ActionTree<Web3State, Web3State> = {
 	},
 
 	async updateChain({commit, state}, chainId) {
-		// if (!VALID_NETWORKS.includes(chainId)) {
-		// 	commit("modalStore/setModalInfo",{name: "alertModal", info: {title:"Wrong Network", message: "Please connect to a supported network in your wallet"}}, {root: true});
-		// 	commit("modalStore/setModalVisibility", {name: "alertModal", visibility: true}, {root:true});
-		// 	chainId = DEFAULT_CHAIN_ID;
-		// }
 		const web3 = new Web3(Web3.givenProvider);
 		const balance = await web3.eth.getBalance(state.account);
 		commit("setChainId", chainId);

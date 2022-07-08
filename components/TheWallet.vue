@@ -33,9 +33,6 @@ export default {
 	beforeMount() {
 		this.$store.dispatch("web3Store/init");
 	},
-	mounted () {
-		// this.$store.dispatch("web3Store/init");
-	},
 	methods: {
 		connect () {
 			this.$store.commit("modalStore/setModalVisibility", {
