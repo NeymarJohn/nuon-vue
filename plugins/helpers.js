@@ -200,12 +200,24 @@ Vue.mixin({
 				return false;
 			}
 		},
+		twoDecimalPlaces(num) {
+			let numStr = num.toString();
+			let indexOfDecimal;
+			if (numStr.includes(".")) {
+				numStr += "000";
+				indexOfDecimal = numStr.indexOf(".");
+				numStr = numStr.slice(0, indexOfDecimal + 3);
+			} else {
+				numStr += ".00";
+			}
+			return numStr;
+		},
 		calcPercentChange(x, y) {
-			if (x === 0) return 0;
 			const first = parseFloat(x);
+			if (first === 0) return 0;
 			const second = parseFloat(y);
-			const val = (((second - first) / first) * 100).toFixed(2);
-			return val === "-0.00" ? "0.00" : val;
+			const val = ((second - first) / first) * 100;
+			return val === "-0.00" ? "0.00" : this.twoDecimalPlaces(val);
 		},
 		getChangePercent(key, dataToUse) {
 			if (!dataToUse) return 0;

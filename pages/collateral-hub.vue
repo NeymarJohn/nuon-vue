@@ -96,6 +96,9 @@ export default {
 		collateralPriceChange() {
 			const dataToUse = this.collateralHistoricalPrices[this.currentlySelectedCollateral];
 			return [this.getChangePercent("price", dataToUse), this.getPercentChangeBadgeClass("price", dataToUse)];
+		},
+		userJustMinted() {
+			return this.$store.state.collateralVaultStore.userJustMinted;
 		}
 	},
 	watch: {
@@ -104,6 +107,10 @@ export default {
 		},
 		connectedAccount() {
 			this.initialize();
+		},
+		userJustMinted() {
+			if (this.userJustMinted) this.initialize();
+			this.$store.commit("collateralVaultStore/setUserJustMinted", false);
 		}
 	},
 	mounted() {
@@ -177,7 +184,6 @@ export default {
 			try {
 				const hydroSupplyResponse = await getTotalSupplyWithToken(HYDRO_ADDRESS);
 				result = hydroSupplyResponse.data.data.totalSupplyDayDatas;
-				console.log(result);
 			} catch(e) {
 			} finally {
 				this.$set(this.collateralHistoricalPrices, this.currentlySelectedCollateral, result);

@@ -137,7 +137,7 @@ export default {
 			return !!parseFloat(this.$store.state.collateralVaultStore.allowance.HX);
 		},
 		disabledMint() {
-			return !this.isApproved || !parseFloat(this.inputValue) || this.isMoreThanBalance;
+			return !this.isApproved || !parseFloat(this.inputValue) || this.isMoreThanBalance || !this.connectedAccount;
 		},
 		isMoreThanBalance() {
 			return  parseFloat(this.inputValue) > this.tokenBalance;
@@ -149,7 +149,7 @@ export default {
 			return !!this.inputValue && !this.isMoreThanBalance;
 		},
 		mintFee() {
-			return this.$store.state.collateralVaultStore.mintingFee;
+			return parseFloat(this.$store.state.collateralVaultStore.mintingFee);
 		}
 	},
 	watch: {
@@ -199,8 +199,7 @@ export default {
 			try {
 				ans = await this.$store.getters["collateralVaultStore/getEstimateMintedNUONAmount"](new BigNumber(toWei(this.inputValue)), new BigNumber(collateralRatio));
 			} catch(e) {
-				const message = this.getRPCErrorMessage(e);
-				this.failureToast(null, message, "An error occurred");
+				this.failureToast(null, e, "An error occurred");
 			} finally {
 				this.estimatedMintedNuonValue = fromWei(ans[0]);
 			}
