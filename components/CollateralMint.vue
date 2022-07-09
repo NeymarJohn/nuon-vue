@@ -197,7 +197,7 @@ export default {
 			const collateralRatio = (10 ** 18) / (currentRatio / 100);
 			let ans = [0];
 			try {
-				ans = await this.$store.getters["collateralVaultStore/getEstimateMintedNUONAmount"](new BigNumber(toWei(this.inputValue)), new BigNumber(collateralRatio));
+				ans = await this.$store.getters["collateralVaultStore/getEstimateMintedNUONAmount"](toWei(this.inputValue), `${collateralRatio}`);
 			} catch(e) {
 				this.failureToast(null, e, "An error occurred");
 			} finally {
