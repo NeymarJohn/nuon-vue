@@ -76,7 +76,7 @@
 									</div>
 								</div>
 								<LayoutFlex direction="row-justify-end">
-									<p class="u-mb-0">~ ${{ getPriceInDAI(input.token, input.value) | toFixed }}</p>
+									<p class="u-mb-0">~ ${{ getPriceInDAI(input.token, input.value) | toFixed | numberWithCommas }}</p>
 								</LayoutFlex>
 							</SwapAccordion>
 						</div>
@@ -123,10 +123,10 @@
 										title="Click to refresh price"
 										@click="refreshPrice"><RefreshIcon /></TheButton>
 								</LayoutFlex>
-								<div class="gas">
+								<!-- <div class="gas">
 									<GasIcon />
 									<p>~ ${{ swapFee.toFixed(2) }}</p>
-								</div>
+								</div> -->
 							</div>
 						</div>
 						<div class="transaction-input__buttons">
@@ -182,7 +182,6 @@
 
 <script>
 import { fromWei } from "~/utils/bnTools";
-import GasIcon from "@/assets/images/svg/svg-gas.svg";
 import RefreshIcon from "@/assets/images/svg/svg-refresh.svg";
 import SettingsIcon from "@/assets/images/svg/svg-settings.svg";
 import TooltipIcon from "@/assets/images/svg/svg-tooltip.svg";
@@ -190,7 +189,6 @@ import TooltipIcon from "@/assets/images/svg/svg-tooltip.svg";
 export default {
 	name: "TheSwap",
 	components: {
-		GasIcon,
 		RefreshIcon,
 		SettingsIcon,
 		TooltipIcon
@@ -277,7 +275,7 @@ export default {
 	mounted () {
 		const routeQuery = this.$route.query;
 		if (routeQuery.inputToken) this.input.token = routeQuery.inputToken;
-		if (routeQuery.outputToken) this.output.token = routeQuery.outputToken; 
+		if (routeQuery.outputToken) this.output.token = routeQuery.outputToken;
 	},
 	methods: {
 		initialize() {
@@ -390,8 +388,8 @@ export default {
 		calcuatePriceImpact() {
 			if (!this.input.token || !this.output.token) return;
 			this.$store.dispatch("swapStore/getReserves", [this.input.token, this.output.token]).then((reserves) => {
-				const oldPrice = reserves[this.input.token] / reserves[this.output.token];
-				const newPrice = (reserves[this.input.token] - this.input.value) / (reserves[this.output.token] + this.output.value);
+				const oldPrice = parseFloat(reserves[this.input.token]) / parseFloat(reserves[this.output.token]);
+				const newPrice = parseFloat(reserves[this.input.token] - this.input.value) / parseFloat(reserves[this.output.token] + this.output.value);
 				this.priceImpact = (oldPrice - newPrice) / oldPrice * 100;
 			});
 		},

@@ -78,20 +78,12 @@ export default {
 	},
 	data() {
 		return {
-			tokenInput: {
-				in: 200,
-				dollar: 100
-			},
-			tokenOutput: {
-				out: 0.497,
-				dollar: 0.76
-			},
 			priceUpdate: true
 		};
 	},
 	computed: {
 		swapPrice() {
-			return parseFloat(this.input.value) / parseFloat(this.output.value); 
+			return parseFloat(this.input.value) / parseFloat(this.output.value);
 		}
 	},
 	methods: {

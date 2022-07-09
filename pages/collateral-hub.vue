@@ -77,10 +77,12 @@ export default {
 			return this.collateralPrice * this.userCollateralAmount;
 		},
 		userTotalLockedCollateralAmount() {
-			return Object.entries(this.userTotalLockedCollateralAmountStore).reduce((acc, [collateral, amount]) => acc + this.collateralPrices[collateral] * amount, 0);
+			// Object.entries(this.userTotalLockedCollateralAmountStore).reduce((acc, [collateral, amount]) => acc + this.collateralPrices[collateral] * amount, 0);
+			return this.collateralPrices.ETH * this.userTotalLockedCollateralAmountStore.ETH;
 		},
 		userTotalMintedNuon() {
-			return Object.values(this.userTotalMintedNuonStore).reduce((acc, val) => acc + val, 0);
+			// Object.values(this.userTotalMintedNuonStore).reduce((acc, val) => acc + val, 0);
+			return this.userTotalMintedNuonStore.ETH;
 		},
 		liquidationPrice() {
 			const collateralPrice = this.collateralPrices[this.currentlySelectedCollateral];
