@@ -30,7 +30,7 @@ export default {
 			return this.$store.state.web3Store.balance;
 		}
 	},
-	beforeMount() {
+	mounted () {
 		this.$store.dispatch("web3Store/init");
 	},
 	methods: {

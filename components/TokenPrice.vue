@@ -18,7 +18,7 @@
 						<p>Circulating Supply</p><TheBadge :color="getPercentChangeBadgeClass('value', dataToUse)" class="u-ml-8">{{ getChangePercent('value', dataToUse) }}%</TheBadge>
 					</LayoutFlex>
 					<ComponentLoader component="h3" :loaded="circulatingSupply !== null">
-						<h3 class="u-mb-48">${{ circulatingSupply | numberWithCommas }}</h3>
+						<h3 class="u-mb-48">{{ circulatingSupply | numberWithCommas }}</h3>
 					</ComponentLoader>
 					<LayoutFlex class="u-mb-md-4">
 						<p>Price</p><TheBadge :color="getPercentChangeBadgeClass('price', dataToUse)" class="u-ml-8">{{ getChangePercent('price', dataToUse) }}%</TheBadge>
@@ -32,10 +32,10 @@
 						<DataCard>
 							<label>{{ selectedPriceTab }}</label>
 							<ComponentLoader component="h1" :loaded="graphSelection !== null">
-								<h3>{{ graphSelection | numberWithCommas }}<sup>{{ currentlySelectedTab }}</sup></h3>
+								<h3 :style="{color: graphSelection ? 'white' : '#3a3a3e'}">{{ graphSelection ? numberWithCommas(graphSelection) : 0 }}<sup :style="{color: graphSelection ? 'white' : '#3a3a3e'}">{{ currentlySelectedTab }}</sup></h3>
 							</ComponentLoader>
 							<ComponentLoader component="h5" :loaded="dateSelection !== null">
-								<h5>{{ dateSelection }}</h5>
+								<h5 :style="{color: dateSelection ? 'white' : '#3a3a3e'}">{{ dateSelection ? dateSelection : 0 }}</h5>
 							</ComponentLoader>
 						</DataCard>
 						<LayoutFlex direction="column-justify-between">
@@ -80,6 +80,7 @@
 
 <script>
 import { getTotalSupplyWithToken} from "~/services/theGraph";
+import { NUON_ADDRESS, HYDRO_ADDRESS } from "~/constants/addresses";
 
 export default {
 	name: "TokenPrice",
@@ -158,14 +159,10 @@ export default {
 	},
 	async mounted() {
 		try {
-			
-			const nuonAddress = this.$store.getters["addressStore/tokens"].NUON;
-			const hydroAddress = this.$store.getters["addressStore/tokens"].HX;
-
-			const nuonSupplyResponse = await getTotalSupplyWithToken(nuonAddress);
+			const nuonSupplyResponse = await getTotalSupplyWithToken(NUON_ADDRESS);
 			this.nuonSupplyInfo = nuonSupplyResponse.data.data.totalSupplyDayDatas;
 
-			const hydroSupplyResponse = await getTotalSupplyWithToken(hydroAddress);
+			const hydroSupplyResponse = await getTotalSupplyWithToken(HYDRO_ADDRESS);
 			this.hydroSupplyInfo = hydroSupplyResponse.data.data.totalSupplyDayDatas;
 
 			this.handlePeriodTabChanged(0);
@@ -187,8 +184,12 @@ export default {
 			this.handleMouseOverChart(this.yAxisData.length - 2);
 		},
 		handleMouseOverChart(e) {
-			this.graphSelection = this.yAxisData[e];
-			this.dateSelection = this.xAxisLabels[e];
+			let idx = e;
+			if (e === 0 || e === this.yAxisData.length - 1) {
+				idx = this.yAxisData.length - 2;
+			}
+			this.graphSelection = this.yAxisData[idx];
+			this.dateSelection = this.xAxisLabels[idx];
 		},
 	}
 };

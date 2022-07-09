@@ -24,7 +24,7 @@
 				<h3 :class="getUserCrClass">{{ myCollateralizationRatio | toFixed }}<sup>%</sup></h3>
 			</ComponentLoader>
 			<TheLoader component="h5">
-				<TheBadge :color="getPercentChangeBadgeClass('collateralRatio', collateralRatioArr)">{{ getUserCrSign }}{{ Math.abs(getChangePercent('collateralRatio', collateralRatioArr)) }}%</TheBadge>
+				<TheBadge :color="getPercentChangeBadgeClass('collateralRatio', collateralRatioArr, true)">{{ getUserCrSign }}{{ Math.abs(getChangePercent('collateralRatio', collateralRatioArr, true)) }}%</TheBadge>
 			</TheLoader>
 		</DataCard>
 		<DataCard>
@@ -93,7 +93,7 @@ export default {
 			return this.myCollateralizationRatio < 730 ? this.myCollateralizationRatio < 460 ? "u-is-warning" : "u-is-caution" : "u-is-success";
 		},
 		getUserCrSign() {
-			const changePercent = this.getChangePercent("collateralRatio", this.collateralRatioArr);
+			const changePercent = this.getChangePercent("collateralRatio", this.collateralRatioArr, true);
 			if (changePercent === 0) return "";
 			return changePercent > 0 ? "+ ":"- ";
 		}
