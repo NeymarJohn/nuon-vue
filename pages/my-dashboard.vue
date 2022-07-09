@@ -229,16 +229,24 @@ export default {
 			}];
 		}
 	},
+	watch: {
+		connectedAccount(newValue) {
+			if (newValue) this.initialize();
+		}
+	},
 	mounted() {
 		this.mobileView = this.isMobile();
-		this.getCollateralsPrices();
-		this.getUserMintedAmount();
-		this.getUserCollateralizationRatio();
-		this.getUserCollateralAmount();
-		this.getNuonPrice();
-		this.getDiffMinted();
+		this.initialize();
 	},
 	methods: {
+		initialize() {
+			this.getCollateralsPrices();
+			this.getUserMintedAmount();
+			this.getUserCollateralizationRatio();
+			this.getUserCollateralAmount();
+			this.getNuonPrice();
+			this.getDiffMinted();
+		},
 		async getCollateralsPrices() {
 			for (let i = 0; i < this.collaterals.length; i++) {
 				let result = 0;
