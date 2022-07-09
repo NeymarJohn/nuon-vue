@@ -108,7 +108,6 @@
 </template>
 
 <script>
-import { BigNumber } from "bignumber.js";
 import { fromWei, toWei } from "~/utils/bnTools";
 
 export default {
