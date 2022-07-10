@@ -65,7 +65,7 @@
 						<TheBadge class="u-ml-8" :color="getPercentChangeBadgeClass('collateralTokens', collateralRatioArr, true)">{{ getUserTVLSign }}{{ Math.abs(getChangePercent('collateralTokens', collateralRatioArr, true)) }}%</TheBadge>
 					</label>
 					<ComponentLoader component="h1" :loaded="totalValue !== null">
-						<h3>${{ totalValue | toFixed | numberWithCommas }}</h3>
+						<h3>${{ (graphSelectionTVL || totalValue) | toFixed | numberWithCommas }}</h3>
 					</ComponentLoader>
 				</DataCard>
 				<DataCard>
@@ -75,7 +75,7 @@
 						<TheBadge class="u-ml-8" :color="getPercentChangeBadgeClass('mintedNuon', collateralRatioArr, true)">{{ getUserMintedNuonSign }}{{ Math.abs(getChangePercent('mintedNuon', collateralRatioArr, true)) }}%</TheBadge>
 					</label>
 					<ComponentLoader component="h1" :loaded="totalMintedNuon !== null">
-						<h3>${{ totalMintedNuon | toFixed | numberWithCommas }}</h3>
+						<h3>${{ (graphSelectionMintedNuon || totalMintedNuon) | toFixed | numberWithCommas }}</h3>
 					</ComponentLoader>
 				</DataCard>
 				<DataCard>
@@ -148,7 +148,9 @@ export default {
 			userCollateralizationRatios: {},
 			userTotalLockedCollateralAmount: {},
 			nuonPrice: null,
-			collateralRatioArr: []
+			collateralRatioArr: [],
+			graphSelectionTVL: "",
+			graphSelectionMintedNuon: ""
 		};
 	},
 	head () {
@@ -307,6 +309,14 @@ export default {
 			}).catch((err) => {
 				this.failureToast(() => {}, err, "An error occurred");
 			});
+		},
+		handleMouseOverChart(e) {
+			let idx = e;
+			if (e === -1) {
+				idx = this.xAxisData.length - 1;
+			}
+			this.graphSelectionTVL = this.yAxisData[0].data[idx];
+			this.graphSelectionMintedNuon = this.yAxisData[1].data[idx];
 		}
 	}
 };

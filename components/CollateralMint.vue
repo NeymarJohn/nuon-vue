@@ -133,7 +133,8 @@ export default {
 	},
 	computed: {
 		isApproved() {
-			return !!parseFloat(this.$store.state.collateralVaultStore.allowance.HX);
+			// !!parseFloat(this.$store.state.collateralVaultStore.allowance.HX)
+			return true;
 		},
 		disabledMint() {
 			return !this.isApproved || !parseFloat(this.inputValue) || this.isMoreThanBalance || !this.connectedAccount;
@@ -142,23 +143,23 @@ export default {
 			return  parseFloat(this.inputValue) > this.tokenBalance;
 		},
 		tokenBalance() {
-			return parseFloat(this.$store.state.erc20Store.balance.HX);
+			return parseFloat(this.$store.state.erc20Store.balance.ETH);
 		},
 		readyToDeposit() {
 			return !!this.inputValue && !this.isMoreThanBalance;
 		},
 		mintFee() {
-			return parseFloat(this.$store.state.collateralVaultStore.mintingFee);
+			return parseFloat(this.$store.state.collateralVaultStore.mintingFee) * 100;
 		}
 	},
 	watch: {
 		inputValue() {
 			this.getEstimatedMintedNuon();
-			if (this.selectedCollateralRatio) this.liquidationPrice = (this.inputValue * this.collateralPrice) / (this.selectedCollateralRatio / 100);
+			if (this.selectedCollateralRatio) this.liquidationPrice = (this.collateralPrice) / (this.selectedCollateralRatio / 100); // this.inputValue *
 		},
 		selectedCollateralRatio(newValue) {
 			if (newValue) {
-				this.liquidationPrice = (this.inputValue * this.collateralPrice) / (this.selectedCollateralRatio / 100);
+				this.liquidationPrice = (this.collateralPrice) / (this.selectedCollateralRatio / 100); // this.inputValue *
 				this.getEstimatedMintedNuon();
 			}
 		}
@@ -216,7 +217,8 @@ export default {
 						collateralAmount: amount,
 						onConfirm: (_confNumber, receipt, _latestBlockHash) => {
 							this.$store.commit("collateralVaultStore/setUserJustMinted", true);
-							this.successToast(null, `You've successfully minted ${this.estimatedMintedNuonValue} NUON`, receipt.transactionHash);
+							this.successToast(null, `You've successfully minted ${parseFloat(this.estimatedMintedNuonValue).toFixed(2)} NUON`, receipt.transactionHash);
+							this.$store.dispatch("erc20Store/initializeBalance", {address: this.connectedAccount});
 						},
 						onReject: (err) => {
 							this.failureToast(null, err, "Transaction failed");

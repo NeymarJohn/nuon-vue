@@ -80,7 +80,6 @@
 
 <script>
 import { getTotalSupplyWithToken} from "~/services/theGraph";
-import { NUON_ADDRESS, HYDRO_ADDRESS } from "~/constants/addresses";
 
 export default {
 	name: "TokenPrice",
@@ -159,10 +158,14 @@ export default {
 	},
 	async mounted() {
 		try {
-			const nuonSupplyResponse = await getTotalSupplyWithToken(NUON_ADDRESS);
+			
+			const nuonAddress = this.$store.getters["addressStore/tokens"].NUON;
+			const hydroAddress = this.$store.getters["addressStore/tokens"].HX;
+
+			const nuonSupplyResponse = await getTotalSupplyWithToken(nuonAddress);
 			this.nuonSupplyInfo = nuonSupplyResponse.data.data.totalSupplyDayDatas;
 
-			const hydroSupplyResponse = await getTotalSupplyWithToken(HYDRO_ADDRESS);
+			const hydroSupplyResponse = await getTotalSupplyWithToken(hydroAddress);
 			this.hydroSupplyInfo = hydroSupplyResponse.data.data.totalSupplyDayDatas;
 
 			this.handlePeriodTabChanged(0);

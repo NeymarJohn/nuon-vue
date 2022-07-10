@@ -113,7 +113,7 @@ export default {
 			return parseFloat(this.inputValue) > parseFloat(this.userMintedNuon);
 		},
 		redeemFee() {
-			return parseFloat(this.$store.state.collateralVaultStore.redeemFee);
+			return parseFloat(this.$store.state.collateralVaultStore.redeemFee) * 100;
 		}
 	},
 	watch: {
@@ -164,6 +164,7 @@ export default {
 						onConfirm: (txHash) => {
 							this.$store.commit("collateralVaultStore/setUserJustMinted", true);
 							this.successToast(null, "Withdraw successful", txHash);
+							this.$store.dispatch("erc20Store/initializeBalance", {address: this.connectedAccount});
 						},
 						onReject: null
 					});

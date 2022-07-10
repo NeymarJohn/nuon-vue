@@ -2,7 +2,6 @@ import { GetterTree, ActionTree, MutationTree } from "vuex";
 import { Web3State } from "./web3Store";
 import erc20 from "./abi/erc20.json";
 import { ETH, HX, NUON, USDC } from "~/constants/tokens";
-import { ETH_ADDRESS, HYDRO_ADDRESS, NUON_ADDRESS, USDC_ADDRESS } from "~/constants/addresses";
 import { fromWei } from "~/utils/bnTools";
 
 type StateType = {
@@ -63,9 +62,10 @@ export const actions: ActionTree<Erc20State, Erc20State> = {
 	async initializeBalance (ctx: any, {address}) {
 		const usdcDecimals = await ctx.getters.usdc.methods.decimals().call();
 		const nuonBalance = fromWei(await ctx.getters.nuon.methods.balanceOf(address).call(), ctx.state.decimals.NUON);
-		const hydroBalance = fromWei(await ctx.getters.hydro.methods.balanceOf(address).call(), ctx.state.decimals.HX) ;
+		const hydroBalance = fromWei(await ctx.getters.hydro.methods.balanceOf(address).call(), ctx.state.decimals.HX);
 		const usdcBalance = fromWei(await ctx.getters.usdc.methods.balanceOf(address).call(), usdcDecimals);
-		const ethBalance = fromWei(await ctx.getters.eth.methods.balanceOf(address).call(), ctx.state.decimals.ETH);
+		// const ethBalance = fromWei(await ctx.getters.eth.methods.balanceOf(address).call(), ctx.state.decimals.ETH);
+		const ethBalance = fromWei(await ctx.rootGetters["web3Store/instance"]().eth.getBalance(address));
 
 		const nuonSupply = fromWei(await ctx.rootGetters["collateralVaultStore/getNUONSupply"]());
 		const hydroSupply = fromWei(await ctx.getters.hydro.methods.totalSupply().call());
@@ -114,28 +114,24 @@ export const getters: GetterTree<Erc20State, Web3State> = {
 		return new web3.eth.Contract(erc20, addr);
 	},
 
-	hydro: (_state: any, _getters: any, store: any) => {
+	hydro: (_state: any, _getters: any, store: any, rootGetters:any) => {
 		const web3 = store.web3Store.instance();
-		const addr = HYDRO_ADDRESS;
-		return new web3.eth.Contract(erc20, addr);
+		return new web3.eth.Contract(erc20, rootGetters["addressStore/tokens"]?.HX);
 	},
 
-	nuon: (_state: any, _getters: any, store: any) => {
+	nuon: (_state: any, _getters: any, store: any, rootGetters: any) => {
 		const web3 = store.web3Store.instance();
-		const addr = NUON_ADDRESS;
-		return new web3.eth.Contract(erc20, addr);
+		return new web3.eth.Contract(erc20, rootGetters["addressStore/tokens"]?.NUON);
 	},
 
-	usdc: (_state: any, _getters: any, store: any) => {
+	usdc: (_state: any, _getters: any, store: any, rootGetters: any) => {
 		const web3 = store.web3Store.instance();
-		const addr = USDC_ADDRESS;
-		return new web3.eth.Contract(erc20, addr);
+		return new web3.eth.Contract(erc20, rootGetters["addressStore/tokens"]?.USDC);
 	},
 
-	eth: (_state: any, _getters: any, store: any) => {
+	eth: (_state: any, _getters: any, store: any, rootGetters: any) => {
 		const web3 = store.web3Store.instance();
-		const addr = ETH_ADDRESS;
-		return new web3.eth.Contract(erc20, addr);
+		return new web3.eth.Contract(erc20, rootGetters["addressStore/tokens"]?.ETH);
 	},
 
 	getHydroInfo: (state: any) => state.hydro,

@@ -6,8 +6,9 @@
 				<label>NUON Price<TooltipIcon v-tooltip="'Enter NUON price tooltip content here.'" /></label>
 				<ComponentLoader component="h3" :loaded="nuonPrice !== null" slot-classes="l-flex l-flex--row-center-space-between">
 					<h3>{{ computedNuonPrice }}</h3>
-					<TheBadge v-if="nuonPrice > 1">Above</TheBadge>
-					<TheBadge v-else-if="nuonPrice < 1">Below</TheBadge>
+					<div class="target-peg">Target Peg {{ truflationPeg }}</div>
+					<TheBadge v-if="nuonPrice > truflationPeg">Above</TheBadge>
+					<TheBadge v-else-if="nuonPrice < truflationPeg">Below</TheBadge>
 				</ComponentLoader>
 			</StatCard>
 			<StatCard class="u-mb-md-12">
@@ -48,6 +49,10 @@ export default {
 			default: null
 		},
 		nuonPrice: {
+			type: Number,
+			default: null
+		},
+		truflationPeg: {
 			type: Number,
 			default: null
 		}
