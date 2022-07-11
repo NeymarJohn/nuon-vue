@@ -31,6 +31,8 @@
 
 // 3. Transaction table 5 columns
 .transaction-table--5 .transaction-table__cell {
+	display: flex;
+	align-items: center;
 	min-width: calc(100% / 5);
 }
 

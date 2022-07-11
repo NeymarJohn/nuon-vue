@@ -71,7 +71,7 @@
 				<DataCard>
 					<label>
 						<TheDot color="lime" />
-						My Total Minted Value (NUON)
+						My Total Minted Value
 						<TheBadge class="u-ml-8" :color="getPercentChangeBadgeClass('mintedNuon', collateralRatioArr, true)">{{ getUserMintedNuonSign }}{{ Math.abs(getChangePercent('mintedNuon', collateralRatioArr, true)) }}%</TheBadge>
 					</label>
 					<ComponentLoader component="h1" :loaded="totalMintedNuon !== null">
@@ -126,11 +126,11 @@ export default {
 			tvl: 0,
 			totalMintedNuonValue: 0,
 			myCollateralizationRatio: 0,
-			configData: [{title: "My Locked Collateral", id: "lockedCollateral"},
+			configData: [{title: "Locked Collateral", id: "lockedCollateral"},
 				{title: "Price", id: "currentPrice"},
-				{title: "My Total Value Locked", id: "lockedValue"},
-				{title: "My Total Minted (NUON)", id: "mintedNuon"},
-				{title: "My Collateralization Ratio", id: "collateralizationRatio"}],
+				{title: "Total Value Locked", id: "lockedValue"},
+				{title: "Total Minted", id: "mintedNuon"},
+				{title: "Collateralization Ratio", id: "collateralizationRatio"}],
 			miscConfig: {
 				hasImage: {lockedCollateral: "ETH"},
 				headerTooltips: {
@@ -243,7 +243,7 @@ export default {
 				name: "My Total Value Locked",
 				data: reducedData.map(d => d.collateralTokens.reduce((acc, collateralToken) => acc + parseFloat(collateralToken.value) , 0))
 			}, {
-				name: "My Total Minted Value (NUON)",
+				name: "My Total Minted Value",
 				data: reducedData.map(d => parseFloat(d.mintedNuon))
 			}];
 		}
