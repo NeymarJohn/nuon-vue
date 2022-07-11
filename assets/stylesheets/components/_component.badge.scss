@@ -8,7 +8,8 @@
 		7. Badge balance
 		8. Badge price change
 		9. Badge key
-		10. Badge responsive
+		10. Badge target peg
+		11. Badge responsive
 */
 
 // 1. Badge default
@@ -86,7 +87,17 @@
 	width: $SPACING_12;
 }
 
-// 10. Badge responsive
+// 10. Badge target peg
+.badge--target-peg {
+	background: $MEDIUM_LIGHT_GREY;
+	align-self: flex-start;
+	color: $LIME;
+	text-transform: none;
+	border-radius: $BORDER_RADIUS_24;
+	margin-top: $SPACING_8;
+}
+
+// 11. Badge responsive
 @media screen and (max-width: $SPACING_1440) {
 	.badge {
 		font-size: $BODY_TEXT_XS;
