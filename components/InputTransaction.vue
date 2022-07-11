@@ -167,7 +167,10 @@ export default {
 				if (this.action === "stake") {
 					this.$store.dispatch("boardroomStore/stake", {
 						amount: this.inputValue,
-						onConfirm: (_confNumber, receipt, _latestBlockHash) => this.successToast(() => {this.activeStep = 1;}, `You have staked ${this.inputValue} HX`, receipt.transactionHash),
+						onConfirm: (_confNumber, receipt, _latestBlockHash) => {
+							this.successToast(() => {this.activeStep = 1;}, `You have staked ${this.inputValue} HX`, receipt.transactionHash);
+							this.$emit("close-modal");
+						},
 						onError: (e) => this.failureToast(() => {this.activeStep = 1;}, e),
 						onComplete: () => {
 							this.inputValue = "";

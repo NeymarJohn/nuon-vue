@@ -32,7 +32,8 @@
 							title="Enter amount to stake"
 							subtitle="Available HX tokens"
 							action-plural="staking"
-							action="stake" />
+							action="stake"
+							@close-modal="setModalVisibility('stakeModal', false)" />
 					</TheModal>
 					<TheModal
 						v-show="isWithdrawModalVisible"
