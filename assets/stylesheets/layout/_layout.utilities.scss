@@ -22,6 +22,7 @@
 		21. Prompt
 		22. Height
 		23. Text decoration
+		24. Font size
 */
 
 // 1. Margin bottom
@@ -400,4 +401,12 @@
 // 23. Text decoration
 .u-text-decoration-underline {
 	text-decoration: underline !important;
+}
+
+// 24. Font size
+@media screen and (max-width: $SPACING_1440) {
+	.u-font-size-h2-1440 {
+		font-size: $HEADING_TWO_990 !important;
+		line-height: $SPACING_32 !important;
+	}
 }

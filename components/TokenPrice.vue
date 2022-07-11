@@ -32,7 +32,7 @@
 						<DataCard>
 							<label>{{ selectedPriceTab }}</label>
 							<ComponentLoader component="h1" :loaded="graphSelection !== null">
-								<h3 :style="{color: graphSelection ? 'white' : '#3a3a3e'}">{{ graphSelection ? numberWithCommas(graphSelection) : 0 }}<sup :style="{color: graphSelection ? 'white' : '#3a3a3e'}">{{ currentlySelectedTab }}</sup></h3>
+								<h3 class="u-font-size-h2-1440" :style="{color: graphSelection ? 'white' : '#3a3a3e'}">{{ graphSelection ? numberWithCommas(graphSelection) : 0 }}<sup :style="{color: graphSelection ? 'white' : '#3a3a3e'}">{{ currentlySelectedTab }}</sup></h3>
 							</ComponentLoader>
 							<ComponentLoader component="h5" :loaded="dateSelection !== null">
 								<h5 :style="{color: dateSelection ? 'white' : '#3a3a3e'}">{{ dateSelection ? dateSelection : 0 }}</h5>
