@@ -8,7 +8,7 @@
 			<TheTab title="Rewards" />
 		</TheTabs>
 		<div class="tabs__filter">
-			<TransactionSearch />
+			<TransactionSearch class="u-half-width-md"/>
 			<TheSelect
 				:options="selectOptions"
 				:default="dateFilterComputed || 'All'"

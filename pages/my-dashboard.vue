@@ -21,7 +21,7 @@
 			</template>
 			<template #panel-three>
 				<DataCard>
-					<label><TheDot color="light-green" /> My Balance</label>
+					<label><TheDot color="light-green" /> My Balance<TooltipIcon v-tooltip="'Enter My Balance tooltip content here.'" /></label>
 					<ComponentLoader component="h1" :loaded="balancesValue !== null">
 						<h4>${{ balancesValue | toFixed | numberWithCommas }}</h4>
 					</ComponentLoader>
@@ -29,7 +29,7 @@
 			</template>
 			<template #panel-four>
 				<DataCard>
-					<label><TheDot color="blue" /> My Collateral Locked</label>
+					<label><TheDot color="blue" /> My Collateral Locked<TooltipIcon v-tooltip="'Enter My Collateral Locked tooltip content here.'" /></label>
 					<ComponentLoader component="h1" :loaded="totalValue !== null">
 						<h4>${{ totalValue | toFixed | numberWithCommas }}</h4>
 					</ComponentLoader>
@@ -37,7 +37,7 @@
 			</template>
 			<template #panel-five>
 				<DataCard>
-					<label><TheDot color="orange" /> My Staked</label>
+					<label><TheDot color="orange" /> My Staked<TooltipIcon v-tooltip="'Enter My Staked tooltip content here.'" /></label>
 					<ComponentLoader component="h1" :loaded="stakedBalance !== null">
 						<h4>${{ stakedBalance | toFixed | numberWithCommas }}</h4>
 					</ComponentLoader>

@@ -290,6 +290,11 @@
 .u-width-auto {
 	width: auto !important;
 }
+@media screen and (max-width: $SPACING_990) {
+	.u-half-width-md {
+		width: 50% !important;
+	}
+}
 @media screen and (max-width: $SPACING_480) {
 	.u-full-width-sm {
 		width: 100% !important;
