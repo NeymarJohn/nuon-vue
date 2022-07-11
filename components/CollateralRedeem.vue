@@ -161,9 +161,9 @@ export default {
 				await this.$store.dispatch("collateralVaultStore/redeem",
 					{
 						nuonAmount,
-						onConfirm: (txHash) => {
+						onConfirm: (_confNumber, receipt, _latestBlockHash) => {
 							this.$store.commit("collateralVaultStore/setUserJustMinted", true);
-							this.successToast(null, "Withdraw successful", txHash);
+							this.successToast(null, "Withdraw successful", receipt.transactionHash);
 							this.$store.dispatch("erc20Store/initializeBalance", {address: this.connectedAccount});
 						},
 						onReject: null
@@ -177,7 +177,7 @@ export default {
 			}
 		},
 		inputMaxBalance() {
-			this.inputValue = parseFloat(this.userMintedNuon).toFixed(2);
+			this.inputValue = this.twoDecimalPlaces(this.userMintedNuon);
 		}
 	}
 };

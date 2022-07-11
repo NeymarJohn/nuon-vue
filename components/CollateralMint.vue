@@ -52,7 +52,6 @@
 							<p>Decreased Risk</p>
 						</div>
 					</LayoutFlex>
-					<p v-if="inputValue && selectedCollateralRatio < 200" class="u-is-caution l-flex--align-self-end u-mt-16">Transaction will likely fail due to a low collateral ratio. Please increase your collateral ratio.</p>
 				</div>
 			</DataCard>
 			<DataCard class="u-full-width">
@@ -193,7 +192,7 @@ export default {
 		},
 		async getEstimatedMintedNuon() {
 			if (!this.inputValue) return;
-			const currentRatio = this.selectedCollateralRatio === this.sliderMin ? parseInt(this.selectedCollateralRatio) + 1 : this.selectedCollateralRatio;
+			const currentRatio = this.selectedCollateralRatio;
 			const collateralRatio = (10 ** 18) / (currentRatio / 100);
 			let ans = [0];
 			try {
@@ -208,7 +207,7 @@ export default {
 			this.activeStep = "loading";
 			this.minting = true;
 			const amount = toWei(this.inputValue, this.$store.state.erc20Store.decimals.HX);
-			const collateralRatioToWei = 10 ** 18 / parseInt(this.selectedCollateralRatio / 100);
+			const collateralRatioToWei = 10 ** 18 / parseFloat(this.selectedCollateralRatio / 100);
 
 			try {
 				await this.$store.dispatch("collateralVaultStore/mintNuon",
@@ -232,7 +231,7 @@ export default {
 			}
 		},
 		inputMaxBalance() {
-			this.inputValue = this.tokenBalance.toFixed(2);
+			this.inputValue = this.twoDecimalPlaces(this.tokenBalance);
 		}
 	}
 };
