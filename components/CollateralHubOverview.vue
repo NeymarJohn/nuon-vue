@@ -99,8 +99,8 @@ export default {
 			this.dateStr = dateStr;
 			this.donutChartData = data;
 		});
-		this.$store.getters["collateralVaultStore/getCollateralRatioInPercent"]().then(res => {
-			this.collateralRatio = parseFloat(fromWei(res)).toFixed(0);
+		this.$store.getters["collateralVaultStore/getGlobalCR"]().then(res => {
+			this.collateralRatio = parseFloat(fromWei(res * 100)).toFixed(0);
 		}).catch(() => {
 			this.collateralRatio = 0;
 		});

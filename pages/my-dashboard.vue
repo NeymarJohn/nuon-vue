@@ -219,15 +219,32 @@ export default {
 			return changePercent > 0 ? "+ ":"- ";
 		},
 		xAxisData() {
-			return this.collateralRatioArr.map(d => new Date(d.dateTime * 1000).toLocaleDateString()).reverse();;
+			return [...new Set(this.collateralRatioArr.map(d => new Date(d.dateTime * 1000).toLocaleDateString()).reverse())];
 		},
 		yAxisData() {
+			// the following block groups together all the data by their day
+			const aggregatedData = this.collateralRatioArr.reduce((acc, val) => {
+				const day = new Date(val.dateTime * 1000).toLocaleDateString();
+				const arr = acc[day];
+				if (arr === undefined) acc[day] = [];
+				acc[day].push(val);
+				return acc;
+			}, {});
+
+			// for data on any day, we only care about the last value of the day, not the others before it.
+			const lastDataOfDay = Object.entries(aggregatedData).reduce((acc, [day, values]) => {acc[day] = values.sort((a, b) => b.dateTime - a.dateTime)[0]; return acc;}, {});
+			// now we need to recreate the sorted array using the xAxisData
+			const reducedData = [];
+			for (let i = 0; i < this.xAxisData.length; i++) {
+				reducedData.push(lastDataOfDay[this.xAxisData[i]]);
+			}
+
 			return [{
 				name: "My Total Value Locked",
-				data: this.collateralRatioArr.map(d => d.collateralTokens.reduce((acc, collateralToken) => acc + parseFloat(collateralToken.value) , 0)).reverse()
+				data: reducedData.map(d => d.collateralTokens.reduce((acc, collateralToken) => acc + parseFloat(collateralToken.value) , 0))
 			}, {
 				name: "My Total Minted Value (NUON)",
-				data: this.collateralRatioArr.map(d => parseFloat(d.mintedNuon)).reverse()
+				data: reducedData.map(d => parseFloat(d.mintedNuon))
 			}];
 		}
 	},
