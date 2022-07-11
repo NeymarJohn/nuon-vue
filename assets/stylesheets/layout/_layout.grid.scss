@@ -117,6 +117,32 @@
 	.l-grid-side-panel {
 		padding: $SPACING_36 $SPACING_30 $SPACING_36 $SPACING_50;
 	}
+	.l-grid-account-balance {
+		display: flex;
+		flex-direction: column;
+	}
+	.l-grid-account-balance__panel-one,
+	.l-grid-account-balance__panel-two,
+	.l-grid-account-balance__panel-three,
+	.l-grid-account-balance__panel-four,
+	.l-grid-account-balance__panel-five,
+	.l-grid-account-balance__panel-six {
+		align-self: flex-start;
+	}
+	.l-grid-account-balance__panel-one,
+	.l-grid-account-balance__panel-two,
+	.l-grid-account-balance__panel-three,
+	.l-grid-account-balance__panel-four,
+	.l-grid-account-balance__panel-five {
+		margin-bottom: $SPACING_16;
+	}
+	.l-grid-account-balance__panel-six {
+		border-left: 0;
+		border-top: $SPACING_1 solid $LIGHT_GREY;
+		padding-left: 0;
+		width: 100%;
+		padding-top: $SPACING_16;
+	}
 }
 @media screen and (max-width: $SPACING_480) {
 	.l-grid-side-panel {

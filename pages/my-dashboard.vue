@@ -57,8 +57,8 @@
 		</LayoutAccountBalance>
 		<h2 class="u-mb-24">My Collateral Hub</h2>
 		<LayoutFlex direction="column l-chart chart">
-			<LayoutFlex direction="row-space-between">
-				<DataCard>
+			<LayoutFlex direction="row-space-between" class="l-flex--column-md">
+				<DataCard class="u-mb-md-16">
 					<label>
 						<TheDot color="light-green" />
 						My Total Value Locked
@@ -68,7 +68,7 @@
 						<h3>${{ (graphSelectionTVL || totalValue) | toFixed | numberWithCommas }}</h3>
 					</ComponentLoader>
 				</DataCard>
-				<DataCard>
+				<DataCard class="u-mb-md-16">
 					<label>
 						<TheDot color="lime" />
 						My Total Minted Value
