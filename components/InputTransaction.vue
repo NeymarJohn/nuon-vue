@@ -167,7 +167,7 @@ export default {
 				if (this.action === "stake") {
 					this.$store.dispatch("boardroomStore/stake", {
 						amount: this.inputValue,
-						onConfirm: (txHash) => this.successToast(() => {this.activeStep = 1;}, `You have staked ${this.inputValue} HX`, txHash),
+						onConfirm: (_confNumber, receipt, _latestBlockHash) => this.successToast(() => {this.activeStep = 1;}, `You have staked ${this.inputValue} HX`, receipt.transactionHash),
 						onError: (e) => this.failureToast(() => {this.activeStep = 1;}, e),
 						onComplete: () => {
 							this.inputValue = "";
@@ -202,7 +202,7 @@ export default {
 			this.activeStep = "approving";
 			this.$store.dispatch("boardroomStore/approveToken",
 				{
-					token: HX.symbol,
+					tokenSymbol: HX.symbol,
 					onConfirm:  () => {
 						this.activeStep = 1;
 					},

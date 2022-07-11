@@ -29,7 +29,6 @@
 				</div>
 				<div class="transaction-input__price">
 					<p>You are withdrawing <span>{{ numberWithCommas(parseFloat(inputValue || 0).toFixed(2)) }} HX</span> worth <span>${{ numberWithCommas(getDollarValue(inputValue, tokenPrices.HX).toFixed(2)) }}</span></p>
-					<p v-if="isMoreThanBalance" class="u-is-warning">Insufficient balance.</p>
 					<p v-if="errorMessage" class="u-is-warning">{{errorMessage}}</p>
 					<p v-if="!isDisabled()" class="u-is-success">Ready to withdraw</p>
 				</div>
@@ -107,9 +106,6 @@ export default {
 		};
 	},
 	computed: {
-		isMoreThanBalance() {
-			return parseFloat(this.inputValue) > this.hxBalance;
-		},
 		hxBalance() {
 			return this.$store.getters["erc20Store/hxBalance"] || 0;
 		},
@@ -183,7 +179,7 @@ export default {
 	},
 	methods: {
 		isDisabled () {
-			if (this.inputValue <= 0 || this.isMoreThanBalance || !this.canWithdraw) return true;
+			return this.inputValue <= 0 || !this.canWithdraw;
 		},
 		selectedTokenChanged(token) {
 			this.selectedToken = token;

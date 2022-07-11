@@ -86,9 +86,9 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 		const getHydroAllowance = fromWei(await  ctx.rootGetters["erc20Store/hydro"].methods.allowance(address, ctx.state.boardroomAddress).call());
 		ctx.commit("setAllowance", {HX: getHydroAllowance, NUON: getNuonAllowance});
 	},
-	approveToken(ctx: any, {tokenName,  onConfirm, onReject, onCallback}): void {
+	approveToken(ctx: any, {tokenSymbol,  onConfirm, onReject, onCallback}): void {
 		const contractAddress = ctx.state.boardroomAddress;
-		ctx.dispatch("erc20Store/approveToken", {tokenName, contractAddress, onConfirm, onReject, onCallback}, {root:true} )
+		ctx.dispatch("erc20Store/approveToken", {tokenSymbol, contractAddress, onConfirm, onReject, onCallback}, {root:true} )
 			.then(() =>{
 				ctx.dispatch("getAllowance").then(() => {
 					if (onCallback) onCallback(null);
@@ -101,8 +101,8 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 		const accountAddress = ctx.rootState.web3Store.account;
 		const weiAmount = toWei(amount);
 		ctx.getters.contract.methods.stake(weiAmount).send({from: accountAddress})
-			.on("transactionHash", (hash: string) => {
-				if (onConfirm) onConfirm(hash);
+			.on("confirmation", (confNumber: any, _receipt: any, _latestBlockHash: any) => {
+				if (onConfirm && confNumber === 0) onConfirm(confNumber, _receipt, _latestBlockHash);
 			})
 			.on("error", (err: string) => {
 				if (onError) onError(err);

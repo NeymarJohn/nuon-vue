@@ -125,6 +125,7 @@ import Web3 from "web3";
 import { Web3Provider } from "@ethersproject/providers";
 import ChevronLeftIcon from "@/assets/images/svg/svg-chevron-left.svg";
 import TooltipIcon from "@/assets/images/svg/svg-tooltip.svg";
+import { fromWei } from "~/utils/bnTools";
 
 export default {
 	name: "CreateNewProposal",
@@ -141,7 +142,6 @@ export default {
 				startDate: null,
 			},
 			minimumStake: 100,
-			votingPower: 23.4,
 			errors: {
 				date: "",
 				title: ""
@@ -160,7 +160,17 @@ export default {
 		},
 		titleLength() {
 			return this.proposal.title.length;
-		}
+		},
+		myStake() {
+			return parseFloat(fromWei(this.$store.state.boardroomStore.stakedBalance));
+		},
+		totalStaked() {
+			return parseFloat(fromWei(this.$store.state.boardroomStore.totalSupply));
+		},
+		votingPower() {
+			if (!this.totalStaked) return 0;
+			return this.myStake / this.totalStaked * 100;
+		},
 	},
 	methods: {
 		handleInputChange() {
