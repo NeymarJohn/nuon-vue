@@ -10,7 +10,7 @@ export default {
 	props: {
 		min: {
 			type: String,
-			default: "0"
+			default: "190"
 		},
 		max: {
 			type: String,
@@ -27,17 +27,12 @@ export default {
 	},
 	data() {
 		return {
-			selectedValue: this.min
+			selectedValue: this.selectedCollateralRatio || this.min
 		};
 	},
 	watch: {
 		selectedValue(newValue) {
 			if (newValue) this.emitChange(newValue);
-		},
-		selectedCollateralRatio(newValue, oldValue) {
-			if (oldValue === "null" && newValue) {
-				this.selectedValue = this.selectedCollateralRatio;
-			}
 		}
 	},
 	methods: {

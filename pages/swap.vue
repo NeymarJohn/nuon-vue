@@ -117,16 +117,14 @@
 						<div v-if="output.value && input.value">
 							<div class="swap__output">
 								<LayoutFlex direction="row-center">
-									<h4>1 {{ output.token }} = {{ input.value / output.value }} {{ input.token }}</h4>
+									<h4 v-if="isInputRate">1 {{ output.token }} = {{ input.value / output.value }} {{ input.token }}</h4>
+									<h4 v-else>1 {{ input.token }} = {{ output.value / input.value }} {{ output.token }}</h4>
 									<TheButton
 										size="icon"
-										title="Click to refresh price"
-										@click="refreshPrice"><RefreshIcon /></TheButton>
+										title="Click to convert rate"
+										@click="convertRate"><RefreshIcon />
+									</TheButton>
 								</LayoutFlex>
-								<!-- <div class="gas">
-									<GasIcon />
-									<p>~ ${{ swapFee.toFixed(2) }}</p>
-								</div> -->
 							</div>
 						</div>
 						<div class="transaction-input__buttons">
@@ -213,7 +211,8 @@ export default {
 			loadedPrice: false,
 			changedValue: "input",
 			maxSlippage: 0.5,
-			activeStep: 1
+			activeStep: 1,
+			isInputRate: true
 		};
 	},
 	head () {
@@ -463,6 +462,9 @@ export default {
 		},
 		refreshPrice() {
 			this.calculate();
+		},
+		convertRate() {
+			this.isInputRate = !this.isInputRate;
 		}
 	}
 };
