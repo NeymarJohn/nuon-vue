@@ -140,7 +140,7 @@ Vue.mixin({
 			if (turnPageCallback) turnPageCallback();
 			setTimeout(() => {
 				this.$store.commit("rootStore/setToast", {...this.$store.state.rootStore.toast, show: false});
-			}, 5000);
+			}, 20000);
 		},
 		failureToast(turnPageCallback, e, title) {
 			if (e) {
@@ -153,11 +153,14 @@ Vue.mixin({
 			if (turnPageCallback) turnPageCallback();
 			setTimeout(() => {
 				this.$store.commit("rootStore/setToast", {...this.$store.state.rootStore.toast, show: false});
-			}, 5000);
+			}, 20000);
 		},
 		getRPCErrorMessage(x){
+			if (!x.message) return null;
 			const open = x.message.indexOf("{");
+			if (open === -1) return null;
 			const close = x.message.lastIndexOf("}");
+			if (close === -1) return null;
 			const jsonData = x.message.substring(open, close + 1);
 			const j = JSON.parse(jsonData);
 			const message = j.message;

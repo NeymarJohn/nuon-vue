@@ -3,11 +3,6 @@ export const HX = {
 	name: "NUMINT TOKEN"
 };
 
-export const nuMINT = {
-	symbol: "nuMINT",
-	name: "NUMINT TOKEN"
-};
-
 export const NUON = {
 	symbol: "NUON",
 	name: "NUON TOKEN"
@@ -39,8 +34,7 @@ export const TOKENS_MAP:any = {
 	USDC,
 	USDT,
 	USDC_USDT_LP_TOKEN,
-	ETH,
-	nuMINT
+	ETH
 };
 
 const paths:any =  {
@@ -60,19 +54,7 @@ const paths:any =  {
 		tokens: [HX.symbol, USDC.symbol, NUON.symbol],
 	},
 	NUON_HX: {
-		tokens: [NUON.symbol, USDC.symbol, HX.symbol],
-	},
-	[`${nuMINT.symbol}_${USDC.symbol}`]: {
-		tokens: [nuMINT.symbol, USDC.symbol],
-	},
-	[`${USDC.symbol}_${nuMINT.symbol}`]: {
-		tokens: [USDC.symbol, nuMINT.symbol],
-	},
-	[`${nuMINT.symbol}_${NUON.symbol}`]: {
-		tokens: [nuMINT.symbol, NUON.symbol],
-	},
-	[`${NUON.symbol}_${nuMINT.symbol}`]: {
-		tokens: [NUON.symbol, nuMINT.symbol],
+		tokesn: [NUON.symbol, USDC.symbol, HX.symbol],
 	}
 };
 

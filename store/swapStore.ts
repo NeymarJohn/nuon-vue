@@ -3,16 +3,16 @@ import Web3 from "web3";
 import { Web3State } from "./web3Store";
 import router from "./abi/router.json";
 import { fromWei, toWei } from "~/utils/bnTools";
-import { getPath, nuMINT, NUON, USDC } from "~/constants/tokens";
+import { getPath } from "~/constants/tokens";
 import { tokenPairs } from "~/constants/addresses";
 
 type SwapStateType = {
-	allowance: any,
+	allowance: {HX: number, NUON: number, USDC: number},
 	swapFee: number,
 	uniswapRouterAddress: string
 }
 export const state = (): SwapStateType => ({
-	allowance: {},
+	allowance: {HX:0, NUON: 0, USDC: 0},
 	swapFee: 0.25,
 	uniswapRouterAddress: ""
 });
@@ -27,8 +27,8 @@ const convertPathIntoMap = (values: Array<any>, tokens: Array<any>) => {
 	return m;
 };
 export const mutations: MutationTree<SwapState> = {
-	setAllowance(state, payload: any) {
-		state.allowance = { ... state.allowance, ... payload};
+	setAllowance(state, payload: {HX:number, NUON: number, USDC: number}) {
+		state.allowance = payload;
 	},
 	setRouterAddress(state, payload: string) {
 		state.uniswapRouterAddress = payload;
@@ -66,7 +66,7 @@ export const actions: ActionTree<SwapState, SwapState> = {
 		const nuonAllowance = fromWei(await ctx.rootGetters["erc20Store/nuon"].methods.allowance(address, routerAddress).call());
 		const hydroAllowance = fromWei(await ctx.rootGetters["erc20Store/hydro"].methods.allowance(address, routerAddress).call());
 		const usdcAllowance = fromWei(await ctx.rootGetters["erc20Store/usdc"].methods.allowance(address, routerAddress).call());
-		ctx.commit("setAllowance", {[nuMINT.symbol]: hydroAllowance, [NUON.symbol]: nuonAllowance, [USDC.symbol]: usdcAllowance});
+		ctx.commit("setAllowance", {HX: hydroAllowance, NUON: nuonAllowance, USDC: usdcAllowance});
 	},
 	approveToken(ctx: any, {tokenName, onConfirm, onReject, onCallback}): void {
 		const routerAddress = ctx.state.uniswapRouterAddress;
