@@ -123,6 +123,10 @@
 										title="Click to refresh price"
 										@click="refreshPrice"><RefreshIcon /></TheButton>
 								</LayoutFlex>
+								<!-- <div class="gas">
+									<GasIcon />
+									<p>~ ${{ swapFee.toFixed(2) }}</p>
+								</div> -->
 							</div>
 						</div>
 						<div class="transaction-input__buttons">
