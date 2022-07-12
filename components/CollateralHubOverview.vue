@@ -7,12 +7,14 @@
 			</TheTabs>
 			<LayoutFlex class="l-flex--column-md">
 				<div class="chart chart-container">
-					<LightweightChart
-						v-if="isLoadedData && !error"
-						:day-data="dayData"
-						:week-data="weekData"
-						:month-data="monthData"
-						:selected-tab-idx="selectedPeriod" />
+					<ComponentLoader component="collateral-hub-chart" :loaded="isLoadedData !== null && !error">
+						<LightweightChart
+							v-if="isLoadedData && !error"
+							:day-data="dayData"
+							:week-data="weekData"
+							:month-data="monthData"
+							:selected-tab-idx="selectedPeriod" />
+					</ComponentLoader>
 					<div v-if="error">
 						<p>TVL</p>
 						<p>Data is not ready...</p>
@@ -21,7 +23,9 @@
 				<div class="chart chart--donut">
 					<p class="u-mb-4">Collateral Distribution</p>
 					<p class="u-colour-white u-mb-16">{{ dateStr }}</p>
-					<DonutChartCollateral v-if="donutChartData" class="u-mb-24" :chart-data="donutChartData" />
+					<ComponentLoader component="collateral-hub-chart" :loaded="donutChartData !== null">
+						<DonutChartCollateral v-if="donutChartData" class="u-mb-24" :chart-data="donutChartData" />
+					</ComponentLoader>
 					<p>Collateralization Ratio<TooltipIcon v-tooltip="'Enter collateralization ratio tooltip content here.'" /></p>
 					<h3>{{ collateralRatio }}%</h3>
 				</div>

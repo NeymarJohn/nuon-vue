@@ -11,7 +11,9 @@
 		10. Loader badge
 		11. Loader donut
 		12. Loader table
-		13. Loader responsive
+		13. Loader notification
+		14. Loader collateral hub chart
+		15. Loader responsive
 */
 
 // 1. Loader default
@@ -130,11 +132,18 @@
 	height: $SPACING_375;
 }
 
+// 13. Loader notification
 .loader--notification {
 	width: $SPACING_500;
 	height: $SPACING_30;
 }
-// 13. Loader responsive
+
+// 14. Loader collateral hub chart
+.loader--collateral-hub-chart {
+	height: $SPACING_500;
+}
+
+// 15. Loader responsive
 @media screen and (max-width: $SPACING_1440) {
 	.loader--h1 {
 		width: $SPACING_190;
