@@ -156,11 +156,15 @@ Vue.mixin({
 			}, 5000);
 		},
 		getRPCErrorMessage(x){
+			if (!x.message) return null;
 			const open = x.message.indexOf("{");
+			if (open === -1) return null;
 			const close = x.message.lastIndexOf("}");
+			if (close === -1) return null;
 			const jsonData = x.message.substring(open, close + 1);
 			const j = JSON.parse(jsonData);
 			const message = j.message;
+			if (!message) return null;
 			return message;
 		},
 		onFilterChange(x) {
