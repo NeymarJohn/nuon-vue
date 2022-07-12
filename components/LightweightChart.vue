@@ -30,8 +30,8 @@ export default {
 	},
 	data() {
 		return {
-			chartData: this.dayData, // Needs to be replaced / removed
-			activeTab: "daily", // "weekly" "monthly",
+			chartData: this.dayData,
+			activeTab: "daily",
 			currentTabIndex: 0,
 			chartObj: null,
 			seriesesData: [this.dayData, this.weekData, this.monthData],
@@ -46,10 +46,10 @@ export default {
 	},
 	mounted() {
 		const container = document.getElementById("lineChart");
-		const data = this.chartData; // Needs to be replaced / removed
+		const data = this.chartData;
 
 		const chartOptions = {
-			height: "300",
+			height: "500",
 			layout: {
 				textColor: "#B7B7B7",
 				background: {
