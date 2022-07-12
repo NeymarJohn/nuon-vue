@@ -121,11 +121,8 @@ export default {
 			try {
 				result = await this.$store.getters["collateralVaultStore/getEstimateCollateralsOut"](this.connectedAccount, toWei(this.inputValue));
 			} catch (e) {
-				console.error(e); // TODO: remove after testing
-				if (!this.amountMoreThanUserMinted) {
-					const message = this.getRPCErrorMessage(e);
-					this.failureToast(null, message, "Transaction failed");
-				}
+				const message = this.getRPCErrorMessage(e);
+				this.failureToast(null, message, "Transaction failed");
 			} finally {
 				this.estimatedWithdrawnNuonValue = fromWei(result[0]);
 			}
@@ -169,9 +166,7 @@ export default {
 						onReject: null
 					});
 			} catch(e) {
-				console.error(e); // TODO: remove after testing
-				const message = this.getRPCErrorMessage(e);
-				this.failureToast(null, message || e, "Transaction failed");
+				this.failureToast(null, e, "Transaction failed");
 			}
 			finally {
 				this.withdrawing = false;
