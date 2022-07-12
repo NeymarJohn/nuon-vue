@@ -306,7 +306,6 @@ export default {
 			this.calculate();
 		},
 		getMaxOutput() {
-			if (!this.input.value || !this.output.token) return;
 			this.loadingPrice = true;
 			this.loadedPrice = false;
 			this.$store.dispatch(
@@ -323,6 +322,7 @@ export default {
 			}).catch(() => {
 				this.loadedPrice = false;
 				this.loadingPrice = false;
+				this.output.value = 0;
 			});
 		},
 		getMinInput() {

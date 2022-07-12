@@ -1,7 +1,7 @@
 import { GetterTree, ActionTree, MutationTree } from "vuex";
 import { Web3State } from "./web3Store";
 import erc20 from "./abi/erc20.json";
-import { ETH, HX, NUON, USDC } from "~/constants/tokens";
+import { ETH, HX, nuMINT, NUON, USDC } from "~/constants/tokens";
 import { fromWei } from "~/utils/bnTools";
 
 type StateType = {
@@ -72,17 +72,20 @@ export const actions: ActionTree<Erc20State, Erc20State> = {
 			HX: hydroBalance,
 			NUON: nuonBalance,
 			USDC: usdcBalance,
-			ETH: ethBalance
+			ETH: ethBalance,
+			[nuMINT.symbol]: hydroBalance
 		});
 		ctx.commit("setDecimals", {
 			HX: 18,
 			NUON: 18,
 			USDC: usdcDecimals,
-			ETH: 18
+			ETH: 18,
+			[nuMINT.symbol]: 18
 		});
 		ctx.commit("setSupply", {
 			NUON: nuonSupply,
-			HX: hydroSupply
+			HX: hydroSupply,
+			[nuMINT.symbol]: hydroSupply
 		});
 	},
 
