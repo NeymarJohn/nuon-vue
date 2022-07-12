@@ -40,7 +40,7 @@ export default {
 			return (((this.scores[idx] || 0) / (this.scoresTotal || 1)) * 100).toFixed(2) + "%";
 		},
 		score(idx) {
-			return this.scores[idx] ? `${this.abbreviateNumber(this.scores[idx].toFixed(2))}${this.proposalState !== "active" ? " HX" : ""}` : 0;
+			return this.scores[idx] ? `${this.abbreviateNumber(this.scores[idx].toFixed(2))}${this.proposalState !== "active" ? " nuMINT" : ""}` : 0;
 		}
 	}
 };

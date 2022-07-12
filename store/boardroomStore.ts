@@ -50,7 +50,7 @@ export const mutations: MutationTree<BoardroomState> = {
 	},
 	setNextEpochPoint(state, payload: number) {
 		state.nextEpochPoint = payload;
-	}, 
+	},
 	setCanClaimRewards(state, payload: boolean) {
 		state.canClaimRewards = payload;
 	},
@@ -115,7 +115,7 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 	claimReward(ctx: any, {onConfirm, onError, onComplete}) {
 		const accountAddress = ctx.rootState.web3Store.account;
 		return ctx.getters.contract.methods.claimReward(
-			true, 
+			true,
 			"0x000000000000000000000000000000000000dEaD",
 			["0x000000000000000000000000000000000000dEaD", "0x000000000000000000000000000000000000dEaD"]
 		).send({from: accountAddress})

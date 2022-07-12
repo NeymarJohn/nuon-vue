@@ -10,7 +10,7 @@ const initalPrice = {
 };
 export const state = () => ({
 	price: initalPrice,
-	priceWithDecimal: {}, // backed up prices with decimal { value: xx, decimals: 4}
+	priceWithDecimal: {},
 });
 
 export type Web3State = ReturnType<typeof state>
@@ -48,5 +48,5 @@ export const actions: ActionTree<Web3State, Web3State> = {
 };
 
 export const getters: GetterTree<Web3State, Web3State> = {
-	
+
 };

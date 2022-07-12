@@ -3,7 +3,7 @@
 		<h2 class="u-mb-24">Token Price</h2>
 		<div class="l-chart l-chart--token-price">
 			<TheTabs margin="24" @tab-changed="handleTabChanged">
-				<TheTab title="HX" />
+				<TheTab title="nuMINT" />
 				<TheTab title="NUON" />
 			</TheTabs>
 			<LayoutFlex class="l-flex--column-md">
@@ -11,14 +11,14 @@
 					<LayoutFlex class="u-mb-md-4">
 						<p>Market Cap</p><TheBadge :color="getPercentChangeBadgeClass('marketVal', dataToUse)" class="u-ml-8">{{ getChangePercent('marketVal', dataToUse) }}%</TheBadge>
 					</LayoutFlex>
-					<ComponentLoader component="h3" :loaded="marketCap !== null">
-						<h3 class="u-mb-48">${{ marketCap | numberWithCommas }}</h3>
+					<ComponentLoader class="u-mb-48" component="h3" :loaded="marketCap !== null">
+						<h3>${{ marketCap | numberWithCommas }}</h3>
 					</ComponentLoader>
 					<LayoutFlex class="u-mb-md-4">
 						<p>Circulating Supply</p><TheBadge :color="getPercentChangeBadgeClass('value', dataToUse)" class="u-ml-8">{{ getChangePercent('value', dataToUse) }}%</TheBadge>
 					</LayoutFlex>
-					<ComponentLoader component="h3" :loaded="circulatingSupply !== null">
-						<h3 class="u-mb-48">{{ circulatingSupply | numberWithCommas }}</h3>
+					<ComponentLoader class="u-mb-48" component="h3" :loaded="circulatingSupply !== null">
+						<h3>{{ circulatingSupply | numberWithCommas }}</h3>
 					</ComponentLoader>
 					<LayoutFlex class="u-mb-md-4">
 						<p>Price</p><TheBadge :color="getPercentChangeBadgeClass('price', dataToUse)" class="u-ml-8">{{ getChangePercent('price', dataToUse) }}%</TheBadge>
@@ -88,7 +88,7 @@ export default {
 			currentlySelectedTab: "",
 			selectedPriceTab: "Price",
 			selectedPeriodTab: "",
-			tabs: ["HX", "NUON"],
+			tabs: ["nuMINT", "NUON"],
 			priceTabs: ["Price", "Market Cap", "Circulating Supply"],
 			periodTabs: ["D", "W", "M"],
 			priceHistoryData: [],
@@ -158,7 +158,6 @@ export default {
 	},
 	async mounted() {
 		try {
-			
 			const nuonAddress = this.$store.getters["addressStore/tokens"].NUON;
 			const hydroAddress = this.$store.getters["addressStore/tokens"].HX;
 

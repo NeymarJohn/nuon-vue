@@ -14,7 +14,7 @@
 				<DataCard>
 					<label>Minimum Stake Required</label>
 					<TheLoader component="h1">
-						<h3>{{ numberWithCommas(minimumStake.toFixed(2)) }}<sup>HX</sup></h3>
+						<h3>{{ numberWithCommas(minimumStake.toFixed(2)) }}<sup>nuMINT</sup></h3>
 					</TheLoader>
 				</DataCard>
 				<DataCard>
@@ -97,7 +97,7 @@
 							</div>
 							<div class="modal__confirm--row">
 								<p>Amount</p>
-								<p>{{ votingPower }} HX</p>
+								<p>{{ votingPower }} nuMINT</p>
 							</div>
 						</div>
 						<div class="modal__confirm--buttons">

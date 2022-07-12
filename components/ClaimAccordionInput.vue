@@ -128,7 +128,7 @@ export default {
 			search: "",
 			selected: {
 				name: "Hydro",
-				symbol: "HX",
+				symbol: "nuMINT",
 				icon: "Hydro.png"
 			},
 			activeStep: 1

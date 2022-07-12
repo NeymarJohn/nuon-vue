@@ -28,7 +28,7 @@
 					</div>
 				</div>
 				<div class="transaction-input__price">
-					<p>You are {{ actionPlural }} <span>{{ parseFloat(inputValue || 0) | toFixed | numberWithCommas }} HX</span> worth <span>${{ getDollarValue(inputValue, tokenPrices.HX) | toFixed | numberWithCommas }}</span></p>
+					<p>You are {{ actionPlural }} <span>{{ parseFloat(inputValue || 0) | toFixed | numberWithCommas }} nuMINT</span> worth <span>${{ getDollarValue(inputValue, tokenPrices.HX) | toFixed | numberWithCommas }}</span></p>
 					<p v-if="isMoreThanBalance" class="u-is-warning">Insufficient balance.</p>
 					<p v-if="errorMessage" class="u-is-warning">{{errorMessage}}</p>
 					<p v-if="!isDisabled()" class="u-is-success u-mb-0">Ready to {{ action }}</p>
@@ -135,18 +135,18 @@ export default {
 				{
 					title: "Amount to Stake",
 					val: this.numberWithCommas(this.inputValue),
-					currency: "HX",
+					currency: "nuMINT",
 					dollar: this.getDollarValue(this.inputValue, this.tokenPrices.HX),
 				},
 				{
 					title: "Stake Fee",
-					val: `-${this.numberWithCommas(this.feeToken.toFixed(2))}HX (${this.claimFee} %)`,
+					val: `-${this.numberWithCommas(this.feeToken.toFixed(2))}nuMINT (${this.claimFee} %)`,
 					dollar: this.getDollarValue(this.feeToken, this.tokenPrices.HX)
 				},
 				{
 					title: "Total",
 					val: this.numberWithCommas((parseFloat(this.inputValue) - this.feeToken).toFixed(2)) ,
-					currency: "HX",
+					currency: "nuMINT",
 					dollar: this.getDollarValue(parseFloat(this.inputValue) - this.feeToken, this.tokenPrices.HX),
 				}
 			];
@@ -168,7 +168,7 @@ export default {
 					this.$store.dispatch("boardroomStore/stake", {
 						amount: this.inputValue,
 						onConfirm: (_confNumber, receipt, _latestBlockHash) => {
-							this.successToast(() => {this.activeStep = 1;}, `You have staked ${this.inputValue} HX`, receipt.transactionHash);
+							this.successToast(() => {this.activeStep = 1;}, `You have staked ${this.inputValue} nuMINT`, receipt.transactionHash);
 							this.$emit("close-modal");
 						},
 						onError: (e) => this.failureToast(() => {this.activeStep = 1;}, e),
@@ -180,7 +180,7 @@ export default {
 				} else if (this.action === "withdraw") {
 					this.$store.dispatch("boardroomStore/withdraw", {
 						amount: this.inputValue,
-						onConfirm: (txHash) => this.successToast(() => {this.activeStep = 1;}, `You have withdrawn ${this.inputValue} HX`, txHash),
+						onConfirm: (txHash) => this.successToast(() => {this.activeStep = 1;}, `You have withdrawn ${this.inputValue} nuMINT`, txHash),
 						onError: (e) => this.failureToast(() => {this.activeStep = 1;}, e),
 						onComplete: () => {
 							this.inputValue = "";
@@ -189,7 +189,7 @@ export default {
 					});
 				} else if (this.action === "claim") {
 					this.$store.dispatch("boardroomStore/claimReward", {
-						onConfirm: (txHash) => this.successToast(() => {this.activeStep = 1;}, "You have claimed HX", txHash),
+						onConfirm: (txHash) => this.successToast(() => {this.activeStep = 1;}, "You have claimed nuMINT", txHash),
 						onError: (e) => this.failureToast(() => {this.activeStep = 1;}, e),
 						onComplete: () => {
 							this.$store.dispatch("boardroomStore/updateStatus");

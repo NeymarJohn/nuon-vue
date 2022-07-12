@@ -24,20 +24,20 @@
 						@click="setModalVisibility('claimRewardsModal', true)">Claim Rewards</TheButton>
 					<TheModal
 						v-show="isStakeModalVisible"
-						title="Stake HX Token"
-						subtitle="Stake your HX to gain voting power."
+						title="Stake nuMINT Token"
+						subtitle="Stake your nuMINT to gain voting power."
 						@close-modal="setModalVisibility('stakeModal', false)">
 						<InputTransaction
 							:maximum="hxBalance"
 							title="Enter amount to stake"
-							subtitle="Available HX tokens"
+							subtitle="Available nuMINT tokens"
 							action-plural="staking"
 							action="stake"
 							@close-modal="setModalVisibility('stakeModal', false)" />
 					</TheModal>
 					<TheModal
 						v-show="isWithdrawModalVisible"
-						title="Withdraw HX Token"
+						title="Withdraw nuMINT Token"
 						:subtitle="`Days before unstake: ${epoch} Days`"
 						@close-modal="setModalVisibility('withdrawModal', false)">
 						<InputWithdraw
@@ -61,7 +61,7 @@
 				<DataCard class="u-mb-md-36 u-mb-sm-24">
 					<label>My Stake</label>
 					<TheLoader component="h1">
-						<h3>{{ myStake | toFixed | numberWithCommas }}<sup>HX</sup></h3>
+						<h3>{{ myStake | toFixed | numberWithCommas }}<sup>nuMINT</sup></h3>
 					</TheLoader>
 					<TheLoader component="h5">
 						<h5>${{ getDollarValue(myStake, tokenPrices.HX) | toFixed | numberWithCommas }}</h5>
@@ -70,7 +70,7 @@
 				<DataCard class="u-mb-md-36 u-mb-sm-24">
 					<label>My Rewards</label>
 					<TheLoader component="h1">
-						<h3>{{ myRewards | toFixed | numberWithCommas }}<sup>HX</sup></h3>
+						<h3>{{ myRewards | toFixed | numberWithCommas }}<sup>nuMINT</sup></h3>
 					</TheLoader>
 					<TheLoader component="h5">
 						<h5>${{ getDollarValue(myRewards, tokenPrices.HX) | toFixed | numberWithCommas }}</h5>
@@ -100,7 +100,7 @@
 					</TheLoader>
 				</StatCard>
 				<StatCard class="u-mb-md-12">
-					<label>HX Price<TooltipIcon v-tooltip="'Enter HX Price tooltip content here'" /></label>
+					<label>nuMINT Price<TooltipIcon v-tooltip="'Enter nuMINT Price tooltip content here'" /></label>
 					<TheLoader component="h3">
 						<h3>{{ tokenPrices.HX | toFixed | numberWithCommas }}</h3>
 					</TheLoader>

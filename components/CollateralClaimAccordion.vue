@@ -108,7 +108,7 @@ export default {
 				{
 					title: "Amount to Claim",
 					val: this.numberWithCommas(parseFloat(this.inputValue).toFixed(2)),
-					currency: "HX",
+					currency: "nuMINT",
 					dollar: "2,000.08 = 10.00 TNODE"
 				},
 				{
@@ -119,7 +119,7 @@ export default {
 				{
 					title: "Total Received",
 					val: 12.34,
-					currency: "HX",
+					currency: "nuMINT",
 					dollar: "1,900.00 = 9.84 TNODE"
 				},
 			];

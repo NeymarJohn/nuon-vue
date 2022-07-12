@@ -135,7 +135,7 @@ export default {
 			}
 		},
 		votingPower(voter) {
-			return this.proposalState === "active" ? "N/A" : `${this.abbreviateNumber(voter.vp.toFixed(3))} HX`;
+			return this.proposalState === "active" ? "N/A" : `${this.abbreviateNumber(voter.vp.toFixed(3))} nuMINT`;
 		}
 	}
 };

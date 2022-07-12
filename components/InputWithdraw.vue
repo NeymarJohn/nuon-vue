@@ -6,7 +6,7 @@
 					direction="row-center-space-between"
 					class="l-m-flex--column">
 					<h4>Enter amount to withdraw</h4>
-					<p class="u-mb-0">Available HX tokens: {{ numberWithCommas(maximum.toFixed(2)) }}</p>
+					<p class="u-mb-0">Available nuMINT tokens: {{ numberWithCommas(maximum.toFixed(2)) }}</p>
 				</LayoutFlex>
 				<div class="input">
 					<div class="input__container">
@@ -28,7 +28,7 @@
 					</div>
 				</div>
 				<div class="transaction-input__price">
-					<p>You are withdrawing <span>{{ numberWithCommas(parseFloat(inputValue || 0).toFixed(2)) }} HX</span> worth <span>${{ numberWithCommas(getDollarValue(inputValue, tokenPrices.HX).toFixed(2)) }}</span></p>
+					<p>You are withdrawing <span>{{ numberWithCommas(parseFloat(inputValue || 0).toFixed(2)) }} nuMINT</span> worth <span>${{ numberWithCommas(getDollarValue(inputValue, tokenPrices.HX).toFixed(2)) }}</span></p>
 					<p v-if="errorMessage" class="u-is-warning">{{errorMessage}}</p>
 					<p v-if="!isDisabled()" class="u-is-success">Ready to withdraw</p>
 				</div>
@@ -132,13 +132,13 @@ export default {
 				{
 					title: "Amount to Withdraw",
 					val: this.numberWithCommas(parseFloat(this.inputValue).toFixed(2)),
-					currency: "HX",
+					currency: "nuMINT",
 					dollar: this.numberWithCommas(this.getDollarValue(this.inputValue, this.tokenPrices.HX).toFixed(2)),
 				},
 				{
 					title: "Amount to Claim",
 					val: this.numberWithCommas(parseFloat(this.myRewards).toFixed(2)),
-					currency: "HX",
+					currency: "nuMINT",
 					dollar: this.numberWithCommas(this.getDollarValue(this.myRewards, this.tokenPrices.HX).toFixed(2)),
 				},
 				{
@@ -157,7 +157,7 @@ export default {
 				{
 					title: "Amount to Withdraw",
 					val: this.numberWithCommas(parseFloat(this.inputValue).toFixed(2)),
-					currency: "HX",
+					currency: "nuMINT",
 					dollar: this.numberWithCommas(this.getDollarValue(this.inputValue, this.tokenPrices.HX).toFixed(2)),
 				},
 				{
@@ -191,7 +191,7 @@ export default {
 				if (this.action === "stake") {
 					this.$store.dispatch("boardroomStore/stake", {
 						amount: this.inputValue,
-						onConfirm: (txHash) => this.successToast(() => {this.activeStep = 1;}, `You have staked ${this.inputValue} HX`, txHash),
+						onConfirm: (txHash) => this.successToast(() => {this.activeStep = 1;}, `You have staked ${this.inputValue} nuMINT`, txHash),
 						onReject: (e) => this.failureToast(() => {this.activeStep = 1;}, e)
 					}).then(() => {
 						_this.$store.dispatch("boardroomStore/updateStatus");
@@ -200,7 +200,7 @@ export default {
 					if (this.inputValue < this.maximum) {
 						this.$store.dispatch("boardroomStore/withdraw", {
 							amount: this.inputValue,
-							onConfirm: (txHash) => this.successToast(() => {this.activeStep = 1;}, `You have withdrawn ${this.inputValue} HX`, txHash),
+							onConfirm: (txHash) => this.successToast(() => {this.activeStep = 1;}, `You have withdrawn ${this.inputValue} nuMINT`, txHash),
 							onReject: (e) => this.failureToast(() => {this.activeStep = 1;}, e)
 						}).then(()=>{
 							_this.$store.dispatch("boardroomStore/updateStatus");
@@ -208,7 +208,7 @@ export default {
 					} else {
 						this.$store.dispatch("boardroomStore/claimRewardsAndWithdraw", {
 							amount: this.inputValue,
-							onConfirm: (txHash) => this.successToast(() => {this.activeStep = 1;}, `You have claimed ${this.inputValue} HX`, txHash),
+							onConfirm: (txHash) => this.successToast(() => {this.activeStep = 1;}, `You have claimed ${this.inputValue} nuMINT`, txHash),
 							onReject: (e) => this.failureToast(() => {this.activeStep = 1;}, e)
 						}).then(()=>{
 							_this.$store.dispatch("boardroomStore/updateStatus");
@@ -216,7 +216,7 @@ export default {
 					}
 				} else if (this.action === "claim") {
 					this.$store.dispatch("boardroomStore/claimReward", {
-						onConfirm: (txHash) => this.successToast(() => {this.activeStep = 1;}, `You have claimed ${this.inputValue} HX`, txHash),
+						onConfirm: (txHash) => this.successToast(() => {this.activeStep = 1;}, `You have claimed ${this.inputValue} nuMINT`, txHash),
 						onReject: (e) => this.failureToast(() => {this.activeStep = 1;}, e)
 					}).then(()=>{
 						_this.$store.dispatch("boardroomStore/updateStatus");

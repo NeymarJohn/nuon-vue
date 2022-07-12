@@ -64,9 +64,7 @@ export const actions: ActionTree<Erc20State, Erc20State> = {
 		const nuonBalance = fromWei(await ctx.getters.nuon.methods.balanceOf(address).call(), ctx.state.decimals.NUON);
 		const hydroBalance = fromWei(await ctx.getters.hydro.methods.balanceOf(address).call(), ctx.state.decimals.HX);
 		const usdcBalance = fromWei(await ctx.getters.usdc.methods.balanceOf(address).call(), usdcDecimals);
-		// const ethBalance = fromWei(await ctx.getters.eth.methods.balanceOf(address).call(), ctx.state.decimals.ETH);
 		const ethBalance = fromWei(await ctx.rootGetters["web3Store/instance"]().eth.getBalance(address));
-
 		const nuonSupply = fromWei(await ctx.rootGetters["collateralVaultStore/getNUONSupply"]());
 		const hydroSupply = fromWei(await ctx.getters.hydro.methods.totalSupply().call());
 

@@ -132,7 +132,6 @@ export default {
 	},
 	computed: {
 		isApproved() {
-			// !!parseFloat(this.$store.state.collateralVaultStore.allowance.HX)
 			return true;
 		},
 		disabledMint() {
@@ -182,7 +181,7 @@ export default {
 			this.isApproving = true;
 			this.$store.dispatch("collateralVaultStore/approveToken",
 				{
-					tokenSymbol: "HX",
+					tokenSymbol: "nuMINT",
 					onConfirm: () => { },
 					onReject: () => { },
 					onCallback: () => {

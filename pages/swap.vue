@@ -201,7 +201,7 @@ export default {
 			hover: false,
 			input: {
 				value: "",
-				token: "HX"
+				token: "nuMINT"
 			},
 			output: {
 				value: "",

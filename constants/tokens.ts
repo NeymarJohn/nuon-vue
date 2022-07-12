@@ -1,6 +1,6 @@
 export const HX = {
-	symbol: "HX",
-	name: "HYDRO TOKEN"
+	symbol: "nuMINT",
+	name: "NUMINT TOKEN"
 };
 
 export const NUON = {
