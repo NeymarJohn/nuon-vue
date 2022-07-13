@@ -4,7 +4,7 @@ import Users from "~/services/users";
 const defaultState = {
 	users: [],
 	transactionConfig: [
-		{ id: "transactionType", title: "TX Type" },
+		{ id: "transactionType", title: "Transaction Type" },
 		{ id: "amount", title: "Amount" },
 		{ id: "totalAmount", title: "Total Amount" },
 		{ id: "date", title: "Date" },

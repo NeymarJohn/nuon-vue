@@ -1,10 +1,9 @@
 <template>
 	<LayoutContainer>
-		<PageTitle class="u-mb-48">
+		<PageTitle class="u-mb-24">
 			<h4>My Dashboard</h4>
-			<h1>Portfolio Details</h1>
+			<h1>Account Balance</h1>
 		</PageTitle>
-		<h2 class="u-mb-24">Account Balance</h2>
 		<LayoutAccountBalance>
 			<template #panel-one>
 				<DataCard>
@@ -29,7 +28,7 @@
 			</template>
 			<template #panel-four>
 				<DataCard>
-					<label><TheDot color="blue" /> My Collateral Locked<TooltipIcon v-tooltip="'Enter My Collateral Locked tooltip content here.'" /></label>
+					<label><TheDot color="blue" /> My Locked Collateral<TooltipIcon v-tooltip="'Enter My Collateral Locked tooltip content here.'" /></label>
 					<ComponentLoader component="h1" :loaded="totalValue !== null">
 						<h4>${{ totalValue | toFixed | numberWithCommas }}</h4>
 					</ComponentLoader>
@@ -37,7 +36,7 @@
 			</template>
 			<template #panel-five>
 				<DataCard>
-					<label><TheDot color="orange" /> My Staked<TooltipIcon v-tooltip="'Enter My Staked tooltip content here.'" /></label>
+					<label><TheDot color="orange" /> My Staked Tokens<TooltipIcon v-tooltip="'Enter My Staked tooltip content here.'" /></label>
 					<ComponentLoader component="h1" :loaded="stakedBalance !== null">
 						<h4>${{ stakedBalance | toFixed | numberWithCommas }}</h4>
 					</ComponentLoader>
@@ -71,7 +70,7 @@
 				<DataCard class="u-mb-md-16">
 					<label>
 						<TheDot color="lime" />
-						My Total Minted Value
+						Total Value of My Minted NUON
 						<TheBadge class="u-ml-8" :color="getPercentChangeBadgeClass('mintedNuon', collateralRatioArr, true)">{{ getUserMintedNuonSign }}{{ Math.abs(getChangePercent('mintedNuon', collateralRatioArr, true)) }}%</TheBadge>
 					</label>
 					<ComponentLoader component="h1" :loaded="totalMintedNuon !== null">
