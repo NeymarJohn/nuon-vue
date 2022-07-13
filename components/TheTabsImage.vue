@@ -16,13 +16,13 @@
 			@close-modal="setModalVisibility('hubOverviewModal', false)">
 			<LayoutInfo size="row-space-between">
 				<DataCard>
-					<label>My Total Collateral Locked</label>
+					<label>My Total Locked Collateral</label>
 					<TheLoader component="h1">
 						<h1>${{ userTotalCollateralAmount | toFixed | numberWithCommas }}</h1>
 					</TheLoader>
 				</DataCard>
 				<DataCard>
-					<label>My Total Minted</label>
+					<label>My Total Minted NUON</label>
 					<TheLoader component="h1">
 						<h1>{{ userTotalMintedNuon | toFixed | numberWithCommas }}<sup>NUON</sup></h1>
 					</TheLoader>

@@ -3,7 +3,7 @@
 		<template #step-one>
 			<DataCard class="u-full-width u-mb-48">
 				<LayoutFlex direction="row-space-between" class="u-full-width">
-					<p>NUON amount</p>
+					<p>Amount of NUON</p>
 					<p>Available balance: {{ (tokenBalance || 0) | formatLongNumber }}</p>
 				</LayoutFlex>
 				<div class="input u-mb-12">
@@ -36,7 +36,7 @@
 					size="approved"
 					class="u-min-width-185"
 					@click="approveTokens">
-					<span v-if="isApproved">Approved</span>
+					<span v-if="isApproved">Verified</span>
 					<span v-else-if="isApproving">Approving...</span>
 					<span v-else>Approve</span>
 				</TheButton>
@@ -121,8 +121,11 @@ export default {
 			try {
 				result = await this.$store.getters["collateralVaultStore/getEstimateCollateralsOut"](this.connectedAccount, toWei(this.inputValue));
 			} catch (e) {
-				const message = this.getRPCErrorMessage(e);
-				this.failureToast(null, message, "Transaction failed");
+				console.error(e); // TODO: remove after testing
+				if (!this.amountMoreThanUserMinted) {
+					const message = this.getRPCErrorMessage(e);
+					this.failureToast(null, message, "Transaction failed");
+				}
 			} finally {
 				this.estimatedWithdrawnNuonValue = fromWei(result[0]);
 			}
@@ -166,7 +169,9 @@ export default {
 						onReject: null
 					});
 			} catch(e) {
-				this.failureToast(null, e, "Transaction failed");
+				console.error(e); // TODO: remove after testing
+				const message = this.getRPCErrorMessage(e);
+				this.failureToast(null, message || e, "Transaction failed");
 			}
 			finally {
 				this.withdrawing = false;

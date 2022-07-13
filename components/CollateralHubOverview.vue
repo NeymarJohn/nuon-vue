@@ -16,7 +16,7 @@
 							:selected-tab-idx="selectedPeriod" />
 					</ComponentLoader>
 					<div v-if="error">
-						<p>TVL</p>
+						<p>Total Value Locked</p>
 						<p>Data is not ready...</p>
 					</div>
 				</div>
@@ -26,7 +26,7 @@
 					<ComponentLoader component="collateral-hub-chart" :loaded="donutChartData !== null">
 						<DonutChartCollateral v-if="donutChartData" class="u-mb-24" :chart-data="donutChartData" />
 					</ComponentLoader>
-					<p>Collateralization Ratio<TooltipIcon v-tooltip="'Enter collateralization ratio tooltip content here.'" /></p>
+					<p>Protocol Collateralization Ratio<TooltipIcon v-tooltip="'The amount of collateral deposited across the protocol to back all minted NUON.'" /></p>
 					<h3>{{ collateralRatio }}%</h3>
 				</div>
 			</LayoutFlex>

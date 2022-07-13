@@ -62,14 +62,5 @@ export const getters: GetterTree<ContractState, Web3State> = {
 	tokens: (state: any, _getters, store: any) => {
 		const tokenAddresses = state.addr[store.web3Store.chainId as number].tokens;
 		return tokenAddresses;
-	},
-
-	tokenByAddress: (state: any, _getters, store: any) => (address: string) => {
-		const tokenAddresses = state.addr[store.web3Store.chainId as number].tokens;
-		const addressMap: any = {};
-		Object.keys(tokenAddresses).forEach(key => {
-			addressMap[tokenAddresses[key]] = key;
-		});
-		return addressMap[address];
 	}
 };

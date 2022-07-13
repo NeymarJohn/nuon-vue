@@ -14,7 +14,7 @@
 					</ComponentLoader>
 				</LayoutFlex>
 			</PageTitle>
-			<LayoutInfo size="2">
+			<LayoutInfo size="1">
 				<DataCard>
 					<ComponentLoader :loaded="!!details.title" component="h2"><h2 class="u-mb-24">{{ details.title }}</h2></ComponentLoader>
 					<LayoutFlex direction="row-center">
@@ -30,16 +30,12 @@
 						</ShareNetwork>
 					</LayoutFlex>
 				</DataCard>
-				<DataCard>
-					<label>Voting Power <TooltipIcon v-tooltip="'Enter voting power tooltip content here.'" /></label>
-					<ComponentLoader :loaded="!!details.snapshot || !!votingPower" component="h3"><h3>{{ votingPower.toFixed(2) }}<sup>%</sup></h3></ComponentLoader>
-				</DataCard>
 			</LayoutInfo>
 		</LayoutContainer>
 		<LayoutGridSidePanel>
 			<div class="proposal-details">
 				<div class="proposal-description">
-					<h4>Description<TooltipIcon v-tooltip="'Enter description tooltip content here.'" /></h4>
+					<h4>Description<TooltipIcon v-tooltip="'Full details of the proposal.'" /></h4>
 					<ComponentLoader
 						:loaded="!!details.snapshot"
 						width="u-full-width"
@@ -61,11 +57,10 @@
 					:proposal-state="details.state" />
 			</div>
 			<ThePanel>
-				<h4>Information<TooltipIcon v-tooltip="'Enter information tooltip content here.'" /></h4>
+				<h4>Information<TooltipIcon v-tooltip="'The author, start and end date of the proposal, along with the block number that the proposal was stored on the blockchain.'" /></h4>
 				<ComponentLoader
 					:loaded="!!details.author && !!details.start && !!details.end && !!details.snapshot"
-					width="u-full-width"
-					slot-classes="l-flex--column">
+					slot-classes="l-flex--column u-full-width">
 					<div class="panel__row">
 						<p>Author</p>
 						<span>{{ shortAddress(details.author) }} <ClipboardIcon @click="copyText" /></span>
@@ -87,11 +82,10 @@
 				</ComponentLoader>
 			</ThePanel>
 			<ThePanel>
-				<h4>Current Results<TooltipIcon v-tooltip="'Enter current results tooltip content here.'" /></h4>
+				<h4>Current Results<TooltipIcon v-tooltip="'% of current votes for and against the proposal.'" /></h4>
 				<ComponentLoader
 					:loaded="!!voteScores && !!details.choices"
-					width="u-full-width"
-					slot-classes="l-flex--column">
+					slot-classes="l-flex--column u-full-width">
 					<VotesChart
 						:scores="voteScores"
 						:choices="details.choices"
@@ -99,7 +93,7 @@
 				</ComponentLoader>
 			</ThePanel>
 			<ThePanel class="u-mb-48">
-				<h4>Cast Your Vote<TooltipIcon v-tooltip="'Enter cast your vote tooltip content here.'" /></h4>
+				<h4>Cast Your Vote<TooltipIcon v-tooltip="'Choose yes or no and click ‘Vote’ to register your vote on the blockchain.'" /></h4>
 				<ComponentLoader
 					:loaded="!!details.choices"
 					width="u-full-width"

@@ -83,7 +83,7 @@
 					</TheLoader>
 				</DataCard>
 				<DataCard>
-					<label>My Voting Power<TooltipIcon v-tooltip="'Calculation: My Stake / Total Staked'" /></label>
+					<label>My Voting Power<TooltipIcon v-tooltip="'1 nuMINT = 1 vote. The more nuMINT you stake compared to other voters, the higher your voting power will rise.'" /></label>
 					<TheLoader component="h1">
 						<h3>{{ votingPower | toFixed | numberWithCommas }}<sup>%</sup></h3>
 					</TheLoader>
@@ -91,38 +91,35 @@
 			</LayoutInfo>
 		</LayoutContainer>
 		<LayoutContainer class="u-pt-48">
-			<h2 class="u-mb-20 u-mb-lg-14">Hydro Stake Status</h2>
+			<h2 class="u-mb-20 u-mb-lg-14">nuMINT Stake Status</h2>
 			<LayoutGrid class="u-mb-56 u-mb-lg-48" :size="'3-stretch'">
 				<StatCard class="u-mb-md-12">
-					<label>Total Staked<TooltipIcon v-tooltip="'Enter Total Staked tooltip content here'" /></label>
+					<label>Total Staked<TooltipIcon v-tooltip="'Total nuMINT staked on the protocol.'" /></label>
 					<TheLoader component="h3">
 						<h3>{{ totalStaked | toFixed | numberWithCommas }}</h3>
 					</TheLoader>
 				</StatCard>
 				<StatCard class="u-mb-md-12">
-					<label>nuMINT Price<TooltipIcon v-tooltip="'Enter nuMINT Price tooltip content here'" /></label>
+					<label>nuMINT Price<TooltipIcon v-tooltip="'USD Value of total staked nuMINT.'" /></label>
 					<TheLoader component="h3">
 						<h3>{{ tokenPrices.HX | toFixed | numberWithCommas }}</h3>
 					</TheLoader>
 				</StatCard>
 				<StatCard>
-					<label class="u-mb-sm-12">Reward Information<TooltipIcon v-tooltip="'Enter Reward Info tooltip content here'" /></label>
-					<LayoutFlex class="l-flex--column-sm">
+					<label class="u-mb-sm-12">Reward Information<TooltipIcon v-tooltip="'The annual percentage rate and total value locked of all staked nuMINT.'" /></label>
+					<LayoutFlex class="l-flex--column-sm" direction="row-space-between">
 						<TheLoader component="h3">
 							<h3 class="u-mr-32 u-mb-sm-12">APR {{ apr | toFixed | numberWithCommas }}%</h3>
 						</TheLoader>
 						<TheLoader component="h3">
 							<h3 class="u-mr-32 u-mb-sm-12">TVL ${{ tvl | toFixed | numberWithCommas }}</h3>
 						</TheLoader>
-						<TheLoader component="h3">
-							<h3>Day {{ daysFromEpoch }}</h3>
-						</TheLoader>
 					</LayoutFlex>
 				</StatCard>
 			</LayoutGrid>
 			<LayoutFlex class="u-mb-36 u-mb-md-24 l-flex--column-start-sm" direction="row-space-between">
 				<PageTitle>
-					<h2>Proposals<TooltipIcon v-tooltip="'Enter proposals tooltip content here.'" /></h2>
+					<h2>Proposals<TooltipIcon v-tooltip="'nuMINT stakers have the right to make and vote on proposals that affect the future direction of the protocol. All proposals can be accessed and managed here.'" /></h2>
 					<h5>Create proposals and vote to improve the Nuon protocol.</h5>
 				</PageTitle>
 				<DataCard align="end" class="u-full-width-sm">
@@ -173,7 +170,6 @@ import axios from "axios";
 import { fromWei } from "~/utils/bnTools";
 import TooltipIcon from "@/assets/images/svg/svg-tooltip.svg";
 import { HX } from "~/constants/tokens";
-import { EPOCH_PERIOD } from "~/constants/addresses";
 
 export default {
 	name: "TheBoardroom",
@@ -248,9 +244,6 @@ export default {
 		},
 		epoch() {
 			return this.$store.state.boardroomStore.epoch;
-		},
-		daysFromEpoch() {
-			return Math.floor(EPOCH_PERIOD * this.epoch / 24);
 		},
 		hxBalance() {
 			return this.$store.getters["erc20Store/hxBalance"] || 0;

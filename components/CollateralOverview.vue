@@ -19,7 +19,7 @@
 			</ComponentLoader>
 		</DataCard>
 		<DataCard>
-			<label>My Collateralization Ratio<TooltipIcon v-tooltip="'Enter my collateralization ratio tooltip content here.'" /></label>
+			<label>My Collateralization Ratio<TooltipIcon v-tooltip="`The percentage of ${collateralToken} collateral you've locked to back your minted NUON. A minimum collateralization ratio is recalculated each day for each collateral asset, based on data from decentralized price oracles and an on-chain inflation oracle. The higher your collateralization ratio is above this minimum, the safer your collateral is from being liquidated.`" /></label>
 			<ComponentLoader component="h1" :loaded="myCollateralizationRatio !== null">
 				<h3 :class="getUserCrClass">{{ myCollateralizationRatio | toFixed }}<sup>%</sup></h3>
 			</ComponentLoader>
@@ -28,7 +28,7 @@
 			</TheLoader>
 		</DataCard>
 		<DataCard>
-			<label>Current {{ collateralToken }} Price<TooltipIcon v-tooltip="'Enter current ETH price tooltip content here.'" /></label>
+			<label>Current {{ collateralToken }} Price<TooltipIcon v-tooltip="`Current ${collateralToken} price, for your reference when considering how much collateral to keep locked up.`" /></label>
 			<ComponentLoader component="h1" :loaded="currentPrice !== null">
 				<h3>${{ currentPrice | toFixed | numberWithCommas }}</h3>
 			</ComponentLoader>

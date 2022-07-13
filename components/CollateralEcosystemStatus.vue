@@ -3,7 +3,7 @@
 		<h2 class="u-mb-20 u-mb-lg-14">Ecosystem Status</h2>
 		<LayoutGrid class="u-mb-48" :size="'3'">
 			<StatCard class="u-mb-md-12">
-				<label>NUON Price<TooltipIcon v-tooltip="'Enter NUON price tooltip content here.'" /></label>
+				<label>NUON Price<TooltipIcon v-tooltip="`Current USD price of 1 NUON. NUON is supposed to match a 'target peg' that is adjusted daily based on data from an on-chain inflation oracle, shielding NUON from losing value as inflation rises. Check here to see if NUON is above or below the target peg, giving you a good measure of when is best to buy or mint NUON.`" /></label>
 				<ComponentLoader component="h3" :loaded="nuonPrice !== null" slot-classes="l-flex l-flex--row-center-space-between">
 					<h3>{{ computedNuonPrice }}</h3>
 					<TheBadge v-if="nuonPrice > truflationPeg">Above</TheBadge>
@@ -12,7 +12,7 @@
 				<TheBadge color="target-peg">Target Peg: {{ truflationPeg }}</TheBadge>
 			</StatCard>
 			<StatCard class="u-mb-md-12">
-				<label>Liquidation Price<TooltipIcon v-tooltip="'Enter liquidation price tooltip content here.'" /></label>
+				<label>Liquidation Price<TooltipIcon v-tooltip="'If the USD price of BTC / ETH / AVAX / USDC / USDT falls below this amount, you risk liquidation of your collateral.'" /></label>
 				<LayoutFlex>
 					<ComponentLoader component="h3" :loaded="liquidationPrice !== null">
 						<h3>${{ liquidationPrice | toFixed | numberWithCommas }}</h3>
@@ -20,7 +20,8 @@
 				</LayoutFlex>
 			</StatCard>
 			<StatCard>
-				<label>Min. Collateralization Ratio<TooltipIcon v-tooltip="'Enter min collateralization ratio tooltip content here.'" /></label>
+				<label>Minimum Collateralization Ratio<TooltipIcon
+					v-tooltip="'The minimum percentage of BTC/ETH/AVAX/etc collateral that you must lock up in order to mint NUON. Because the minimum collateralization ratio is recalculated each day based on price and inflation oracles, it is strongly recommended that all users deposit more collateral than the bare minimum — the higher your ratio, the safer your collateral.'" /></label>
 				<LayoutFlex>
 					<ComponentLoader component="h3" :loaded="minCollateralizationRatio !== null">
 						<h3>{{ minCollateralizationRatio }}%</h3>

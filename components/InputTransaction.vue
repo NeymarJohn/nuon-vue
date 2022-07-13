@@ -40,7 +40,7 @@
 						:class="isApproved"
 						title="Click to approve"
 						@click="approveToken">
-						<span v-if="isApproved">Approved</span>
+						<span v-if="isApproved">Verified</span>
 						<span v-else>Approve</span>
 					</TheButton>
 					<TheButton

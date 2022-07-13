@@ -30,8 +30,8 @@
 				:nuon-price="nuonPrice"
 				:truflation-peg="truflationPeg" />
 			<PageTitle>
-				<h2>Manage Your {{currentlySelectedCollateral}} Collateral<TooltipIcon v-tooltip="`Enter manage your ${currentlySelectedCollateral} tooltip content here.`" /></h2>
-				<p>Instanly mint Nuon by depositing your collateral and redeem anytime.</p>
+				<h2>Manage Your {{currentlySelectedCollateral}} Collateral</h2>
+				<p>Deposit collateral to instantly mint NUON. Redeem your collateral anytime.</p>
 			</PageTitle>
 			<CollateralToggle :currently-selected-collateral="currentlySelectedCollateral" />
 		</LayoutContainer>
@@ -39,14 +39,10 @@
 </template>
 
 <script>
-import TooltipIcon from "@/assets/images/svg/svg-tooltip.svg";
 import { fromWei } from "~/utils/bnTools";
 
 export default {
 	name: "TheCollateralHub",
-	components: {
-		TooltipIcon
-	},
 	data () {
 		return {
 			myCollateralizationRatio: null,
@@ -79,16 +75,13 @@ export default {
 			return this.collateralPrice * this.userCollateralAmount;
 		},
 		userTotalLockedCollateralAmount() {
-			// Object.entries(this.userTotalLockedCollateralAmountStore).reduce((acc, [collateral, amount]) => acc + this.collateralPrices[collateral] * amount, 0);
 			return this.collateralPrices.ETH * this.userTotalLockedCollateralAmountStore.ETH;
 		},
 		userTotalMintedNuon() {
-			// Object.values(this.userTotalMintedNuonStore).reduce((acc, val) => acc + val, 0);
 			return this.userTotalMintedNuonStore.ETH;
 		},
 		liquidationPrice() {
 			const collateralPrice = this.collateralPrices[this.currentlySelectedCollateral];
-			// const collateralAmount = this.userTotalLockedCollateralAmountStore[this.currentlySelectedCollateral];
 			const collateralRatio = this.userCollateralizationRatioStore[this.currentlySelectedCollateral];
 			if (collateralRatio === 0) return 0;
 			return [collateralPrice, collateralRatio].includes(undefined) ? null : parseFloat(((collateralPrice) / (collateralRatio / 100)).toFixed(2));
