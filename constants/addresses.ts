@@ -10,7 +10,7 @@ const COLLATERAL_HUB_ADDRESS = "0xb324f1175f51c420811667F0E13Fc139695F2630"; // 
 // UNI-V2 Pair Addresses
 const NUON_USDC_PAIR_ADDRESS = "0x624e94f217a540A3D54d93CE667C55CE5F126D6E"; // UniswapPair_NUON_USDC.sol 
 const HYDRO_USDC_PAIR_ADDRESS = "0xD4D321dae3D10778FA822fcDd7A7658e34b84D08"; // UniswapPair_HYDRO_USDC.sol
-const NUON_nuMINT_PAIR_ADDRESS = "0x722D30eD5F14C75e05B845766AB2Aae0F7F70E0B"; // UniswapPair_NUON_nuMINT.sol
+const NUON_NUMINT_PAIR_ADDRESS = "0x722D30eD5F14C75e05B845766AB2Aae0F7F70E0B"; // UniswapPair_NUON_nuMINT.sol
 
 // LP Pair Address
 const HYDRO_USDC_LP_PAIR_ADDRESS = "0xD4D321dae3D10778FA822fcDd7A7658e34b84D08"; // UniswapPair confirm
@@ -39,7 +39,7 @@ export const tokenPairs = [
 		pairName: `${nuMINT.symbol}_${USDC.symbol}`,
 		pairs: [nuMINT.symbol, USDC.symbol]
 	}, {
-		address:  NUON_nuMINT_PAIR_ADDRESS, 
+		address:  NUON_NUMINT_PAIR_ADDRESS, 
 		lpAddress: HYDRO_USDC_LP_PAIR_ADDRESS,
 		pairName: `${nuMINT.symbol}_${NUON.symbol}`,
 		pairs: [nuMINT.symbol, NUON.symbol]

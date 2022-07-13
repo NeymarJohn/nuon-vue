@@ -4,7 +4,6 @@ import { Web3State } from "./web3Store";
 import router from "./abi/router.json";
 import { fromWei, toWei } from "~/utils/bnTools";
 import { getPath, nuMINT, NUON, USDC } from "~/constants/tokens";
-import { tokenPairs } from "~/constants/addresses";
 
 type SwapStateType = {
 	allowance: any,
