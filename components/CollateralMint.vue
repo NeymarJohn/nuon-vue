@@ -3,7 +3,7 @@
 		<template #step-one>
 			<DataCard class="u-full-width u-mb-48">
 				<LayoutFlex direction="row-space-between" class="u-full-width">
-					<p>Amount of ETH</p>
+					<p>Amount of {{currentlySelectedCollateral}}</p>
 					<p>Available balance: {{ (tokenBalance || 0) | formatLongNumber }}</p>
 				</LayoutFlex>
 				<div class="input u-mb-12">
@@ -141,7 +141,7 @@ export default {
 			return  parseFloat(this.inputValue) > this.tokenBalance;
 		},
 		tokenBalance() {
-			return parseFloat(this.$store.state.erc20Store.balance.ETH);
+			return parseFloat(this.$store.state.erc20Store.balance[this.currentlySelectedCollateral]);
 		},
 		readyToDeposit() {
 			return !!this.inputValue && !this.isMoreThanBalance;
@@ -161,6 +161,10 @@ export default {
 				if (this.selectedCollateralRatio === this.sliderMin) this.liquidationPrice = this.inputValue * this.collateralPrice;
 				this.getEstimatedMintedNuon();
 			}
+		},
+		async currentlySelectedCollateral() {
+			const collateralPrice = await this.$store.getters["collateralVaultStore/getCollateralPrice"]();
+			this.collateralPrice = fromWei(collateralPrice);
 		}
 	},
 	async mounted() {

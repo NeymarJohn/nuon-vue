@@ -71,5 +71,10 @@ export const getters: GetterTree<ContractState, Web3State> = {
 			addressMap[tokenAddresses[key]] = key;
 		});
 		return addressMap[address];
-	}
+	},
+
+	collateralHubs: (state: any, _getters, store: any) => {
+		const collatralHubs = state.addr[store.web3Store.chainId as number].collatralHubs;
+		return collatralHubs;
+	},
 };

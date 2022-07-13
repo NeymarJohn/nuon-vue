@@ -50,7 +50,7 @@ export default {
 	data() {
 		return {
 			selectedIndex: 0,
-			tabs: ["ETH", "BTC", "BUSD", "AVAX", "USDC", "USDT"],
+			tabs: ["ETH", "USDC", "BTC", "BUSD", "AVAX", "USDT"],
 			mobileView: false,
 		};
 	},
@@ -67,7 +67,7 @@ export default {
 		selectTab (i) {
 			if (i !== 0) return;
 			this.selectedIndex = i;
-			this.$emit("tab-changed", i);
+			this.$emit("tab-changed", {index: i, selectedValue: this.tabs[i]});
 		}
 	},
 };

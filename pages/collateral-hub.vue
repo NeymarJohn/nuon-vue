@@ -116,7 +116,8 @@ export default {
 	},
 	methods: {
 		tabChanged(e) {
-			this.currentlySelectedCollateral = this.collaterals[e];
+			this.currentlySelectedCollateral = e.selectedValue;
+			this.$store.dispatch("collateralVaultStore/changeCollateral", this.currentlySelectedCollateral);
 		},
 		async getCollateralPrice() {
 			let result = 0;
