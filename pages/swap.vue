@@ -3,15 +3,14 @@
 		<LayoutContainer class="u-mb-48">
 			<PageTitle>
 				<h4>Swap</h4>
-				<h1>Lorem ipsum dolor sit amet</h1>
+				<h1>Token Exchange</h1>
 			</PageTitle>
 		</LayoutContainer>
 		<LayoutContainer size="sm" class="u-pt-0">
 			<div class="swap">
 				<LayoutFlex direction="row-start-space-between" class="u-mb-48 u-mb-sm-24">
 					<PageTitle class="u-mb-sm-0">
-						<h2>Swap Tokens <TooltipIcon v-tooltip="'Enter swap tokens tooltip content here.'" /></h2>
-						<p>Trade tokens in an instant</p>
+						<h2 class="u-mb-0">Instant Swap<TooltipIcon v-tooltip="'Enter swap tokens tooltip content here.'" /></h2>
 					</PageTitle>
 					<TheButton
 						size="icon"
