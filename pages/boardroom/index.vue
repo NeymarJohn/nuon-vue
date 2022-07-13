@@ -107,15 +107,12 @@
 				</StatCard>
 				<StatCard>
 					<label class="u-mb-sm-12">Reward Information<TooltipIcon v-tooltip="'Enter Reward Info tooltip content here'" /></label>
-					<LayoutFlex class="l-flex--column-sm">
+					<LayoutFlex class="l-flex--column-sm" direction="row-space-between">
 						<TheLoader component="h3">
 							<h3 class="u-mr-32 u-mb-sm-12">APR {{ apr | toFixed | numberWithCommas }}%</h3>
 						</TheLoader>
 						<TheLoader component="h3">
 							<h3 class="u-mr-32 u-mb-sm-12">TVL ${{ tvl | toFixed | numberWithCommas }}</h3>
-						</TheLoader>
-						<TheLoader component="h3">
-							<h3>Day {{ daysFromEpoch }}</h3>
 						</TheLoader>
 					</LayoutFlex>
 				</StatCard>
@@ -173,7 +170,6 @@ import axios from "axios";
 import { fromWei } from "~/utils/bnTools";
 import TooltipIcon from "@/assets/images/svg/svg-tooltip.svg";
 import { HX } from "~/constants/tokens";
-import { EPOCH_PERIOD } from "~/constants/addresses";
 
 export default {
 	name: "TheBoardroom",
@@ -248,9 +244,6 @@ export default {
 		},
 		epoch() {
 			return this.$store.state.boardroomStore.epoch;
-		},
-		daysFromEpoch() {
-			return Math.floor(EPOCH_PERIOD * this.epoch / 24);
 		},
 		hxBalance() {
 			return this.$store.getters["erc20Store/hxBalance"] || 0;

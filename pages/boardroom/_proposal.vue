@@ -31,7 +31,7 @@
 					</LayoutFlex>
 				</DataCard>
 				<DataCard>
-					<label>Voting Power <TooltipIcon v-tooltip="'Enter voting power tooltip content here.'" /></label>
+					<label>Voting Power</label>
 					<ComponentLoader :loaded="!!details.snapshot || !!votingPower" component="h3"><h3>{{ votingPower.toFixed(2) }}<sup>%</sup></h3></ComponentLoader>
 				</DataCard>
 			</LayoutInfo>
@@ -64,8 +64,7 @@
 				<h4>Information<TooltipIcon v-tooltip="'Enter information tooltip content here.'" /></h4>
 				<ComponentLoader
 					:loaded="!!details.author && !!details.start && !!details.end && !!details.snapshot"
-					width="u-full-width"
-					slot-classes="l-flex--column">
+					slot-classes="l-flex--column u-full-width">
 					<div class="panel__row">
 						<p>Author</p>
 						<span>{{ shortAddress(details.author) }} <ClipboardIcon @click="copyText" /></span>
@@ -90,8 +89,7 @@
 				<h4>Current Results<TooltipIcon v-tooltip="'Enter current results tooltip content here.'" /></h4>
 				<ComponentLoader
 					:loaded="!!voteScores && !!details.choices"
-					width="u-full-width"
-					slot-classes="l-flex--column">
+					slot-classes="l-flex--column u-full-width">
 					<VotesChart
 						:scores="voteScores"
 						:choices="details.choices"
