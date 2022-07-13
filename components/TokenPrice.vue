@@ -24,7 +24,7 @@
 						<p>Price</p><TheBadge :color="getPercentChangeBadgeClass('price', dataToUse)" class="u-ml-8">{{ getChangePercent('price', dataToUse) }}%</TheBadge>
 					</LayoutFlex>
 					<ComponentLoader component="h3" :loaded="tokenPrice !== null">
-						<h3>${{ tokenPrice && tokenPrice.includes("0.") ? tokenPrice : numberWithCommas(tokenPrice) }}</h3>
+						<h3>${{ tokenPrice && tokenPrice.indexOf("0.") === 0 ? tokenPrice : numberWithCommas(tokenPrice) }}</h3>
 					</ComponentLoader>
 				</div>
 				<div class="chart">
@@ -32,7 +32,7 @@
 						<DataCard>
 							<label>{{ selectedPriceTab }}</label>
 							<ComponentLoader component="h1" :loaded="graphSelection !== null">
-								<h3 class="u-font-size-h2-1440" :style="{color: graphSelection ? 'white' : '#3a3a3e'}">{{ graphSelection ? numberWithCommas(graphSelection) : 0 }}<sup :style="{color: graphSelection ? 'white' : '#3a3a3e'}">{{ currentlySelectedTab }}</sup></h3>
+								<h3 class="u-font-size-h2-1440" :style="{color: graphSelection ? 'white' : '#3a3a3e'}">${{ graphSelection ? numberWithCommas(graphSelection) : 0 }}</h3>
 							</ComponentLoader>
 							<ComponentLoader component="h5" :loaded="dateSelection !== null">
 								<h5 :style="{color: dateSelection ? 'white' : '#3a3a3e'}">{{ dateSelection ? dateSelection : 0 }}</h5>
@@ -45,7 +45,6 @@
 								default-active
 								@pill-clicked="handlePriceTabChanged" />
 							<ThePills
-								v-show="selectedPriceTab !== 'Price' && selectedPriceTab !== null"
 								class="l-flex--align-self-end l-flex--align-self-start-md u-mb-md-16"
 								:pills="periodTabs"
 								default-active
@@ -95,7 +94,8 @@ export default {
 			graphSelection: "",
 			dateSelection: "",
 			nuonSupplyInfo: [],
-			hydroSupplyInfo: []
+			hydroSupplyInfo: [],
+			milliSecondsInDay: 86400000
 		};
 	},
 	computed: {
@@ -123,30 +123,108 @@ export default {
 			if (this.selectedPriceTab === "Circulating Supply") dataKey = "value";
 
 			return this.dataToUse.map(d => ({
-				date: new Date(d.date * 1000).toLocaleDateString(),
+				date: new Date(d.date * 1000),
 				data: d[dataKey]
 			}));
 		},
 		xAxisLabels() {
-			const data = this.graphData.map(d => d.date);
-			if (this.selectedPriceTab !== "Price") {
-				let numberOfDaysInPast = this.selectedPeriodTab === "W" ? 7 : 30;
-				if (this.selectedPeriodTab === "D") numberOfDaysInPast = 0;
-				data.slice(this.graphData.length - numberOfDaysInPast);
+			let data = this.graphData.map(d => d.date);
+
+			if (this.selectedPeriodTab === "D") {
+				data = data.map(d => d.toLocaleDateString());
+			} else if (this.selectedPeriodTab === "W") {
+				const mondaysOfWeekOfDates = data.reduce((acc, d) => {
+					const day = d.getDay();
+					const mondayOfWeek = new Date(d.getTime() - (day - 1) * this.milliSecondsInDay).setUTCHours(0,0,0,0);
+
+					if (!acc[mondayOfWeek]) {
+						acc[mondayOfWeek] = [d];
+					} else {
+						acc[mondayOfWeek].push(d);
+					}
+
+					return acc;
+				}, {});
+
+				const labels = Object.keys(mondaysOfWeekOfDates).map(monday => `${new Date(parseInt(monday)).toLocaleDateString()} - ${new Date(parseInt(monday) + (6 * this.milliSecondsInDay)).toLocaleDateString()}`);
+				data = labels;
+			} else {
+				const yearAndMonthsOfDates = data.reduce((acc, d) => {
+					const year = d.getFullYear();
+					const month = d.getMonth();
+
+					if (!acc[year] || !acc[year][month]) {
+						acc[year] = {[month]: [d]};
+					} else {
+						acc[year][month].push(d);
+					}
+
+					return acc;
+				}, {});
+
+				const sortedDataOverYearAndMonth = Object.entries(yearAndMonthsOfDates).sort((a, b) => parseInt(a[0]) - parseInt(b[0]));
+				const labels = sortedDataOverYearAndMonth.flatMap(([year, monthsWithData]) => {
+					const sortedMonths = Object.keys(monthsWithData).map(month => parseInt(month)).sort((a, b) => a - b);
+					const monthWithYear	=	sortedMonths.map(month => `${parseInt(month) + 1}/${year}`);
+					return monthWithYear;
+				});
+				data = labels;
 			}
+
 			data.push("");
 			data.unshift("");
 			return data;
 		},
 		yAxisData() {
 			let data = this.graphData.map(d => d.data);
-			if (this.selectedPriceTab === "Price") {
-				data = data.map(d => d.price);
+
+			if (this.selectedPeriodTab === "D") {
+				if (this.selectedPriceTab === "Price") data = data.map(d => d.price);
+			} else if (this.selectedPeriodTab === "W") {
+				const mondaysOfWeekOfDates = this.graphData.reduce((acc, graphData) => {
+					const d = graphData.date;
+					const day = d.getDay();
+					const mondayOfWeek = new Date(d.getTime() - (day - 1) * this.milliSecondsInDay).setUTCHours(0,0,0,0);
+					let graphDataValue = graphData.data;
+					if (this.selectedPriceTab === "Price") graphDataValue = graphDataValue.price;
+
+					if (!acc[mondayOfWeek]) {
+						acc[mondayOfWeek] = [graphDataValue];
+					} else {
+						acc[mondayOfWeek].push(graphDataValue);
+					}
+
+					return acc;
+				}, {});
+
+				const sortedData = Object.entries(mondaysOfWeekOfDates).sort((a, b) => parseInt(a[0]) - parseInt(b[0]));
+				const averageSortedData = sortedData.map(([_monday, weekData]) => weekData.reduce((acc, val) => acc + parseInt(val), 0) / weekData.length);
+				data = averageSortedData;
 			} else {
-				let numberOfDaysInPast = this.selectedPeriodTab === "W" ? 7 : 30;
-				if (this.selectedPeriodTab === "D") numberOfDaysInPast = 0;
-				data.slice(this.graphData.length - numberOfDaysInPast);
+				const yearAndMonthsOfDates = this.graphData.reduce((acc, graphData) => {
+					const year = graphData.date.getFullYear();
+					const month = graphData.date.getMonth();
+					let graphDataValue = graphData.data;
+					if (this.selectedPriceTab === "Price") graphDataValue = graphDataValue.price;
+
+					if (!acc[year] || !acc[year][month]) {
+						acc[year] = {[month]: [graphDataValue]};
+					} else {
+						acc[year][month].push(graphDataValue);
+					}
+
+					return acc;
+				}, {});
+
+				const sortedDataOverYearAndMonth = Object.entries(yearAndMonthsOfDates).sort((a, b) => parseInt(a[0]) - parseInt(b[0]));
+				const averagesOverMonths = sortedDataOverYearAndMonth.flatMap(([_year, monthsWithData]) => {
+					const sortedMonthsData = Object.entries(monthsWithData).sort((a, b) => parseInt(a[0]) - parseInt(b[0]));
+					const averageOverMonth = sortedMonthsData.map(([_month, data]) => data.reduce((acc, val) => acc + parseFloat(val), 0) / data.length);
+					return averageOverMonth;
+				});
+				data = averagesOverMonths;
 			}
+
 			data = data.map(d => parseFloat(d).toFixed(2));
 			data.push(null);
 			data.unshift(null);
