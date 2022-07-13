@@ -3,7 +3,7 @@
 		<template #step-one>
 			<DataCard class="u-full-width u-mb-48">
 				<LayoutFlex direction="row-space-between" class="u-full-width">
-					<p>ETH amount</p>
+					<p>Amount of ETH</p>
 					<p>Available balance: {{ (tokenBalance || 0) | formatLongNumber }}</p>
 				</LayoutFlex>
 				<div class="input u-mb-12">
@@ -55,7 +55,7 @@
 				</div>
 			</DataCard>
 			<DataCard class="u-full-width">
-				<p>Estimated NUON minted</p>
+				<p>Estimated total NUON minted</p>
 				<h4 class="collateral-estimate">{{ estimatedMintedNuonValue | toFixed | numberWithCommas }} <sup>NUON</sup></h4>
 			</DataCard>
 			<div class="toggle__transaction">

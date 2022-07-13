@@ -20,7 +20,7 @@
 				</LayoutFlex>
 			</StatCard>
 			<StatCard>
-				<label>Min. Collateralization Ratio<TooltipIcon v-tooltip="'Enter min collateralization ratio tooltip content here.'" /></label>
+				<label>Minimum Collateralization Ratio<TooltipIcon v-tooltip="'Enter min collateralization ratio tooltip content here.'" /></label>
 				<LayoutFlex>
 					<ComponentLoader component="h3" :loaded="minCollateralizationRatio !== null">
 						<h3>{{ minCollateralizationRatio }}%</h3>

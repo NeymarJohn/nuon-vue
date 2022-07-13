@@ -3,7 +3,7 @@
 		<template #step-one>
 			<DataCard class="u-full-width u-mb-48">
 				<LayoutFlex direction="row-space-between" class="u-full-width">
-					<p>NUON amount</p>
+					<p>Amount of NUON</p>
 					<p>Available balance: {{ (tokenBalance || 0) | formatLongNumber }}</p>
 				</LayoutFlex>
 				<div class="input u-mb-12">
