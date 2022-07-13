@@ -21,7 +21,7 @@ export const getters: GetterTree<ContractState, RootState> = {
 	uniswapV2Pair: (_state: any, _getters: any, store: any) => (tokens: Array<string>) => {
 		const tokenPair = tokenPairs.find(token => token.pairName.includes(tokens[0]) && token.pairName.includes(tokens[1]));
 		const web3 = store.web3Store.instance();
-		const addr = tokenPair?.lpAddress;
+		const addr = tokenPair?.address;
 		return new web3.eth.Contract(uniswapV2PairAbi, addr);
 	},
 	uniswapV2PairOracle: (_state: any, _getters: any, store: any) => (tokens: Array<string>) => {

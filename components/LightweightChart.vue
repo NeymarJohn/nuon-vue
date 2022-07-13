@@ -138,7 +138,7 @@ export default {
 		`;
 
 		this.tooltipDom.innerHTML =	`
-			<p>Total Value Locked</p>
+			<p>TVL</p>
 			<h1>$${numberWithCommas(data[data.length - 1].value.toFixed(2))}</h1>
 			<p class="u-colour-white u-mb-16">${dateStr}</p>
 		`;

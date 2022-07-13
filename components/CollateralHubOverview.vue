@@ -16,7 +16,7 @@
 							:selected-tab-idx="selectedPeriod" />
 					</ComponentLoader>
 					<div v-if="error">
-						<p>Total Value Locked</p>
+						<p>TVL</p>
 						<p>Data is not ready...</p>
 					</div>
 				</div>

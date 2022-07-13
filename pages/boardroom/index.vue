@@ -91,7 +91,7 @@
 			</LayoutInfo>
 		</LayoutContainer>
 		<LayoutContainer class="u-pt-48">
-			<h2 class="u-mb-20 u-mb-lg-14">nuMINT Stake Status</h2>
+			<h2 class="u-mb-20 u-mb-lg-14">Hydro Stake Status</h2>
 			<LayoutGrid class="u-mb-56 u-mb-lg-48" :size="'3-stretch'">
 				<StatCard class="u-mb-md-12">
 					<label>Total Staked<TooltipIcon v-tooltip="'Enter Total Staked tooltip content here'" /></label>
@@ -107,12 +107,15 @@
 				</StatCard>
 				<StatCard>
 					<label class="u-mb-sm-12">Reward Information<TooltipIcon v-tooltip="'Enter Reward Info tooltip content here'" /></label>
-					<LayoutFlex class="l-flex--column-sm" direction="row-space-between">
+					<LayoutFlex class="l-flex--column-sm">
 						<TheLoader component="h3">
 							<h3 class="u-mr-32 u-mb-sm-12">APR {{ apr | toFixed | numberWithCommas }}%</h3>
 						</TheLoader>
 						<TheLoader component="h3">
 							<h3 class="u-mr-32 u-mb-sm-12">TVL ${{ tvl | toFixed | numberWithCommas }}</h3>
+						</TheLoader>
+						<TheLoader component="h3">
+							<h3>Day {{ daysFromEpoch }}</h3>
 						</TheLoader>
 					</LayoutFlex>
 				</StatCard>
@@ -170,6 +173,7 @@ import axios from "axios";
 import { fromWei } from "~/utils/bnTools";
 import TooltipIcon from "@/assets/images/svg/svg-tooltip.svg";
 import { HX } from "~/constants/tokens";
+import { EPOCH_PERIOD } from "~/constants/addresses";
 
 export default {
 	name: "TheBoardroom",
@@ -244,6 +248,9 @@ export default {
 		},
 		epoch() {
 			return this.$store.state.boardroomStore.epoch;
+		},
+		daysFromEpoch() {
+			return Math.floor(EPOCH_PERIOD * this.epoch / 24);
 		},
 		hxBalance() {
 			return this.$store.getters["erc20Store/hxBalance"] || 0;

@@ -122,11 +122,15 @@ export const actions: ActionTree<SwapState, SwapState> = {
 		});
 	},
 	async getReserves(ctx: any, pair: Array<string>) {
-		const tokenPair = tokenPairs.find(token => token.pairName.includes(pair[0]) && token.pairName.includes(pair[1]));
-		const result = await ctx.rootGetters["contractStore/uniswapV2Pair"](pair).methods.getReserves().call();
+		const uniswapV2PairContract = ctx.rootGetters["contractStore/uniswapV2Pair"](pair);
+		const result = await uniswapV2PairContract.methods.getReserves().call();
+		const token0 = await uniswapV2PairContract.methods.token0().call();
+		const token1 = await uniswapV2PairContract.methods.token1().call();
+		const token0Symbol = ctx.rootGetters["addressStore/tokenByAddress"](token0);
+		const token1Symbol = ctx.rootGetters["addressStore/tokenByAddress"](token1);
 		return {
-			[tokenPair?.pairs[0] as string]: fromWei(result[0]),
-			[tokenPair?.pairs[1] as string]: fromWei(result[1])
+			[token0Symbol as string]: fromWei(result[0], ctx.rootState.erc20Store.decimals[token0Symbol as string]),
+			[token1Symbol as string]: fromWei(result[1], ctx.rootState.erc20Store.decimals[token1Symbol as string])
 		};
 	}
 };

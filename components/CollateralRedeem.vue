@@ -3,7 +3,7 @@
 		<template #step-one>
 			<DataCard class="u-full-width u-mb-48">
 				<LayoutFlex direction="row-space-between" class="u-full-width">
-					<p>Amount of NUON</p>
+					<p>NUON amount</p>
 					<p>Available balance: {{ (tokenBalance || 0) | formatLongNumber }}</p>
 				</LayoutFlex>
 				<div class="input u-mb-12">
@@ -121,11 +121,8 @@ export default {
 			try {
 				result = await this.$store.getters["collateralVaultStore/getEstimateCollateralsOut"](this.connectedAccount, toWei(this.inputValue));
 			} catch (e) {
-				console.error(e); // TODO: remove after testing
-				if (!this.amountMoreThanUserMinted) {
-					const message = this.getRPCErrorMessage(e);
-					this.failureToast(null, message, "Transaction failed");
-				}
+				const message = this.getRPCErrorMessage(e);
+				this.failureToast(null, message, "Transaction failed");
 			} finally {
 				this.estimatedWithdrawnNuonValue = fromWei(result[0]);
 			}
@@ -169,9 +166,7 @@ export default {
 						onReject: null
 					});
 			} catch(e) {
-				console.error(e); // TODO: remove after testing
-				const message = this.getRPCErrorMessage(e);
-				this.failureToast(null, message || e, "Transaction failed");
+				this.failureToast(null, e, "Transaction failed");
 			}
 			finally {
 				this.withdrawing = false;

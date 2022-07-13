@@ -3,7 +3,7 @@
 		<template #step-one>
 			<DataCard class="u-full-width u-mb-48">
 				<LayoutFlex direction="row-space-between" class="u-full-width">
-					<p>Amount of ETH</p>
+					<p>ETH amount</p>
 					<p>Available balance: {{ (tokenBalance || 0) | formatLongNumber }}</p>
 				</LayoutFlex>
 				<div class="input u-mb-12">
@@ -55,7 +55,7 @@
 				</div>
 			</DataCard>
 			<DataCard class="u-full-width">
-				<p>Estimated total NUON minted</p>
+				<p>Estimated NUON minted</p>
 				<h4 class="collateral-estimate">{{ estimatedMintedNuonValue | toFixed | numberWithCommas }} <sup>NUON</sup></h4>
 			</DataCard>
 			<div class="toggle__transaction">
@@ -119,7 +119,7 @@ export default {
 	},
 	data() {
 		return {
-			selectedCollateralRatio: null,
+			selectedCollateralRatio: "190",
 			collateralPrice: 0,
 			inputValue: null,
 			estimatedMintedNuonValue: "0",
@@ -153,12 +153,11 @@ export default {
 	watch: {
 		inputValue() {
 			this.getEstimatedMintedNuon();
-			if (this.selectedCollateralRatio) this.liquidationPrice = (this.collateralPrice) / (this.selectedCollateralRatio / 100);
+			if (this.selectedCollateralRatio) this.liquidationPrice = (this.collateralPrice) / (this.selectedCollateralRatio / 100); // this.inputValue *
 		},
 		selectedCollateralRatio(newValue) {
 			if (newValue) {
-				this.liquidationPrice = (this.collateralPrice) / (this.selectedCollateralRatio / 100);
-				if (this.selectedCollateralRatio === this.sliderMin) this.liquidationPrice = this.inputValue * this.collateralPrice;
+				this.liquidationPrice = (this.collateralPrice) / (this.selectedCollateralRatio / 100); // this.inputValue *
 				this.getEstimatedMintedNuon();
 			}
 		}
@@ -167,7 +166,7 @@ export default {
 		try {
 			const min = await this.$store.getters["collateralVaultStore/getGlobalCR"]();
 			this.sliderMin = (10 ** 20 / min).toFixed();
-			this.selectedCollateralRatio = `${parseFloat(this.sliderMin) + 10}`;
+			this.selectedCollateralRatio = this.sliderMin;
 			const collateralPrice = await this.$store.getters["collateralVaultStore/getCollateralPrice"]();
 			this.collateralPrice = fromWei(collateralPrice);
 		} catch (e) {
@@ -198,7 +197,6 @@ export default {
 			try {
 				ans = await this.$store.getters["collateralVaultStore/getEstimateMintedNUONAmount"](toWei(this.inputValue), `${collateralRatio}`);
 			} catch(e) {
-				console.error(e); // TODO: remove after testing
 				this.failureToast(null, e, "An error occurred");
 			} finally {
 				this.estimatedMintedNuonValue = fromWei(ans[0]);
@@ -225,9 +223,7 @@ export default {
 						}
 					});
 			} catch (e) {
-				console.error(e); // TODO: remove after testing
-				const message = this.getRPCErrorMessage(e);
-				this.failureToast(null, message || e, "Minting failed");
+				this.failureToast(null, e, "Minting failed");
 			} finally {
 				this.minting = false;
 				this.activeStep = 1;

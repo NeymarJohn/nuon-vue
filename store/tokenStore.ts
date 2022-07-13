@@ -1,11 +1,10 @@
 import { GetterTree, ActionTree, MutationTree } from "vuex";
-import { HX, NUON, nuMINT } from "~/constants/tokens";
+import { HX, NUON } from "~/constants/tokens";
 import { fromWei } from "~/utils/bnTools";
 
 const initalPrice = {
 	[HX.symbol] : 0,
 	[NUON.symbol] : 0,
-	[nuMINT.symbol]: 0,
 	DAI: 1,
 	USDC: 1
 };
@@ -37,7 +36,6 @@ export const actions: ActionTree<Web3State, Web3State> = {
 			HX: hxPrice,
 			DAI: 1,
 			USDC: 1,
-			[nuMINT.symbol]: hxPrice
 		});
 
 		ctx.commit("setPriceWithDecimal", {
@@ -45,7 +43,6 @@ export const actions: ActionTree<Web3State, Web3State> = {
 			HX: { value: hxPrice, decimals: ctx.rootState.erc20Store.decimals.HX},
 			DAI: { value: 1, decimals: 0 },
 			USDC: { value: 1, decimals: 0},
-			[nuMINT.symbol]: { value: hxPrice, decimals: ctx.rootState.erc20Store.decimals.nuMINT }
 		});
 	},
 };
