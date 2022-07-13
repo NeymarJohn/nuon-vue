@@ -91,7 +91,7 @@
 			</LayoutInfo>
 		</LayoutContainer>
 		<LayoutContainer class="u-pt-48">
-			<h2 class="u-mb-20 u-mb-lg-14">Hydro Stake Status</h2>
+			<h2 class="u-mb-20 u-mb-lg-14">nuMINT Stake Status</h2>
 			<LayoutGrid class="u-mb-56 u-mb-lg-48" :size="'3-stretch'">
 				<StatCard class="u-mb-md-12">
 					<label>Total Staked<TooltipIcon v-tooltip="'Enter Total Staked tooltip content here'" /></label>
