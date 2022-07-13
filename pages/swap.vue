@@ -114,36 +114,18 @@
 								</LayoutFlex>
 							</SwapAccordion>
 						</div>
-						<div class="swap__output">
-							<LayoutFlex  v-if="output.value && input.value" direction="row-center" class="u-mb-12">
-								<h4 v-if="isInputRate">1 {{ output.token }} = {{ input.value / output.value | numberWithCommas }} {{ input.token }}</h4>
-								<h4 v-else>1 {{ input.token }} = {{ output.value / input.value | numberWithCommas}} {{ output.token }}</h4>
-								<TheButton
-									size="icon"
-									title="Click to convert rate"
-									@click="convertRate"><RefreshIcon />
-								</TheButton>
-							</LayoutFlex>
-							<LayoutFlex  direction="row-space-between" class="u-full-width" >
-								<h4>Slippage Tolerance</h4> 
-								<h4><b>{{maxSlippage}}</b>%</h4>
-							</LayoutFlex>
-							<LayoutFlex  v-if="output.value && input.value" direction="row-space-between" class="u-full-width u-mt-12">
-								<h4>Price Impact</h4> 
-								<h4><b>{{priceImpact | toFixed | numberWithCommas}}</b>%</h4>
-							</LayoutFlex>
-							<LayoutFlex  v-if="output.value && input.value" direction="row-space-between" class="u-full-width u-mt-12">
-								<h4>Minimum received after slippage</h4> 
-								<h4><b>{{calculateSlippage() | toFixed | numberWithCommas}}</b> {{output.token}}</h4>
-							</LayoutFlex>
-							<LayoutFlex  v-if="output.value && input.value" direction="row-space-between" class="u-full-width u-mt-12">
-								<h4>{{input.token}} reserves</h4> 
-								<h4><b>{{reserves[input.token] | toFixed | numberWithCommas}}</b> {{input.token}}</h4>
-							</LayoutFlex>
-							<LayoutFlex  v-if="output.value && input.value" direction="row-space-between" class="u-full-width u-mt-12">
-								<h4>{{output.token}} reserves</h4> 
-								<h4><b>{{reserves[output.token] | toFixed | numberWithCommas}}</b> {{output.token}}</h4>
-							</LayoutFlex>
+						<div v-if="output.value && input.value">
+							<div class="swap__output">
+								<LayoutFlex direction="row-center">
+									<h4 v-if="isInputRate">1 {{ output.token }} = {{ input.value / output.value }} {{ input.token }}</h4>
+									<h4 v-else>1 {{ input.token }} = {{ output.value / input.value }} {{ output.token }}</h4>
+									<TheButton
+										size="icon"
+										title="Click to convert rate"
+										@click="convertRate"><RefreshIcon />
+									</TheButton>
+								</LayoutFlex>
+							</div>
 						</div>
 						<div class="transaction-input__buttons">
 							<TheButton
@@ -230,8 +212,7 @@ export default {
 			changedValue: "input",
 			maxSlippage: 0.5,
 			activeStep: 1,
-			isInputRate: true,
-			reserves: {}
+			isInputRate: true
 		};
 	},
 	head () {
@@ -406,9 +387,10 @@ export default {
 		calcuatePriceImpact() {
 			if (!this.input.token || !this.output.token) return;
 			this.$store.dispatch("swapStore/getReserves", [this.input.token, this.output.token]).then((reserves) => {
-				this.reserves = reserves;
-				const oldPrice = parseFloat(reserves[this.input.token]) / parseFloat(reserves[this.output.token]);
-				const newPrice = parseFloat(reserves[this.input.token] - this.input.value) / parseFloat(reserves[this.output.token] + this.output.value);
+				const inputTokenReserve = parseFloat(reserves[this.input.token]);
+				const outputTokenReserve = parseFloat(reserves[this.output.token]);
+				const oldPrice = inputTokenReserve / outputTokenReserve;
+				const newPrice = (inputTokenReserve - this.input.value) / (outputTokenReserve + parseFloat(this.output.value));
 				this.priceImpact = (oldPrice - newPrice) / oldPrice * 100;
 			});
 		},

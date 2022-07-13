@@ -40,6 +40,10 @@
 }
 .swap__output {
 	background: $MEDIUM_LIGHT_GREY;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
 	border-radius: $BORDER_RADIUS_8;
 	padding: $SPACING_26 $SPACING_32;
 	margin-bottom: $SPACING_48;

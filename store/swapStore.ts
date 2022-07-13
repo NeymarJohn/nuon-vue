@@ -125,8 +125,8 @@ export const actions: ActionTree<SwapState, SwapState> = {
 		const tokenPair = tokenPairs.find(token => token.pairName.includes(pair[0]) && token.pairName.includes(pair[1]));
 		const result = await ctx.rootGetters["contractStore/uniswapV2Pair"](pair).methods.getReserves().call();
 		return {
-			[tokenPair?.pairs[0] as string]: fromWei(result[0], ctx.rootState.erc20Store.decimals[tokenPair?.pairs[0] as string]),
-			[tokenPair?.pairs[1] as string]: fromWei(result[1], ctx.rootState.erc20Store.decimals[tokenPair?.pairs[1] as string])
+			[tokenPair?.pairs[0] as string]: fromWei(result[0]),
+			[tokenPair?.pairs[1] as string]: fromWei(result[1])
 		};
 	}
 };

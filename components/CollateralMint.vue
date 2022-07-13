@@ -119,7 +119,7 @@ export default {
 	},
 	data() {
 		return {
-			selectedCollateralRatio: "190",
+			selectedCollateralRatio: null,
 			collateralPrice: 0,
 			inputValue: null,
 			estimatedMintedNuonValue: "0",
@@ -153,11 +153,12 @@ export default {
 	watch: {
 		inputValue() {
 			this.getEstimatedMintedNuon();
-			if (this.selectedCollateralRatio) this.liquidationPrice = (this.collateralPrice) / (this.selectedCollateralRatio / 100); // this.inputValue *
+			if (this.selectedCollateralRatio) this.liquidationPrice = (this.collateralPrice) / (this.selectedCollateralRatio / 100);
 		},
 		selectedCollateralRatio(newValue) {
 			if (newValue) {
-				this.liquidationPrice = (this.collateralPrice) / (this.selectedCollateralRatio / 100); // this.inputValue *
+				this.liquidationPrice = (this.collateralPrice) / (this.selectedCollateralRatio / 100);
+				if (this.selectedCollateralRatio === this.sliderMin) this.liquidationPrice = this.inputValue * this.collateralPrice;
 				this.getEstimatedMintedNuon();
 			}
 		}
@@ -166,7 +167,7 @@ export default {
 		try {
 			const min = await this.$store.getters["collateralVaultStore/getGlobalCR"]();
 			this.sliderMin = (10 ** 20 / min).toFixed();
-			this.selectedCollateralRatio = this.sliderMin;
+			this.selectedCollateralRatio = `${parseFloat(this.sliderMin) + 10}`;
 			const collateralPrice = await this.$store.getters["collateralVaultStore/getCollateralPrice"]();
 			this.collateralPrice = fromWei(collateralPrice);
 		} catch (e) {
@@ -197,6 +198,7 @@ export default {
 			try {
 				ans = await this.$store.getters["collateralVaultStore/getEstimateMintedNUONAmount"](toWei(this.inputValue), `${collateralRatio}`);
 			} catch(e) {
+				console.error(e); // TODO: remove after testing
 				this.failureToast(null, e, "An error occurred");
 			} finally {
 				this.estimatedMintedNuonValue = fromWei(ans[0]);
@@ -223,7 +225,9 @@ export default {
 						}
 					});
 			} catch (e) {
-				this.failureToast(null, e, "Minting failed");
+				console.error(e); // TODO: remove after testing
+				const message = this.getRPCErrorMessage(e);
+				this.failureToast(null, message || e, "Minting failed");
 			} finally {
 				this.minting = false;
 				this.activeStep = 1;
