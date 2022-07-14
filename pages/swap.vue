@@ -113,18 +113,36 @@
 								</LayoutFlex>
 							</SwapAccordion>
 						</div>
-						<div v-if="output.value && input.value">
-							<div class="swap__output">
-								<LayoutFlex direction="row-center">
-									<h4 v-if="isInputRate">1 {{ output.token }} = {{ input.value / output.value }} {{ input.token }}</h4>
-									<h4 v-else>1 {{ input.token }} = {{ output.value / input.value }} {{ output.token }}</h4>
-									<TheButton
-										size="icon"
-										title="Click to convert rate"
-										@click="convertRate"><RefreshIcon />
-									</TheButton>
-								</LayoutFlex>
-							</div>
+						<div class="swap__output">
+							<LayoutFlex v-if="output.value && input.value" direction="row-center" class="u-mb-12">
+								<h4 v-if="isInputRate">1 {{ output.token }} = {{ input.value / output.value | numberWithCommas }} {{ input.token }}</h4>
+								<h4 v-else>1 {{ input.token }} = {{ output.value / input.value | numberWithCommas}} {{ output.token }}</h4>
+								<TheButton
+									size="icon"
+									title="Click to convert rate"
+									@click="convertRate"><RefreshIcon />
+								</TheButton>
+							</LayoutFlex>
+							<LayoutFlex direction="row-space-between" >
+								<h4>Slippage Tolerance</h4> 
+								<h4><strong>{{maxSlippage}}%</strong></h4>
+							</LayoutFlex>
+							<LayoutFlex v-if="output.value && input.value" direction="row-space-between" class="u-mt-12">
+								<h4>Price Impact</h4> 
+								<h4><strong>{{priceImpact | toFixed | numberWithCommas}}%</strong></h4>
+							</LayoutFlex>
+							<LayoutFlex v-if="output.value && input.value" direction="row-space-between" class="u-mt-12">
+								<h4>Minimum received after slippage</h4> 
+								<h4><strong>{{calculateSlippage() | toFixed | numberWithCommas}} {{output.token}}</strong></h4>
+							</LayoutFlex>
+							<LayoutFlex v-if="output.value && input.value" direction="row-space-between" class="u-mt-12">
+								<h4>{{input.token}} reserves</h4> 
+								<h4><strong>{{reserves[input.token] | toFixed | numberWithCommas}} {{input.token}}</strong></h4>
+							</LayoutFlex>
+							<LayoutFlex v-if="output.value && input.value" direction="row-space-between" class="u-mt-12">
+								<h4>{{output.token}} reserves</h4> 
+								<h4><strong>{{reserves[output.token] | toFixed | numberWithCommas}} {{output.token}}</strong></h4>
+							</LayoutFlex>
 						</div>
 						<div class="transaction-input__buttons">
 							<TheButton
@@ -211,7 +229,8 @@ export default {
 			changedValue: "input",
 			maxSlippage: 0.5,
 			activeStep: 1,
-			isInputRate: true
+			isInputRate: true,
+			reserves: {}
 		};
 	},
 	head () {
@@ -386,6 +405,7 @@ export default {
 		calcuatePriceImpact() {
 			if (!this.input.token || !this.output.token) return;
 			this.$store.dispatch("swapStore/getReserves", [this.input.token, this.output.token]).then((reserves) => {
+				this.reserves = reserves;
 				const inputTokenReserve = parseFloat(reserves[this.input.token]);
 				const outputTokenReserve = parseFloat(reserves[this.output.token]);
 				const oldPrice = inputTokenReserve / outputTokenReserve;
@@ -451,7 +471,7 @@ export default {
 			this.$store.dispatch("swapStore/approveToken",
 				{
 					tokenName,
-					onConfirm:  () =>{
+					onConfirm: () =>{
 						this.activeStep = 1;
 					},
 					onReject: () => {
