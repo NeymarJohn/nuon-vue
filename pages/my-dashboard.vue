@@ -94,17 +94,6 @@
 					</ComponentLoader>
 				</DataCard>
 			</template>
-			<template #panel-six>
-				<DataCard>
-					<label>Pending Rewards</label>
-					<ComponentLoader component="h1" :loaded="pendingRewards !== null">
-						<h3>{{ pendingRewards | toFixed | numberWithCommas }}<sup>nuMINT</sup></h3>
-					</ComponentLoader>
-					<ComponentLoader component="h5" :loaded="rewardsDollarValue !== null">
-						<h5>${{ rewardsDollarValue | toFixed | numberWithCommas }}</h5>
-					</ComponentLoader>
-				</DataCard>
-			</template>
 		</LayoutAccountBalance>
 		<TransactionHistory />
 	</LayoutContainer>
