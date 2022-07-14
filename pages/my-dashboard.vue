@@ -2,7 +2,58 @@
 	<LayoutContainer>
 		<PageTitle class="u-mb-24">
 			<h4>My Dashboard</h4>
+			<h1>Account Balance</h1>
 		</PageTitle>
+		<LayoutAccountBalance>
+			<template #panel-one>
+				<DataCard>
+					<label>Total Value</label>
+					<ComponentLoader component="h1" :loaded="totalValue !== null">
+						<h3>${{ totalValue + balancesValue + stakedBalance | toFixed | numberWithCommas }}</h3>
+					</ComponentLoader>
+				</DataCard>
+			</template>
+			<template #panel-two>
+				<DonutChartBalance
+					:key="`balances-${balancesValue}-${totalValue}-${stakedBalance}`"
+					:chart-data="[balancesValue, parseFloat(totalValue), parseFloat(stakedBalance)]" />
+			</template>
+			<template #panel-three>
+				<DataCard>
+					<label><TheDot color="light-green" /> My Balance<TooltipIcon v-tooltip="'Total NUON in wallet.'" /></label>
+					<ComponentLoader component="h1" :loaded="balancesValue !== null">
+						<h4>${{ balancesValue | toFixed | numberWithCommas }}</h4>
+					</ComponentLoader>
+				</DataCard>
+			</template>
+			<template #panel-four>
+				<DataCard>
+					<label><TheDot color="blue" /> My Locked Collateral<TooltipIcon v-tooltip="'Total USD value of assets locked as collateral for minted NUON.'" /></label>
+					<ComponentLoader component="h1" :loaded="totalValue !== null">
+						<h4>${{ totalValue | toFixed | numberWithCommas }}</h4>
+					</ComponentLoader>
+				</DataCard>
+			</template>
+			<template #panel-five>
+				<DataCard>
+					<label><TheDot color="orange" /> My Staked Tokens<TooltipIcon v-tooltip="'Total USD value of staked tokens.'" /></label>
+					<ComponentLoader component="h1" :loaded="stakedBalance !== null">
+						<h4>${{ stakedBalance | toFixed | numberWithCommas }}</h4>
+					</ComponentLoader>
+				</DataCard>
+			</template>
+			<template #panel-six>
+				<DataCard>
+					<label>Pending Rewards</label>
+					<ComponentLoader component="h1" :loaded="pendingRewards !== null">
+						<h3>{{ pendingRewards | toFixed | numberWithCommas }}<sup>nuMINT</sup></h3>
+					</ComponentLoader>
+					<ComponentLoader component="h5" :loaded="rewardsDollarValue !== null">
+						<h5>${{ rewardsDollarValue | toFixed | numberWithCommas }}</h5>
+					</ComponentLoader>
+				</DataCard>
+			</template>
+		</LayoutAccountBalance>
 		<h2 class="u-mb-24">My Collateral Hub</h2>
 		<LayoutFlex direction="column l-chart chart">
 			<LayoutFlex direction="row-space-between" class="l-flex--column-md">
@@ -55,57 +106,6 @@
 					:config="configData" />
 			</TheLoader>
 		</LayoutFlex>
-		<h2 class="u-mb-24">Account Balance</h2>
-		<LayoutAccountBalance>
-			<template #panel-one>
-				<DataCard>
-					<label>Total Value</label>
-					<ComponentLoader component="h1" :loaded="totalValue !== null">
-						<h3>${{ totalValue + balancesValue + stakedBalance | toFixed | numberWithCommas }}</h3>
-					</ComponentLoader>
-				</DataCard>
-			</template>
-			<template #panel-two>
-				<DonutChartBalance
-					:key="`balances-${balancesValue}-${totalValue}-${stakedBalance}`"
-					:chart-data="[balancesValue, parseFloat(totalValue), parseFloat(stakedBalance)]" />
-			</template>
-			<template #panel-three>
-				<DataCard>
-					<label><TheDot color="light-green" />NUON &#38; nuMINT balance<TooltipIcon v-tooltip="'Total USD value of NUON & nuMINT in wallet.'" /></label>
-					<ComponentLoader component="h1" :loaded="balancesValue !== null">
-						<h4>${{ balancesValue | toFixed | numberWithCommas }}</h4>
-					</ComponentLoader>
-				</DataCard>
-			</template>
-			<template #panel-four>
-				<DataCard>
-					<label><TheDot color="blue" /> My Locked Collateral<TooltipIcon v-tooltip="'Total USD value of assets locked as collateral for minted NUON.'" /></label>
-					<ComponentLoader component="h1" :loaded="totalValue !== null">
-						<h4>${{ totalValue | toFixed | numberWithCommas }}</h4>
-					</ComponentLoader>
-				</DataCard>
-			</template>
-			<template #panel-five>
-				<DataCard>
-					<label><TheDot color="orange" /> My Staked Tokens<TooltipIcon v-tooltip="'Total USD value of staked tokens.'" /></label>
-					<ComponentLoader component="h1" :loaded="stakedBalance !== null">
-						<h4>${{ stakedBalance | toFixed | numberWithCommas }}</h4>
-					</ComponentLoader>
-				</DataCard>
-			</template>
-			<template #panel-six>
-				<DataCard>
-					<label>Pending Rewards</label>
-					<ComponentLoader component="h1" :loaded="pendingRewards !== null">
-						<h3>{{ pendingRewards | toFixed | numberWithCommas }}<sup>nuMINT</sup></h3>
-					</ComponentLoader>
-					<ComponentLoader component="h5" :loaded="rewardsDollarValue !== null">
-						<h5>${{ rewardsDollarValue | toFixed | numberWithCommas }}</h5>
-					</ComponentLoader>
-				</DataCard>
-			</template>
-		</LayoutAccountBalance>
 		<TransactionHistory />
 	</LayoutContainer>
 </template>
