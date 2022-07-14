@@ -71,6 +71,9 @@
 .nav a svg {
 	margin-right: $SPACING_10;
 }
+.link-disabled {
+	opacity: 0.5;
+}
 
 // 2. Nav responsive
 @media screen and (max-width: $SPACING_1440) {

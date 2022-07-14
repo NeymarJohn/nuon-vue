@@ -40,8 +40,9 @@
 				<SwapIcon /> Swap
 			</NuxtLink>
 		</li>
-		<li>
+		<li v-tooltip="'Coming Soon'" class="link-disabled">
 			<NuxtLink
+				event=""
 				to="/farms"
 				title="Click to visit the Farms"
 				:class="{'active-link': isRouteActive('/farms')}">

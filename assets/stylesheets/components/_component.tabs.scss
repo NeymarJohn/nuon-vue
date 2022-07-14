@@ -25,6 +25,10 @@
 .tabs__header li:hover {
 	background: $MEDIUM_LIGHT_GREY;
 }
+.tabs__header li.link-disabled:hover {
+	background: none;
+	cursor: not-allowed;
+}
 .tabs__header li:hover h5 {
 	color: $LIGHT_GREY;
 }

@@ -1,7 +1,7 @@
 <template>
 	<div class="tabs tabs--default tabs--image tabs--mobile-scroll">
 		<ul class="tabs__header">
-			<li v-for="(tab, index) in tabs" :key="tab.index" :class="{'is-active': (index === selectedIndex)}" :title="`Click to view ${tab.toLowerCase()} hub`" @click="selectTab(index)">
+			<li v-for="(tab, index) in tabs" :key="tab.index" :class="{'is-active': (index === selectedIndex), 'link-disabled': index !== 0}" :title="index === 0 ? `Click to view ${tab.toLowerCase()} hub` : 'Coming Soon'" @click="selectTab(index)">
 				<img :src="require(`~/assets/images/borrow/${tab}.png`)" height="24" width="24" />
 				<h5>{{ tab }}</h5>
 			</li>
@@ -50,7 +50,7 @@ export default {
 	data() {
 		return {
 			selectedIndex: 0,
-			tabs: ["ETH", "BTC", "AVAX", "USDC", "USDT"],
+			tabs: ["ETH", "BTC", "BUSD", "AVAX", "USDC", "USDT"],
 			mobileView: false,
 		};
 	},
@@ -65,6 +65,7 @@ export default {
 	},
 	methods: {
 		selectTab (i) {
+			if (i !== 0) return;
 			this.selectedIndex = i;
 			this.$emit("tab-changed", i);
 		}
