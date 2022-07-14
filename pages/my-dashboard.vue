@@ -74,7 +74,9 @@
 				<DataCard>
 					<label><TheDot color="orange" />NUON &#38; nuMINT balance<TooltipIcon v-tooltip="'Total USD value of NUON & nuMINT in wallet.'" /></label>
 					<ComponentLoader component="h1" :loaded="balancesValue !== null">
-						<h4>${{ balancesValue | toFixed | numberWithCommas }}</h4>
+						<h4>{{ tokenBalances.HX | toFixed | numberWithCommas }} HX</h4>
+						<h4>{{ tokenBalances.NUON | toFixed | numberWithCommas }} NUON</h4>
+						<!-- <h4>${{ balancesValue | toFixed | numberWithCommas }}</h4> -->
 					</ComponentLoader>
 				</DataCard>
 			</template>
@@ -82,7 +84,8 @@
 				<DataCard>
 					<label><TheDot color="blue" /> My Locked Collateral<TooltipIcon v-tooltip="'Total USD value of assets locked as collateral for minted NUON.'" /></label>
 					<ComponentLoader component="h1" :loaded="totalValue !== null">
-						<h4>${{ totalValue | toFixed | numberWithCommas }}</h4>
+						<!-- <h4>${{ totalValue | toFixed | numberWithCommas }}</h4> -->
+						<h4>{{myCollateralLocked | toFixed | numberWithCommas }} ETH</h4>
 					</ComponentLoader>
 				</DataCard>
 			</template>
@@ -90,11 +93,11 @@
 				<DataCard>
 					<label><TheDot color="tourquise" /> My Staked Tokens<TooltipIcon v-tooltip="'Total USD value of staked tokens.'" /></label>
 					<ComponentLoader component="h1" :loaded="stakedBalance !== null">
-						<h4>${{ stakedBalance | toFixed | numberWithCommas }}</h4>
+						<h4>{{ stakedBalance | toFixed | numberWithCommas }} nuMINT</h4>
 					</ComponentLoader>
 				</DataCard>
 			</template>
-			<template #panel-six>
+			<!-- <template #panel-six>
 				<DataCard>
 					<label>Pending Rewards</label>
 					<ComponentLoader component="h1" :loaded="pendingRewards !== null">
@@ -104,7 +107,7 @@
 						<h5>${{ rewardsDollarValue | toFixed | numberWithCommas }}</h5>
 					</ComponentLoader>
 				</DataCard>
-			</template>
+			</template> -->
 		</LayoutAccountBalance>
 		<TransactionHistory />
 	</LayoutContainer>
@@ -173,12 +176,13 @@ export default {
 			}
 		},
 		stakedBalance() {
-			const stakedBalance = this.$store.state.boardroomStore.stakedBalance;
-			if (stakedBalance && this.collateralPrices.ETH) {
-				return fromWei(stakedBalance) * this.collateralPrices.ETH;
-			} else {
-				return 0;
-			}
+			return fromWei(this.$store.state.boardroomStore.stakedBalance);
+			// const stakedBalance = this.$store.state.boardroomStore.stakedBalance;
+			// if (stakedBalance && this.collateralPrices.ETH) {
+			// 	return fromWei(stakedBalance) * this.collateralPrices.ETH;
+			// } else {
+			// 	return 0;
+			// }
 		},
 		myCollateralLocked() {
 			return this.userTotalLockedCollateralAmount.ETH;

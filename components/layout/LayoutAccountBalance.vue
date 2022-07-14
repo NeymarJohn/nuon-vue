@@ -15,9 +15,9 @@
 		<div class="l-grid-account-balance__panel-five">
 			<slot name="panel-five" />
 		</div>
-		<div class="l-grid-account-balance__panel-six">
+		<!-- <div class="l-grid-account-balance__panel-six">
 			<slot name="panel-six" />
-		</div>
+		</div> -->
 	</div>
 </template>
 
