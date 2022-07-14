@@ -166,8 +166,8 @@ export default {
 	async mounted() {
 		try {
 			const min = await this.$store.getters["collateralVaultStore/getGlobalCR"]();
-			this.sliderMin = (10 ** 20 / min).toFixed();
-			this.selectedCollateralRatio = `${parseFloat(this.sliderMin) + 10}`;
+			this.sliderMin = Math.floor((10 ** 20 / min)) + 10;
+			this.selectedCollateralRatio = this.sliderMin;
 			const collateralPrice = await this.$store.getters["collateralVaultStore/getCollateralPrice"]();
 			this.collateralPrice = fromWei(collateralPrice);
 		} catch (e) {
