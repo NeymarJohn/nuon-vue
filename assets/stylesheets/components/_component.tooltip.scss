@@ -34,6 +34,9 @@
 .tooltip--icon:hover path {
 	fill: $LIME;
 }
+.v-popper__popper {
+	max-width: 50%;
+}
 
 // 2. Tooltip responsive
 @media screen and (max-width: $SPACING_1440) {

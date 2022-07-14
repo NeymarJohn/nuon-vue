@@ -4,8 +4,6 @@
 	</client-only>
 </template>
 <script>
-import { fromWei } from "~/utils/bnTools";
-
 export default {
 	name: "DonutChartCollateral",
 	props: {
