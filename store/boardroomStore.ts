@@ -3,6 +3,7 @@ import BN from "bn.js";
 import { Web3State } from "./web3Store";
 import boardroomAbi from "./abi/boardroom.json";
 import { fromWei, toWei } from "~/utils/bnTools";
+import { nuMINT } from "~/constants/tokens";
 
 type StateType = {
 	boardroomAddress: string,
@@ -13,7 +14,7 @@ type StateType = {
 	nextEpochPoint: number,
 	canWithdraw: boolean,
 	canClaimRewards: boolean,
-	allowance: {HX: number, NUON: number},
+	allowance: any,
 	lastSnapshot: {lastSnapshotIndex: number, rewardEarned: BN, epochTimerStart: number},
 	claimFee: number,
 	director: any
@@ -27,7 +28,7 @@ export const state = (): StateType => ({
 	nextEpochPoint: 0,
 	canWithdraw: false,
 	canClaimRewards: false,
-	allowance: {HX:0, NUON: 0},
+	allowance: {[nuMINT.symbol as string]:0, NUON: 0},
 	lastSnapshot: {lastSnapshotIndex: 0, rewardEarned: new BN(0), epochTimerStart: 0},
 	claimFee: 0,
 	director: null
@@ -57,7 +58,7 @@ export const mutations: MutationTree<BoardroomState> = {
 	setCanWithdraw(state, payload: boolean) {
 		state.canWithdraw = payload;
 	},
-	setAllowance(state, payload: {HX:number, NUON: number}) {
+	setAllowance(state, payload: any) {
 		state.allowance = payload;
 	},
 	setLastSnapshot(state, payload: {lastSnapshotIndex: number, rewardEarned: BN, epochTimerStart: number}) {
@@ -84,7 +85,7 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 		if (!address) return;
 		const getNuonAllowance = fromWei(await ctx.rootGetters["erc20Store/nuon"].methods.allowance(address, ctx.state.boardroomAddress).call());
 		const getHydroAllowance = fromWei(await  ctx.rootGetters["erc20Store/hydro"].methods.allowance(address, ctx.state.boardroomAddress).call());
-		ctx.commit("setAllowance", {HX: getHydroAllowance, NUON: getNuonAllowance});
+		ctx.commit("setAllowance", {[nuMINT.symbol]: getHydroAllowance, NUON: getNuonAllowance});
 	},
 	approveToken(ctx: any, {tokenSymbol,  onConfirm, onReject, onCallback}): void {
 		const contractAddress = ctx.state.boardroomAddress;
