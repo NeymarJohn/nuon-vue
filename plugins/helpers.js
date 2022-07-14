@@ -6,7 +6,10 @@ Vue.mixin({
 	filters: {
 		numberWithCommas(x) {
 			if (!x) return 0;
-			return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+			const str = x.toString();
+			const main = str.split(".")[0];
+			const decimals = str.split(".")[1] || "00"; 
+			return `${main.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}.${decimals}`;
 		},
 		toFixed(x) {
 			return parseFloat(x).toFixed(2);

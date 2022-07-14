@@ -81,13 +81,13 @@ export const actions: ActionTree<SwapState, SwapState> = {
 	async getAmountsOut(ctx: any, { inputToken, outputToken, amount }) {
 		const path = getPath(inputToken, outputToken);
 		const pathAddresses = path.tokens.map((token: string) => ctx.rootGetters["addressStore/tokens"][token]);
-		const res =  await ctx.getters.contract.methods.getAmountsOut(Web3.utils.toWei(amount), pathAddresses).call();
+		const res =  await ctx.getters.contract.methods.getAmountsOut(toWei(amount, ctx.rootState.erc20Store.decimals[inputToken as string]), pathAddresses).call();
 		return convertPathIntoMap(res, path.tokens);
 	},
 	async getAmountsIn(ctx: any, { inputToken, outputToken, amount }) {
 		const path = getPath(inputToken, outputToken);
 		const pathAddresses = path.tokens.map((token: string) => ctx.rootGetters["addressStore/tokens"][token]);
-		const res = await ctx.getters.contract.methods.getAmountsIn(Web3.utils.toWei(amount),pathAddresses).call();
+		const res = await ctx.getters.contract.methods.getAmountsIn(toWei(amount, ctx.rootState.erc20Store.decimals[inputToken as string]), pathAddresses).call();
 		return convertPathIntoMap(res, path.tokens);
 	},
 	swapExactTokensForTokens(ctx: any, { inputToken, inputAmount, outputToken, outputAmount:_outputAmount, callback, slippage:_slippiage }) {
