@@ -23,9 +23,10 @@
 				<div class="chart chart--donut">
 					<p class="u-mb-4">Collateral Distribution</p>
 					<p class="u-colour-white u-mb-16">{{ dateStr }}</p>
-					<ComponentLoader component="collateral-hub-chart" :loaded="donutChartData !== null">
-						<DonutChartCollateral v-if="donutChartData" class="u-mb-24" :chart-data="donutChartData" />
-					</ComponentLoader>
+					<!-- <ComponentLoader component="collateral-hub-chart" >
+						<DonutChartCollateral class="u-mb-24" :chart-data="{}" />
+					</ComponentLoader> -->
+					<DonutChartCollateral class="u-mb-24" :chart-data="{}" />
 					<p>Protocol Collateralization Ratio<TooltipIcon v-tooltip="'The amount of collateral deposited across the protocol to back all minted NUON.'" /></p>
 					<h3>{{ collateralRatio }}%</h3>
 				</div>
@@ -39,6 +40,9 @@ import dayjs from "dayjs";
 import TooltipIcon from "@/assets/images/svg/svg-tooltip.svg";
 import { getCollateralTVLDayData } from "~/services/theGraph";
 import { fromWei } from "~/utils/bnTools";
+import mockDayData from "@/assets/json/day-data.json";
+import mockMonthData from "@/assets/json/month-data.json";
+import mockWeekData from "@/assets/json/week-data.json";
 
 export default {
 	name: "CollateralHubOverview",
@@ -50,6 +54,9 @@ export default {
 			dayData: [],
 			weekData: [],
 			monthData: [],
+			mockDayData,
+			mockMonthData,
+			mockWeekData,
 			isLoadedData: false,
 			loadingData: false,
 			error: false,
@@ -62,6 +69,8 @@ export default {
 	},
 	mounted () {
 		this.loadingData = true;
+		// console.log("this.mock", this.mockDayData);
+
 		getCollateralTVLDayData().then((res) => {
 			const data = res.data.data.collateralDayDatas;
 			let totalValue = 0;
@@ -90,19 +99,25 @@ export default {
 					formattedDate: currentDate.format("YYYY-MM-DD"),
 				};
 			});
-			this.dayData = chartData;
-			this.monthData = Object.values(monthData);
-			this.weekData = Object.values(weekData);
+			// this.dayData = chartData;
+			// this.monthData = Object.values(monthData);
+			// this.weekData = Object.values(weekData);
+			// console.log("this.dayData",this.dayData);
+
+			this.dayData = this.mockDayData;
+			this.monthData = this.mockMonthData;
+			this.weekData = this.mockWeekData;
+			
 			this.isLoadedData  = true;
 			this.error = false;
 		}).catch(() => {
 			this.isLoadedData = false;
 			this.error = true;
 		});
-		this.$root.$on("tvl-chart-move", ({dateStr, data}) => {
-			this.dateStr = dateStr;
-			this.donutChartData = data;
-		});
+		// this.$root.$on("tvl-chart-move", ({dateStr, data}) => {
+		// 	this.dateStr = dateStr;
+		// 	this.donutChartData = data;
+		// });
 		this.$store.getters["collateralVaultStore/getGlobalCR"]().then(res => {
 			this.collateralRatio = parseFloat(fromWei(res * 100)).toFixed(0);
 		}).catch(() => {

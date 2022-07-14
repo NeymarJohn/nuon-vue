@@ -143,7 +143,7 @@ export default {
 			<p class="u-colour-white u-mb-16">${dateStr}</p>
 		`;
 
-		this.$root.$emit("tvl-chart-move", {data: data[data.length - 1], dateStr});
+		// this.$root.$emit("tvl-chart-move", {data: data[data.length - 1], dateStr});
 	},
 	methods: {
 		handleTabChanged(tabIndex) {
@@ -211,8 +211,8 @@ export default {
 
 
 						// Emit move event for update donut chart
-						const currentData = this.seriesesData[this.currentTabIndex].find(item => item.formattedDate === timeString);
-						this.$root.$emit("tvl-chart-move", {data: currentData, dateStr, param});
+						// const currentData = this.seriesesData[this.currentTabIndex].find(item => item.formattedDate === timeString);
+						// this.$root.$emit("tvl-chart-move", {data: currentData, dateStr, param});
 					}
 				});
 			}

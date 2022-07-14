@@ -82,9 +82,9 @@ export default {
 	},
 	methods: {
 		updateData() {
-			const newSeriess = this.chartData.collateralTokens.map((item) => Number(fromWei(item.amount)));
-			this.series = newSeriess;
-			this.chartOptions.labels = this.chartData.collateralTokens.map((item) => item.token.symbol);
+			// const newSeriess = this.chartData.collateralTokens.map((item) => Number(fromWei(item.amount)));
+			this.series = [49672.160947712415]; // newSeriess;
+			this.chartOptions.labels = ["WETH"]; // this.chartData.collateralTokens.map((item) => item.token.symbol);
 		}
 	},
 };
