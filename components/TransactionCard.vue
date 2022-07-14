@@ -10,6 +10,7 @@
 				class="transaction-card__body">
 				<p v-for="(obj, idx) in config" :key="idx">
 					<span v-if="obj.id === 'date'">{{ new Date(row[obj.id]).toLocaleDateString() }}</span>
+					<span v-if="obj.id === 'totalAmount' || obj.id === 'amount'">{{ row[obj.id] | toFixed | numberWithCommas }}</span>
 					<span v-else>{{ row[obj.id] }}</span>
 				</p>
 			</div>

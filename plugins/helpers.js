@@ -28,6 +28,9 @@ Vue.mixin({
 		formatWithTwoDigit(number) {
 			return (`0${number}`).slice(-2);
 		},
+		formateDateTime(date) {
+			return dayjs(date).format("YYYY-MM-DD hh:mm:ss");
+		}
 	},
 	computed: {
 		isLoaded() {
