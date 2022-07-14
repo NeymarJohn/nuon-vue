@@ -23,11 +23,25 @@
 					<LayoutFlex class="u-mb-md-4">
 						<p>Price</p><TheBadge :color="getPercentChangeBadgeClass('price', dataToUse)" class="u-ml-8">{{ getChangePercent('price', dataToUse) }}%</TheBadge>
 					</LayoutFlex>
-					<ComponentLoader component="h3" :loaded="tokenPrice !== null">
+					<ComponentLoader component="h3" :loaded="tokenPrice !== null" class="u-mb-24">
 						<h3>${{ tokenPrice && tokenPrice.indexOf("0.") === 0 ? tokenPrice : numberWithCommas(tokenPrice) }}</h3>
 					</ComponentLoader>
+					<script src="https://truflation.com/truflation-widget.js"></script>
+					<truflation-widget></truflation-widget>
 				</div>
 				<div class="chart">
+					<LayoutFlex direction="column-justify-between" class="u-mb-24">
+						<ThePills
+							class="u-mb-8"
+							:pills="priceTabs"
+							default-active
+							@pill-clicked="handlePriceTabChanged" />
+						<ThePills
+							class="u-mb-md-16"
+							:pills="periodTabs"
+							default-active
+							@pill-clicked="handlePeriodTabChanged" />
+					</LayoutFlex>
 					<LayoutFlex direction="row-space-between" class="l-flex--column-reverse-md">
 						<DataCard>
 							<label>{{ selectedPriceTab }}</label>
@@ -38,18 +52,6 @@
 								<h5 :style="{color: dateSelection ? 'white' : '#3a3a3e'}">{{ dateSelection ? dateSelection : 0 }}</h5>
 							</ComponentLoader>
 						</DataCard>
-						<LayoutFlex direction="column-justify-between">
-							<ThePills
-								class="u-mb-8"
-								:pills="priceTabs"
-								default-active
-								@pill-clicked="handlePriceTabChanged" />
-							<ThePills
-								class="l-flex--align-self-end l-flex--align-self-start-md u-mb-md-16"
-								:pills="periodTabs"
-								default-active
-								@pill-clicked="handlePeriodTabChanged" />
-						</LayoutFlex>
 					</LayoutFlex>
 					<LineChart
 						:key="`${currentlySelectedTab}-${selectedPriceTab}-${selectedPeriodTab}`"
