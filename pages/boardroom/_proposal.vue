@@ -93,7 +93,7 @@
 				</ComponentLoader>
 			</ThePanel>
 			<ThePanel class="u-mb-48">
-				<h4>Cast Your Vote<TooltipIcon v-tooltip="'Choose yes or no and click ‘Vote’ to register your vote on the blockchain.'" /></h4>
+				<h4>Cast Your Vote<TooltipIcon v-tooltip="'Choose yes or no and click ‘Vote’ to register your vote on the blockchain. You can change your vote before the end date if you wish.'" /></h4>
 				<ComponentLoader
 					:loaded="!!details.choices"
 					width="u-full-width"
