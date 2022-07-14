@@ -115,8 +115,8 @@
 						</div>
 						<div class="swap__output">
 							<LayoutFlex v-if="output.value && input.value" direction="row-center" class="u-mb-12">
-								<h4 v-if="isInputRate">1 {{ output.token }} = {{ (input.value / output.value).toFixed(8) | numberWithCommas }} {{ input.token }}</h4>
-								<h4 v-else>1 {{ input.token }} = {{ (output.value / input.value).toFixed(8) | numberWithCommas}} {{ output.token }}</h4>
+								<h4 v-if="isInputRate">1 {{ output.token }} = {{ input.value / output.value | numberWithCommas }} {{ input.token }}</h4>
+								<h4 v-else>1 {{ input.token }} = {{ output.value / input.value | numberWithCommas}} {{ output.token }}</h4>
 								<TheButton
 									size="icon"
 									title="Click to convert rate"

@@ -72,7 +72,7 @@
 			</template>
 			<template #panel-three>
 				<DataCard>
-					<label><TheDot color="light-green" />NUON &#38; nuMINT balance<TooltipIcon v-tooltip="'Total USD value of NUON & nuMINT in wallet.'" /></label>
+					<label><TheDot color="orange" />NUON &#38; nuMINT balance<TooltipIcon v-tooltip="'Total USD value of NUON & nuMINT in wallet.'" /></label>
 					<ComponentLoader component="h1" :loaded="balancesValue !== null">
 						<h4>${{ balancesValue | toFixed | numberWithCommas }}</h4>
 					</ComponentLoader>
@@ -88,7 +88,7 @@
 			</template>
 			<template #panel-five>
 				<DataCard>
-					<label><TheDot color="orange" /> My Staked Tokens<TooltipIcon v-tooltip="'Total USD value of staked tokens.'" /></label>
+					<label><TheDot color="tourquise" /> My Staked Tokens<TooltipIcon v-tooltip="'Total USD value of staked tokens.'" /></label>
 					<ComponentLoader component="h1" :loaded="stakedBalance !== null">
 						<h4>${{ stakedBalance | toFixed | numberWithCommas }}</h4>
 					</ComponentLoader>

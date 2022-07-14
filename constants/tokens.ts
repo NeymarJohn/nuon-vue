@@ -47,9 +47,6 @@ const paths:any =  {
 	NUON_USDC: {
 		tokens: [NUON.symbol, USDC.symbol],
 	},
-	USDC_NUON: {
-		tokens: [USDC.symbol, NUON.symbol],
-	},
 	DAI_NUON: {
 		tokens: [USDC.symbol, NUON.symbol],
 	},
