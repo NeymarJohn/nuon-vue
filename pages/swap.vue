@@ -22,7 +22,7 @@
 						v-show="isSettingsModalVisible"
 						title="Transaction Settings"
 						@close-modal="setModalVisibility('settingsModal', false)">
-						<label>Slippage Tolerance <TooltipIcon v-tooltip="'Enter slippage tolerance tooltip content here.'" /></label>
+						<label>Slippage Tolerance <TooltipIcon v-tooltip="'Enter your chosen slippage tolerance. The swap feature relies on liquidity pools of paired tokens to facilitate trades. As liquidity pools deplete, the amount of assets received may sometimes be slightly smaller than expected (by a small %) — this is called ‘slippage’. Slippage tolerance is the maximum amount of slippage you are willing to accept in the swap. (If in doubt, we suggest keeping slippage tolerance set at the default value of 0.5%.).'" /></label>
 						<div class="input">
 							<div class="input__container">
 								<input
