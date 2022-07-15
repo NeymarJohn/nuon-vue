@@ -81,7 +81,8 @@
 
 <script>
 import { getTotalSupplyWithToken} from "~/services/theGraph";
-
+import nuonData from "@/assets/json/nuon.json";
+import numintData from "@/assets/json/numint.json";
 export default {
 	name: "TokenPrice",
 	data() {
@@ -95,13 +96,15 @@ export default {
 			priceHistoryData: [],
 			graphSelection: "",
 			dateSelection: "",
-			nuonSupplyInfo: [],
-			hydroSupplyInfo: [],
+			nuonSupplyInfo: nuonData, // [],
+			hydroSupplyInfo: numintData, // [],
 			milliSecondsInDay: 86400000
 		};
 	},
 	computed: {
 		dataToUse() {
+			console.log("nuonSupplyInfo", JSON.stringify(this.nuonSupplyInfo));
+			console.log("hydroSupplyInfo",JSON.stringify(this.hydroSupplyInfo));
 			return this.currentlySelectedTab === "NUON" ? this.nuonSupplyInfo : this.hydroSupplyInfo;
 		},
 		marketCap() {
@@ -241,11 +244,22 @@ export default {
 			const nuonAddress = this.$store.getters["addressStore/tokens"].NUON;
 			const hydroAddress = this.$store.getters["addressStore/tokens"].HX;
 
-			const nuonSupplyResponse = await getTotalSupplyWithToken(nuonAddress);
-			this.nuonSupplyInfo = nuonSupplyResponse.data.data.totalSupplyDayDatas;
-
-			const hydroSupplyResponse = await getTotalSupplyWithToken(hydroAddress);
-			this.hydroSupplyInfo = hydroSupplyResponse.data.data.totalSupplyDayDatas;
+			// const nuonSupplyResponse = await getTotalSupplyWithToken(nuonAddress);
+			// this.nuonSupplyInfo = nuonSupplyResponse.data.data.totalSupplyDayDatas;
+			this.nuonSupplyInfo = this.nuonSupplyInfo.map(item => {
+				return {
+					...item,
+					marketVal: item.value * item.price.price
+				};
+			});
+			this.hydroSupplyInfo = this.hydroSupplyInfo.map(item => {
+				return {
+					...item,
+					marketVal: item.value * item.price.price
+				};
+			});
+			// const hydroSupplyResponse = await getTotalSupplyWithToken(hydroAddress);
+			// this.hydroSupplyInfo = hydroSupplyResponse.data.data.totalSupplyDayDatas;
 
 			this.handlePeriodTabChanged(0);
 		} catch (e) {
