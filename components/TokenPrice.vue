@@ -80,7 +80,7 @@
 </template>
 
 <script>
-import { getTotalSupplyWithToken} from "~/services/theGraph";
+// import { getTotalSupplyWithToken} from "~/services/theGraph";
 import nuonData from "@/assets/json/nuon.json";
 import numintData from "@/assets/json/numint.json";
 export default {
@@ -103,8 +103,8 @@ export default {
 	},
 	computed: {
 		dataToUse() {
-			console.log("nuonSupplyInfo", JSON.stringify(this.nuonSupplyInfo));
-			console.log("hydroSupplyInfo",JSON.stringify(this.hydroSupplyInfo));
+			// console.log("nuonSupplyInfo", JSON.stringify(this.nuonSupplyInfo));
+			// console.log("hydroSupplyInfo",JSON.stringify(this.hydroSupplyInfo));
 			return this.currentlySelectedTab === "NUON" ? this.nuonSupplyInfo : this.hydroSupplyInfo;
 		},
 		marketCap() {
@@ -239,10 +239,10 @@ export default {
 			return this.yAxisData.map(d => d ? this.yAxisData[this.yAxisData.length - 2] : null);
 		}
 	},
-	async mounted() {
+	mounted() {
 		try {
-			const nuonAddress = this.$store.getters["addressStore/tokens"].NUON;
-			const hydroAddress = this.$store.getters["addressStore/tokens"].HX;
+			// const nuonAddress = this.$store.getters["addressStore/tokens"].NUON;
+			// const hydroAddress = this.$store.getters["addressStore/tokens"].HX;
 
 			// const nuonSupplyResponse = await getTotalSupplyWithToken(nuonAddress);
 			// this.nuonSupplyInfo = nuonSupplyResponse.data.data.totalSupplyDayDatas;
