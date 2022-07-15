@@ -47,7 +47,7 @@ export default {
 		return {
 			myCollateralizationRatio: null,
 			minimumCollateralizationRatio: null,
-			collaterals: ["ETH", "BTC", "BUSD", "AVAX", "USDC", "USDT"],
+			collaterals: ["ETH", "USDC", "BTC", "BUSD", "AVAX", "USDT"],
 			currentlySelectedCollateral: "ETH",
 			collateralPrice: null,
 			userMintedAmount: null,
