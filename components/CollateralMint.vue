@@ -41,7 +41,7 @@
 							<h4 :class="selectedCollateralRatio < 730 ? selectedCollateralRatio < 460 ? 'u-is-warning' : 'u-is-caution' : 'u-is-success'">{{ selectedCollateralRatio }}%</h4>
 						</div>
 					</LayoutFlex>
-					<RangeSlider :min="sliderMin" :max="'1000'" :slider-disabled="!inputValue || isMoreThanBalance" :selected-collateral-ratio="`${selectedCollateralRatio}`" @emit-change="sliderChanged" />
+					<RangeSlider :min="`${sliderMin}`" :max="'1000'" :slider-disabled="!inputValue || isMoreThanBalance" :selected-collateral-ratio="`${selectedCollateralRatio}`" @emit-change="sliderChanged" />
 					<LayoutFlex direction="row-space-between">
 						<div class="range-slider__value">
 							<h5>{{ sliderMin }}%</h5>
@@ -132,7 +132,7 @@ export default {
 	},
 	computed: {
 		isApproved() {
-			return true;
+			return !!parseFloat(this.$store.state.collateralVaultStore.allowance[this.currentlySelectedCollateral]);
 		},
 		disabledMint() {
 			return !this.isApproved || !parseFloat(this.inputValue) || this.isMoreThanBalance || !this.connectedAccount;
@@ -148,7 +148,7 @@ export default {
 		},
 		mintFee() {
 			return parseFloat(this.$store.state.collateralVaultStore.mintingFee) * 100;
-		}
+		},
 	},
 	watch: {
 		inputValue() {
@@ -186,7 +186,7 @@ export default {
 			this.isApproving = true;
 			this.$store.dispatch("collateralVaultStore/approveToken",
 				{
-					tokenSymbol: "nuMINT",
+					tokenSymbol: this.currentlySelectedCollateral,
 					onConfirm: () => { },
 					onReject: () => { },
 					onCallback: () => {

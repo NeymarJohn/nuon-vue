@@ -40,6 +40,7 @@
 
 <script>
 import { fromWei } from "~/utils/bnTools";
+import { getTotalSupplyWithToken} from "~/services/theGraph";
 
 export default {
 	name: "TheCollateralHub",
@@ -180,8 +181,9 @@ export default {
 		async getCollateralHistoricalPrices() {
 			let result = [];
 			try {
-				const hydroSupplyResponse = await getTotalSupplyWithToken(HYDRO_ADDRESS);
-				result = hydroSupplyResponse.data.data.totalSupplyDayDatas;
+				const collateralAddress = await this.$store.getters["addressStore/tokens"][this.currentlySelectedCollateral];
+				const collateralSupplyResponse = await getTotalSupplyWithToken(collateralAddress);
+				result = collateralSupplyResponse.data.data.totalSupplyDayDatas;
 			} catch (e) {
 			} finally {
 				this.$set(this.collateralHistoricalPrices, this.currentlySelectedCollateral, result);
