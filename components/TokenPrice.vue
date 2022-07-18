@@ -24,7 +24,7 @@
 						<p>Price</p><TheBadge v-if="!isNaN(getChangePercent('priceUSD', dataToUse))" :color="getPercentChangeBadgeClass('priceUSD', dataToUse)" class="u-ml-8">{{ getChangePercent('priceUSD', dataToUse) }}%</TheBadge>
 					</LayoutFlex>
 					<ComponentLoader component="h3" :loaded="tokenPrice !== null" class="u-mb-24">
-						<h3>${{ tokenPrice && tokenPrice.indexOf("0.") === 0 ? tokenPrice : numberWithCommas(tokenPrice) }}</h3>
+						<h3>${{ tokenPrice && tokenPrice.indexOf("0.") === 0 ? formatSubOneDecimals(tokenPrice) : numberWithCommas(parseFloat(tokenPrice).toFixed(2)) }}</h3>
 					</ComponentLoader>
 					<script src="https://truflation.com/truflation-widget.js"></script>
 					<truflation-widget></truflation-widget>
@@ -46,7 +46,7 @@
 						<DataCard>
 							<label>{{ selectedPriceTab }}</label>
 							<ComponentLoader component="h1" :loaded="graphSelection !== null">
-								<h3 class="u-font-size-h2-1440" :style="{color: graphSelection ? 'white' : '#3a3a3e'}">${{ graphSelection ? numberWithCommas(graphSelection) : 0 }}</h3>
+								<h3 class="u-font-size-h2-1440" :style="{color: graphSelection ? 'white' : '#3a3a3e'}">${{ graphSelection && graphSelection.indexOf("0.") === 0 ? formatSubOneDecimals(graphSelection) : numberWithCommas(parseFloat(graphSelection).toFixed(2)) }}</h3>
 							</ComponentLoader>
 							<ComponentLoader component="h5" :loaded="dateSelection !== null">
 								<h5 :style="{color: dateSelection ? 'white' : '#3a3a3e'}">{{ dateSelection ? dateSelection : 0 }}</h5>
@@ -228,7 +228,6 @@ export default {
 				data = closingPriceForMonths;
 			}
 
-			data = data.map(d => parseFloat(d).toFixed(2));
 			data.push(null);
 			data.unshift(null);
 			return data;
