@@ -133,7 +133,7 @@ export default {
 		async getUserMintedAmount() {
 			let result = 0;
 			try {
-				result = parseFloat(fromWei(await this.$store.getters["collateralVaultStore/getUserMintedAmount"](this.connectedAccount)));
+				result = parseFloat(await this.$store.getters["collateralVaultStore/getUserMintedAmount"](this.connectedAccount)) / (10 ** this.$store.state.erc20Store.decimals[this.currentlySelectedCollateral]);
 			} catch (e) {
 			} finally {
 				this.$set(this.userTotalMintedNuonStore, this.currentlySelectedCollateral, result);
@@ -152,7 +152,7 @@ export default {
 		async getUserCollateralAmount() {
 			let result = 0;
 			try {
-				result = parseFloat(fromWei(await this.$store.getters["collateralVaultStore/getUserCollateralAmount"](this.connectedAccount)));
+				result = parseFloat(await this.$store.getters["collateralVaultStore/getUserCollateralAmount"](this.connectedAccount)) / (10 ** this.$store.state.erc20Store.decimals[this.currentlySelectedCollateral]);
 			} catch (e) {
 			} finally {
 				this.$set(this.userTotalLockedCollateralAmountStore, this.currentlySelectedCollateral, result);

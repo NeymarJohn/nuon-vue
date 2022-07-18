@@ -212,7 +212,7 @@ export default {
 		async mint() {
 			this.activeStep = "loading";
 			this.minting = true;
-			const amount = toWei(this.inputValue, this.$store.state.erc20Store.decimals.HX);
+			const amount = toWei(this.inputValue, this.$store.state.erc20Store.decimals[this.currentlySelectedCollateral]);
 			const collateralRatioToWei = 10 ** 18 / parseFloat(this.selectedCollateralRatio / 100);
 
 			try {

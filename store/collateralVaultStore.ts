@@ -211,18 +211,15 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 	},
 	async mintNuon(ctx: any, {collateralRatio, collateralAmount, onTxHash, onConfirm, onReject}) {
 		const accountAddress = ctx.rootState.web3Store.account;
-		const payload: {from: any, value?: any} = {from: accountAddress};
-		const mintMethod = ctx.getters.collateralHubContract.methods.mint;
-		let methodExecution = null;
-
+		const payload: {from: string, value?: string} = {from: accountAddress};
+		const args: string[] = [collateralRatio];
 		if (ctx.state.currentCollateralToken === "ETH") {
-			methodExecution = mintMethod(collateralRatio);
 			payload.value = collateralAmount;
 		} else if (ctx.state.currentCollateralToken === "USDC") {
-			methodExecution = mintMethod(collateralRatio, collateralAmount);
+			args.push(collateralAmount);
 		}
 
-		return await methodExecution
+		return await ctx.getters.collateralHubContract.methods.mint.apply(null, args)
 			.send(payload)
 			.on("transactionHash", (txHash: string) => {
 				if (onTxHash) onTxHash(txHash);
