@@ -45,12 +45,6 @@
 				"internalType": "uint256",
 				"name": "amount",
 				"type": "uint256"
-			},
-			{
-				"indexed": false,
-				"internalType": "uint256",
-				"name": "NuonPrice",
-				"type": "uint256"
 			}
 		],
 		"name": "MintedNUON",
@@ -93,19 +87,6 @@
 		],
 		"name": "Redeemed",
 		"type": "event"
-	},
-	{
-		"inputs": [],
-		"name": "DIADaptor",
-		"outputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
 	},
 	{
 		"inputs": [],
@@ -186,14 +167,8 @@
 		"type": "function"
 	},
 	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"name": "collateralToNuonRoute",
+		"inputs": [],
+		"name": "collateralOracleAddress",
 		"outputs": [
 			{
 				"internalType": "address",
@@ -212,32 +187,6 @@
 				"internalType": "address",
 				"name": "",
 				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "liquidationFee",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "minimumDepositAmount",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
 			}
 		],
 		"stateMutability": "view",
@@ -306,19 +255,6 @@
 		"name": "transferOwnership",
 		"outputs": [],
 		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "unirouter",
-		"outputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
 		"type": "function"
 	},
 	{
@@ -412,17 +348,12 @@
 			},
 			{
 				"internalType": "address",
-				"name": "_DIADaptor",
+				"name": "_collateralOracleAddress",
 				"type": "address"
 			},
 			{
 				"internalType": "uint256",
 				"name": "_assetMultiplier",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_liquidationFee",
 				"type": "uint256"
 			}
 		],
@@ -445,7 +376,7 @@
 			},
 			{
 				"internalType": "address",
-				"name": "_DIADaptor",
+				"name": "_collateralOracleAddress",
 				"type": "address"
 			}
 		],
@@ -476,88 +407,11 @@
 		"inputs": [
 			{
 				"internalType": "address",
-				"name": "_router",
-				"type": "address"
-			}
-		],
-		"name": "setRouter",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address[]",
-				"name": "_collateralToNuonRoute",
-				"type": "address[]"
-			}
-		],
-		"name": "setSwapRoute",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_minimumDepositAmount",
-				"type": "uint256"
-			}
-		],
-		"name": "setMinimumDepositAmount",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
 				"name": "_token",
 				"type": "address"
 			}
 		],
 		"name": "viewBalOfToken",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "_user",
-				"type": "address"
-			}
-		],
-		"name": "viewUserCollateralAmount",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "_user",
-				"type": "address"
-			}
-		],
-		"name": "viewUserMintedAmount",
 		"outputs": [
 			{
 				"internalType": "uint256",
@@ -640,103 +494,10 @@
 		"type": "function"
 	},
 	{
-		"inputs": [],
-		"name": "getCollateralsValue",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "getGlobalCR",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "_user",
-				"type": "address"
-			}
-		],
-		"name": "getUserCollateralRatioInPercent",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_percent",
-				"type": "uint256"
-			},
-			{
-				"internalType": "address",
-				"name": "_user",
-				"type": "address"
-			}
-		],
-		"name": "collateralPercentToRatio",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "_user",
-				"type": "address"
-			}
-		],
-		"name": "getUserSupposedCollateralsValue",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
 		"inputs": [
 			{
 				"internalType": "uint256",
 				"name": "collateralAmount",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_collateralRatio",
 				"type": "uint256"
 			}
 		],
@@ -763,7 +524,7 @@
 	},
 	{
 		"inputs": [],
-		"name": "getCollateralPrice",
+		"name": "viewCollateralPrice",
 		"outputs": [
 			{
 				"internalType": "uint256",
@@ -812,12 +573,7 @@
 		"inputs": [
 			{
 				"internalType": "uint256",
-				"name": "_collateralRatio",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_amount",
+				"name": "collateralAmount",
 				"type": "uint256"
 			}
 		],
@@ -841,20 +597,13 @@
 			}
 		],
 		"name": "redeem",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
+		"outputs": [
 			{
-				"internalType": "address",
-				"name": "_user",
-				"type": "address"
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
 			}
 		],
-		"name": "liquidateUserAssets",
-		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
 	},
@@ -884,7 +633,7 @@
 				"type": "uint256"
 			}
 		],
-		"stateMutability": "view",
+		"stateMutability": "pure",
 		"type": "function"
 	},
 	{
@@ -918,7 +667,7 @@
 				"type": "uint256"
 			}
 		],
-		"stateMutability": "view",
+		"stateMutability": "pure",
 		"type": "function"
 	}
 ]

@@ -40,7 +40,6 @@
 
 <script>
 import { fromWei } from "~/utils/bnTools";
-import { getTotalSupplyWithToken} from "~/services/theGraph";
 
 export default {
 	name: "TheCollateralHub",
@@ -48,7 +47,7 @@ export default {
 		return {
 			myCollateralizationRatio: null,
 			minimumCollateralizationRatio: null,
-			collaterals: ["ETH", "USDC", "BTC", "BUSD", "AVAX", "USDT"],
+			collaterals: ["ETH", "BTC", "BUSD", "AVAX", "USDC", "USDT"],
 			currentlySelectedCollateral: "ETH",
 			collateralPrice: null,
 			userMintedAmount: null,
@@ -117,8 +116,7 @@ export default {
 	},
 	methods: {
 		tabChanged(e) {
-			this.currentlySelectedCollateral = e.selectedValue;
-			this.$store.dispatch("collateralVaultStore/changeCollateral", this.currentlySelectedCollateral);
+			this.currentlySelectedCollateral = this.collaterals[e];
 		},
 		async getCollateralPrice() {
 			let result = 0;
@@ -133,7 +131,7 @@ export default {
 		async getUserMintedAmount() {
 			let result = 0;
 			try {
-				result = parseFloat(await this.$store.getters["collateralVaultStore/getUserMintedAmount"](this.connectedAccount)) / (10 ** this.$store.state.erc20Store.decimals[this.currentlySelectedCollateral]);
+				result = parseFloat(fromWei(await this.$store.getters["collateralVaultStore/getUserMintedAmount"](this.connectedAccount)));
 			} catch (e) {
 			} finally {
 				this.$set(this.userTotalMintedNuonStore, this.currentlySelectedCollateral, result);
@@ -152,7 +150,7 @@ export default {
 		async getUserCollateralAmount() {
 			let result = 0;
 			try {
-				result = parseFloat(await this.$store.getters["collateralVaultStore/getUserCollateralAmount"](this.connectedAccount)) / (10 ** this.$store.state.erc20Store.decimals[this.currentlySelectedCollateral]);
+				result = parseFloat(fromWei(await this.$store.getters["collateralVaultStore/getUserCollateralAmount"](this.connectedAccount)));
 			} catch (e) {
 			} finally {
 				this.$set(this.userTotalLockedCollateralAmountStore, this.currentlySelectedCollateral, result);
@@ -181,9 +179,8 @@ export default {
 		async getCollateralHistoricalPrices() {
 			let result = [];
 			try {
-				const collateralAddress = await this.$store.getters["addressStore/tokens"][this.currentlySelectedCollateral];
-				const collateralSupplyResponse = await getTotalSupplyWithToken(collateralAddress);
-				result = collateralSupplyResponse.data.data.totalSupplyDayDatas;
+				const hydroSupplyResponse = await getTotalSupplyWithToken(HYDRO_ADDRESS);
+				result = hydroSupplyResponse.data.data.totalSupplyDayDatas;
 			} catch (e) {
 			} finally {
 				this.$set(this.collateralHistoricalPrices, this.currentlySelectedCollateral, result);

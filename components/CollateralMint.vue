@@ -3,7 +3,7 @@
 		<template #step-one>
 			<DataCard class="u-full-width u-mb-48">
 				<LayoutFlex direction="row-space-between" class="u-full-width">
-					<p>Amount of {{currentlySelectedCollateral}}</p>
+					<p>Amount of ETH</p>
 					<p>Available balance: {{ (tokenBalance || 0) | formatLongNumber }}</p>
 				</LayoutFlex>
 				<div class="input u-mb-12">
@@ -41,7 +41,7 @@
 							<h4 :class="selectedCollateralRatio < 730 ? selectedCollateralRatio < 460 ? 'u-is-warning' : 'u-is-caution' : 'u-is-success'">{{ selectedCollateralRatio }}%</h4>
 						</div>
 					</LayoutFlex>
-					<RangeSlider :min="`${sliderMin}`" :max="'1000'" :slider-disabled="!inputValue || isMoreThanBalance" :selected-collateral-ratio="`${selectedCollateralRatio}`" @emit-change="sliderChanged" />
+					<RangeSlider :min="sliderMin" :max="'1000'" :slider-disabled="!inputValue || isMoreThanBalance" :selected-collateral-ratio="`${selectedCollateralRatio}`" @emit-change="sliderChanged" />
 					<LayoutFlex direction="row-space-between">
 						<div class="range-slider__value">
 							<h5>{{ sliderMin }}%</h5>
@@ -132,7 +132,7 @@ export default {
 	},
 	computed: {
 		isApproved() {
-			return !!parseFloat(this.$store.state.collateralVaultStore.allowance[this.currentlySelectedCollateral]);
+			return true;
 		},
 		disabledMint() {
 			return !this.isApproved || !parseFloat(this.inputValue) || this.isMoreThanBalance || !this.connectedAccount;
@@ -141,14 +141,14 @@ export default {
 			return  parseFloat(this.inputValue) > this.tokenBalance;
 		},
 		tokenBalance() {
-			return parseFloat(this.$store.state.erc20Store.balance[this.currentlySelectedCollateral]);
+			return parseFloat(this.$store.state.erc20Store.balance.ETH);
 		},
 		readyToDeposit() {
 			return !!this.inputValue && !this.isMoreThanBalance;
 		},
 		mintFee() {
 			return parseFloat(this.$store.state.collateralVaultStore.mintingFee) * 100;
-		},
+		}
 	},
 	watch: {
 		inputValue() {
@@ -161,11 +161,6 @@ export default {
 				if (this.selectedCollateralRatio === this.sliderMin) this.liquidationPrice = this.inputValue * this.collateralPrice;
 				this.getEstimatedMintedNuon();
 			}
-		},
-		async currentlySelectedCollateral() {
-			const collateralPrice = await this.$store.getters["collateralVaultStore/getCollateralPrice"]();
-			this.collateralPrice = fromWei(collateralPrice);
-			this.$store.dispatch("collateralVaultStore/updateStatus");
 		}
 	},
 	async mounted() {
@@ -187,7 +182,7 @@ export default {
 			this.isApproving = true;
 			this.$store.dispatch("collateralVaultStore/approveToken",
 				{
-					tokenSymbol: this.currentlySelectedCollateral,
+					tokenSymbol: "nuMINT",
 					onConfirm: () => { },
 					onReject: () => { },
 					onCallback: () => {
@@ -212,7 +207,7 @@ export default {
 		async mint() {
 			this.activeStep = "loading";
 			this.minting = true;
-			const amount = toWei(this.inputValue, this.$store.state.erc20Store.decimals[this.currentlySelectedCollateral]);
+			const amount = toWei(this.inputValue, this.$store.state.erc20Store.decimals.HX);
 			const collateralRatioToWei = 10 ** 18 / parseFloat(this.selectedCollateralRatio / 100);
 
 			try {
