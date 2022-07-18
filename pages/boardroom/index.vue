@@ -57,7 +57,7 @@
 					</TheModal>
 				</LayoutFlex>
 			</LayoutFlex>
-			<LayoutInfo size="4">
+			<LayoutInfo size="boardroom">
 				<DataCard class="u-mb-md-36 u-mb-sm-24">
 					<label>My Stake</label>
 					<TheLoader component="h1">
@@ -96,13 +96,13 @@
 				<StatCard class="u-mb-md-12">
 					<label>Total Staked<TooltipIcon v-tooltip="'Total nuMINT staked on the protocol.'" /></label>
 					<TheLoader component="h3">
-						<h3>{{ totalStaked | toFixed | numberWithCommas }}</h3>
+						<h3>{{ totalStaked | toFixed | numberWithCommas }}<sup>nuMINT</sup></h3>
 					</TheLoader>
 				</StatCard>
 				<StatCard class="u-mb-md-12">
 					<label>nuMINT Price<TooltipIcon v-tooltip="'USD Value of total staked nuMINT.'" /></label>
 					<TheLoader component="h3">
-						<h3>{{ tokenPrices.HX | toFixed | numberWithCommas }}</h3>
+						<h3>${{ tokenPrices.HX | toFixed | numberWithCommas }}</h3>
 					</TheLoader>
 				</StatCard>
 				<StatCard>
