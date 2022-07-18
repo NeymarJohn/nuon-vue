@@ -24,7 +24,7 @@
 				<h3 :class="getUserCrClass">{{ myCollateralizationRatio | toFixed }}<sup>%</sup></h3>
 			</ComponentLoader>
 			<TheLoader component="h5">
-				<TheBadge v-if="!isNaN(getChangePercent('collateralRatio', collateralRatioArr, true))" :color="getPercentChangeBadgeClass('collateralRatio', collateralRatioArr, true)">{{ getUserCrSign }}{{ Math.abs(getChangePercent('collateralRatio', collateralRatioArr, true)) }}%</TheBadge>
+				<TheBadge :color="getPercentChangeBadgeClass('collateralRatio', collateralRatioArr, true)">{{ getUserCrSign }}{{ Math.abs(getChangePercent('collateralRatio', collateralRatioArr, true)) }}%</TheBadge>
 			</TheLoader>
 		</DataCard>
 		<DataCard>
@@ -33,7 +33,7 @@
 				<h3>${{ currentPrice | toFixed | numberWithCommas }}</h3>
 			</ComponentLoader>
 			<TheLoader component="h5">
-				<TheBadge v-if="!isNaN(collateralPriceChange[0])" :color="collateralPriceChange[1]">{{collateralPriceChange[0]}}%</TheBadge>
+				<TheBadge :color="collateralPriceChange[1]">{{collateralPriceChange[0]}}%</TheBadge>
 			</TheLoader>
 		</DataCard>
 	</LayoutInfo>

@@ -40,6 +40,7 @@
 
 <script>
 import { fromWei } from "~/utils/bnTools";
+import { getTotalSupplyWithToken} from "~/services/theGraph";
 
 export default {
 	name: "TheCollateralHub",
@@ -47,7 +48,7 @@ export default {
 		return {
 			myCollateralizationRatio: null,
 			minimumCollateralizationRatio: null,
-			collaterals: ["ETH", "BTC", "BUSD", "AVAX", "USDC", "USDT"],
+			collaterals: ["ETH", "USDC", "BTC", "BUSD", "AVAX", "USDT"],
 			currentlySelectedCollateral: "ETH",
 			collateralPrice: null,
 			userMintedAmount: null,
@@ -116,7 +117,8 @@ export default {
 	},
 	methods: {
 		tabChanged(e) {
-			this.currentlySelectedCollateral = this.collaterals[e];
+			this.currentlySelectedCollateral = e.selectedValue;
+			this.$store.dispatch("collateralVaultStore/changeCollateral", this.currentlySelectedCollateral);
 		},
 		async getCollateralPrice() {
 			let result = 0;
@@ -179,8 +181,9 @@ export default {
 		async getCollateralHistoricalPrices() {
 			let result = [];
 			try {
-				const hydroSupplyResponse = await getTotalSupplyWithToken(HYDRO_ADDRESS);
-				result = hydroSupplyResponse.data.data.totalSupplyDayDatas;
+				const collateralAddress = await this.$store.getters["addressStore/tokens"][this.currentlySelectedCollateral];
+				const collateralSupplyResponse = await getTotalSupplyWithToken(collateralAddress);
+				result = collateralSupplyResponse.data.data.totalSupplyDayDatas;
 			} catch (e) {
 			} finally {
 				this.$set(this.collateralHistoricalPrices, this.currentlySelectedCollateral, result);

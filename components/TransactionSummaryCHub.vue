@@ -5,7 +5,7 @@
 			<p class="u-color-light-grey">{{ convertFromTitle }}</p>
 			<LayoutFlex direction="row-center-space-between">
 				<LayoutFlex direction="row-center">
-					<img :src="require(`~/assets/images/borrow/${fromToken}.png`)" :alt="`${fromToken} logo`" height="50" width="50" class="u-mr-8">
+					<img :src="require(`~/assets/images/tokens/${fromToken}.png`)" :alt="`${fromToken} logo`" height="50" width="50" class="u-mr-8">
 					{{ fromToken }}
 				</LayoutFlex>
 				<h3>{{ convertFromAmount | toFixed | numberWithCommas }}</h3>
@@ -14,7 +14,7 @@
 			<p class="u-color-light-grey">{{ convertToTitle }}</p>
 			<LayoutFlex direction="row-center-space-between u-pb-32 u-bb-medium-light-grey">
 				<LayoutFlex direction="row-center">
-					<img :src="require(`~/assets/images/borrow/${toToken}.png`)" :alt="`${toToken} logo`" height="50" width="50" class="u-mr-8">
+					<img :src="require(`~/assets/images/tokens/${toToken}.png`)" :alt="`${toToken} logo`" height="50" width="50" class="u-mr-8">
 					{{ toToken }}
 				</LayoutFlex>
 				<h3>{{ convertToAmount | toFixed | numberWithCommas }}</h3>
