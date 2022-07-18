@@ -21,7 +21,7 @@
 						<h3>{{ circulatingSupply | toFixed | numberWithCommas }}</h3>
 					</ComponentLoader>
 					<LayoutFlex class="u-mb-md-4">
-						<p>Price</p><TheBadge v-if="!isNaN(getChangePercent('price', dataToUse))" :color="getPercentChangeBadgeClass('price', dataToUse)" class="u-ml-8">{{ getChangePercent('price', dataToUse) }}%</TheBadge>
+						<p>Price</p><TheBadge v-if="!isNaN(getChangePercent('priceUSD', dataToUse))" :color="getPercentChangeBadgeClass('priceUSD', dataToUse)" class="u-ml-8">{{ getChangePercent('priceUSD', dataToUse) }}%</TheBadge>
 					</LayoutFlex>
 					<ComponentLoader component="h3" :loaded="tokenPrice !== null" class="u-mb-24">
 						<h3>${{ tokenPrice && tokenPrice.indexOf("0.") === 0 ? tokenPrice : numberWithCommas(tokenPrice) }}</h3>
@@ -80,7 +80,7 @@
 </template>
 
 <script>
-// import { getTotalSupplyWithToken} from "~/services/theGraph";
+import { getTokenData } from "~/services/theGraph";
 import nuonData from "@/assets/json/nuon.json";
 import numintData from "@/assets/json/numint.json";
 export default {
@@ -103,8 +103,6 @@ export default {
 	},
 	computed: {
 		dataToUse() {
-			// console.log("nuonSupplyInfo", JSON.stringify(this.nuonSupplyInfo));
-			// console.log("hydroSupplyInfo",JSON.stringify(this.hydroSupplyInfo));
 			return this.currentlySelectedTab === "NUON" ? this.nuonSupplyInfo : this.hydroSupplyInfo;
 		},
 		marketCap() {
@@ -203,8 +201,8 @@ export default {
 				}, {});
 
 				const sortedData = Object.entries(mondaysOfWeekOfDates).sort((a, b) => parseInt(a[0]) - parseInt(b[0]));
-				const averageSortedData = sortedData.map(([_monday, weekData]) => weekData.reduce((acc, val) => acc + parseInt(val), 0) / weekData.length);
-				data = averageSortedData;
+				const sortedDataWithLastClosingPrice = sortedData.map(([_monday, weekData]) => weekData[weekData.length - 1]);
+				data = sortedDataWithLastClosingPrice;
 			} else {
 				const yearAndMonthsOfDates = this.graphData.reduce((acc, graphData) => {
 					const year = graphData.date.getFullYear();
@@ -221,13 +219,13 @@ export default {
 					return acc;
 				}, {});
 
-				const sortedDataOverYearAndMonth = Object.entries(yearAndMonthsOfDates).sort((a, b) => parseInt(a[0]) - parseInt(b[0]));
-				const averagesOverMonths = sortedDataOverYearAndMonth.flatMap(([_year, monthsWithData]) => {
+				const sortedDataOverYearWithMonths = Object.entries(yearAndMonthsOfDates).sort((a, b) => parseInt(a[0]) - parseInt(b[0]));
+				const closingPriceForMonths = sortedDataOverYearWithMonths.flatMap(([_year, monthsWithData]) => {
 					const sortedMonthsData = Object.entries(monthsWithData).sort((a, b) => parseInt(a[0]) - parseInt(b[0]));
-					const averageOverMonth = sortedMonthsData.map(([_month, data]) => data.reduce((acc, val) => acc + parseFloat(val), 0) / data.length);
-					return averageOverMonth;
+					const closingPriceForMonth = sortedMonthsData.map(([_month, data]) => data[data.length - 1]);
+					return closingPriceForMonth;
 				});
-				data = averagesOverMonths;
+				data = closingPriceForMonths;
 			}
 
 			data = data.map(d => parseFloat(d).toFixed(2));
@@ -239,27 +237,34 @@ export default {
 			return this.yAxisData.map(d => d ? this.yAxisData[this.yAxisData.length - 2] : null);
 		}
 	},
-	mounted() {
+	async mounted() {
 		try {
-			// const nuonAddress = this.$store.getters["addressStore/tokens"].NUON;
-			// const hydroAddress = this.$store.getters["addressStore/tokens"].HX;
+			const nuonAddress = this.$store.getters["addressStore/tokens"].NUON;
+			const hydroAddress = this.$store.getters["addressStore/tokens"].HX;
 
-			// const nuonSupplyResponse = await getTotalSupplyWithToken(nuonAddress);
-			// this.nuonSupplyInfo = nuonSupplyResponse.data.data.totalSupplyDayDatas;
-			this.nuonSupplyInfo = this.nuonSupplyInfo.map(item => {
+			const nuonSupplyResponse = await getTokenData(nuonAddress);
+			const hydroSupplyResponse = await getTokenData(hydroAddress);
+
+			this.nuonSupplyInfo = nuonSupplyResponse.data.data.token.tokenDayData.reverse().map(item => {
 				return {
 					...item,
-					marketVal: item.value * item.price.price
+					"marketVal": item.value,
+					"value":item.value,
+					"price": {
+						"price": item.priceUSD,
+					}
 				};
 			});
-			this.hydroSupplyInfo = this.hydroSupplyInfo.map(item => {
+			this.hydroSupplyInfo = hydroSupplyResponse.data.data.token.tokenDayData.reverse().map(item => {
 				return {
 					...item,
-					marketVal: item.value * item.price.price
+					"marketVal": item.value,
+					"value":item.value,
+					"price": {
+						"price": item.priceUSD,
+					}
 				};
 			});
-			// const hydroSupplyResponse = await getTotalSupplyWithToken(hydroAddress);
-			// this.hydroSupplyInfo = hydroSupplyResponse.data.data.totalSupplyDayDatas;
 
 			this.handlePeriodTabChanged(0);
 		} catch (e) {
