@@ -211,30 +211,28 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 	},
 	async mintNuon(ctx: any, {collateralRatio, collateralAmount, onTxHash, onConfirm, onReject}) {
 		const accountAddress = ctx.rootState.web3Store.account;
-		if (ctx.state.currentCollateralToken === "USDC") {
-			return await ctx.getters.collateralHubContract.methods.mint(collateralRatio, collateralAmount).send({from: accountAddress})
-				.on("transactionHash", (txHash: string) => {
-					if (onTxHash) onTxHash(txHash);
-				})
-				.on("confirmation", (confNumber: any, _receipt: any, _latestBlockHash: any) => {
-					if (onConfirm && confNumber === 0) onConfirm(confNumber, _receipt, _latestBlockHash);
-				})
-				.on("error", (err: any) => {
-					if (onReject) onReject(err);
-				});
-		} else {
-			return await ctx.getters.collateralHubContract.methods.mint(collateralRatio).send({from: accountAddress, value: collateralAmount})
-				.on("transactionHash", (txHash: string) => {
-					if (onTxHash) onTxHash(txHash);
-				})
-				.on("confirmation", (confNumber: any, _receipt: any, _latestBlockHash: any) => {
-					if (onConfirm && confNumber === 0) onConfirm(confNumber, _receipt, _latestBlockHash);
-				})
-				.on("error", (err: any) => {
-					if (onReject) onReject(err);
-				});
+		const payload: {from: any, value?: any} = {from: accountAddress};
+		const mintMethod = ctx.getters.collateralHubContract.methods.mint;
+		let methodExecution = null;
+
+		if (ctx.state.currentCollateralToken === "ETH") {
+			methodExecution = mintMethod(collateralRatio);
+			payload.value = collateralAmount;
+		} else if (ctx.state.currentCollateralToken === "USDC") {
+			methodExecution = mintMethod(collateralRatio, collateralAmount);
 		}
-		
+
+		return await methodExecution
+			.send(payload)
+			.on("transactionHash", (txHash: string) => {
+				if (onTxHash) onTxHash(txHash);
+			})
+			.on("confirmation", (confNumber: any, _receipt: any, _latestBlockHash: any) => {
+				if (onConfirm && confNumber === 0) onConfirm(confNumber, _receipt, _latestBlockHash);
+			})
+			.on("error", (err: any) => {
+				if (onReject) onReject(err);
+			});
 	},
 	async redeem(ctx: any, {nuonAmount, onConfirm, onReject}) {
 		const accountAddress = ctx.rootState.web3Store.account;
