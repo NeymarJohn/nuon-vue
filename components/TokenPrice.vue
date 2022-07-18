@@ -9,19 +9,19 @@
 			<LayoutFlex class="l-flex--column-md">
 				<div class="chart">
 					<LayoutFlex class="u-mb-md-4">
-						<p>Market Cap</p><TheBadge :color="getPercentChangeBadgeClass('marketVal', dataToUse)" class="u-ml-8">{{ getChangePercent('marketVal', dataToUse) }}%</TheBadge>
+						<p>Market Cap</p><TheBadge v-if="!isNaN(getChangePercent('marketVal', dataToUse))" :color="getPercentChangeBadgeClass('marketVal', dataToUse)" class="u-ml-8">{{ getChangePercent('marketVal', dataToUse) }}%</TheBadge>
 					</LayoutFlex>
 					<ComponentLoader class="u-mb-48" component="h3" :loaded="marketCap !== null">
 						<h3>${{ marketCap | numberWithCommas }}</h3>
 					</ComponentLoader>
 					<LayoutFlex class="u-mb-md-4">
-						<p>Circulating Supply</p><TheBadge :color="getPercentChangeBadgeClass('value', dataToUse)" class="u-ml-8">{{ getChangePercent('value', dataToUse) }}%</TheBadge>
+						<p>Circulating Supply</p><TheBadge v-if="!isNaN(getChangePercent('value', dataToUse))" :color="getPercentChangeBadgeClass('value', dataToUse)" class="u-ml-8">{{ getChangePercent('value', dataToUse) }}%</TheBadge>
 					</LayoutFlex>
 					<ComponentLoader class="u-mb-48" component="h3" :loaded="circulatingSupply !== null">
 						<h3>{{ circulatingSupply | toFixed | numberWithCommas }}</h3>
 					</ComponentLoader>
 					<LayoutFlex class="u-mb-md-4">
-						<p>Price</p><TheBadge :color="getPercentChangeBadgeClass('priceUSD', dataToUse)" class="u-ml-8">{{ getChangePercent('priceUSD', dataToUse) }}%</TheBadge>
+						<p>Price</p><TheBadge v-if="!isNaN(getChangePercent('priceUSD', dataToUse))" :color="getPercentChangeBadgeClass('priceUSD', dataToUse)" class="u-ml-8">{{ getChangePercent('priceUSD', dataToUse) }}%</TheBadge>
 					</LayoutFlex>
 					<ComponentLoader component="h3" :loaded="tokenPrice !== null" class="u-mb-24">
 						<h3>${{ tokenPrice && tokenPrice.indexOf("0.") === 0 ? tokenPrice : numberWithCommas(tokenPrice) }}</h3>
