@@ -151,7 +151,7 @@ export default {
 	},
 	head() {
 		return {
-			title: "Create New Proposal - Boardroom | Nuon"
+			title: "Create New Proposal - Boardroom | NUON"
 		};
 	},
 	computed: {

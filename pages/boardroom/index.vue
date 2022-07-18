@@ -120,7 +120,7 @@
 			<LayoutFlex class="u-mb-36 u-mb-md-24 l-flex--column-start-sm" direction="row-space-between">
 				<PageTitle>
 					<h2>Proposals<TooltipIcon v-tooltip="'nuMINT stakers have the right to make and vote on proposals that affect the future direction of the protocol. All proposals can be accessed and managed here.'" /></h2>
-					<h5>Create proposals and vote to improve the Nuon protocol.</h5>
+					<h5>Create proposals and vote to improve the NUON protocol.</h5>
 				</PageTitle>
 				<DataCard align="end" class="u-full-width-sm">
 					<NuxtLink :disabled="!isConnectedWallet" :event="!isConnectedWallet ? '' : 'click'" class="btn btn--lg u-full-width-sm u-text-center-sm" to="/boardroom/create-new-proposal" title="Click to create a new proposal">Create New Proposal</NuxtLink>
@@ -200,7 +200,7 @@ export default {
 	},
 	head() {
 		return {
-			title: "Boardroom | Nuon"
+			title: "Boardroom | NUON"
 		};
 	},
 	computed: {

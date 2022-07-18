@@ -120,7 +120,7 @@ export default {
 			configData: [{title: "Locked Collateral", id: "lockedCollateral"},
 				{title: "Today's Price", id: "currentPrice"},
 				{title: "Total Value Locked", id: "lockedValue"},
-				{title: "Total Minted", id: "mintedNuon"},
+				{title: "Total NUON Minted", id: "mintedNuon"},
 				{title: "Collateralization Ratio", id: "collateralizationRatio"}],
 			miscConfig: {
 				hasImage: {lockedCollateral: "ETH"},
@@ -128,7 +128,7 @@ export default {
 					lockedCollateral: "All the tokens you have locked as collateral to mint NUON.",
 					currentPrice: "Current price of collateral tokens, for your reference when considering how much collateral to keep locked up.",
 					lockedValue: "USD value of your locked collateral.",
-					mintedNuon: "Amount of Nuon minted with your collateral.",
+					mintedNuon: "Amount of NUON minted with your collateral.",
 					collateralizationRatio: "Your collateralization ratio per collateral asset."
 				}
 			},
@@ -146,7 +146,7 @@ export default {
 	},
 	head () {
 		return {
-			title: "My Dashboard | Nuon"
+			title: "My Dashboard | NUON"
 		};
 	},
 	computed: {

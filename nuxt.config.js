@@ -7,7 +7,7 @@ export default {
 		host: "0" // default: localhost
 	},
 	head: {
-		title: "Nuon",
+		title: "NUON",
 		htmlAttrs: {
 			lang: "en"
 		},
