@@ -121,7 +121,7 @@ export default {
 		},
 		graphData() {
 			let dataKey;
-			if (this.selectedPriceTab === "Price") dataKey = "price";
+			if (this.selectedPriceTab === "Price") dataKey = "priceUSD";
 			if (this.selectedPriceTab === "Market Cap") dataKey = "marketVal";
 			if (this.selectedPriceTab === "Circulating Supply") dataKey = "value";
 
@@ -181,15 +181,12 @@ export default {
 		yAxisData() {
 			let data = this.graphData.map(d => d.data);
 
-			if (this.selectedPeriodTab === "D") {
-				if (this.selectedPriceTab === "Price") data = data.map(d => d.price);
-			} else if (this.selectedPeriodTab === "W") {
+			if (this.selectedPeriodTab === "W") {
 				const mondaysOfWeekOfDates = this.graphData.reduce((acc, graphData) => {
 					const d = graphData.date;
 					const day = d.getDay();
 					const mondayOfWeek = new Date(d.getTime() - (day - 1) * this.milliSecondsInDay).setUTCHours(0,0,0,0);
-					let graphDataValue = graphData.data;
-					if (this.selectedPriceTab === "Price") graphDataValue = graphDataValue.price;
+					const graphDataValue = graphData.data;
 
 					if (!acc[mondayOfWeek]) {
 						acc[mondayOfWeek] = [graphDataValue];
@@ -203,12 +200,11 @@ export default {
 				const sortedData = Object.entries(mondaysOfWeekOfDates).sort((a, b) => parseInt(a[0]) - parseInt(b[0]));
 				const sortedDataWithLastClosingPrice = sortedData.map(([_monday, weekData]) => weekData[weekData.length - 1]);
 				data = sortedDataWithLastClosingPrice;
-			} else {
+			} else if (this.selectedPeriodTab === "M") {
 				const yearAndMonthsOfDates = this.graphData.reduce((acc, graphData) => {
 					const year = graphData.date.getFullYear();
 					const month = graphData.date.getMonth();
-					let graphDataValue = graphData.data;
-					if (this.selectedPriceTab === "Price") graphDataValue = graphDataValue.price;
+					const graphDataValue = graphData.data;
 
 					if (!acc[year] || !acc[year][month]) {
 						acc[year] = {[month]: [graphDataValue]};
@@ -247,21 +243,15 @@ export default {
 			this.nuonSupplyInfo = nuonSupplyResponse.data.data.token.tokenDayData.reverse().map(item => {
 				return {
 					...item,
-					"marketVal": item.value,
-					"value":item.value,
-					"price": {
-						"price": item.priceUSD,
-					}
+					"marketVal": item.totalLiquidityUSD,
+					"value": item.totalLiquidityToken,
 				};
 			});
 			this.hydroSupplyInfo = hydroSupplyResponse.data.data.token.tokenDayData.reverse().map(item => {
 				return {
 					...item,
-					"marketVal": item.value,
-					"value":item.value,
-					"price": {
-						"price": item.priceUSD,
-					}
+					"marketVal": item.totalLiquidityUSD,
+					"value": item.totalLiquidityToken,
 				};
 			});
 
