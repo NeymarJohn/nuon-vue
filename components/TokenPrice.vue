@@ -103,6 +103,8 @@ export default {
 	},
 	computed: {
 		dataToUse() {
+			// console.log("nuonSupplyInfo", JSON.stringify(this.nuonSupplyInfo));
+			// console.log("hydroSupplyInfo",JSON.stringify(this.hydroSupplyInfo));
 			return this.currentlySelectedTab === "NUON" ? this.nuonSupplyInfo : this.hydroSupplyInfo;
 		},
 		marketCap() {
