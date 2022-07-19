@@ -13,7 +13,8 @@
 	position: relative;
 	background: $DARK_GREY;
 }
-.stat-card h3 {
+.stat-card h3,
+.stat-card h3 sup {
 	color: $LIME;
 }
 .stat-card label {

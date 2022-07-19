@@ -1,6 +1,7 @@
 import axios from "axios";
 import dayjs from "dayjs";
 const THE_GRAPH_URL = "https://graphiql-nuon.hydrogenx.live/subgraphs/name/nuon";
+const UNISWAP_THE_GRAPH_URL = "https://graphiql-nuon.hydrogenx.live/subgraphs/name/nuon/uniswap";
 
 export const getCollateralTVLDayData = () => axios.post(THE_GRAPH_URL, {
 	query: `
@@ -147,6 +148,32 @@ export const getUserCollateralHistoryData = (filters) => {
 					}
 				}
 			}`,
+		variables
+	});
+};
+
+export const getTokenData = (token) => {
+	const variables = {
+		token: token.toLowerCase()
+	};
+	return axios.post(UNISWAP_THE_GRAPH_URL, {
+		query:`
+			query getTokenData($token: String) {
+				token(id: $token) {
+					id
+					tokenDayData(orderDirection: desc, orderBy: date) {
+						priceUSD
+						dailyVolumeUSD
+						dailyVolumeToken
+						dailyVolumeETH
+						dailyTxns
+						totalLiquidityUSD
+						totalLiquidityToken
+						date
+						totalLiquidityETH
+					}
+				}
+		}`,
 		variables
 	});
 };

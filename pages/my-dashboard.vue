@@ -10,7 +10,7 @@
 					<label>
 						<TheDot color="light-green" />
 						My Total Value Locked
-						<TheBadge class="u-ml-8" :color="getPercentChangeBadgeClass('collateralTokens', collateralRatioArr, true)">{{ getUserTVLSign }}{{ Math.abs(getChangePercent('collateralTokens', collateralRatioArr, true)) }}%</TheBadge>
+						<TheBadge v-if="!isNaN(getChangePercent('collateralTokens', collateralRatioArr, true))" class="u-ml-8" :color="getPercentChangeBadgeClass('collateralTokens', collateralRatioArr, true)">{{ getUserTVLSign }}{{ Math.abs(getChangePercent('collateralTokens', collateralRatioArr, true)) }}%</TheBadge>
 					</label>
 					<ComponentLoader component="h1" :loaded="totalValue !== null">
 						<h3>${{ (graphSelectionTVL || totalValue) | toFixed | numberWithCommas }}</h3>
@@ -20,7 +20,7 @@
 					<label>
 						<TheDot color="lime" />
 						Total Value of My Minted NUON
-						<TheBadge class="u-ml-8" :color="getPercentChangeBadgeClass('mintedNuon', collateralRatioArr, true)">{{ getUserMintedNuonSign }}{{ Math.abs(getChangePercent('mintedNuon', collateralRatioArr, true)) }}%</TheBadge>
+						<TheBadge v-if="!isNaN(getChangePercent('mintedNuon', collateralRatioArr, true))" class="u-ml-8" :color="getPercentChangeBadgeClass('mintedNuon', collateralRatioArr, true)">{{ getUserMintedNuonSign }}{{ Math.abs(getChangePercent('mintedNuon', collateralRatioArr, true)) }}%</TheBadge>
 					</label>
 					<ComponentLoader component="h1" :loaded="totalMintedNuon !== null">
 						<h3>${{ (graphSelectionMintedNuon || totalMintedNuon) | toFixed | numberWithCommas }}</h3>
@@ -74,7 +74,7 @@
 				<DataCard>
 					<label><TheDot color="orange" />NUON &#38; nuMINT balance<TooltipIcon v-tooltip="'Total USD value of NUON & nuMINT in wallet.'" /></label>
 					<ComponentLoader component="h1" :loaded="balancesValue !== null">
-						<h4>{{ tokenBalances.HX | toFixed | numberWithCommas }} nuMINT</h4>
+						<h4>{{ tokenBalances.HX | toFixed | numberWithCommas }} HX</h4>
 						<h4>{{ tokenBalances.NUON | toFixed | numberWithCommas }} NUON</h4>
 						<!-- <h4>${{ balancesValue | toFixed | numberWithCommas }}</h4> -->
 					</ComponentLoader>
@@ -120,20 +120,20 @@ export default {
 			configData: [{title: "Locked Collateral", id: "lockedCollateral"},
 				{title: "Today's Price", id: "currentPrice"},
 				{title: "Total Value Locked", id: "lockedValue"},
-				{title: "Total Minted", id: "mintedNuon"},
+				{title: "Total NUON Minted", id: "mintedNuon"},
 				{title: "Collateralization Ratio", id: "collateralizationRatio"}],
 			miscConfig: {
-				hasImage: {lockedCollateral: ["ETH", "USDC"] },
+				hasImage: {lockedCollateral: "ETH"},
 				headerTooltips: {
 					lockedCollateral: "All the tokens you have locked as collateral to mint NUON.",
 					currentPrice: "Current price of collateral tokens, for your reference when considering how much collateral to keep locked up.",
 					lockedValue: "USD value of your locked collateral.",
-					mintedNuon: "Amount of Nuon minted with your collateral.",
+					mintedNuon: "Amount of NUON minted with your collateral.",
 					collateralizationRatio: "Your collateralization ratio per collateral asset."
 				}
 			},
 			mobileView: false,
-			collaterals: ["ETH", "USDC"],
+			collaterals: ["ETH"],
 			collateralPrices: {},
 			userMintedAmounts: {},
 			userCollateralizationRatios: {},
@@ -146,7 +146,7 @@ export default {
 	},
 	head () {
 		return {
-			title: "My Dashboard | Nuon"
+			title: "My Dashboard | NUON"
 		};
 	},
 	computed: {
@@ -166,34 +166,37 @@ export default {
 		},
 		stakedBalance() {
 			return fromWei(this.$store.state.boardroomStore.stakedBalance);
+			// const stakedBalance = this.$store.state.boardroomStore.stakedBalance;
+			// if (stakedBalance && this.collateralPrices.ETH) {
+			// 	return fromWei(stakedBalance) * this.collateralPrices.ETH;
+			// } else {
+			// 	return 0;
+			// }
 		},
 		myCollateralLocked() {
-			return Object.values(this.userTotalLockedCollateralAmount).reduce((acc, val) => acc + parseFloat(val), 0);
+			return this.userTotalLockedCollateralAmount.ETH;
 		},
 		totalValue() {
 			if (Object.entries(this.userTotalLockedCollateralAmount).length === 0) return 0;
-			return Object.entries(this.userTotalLockedCollateralAmount).reduce((acc, [collateral, amount]) => acc + this.collateralPrices[collateral] * parseFloat(amount), 0);
+			return Object.entries(this.userTotalLockedCollateralAmount).reduce((acc, [collateral, amount]) => acc + this.collateralPrices[collateral] * amount, 0);
 		},
 		myCollateralLockedPercentage() {
 			return Number(this.myCollateralLocked) / this.totalValue * 100;
 		},
 		totalMintedNuon() {
-			return parseFloat(Object.values(this.userMintedAmounts).reduce((acc, amount) => acc + parseFloat(amount), 0) * this.nuonPrice).toFixed(2);
+			return parseFloat(Object.values(this.userMintedAmounts).reduce((acc, amount) => acc + amount, 0) * this.nuonPrice).toFixed(2);
 		},
 		chubData() {
 			const data = [];
 
-			for (let i = 0; i < this.collaterals.length; i++) {
-				const collateral = this.collaterals[i];
-				const obj = {
-					lockedCollateral: collateral,
-					lockedValue: `$${this.numberWithCommas((this.myCollateralLocked[collateral] * this.collateralPrices[collateral]).toFixed(2))}`,
-					mintedNuon: this.numberWithCommas(parseFloat(this.userMintedAmounts[collateral]).toFixed(2)),
-					collateralizationRatio: `${this.numberWithCommas(parseFloat(this.userCollateralizationRatios[collateral]).toFixed(2))}%`,
-					currentPrice: `$${this.numberWithCommas(parseFloat(this.collateralPrices[collateral]).toFixed(2))}`
-				};
-				data.push(obj);
-			}
+			const obj = {
+				lockedCollateral: "ETH",
+				lockedValue: `$${this.numberWithCommas((this.myCollateralLocked * this.collateralPrices.ETH).toFixed(2))}`,
+				mintedNuon: this.numberWithCommas(parseFloat(this.userMintedAmounts.ETH).toFixed(2)),
+				collateralizationRatio: `${this.numberWithCommas(parseFloat(this.userCollateralizationRatios.ETH).toFixed(2))}%`,
+				currentPrice: `$${this.numberWithCommas(parseFloat(this.collateralPrices.ETH).toFixed(2))}`
+			};
+			data.push(obj);
 
 			return data;
 		},
@@ -233,73 +236,71 @@ export default {
 				data: reducedData.map(d => d.collateralTokens.reduce((acc, collateralToken) => acc + parseFloat(collateralToken.value) , 0))
 			}, {
 				name: "My Total Minted Value",
-				data: reducedData.map(d => d.mintedNuon)
+				data: reducedData.map(d => parseFloat(d.mintedNuon))
 			}];
 		}
 	},
 	watch: {
 		connectedAccount(newValue) {
-			if (newValue) this.initialize(this.collaterals);
+			if (newValue) this.initialize();
 		}
 	},
 	mounted() {
 		this.mobileView = this.isMobile();
-		this.initialize(this.collaterals);
-		this.handleMouseOverChart(-1);
+		this.initialize();
 	},
 	methods: {
-		async initialize(collaterals) {
-			for (let i = 0; i < collaterals.length; i++) {
-				const collateral = collaterals[i];
-				await this.$store.dispatch("collateralVaultStore/changeCollateral", collateral);
-				this.getCollateralsPrices(collateral);
-				this.getUserMintedAmount(collateral);
-				this.getUserCollateralizationRatio(collateral);
-				this.getUserCollateralAmount(collateral);
-			}
-
+		initialize() {
+			this.getCollateralsPrices();
+			this.getUserMintedAmount();
+			this.getUserCollateralizationRatio();
+			this.getUserCollateralAmount();
 			this.getNuonPrice();
 			this.getDiffMinted();
 		},
-		async getCollateralsPrices(collateral) {
-			let result = 0;
-			try {
-				result = parseFloat(fromWei(await this.$store.getters["collateralVaultStore/getCollateralPrice"]()));
-				this.$set(this.collateralPrices, collateral, result);
-			} catch (e) {
-			} finally {
-				this.collateralPrice = result;
+		async getCollateralsPrices() {
+			for (let i = 0; i < this.collaterals.length; i++) {
+				let result = 0;
+				try {
+					result = parseFloat(fromWei(await this.$store.getters["collateralVaultStore/getCollateralPrice"]()));
+					this.$set(this.collateralPrices, this.collaterals[i], result);
+				} catch (e) {
+				} finally {
+					this.collateralPrice = result;
+				}
 			}
 		},
-		async getUserMintedAmount(collateral) {
-			let result = 0;
-			try {
-				const decimals = 10 ** this.$store.state.erc20Store.decimals[collateral];
-				const amount = await this.$store.getters["collateralVaultStore/getUserMintedAmount"](this.connectedAccount) / decimals;
-				result = amount;
-			} catch (e) {
-			} finally {
-				this.$set(this.userMintedAmounts, collateral, result);
+		async getUserMintedAmount() {
+			for (let i = 0; i < this.collaterals.length; i++) {
+				let result = 0;
+				try {
+					result = fromWei(await this.$store.getters["collateralVaultStore/getUserMintedAmount"](this.connectedAccount));
+				} catch (e) {
+				} finally {
+					this.$set(this.userMintedAmounts, this.collaterals[i], result);
+				}
 			}
 		},
-		async getUserCollateralizationRatio(collateral) {
-			let result = 0;
-			try {
-				result = parseFloat(fromWei(await this.$store.getters["collateralVaultStore/getUserCollateralRatioInPercent"](this.connectedAccount)));
-			} catch (e) {
-			} finally {
-				this.$set(this.userCollateralizationRatios, collateral, result);
+		async getUserCollateralizationRatio() {
+			for (let i = 0; i < this.collaterals.length; i++) {
+				let result = 0;
+				try {
+					result = parseFloat(fromWei(await this.$store.getters["collateralVaultStore/getUserCollateralRatioInPercent"](this.connectedAccount)));
+				} catch (e) {
+				} finally {
+					this.$set(this.userCollateralizationRatios, this.collaterals[i], result);
+				}
 			}
 		},
-		async getUserCollateralAmount(collateral) {
-			let result = 0;
-			try {
-				const decimals = 10 ** this.$store.state.erc20Store.decimals[collateral];
-				const amount = (await this.$store.getters["collateralVaultStore/getUserCollateralAmount"](this.connectedAccount)) / decimals;
-				result = parseFloat(amount);
-			} catch (e) {
-			} finally {
-				this.$set(this.userTotalLockedCollateralAmount, collateral, result);
+		async getUserCollateralAmount() {
+			for (let i = 0; i < this.collaterals.length; i++) {
+				let result = 0;
+				try {
+					result = parseFloat(fromWei(await this.$store.getters["collateralVaultStore/getUserCollateralAmount"](this.connectedAccount)));
+				} catch (e) {
+				} finally {
+					this.$set(this.userTotalLockedCollateralAmount, this.collaterals[i], result);
+				}
 			}
 		},
 		async getNuonPrice() {
