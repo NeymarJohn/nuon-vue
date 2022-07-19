@@ -1,4 +1,4 @@
-# NUON App
+# Nuon App
 
 ## Build Setup
 

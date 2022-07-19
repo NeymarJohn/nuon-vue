@@ -3,7 +3,7 @@
 		<LayoutFlex class="u-mb-48 l-flex--column-start-sm" direction="row-center-space-between">
 			<PageTitle>
 				<h4>Ecosystem Overview</h4>
-				<h1>NUON Protocol Information</h1>
+				<h1>Nuon Protocol Information</h1>
 			</PageTitle>
 			<NuxtLink class="btn btn--lg btn--user" to="/my-dashboard" title="Click to view my page">
 				<UserIcon />
@@ -25,7 +25,7 @@ export default {
 	},
 	head () {
 		return {
-			title: "Ecosystem Overview | NUON",
+			title: "Ecosystem Overview | Nuon",
 			script: [
 				{ src: "https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js" },
 			]

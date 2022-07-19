@@ -22,7 +22,7 @@
 					role="cell">
 					<span v-if="obj.id === 'date'">{{ new Date(row[obj.id]) | formateDateTime }}</span>
 					<span v-else class="l-flex l-flex--row-center">
-						<img v-if="misc.hasImage && misc.hasImage[obj.id]" :src="require(`~/assets/images/borrow/${misc.hasImage[obj.id]}.png`)" class="u-mr-8" height="17" width="17" alt="">
+						<img v-if="misc.hasImage && misc.hasImage[obj.id]" :src="require(`~/assets/images/borrow/${misc.hasImage[obj.id][index]}.png`)" class="u-mr-8" height="17" width="17" alt="">
 						<span v-if="obj.id === 'totalAmount' || obj.id === 'amount'">{{ row[obj.id] | toFixed |  numberWithCommas }}</span>
 						<span v-else>{{ row[obj.id] }}</span>
 					</span>

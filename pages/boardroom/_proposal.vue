@@ -200,7 +200,7 @@ export default {
 	},
 	head() {
 		return {
-			title: `${this.pageTitle} - Boardroom | NUON`
+			title: `${this.pageTitle} - Boardroom | Nuon`
 		};
 	},
 	computed: {

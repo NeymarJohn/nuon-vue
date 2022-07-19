@@ -235,7 +235,7 @@ export default {
 	},
 	head () {
 		return {
-			title: "Swap | NUON"
+			title: "Swap | Nuon"
 		};
 	},
 	computed: {
