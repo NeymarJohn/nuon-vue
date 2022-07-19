@@ -9,22 +9,22 @@
 			<LayoutFlex class="l-flex--column-md">
 				<div class="chart">
 					<LayoutFlex class="u-mb-md-4">
-						<p>Market Cap</p><TheBadge :color="getPercentChangeBadgeClass('marketVal', dataToUse)" class="u-ml-8">{{ getChangePercent('marketVal', dataToUse) }}%</TheBadge>
+						<p>Market Cap</p><TheBadge v-if="!isNaN(getChangePercent('marketVal', dataToUse))" :color="getPercentChangeBadgeClass('marketVal', dataToUse)" class="u-ml-8">{{ getChangePercent('marketVal', dataToUse) }}%</TheBadge>
 					</LayoutFlex>
 					<ComponentLoader class="u-mb-48" component="h3" :loaded="marketCap !== null">
 						<h3>${{ marketCap | numberWithCommas }}</h3>
 					</ComponentLoader>
 					<LayoutFlex class="u-mb-md-4">
-						<p>Circulating Supply</p><TheBadge :color="getPercentChangeBadgeClass('value', dataToUse)" class="u-ml-8">{{ getChangePercent('value', dataToUse) }}%</TheBadge>
+						<p>Circulating Supply</p><TheBadge v-if="!isNaN(getChangePercent('value', dataToUse))" :color="getPercentChangeBadgeClass('value', dataToUse)" class="u-ml-8">{{ getChangePercent('value', dataToUse) }}%</TheBadge>
 					</LayoutFlex>
 					<ComponentLoader class="u-mb-48" component="h3" :loaded="circulatingSupply !== null">
 						<h3>{{ circulatingSupply | toFixed | numberWithCommas }}</h3>
 					</ComponentLoader>
 					<LayoutFlex class="u-mb-md-4">
-						<p>Price</p><TheBadge :color="getPercentChangeBadgeClass('price', dataToUse)" class="u-ml-8">{{ getChangePercent('price', dataToUse) }}%</TheBadge>
+						<p>Price</p><TheBadge v-if="!isNaN(getChangePercent('priceUSD', dataToUse))" :color="getPercentChangeBadgeClass('priceUSD', dataToUse)" class="u-ml-8">{{ getChangePercent('priceUSD', dataToUse) }}%</TheBadge>
 					</LayoutFlex>
 					<ComponentLoader component="h3" :loaded="tokenPrice !== null" class="u-mb-24">
-						<h3>${{ tokenPrice && tokenPrice.indexOf("0.") === 0 ? tokenPrice : numberWithCommas(tokenPrice) }}</h3>
+						<h3>${{ tokenPrice && tokenPrice.indexOf("0.") === 0 ? formatSubOneDecimals(tokenPrice) : numberWithCommas(parseFloat(tokenPrice).toFixed(2)) }}</h3>
 					</ComponentLoader>
 					<script src="https://truflation.com/truflation-widget.js"></script>
 					<truflation-widget></truflation-widget>
@@ -46,10 +46,10 @@
 						<DataCard>
 							<label>{{ selectedPriceTab }}</label>
 							<ComponentLoader component="h1" :loaded="graphSelection !== null">
-								<h3 class="u-font-size-h2-1440" :style="{color: graphSelection ? 'white' : '#3a3a3e'}">${{ graphSelection ? numberWithCommas(graphSelection) : 0 }}</h3>
+								<h3 class="u-font-size-h2-1440" :style="{color: graphSelection ? '#ffffff' : '#3a3a3e'}">${{ graphSelection && graphSelection.indexOf("0.") === 0 ? formatSubOneDecimals(graphSelection) : numberWithCommas(parseFloat(graphSelection).toFixed(2)) }}</h3>
 							</ComponentLoader>
 							<ComponentLoader component="h5" :loaded="dateSelection !== null">
-								<h5 :style="{color: dateSelection ? 'white' : '#3a3a3e'}">{{ dateSelection ? dateSelection : 0 }}</h5>
+								<h5 :style="{color: dateSelection ? '#ffffff' : '#3a3a3e'}">{{ dateSelection ? dateSelection : 0 }}</h5>
 							</ComponentLoader>
 						</DataCard>
 					</LayoutFlex>
@@ -80,7 +80,7 @@
 </template>
 
 <script>
-// import { getTotalSupplyWithToken} from "~/services/theGraph";
+import { getTokenData } from "~/services/theGraph";
 import nuonData from "@/assets/json/nuon.json";
 import numintData from "@/assets/json/numint.json";
 export default {
@@ -96,15 +96,13 @@ export default {
 			priceHistoryData: [],
 			graphSelection: "",
 			dateSelection: "",
-			nuonSupplyInfo: nuonData, // [],
-			hydroSupplyInfo: numintData, // [],
+			nuonSupplyInfo: [],
+			hydroSupplyInfo: [],
 			milliSecondsInDay: 86400000
 		};
 	},
 	computed: {
 		dataToUse() {
-			// console.log("nuonSupplyInfo", JSON.stringify(this.nuonSupplyInfo));
-			// console.log("hydroSupplyInfo",JSON.stringify(this.hydroSupplyInfo));
 			return this.currentlySelectedTab === "NUON" ? this.nuonSupplyInfo : this.hydroSupplyInfo;
 		},
 		marketCap() {
@@ -123,7 +121,7 @@ export default {
 		},
 		graphData() {
 			let dataKey;
-			if (this.selectedPriceTab === "Price") dataKey = "price";
+			if (this.selectedPriceTab === "Price") dataKey = "priceUSD";
 			if (this.selectedPriceTab === "Market Cap") dataKey = "marketVal";
 			if (this.selectedPriceTab === "Circulating Supply") dataKey = "value";
 
@@ -183,15 +181,12 @@ export default {
 		yAxisData() {
 			let data = this.graphData.map(d => d.data);
 
-			if (this.selectedPeriodTab === "D") {
-				if (this.selectedPriceTab === "Price") data = data.map(d => d.price);
-			} else if (this.selectedPeriodTab === "W") {
+			if (this.selectedPeriodTab === "W") {
 				const mondaysOfWeekOfDates = this.graphData.reduce((acc, graphData) => {
 					const d = graphData.date;
 					const day = d.getDay();
 					const mondayOfWeek = new Date(d.getTime() - (day - 1) * this.milliSecondsInDay).setUTCHours(0,0,0,0);
-					let graphDataValue = graphData.data;
-					if (this.selectedPriceTab === "Price") graphDataValue = graphDataValue.price;
+					const graphDataValue = graphData.data;
 
 					if (!acc[mondayOfWeek]) {
 						acc[mondayOfWeek] = [graphDataValue];
@@ -203,14 +198,13 @@ export default {
 				}, {});
 
 				const sortedData = Object.entries(mondaysOfWeekOfDates).sort((a, b) => parseInt(a[0]) - parseInt(b[0]));
-				const averageSortedData = sortedData.map(([_monday, weekData]) => weekData.reduce((acc, val) => acc + parseInt(val), 0) / weekData.length);
-				data = averageSortedData;
-			} else {
+				const sortedDataWithLastClosingPrice = sortedData.map(([_monday, weekData]) => weekData[weekData.length - 1]);
+				data = sortedDataWithLastClosingPrice;
+			} else if (this.selectedPeriodTab === "M") {
 				const yearAndMonthsOfDates = this.graphData.reduce((acc, graphData) => {
 					const year = graphData.date.getFullYear();
 					const month = graphData.date.getMonth();
-					let graphDataValue = graphData.data;
-					if (this.selectedPriceTab === "Price") graphDataValue = graphDataValue.price;
+					const graphDataValue = graphData.data;
 
 					if (!acc[year] || !acc[year][month]) {
 						acc[year] = {[month]: [graphDataValue]};
@@ -221,16 +215,15 @@ export default {
 					return acc;
 				}, {});
 
-				const sortedDataOverYearAndMonth = Object.entries(yearAndMonthsOfDates).sort((a, b) => parseInt(a[0]) - parseInt(b[0]));
-				const averagesOverMonths = sortedDataOverYearAndMonth.flatMap(([_year, monthsWithData]) => {
+				const sortedDataOverYearWithMonths = Object.entries(yearAndMonthsOfDates).sort((a, b) => parseInt(a[0]) - parseInt(b[0]));
+				const closingPriceForMonths = sortedDataOverYearWithMonths.flatMap(([_year, monthsWithData]) => {
 					const sortedMonthsData = Object.entries(monthsWithData).sort((a, b) => parseInt(a[0]) - parseInt(b[0]));
-					const averageOverMonth = sortedMonthsData.map(([_month, data]) => data.reduce((acc, val) => acc + parseFloat(val), 0) / data.length);
-					return averageOverMonth;
+					const closingPriceForMonth = sortedMonthsData.map(([_month, data]) => data[data.length - 1]);
+					return closingPriceForMonth;
 				});
-				data = averagesOverMonths;
+				data = closingPriceForMonths;
 			}
 
-			data = data.map(d => parseFloat(d).toFixed(2));
 			data.push(null);
 			data.unshift(null);
 			return data;
@@ -241,25 +234,37 @@ export default {
 	},
 	mounted() {
 		try {
+			const nuonPlaceholderData = nuonData;
+			const hydroPlaceholderData = numintData;
+
 			// const nuonAddress = this.$store.getters["addressStore/tokens"].NUON;
 			// const hydroAddress = this.$store.getters["addressStore/tokens"].HX;
 
-			// const nuonSupplyResponse = await getTotalSupplyWithToken(nuonAddress);
-			// this.nuonSupplyInfo = nuonSupplyResponse.data.data.totalSupplyDayDatas;
-			this.nuonSupplyInfo = this.nuonSupplyInfo.map(item => {
+			// const nuonSupplyResponse = await getTokenData(nuonAddress);
+			// const hydroSupplyResponse = await getTokenData(hydroAddress);
+
+			// if (nuonSupplyResponse.status === 200 && nuonSupplyResponse.data.data.token) {
+			// 	nuonPlaceholderData = nuonSupplyResponse.data.data.token.tokenDayData.reverse();
+			// }
+			// if (hydroSupplyResponse.status === 200 && hydroSupplyResponse.data.data.token) {
+			// 	hydroPlaceholderData = hydroSupplyResponse.data.data.token.tokenDayData.reverse();
+			// }
+			this.nuonSupplyInfo = nuonPlaceholderData.map(item => {
 				return {
 					...item,
-					marketVal: item.value * item.price.price
+					"marketVal": item.marketVal || item.totalLiquidityUSD,
+					"value": item.value || item.totalLiquidityToken,
+					"priceUSD": item.price && item.price.price ? item.price.price : item.priceUSD
 				};
 			});
-			this.hydroSupplyInfo = this.hydroSupplyInfo.map(item => {
+			this.hydroSupplyInfo = hydroPlaceholderData.map(item => {
 				return {
 					...item,
-					marketVal: item.value * item.price.price
+					"marketVal": item.marketVal || item.totalLiquidityUSD,
+					"value": item.value || item.totalLiquidityToken,
+					"priceUSD": item.price && item.price.price ? item.price.price : item.priceUSD
 				};
 			});
-			// const hydroSupplyResponse = await getTotalSupplyWithToken(hydroAddress);
-			// this.hydroSupplyInfo = hydroSupplyResponse.data.data.totalSupplyDayDatas;
 
 			this.handlePeriodTabChanged(0);
 		} catch (e) {

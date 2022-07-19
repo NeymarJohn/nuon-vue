@@ -10,7 +10,7 @@
 					<label>
 						<TheDot color="light-green" />
 						My Total Value Locked
-						<TheBadge class="u-ml-8" :color="getPercentChangeBadgeClass('collateralTokens', collateralRatioArr, true)">{{ getUserTVLSign }}{{ Math.abs(getChangePercent('collateralTokens', collateralRatioArr, true)) }}%</TheBadge>
+						<TheBadge v-if="!isNaN(getChangePercent('collateralTokens', collateralRatioArr, true))" class="u-ml-8" :color="getPercentChangeBadgeClass('collateralTokens', collateralRatioArr, true)">{{ getUserTVLSign }}{{ Math.abs(getChangePercent('collateralTokens', collateralRatioArr, true)) }}%</TheBadge>
 					</label>
 					<ComponentLoader component="h1" :loaded="totalValue !== null">
 						<h3>${{ (graphSelectionTVL || totalValue) | toFixed | numberWithCommas }}</h3>
@@ -20,7 +20,7 @@
 					<label>
 						<TheDot color="lime" />
 						Total Value of My Minted NUON
-						<TheBadge class="u-ml-8" :color="getPercentChangeBadgeClass('mintedNuon', collateralRatioArr, true)">{{ getUserMintedNuonSign }}{{ Math.abs(getChangePercent('mintedNuon', collateralRatioArr, true)) }}%</TheBadge>
+						<TheBadge v-if="!isNaN(getChangePercent('mintedNuon', collateralRatioArr, true))" class="u-ml-8" :color="getPercentChangeBadgeClass('mintedNuon', collateralRatioArr, true)">{{ getUserMintedNuonSign }}{{ Math.abs(getChangePercent('mintedNuon', collateralRatioArr, true)) }}%</TheBadge>
 					</label>
 					<ComponentLoader component="h1" :loaded="totalMintedNuon !== null">
 						<h3>${{ (graphSelectionMintedNuon || totalMintedNuon) | toFixed | numberWithCommas }}</h3>
@@ -120,7 +120,7 @@ export default {
 			configData: [{title: "Locked Collateral", id: "lockedCollateral"},
 				{title: "Today's Price", id: "currentPrice"},
 				{title: "Total Value Locked", id: "lockedValue"},
-				{title: "Total Minted", id: "mintedNuon"},
+				{title: "Total NUON Minted", id: "mintedNuon"},
 				{title: "Collateralization Ratio", id: "collateralizationRatio"}],
 			miscConfig: {
 				hasImage: {lockedCollateral: ["ETH", "USDC"] },
@@ -128,7 +128,7 @@ export default {
 					lockedCollateral: "All the tokens you have locked as collateral to mint NUON.",
 					currentPrice: "Current price of collateral tokens, for your reference when considering how much collateral to keep locked up.",
 					lockedValue: "USD value of your locked collateral.",
-					mintedNuon: "Amount of Nuon minted with your collateral.",
+					mintedNuon: "Amount of NUON minted with your collateral.",
 					collateralizationRatio: "Your collateralization ratio per collateral asset."
 				}
 			},
@@ -146,7 +146,7 @@ export default {
 	},
 	head () {
 		return {
-			title: "My Dashboard | Nuon"
+			title: "My Dashboard | NUON"
 		};
 	},
 	computed: {
@@ -187,7 +187,7 @@ export default {
 				const collateral = this.collaterals[i];
 				const obj = {
 					lockedCollateral: collateral,
-					lockedValue: `$${this.numberWithCommas((this.myCollateralLocked[collateral] * this.collateralPrices[collateral]).toFixed(2))}`,
+					lockedValue: `$${this.numberWithCommas((this.userTotalLockedCollateralAmount[collateral] * this.collateralPrices[collateral]).toFixed(2))}`,
 					mintedNuon: this.numberWithCommas(parseFloat(this.userMintedAmounts[collateral]).toFixed(2)),
 					collateralizationRatio: `${this.numberWithCommas(parseFloat(this.userCollateralizationRatios[collateral]).toFixed(2))}%`,
 					currentPrice: `$${this.numberWithCommas(parseFloat(this.collateralPrices[collateral]).toFixed(2))}`

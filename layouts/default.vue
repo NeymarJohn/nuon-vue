@@ -13,7 +13,7 @@ export default {
 	layout: "default",
 	head () {
 		return {
-			title: "Dashboard - Nuon",
+			title: "Dashboard - NUON",
 			meta: [
 				{
 					hid: "description",

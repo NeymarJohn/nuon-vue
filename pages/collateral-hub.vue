@@ -65,7 +65,7 @@ export default {
 	},
 	head () {
 		return {
-			title: "Collateral Hub | Nuon"
+			title: "Collateral Hub | NUON"
 		};
 	},
 	computed: {
