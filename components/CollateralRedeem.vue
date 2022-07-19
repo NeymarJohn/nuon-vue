@@ -4,7 +4,7 @@
 			<DataCard class="u-full-width u-mb-48">
 				<LayoutFlex direction="row-space-between" class="u-full-width">
 					<p>Amount of NUON</p>
-					<p>Available balance: {{ (tokenBalance || 0) | formatLongNumber }}</p>
+					<p>Available balance: {{ (userMintedNuon || 0) | formatLongNumber }}</p>
 				</LayoutFlex>
 				<div class="input u-mb-12">
 					<div class="input__container">
@@ -17,7 +17,7 @@
 							autocorrect="off"
 							spellcheck="false"
 							inputmode="decimal" />
-						<TheButton :disabled="isMaxInputDisabled(tokenBalance ? tokenBalance : 0)" size="sm" title="Click to input your max balance" @click="inputMaxBalance">Max</TheButton>
+						<TheButton :disabled="isMaxInputDisabled(userMintedNuon ? userMintedNuon : 0)" size="sm" title="Click to input your max balance" @click="inputMaxBalance">Max</TheButton>
 					</div>
 				</div>
 				<h5 v-if="inputValue" class="u-mb-0 l-flex--align-self-end">~ ${{ numberWithCommas(getDollarValue(inputValue, nuonPrice).toFixed(2)) }}</h5>
@@ -92,24 +92,22 @@ export default {
 			estimatedWithdrawnNuonValue: 0,
 			withdrawing: false,
 			inputValue: null,
-			isApproving: false
+			isApproving: false,
+			userMintedNuon: 0,
 		};
 	},
 	computed: {
 		isApproved() {
 			return !!parseFloat(this.$store.state.collateralVaultStore.allowance.NUON);
 		},
-		tokenBalance() {
-			return parseFloat(this.$store.state.erc20Store.balance.NUON);
-		},
 		isNextDisabled() {
-			return !this.isApproved || !parseFloat(this.inputValue) || parseFloat(this.inputValue) > parseFloat(this.tokenBalance) || !this.connectedAccount;
+			return !this.isApproved || !parseFloat(this.inputValue) || parseFloat(this.inputValue) > parseFloat(this.userMintedNuon) || !this.connectedAccount;
 		},
 		readyToRepay() {
-			return !!parseFloat(this.inputValue) && parseFloat(this.inputValue) <= parseFloat(this.tokenBalance);
+			return !!parseFloat(this.inputValue) && parseFloat(this.inputValue) <= parseFloat(this.userMintedNuon);
 		},
 		amountMoreThanUserMinted() {
-			return parseFloat(this.inputValue) > parseFloat(this.tokenBalance);
+			return parseFloat(this.inputValue) > parseFloat(this.userMintedNuon);
 		},
 		redeemFee() {
 			return parseFloat(this.$store.state.collateralVaultStore.redeemFee) * 100;
@@ -119,7 +117,8 @@ export default {
 		async inputValue() {
 			let result = {0: 0};
 			try {
-				result = await this.$store.getters["collateralVaultStore/getEstimateCollateralsOut"](this.connectedAccount, toWei(this.inputValue));
+				const amount = `${this.inputValue * (10 ** this.$store.state.erc20Store.decimals[this.currentlySelectedCollateral])}`;
+				result = await this.$store.getters["collateralVaultStore/getEstimateCollateralsOut"](this.connectedAccount, amount);
 			} catch (e) {
 				console.error(e); // TODO: remove after testing
 				if (!this.amountMoreThanUserMinted) {
@@ -132,17 +131,24 @@ export default {
 		},
 		currentlySelectedCollateral() {
 			this.$store.dispatch("erc20Store/initializeBalance", {address: this.connectedAccount});
+			this.initialize();
 		}
 	},
-	async mounted () {
-		try {
-			const nuonPrice = await this.$store.getters["collateralVaultStore/getNuonPrice"]();
-			this.nuonPrice = fromWei(nuonPrice);
-		} catch(e) {
-			this.failureToast(null, e, "An error occurred");
-		}
+	mounted () {
+		this.initialize();
 	},
 	methods: {
+		async initialize() {
+			try {
+				const decimals = 10 ** this.$store.state.erc20Store.decimals[this.currentlySelectedCollateral];
+				const userMintedAmount = await this.$store.getters["collateralVaultStore/getUserMintedAmount"](this.connectedAccount);
+				this.userMintedNuon = userMintedAmount / decimals;
+				const nuonPrice = await this.$store.getters["collateralVaultStore/getNuonPrice"]();
+				this.nuonPrice = fromWei(nuonPrice);
+			} catch(e) {
+				this.failureToast(null, e, "An error occurred");
+			}
+		},
 		approveTokens() {
 			this.isApproving = true;
 			this.$store.dispatch("collateralVaultStore/approveToken",
@@ -182,7 +188,7 @@ export default {
 			}
 		},
 		inputMaxBalance() {
-			this.inputValue = this.twoDecimalPlaces(this.tokenBalance);
+			this.inputValue = this.twoDecimalPlaces(this.userMintedNuon);
 		}
 	}
 };
