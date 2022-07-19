@@ -80,7 +80,7 @@ export default {
 	},
 	head () {
 		return {
-			title: "Farms | NUON"
+			title: "Farms | Nuon"
 		};
 	},
 	computed: {

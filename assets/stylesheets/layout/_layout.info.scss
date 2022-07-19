@@ -1,8 +1,7 @@
 /* #LAYOUT - INFO
 		1. Info default
 		2. Info flex
-		3. Info boardroom
-		4. Info responsive
+		3. Info responsive
 */
 
 // 1. Info default
@@ -32,15 +31,7 @@
 	justify-content: space-between;
 }
 
-// 3. Info boardroom
-.l-info--boardroom {
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-	justify-content: space-between;
-}
-
-// 4. Info responsive
+// 3. Info responsive
 @media screen and (max-width: $SPACING_1440) {
 	.l-info {
 		padding: $SPACING_36;
@@ -51,7 +42,7 @@
 	.l-info {
 		padding: $SPACING_36;
 	}
-	.l-info--boardroom {
+	.l-info--4 {
 		grid-template-columns: repeat(2, minmax(0, 1fr));
 	}
 	.l-info--chub {

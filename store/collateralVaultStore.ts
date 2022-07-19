@@ -2,6 +2,7 @@ import { GetterTree, ActionTree, MutationTree } from "vuex";
 import BN from "bn.js";
 import { Web3State } from "./web3Store";
 import collateralHubAbi from "./abi/collateral_hub_native.json";
+import collateralHubUSDCAbi from "./abi/collateral_hub_usdc.json";
 import nuonControllerAbi from "./abi/nuon_controller.json";
 import truflationAbi from "./abi/truflation.json";
 import boardroomAbi from "./abi/boardroom.json";
@@ -22,7 +23,9 @@ type StateType = {
 	inflation: number,
 	dailyInflationRate: number,
 	userTVL: number,
-	userJustMinted: boolean
+	userJustMinted: boolean,
+	currentCollateralToken: string,
+	abis: any
 }
 export const state = (): StateType => ({
 	allowance: {HX:0, NUON: 0},
@@ -39,7 +42,12 @@ export const state = (): StateType => ({
 	inflation: 0,
 	dailyInflationRate: 0,
 	userTVL: 0,
-	userJustMinted: false
+	userJustMinted: false,
+	currentCollateralToken: "ETH",
+	abis: {
+		ETH: collateralHubAbi,
+		USDC: collateralHubUSDCAbi
+	}
 });
 
 export type BoardroomState = ReturnType<typeof state>;
@@ -83,6 +91,9 @@ export const mutations: MutationTree<BoardroomState> = {
 	},
 	setUserJustMinted(state, payload) {
 		state.userJustMinted = payload;
+	},
+	setCollateralToken(state, payload) {
+		state.currentCollateralToken = payload;
 	}
 };
 
@@ -93,14 +104,16 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 	async getAllowance (ctx: any) {
 		const address = ctx.rootGetters["web3Store/account"];
 		if (!address) return;
-		const collateralHubAddress = ctx.rootGetters["addressStore/addresses"].collateralHub;
+		const collateralHubAddress = ctx.rootGetters["addressStore/collateralHubs"][ctx.state.currentCollateralToken];
+
 		const getNuonAllowance = fromWei(await ctx.rootGetters["erc20Store/nuon"].methods.allowance(address, collateralHubAddress).call());
 		const getHydroAllowance = fromWei(await  ctx.rootGetters["erc20Store/hydro"].methods.allowance(address, collateralHubAddress).call());
 		const getUSDCAllowance = fromWei(await  ctx.rootGetters["erc20Store/usdc"].methods.allowance(address, collateralHubAddress).call());
-		ctx.commit("setAllowance", {HX: getHydroAllowance, NUON: getNuonAllowance, USDC: getUSDCAllowance});
+		ctx.commit("setAllowance", {HX: getHydroAllowance, NUON: getNuonAllowance, USDC: getUSDCAllowance, ETH: 1});
 	},
 	approveToken(ctx: any, {tokenSymbol,  onConfirm, onReject, onCallback}): void {
-		const contractAddress = ctx.rootGetters["addressStore/addresses"].collateralHub;
+		const contractAddress = ctx.rootGetters["addressStore/collateralHubs"][ctx.state.currentCollateralToken];
+
 		ctx.dispatch("erc20Store/approveToken", {tokenSymbol, contractAddress, onConfirm, onReject, onCallback}, {root:true} )
 			.then(() => {
 				ctx.dispatch("getAllowance").then(() => {
@@ -198,7 +211,16 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 	},
 	async mintNuon(ctx: any, {collateralRatio, collateralAmount, onTxHash, onConfirm, onReject}) {
 		const accountAddress = ctx.rootState.web3Store.account;
-		return await ctx.getters.collateralHubContract.methods.mint(collateralRatio).send({from: accountAddress, value: collateralAmount})
+		const payload: {from: string, value?: string} = {from: accountAddress};
+		const args: string[] = [collateralRatio];
+		if (ctx.state.currentCollateralToken === "ETH") {
+			payload.value = collateralAmount;
+		} else if (ctx.state.currentCollateralToken === "USDC") {
+			args.push(collateralAmount);
+		}
+
+		return await ctx.getters.collateralHubContract.methods.mint.apply(null, args)
+			.send(payload)
 			.on("transactionHash", (txHash: string) => {
 				if (onTxHash) onTxHash(txHash);
 			})
@@ -218,14 +240,18 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 			.on("error", (err: any) => {
 				if (onReject) onReject(err);
 			});
+	},
+	changeCollateral(ctx, token) {
+		ctx.commit("setCollateralToken", token);
 	}
 };
 
 export const getters: GetterTree<BoardroomState, Web3State> = {
-	collateralHubContract: (_state: any, _getters: any, store: any, rootGetters: any) => {
+	collateralHubContract: (state: any, _getters: any, store: any, rootGetters: any) => {
 		const web3 = store.web3Store.instance();
-		const addr = rootGetters["addressStore/addresses"].collateralHub;
-		return new web3.eth.Contract(collateralHubAbi, addr);
+		const addr = rootGetters["addressStore/collateralHubs"][state.currentCollateralToken];
+		const abi = state.abis[state.currentCollateralToken];
+		return new web3.eth.Contract(abi, addr);
 	},
 	boardroomContract: (_state: any, _getters: any, store: any, rootGetters) => {
 		const web3 = store.web3Store.instance();
@@ -300,7 +326,7 @@ export const getters: GetterTree<BoardroomState, Web3State> = {
 		return await getters.collateralHubContract.methods.estimateMintedNUONAmount(collateralAmount, _collateralRatio).call();
 	},
 	getCollateralPrice: (_state: any, getters: any) => async () => {
-		return await getters.collateralHubContract.methods.viewCollateralPrice().call();
+		return await getters.collateralHubContract.methods.getCollateralPrice().call();
 	},
 	getEstimateCollateralsOut: (_state: any, getters: any) => async (_userAddress: string, nuonAmount: number) => {
 		return await getters.collateralHubContract.methods.estimateCollateralsOut(_userAddress, nuonAmount).call();

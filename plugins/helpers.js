@@ -257,15 +257,6 @@ Vue.mixin({
 			const val = this.getChangePercent(key, dataToUse, reverse);
 			if (parseFloat(val) === 0) return "price-same";
 			return val < 0 ? "price-down" : "price-up";
-		},
-		formatSubOneDecimals(x) {
-			const xStr = x.toString();
-			let firstNonZeroNumIdx = 0;
-			while (xStr[firstNonZeroNumIdx] === "0" || xStr[firstNonZeroNumIdx] === ".") {
-				firstNonZeroNumIdx += 1;
-				if (firstNonZeroNumIdx === 13) return "0";
-			}
-			return xStr.slice(0, firstNonZeroNumIdx + 1);
 		}
 	},
 });

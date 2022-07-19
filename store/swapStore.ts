@@ -95,7 +95,7 @@ export const actions: ActionTree<SwapState, SwapState> = {
 		const path = getPath(inputToken, outputToken);
 		const pathAddresses = path.tokens.map((token: string) => ctx.rootGetters["addressStore/tokens"][token]);
 		return ctx.getters.contract.methods.swapExactTokensForTokensSupportingFeeOnTransferTokens(
-			toWei(inputAmount, ctx.rootState.erc20Store.decimals[inputToken as string]),
+			Web3.utils.toWei(inputAmount),
 			0,
 			pathAddresses,
 			accountAddress,
@@ -112,7 +112,7 @@ export const actions: ActionTree<SwapState, SwapState> = {
 
 		return ctx.getters.contract.methods.swapExactTokensForTokensSupportingFeeOnTransferTokens(
 			amountInMax,
-			toWei(outputAmount, ctx.rootState.erc20Store.decimals[outputToken as string]),
+			Web3.utils.toWei(outputAmount),
 			pathAddresses,
 			accountAddress,
 			new Date().getTime()

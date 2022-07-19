@@ -129,6 +129,9 @@ export default {
 			} finally {
 				this.estimatedWithdrawnNuonValue = fromWei(result[0]);
 			}
+		},
+		currentlySelectedCollateral() {
+			this.$store.dispatch("erc20Store/initializeBalance", {address: this.connectedAccount});
 		}
 	},
 	async mounted () {
