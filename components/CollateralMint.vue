@@ -170,9 +170,7 @@ export default {
 				this.getEstimatedMintedNuon();
 			}
 		},
-		async currentlySelectedCollateral() {
-			const collateralPrice = await this.$store.getters["collateralVaultStore/getCollateralPrice"]();
-			this.collateralPrice = fromWei(collateralPrice);
+		currentlySelectedCollateral() {
 			this.$store.dispatch("collateralVaultStore/updateStatus");
 			this.initialize();
 		}
