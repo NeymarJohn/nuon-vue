@@ -34,6 +34,7 @@
 				</DataCard>
 			</LayoutFlex>
 			<LineChart
+				v-if="xAxisData.length"
 				:key="`${collateralRatioArr}`"
 				class="u-mt-16 u-mb-48"
 				:x-axis-labels="xAxisData"
@@ -274,8 +275,9 @@ export default {
 		async getUserMintedAmount(collateral) {
 			let result = 0;
 			try {
-				const decimals = 10 ** this.$store.state.erc20Store.decimals[collateral];
-				const amount = await this.$store.getters["collateralVaultStore/getUserMintedAmount"](this.connectedAccount) / decimals;
+				const decimals = 10 ** this.$store.state.erc20Store.decimals.NUON;
+				const test = await this.$store.getters["collateralVaultStore/getUserMintedAmount"](this.connectedAccount);
+				const amount = test / decimals;
 				result = amount;
 			} catch (e) {
 			} finally {
