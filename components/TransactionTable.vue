@@ -21,9 +21,23 @@
 					class="transaction-table__cell"
 					role="cell">
 					<span v-if="obj.id === 'date'">{{ new Date(row[obj.id]) | formateDateTime }}</span>
+					<span v-else-if="obj.id === 'transactionType'">
+						<template v-if="tableData === 'collateral'">
+							<span  class="transaction-table__cell_marked">Mint</span> Nuon
+							<span  class="transaction-table__cell_marked">By {{row[obj.id] === 'Mint' ? 'Deposit' : 'Withdraw'}}</span><span>{{` ${row.depositToken.symbol}`}}</span>
+						</template>
+						<template v-else-if="tableData === 'swap'">
+							<span  class="transaction-table__cell_marked">From</span><span> {{row.inputToken}}</span>  
+							<span  class="transaction-table__cell_marked">To</span><span> {{row.outputToken}}</span>
+						</template>
+					</span>
 					<span v-else class="l-flex l-flex--row-center">
-						<img v-if="misc.hasImage && misc.hasImage[obj.id]" :src="require(`~/assets/images/borrow/${misc.hasImage[obj.id][index]}.png`)" class="u-mr-8" height="17" width="17" alt="">
-						<span v-if="obj.id === 'totalAmount' || obj.id === 'amount'">{{ row[obj.id] | toFixed |  numberWithCommas }}</span>
+						<img v-if="misc.hasImage && misc.hasImage[obj.id]" :src="require(`~/assets/images/borrow/${misc.hasImage[obj.id]}.png`)" class="u-mr-8" height="17" width="17" alt="">
+						<span v-if="obj.id === 'totalAmount' || obj.id === 'amount'">
+							{{ row[obj.id] | toFixed |  numberWithCommas }}
+							<span v-if="obj.id === 'amount'">{{row.inputToken}}</span>
+							<span v-if="obj.id === 'totalAmount'">{{row.outputToken}}</span>
+						</span>
 						<span v-else>{{ row[obj.id] }}</span>
 					</span>
 				</div>
@@ -76,6 +90,12 @@ export default {
 			required: false,
 			default() {
 				return {hasImage: {}, headerTooltips: {}};
+			}
+		},
+		tableData: {
+			type: String,
+			default() {
+				return "";
 			}
 		}
 	},

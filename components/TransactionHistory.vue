@@ -21,7 +21,8 @@
 				size="4"
 				aria="Vault redeemed transactions"
 				:data="tableData"
-				:config="transactionConfig" />
+				:config="transactionConfig"
+				:table-data="locations[selectedTab]" />
 			<TransactionCard
 				v-else
 				:data="tableData"
@@ -30,7 +31,7 @@
 	</div>
 </template>
 <script>
-import { getUserTransactionHistory } from "~/services/theGraph";
+import { getCollateralTransactionHistory, getSwapTransactionHistory } from "~/services/theGraph";
 
 export default {
 	name: "TransactionHistory",
@@ -75,9 +76,53 @@ export default {
 					lastDays: this.filterLastDays,
 					query: this.searchQuery
 				};
-				getUserTransactionHistory(filter).then(res => {
-					this.tableData = res.data.data.userTransactions.map(item => ({...item, amount: parseFloat(item.amount).toFixed(2), date: item.date * 1000}));
-				});
+				if (this.locations[this.selectedTab] === "collateral") {
+					this.tableData = [];
+					getCollateralTransactionHistory(filter).then(res => {
+						this.tableData = res.data.data.collateralHubTransactions.map(item => (
+							{
+								...item, 
+								amount: item.amount, 
+								totalAmount: item.totalAmount,
+								inputToken: item.depositToken.symbol,
+								outputToken: item.depositToken.symbol,
+								date: item.date * 1000,
+								selectedTab: this.locations[this.selectedTab]
+							}));
+					});
+				} else if (this.locations[this.selectedTab] === "swap") {
+					this.tableData = [];
+					getSwapTransactionHistory(filter).then(res => {
+						this.tableData = res.data.data.swaps.map(item => (
+							{
+								...item, 
+								amount: Number(item.amount0In) || Number(item.amount1In), 
+								totalAmount: Number(item.amount0Out) || Number(item.amount1Out),
+								inputToken: item.amount0In>0?item.pair.token0.symbol:item.pair.token1.symbol,
+								outputToken: item.amount0Out>0?item.pair.token0.symbol:item.pair.token1.symbol,
+								date: item.timestamp * 1000,
+								selectedTab: this.locations[this.selectedTab]
+							}));
+					});
+				} else if (this.locations[this.selectedTab] === "boardroom") {
+					getCollateralTransactionHistory(filter).then(res => {
+						this.tableData = res.data.data.collateralHubTransactions.map(item => (
+							{
+								...item, 
+								amount: item.amount, 
+								date: item.date * 1000,
+							}));
+					});
+				} else {
+					getCollateralTransactionHistory(filter).then(res => {
+						this.tableData = res.data.data.collateralHubTransactions.map(item => (
+							{
+								...item, 
+								amount: item.amount, 
+								date: item.date * 1000,
+							}));
+					});
+				}
 			}
 		},
 		changeTab(tabIndex) {

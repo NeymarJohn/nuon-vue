@@ -18,6 +18,11 @@
 .transaction-table__cell {
 	padding: $SPACING_20 0;
 	border-bottom: $SPACING_1 solid $LIGHER_GREY;
+	&_marked {
+		padding: $SPACING_6;
+		background-color: $MEDIUM_GREY;
+		border-radius: 4px;
+	}
 }
 .transaction-table__row:first-child .transaction-table__cell {
 	color: $LIGHT_GREY;

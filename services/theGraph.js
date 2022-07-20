@@ -1,6 +1,6 @@
 import axios from "axios";
 import dayjs from "dayjs";
-const THE_GRAPH_URL = "https://graphiql-nuon.hydrogenx.live/subgraphs/name/nuon";
+const THE_GRAPH_URL = "https://graphiql-nuon.hydrogenx.live/subgraphs/name/nuon/usdc";
 const UNISWAP_THE_GRAPH_URL = "https://graphiql-nuon.hydrogenx.live/subgraphs/name/nuon/uniswap";
 
 export const getCollateralTVLDayData = () => axios.post(THE_GRAPH_URL, {
@@ -174,6 +174,88 @@ export const getTokenData = (token) => {
 					}
 				}
 		}`,
+		variables
+	});
+};
+
+export const getCollateralTransactionHistory = (filters) => {
+	const variables = {
+		user: filters.user,
+		query: filters.query || ""
+	};
+	if (filters.lastDays) {
+		variables.startDate = Math.floor(new Date(dayjs().subtract(filters.lastDays, "day")).getTime() / 1000);
+	} else {
+		variables.startDate = 0;
+	}
+
+	return axios.post(THE_GRAPH_URL, {
+		query:`
+			query getCollateralHubTransactions($user: String!, $query: String!, $startDate: Int! ){
+				collateralHubTransactions(orderBy: date, orderDirection: desc, 
+					where: {
+						date_gte: $startDate, 
+						transactionType_contains_nocase: $query, 
+						user: $user
+					}) {
+						id
+						date
+						transactionType
+						depositToken {
+							symbol
+							tokenAddress
+						}
+						user
+						amount
+						totalAmount
+					}
+			}`,
+		variables
+	});
+};
+export const getSwapTransactionHistory = (filters) => {
+	const variables = {
+		user: filters.user,
+		query: filters.query || ""
+	};
+	if (filters.lastDays) {
+		variables.startDate = Math.floor(new Date(dayjs().subtract(filters.lastDays, "day")).getTime() / 1000);
+	} else {
+		variables.startDate = 0;
+	}
+
+	return axios.post(UNISWAP_THE_GRAPH_URL, {
+		query:`
+			query getSwapTransactions($user: String!, $query: String!, $startDate: Int! ) {
+				swaps(orderBy: timestamp, orderDirection: desc, 
+					where: {
+						timestamp_gte: $startDate, 
+						from: $user
+					}) {
+					amount0In
+					amount0Out
+					amount1In
+					amount1Out
+					amountUSD
+					from
+					id
+					logIndex
+					sender
+					timestamp
+					to
+					transaction {
+						id
+					}
+					pair {
+						token0 {
+							symbol
+						}
+						token1 {
+							symbol
+						}
+					}
+				}
+			}`,
 		variables
 	});
 };
