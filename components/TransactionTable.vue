@@ -29,7 +29,7 @@
 							<span  class="transaction-table__cell_marked">By {{row[obj.id] === 'Mint' ? 'Deposit' : 'Withdraw'}}</span><span>{{` ${row.depositToken.symbol}`}}</span>
 						</template>
 						<template v-else-if="tableData === 'swap'">
-							<span  class="transaction-table__cell_marked">From</span><span> {{row.inputToken}}</span>  
+							<span  class="transaction-table__cell_marked">From</span><span> {{row.inputToken}}</span>
 							<span  class="transaction-table__cell_marked">To</span><span> {{row.outputToken}}</span>
 						</template>
 					</span>
@@ -64,7 +64,6 @@
 
 <script>
 import TooltipIcon from "@/assets/images/svg/svg-tooltip.svg";
-import { EXPLORER_LINK } from "~/constants/web3";
 
 export default {
 	name: "TransactionTable",

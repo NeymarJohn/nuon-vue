@@ -80,7 +80,7 @@
 </template>
 
 <script>
-import { getTokenData } from "~/services/theGraph";
+// import { getTokenData } from "~/services/theGraph";
 import nuonData from "@/assets/json/nuon.json";
 import numintData from "@/assets/json/numint.json";
 export default {
