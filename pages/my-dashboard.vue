@@ -27,7 +27,7 @@
 					</ComponentLoader>
 				</DataCard>
 				<DataCard>
-					<label>My Collateralization Ratio<TooltipIcon v-tooltip="'The percentage of collateral you’ve locked to back your minted NUON. A minimum collateralization ratio is recalculated each day for each collateral asset, based on data from decentralized price oracles and an on-chain inflation oracle. The higher your collateralization ratio is above this minimum, the safer your collateral is from being liquidated.'" /></label>
+					<label>My Collateralization Ratio<TooltipIcon v-tooltip="'The total percentage of collateral you’ve locked to back all your minted NUON.'" /></label>
 					<ComponentLoader component="h1" :loaded=" userCollateralizationRatios.ETH !== null">
 						<h3>{{ userCollateralizationRatios.ETH | toFixed | numberWithCommas }}%</h3>
 					</ComponentLoader>
@@ -73,26 +73,24 @@
 			</template>
 			<template #panel-three>
 				<DataCard>
-					<label><TheDot color="orange" />NUON &#38; nuMINT balance<TooltipIcon v-tooltip="'Total USD value of NUON & nuMINT in wallet.'" /></label>
+					<label><TheDot color="orange" />NUON &amp; nuMINT balance<TooltipIcon v-tooltip="'Total number of NUON and nuMINT tokens in your wallet.'" /></label>
 					<ComponentLoader component="h1" :loaded="balancesValue !== null">
-						<h4>{{ tokenBalances.HX | toFixed | numberWithCommas }} nuMINT</h4>
 						<h4>{{ tokenBalances.NUON | toFixed | numberWithCommas }} NUON</h4>
-						<!-- <h4>${{ balancesValue | toFixed | numberWithCommas }}</h4> -->
+						<h4>{{ tokenBalances.HX | toFixed | numberWithCommas }} nuMINT</h4>
 					</ComponentLoader>
 				</DataCard>
 			</template>
 			<template #panel-four>
 				<DataCard>
-					<label><TheDot color="blue" /> My Locked Collateral<TooltipIcon v-tooltip="'Total USD value of assets locked as collateral for minted NUON.'" /></label>
+					<label><TheDot color="blue" /> My Locked Collateral<TooltipIcon v-tooltip="'Total number of tokens locked as collateral.'" /></label>
 					<ComponentLoader component="h1" :loaded="totalValue !== null">
-						<!-- <h4>${{ totalValue | toFixed | numberWithCommas }}</h4> -->
 						<h4>{{myCollateralLocked | toFixed | numberWithCommas }} ETH</h4>
 					</ComponentLoader>
 				</DataCard>
 			</template>
 			<template #panel-five>
 				<DataCard>
-					<label><TheDot color="tourquise" /> My Staked Tokens<TooltipIcon v-tooltip="'Total USD value of staked tokens.'" /></label>
+					<label><TheDot color="tourquise" /> My Staked Tokens<TooltipIcon v-tooltip="'Total number of nuMINT tokens staked in the Nuon protocol.'" /></label>
 					<ComponentLoader component="h1" :loaded="stakedBalance !== null">
 						<h4>{{ stakedBalance | toFixed | numberWithCommas }} nuMINT</h4>
 					</ComponentLoader>
@@ -126,10 +124,10 @@ export default {
 			miscConfig: {
 				hasImage: {lockedCollateral: ["ETH", "USDC"] },
 				headerTooltips: {
-					lockedCollateral: "All the tokens you have locked as collateral to mint NUON.",
+					lockedCollateral: "Tokens you have locked as collateral to mint NUON.",
 					currentPrice: "Current price of collateral tokens, for your reference when considering how much collateral to keep locked up.",
 					lockedValue: "USD value of your locked collateral.",
-					mintedNuon: "Amount of NUON minted with your collateral.",
+					mintedNuon: "Total NUON minted with your collateral.",
 					collateralizationRatio: "Your collateralization ratio per collateral asset."
 				}
 			},
