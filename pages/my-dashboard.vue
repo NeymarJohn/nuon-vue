@@ -26,12 +26,12 @@
 						<h3>${{ (graphSelectionMintedNuon || totalMintedNuon) | toFixed | numberWithCommas }}</h3>
 					</ComponentLoader>
 				</DataCard>
-				<DataCard>
+				<!-- <DataCard>
 					<label>My Collateralization Ratio<TooltipIcon v-tooltip="'The total percentage of collateral you’ve locked to back all your minted NUON.'" /></label>
 					<ComponentLoader component="h1" :loaded=" userCollateralizationRatios.ETH !== null">
 						<h3>{{ userCollateralizationRatios.ETH | toFixed | numberWithCommas }}%</h3>
 					</ComponentLoader>
-				</DataCard>
+				</DataCard> -->
 			</LayoutFlex>
 			<LineChart
 				v-if="xAxisData.length"
