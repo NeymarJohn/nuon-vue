@@ -54,7 +54,7 @@ export default {
 		},
 	},
 	watch: {
-		connectedAccount() {
+		async connectedAccount() {
 			this.mintedTokens = fromWei(await this.$store.getters["collateralVaultStore/getUserMintedAmount"](this.connectedAccount));
 		}
 	},
