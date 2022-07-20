@@ -140,9 +140,7 @@ export default {
 	methods: {
 		async initialize() {
 			try {
-				const decimals = 10 ** this.$store.state.erc20Store.decimals[this.currentlySelectedCollateral];
-				const userMintedAmount = await this.$store.getters["collateralVaultStore/getUserMintedAmount"](this.connectedAccount);
-				this.userMintedNuon = userMintedAmount / decimals;
+				this.userMintedNuon = parseFloat(fromWei(await this.$store.getters["collateralVaultStore/getUserMintedAmount"](this.connectedAccount)));
 				const nuonPrice = await this.$store.getters["collateralVaultStore/getNuonPrice"]();
 				this.nuonPrice = fromWei(nuonPrice);
 			} catch(e) {

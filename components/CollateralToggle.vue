@@ -53,12 +53,10 @@ export default {
 			return { symbol: HX.symbol, price: this.hxPrice, balance: this.myRewards };
 		},
 	},
-	mounted() {
-		setTimeout(async () => {
-			if (this.connectedAccount) {
-				this.mintedTokens = fromWei(await this.$store.getters["collateralVaultStore/getUserMintedAmount"](this.connectedAccount));
-			}
-		}, 1000);
+	watch: {
+		connectedAccount() {
+			this.mintedTokens = fromWei(await this.$store.getters["collateralVaultStore/getUserMintedAmount"](this.connectedAccount));
+		}
 	},
 	methods: {
 		toggleMintView() {

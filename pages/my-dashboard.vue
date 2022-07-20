@@ -275,10 +275,7 @@ export default {
 		async getUserMintedAmount(collateral) {
 			let result = 0;
 			try {
-				const decimals = 10 ** this.$store.state.erc20Store.decimals.NUON;
-				const test = await this.$store.getters["collateralVaultStore/getUserMintedAmount"](this.connectedAccount);
-				const amount = test / decimals;
-				result = amount;
+				result = fromWei(await this.$store.getters["collateralVaultStore/getUserMintedAmount"](this.connectedAccount));
 			} catch (e) {
 			} finally {
 				this.$set(this.userMintedAmounts, collateral, result);
