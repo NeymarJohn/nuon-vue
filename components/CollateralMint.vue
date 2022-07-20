@@ -12,7 +12,7 @@
 							v-model="inputValue"
 							placeholder="0.0"
 							type="number"
-							min="0"
+							:min="minimumDepositAmount"
 							autocomplete="off"
 							autocorrect="off"
 							spellcheck="false"
@@ -27,6 +27,7 @@
 				<h5 v-if="inputValue" class="u-mb-0 l-flex--align-self-end">~ ${{ numberWithCommas(getDollarValue(inputValue, collateralPrice).toFixed(2)) }}</h5>
 				<p v-if="readyToDeposit" class="u-is-success l-flex--align-self-end">Ready to deposit</p>
 				<p v-if="isMoreThanBalance" class="u-is-warning l-flex--align-self-end">Insufficient balance</p>
+				<p v-if="isLTEMinimumDepositAmount" class="u-is-warning l-flex--align-self-end">Please deposit more than {{ minimumDepositAmount }}</p>
 			</DataCard>
 			<DataCard class="u-full-width">
 				<p>Set Your Collateral Ratio</p>
@@ -128,6 +129,7 @@ export default {
 			minting: false,
 			liquidationPrice: 0,
 			sliderMin: "0",
+			minimumDepositAmount: 0
 		};
 	},
 	computed: {
@@ -135,7 +137,7 @@ export default {
 			return !!parseFloat(this.$store.state.collateralVaultStore.allowance[this.currentlySelectedCollateral]);
 		},
 		disabledMint() {
-			return !this.isApproved || !parseFloat(this.inputValue) || this.isMoreThanBalance || !this.connectedAccount;
+			return !this.isApproved || !parseFloat(this.inputValue) || this.isMoreThanBalance || !this.connectedAccount || this.isLTEMinimumDepositAmount;
 		},
 		isMoreThanBalance() {
 			return  parseFloat(this.inputValue) > this.tokenBalance;
@@ -149,6 +151,12 @@ export default {
 		mintFee() {
 			return parseFloat(this.$store.state.collateralVaultStore.mintingFee) * 100;
 		},
+		decimals() {
+			return this.$store.state.erc20Store.decimals[this.currentlySelectedCollateral];
+		},
+		isLTEMinimumDepositAmount() {
+			return parseFloat(this.inputValue) <= this.minimumDepositAmount;
+		}
 	},
 	watch: {
 		inputValue() {
@@ -166,20 +174,25 @@ export default {
 			const collateralPrice = await this.$store.getters["collateralVaultStore/getCollateralPrice"]();
 			this.collateralPrice = fromWei(collateralPrice);
 			this.$store.dispatch("collateralVaultStore/updateStatus");
+			this.initialize();
 		}
 	},
-	async mounted() {
-		try {
-			const min = await this.$store.getters["collateralVaultStore/getGlobalCR"]();
-			this.sliderMin = Math.floor((10 ** 20 / min)) + 10;
-			this.selectedCollateralRatio = this.sliderMin;
-			const collateralPrice = await this.$store.getters["collateralVaultStore/getCollateralPrice"]();
-			this.collateralPrice = fromWei(collateralPrice);
-		} catch (e) {
-			this.failureToast(null, e, "An error occurred");
-		}
+	mounted() {
+		this.initialize();
 	},
 	methods: {
+		async initialize() {
+			try {
+				const min = await this.$store.getters["collateralVaultStore/getGlobalCR"]();
+				this.sliderMin = Math.floor((10 ** 20 / min)) + 10;
+				this.selectedCollateralRatio = this.sliderMin;
+				const collateralPrice = await this.$store.getters["collateralVaultStore/getCollateralPrice"]();
+				this.collateralPrice = fromWei(collateralPrice);
+				this.minimumDepositAmount = await this.$store.getters["collateralVaultStore/getMinimumDepositAmount"]() / (10 ** this.decimals);
+			} catch (e) {
+				this.failureToast(null, e, "An error occurred");
+			}
+		},
 		sliderChanged(e) {
 			this.selectedCollateralRatio = e;
 		},
@@ -197,14 +210,18 @@ export default {
 		},
 		async getEstimatedMintedNuon() {
 			if (!this.inputValue) return;
+			if (this.isLTEMinimumDepositAmount) return;
+
 			const currentRatio = this.selectedCollateralRatio;
-			const collateralRatio = (10 ** 18) / (currentRatio / 100);
+			const collateralRatio = `${(10 ** 18) / (currentRatio / 100)}`;
+			const inputValueWithDecimals = `${this.inputValue * (10 ** this.decimals)}`;
 			let ans = [0];
 			try {
-				ans = await this.$store.getters["collateralVaultStore/getEstimateMintedNUONAmount"](toWei(this.inputValue), `${collateralRatio}`);
+				ans = await this.$store.getters["collateralVaultStore/getEstimateMintedNUONAmount"](inputValueWithDecimals, collateralRatio);
 			} catch(e) {
 				console.error(e); // TODO: remove after testing
-				this.failureToast(null, e, "An error occurred");
+				const message = this.getRPCErrorMessage(e);
+				this.failureToast(null, message || e, "An error occurred");
 			} finally {
 				this.estimatedMintedNuonValue = fromWei(ans[0]);
 			}
@@ -212,7 +229,7 @@ export default {
 		async mint() {
 			this.activeStep = "loading";
 			this.minting = true;
-			const amount = toWei(this.inputValue, this.$store.state.erc20Store.decimals[this.currentlySelectedCollateral]);
+			const amount = toWei(this.inputValue, this.decimals);
 			const collateralRatioToWei = 10 ** 18 / parseFloat(this.selectedCollateralRatio / 100);
 
 			try {
