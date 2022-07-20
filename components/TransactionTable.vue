@@ -14,7 +14,9 @@
 				v-for="(row, index) in data.slice((currentPage - 1) * 10, currentPage * 10)"
 				:key="index"
 				class="transaction-table__row"
-				role="rowgroup">
+				role="rowgroup"
+				@click="handleClickRow(row)"
+			>
 				<div
 					v-for="(obj, idx) in config"
 					:key="idx"
@@ -62,6 +64,7 @@
 
 <script>
 import TooltipIcon from "@/assets/images/svg/svg-tooltip.svg";
+import { EXPLORER_LINK } from "~/constants/web3";
 
 export default {
 	name: "TransactionTable",
@@ -103,6 +106,13 @@ export default {
 		return {
 			currentPage: 1
 		};
+	},
+	methods: {
+		handleClickRow(row) {
+			if (!row.txHash) return;
+			const explorerLink = this.$store.getters["web3Store/explorerLink"];
+			window.open(`${explorerLink}/tx/${row.txHash}`, "_blank");
+		}
 	},
 };
 </script>

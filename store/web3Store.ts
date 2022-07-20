@@ -10,7 +10,16 @@ const [Metamask, Walletconnect] = wallets;
 const WALLET_CONNECTED = "wallet_connected";
 const DEFAULT_CHAIN_ID = 31010;
 
-export const state = () => ({
+type Web3StoreType = {
+	instance: any,
+	balance: number,
+	account: string,
+	error: any,
+	chainId: number | null,
+	chains: any,
+	connectedWallet: any,
+}
+export const state = ():Web3StoreType => ({
 	instance: null,
 	balance: 0,
 	account: "",
@@ -195,4 +204,9 @@ export const getters: GetterTree<Web3State, Web3State> = {
 		return !!state.account;
 	},
 	chainId: state => state.chainId,
+	explorerLink: state => {
+		const chainId: any = state.chainId;
+		const chainInfo: any = state.chains[chainId];
+		return chainInfo.explorerLink;
+	}
 };

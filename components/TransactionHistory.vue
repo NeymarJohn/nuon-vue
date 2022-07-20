@@ -87,7 +87,8 @@ export default {
 								inputToken: item.depositToken.symbol,
 								outputToken: item.depositToken.symbol,
 								date: item.date * 1000,
-								selectedTab: this.locations[this.selectedTab]
+								selectedTab: this.locations[this.selectedTab],
+								txHash: item.id
 							}));
 					});
 				} else if (this.locations[this.selectedTab] === "swap") {
@@ -101,7 +102,8 @@ export default {
 								inputToken: item.amount0In>0?item.pair.token0.symbol:item.pair.token1.symbol,
 								outputToken: item.amount0Out>0?item.pair.token0.symbol:item.pair.token1.symbol,
 								date: item.timestamp * 1000,
-								selectedTab: this.locations[this.selectedTab]
+								selectedTab: this.locations[this.selectedTab],
+								txHash: item.transaction.id
 							}));
 					});
 				} else if (this.locations[this.selectedTab] === "boardroom") {
@@ -111,6 +113,7 @@ export default {
 								...item, 
 								amount: item.amount, 
 								date: item.date * 1000,
+								txHash: item.id
 							}));
 					});
 				} else {
@@ -120,6 +123,7 @@ export default {
 								...item, 
 								amount: item.amount, 
 								date: item.date * 1000,
+								txHash: item.id
 							}));
 					});
 				}
