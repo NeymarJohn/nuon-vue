@@ -10,33 +10,10 @@
 				"internalType": "contract IERC20",
 				"name": "_HYDRO",
 				"type": "address"
-			},
-			{
-				"internalType": "int256",
-				"name": "_baseCollateralRatio",
-				"type": "int256"
-			},
-			{
-				"internalType": "int256",
-				"name": "_collateralVolatilityBuffer",
-				"type": "int256"
 			}
 		],
 		"stateMutability": "nonpayable",
 		"type": "constructor"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": false,
-				"internalType": "uint256",
-				"name": "mint",
-				"type": "uint256"
-			}
-		],
-		"name": "FeesChanged",
-		"type": "event"
 	},
 	{
 		"anonymous": false,
@@ -174,7 +151,13 @@
 		"constant": true
 	},
 	{
-		"inputs": [],
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
 		"name": "baseCollateralRatio",
 		"outputs": [
 			{
@@ -188,7 +171,13 @@
 		"constant": true
 	},
 	{
-		"inputs": [],
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
 		"name": "collateralVolatilityBuffer",
 		"outputs": [
 			{
@@ -202,7 +191,13 @@
 		"constant": true
 	},
 	{
-		"inputs": [],
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
 		"name": "flatInterestRate",
 		"outputs": [
 			{
@@ -216,7 +211,13 @@
 		"constant": true
 	},
 	{
-		"inputs": [],
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
 		"name": "maxCRATIO",
 		"outputs": [
 			{
@@ -230,7 +231,13 @@
 		"constant": true
 	},
 	{
-		"inputs": [],
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
 		"name": "maxOffPegPercentDownside",
 		"outputs": [
 			{
@@ -244,7 +251,13 @@
 		"constant": true
 	},
 	{
-		"inputs": [],
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
 		"name": "maxOffPegPercentUpside",
 		"outputs": [
 			{
@@ -272,7 +285,13 @@
 		"constant": true
 	},
 	{
-		"inputs": [],
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
 		"name": "mintingFee",
 		"outputs": [
 			{
@@ -300,7 +319,13 @@
 		"constant": true
 	},
 	{
-		"inputs": [],
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
 		"name": "redeemFees",
 		"outputs": [
 			{
@@ -338,11 +363,89 @@
 		"inputs": [
 			{
 				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "safetyNet",
+		"outputs": [
+			{
+				"internalType": "int256",
+				"name": "",
+				"type": "int256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function",
+		"constant": true
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
 				"name": "newOwner",
 				"type": "address"
 			}
 		],
 		"name": "transferOwnership",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_CHUB",
+				"type": "address"
+			},
+			{
+				"internalType": "int256",
+				"name": "_maxOffPegPercentUpside",
+				"type": "int256"
+			},
+			{
+				"internalType": "int256",
+				"name": "_maxOffPegPercentDownside",
+				"type": "int256"
+			},
+			{
+				"internalType": "int256",
+				"name": "_safetyNet",
+				"type": "int256"
+			},
+			{
+				"internalType": "int256",
+				"name": "_flatInterestRate",
+				"type": "int256"
+			},
+			{
+				"internalType": "int256",
+				"name": "_baseCollateralRatio",
+				"type": "int256"
+			},
+			{
+				"internalType": "int256",
+				"name": "_collateralVolatilityBuffer",
+				"type": "int256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_maxCRATIO",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_mintingFee",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_redeemFees",
+				"type": "uint256"
+			}
+		],
+		"name": "setEcosystemParametersForCHUBS",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -376,32 +479,6 @@
 	{
 		"inputs": [
 			{
-				"internalType": "uint256",
-				"name": "_flatInterestRate",
-				"type": "uint256"
-			}
-		],
-		"name": "setFlatInterestRate",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_maxCRATIO",
-				"type": "uint256"
-			}
-		],
-		"name": "setMaxCratio",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
 				"internalType": "address",
 				"name": "_minter",
 				"type": "address"
@@ -424,6 +501,20 @@
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getPools",
+		"outputs": [
+			{
+				"internalType": "address[]",
+				"name": "",
+				"type": "address[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function",
+		"constant": true
 	},
 	{
 		"inputs": [
@@ -460,50 +551,6 @@
 			}
 		],
 		"name": "removePool",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "int256",
-				"name": "_baseCollateralRatio",
-				"type": "int256"
-			}
-		],
-		"name": "setBaseCollateralRatio",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "int256",
-				"name": "_collateralVolatilityBuffer",
-				"type": "int256"
-			}
-		],
-		"name": "setCollateralVolatilityBuffer",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_mintingFee",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_redeemFees",
-				"type": "uint256"
-			}
-		],
-		"name": "setFeesParameters",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -591,7 +638,13 @@
 		"constant": true
 	},
 	{
-		"inputs": [],
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_CHUB",
+				"type": "address"
+			}
+		],
 		"name": "getGlobalCollateralRatio",
 		"outputs": [
 			{
@@ -605,7 +658,13 @@
 		"constant": true
 	},
 	{
-		"inputs": [],
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_CHUB",
+				"type": "address"
+			}
+		],
 		"name": "getCollateralRatioInPercent",
 		"outputs": [
 			{
@@ -619,7 +678,13 @@
 		"constant": true
 	},
 	{
-		"inputs": [],
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_CHUB",
+				"type": "address"
+			}
+		],
 		"name": "getCVBRatio",
 		"outputs": [
 			{
@@ -633,7 +698,13 @@
 		"constant": true
 	},
 	{
-		"inputs": [],
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_CHUB",
+				"type": "address"
+			}
+		],
 		"name": "getMaxCratio",
 		"outputs": [
 			{
@@ -647,7 +718,13 @@
 		"constant": true
 	},
 	{
-		"inputs": [],
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_CHUB",
+				"type": "address"
+			}
+		],
 		"name": "getRedeemFee",
 		"outputs": [
 			{
@@ -661,7 +738,13 @@
 		"constant": true
 	},
 	{
-		"inputs": [],
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_CHUB",
+				"type": "address"
+			}
+		],
 		"name": "computeInterestRates",
 		"outputs": [
 			{
@@ -779,7 +862,13 @@
 		"constant": true
 	},
 	{
-		"inputs": [],
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_CHUB",
+				"type": "address"
+			}
+		],
 		"name": "getMintingFee",
 		"outputs": [
 			{
@@ -793,14 +882,15 @@
 		"constant": true
 	},
 	{
-		"inputs": [],
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_CHUB",
+				"type": "address"
+			}
+		],
 		"name": "getNUONInfo",
 		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			},
 			{
 				"internalType": "uint256",
 				"name": "",

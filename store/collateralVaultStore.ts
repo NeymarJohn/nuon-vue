@@ -187,7 +187,7 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 			ctx.commit("setLastSnapshot", {lastSnapshotIndex: lastSnapshot, rewardEarned: new BN(0), epochTimerStart: 0});
 		});
 	},
-	async updateStatus({dispatch, commit, getters, rootState}: {dispatch:any, commit:any, getters:any, rootState:any}) {
+	async updateStatus({state, dispatch, commit, getters, rootState, rootGetters}: {state: any, dispatch:any, commit:any, getters:any, rootState:any, rootGetters: any}) {
 		dispatch("getAllowance");
 		const accountAddress = rootState?.web3Store.account;
 		if (!accountAddress) return;
@@ -197,12 +197,11 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 
 		// const totalLockedCollateral = await getters.getTotalLockedCollareralValue();
 		// commit("setTotalLockedCollateral", totalLockedCollateral);
-
-		const mintingFee = await getters.getMintingFee();
+		const chubAddr = rootGetters["addressStore/collateralHubs"][state.currentCollateralToken];
+		const mintingFee = await getters.getMintingFee(chubAddr);
 		commit("setMintingFee",  fromWei(mintingFee));
-		const redeemFee = await getters.getRedeemFee();
+		const redeemFee = await getters.getRedeemFee(chubAddr);
 		commit("setRedeemFee", fromWei(redeemFee));
-
 		// const inflation = Number(await getters.getInflation());
 		// commit("setInflation", inflation);
 
@@ -271,11 +270,11 @@ export const getters: GetterTree<BoardroomState, Web3State> = {
 	checkApprovedToken: (state:any) => (tokenName: string):boolean => {
 		return state.allowance[tokenName] > 0;
 	},
-	getMintingFee: (_state: any, getters: any) => async () => {
-		return await getters.nuonControllerContract.methods.getMintingFee().call();
+	getMintingFee: (_state: any, getters: any) => async (chubAddress: string) => {
+		return await getters.nuonControllerContract.methods.getMintingFee(chubAddress).call();
 	},
-	getRedeemFee: (_state: any, getters: any) => async () => {
-		return await getters.nuonControllerContract.methods.getRedeemFee().call();
+	getRedeemFee: (_state: any, getters: any) => async (chubAddress: string) => {
+		return await getters.nuonControllerContract.methods.getRedeemFee(chubAddress).call();
 	},
 	getAmountsStakedInVault: (_state: any, getters: any) => async () => {
 		return await getters.collateralHubContract.methods.getAmountsStakedInVault().call();
