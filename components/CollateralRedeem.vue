@@ -25,8 +25,8 @@
 				<p v-if="amountMoreThanUserMinted" class="u-is-warning l-flex--align-self-end">Insufficient balance.</p>
 			</DataCard>
 			<DataCard class="u-full-width">
-				<p>Estimated ETH Redeemed</p>
-				<h4 class="collateral-estimate">{{ estimatedWithdrawnNuonValue | toFixed | numberWithCommas }}<sup>ETH</sup></h4>
+				<p>Estimated {{ currentlySelectedCollateral }} Redeemed</p>
+				<h4 class="collateral-estimate">{{ estimatedWithdrawnNuonValue | toFixed | numberWithCommas }}<sup>{{ currentlySelectedCollateral }}</sup></h4>
 			</DataCard>
 			<div class="toggle__transaction">
 				<TheButton
@@ -116,8 +116,10 @@ export default {
 	watch: {
 		async inputValue() {
 			let result = {0: 0};
+			const nuonRaisedToDecimals = 10 ** this.$store.state.erc20Store.decimals.NUON;
+			const redeemedTokenRaisedToDecimals = 10 ** this.$store.state.erc20Store.decimals[this.currentlySelectedCollateral];
 			try {
-				const amount = `${this.inputValue * (10 ** this.$store.state.erc20Store.decimals[this.currentlySelectedCollateral])}`;
+				const amount = `${this.inputValue * nuonRaisedToDecimals}`;
 				result = await this.$store.getters["collateralVaultStore/getEstimateCollateralsOut"](this.connectedAccount, amount);
 			} catch (e) {
 				console.error(e); // TODO: remove after testing
@@ -126,7 +128,7 @@ export default {
 					this.failureToast(null, message, "Transaction failed");
 				}
 			} finally {
-				this.estimatedWithdrawnNuonValue = fromWei(result[0]);
+				this.estimatedWithdrawnNuonValue = result[0] / redeemedTokenRaisedToDecimals;
 			}
 		},
 		currentlySelectedCollateral() {
@@ -170,7 +172,7 @@ export default {
 						nuonAmount,
 						onConfirm: (_confNumber, receipt, _latestBlockHash) => {
 							this.$store.commit("collateralVaultStore/setUserJustMinted", true);
-							this.successToast(null, "Withdraw successful", receipt.transactionHash);
+							this.successToast(null, "Redeem successful", receipt.transactionHash);
 							this.$store.dispatch("erc20Store/initializeBalance", {address: this.connectedAccount});
 						},
 						onReject: null

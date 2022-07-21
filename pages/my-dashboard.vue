@@ -282,8 +282,7 @@ export default {
 		async getUserCollateralizationRatio(collateral) {
 			let result = 0;
 			try {
-				const decimals = 10 ** this.$store.state.erc20Store.decimals[collateral];
-				const amount = await this.$store.getters["collateralVaultStore/getUserCollateralRatioInPercent"](this.connectedAccount) / decimals;
+				const amount = fromWei(await this.$store.getters["collateralVaultStore/getUserCollateralRatioInPercent"](this.connectedAccount));
 				result = parseFloat(amount);
 			} catch (e) {
 			} finally {

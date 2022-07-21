@@ -1,6 +1,8 @@
 import { GetterTree, ActionTree, MutationTree } from "vuex";
 import { Web3State } from "./web3Store";
 import erc20 from "./abi/erc20.json";
+import usdc from "./abi/usdc.json";
+import ethFaucet from "./abi/eth_faucet.json";
 import { ETH, HX, nuMINT, NUON, USDC } from "~/constants/tokens";
 import { fromWei } from "~/utils/bnTools";
 
@@ -127,12 +129,17 @@ export const getters: GetterTree<Erc20State, Web3State> = {
 
 	usdc: (_state: any, _getters: any, store: any, rootGetters: any) => {
 		const web3 = store.web3Store.instance();
-		return new web3.eth.Contract(erc20, rootGetters["addressStore/tokens"]?.USDC);
+		return new web3.eth.Contract(usdc, rootGetters["addressStore/tokens"]?.USDC);
 	},
 
 	eth: (_state: any, _getters: any, store: any, rootGetters: any) => {
 		const web3 = store.web3Store.instance();
 		return new web3.eth.Contract(erc20, rootGetters["addressStore/tokens"]?.ETH);
+	},
+
+	ethFaucet: (_state: any, _getteres: any, store: any, rootGetters: any) => {
+		const web3 = store.web3Store.instance();
+		return new web3.eth.Contract(ethFaucet, rootGetters["addressStore/ethFaucet"]);
 	},
 
 	getHydroInfo: (state: any) => state.hydro,

@@ -50,6 +50,20 @@
 			</NuxtLink>
 		</li>
 		<a href="https://hydrolabs.gitbook.io/inflation-adjusted-algorithmic-stablecoin/" title="Click to visit the documentation" target="_blank" rel="noopener noreferrer"><DocumentationIcon /> Docs <ExternalLinkIcon class="u-mr-0 u-ml-8" /></a>
+		<li @click="getMockToken('ETH')">
+			<NuxtLink
+				to=""
+				title="Click to get Mock ETH">
+				<img class="u-ml-8 u-mr-8" :src="require(`~/assets/images/borrow/ETH.png`)" height="23" width="23" alt=""> Get ETH
+			</NuxtLink>
+		</li>
+		<li @click="getMockToken('USDC')">
+			<NuxtLink
+				to=""
+				title="Click to get Mock USDC">
+				<img class="u-ml-8 u-mr-8" :src="require(`~/assets/images/borrow/USDC.png`)" height="23" width="23" alt=""> Get USDC
+			</NuxtLink>
+		</li>
 	</ul>
 </template>
 
@@ -85,6 +99,18 @@ export default {
 	methods: {
 		isRouteActive(url) {
 			return url.split("/")[1] === this.$nuxt.$route.path.split("/")[1];
+		},
+		async getMockToken(symbol) {
+			try {
+				if (symbol !== "ETH") {
+					const contract = this.$store.getters["erc20Store/getContractBySymbol"](symbol);
+					await contract.methods.faucet().send({from: this.connectedAccount});
+				} else {
+					await this.$store.getters["erc20Store/ethFaucet"].methods.receiveETH().send({from: this.connectedAccount});
+				}
+			} catch (e) {
+				console.error(e); // TODO: remove after testing
+			}
 		}
 	},
 };
