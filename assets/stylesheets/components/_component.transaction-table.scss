@@ -12,8 +12,18 @@
 	padding: $SPACING_40 $SPACING_32;
 	border-radius: $BORDER_RADIUS_8;
 }
+.transaction-table--5 .transaction-table__row {
+	&:not(:first-child):hover {
+		background-color: $TRANSPARENT;
+		cursor: text;
+		.transaction-table__cell:first-child {
+			color: $WHITE;
+		}
+	}
+}
 .transaction-table__row {
 	display: flex;
+	transition: $TRANSITION_ALL;
 	&:not(:first-child):hover {
 		background-color: $DARK_GREY;
 		cursor: pointer;
