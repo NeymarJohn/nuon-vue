@@ -206,8 +206,8 @@ export const getCollateralTransactionHistory = (filters) => {
 							tokenAddress
 						}
 						user
-						amount
-						totalAmount
+						input
+						output
 					}
 			}`,
 		variables
@@ -259,3 +259,35 @@ export const getSwapTransactionHistory = (filters) => {
 		variables
 	});
 };
+
+export const getStakingTransactionHistory = (filters) => {
+	const variables = {
+		user: filters.user,
+		query: filters.query || ""
+	};
+	if (filters.lastDays) {
+		variables.startDate = Math.floor(new Date(dayjs().subtract(filters.lastDays, "day")).getTime() / 1000);
+	} else {
+		variables.startDate = 0;
+	}
+
+	return axios.post(THE_GRAPH_URL, {
+		query:`
+			query getStakingTransactions($user: String!, $query: String!, $startDate: Int! ) {
+				boardroomTransactions(orderBy: date, orderDirection: desc, 
+					where: {
+						date_gte: $startDate, 
+						user: $user
+					}) {
+						id
+						date
+						amount
+						totalAmount
+						transactionType
+						user
+				}
+			}`,
+		variables
+	});
+};
+

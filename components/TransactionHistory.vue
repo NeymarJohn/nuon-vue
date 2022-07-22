@@ -31,7 +31,8 @@
 	</div>
 </template>
 <script>
-import { getCollateralTransactionHistory, getSwapTransactionHistory } from "~/services/theGraph";
+import { nuMINT, NUON } from "~/constants/tokens";
+import { getCollateralTransactionHistory, getSwapTransactionHistory, getStakingTransactionHistory } from "~/services/theGraph";
 
 export default {
 	name: "TransactionHistory",
@@ -82,10 +83,10 @@ export default {
 						this.tableData = res.data.data.collateralHubTransactions.map(item => (
 							{
 								...item, 
-								amount: item.amount, 
-								totalAmount: item.totalAmount,
+								amount: item.input, 
+								totalAmount: item.output,
 								inputToken: item.depositToken.symbol,
-								outputToken: item.depositToken.symbol,
+								outputToken: NUON.symbol,
 								date: item.date * 1000,
 								selectedTab: this.locations[this.selectedTab],
 								txHash: item.id
@@ -107,12 +108,13 @@ export default {
 							}));
 					});
 				} else if (this.locations[this.selectedTab] === "boardroom") {
-					getCollateralTransactionHistory(filter).then(res => {
-						this.tableData = res.data.data.collateralHubTransactions.map(item => (
+					getStakingTransactionHistory(filter).then(res => {
+						this.tableData = res.data.data.boardroomTransactions.map(item => (
 							{
 								...item, 
-								amount: item.amount, 
 								date: item.date * 1000,
+								inputToken: nuMINT.symbol,
+								outputToken: nuMINT.symbol,
 								txHash: item.id
 							}));
 					});

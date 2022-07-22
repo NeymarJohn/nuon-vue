@@ -32,6 +32,9 @@
 							<span  class="transaction-table__cell_marked">From</span><span> {{row.inputToken}}</span>
 							<span  class="transaction-table__cell_marked">To</span><span> {{row.outputToken}}</span>
 						</template>
+						<template v-else-if="tableData === 'boardroom'">
+							<span  class="transaction-table__cell_marked">Stake</span><span> {{row.inputToken}}</span>
+						</template>
 					</span>
 					<span v-else class="l-flex l-flex--row-center">
 						<img v-if="misc.hasImage && misc.hasImage[obj.id]" :src="require(`~/assets/images/borrow/${misc.hasImage[obj.id][index]}.png`)" class="u-mr-8" height="17" width="17" alt="">
