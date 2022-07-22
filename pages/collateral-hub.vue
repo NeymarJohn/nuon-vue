@@ -48,7 +48,6 @@ export default {
 		return {
 			myCollateralizationRatio: null,
 			minimumCollateralizationRatio: null,
-			collaterals: ["ETH", "USDC", "BTC", "BUSD", "AVAX", "USDT"],
 			currentlySelectedCollateral: "ETH",
 			collateralPrice: null,
 			userMintedAmount: null,
@@ -76,10 +75,10 @@ export default {
 			return this.collateralPrice * this.userCollateralAmount;
 		},
 		userTotalLockedCollateralAmount() {
-			return this.collateralPrices.ETH * this.userTotalLockedCollateralAmountStore.ETH;
+			return this.validCollaterals.reduce((sum, collateral) => sum + (this.collateralPrices[collateral] * this.userTotalLockedCollateralAmountStore[collateral]), 0);
 		},
 		userTotalMintedNuon() {
-			return this.userTotalMintedNuonStore.ETH;
+			return Object.values(this.userTotalMintedNuonStore).reduce((sum, value) => sum + value, 0);
 		},
 		liquidationPrice() {
 			const collateralPrice = this.collateralPrices[this.currentlySelectedCollateral];
@@ -97,6 +96,11 @@ export default {
 		},
 		userJustMinted() {
 			return this.$store.state.collateralVaultStore.userJustMinted;
+		},
+		validCollaterals() {
+			const collaterals = ["ETH"];
+			if (this.isEnvDev) collaterals.push("USDC");
+			return collaterals;
 		}
 	},
 	watch: {
@@ -118,7 +122,6 @@ export default {
 	methods: {
 		tabChanged(e) {
 			this.currentlySelectedCollateral = e.selectedValue;
-			this.$store.dispatch("collateralVaultStore/changeCollateral", this.currentlySelectedCollateral);
 		},
 		async getCollateralPrice() {
 			let result = 0;
@@ -200,7 +203,8 @@ export default {
 				this.truflationPeg = result;
 			}
 		},
-		initialize() {
+		async initialize() {
+			await this.$store.dispatch("collateralVaultStore/changeCollateral", this.currentlySelectedCollateral);
 			this.getCollateralPrice();
 			this.getNuonPrice();
 			this.getMinimumCollateralizationRatio();

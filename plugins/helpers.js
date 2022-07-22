@@ -85,6 +85,9 @@ Vue.mixin({
 
 			return data;
 		},
+		isEnvDev() {
+			return this.$config.NODE_ENV === "development";
+		}
 	},
 	methods: {
 		numberWithCommas (x) {

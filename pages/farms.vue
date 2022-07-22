@@ -101,9 +101,9 @@ export default {
 			const pidToUserData = this.farmsUserData.reduce((acc, val) => {acc[val.pid] = val; return acc;}, {});
 			const aggData = this.farms[0].map(f => {
 				const lpAddress = f.lpAddresses[BSC_CHAIN_ID];
-				const lpAddressLink = `${this.$config.bscscanUrl}/address/${f.lpAddress}`;
-				const addLPLink = `${this.$config.pancakeswapUrl}/add/${f.token.address}/${f.quoteToken.address}`;
-				const poolInfo = `${this.$config.pancakeswapUrl}/info/pool/${lpAddress}`;
+				const lpAddressLink = `${this.$config[this.$config.NODE_ENV].bscscanUrl}/address/${f.lpAddress}`;
+				const addLPLink = `${this.$config[this.$config.NODE_ENV].pancakeswapUrl}/add/${f.token.address}/${f.quoteToken.address}`;
+				const poolInfo = `${this.$config[this.$config.NODE_ENV].pancakeswapUrl}/info/pool/${lpAddress}`;
 				return { type: "pancakeswap", ...f, ...pidToUserData[f.pid], lpAddress, lpAddressLink, addLPLink, poolInfo};
 			});
 			return aggData;

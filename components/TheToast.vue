@@ -13,7 +13,7 @@
 			</div>
 			<div class="toast__body">
 				<h4 v-if="message">{{ message }}</h4>
-				<a v-if="txHash" :href="$config.blockExplorerUrl + 'tx/' + txHash" target="_blank" rel="noopener noreferrer" class="btn btn--link" title="Click to view transaction on the block explorer">View transaction on block explorer</a>
+				<a v-if="txHash" :href="$config[$config.NODE_ENV].blockExplorerUrl + 'tx/' + txHash" target="_blank" rel="noopener noreferrer" class="btn btn--link" title="Click to view transaction on the block explorer">View transaction on block explorer</a>
 			</div>
 		</div>
 	</Transition>

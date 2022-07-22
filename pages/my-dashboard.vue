@@ -132,7 +132,6 @@ export default {
 				}
 			},
 			mobileView: false,
-			collaterals: ["ETH", "USDC"],
 			collateralPrices: {},
 			userMintedAmounts: {},
 			userCollateralizationRatios: {},
@@ -149,6 +148,11 @@ export default {
 		};
 	},
 	computed: {
+		collaterals() {
+			const collaterals = ["ETH"];
+			if (this.isEnvDev) collaterals.push("USDC");
+			return collaterals;
+		},
 		pendingRewards() {
 			return this.$store.state.boardroomStore.earned;
 		},

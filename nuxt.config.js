@@ -87,10 +87,25 @@ export default {
 		}
 	},
 	publicRuntimeConfig: {
-		blockExplorerUrl: "http://13.251.9.172:4000/",
-		infuraId: "0b78809457cf4190a7919f375644dd9b",
-		bscscanUrl: "https://bscscan.com",
-		pancakeswapUrl: "https://pancakeswap.finance"
+		NODE_ENV: process.env.NODE_ENV || "development",
+		development: {
+			blockExplorerUrl: "http://13.251.9.172:4000/",
+			infuraId: "0b78809457cf4190a7919f375644dd9b",
+			bscscanUrl: "https://bscscan.com",
+			pancakeswapUrl: "https://pancakeswap.finance",
+		},
+		staging: {
+			blockExplorerUrl: "http://13.251.9.172:4000/",
+			infuraId: "0b78809457cf4190a7919f375644dd9b",
+			bscscanUrl: "https://bscscan.com",
+			pancakeswapUrl: "https://pancakeswap.finance",
+		},
+		production: {
+			blockExplorerUrl: "http://13.251.9.172:4000/",
+			infuraId: "0b78809457cf4190a7919f375644dd9b",
+			bscscanUrl: "https://bscscan.com",
+			pancakeswapUrl: "https://pancakeswap.finance",
+		}
 	},
 	generate: {
 		async routes() {
