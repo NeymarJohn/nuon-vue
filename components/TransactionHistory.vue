@@ -32,7 +32,7 @@
 </template>
 <script>
 import { nuMINT, NUON } from "~/constants/tokens";
-import { getCollateralTransactionHistory, getSwapTransactionHistory, getStakingTransactionHistory } from "~/services/theGraph";
+import { getCollateralTransactionHistory, getSwapTransactionHistory, getStakingTransactionHistory, getRewardTransactionHistory } from "~/services/theGraph";
 
 export default {
 	name: "TransactionHistory",
@@ -77,8 +77,8 @@ export default {
 					lastDays: this.filterLastDays,
 					query: this.searchQuery
 				};
+				this.tableData = [];
 				if (this.locations[this.selectedTab] === "collateral") {
-					this.tableData = [];
 					getCollateralTransactionHistory(filter).then(res => {
 						this.tableData = res.data.data.collateralHubTransactions.map(item => (
 							{
@@ -93,7 +93,6 @@ export default {
 							}));
 					});
 				} else if (this.locations[this.selectedTab] === "swap") {
-					this.tableData = [];
 					getSwapTransactionHistory(filter).then(res => {
 						this.tableData = res.data.data.swaps.map(item => (
 							{
@@ -119,13 +118,15 @@ export default {
 							}));
 					});
 				} else {
-					getCollateralTransactionHistory(filter).then(res => {
-						this.tableData = res.data.data.collateralHubTransactions.map(item => (
+					getRewardTransactionHistory(filter).then(res => {
+						this.tableData = res.data.data.getRewardTransactionHistory.map(item => (
 							{
 								...item, 
 								amount: item.amount, 
-								date: item.date * 1000,
-								txHash: item.id
+								date: item.datetime * 1000,
+								txHash: item.id,
+								inputToken: nuMINT.symbol,
+								outputToken: nuMINT.symbol,
 							}));
 					});
 				}

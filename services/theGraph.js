@@ -291,3 +291,33 @@ export const getStakingTransactionHistory = (filters) => {
 	});
 };
 
+export const getRewardTransactionHistory = (filters) => {
+	const variables = {
+		user: filters.user,
+		query: filters.query || ""
+	};
+	if (filters.lastDays) {
+		variables.startDate = Math.floor(new Date(dayjs().subtract(filters.lastDays, "day")).getTime() / 1000);
+	} else {
+		variables.startDate = 0;
+	}
+
+	return axios.post(THE_GRAPH_URL, {
+		query:`
+			query getRewardTransactions($user: String!, $query: String!, $startDate: Int! ) {
+				rewardTransactions(orderBy: dateTime, orderDirection: desc, where: {
+					dateTime_gte: $startDate, 
+					user: $user
+				}) {
+					id
+					dateTime
+					amount
+					user
+				}
+			}`,
+		variables
+	});
+};
+
+
+
