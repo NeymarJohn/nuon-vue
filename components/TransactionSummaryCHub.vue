@@ -53,7 +53,7 @@ export default {
 			required: true
 		},
 		convertToAmount: {
-			type: [Number, String],
+			type: String,
 			required: true
 		},
 		convertToTitle: {

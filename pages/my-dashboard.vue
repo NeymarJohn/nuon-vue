@@ -12,7 +12,7 @@
 						My Total Value Locked
 						<TheBadge v-if="!isNaN(getChangePercent('collateralTokens', collateralRatioArr, true))" class="u-ml-8" :color="getPercentChangeBadgeClass('collateralTokens', collateralRatioArr, true)">{{ getUserTVLSign }}{{ Math.abs(getChangePercent('collateralTokens', collateralRatioArr, true)) }}%</TheBadge>
 					</label>
-					<ComponentLoader component="h1" :loaded="totalValue !== null">
+					<ComponentLoader component="h1" :loaded="totalValue ? true : false">
 						<h3>${{ (graphSelectionTVL || totalValue) | toFixed | numberWithCommas }}</h3>
 					</ComponentLoader>
 				</DataCard>
@@ -22,16 +22,10 @@
 						Total Value of My Minted NUON
 						<TheBadge v-if="!isNaN(getChangePercent('mintedNuon', collateralRatioArr, true))" class="u-ml-8" :color="getPercentChangeBadgeClass('mintedNuon', collateralRatioArr, true)">{{ getUserMintedNuonSign }}{{ Math.abs(getChangePercent('mintedNuon', collateralRatioArr, true)) }}%</TheBadge>
 					</label>
-					<ComponentLoader component="h1" :loaded="totalMintedNuon !== null">
+					<ComponentLoader component="h1" :loaded="totalMintedNuon ? true : false">
 						<h3>${{ (graphSelectionMintedNuon || totalMintedNuon) | toFixed | numberWithCommas }}</h3>
 					</ComponentLoader>
 				</DataCard>
-				<!-- <DataCard>
-					<label>My Collateralization Ratio<TooltipIcon v-tooltip="'The total percentage of collateral you’ve locked to back all your minted NUON.'" /></label>
-					<ComponentLoader component="h1" :loaded=" userCollateralizationRatios.ETH !== null">
-						<h3>{{ userCollateralizationRatios.ETH | toFixed | numberWithCommas }}%</h3>
-					</ComponentLoader>
-				</DataCard> -->
 			</LayoutFlex>
 			<LineChart
 				v-if="xAxisData.length"
@@ -61,20 +55,22 @@
 			<template #panel-one>
 				<DataCard>
 					<label>Total Value</label>
-					<ComponentLoader component="h1" :loaded="totalValue !== null">
+					<ComponentLoader component="h1" :loaded="(totalValue && balancesValue && stakedBalance) ? true : false">
 						<h3>${{ totalValue + balancesValue + stakedBalance | toFixed | numberWithCommas }}</h3>
 					</ComponentLoader>
 				</DataCard>
 			</template>
 			<template #panel-two>
-				<DonutChartBalance
-					:key="`balances-${balancesValue}-${totalValue}-${stakedBalance}`"
-					:chart-data="[balancesValue, parseFloat(totalValue), parseFloat(stakedBalance)]" />
+				<ComponentLoader class="donut-chart-balance" :loaded="(totalValue && balancesValue && stakedBalance)?true:false">
+					<DonutChartBalance
+						:key="`balances-${balancesValue}-${totalValue}-${stakedBalance}`"
+						:chart-data="[balancesValue, parseFloat(totalValue), parseFloat(stakedBalance)]" />
+				</ComponentLoader>
 			</template>
 			<template #panel-three>
 				<DataCard>
 					<label><TheDot color="orange" />NUON &amp; nuMINT balance<TooltipIcon v-tooltip="'Total number of NUON and nuMINT tokens in your wallet.'" /></label>
-					<ComponentLoader component="h1" :loaded="balancesValue !== null">
+					<ComponentLoader component="h1" :loaded="balancesValue ? true : false">
 						<h4>{{ tokenBalances.NUON | toFixed | numberWithCommas }} NUON</h4>
 						<h4>{{ tokenBalances.HX | toFixed | numberWithCommas }} nuMINT</h4>
 					</ComponentLoader>
@@ -83,7 +79,7 @@
 			<template #panel-four>
 				<DataCard>
 					<label><TheDot color="blue" /> My Locked Collateral<TooltipIcon v-tooltip="'Total number of tokens locked as collateral.'" /></label>
-					<ComponentLoader component="h1" :loaded="totalValue !== null">
+					<ComponentLoader component="h1" :loaded="totalValue ? true : false">
 						<h4>{{myCollateralLocked | toFixed | numberWithCommas }} ETH</h4>
 					</ComponentLoader>
 				</DataCard>
@@ -91,7 +87,7 @@
 			<template #panel-five>
 				<DataCard>
 					<label><TheDot color="tourquise" /> My Staked Tokens<TooltipIcon v-tooltip="'Total number of nuMINT tokens staked in the Nuon protocol.'" /></label>
-					<ComponentLoader component="h1" :loaded="stakedBalance !== null">
+					<ComponentLoader component="h1" :loaded="stakedBalance ? true : false">
 						<h4>{{ stakedBalance | toFixed | numberWithCommas }} nuMINT</h4>
 					</ComponentLoader>
 				</DataCard>
@@ -181,7 +177,8 @@ export default {
 			return Number(this.myCollateralLocked) / this.totalValue * 100;
 		},
 		totalMintedNuon() {
-			return parseFloat(Object.values(this.userMintedAmounts).reduce((acc, amount) => acc + parseFloat(amount), 0) * this.nuonPrice).toFixed(2);
+			if (Object.values(this.userMintedAmounts).length === 0) return 0;
+			return parseFloat(Object.values(this.userMintedAmounts).reduce((acc, amount) => acc + amount, 0) * this.nuonPrice).toFixed(2);
 		},
 		chubData() {
 			const data = [];

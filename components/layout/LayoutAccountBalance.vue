@@ -1,23 +1,16 @@
 <template>
 	<div class="l-grid-account-balance">
-		<div class="l-grid-account-balance__panel-one">
+		<div class="l-grid-account-balance__title">
 			<slot name="panel-one" />
 		</div>
-		<div class="l-grid-account-balance__panel-two">
+		<div class="l-grid-account-balance__body">
 			<slot name="panel-two" />
+			<LayoutFlex>
+				<slot name="panel-three" />
+				<slot name="panel-four" />
+				<slot name="panel-five" />
+			</LayoutFlex>
 		</div>
-		<div class="l-grid-account-balance__panel-three">
-			<slot name="panel-three" />
-		</div>
-		<div class="l-grid-account-balance__panel-four">
-			<slot name="panel-four" />
-		</div>
-		<div class="l-grid-account-balance__panel-five">
-			<slot name="panel-five" />
-		</div>
-		<!-- <div class="l-grid-account-balance__panel-six">
-			<slot name="panel-six" />
-		</div> -->
 	</div>
 </template>
 

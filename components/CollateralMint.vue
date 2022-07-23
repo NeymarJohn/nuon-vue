@@ -143,7 +143,7 @@ export default {
 			return  parseFloat(this.inputValue) > this.tokenBalance;
 		},
 		tokenBalance() {
-			return this.$store.state.erc20Store.balance[this.currentlySelectedCollateral];
+			return parseFloat(this.$store.state.erc20Store.balance[this.currentlySelectedCollateral]);
 		},
 		readyToDeposit() {
 			return !!this.inputValue && !this.isMoreThanBalance;
