@@ -87,7 +87,7 @@ export default {
 		}
 	},
 	publicRuntimeConfig: {
-		NODE_ENV: process.env.NODE_ENV || "development",
+		NODE_ENV: "development",
 		development: {
 			blockExplorerUrl: "http://13.251.9.172:4000/",
 			infuraId: "0b78809457cf4190a7919f375644dd9b",
