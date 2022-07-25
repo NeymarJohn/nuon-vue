@@ -2,12 +2,14 @@
 	<div>
 		<h2 class="u-mb-24">Collateral Hub Overview</h2>
 		<LayoutFlex direction="column" class="l-chart l-chart--vault-overview">
-			<TheTabs size="thin" color="light" margin="24" @tab-changed="handleTabChanged">
-				<TheTab v-for="(period, periodIdx) in periods" :key="periodIdx" :title="period" />
-			</TheTabs>
+			<ComponentLoader component="collateral-hub-chart-tabs" :loaded="isLoadedData ? true : false">
+				<TheTabs size="thin" color="light" margin="24" @tab-changed="handleTabChanged">
+					<TheTab v-for="(period, periodIdx) in periods" :key="periodIdx" :title="period" />
+				</TheTabs>
+			</ComponentLoader>
 			<LayoutFlex class="l-flex--column-md">
 				<div class="chart chart-container">
-					<ComponentLoader component="collateral-hub-chart" :loaded="isLoadedData !== null && !error">
+					<ComponentLoader component="collateral-hub-chart" :loaded="isLoadedData ? true : false">
 						<LightweightChart
 							v-if="isLoadedData && !error"
 							:day-data="dayData"
@@ -21,14 +23,13 @@
 					</div>
 				</div>
 				<div class="chart chart--donut">
-					<p class="u-mb-4">Collateral Distribution</p>
-					<p class="u-colour-white u-mb-16">{{ dateStr }}</p>
-					<!-- <ComponentLoader component="collateral-hub-chart" >
+					<ComponentLoader component="collateral-hub-chart" :loaded="isLoadedData ? true : false">
+						<p class="u-mb-4">Collateral Distribution</p>
+						<p class="u-colour-white u-mb-16">{{ dateStr }}</p>
 						<DonutChartCollateral class="u-mb-24" :chart-data="{}" />
-					</ComponentLoader> -->
-					<DonutChartCollateral class="u-mb-24" :chart-data="{}" />
-					<p>Protocol Collateralization Ratio<TooltipIcon v-tooltip="'The amount of collateral deposited across the protocol to back all minted NUON.'" /></p>
-					<h3>{{ collateralRatio }}%</h3>
+						<p>Protocol Collateralization Ratio<TooltipIcon v-tooltip="'The amount of collateral deposited across the protocol to back all minted NUON.'" /></p>
+						<h3>{{ collateralRatio }}%</h3>
+					</ComponentLoader>
 				</div>
 			</LayoutFlex>
 		</LayoutFlex>

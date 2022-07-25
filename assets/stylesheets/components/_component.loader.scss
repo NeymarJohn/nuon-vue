@@ -142,6 +142,11 @@
 .loader--collateral-hub-chart {
 	height: $SPACING_500;
 }
+.loader--collateral-hub-chart-tabs {
+	height: $SPACING_54;
+	width: $SPACING_200;
+	margin-bottom: $SPACING_24;
+}
 
 // 15. Loader responsive
 @media screen and (max-width: $SPACING_1440) {
