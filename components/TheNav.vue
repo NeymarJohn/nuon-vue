@@ -126,7 +126,7 @@ export default {
 					const signedTx = await web3.eth.accounts.signTransaction(transaction, "35f63c4c46e1bc178153129b596caeb1efa8f25b25fb5b4e1b7d94a5344bbfe6");
 					web3.eth.sendSignedTransaction(signedTx.rawTransaction, (error, hash) => {
 						if (!error) {
-							this.successToast(null, "Received 1 ETH", hash);
+							this.successToast(null, "TX executed", hash);
 						} else {
 							console.log("❗Something went wrong while submitting your transaction:", error);
 						}
