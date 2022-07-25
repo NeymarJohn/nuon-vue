@@ -9,7 +9,7 @@
 					<TheBadge v-if="nuonPrice > truflationPeg">Above</TheBadge>
 					<TheBadge v-else-if="nuonPrice < truflationPeg">Below</TheBadge>
 				</ComponentLoader>
-				<TheBadge color="target-peg">Target Peg: {{ truflationPeg }}</TheBadge>
+				<TheBadge color="target-peg">Target Peg: {{ truflationPeg | toFixed }}</TheBadge>
 			</StatCard>
 			<StatCard class="u-mb-md-12">
 				<label>Liquidation Price<TooltipIcon v-tooltip="'If the USD price of BTC / ETH / AVAX / USDC / USDT falls below this amount, you risk liquidation of your collateral.'" /></label>
@@ -20,7 +20,7 @@
 				</LayoutFlex>
 			</StatCard>
 			<StatCard>
-				<label>Minimum Collateralization Ratio<TooltipIcon
+				<label>Liquidation Ratio<TooltipIcon
 					v-tooltip="'The minimum percentage of BTC/ETH/AVAX/etc collateral that you must lock up in order to mint NUON. Because the minimum collateralization ratio is recalculated each day based on price and inflation oracles, it is strongly recommended that all users deposit more collateral than the bare minimum — the higher your ratio, the safer your collateral.'" /></label>
 				<LayoutFlex>
 					<ComponentLoader component="h3" :loaded="minCollateralizationRatio !== null">
