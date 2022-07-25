@@ -116,19 +116,18 @@ export default {
 	watch: {
 		async inputValue() {
 			let result = {0: 0};
-			const nuonRaisedToDecimals = 10 ** this.$store.state.erc20Store.decimals.NUON;
-			const redeemedTokenRaisedToDecimals = 10 ** this.$store.state.erc20Store.decimals[this.currentlySelectedCollateral];
+			const nuonRaisedToDecimals = this.$store.state.erc20Store.decimals.NUON;
+			const redeemedTokenRaisedToDecimals =  this.$store.state.erc20Store.decimals[this.currentlySelectedCollateral];
 			try {
-				const amount = `${this.inputValue * nuonRaisedToDecimals}`;
+				const amount = toWei(this.inputValue, nuonRaisedToDecimals);
 				result = await this.$store.getters["collateralVaultStore/getEstimateCollateralsOut"](this.connectedAccount, amount);
 			} catch (e) {
-				console.error(e); // TODO: remove after testing
 				if (!this.amountMoreThanUserMinted) {
 					const message = this.getRPCErrorMessage(e);
 					this.failureToast(null, message, "Transaction failed");
 				}
 			} finally {
-				this.estimatedWithdrawnNuonValue = result[0] / redeemedTokenRaisedToDecimals;
+				this.estimatedWithdrawnNuonValue = fromWei(result[0], redeemedTokenRaisedToDecimals);
 			}
 		},
 		currentlySelectedCollateral() {
