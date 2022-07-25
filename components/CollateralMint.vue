@@ -212,7 +212,7 @@ export default {
 
 			const currentRatio = this.selectedCollateralRatio;
 			const collateralRatio = `${(10 ** 18) / (currentRatio / 100)}`;
-			const inputValueWithDecimals = `${this.inputValue * (10 ** this.decimals)}`;
+			const inputValueWithDecimals = toWei(this.inputValue, this.decimals );
 			let ans = [0];
 			try {
 				ans = await this.$store.getters["collateralVaultStore/getEstimateMintedNUONAmount"](inputValueWithDecimals, collateralRatio);

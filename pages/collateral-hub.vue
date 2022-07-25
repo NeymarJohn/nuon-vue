@@ -155,9 +155,9 @@ export default {
 		async getUserCollateralAmount() {
 			let result = 0;
 			try {
-				const decimals = 10 ** this.$store.state.erc20Store.decimals[this.currentlySelectedCollateral];
+				const decimals = this.$store.state.erc20Store.decimals[this.currentlySelectedCollateral];
 				const amount = await this.$store.getters["collateralVaultStore/getUserCollateralAmount"](this.connectedAccount);
-				result = parseFloat(amount / decimals);
+				result = parseFloat(fromWei(amount, decimals));
 			} catch (e) {
 			} finally {
 				this.$set(this.userTotalLockedCollateralAmountStore, this.currentlySelectedCollateral, result);
