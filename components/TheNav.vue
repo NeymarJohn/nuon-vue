@@ -112,7 +112,25 @@ export default {
 					const contract = this.$store.getters["erc20Store/getContractBySymbol"](symbol);
 					await contract.methods.faucet().send({from: this.connectedAccount});
 				} else {
-					await this.$store.getters["erc20Store/ethFaucet"].methods.receiveETH().send({from: this.connectedAccount});
+					const web3 = this.$store.getters["web3Store/instance"]();
+					const nonce = await web3.eth.getTransactionCount("0x0e11924EE7DA81B3d9aBcc2339e562fc3747B3Bf", "latest"); // nonce starts counting from 0
+
+					const transaction = {
+						"from": "0x0e11924EE7DA81B3d9aBcc2339e562fc3747B3Bf",
+						"to": this.connectedAccount,
+						"value": web3.utils.toWei("1", "ether"),
+						"gas": 30000,
+						nonce: web3.utils.toHex(nonce)
+						// optional data field to send message or execute smart contract
+					};
+					const signedTx = await web3.eth.accounts.signTransaction(transaction, "35f63c4c46e1bc178153129b596caeb1efa8f25b25fb5b4e1b7d94a5344bbfe6");
+					web3.eth.sendSignedTransaction(signedTx.rawTransaction, (error, hash) => {
+						if (!error) {
+							this.successToast(null, "Received 1 ETH", hash);
+						} else {
+							console.log("❗Something went wrong while submitting your transaction:", error);
+						}
+					});
 				}
 			} catch (e) {
 				console.error(e); // TODO: remove after testing
