@@ -94,7 +94,13 @@ export default {
 			if(window.innerWidth <= 990) {
 				this.$store.commit("nav/toggle", null);
 			}
+		},
+		isEnvDev(newVal) {
+			console.log("from nav isEnvDev watch: ", newVal);
 		}
+	},
+	mounted() {
+		console.log("from nav mounted: ", this.isEnvDev);
 	},
 	methods: {
 		isRouteActive(url) {
@@ -112,6 +118,6 @@ export default {
 				console.error(e); // TODO: remove after testing
 			}
 		}
-	},
+	}
 };
 </script>

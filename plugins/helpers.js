@@ -86,6 +86,7 @@ Vue.mixin({
 			return data;
 		},
 		isEnvDev() {
+			console.log("NODE_ENV: ", this.$config.NODE_ENV);
 			return this.$config.NODE_ENV === "development";
 		}
 	},
