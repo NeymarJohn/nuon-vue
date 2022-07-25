@@ -237,7 +237,7 @@ export default {
 			return !this.isConnectedWallet || !(this.myStake > 0);
 		},
 		nextEpochPoint() {
-			return Number(this.$store.state.boardroomStore.nextEpochPoint) + 3600 * 24 * 50;
+			return Number(this.$store.state.boardroomStore.nextEpochPoint);
 		},
 		tvl() {
 			return this.totalStaked * this.tokenPrices.HX;
