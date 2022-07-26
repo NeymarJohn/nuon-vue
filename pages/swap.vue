@@ -286,7 +286,7 @@ export default {
 			return this.output.value * this.swapFee / 100;
 		},
 		isMoreThanBalance() {
-			return this.input.value > this.tokenBalances[this.input.token];
+			return parseFloat(this.input.value) > parseFloat(this.tokenBalances[this.input.token]);
 		}
 	},
 	mounted () {
