@@ -127,22 +127,35 @@
 								<h4>Slippage Tolerance</h4> 
 								<h4><strong>{{maxSlippage}}%</strong></h4>
 							</LayoutFlex>
-							<LayoutFlex v-if="output.value && input.value" direction="row-space-between" class="u-mt-12">
-								<h4>Price Impact</h4> 
-								<h4><strong>{{priceImpact | toFixed | numberWithCommas}}%</strong></h4>
-							</LayoutFlex>
-							<LayoutFlex v-if="output.value && input.value" direction="row-space-between" class="u-mt-12">
-								<h4>Minimum received after slippage</h4> 
-								<h4><strong>{{calculateSlippage() | toFixed | numberWithCommas}} {{output.token}}</strong></h4>
-							</LayoutFlex>
-							<LayoutFlex v-if="output.value && input.value" direction="row-space-between" class="u-mt-12">
-								<h4>{{input.token}} reserves</h4> 
-								<h4><strong>{{reserves[input.token] | toFixed | numberWithCommas}} {{input.token}}</strong></h4>
-							</LayoutFlex>
-							<LayoutFlex v-if="output.value && input.value" direction="row-space-between" class="u-mt-12">
-								<h4>{{output.token}} reserves</h4> 
-								<h4><strong>{{reserves[output.token] | toFixed | numberWithCommas}} {{output.token}}</strong></h4>
-							</LayoutFlex>
+							<template  v-if="output.value && input.value">
+								<LayoutFlex direction="row-space-between" class="u-mt-12">
+									<h4>Price Impact</h4> 
+									<ComponentLoader component="h4" :loaded="!isLoadingPriceImpact">
+										<h4><strong>{{priceImpact | toFixed | numberWithCommas}}%</strong></h4>
+									</ComponentLoader>
+							
+								</LayoutFlex>
+								<LayoutFlex direction="row-space-between" class="u-mt-12">
+									<h4>Minimum received after slippage</h4> 
+									<ComponentLoader component="h4" :loaded="!isLoadingPriceImpact">
+										<h4><strong>{{calculateSlippage() | toFixed | numberWithCommas}} {{output.token}}</strong></h4>
+									</ComponentLoader>
+								</LayoutFlex>
+								<LayoutFlex direction="row-space-between" class="u-mt-12">
+									<h4>{{input.token}} reserves</h4> 
+									<ComponentLoader component="h4" :loaded="!isLoadingPriceImpact">
+										<h4><strong>{{reserves[input.token] | toFixed | numberWithCommas}} {{input.token}}</strong></h4>
+									</ComponentLoader>
+								</LayoutFlex>
+								<LayoutFlex direction="row-space-between" class="u-mt-12">
+									<h4>{{output.token}} reserves</h4> 
+									<ComponentLoader component="h4" :loaded="!isLoadingPriceImpact">
+										<h4><strong>{{reserves[output.token] | toFixed | numberWithCommas}} {{output.token}}</strong></h4>
+									</ComponentLoader>
+							
+								</LayoutFlex>
+							</template>
+
 						</div>
 						<div class="transaction-input__buttons">
 							<TheButton
@@ -230,7 +243,8 @@ export default {
 			maxSlippage: 0.5,
 			activeStep: 1,
 			isInputRate: true,
-			reserves: {}
+			reserves: {},
+			isLoadingPriceImpact: false
 		};
 	},
 	head () {
@@ -404,6 +418,7 @@ export default {
 		},
 		calcuatePriceImpact() {
 			if (!this.input.token || !this.output.token) return;
+			this.isLoadingPriceImpact = true;
 			this.$store.dispatch("swapStore/getReserves", [this.input.token, this.output.token]).then((reserves) => {
 				this.reserves = reserves;
 				const inputTokenReserve = parseFloat(reserves[this.input.token]);
@@ -411,6 +426,7 @@ export default {
 				const oldPrice = inputTokenReserve / outputTokenReserve;
 				const newPrice = (inputTokenReserve - this.input.value) / (outputTokenReserve + parseFloat(this.output.value));
 				this.priceImpact = (oldPrice - newPrice) / oldPrice * 100;
+				this.isLoadingPriceImpact = false;
 			});
 		},
 		connectWallet() {
