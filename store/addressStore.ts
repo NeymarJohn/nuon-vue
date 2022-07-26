@@ -49,11 +49,6 @@ export const getters: GetterTree<ContractState, Web3State> = {
 		return addr;
 	},
 
-	uniswapV2Pair: (state: any, _getters: any, store: any) => {
-		const addr = state.addr[store.web3Store.chainId as number].uniswapV2Pair;
-		return addr;
-	},
-
 	addresses: (state: any, _getters, store: any) => {
 		const addr = state.addr[store.web3Store.chainId as number];
 		return addr;
