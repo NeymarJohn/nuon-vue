@@ -8,7 +8,6 @@
 	padding: $SPACING_12 $SPACING_24;
 	border-radius: $BORDER_RADIUS_8;
 	border: $SPACING_1 solid;
-	text-align: center;
 }
 .notification p {
 	margin-bottom: 0;
@@ -21,10 +20,6 @@
 .notification.high {
 	background: $ERROR_RGBA;
 	border-color: $ERROR;
-}
-.notification.medium {
-	background: $WARNING_RGBA;
-	border-color: $WARNING;
 }
 .notification.low {
 	background: $SUCCESS_RGBA;

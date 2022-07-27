@@ -90,7 +90,7 @@ export default {
 	computed: {
 		getUserCrClass() {
 			if (this.myCollateralizationRatio === 0) return "";
-			return this.myCollateralizationRatio < 300 ? this.myCollateralizationRatio < 200 ? "u-is-warning" : "u-is-caution" : "u-is-success";
+			return this.myCollateralizationRatio < 730 ? this.myCollateralizationRatio < 460 ? "u-is-warning" : "u-is-caution" : "u-is-success";
 		},
 		getUserCrSign() {
 			const changePercent = this.getChangePercent("collateralRatio", this.collateralRatioArr, true);

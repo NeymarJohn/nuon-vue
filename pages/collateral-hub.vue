@@ -7,25 +7,14 @@
 					<h1 class="u-mb-sm-12">Borrow NUON</h1>
 					<h5 v-if="mobileView" class="u-color-white u-text-decoration-underline" title="Click to view hub overview" @click="setModalVisibility('hubOverviewModal', true)">Hub Overview</h5>
 				</PageTitle>
-				<LayoutFlex direction="row">
-					<TheButton
-						size="chub"
-						title="Click to mint"
-						class="u-mr-24"
-						@click="setModalVisibility('mintModal', true)">Mint</TheButton>
-					<TheButton
-						size="chub"
-						title="Click to redeem"
-						:disabled="isDisabled"
-						@click="setModalVisibility('redeemModal', true)">Redeem</TheButton>
-				</LayoutFlex>
+				<ComponentLoader :loaded="userCollateralizationRatio !== null && minimumCollateralizationRatio !== null" component="notification" slot-classes="u-width-auto">
+					<TheNotification
+						:my-collateralization-ratio="userCollateralizationRatio"
+						:min-collateralization-ratio="minimumCollateralizationRatio" />
+				</ComponentLoader>
 			</LayoutFlex>
 			<TheTabsImage
 				:user-total-collateral-amount="userTotalLockedCollateralAmount" :user-total-minted-nuon="userTotalMintedNuon" @tab-changed="tabChanged" />
-			<ComponentLoader :loaded="userCollateralizationRatio !== null && minimumCollateralizationRatio !== null" component="notification" class="u-width-auto u-mb-12">
-				<TheNotification
-					:my-collateralization-ratio="userCollateralizationRatio" />
-			</ComponentLoader>
 			<CollateralOverview
 				:collateral-token="currentlySelectedCollateral"
 				:my-total-locked-collateral="userCollateralAmount"
@@ -40,21 +29,12 @@
 				:liquidation-price="liquidationPrice"
 				:nuon-price="nuonPrice"
 				:truflation-peg="truflationPeg" />
+			<PageTitle>
+				<h2>Manage Your {{currentlySelectedCollateral}} Collateral</h2>
+				<p>Deposit collateral to instantly mint NUON. Redeem your collateral anytime.</p>
+			</PageTitle>
+			<CollateralToggle :currently-selected-collateral="currentlySelectedCollateral" />
 		</LayoutContainer>
-		<TheModal
-			v-show="isMintModalVisible"
-			title="Mint"
-			subtitle="Mint subtitle"
-			@close-modal="setModalVisibility('mintModal', false)">
-			<CollateralMint :currently-selected-collateral="currentlySelectedCollateral" />
-		</TheModal>
-		<TheModal
-			v-show="isRedeemModalVisible"
-			title="Redeem"
-			subtitle="Redeem subtitle"
-			@close-modal="setModalVisibility('redeemModal', false)">
-			<CollateralRedeem :currently-selected-collateral="currentlySelectedCollateral" />
-		</TheModal>
 	</div>
 </template>
 
@@ -121,16 +101,7 @@ export default {
 			const collaterals = ["ETH"];
 			if (this.isEnvDev) collaterals.push("USDC");
 			return collaterals;
-		},
-		isMintModalVisible() {
-			return this.$store.state.modalStore.modalVisible.mintModal;
-		},
-		isRedeemModalVisible() {
-			return this.$store.state.modalStore.modalVisible.redeemModal;
-		},
-		isDisabled() {
-			return this.userMintedAmount === 0;
-		},
+		}
 	},
 	watch: {
 		currentlySelectedCollateral() {

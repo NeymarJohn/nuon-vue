@@ -8,7 +8,7 @@ Vue.mixin({
 			if (!x) return 0;
 			const str = x.toString();
 			const main = str.split(".")[0];
-			const decimals = str.split(".")[1] || "00"; 
+			const decimals = str.split(".")[1] || "00";
 			return `${main.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}.${decimals}`;
 		},
 		toFixed(x) {
@@ -54,9 +54,6 @@ Vue.mixin({
 		tokenBalances() {
 			return this.$store.state.erc20Store.balance;
 		},
-		users() {
-			return this.$store.state.transactionStore.users;
-		},
 		transactionConfig() {
 			return this.$store.state.transactionStore.transactionConfig;
 		},
@@ -65,25 +62,6 @@ Vue.mixin({
 		},
 		transactionSearch() {
 			return this.$store.state.transactionStore.search;
-		},
-		filteredData() {
-			let data = this.users;
-
-			if (this.dateFilterComputed && this.dateFilterComputed !== "All") {
-				const days = parseInt(this.dateFilterComputed.split(" ")[1]);
-				data = data.filter(d => new Date(d.date) > new Date(dayjs().subtract(days, "day").$d));
-			}
-
-			if (this.transactionSearch) {
-				const lowerCaseSearch = this.transactionSearch.toLowerCase();
-				data = data.filter(d =>
-					d.txType.toLowerCase().includes(lowerCaseSearch) ||
-					d.amount.includes(lowerCaseSearch) ||
-					d.totalAmount.includes(lowerCaseSearch)
-				);
-			}
-
-			return data;
 		},
 		isEnvDev() {
 			console.log("NODE_ENV: ", this.$config.NODE_ENV);

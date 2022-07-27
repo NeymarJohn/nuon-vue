@@ -19,9 +19,7 @@ export const state = () => ({
 		claimResultModal: false,
 		alertModal: false,
 		connectWalletModal: false,
-		hubOverviewModal: false,
-		mintModal: false,
-		redeemModal: false,
+		hubOverviewModal: false
 	},
 	modalInfo: {
 		claimResultModal: "",
