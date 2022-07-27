@@ -217,7 +217,6 @@ export default {
 			try {
 				ans = await this.$store.getters["collateralVaultStore/getEstimateMintedNUONAmount"](inputValueWithDecimals, collateralRatio);
 			} catch(e) {
-				console.error(e); // TODO: remove after testing
 				const message = this.getRPCErrorMessage(e);
 				this.failureToast(null, message || e, "An error occurred");
 			} finally {
@@ -245,7 +244,6 @@ export default {
 						}
 					});
 			} catch (e) {
-				console.error(e); // TODO: remove after testing
 				const message = this.getRPCErrorMessage(e);
 				this.failureToast(null, message || e, "Minting failed");
 			} finally {

@@ -8,7 +8,7 @@ Vue.mixin({
 			if (!x) return 0;
 			const str = x.toString();
 			const main = str.split(".")[0];
-			const decimals = str.split(".")[1] || "00"; 
+			const decimals = str.split(".")[1] || "00";
 			return `${main.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}.${decimals}`;
 		},
 		toFixed(x) {

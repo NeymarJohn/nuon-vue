@@ -19,7 +19,7 @@
 			<TransactionTable
 				v-if="!mobileView"
 				size="4"
-				aria="Vault redeemed transactions"
+				aria="Collateral hub redeemed transactions"
 				:data="tableData"
 				:config="transactionConfig"
 				:table-data="locations[selectedTab]" />
@@ -82,8 +82,8 @@ export default {
 					getCollateralTransactionHistory(filter).then(res => {
 						this.tableData = res.data.data.collateralHubTransactions.map(item => (
 							{
-								...item, 
-								amount: item.input, 
+								...item,
+								amount: item.input,
 								totalAmount: item.output,
 								inputToken: item.depositToken.symbol,
 								outputToken: NUON.symbol,
@@ -96,8 +96,8 @@ export default {
 					getSwapTransactionHistory(filter).then(res => {
 						this.tableData = res.data.data.swaps.map(item => (
 							{
-								...item, 
-								amount: Number(item.amount0In) || Number(item.amount1In), 
+								...item,
+								amount: Number(item.amount0In) || Number(item.amount1In),
 								totalAmount: Number(item.amount0Out) || Number(item.amount1Out),
 								inputToken: item.amount0In>0?item.pair.token0.symbol:item.pair.token1.symbol,
 								outputToken: item.amount0Out>0?item.pair.token0.symbol:item.pair.token1.symbol,
@@ -110,7 +110,7 @@ export default {
 					getStakingTransactionHistory(filter).then(res => {
 						this.tableData = res.data.data.boardroomTransactions.map(item => (
 							{
-								...item, 
+								...item,
 								date: item.date * 1000,
 								inputToken: nuMINT.symbol,
 								outputToken: nuMINT.symbol,
@@ -121,8 +121,8 @@ export default {
 					getRewardTransactionHistory(filter).then(res => {
 						this.tableData = res.data.data.getRewardTransactionHistory.map(item => (
 							{
-								...item, 
-								amount: item.amount, 
+								...item,
+								amount: item.amount,
 								date: item.datetime * 1000,
 								txHash: item.id,
 								inputToken: nuMINT.symbol,

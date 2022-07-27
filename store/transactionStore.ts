@@ -35,3 +35,4 @@ export const actions: ActionTree<LocalState, LocalState> = {
 		commit("setUsers", response.data);
 	}
 };
+

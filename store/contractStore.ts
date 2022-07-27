@@ -1,10 +1,9 @@
 import { GetterTree } from "vuex";
 import { RootState } from "./rootStore";
 import boardroomAbi from "./abi/boardroom.json";
-import uniswapV2PairOracleAbi from "./abi/uniswap_v2_pair_oracle.json";
+import uniswapV2FactoryAbi from "./abi/uniswap_v2_factory.json";
 import uniswapV2PairAbi from "./abi/uniswap_v2_pair.json";
 import nuonControllerAbi from  "./abi/nuon_controller.json";
-import { tokenPairs } from "~/constants/addresses";
 
 export const state = () => ({
 	
@@ -18,17 +17,17 @@ export const getters: GetterTree<ContractState, RootState> = {
 		const addr = store.addressStore.addr[store.web3Store.chainId as number].boardroom;
 		return new web3.eth.Contract(boardroomAbi, addr);
 	},
-	uniswapV2Pair: (_state: any, _getters: any, store: any) => (tokens: Array<string>) => {
-		const tokenPair = tokenPairs.find(token => token.pairName.includes(tokens[0]) && token.pairName.includes(tokens[1]));
+	uniswapV2Factory: (_state: any, _getters: any, store: any) => {
 		const web3 = store.web3Store.instance();
-		const addr = tokenPair?.address;
-		return new web3.eth.Contract(uniswapV2PairAbi, addr);
+		const addr = store.addressStore.addr[store.web3Store.chainId as number].uniswapV2Factory;
+		return new web3.eth.Contract(uniswapV2FactoryAbi, addr);
 	},
-	uniswapV2PairOracle: (_state: any, _getters: any, store: any) => (tokens: Array<string>) => {
-		const tokenPair = tokenPairs.find(token => token.pairName.includes(tokens[0]) && token.pairName.includes(tokens[1]));
+	uniswapV2Pair: (_state: any, _getters: any, store: any) => async (tokens: Array<string>) => {
+		const token0Address = store.addressStore.addr[store.web3Store.chainId as number].tokens[tokens[0]];
+		const token1Address = store.addressStore.addr[store.web3Store.chainId as number].tokens[tokens[1]];
+		const pairAddress = await _getters.uniswapV2Factory.methods.getPair(token0Address, token1Address).call();
 		const web3 = store.web3Store.instance();
-		const addr = tokenPair?.address;
-		return new web3.eth.Contract(uniswapV2PairOracleAbi, addr);
+		return new web3.eth.Contract(uniswapV2PairAbi, pairAddress);
 	},
 	nuonController: (_state: any, _getters, store: any) => {
 		const web3 = store.web3Store.instance();
