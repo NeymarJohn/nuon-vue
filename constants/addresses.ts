@@ -1,4 +1,4 @@
-import { nuMINT, NUON, USDC } from "./tokens";
+import { nuMINT } from "./tokens";
 
 // const addresses: {[key: string]: any} = {
 // 	development: {
