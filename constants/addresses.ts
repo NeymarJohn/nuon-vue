@@ -61,7 +61,11 @@ const TREASURY_ADDRESS = "0x51555F325417C2096da378416dEf0C429526A946"; // Treasu
 const COLLATERAL_HUB_ADDRESS = "0xf4E285A474549B1f07eDEd8D6fC24d62B820f51F"; // CollateralHubNative.sol(TransparentUpgradeableProxy)
 const COLLATERAL_HUB_USDC_ADDRESS = "0x4db56854af13c8D4865b33aC8a8F6a4D6851A3a1"; // CollateralHubUSDC.sol
 const ETH_FAUCET = "0xa9A335222C6503A8D80BD02CD88978A07cBFbBC4";
-const UNISWAP_V2_FACTORY_ADDRESS = "0x74b8eC5848fF7cF3cE99A1249cc1cD9CE8766Ea9"; 
+
+// UNI-V2 Pair Addresses
+const NUON_USDC_PAIR_ADDRESS = "0x5ebe9302cb7bb804594342fbd3fd7c89d5f0cb87"; // UniswapPair_NUON_USDC.sol
+const HYDRO_USDC_PAIR_ADDRESS = "0x5e0488231f530d7018435cd2dad69b92ff29cd9d"; // UniswapPair_HYDRO_USDC.sol
+const NUON_NUMINT_PAIR_ADDRESS = "0xadd80838bd1fb4969afac6d14994c278d5ee6dd9"; // UniswapPair_NUON_nuMINT.sol
 
 // Token Addresses
 const NUON_ADDRESS = "0xF955cbC7583d2a34E44051Bbf6F92728B70a09E6"; // NUON.sol
@@ -75,6 +79,26 @@ export const EPOCH_PERIOD = 6; // 6 hours from Treasury.sol
 
 export const VALID_NETWORKS = [4, 31010];
 
+export const tokenPairs = [
+	{
+		address: HYDRO_USDC_PAIR_ADDRESS,
+		pairName: "HX_USDC",
+		pairs: ["HX", "USDC"]
+	}, {
+		address: HYDRO_USDC_PAIR_ADDRESS,
+		pairName: `${nuMINT.symbol}_${USDC.symbol}`,
+		pairs: [nuMINT.symbol, USDC.symbol]
+	}, {
+		address:  NUON_NUMINT_PAIR_ADDRESS,
+		pairName: `${nuMINT.symbol}_${NUON.symbol}`,
+		pairs: [nuMINT.symbol, NUON.symbol]
+	}, {
+		address: NUON_USDC_PAIR_ADDRESS,
+		pairName: "NUON_USDC",
+		pairs: ["NUON", "USDC"]
+	}
+];
+
 export const tokenAddresses = {
 	"NUON": NUON_ADDRESS,
 	"HX": HYDRO_ADDRESS,
@@ -86,13 +110,14 @@ export const chainData = {
 		boardroom: BOARDROOM_ADDRESS,
 		router: ROUTER_ADDRESS,
 		nuonController: NUON_CONTROLLER_ADDRESS,
+		oracle: NUON_USDC_PAIR_ADDRESS,
 		weth: WETH_ADDRESS,
 		hydro: HYDRO_ADDRESS,
 		nuon: NUON_ADDRESS,
 		usdc: USDC_ADDRESS,
 		treasury: TREASURY_ADDRESS,
 		truflation: TRUFLATION_ADDRESS,
-		uniswapV2Factory: UNISWAP_V2_FACTORY_ADDRESS,
+		uniswapV2Pair: tokenPairs,
 		collateralHub: COLLATERAL_HUB_ADDRESS,
 		tokens: {
 			ETH: WETH_ADDRESS,
@@ -118,6 +143,17 @@ export const chainData = {
 		usdc: "0xBD9c0bc5AeB998A9d6C4e8293d2A49111EdE5509",
 		treasury: "0xD3902ce5C4b4c4bdC7Fb5E7481b2B70fA1e4aB75",
 		truflation: "0xb651Ea53DeA9B26DCD98581703eA38e044bCA12A",
+		uniswapV2Pair: [
+			{
+				address: HYDRO_USDC_PAIR_ADDRESS,
+				pairName: "HX_USDC",
+				pairs: ["HX", "USDC"]
+			}, {
+				address: "0x9649329FbaBF1b49b3c1d8E04ea1A1978d691521",
+				pairName: "NUON_USDC",
+				pairs: ["NUON", "USDC"]
+			}
+		],
 		collateralHub: "0xe28f09211CF4565386FDC2a384997667e367D077",
 		tokens: {
 			ETH: "0x1AB158d908aCFD0D4FdD0082675c411a203ECAB6",

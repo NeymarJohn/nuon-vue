@@ -65,6 +65,12 @@ a.btn:hover,
 	height: $SPACING_64;
 	padding: $SPACING_20 $SPACING_32;
 }
+.btn--chub {
+	height: $SPACING_64;
+	padding: $SPACING_20 $SPACING_32;
+	min-width: $SPACING_150;
+	border-radius: $BORDER_RADIUS_8;
+}
 @media screen and (max-width: $SPACING_1440) {
 	.btn--md,
 	.btn--lg {

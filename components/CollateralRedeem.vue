@@ -177,7 +177,6 @@ export default {
 						onReject: null
 					});
 			} catch(e) {
-				console.error(e); // TODO: remove after testing
 				const message = this.getRPCErrorMessage(e);
 				this.failureToast(null, message || e, "Transaction failed");
 			}

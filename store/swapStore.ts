@@ -99,7 +99,7 @@ export const actions: ActionTree<SwapState, SwapState> = {
 			0,
 			pathAddresses,
 			accountAddress,
-			Math.floor(new Date().getTime() / 1000)
+			new Date().getTime()
 		).send({from: accountAddress}).on("transactionHash", function(){
 			callback();
 		});
@@ -115,13 +115,13 @@ export const actions: ActionTree<SwapState, SwapState> = {
 			toWei(outputAmount, ctx.rootState.erc20Store.decimals[outputToken as string]),
 			pathAddresses,
 			accountAddress,
-			Math.floor(new Date().getTime() / 1000)
+			new Date().getTime()
 		).send({from: accountAddress}).on("transactionHash", function(){
 			callback();
 		});
 	},
 	async getReserves(ctx: any, pair: Array<string>) {
-		const uniswapV2PairContract = await ctx.rootGetters["contractStore/uniswapV2Pair"](pair);
+		const uniswapV2PairContract = ctx.rootGetters["contractStore/uniswapV2Pair"](pair);
 		const result = await uniswapV2PairContract.methods.getReserves().call();
 		const token0 = await uniswapV2PairContract.methods.token0().call();
 		const token1 = await uniswapV2PairContract.methods.token1().call();
