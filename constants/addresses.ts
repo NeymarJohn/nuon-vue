@@ -63,9 +63,13 @@ const COLLATERAL_HUB_USDC_ADDRESS = "0x4db56854af13c8D4865b33aC8a8F6a4D6851A3a1"
 const ETH_FAUCET = "0xa9A335222C6503A8D80BD02CD88978A07cBFbBC4";
 
 // UNI-V2 Pair Addresses
-const NUON_USDC_PAIR_ADDRESS = "0x5ebe9302cb7bb804594342fbd3fd7c89d5f0cb87"; // UniswapPair_NUON_USDC.sol
-const HYDRO_USDC_PAIR_ADDRESS = "0x5e0488231f530d7018435cd2dad69b92ff29cd9d"; // UniswapPair_HYDRO_USDC.sol
-const NUON_NUMINT_PAIR_ADDRESS = "0xadd80838bd1fb4969afac6d14994c278d5ee6dd9"; // UniswapPair_NUON_nuMINT.sol
+const NUON_USDC_PAIR_ADDRESS = "0x3DCd56b641a5932fC03AD9321fe7DCB86D73759C"; // UniswapPair_NUON_USDC.sol
+const HYDRO_USDC_PAIR_ADDRESS = "0xD4D321dae3D10778FA822fcDd7A7658e34b84D08"; // UniswapPair_HYDRO_USDC.sol
+const NUON_NUMINT_PAIR_ADDRESS = "0x722D30eD5F14C75e05B845766AB2Aae0F7F70E0B"; // UniswapPair_NUON_nuMINT.sol
+
+// LP Pair Address
+const HYDRO_USDC_LP_PAIR_ADDRESS = "0xD4D321dae3D10778FA822fcDd7A7658e34b84D08"; // UniswapPair confirm
+const NUON_USDC_LP_PAIR_ADDRESS = "0xD4D321dae3D10778FA822fcDd7A7658e34b84D08";
 
 // Token Addresses
 const NUON_ADDRESS = "0xF955cbC7583d2a34E44051Bbf6F92728B70a09E6"; // NUON.sol
@@ -82,18 +86,22 @@ export const VALID_NETWORKS = [4, 31010];
 export const tokenPairs = [
 	{
 		address: HYDRO_USDC_PAIR_ADDRESS,
+		lpAddress: HYDRO_USDC_LP_PAIR_ADDRESS,
 		pairName: "HX_USDC",
 		pairs: ["HX", "USDC"]
 	}, {
 		address: HYDRO_USDC_PAIR_ADDRESS,
+		lpAddress: HYDRO_USDC_LP_PAIR_ADDRESS,
 		pairName: `${nuMINT.symbol}_${USDC.symbol}`,
 		pairs: [nuMINT.symbol, USDC.symbol]
 	}, {
 		address:  NUON_NUMINT_PAIR_ADDRESS,
+		lpAddress: HYDRO_USDC_LP_PAIR_ADDRESS,
 		pairName: `${nuMINT.symbol}_${NUON.symbol}`,
 		pairs: [nuMINT.symbol, NUON.symbol]
 	}, {
 		address: NUON_USDC_PAIR_ADDRESS,
+		lpAddress: NUON_USDC_LP_PAIR_ADDRESS,
 		pairName: "NUON_USDC",
 		pairs: ["NUON", "USDC"]
 	}
@@ -146,10 +154,12 @@ export const chainData = {
 		uniswapV2Pair: [
 			{
 				address: HYDRO_USDC_PAIR_ADDRESS,
+				lpAddress: HYDRO_USDC_LP_PAIR_ADDRESS,
 				pairName: "HX_USDC",
 				pairs: ["HX", "USDC"]
 			}, {
 				address: "0x9649329FbaBF1b49b3c1d8E04ea1A1978d691521",
+				lpAddress: NUON_USDC_LP_PAIR_ADDRESS,
 				pairName: "NUON_USDC",
 				pairs: ["NUON", "USDC"]
 			}

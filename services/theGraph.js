@@ -8,15 +8,13 @@ export const getCollateralTVLDayData = () => axios.post(THE_GRAPH_URL, {
 		query collateralDayDatas {
 			collateralDayDatas {
 				id
-				formattedDate
 				date
-				price
-				totalValue
 				value
 				collateralTokens {
 					id
 					date
 					amount
+					value
 					token {
 						id
 						symbol
