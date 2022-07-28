@@ -36,7 +36,6 @@ export default {
 	plugins: [
 		"~/plugins/helpers",
 		"~/plugins/floating-vue",
-		"~/plugins/vue-tour",
 		"~/plugins/vue-apexcharts.client"
 	],
 

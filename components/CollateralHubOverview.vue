@@ -17,10 +17,6 @@
 							:month-data="monthData"
 							:selected-tab-idx="selectedPeriod" />
 					</ComponentLoader>
-					<div v-if="error">
-						<p>Total Value Locked</p>
-						<p>Data is not ready...</p>
-					</div>
 				</div>
 				<div class="chart chart--donut">
 					<ComponentLoader component="collateral-hub-chart" :loaded="isLoadedData ? true : false">
