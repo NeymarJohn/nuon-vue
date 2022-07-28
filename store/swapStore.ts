@@ -99,7 +99,7 @@ export const actions: ActionTree<SwapState, SwapState> = {
 			0,
 			pathAddresses,
 			accountAddress,
-			Math.floor(new Date().getTime() / 1000)
+			Math.floor(new Date().getTime() / 1000) + 86400
 		).send({from: accountAddress}).on("transactionHash", function(){
 			callback();
 		});
@@ -115,7 +115,7 @@ export const actions: ActionTree<SwapState, SwapState> = {
 			toWei(outputAmount, ctx.rootState.erc20Store.decimals[outputToken as string]),
 			pathAddresses,
 			accountAddress,
-			Math.floor(new Date().getTime() / 1000)
+			Math.floor(new Date().getTime() / 1000) + 86400
 		).send({from: accountAddress}).on("transactionHash", function(){
 			callback();
 		});

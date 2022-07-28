@@ -234,6 +234,7 @@ export default {
 		},
 		async initialize() {
 			await this.$store.dispatch("collateralVaultStore/changeCollateral", this.currentlySelectedCollateral);
+			await this.$store.dispatch("collateralVaultStore/updateStatus");
 			this.getCollateralPrice();
 			this.getNuonPrice();
 			this.getMinimumCollateralizationRatio();

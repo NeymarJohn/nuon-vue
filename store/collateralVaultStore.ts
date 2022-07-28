@@ -7,6 +7,7 @@ import nuonControllerAbi from "./abi/nuon_controller.json";
 import truflationAbi from "./abi/truflation.json";
 import boardroomAbi from "./abi/boardroom.json";
 import { fromWei, toWei } from "~/utils/bnTools";
+import { ETH, USDC } from "~/constants/tokens";
 
 type StateType = {
 	allowance: any,
@@ -25,7 +26,8 @@ type StateType = {
 	userTVL: number,
 	userJustMinted: boolean,
 	currentCollateralToken: string,
-	abis: any
+	abis: any,
+	mintedAmount: any
 }
 export const state = (): StateType => ({
 	allowance: {HX:0, NUON: 0},
@@ -47,6 +49,10 @@ export const state = (): StateType => ({
 	abis: {
 		ETH: collateralHubAbi,
 		USDC: collateralHubUSDCAbi
+	},
+	mintedAmount: {
+		[ETH.symbol] :0,
+		[USDC.symbol] :0
 	}
 });
 
@@ -94,6 +100,9 @@ export const mutations: MutationTree<BoardroomState> = {
 	},
 	setCollateralToken(state, payload) {
 		state.currentCollateralToken = payload;
+	},
+	setMintedAmount(state, {token, amount}) {
+		state.mintedAmount = {...state.mintedAmount, [token]: amount};
 	}
 };
 
@@ -207,6 +216,9 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 
 		// const dailyInflationRate = Number(await getters.getDailyInflationRate());
 		// commit("setDailyInflationRate", dailyInflationRate);
+		// Updated Minted Amount
+		dispatch("updateMintedAmount", ETH.symbol);
+		dispatch("updateMintedAmount", USDC.symbol);
 	},
 	async mintNuon(ctx: any, {collateralRatio, collateralAmount, onTxHash, onConfirm, onReject}) {
 		const accountAddress = ctx.rootState.web3Store.account;
@@ -242,6 +254,16 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 	},
 	changeCollateral(ctx, token) {
 		ctx.commit("setCollateralToken", token);
+	},
+	async updateMintedAmount(ctx: any, token) {
+		const web3 = ctx.rootState.web3Store.instance();
+		const addr = ctx.rootGetters["addressStore/collateralHubs"][token];
+		const abi = ctx.state.abis[token];
+		const chubContract =  new web3.eth.Contract(abi, addr);
+		const accountAddress = ctx.rootState.web3Store.account;
+		const decimals = ctx.rootState.erc20Store.decimals[token];
+		const mintedAmount = fromWei(await chubContract.methods.viewUserMintedAmount(accountAddress).call(), decimals);
+		ctx.commit("setMintedAmount",  {token, amount: mintedAmount});
 	}
 };
 

@@ -4,7 +4,7 @@
 			<DataCard class="u-full-width u-mb-48">
 				<LayoutFlex direction="row-space-between" class="u-full-width">
 					<p>Amount of NUON</p>
-					<p>Available balance: {{ (userMintedNuon || 0) | formatLongNumber }}</p>
+					<p>Available balance: {{ (mintedAmount || 0) | formatLongNumber }}</p>
 				</LayoutFlex>
 				<div class="input u-mb-12">
 					<div class="input__container">
@@ -17,7 +17,7 @@
 							autocorrect="off"
 							spellcheck="false"
 							inputmode="decimal" />
-						<TheButton :disabled="isMaxInputDisabled(userMintedNuon ? userMintedNuon : 0)" size="sm" title="Click to input your max balance" @click="inputMaxBalance">Max</TheButton>
+						<TheButton :disabled="isMaxInputDisabled(mintedAmount ? mintedAmount : 0)" size="sm" title="Click to input your max balance" @click="inputMaxBalance">Max</TheButton>
 					</div>
 				</div>
 				<h5 v-if="inputValue" class="u-mb-0 l-flex--align-self-end">~ ${{ numberWithCommas(getDollarValue(inputValue, nuonPrice).toFixed(2)) }}</h5>
@@ -93,7 +93,6 @@ export default {
 			withdrawing: false,
 			inputValue: null,
 			isApproving: false,
-			userMintedNuon: 0,
 		};
 	},
 	computed: {
@@ -101,16 +100,20 @@ export default {
 			return !!parseFloat(this.$store.state.collateralVaultStore.allowance.NUON);
 		},
 		isNextDisabled() {
-			return !this.isApproved || !parseFloat(this.inputValue) || parseFloat(this.inputValue) > parseFloat(this.userMintedNuon) || !this.connectedAccount;
+			return !this.isApproved || !parseFloat(this.inputValue) || parseFloat(this.inputValue) > parseFloat(this.mintedAmount) || !this.connectedAccount;
 		},
 		readyToRepay() {
-			return !!parseFloat(this.inputValue) && parseFloat(this.inputValue) <= parseFloat(this.userMintedNuon);
+			return !!parseFloat(this.inputValue) && parseFloat(this.inputValue) <= parseFloat(this.mintedAmount);
 		},
 		amountMoreThanUserMinted() {
-			return parseFloat(this.inputValue) > parseFloat(this.userMintedNuon);
+			return parseFloat(this.inputValue) > parseFloat(this.mintedAmount);
 		},
 		redeemFee() {
 			return parseFloat(this.$store.state.collateralVaultStore.redeemFee) * 100;
+		},
+		mintedAmount() {
+			const currentCollateralToken = this.$store.state.collateralVaultStore.currentCollateralToken;
+			return this.$store.state.collateralVaultStore.mintedAmount[currentCollateralToken];
 		}
 	},
 	watch: {
@@ -133,6 +136,9 @@ export default {
 		currentlySelectedCollateral() {
 			this.$store.dispatch("erc20Store/initializeBalance", {address: this.connectedAccount});
 			this.initialize();
+		},
+		connectedAccount() {
+			this.initialize();
 		}
 	},
 	mounted () {
@@ -140,13 +146,15 @@ export default {
 	},
 	methods: {
 		async initialize() {
-			try {
-				this.userMintedNuon = parseFloat(fromWei(await this.$store.getters["collateralVaultStore/getUserMintedAmount"](this.connectedAccount)));
-				const nuonPrice = await this.$store.getters["collateralVaultStore/getNuonPrice"]();
-				this.nuonPrice = fromWei(nuonPrice);
-			} catch(e) {
-				this.failureToast(null, e, "An error occurred");
+			if (this.connectedAccount) {
+				try {
+					const nuonPrice = await this.$store.getters["collateralVaultStore/getNuonPrice"]();
+					this.nuonPrice = fromWei(nuonPrice);
+				} catch(e) {
+					this.failureToast(null, e, "An error occurred");
+				}
 			}
+
 		},
 		approveTokens() {
 			this.isApproving = true;
@@ -186,7 +194,7 @@ export default {
 			}
 		},
 		inputMaxBalance() {
-			this.inputValue = this.twoDecimalPlaces(this.userMintedNuon);
+			this.inputValue = this.twoDecimalPlaces(this.mintedAmount);
 		}
 	}
 };
