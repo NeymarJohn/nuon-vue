@@ -1,12 +1,12 @@
 <template>
 	<LayoutContainer>
-		<PageTitle class="u-mb-24">
+		<PageTitle class="u-mb-24" data-v-step="1">
 			<h4>My Dashboard</h4>
 		</PageTitle>
 		<h2 class="u-mb-24">My Collateral Hub</h2>
 		<LayoutFlex direction="column l-chart chart">
 			<LayoutFlex direction="row-space-between" class="l-flex--column-md">
-				<DataCard class="u-mb-md-16">
+				<DataCard class="u-mb-md-16" data-v-step="2">
 					<label>
 						<TheDot color="light-green" />
 						My Total Value Locked
@@ -16,7 +16,7 @@
 						<h3>${{ (graphSelectionTVL || totalValue) | toFixed | numberWithCommas }}</h3>
 					</ComponentLoader>
 				</DataCard>
-				<DataCard class="u-mb-md-16">
+				<DataCard class="u-mb-md-16" data-v-step="3">
 					<label>
 						<TheDot color="lime" />
 						Total Value of My Minted NUON
@@ -34,6 +34,7 @@
 				:x-axis-labels="xAxisData"
 				:y-axis-options="{showYAxis: false, opposite: false, labels: {formatter: (val) => {}}}"
 				:series-data="yAxisData"
+				data-v-step="4"
 				@mouseOverDataPoint="handleMouseOverChart" />
 			<TheLoader component="table">
 				<TransactionTable
@@ -43,7 +44,8 @@
 					aria="Collateral Hub transactions"
 					:data="chubData"
 					:config="configData"
-					:misc="miscConfig" />
+					:misc="miscConfig"
+					data-v-step="5" />
 				<TransactionCard
 					v-else
 					:data="chubData"
@@ -51,7 +53,7 @@
 			</TheLoader>
 		</LayoutFlex>
 		<h2 class="u-mb-24">Account Balance</h2>
-		<LayoutAccountBalance>
+		<LayoutAccountBalance data-v-step="6">
 			<template #panel-one>
 				<DataCard>
 					<label>Total Value</label>
@@ -93,7 +95,8 @@
 				</DataCard>
 			</template>
 		</LayoutAccountBalance>
-		<TransactionHistory />
+		<TransactionHistory data-v-step="7" />
+		<v-tour name="myDashboardTour" :steps="steps"></v-tour>
 	</LayoutContainer>
 </template>
 
@@ -127,6 +130,42 @@ export default {
 					collateralizationRatio: "Your collateralization ratio per collateral asset."
 				}
 			},
+			steps: [
+				{
+					target: "[data-v-step=\"1\"]",
+					header: {
+						title: "Welcome to My Dashboard",
+					},
+					content: "This page gives you a breakdown of your activity with the Nuon protocol.",
+				},
+				{
+					target: "[data-v-step=\"2\"]",
+					content: "Total value locked content.",
+				},
+				{
+					target: "[data-v-step=\"3\"]",
+					content: "Total value of My Minted Nuon content.",
+				},
+				{
+					target: "[data-v-step=\"4\"]",
+					content: "Line chart content.",
+				},
+				{
+					target: "[data-v-step=\"5\"]",
+					content: "Table content.",
+				},
+				{
+					target: "[data-v-step=\"6\"]",
+					content: "Total value content.",
+				},
+				{
+					target: "[data-v-step=\"7\"]",
+					content: "Transaction history content.",
+					params: {
+						placement: "left"
+					}
+				},
+			],
 			mobileView: false,
 			collateralPrices: {},
 			userMintedAmounts: {},
@@ -246,6 +285,7 @@ export default {
 		this.mobileView = this.isMobile();
 		this.initialize(this.collaterals);
 		this.handleMouseOverChart(-1);
+		this.$tours.myDashboardTour.start();
 	},
 	methods: {
 		async initialize(collaterals) {
