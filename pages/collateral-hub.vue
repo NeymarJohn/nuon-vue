@@ -2,7 +2,7 @@
 	<div>
 		<LayoutContainer>
 			<LayoutFlex direction="row-center-space-between" class="l-flex--column-start-sm u-mb-48">
-				<PageTitle data-v-step="1">
+				<PageTitle>
 					<h4>Collateral Hub</h4>
 					<h1 class="u-mb-sm-12">Borrow NUON</h1>
 					<h5 v-if="mobileView" class="u-color-white u-text-decoration-underline" title="Click to view hub overview" @click="setModalVisibility('hubOverviewModal', true)">Hub Overview</h5>
@@ -21,13 +21,10 @@
 				</LayoutFlex>
 			</LayoutFlex>
 			<TheTabsImage
-				:user-total-collateral-amount="userTotalLockedCollateralAmount" :user-total-minted-nuon="userTotalMintedNuon"
-				data-v-step="2"
-				@tab-changed="tabChanged"/>
+				:user-total-collateral-amount="userTotalLockedCollateralAmount" :user-total-minted-nuon="userTotalMintedNuon" @tab-changed="tabChanged" />
 			<ComponentLoader :loaded="userCollateralizationRatio !== null && minimumCollateralizationRatio !== null" component="notification" class="u-width-auto u-mb-12">
 				<TheNotification
-					:my-collateralization-ratio="userCollateralizationRatio"
-					data-v-step="3" />
+					:my-collateralization-ratio="userCollateralizationRatio" />
 			</ComponentLoader>
 			<CollateralOverview
 				:collateral-token="currentlySelectedCollateral"
@@ -37,14 +34,12 @@
 				:my-total-minted-tokens-dollar="totalMintedTokensDollarValue"
 				:my-collateralization-ratio="userCollateralizationRatio"
 				:current-price="collateralPrice"
-				:collateral-price-change="collateralPriceChange"
-				data-v-step="4" />
+				:collateral-price-change="collateralPriceChange" />
 			<CollateralEcosystemStatus
 				:min-collateralization-ratio="minimumCollateralizationRatio"
 				:liquidation-price="liquidationPrice"
 				:nuon-price="nuonPrice"
-				:truflation-peg="truflationPeg"
-				data-v-step="5" />
+				:truflation-peg="truflationPeg" />
 		</LayoutContainer>
 		<TheModal
 			v-show="isMintModalVisible"
@@ -60,7 +55,6 @@
 			@close-modal="setModalVisibility('redeemModal', false)">
 			<CollateralRedeem :currently-selected-collateral="currentlySelectedCollateral" />
 		</TheModal>
-		<v-tour name="collateralHubTour" :steps="steps"></v-tour>
 	</div>
 </template>
 
@@ -85,32 +79,7 @@ export default {
 			collateralPrices: {},
 			collateralHistoricalPrices: {},
 			mobileView: false,
-			truflationPeg: 0,
-			steps: [
-				{
-					target: "[data-v-step=\"1\"]",
-					header: {
-						title: "Welcome to Collateral Hub",
-					},
-					content: "This is where you mint or redeem NUON.",
-				},
-				{
-					target: "[data-v-step=\"2\"]",
-					content: "Choose which asset to deposit.",
-				},
-				{
-					target: "[data-v-step=\"3\"]",
-					content: "Real time health status of your collateralization ratio.",
-				},
-				{
-					target: "[data-v-step=\"4\"]",
-					content: "Overview of your collateral status.",
-				},
-				{
-					target: "[data-v-step=\"5\"]",
-					content: "Overview of the ecosystem status.",
-				},
-			],
+			truflationPeg: 0
 		};
 	},
 	head () {
@@ -178,7 +147,6 @@ export default {
 	mounted() {
 		this.initialize();
 		this.mobileView = this.isMobile();
-		this.$tours.collateralHubTour.start();
 	},
 	methods: {
 		tabChanged(e) {
