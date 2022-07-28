@@ -448,12 +448,19 @@ export default {
 			this.calculate();
 		},
 		calculateSlippage() {
-			return this.$store.getters["swapStore/getMinOutputWithSlippage"]({
-				value: this.output.value,
-				slippage: this.maxSlippage,
-				formatted: true
-			});
-			
+			if (this.changedValue === "input") {
+				return this.$store.getters["swapStore/getMinOutputWithSlippage"]({
+					value: this.output.value,
+					slippage: this.maxSlippage,
+					formatted: true
+				});
+			} else {
+				return this.$store.getters["swapStore/getMaxInputWithSlippage"]({
+					value: this.input.value,
+					slippage: this.maxSlippage,
+					formatted: true
+				});
+			}
 		},
 		inputMaxBalance() {
 			this.input.value = this.tokenBalances[this.input.token];

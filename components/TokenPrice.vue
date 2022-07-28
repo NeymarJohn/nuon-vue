@@ -83,6 +83,7 @@
 // import { getTokenData } from "~/services/theGraph";
 import nuonData from "@/assets/json/nuon.json";
 import numintData from "@/assets/json/numint.json";
+import dayjs from 'dayjs';
 export default {
 	name: "TokenPrice",
 	data() {
@@ -134,7 +135,7 @@ export default {
 			let data = this.graphData.map(d => d.date);
 
 			if (this.selectedPeriodTab === "D") {
-				data = data.map(d => d.toLocaleDateString());
+				data = data.map(d => d.toLocaleDateString('en',{ year: 'numeric', month: 'short', day: 'numeric' }));
 			} else if (this.selectedPeriodTab === "W") {
 				const mondaysOfWeekOfDates = data.reduce((acc, d) => {
 					const day = d.getDay();
@@ -149,7 +150,7 @@ export default {
 					return acc;
 				}, {});
 
-				const labels = Object.keys(mondaysOfWeekOfDates).map(monday => `${new Date(parseInt(monday)).toLocaleDateString()} - ${new Date(parseInt(monday) + (6 * this.milliSecondsInDay)).toLocaleDateString()}`);
+				const labels = Object.keys(mondaysOfWeekOfDates).map(monday => `${new Date(parseInt(monday)).toLocaleDateString('en',{ year: 'numeric', month: 'short', day: 'numeric' })} - ${new Date(parseInt(monday) + (6 * this.milliSecondsInDay)).toLocaleDateString('en',{ year: 'numeric', month: 'short', day: 'numeric' })}`);
 				data = labels;
 			} else {
 				const yearAndMonthsOfDates = data.reduce((acc, d) => {
@@ -168,7 +169,7 @@ export default {
 				const sortedDataOverYearAndMonth = Object.entries(yearAndMonthsOfDates).sort((a, b) => parseInt(a[0]) - parseInt(b[0]));
 				const labels = sortedDataOverYearAndMonth.flatMap(([year, monthsWithData]) => {
 					const sortedMonths = Object.keys(monthsWithData).map(month => parseInt(month)).sort((a, b) => a - b);
-					const monthWithYear	=	sortedMonths.map(month => `${parseInt(month) + 1}/${year}`);
+					const monthWithYear = sortedMonths.map(month => `${new Date(year, parseInt(month) + 1).toLocaleDateString('en',{ year: 'numeric', month: 'short'})}`)
 					return monthWithYear;
 				});
 				data = labels;
@@ -230,7 +231,7 @@ export default {
 		},
 		dottedYAxisData() {
 			return this.yAxisData.map(d => d ? this.yAxisData[this.yAxisData.length - 2] : null);
-		}
+		},
 	},
 	mounted() {
 		try {
