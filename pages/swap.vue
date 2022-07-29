@@ -123,39 +123,36 @@
 									@click="convertRate"><RefreshIcon />
 								</TheButton>
 							</LayoutFlex>
-							<LayoutFlex direction="row-space-between" >
-								<h4>Slippage Tolerance</h4> 
+							<LayoutFlex direction="row-space-between">
+								<h4>Slippage Tolerance</h4>
 								<h4><strong>{{maxSlippage}}%</strong></h4>
 							</LayoutFlex>
 							<template  v-if="output.value && input.value">
 								<LayoutFlex direction="row-space-between" class="u-mt-12">
-									<h4>Price Impact</h4> 
+									<h4>Price Impact</h4>
 									<ComponentLoader component="h4" :loaded="!isLoadingPriceImpact">
 										<h4><strong>{{priceImpact | toFixed | numberWithCommas}}%</strong></h4>
 									</ComponentLoader>
-							
 								</LayoutFlex>
 								<LayoutFlex direction="row-space-between" class="u-mt-12">
-									<h4>Minimum received after slippage</h4> 
+									<h4>Minimum received after slippage</h4>
 									<ComponentLoader component="h4" :loaded="!isLoadingPriceImpact">
 										<h4><strong>{{calculateSlippage() | toFixed | numberWithCommas}} {{output.token}}</strong></h4>
 									</ComponentLoader>
 								</LayoutFlex>
 								<LayoutFlex direction="row-space-between" class="u-mt-12">
-									<h4>{{input.token}} reserves</h4> 
+									<h4>{{input.token}} reserves</h4>
 									<ComponentLoader component="h4" :loaded="!isLoadingPriceImpact">
 										<h4><strong>{{reserves[input.token] | toFixed | numberWithCommas}} {{input.token}}</strong></h4>
 									</ComponentLoader>
 								</LayoutFlex>
 								<LayoutFlex direction="row-space-between" class="u-mt-12">
-									<h4>{{output.token}} reserves</h4> 
+									<h4>{{output.token}} reserves</h4>
 									<ComponentLoader component="h4" :loaded="!isLoadingPriceImpact">
 										<h4><strong>{{reserves[output.token] | toFixed | numberWithCommas}} {{output.token}}</strong></h4>
 									</ComponentLoader>
-							
 								</LayoutFlex>
 							</template>
-
 						</div>
 						<div class="transaction-input__buttons">
 							<TheButton
