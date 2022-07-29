@@ -161,7 +161,7 @@
 			</InfiniteScroll>
 			<ComponentLoader :loaded="!isLoading" component="content-block" />
 			<p v-if="!isLoading && filteredProposals !== null && filteredProposals.length === 0" class="u-text-center u-mt-xs">No proposals to show.</p>
-			<v-tour name="boardroomTour" :steps="steps"></v-tour>
+			<v-tour name="boardroomTour" :steps="steps" :callbacks="tourCallbacks"></v-tour>
 		</LayoutContainer>
 	</div>
 </template>
@@ -218,6 +218,11 @@ export default {
 					content: "Finally this is the proposal space where you can open a new proposal or vote on active ones. This is using our nuMINT staking contracts to determine your voting power and coupled with Snapshot.org to keep track of proposals.",
 				},
 			],
+			tourCallbacks: {
+				onSkip: this.hideTourCallback,
+				onStop: this.hideTourCallback,
+				onFinish: this.hideTourCallback
+			},
 		};
 	},
 	head() {
@@ -279,7 +284,7 @@ export default {
 	mounted() {
 		this.updateStatus();
 		this.claimRewardsToken = {symbol: HX.symbol, price: this.tokenPrices.HX, balance: this.myRewards};
-		this.$tours.boardroomTour.start();
+		if (!$cookies.get("skip_tour")) this.$tours.boardroomTour.start();
 	},
 	created() {
 		this.getData();
