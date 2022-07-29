@@ -60,7 +60,7 @@
 			@close-modal="setModalVisibility('redeemModal', false)">
 			<CollateralRedeem :currently-selected-collateral="currentlySelectedCollateral" />
 		</TheModal>
-		<v-tour name="collateralHubTour" :steps="steps"></v-tour>
+		<v-tour name="collateralHubTour" :steps="steps" :callbacks="tourCallbacks"></v-tour>
 	</div>
 </template>
 
@@ -111,6 +111,9 @@ export default {
 					content: "Overview of the ecosystem status.",
 				},
 			],
+			tourCallbacks: {
+				onSkip: this.skipTourCallback
+			},
 		};
 	},
 	head () {
@@ -178,7 +181,7 @@ export default {
 	mounted() {
 		this.initialize();
 		this.mobileView = this.isMobile();
-		this.$tours.collateralHubTour.start();
+		if (!$cookies.get("skip_tour")) this.$tours.collateralHubTour.start();
 	},
 	methods: {
 		tabChanged(e) {

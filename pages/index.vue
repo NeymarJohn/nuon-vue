@@ -12,7 +12,7 @@
 		</LayoutFlex>
 		<CollateralHubOverview data-v-step="2" />
 		<TokenPrice data-v-step="3" />
-		<v-tour name="ecosystemOverviewTour" :steps="steps"></v-tour>
+		<v-tour name="ecosystemOverviewTour" :steps="steps" :callbacks="tourCallbacks"></v-tour>
 	</LayoutContainer>
 </template>
 
@@ -49,6 +49,9 @@ export default {
 					}
 				},
 			],
+			tourCallbacks: {
+				onSkip: this.skipTourCallback
+			},
 		};
 	},
 	head () {
@@ -60,7 +63,7 @@ export default {
 		};
 	},
 	mounted() {
-		this.$tours.ecosystemOverviewTour.start();
+		if (!$cookies.get("skip_tour")) this.$tours.ecosystemOverviewTour.start();
 	}
 };
 </script>
