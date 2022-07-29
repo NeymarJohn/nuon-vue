@@ -96,7 +96,7 @@
 			</template>
 		</LayoutAccountBalance>
 		<TransactionHistory data-v-step="7" />
-		<v-tour name="myDashboardTour" :steps="steps" :callbacks="tourCallbacks"></v-tour>
+		<v-tour name="myDashboardTour" :steps="steps"></v-tour>
 	</LayoutContainer>
 </template>
 
@@ -166,9 +166,6 @@ export default {
 					}
 				},
 			],
-			tourCallbacks: {
-				onSkip: this.skipTourCallback
-			},
 			mobileView: false,
 			collateralPrices: {},
 			userMintedAmounts: {},
@@ -288,7 +285,7 @@ export default {
 		this.mobileView = this.isMobile();
 		this.initialize(this.collaterals);
 		this.handleMouseOverChart(-1);
-		if (!$cookies.get("skip_tour")) this.$tours.myDashboardTour.start();
+		this.$tours.myDashboardTour.start();
 	},
 	methods: {
 		async initialize(collaterals) {
@@ -367,7 +364,7 @@ export default {
 			}
 			this.graphSelectionTVL = this.yAxisData[0].data[idx];
 			this.graphSelectionMintedNuon = this.yAxisData[1].data[idx];
-		},
+		}
 	}
 };
 </script>

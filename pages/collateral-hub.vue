@@ -40,6 +40,7 @@
 				:collateral-price-change="collateralPriceChange"
 				data-v-step="4" />
 			<CollateralEcosystemStatus
+				:collateral-token="currentlySelectedCollateral"
 				:min-collateralization-ratio="minimumCollateralizationRatio"
 				:liquidation-price="liquidationPrice"
 				:nuon-price="nuonPrice"
@@ -49,18 +50,18 @@
 		<TheModal
 			v-show="isMintModalVisible"
 			title="Mint"
-			subtitle="Mint subtitle"
+			subtitle="Deposit collateral to mint NUON"
 			@close-modal="setModalVisibility('mintModal', false)">
 			<CollateralMint :currently-selected-collateral="currentlySelectedCollateral" />
 		</TheModal>
 		<TheModal
 			v-show="isRedeemModalVisible"
 			title="Redeem"
-			subtitle="Redeem subtitle"
+			subtitle="Burn NUON to redeem collateral"
 			@close-modal="setModalVisibility('redeemModal', false)">
 			<CollateralRedeem :currently-selected-collateral="currentlySelectedCollateral" />
 		</TheModal>
-		<v-tour name="collateralHubTour" :steps="steps" :callbacks="tourCallbacks"></v-tour>
+		<v-tour name="collateralHubTour" :steps="steps"></v-tour>
 	</div>
 </template>
 
@@ -111,9 +112,6 @@ export default {
 					content: "Overview of the ecosystem status.",
 				},
 			],
-			tourCallbacks: {
-				onSkip: this.skipTourCallback
-			},
 		};
 	},
 	head () {
@@ -181,7 +179,7 @@ export default {
 	mounted() {
 		this.initialize();
 		this.mobileView = this.isMobile();
-		if (!$cookies.get("skip_tour")) this.$tours.collateralHubTour.start();
+		this.$tours.collateralHubTour.start();
 	},
 	methods: {
 		tabChanged(e) {

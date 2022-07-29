@@ -64,6 +64,7 @@ Vue.mixin({
 			return this.$store.state.transactionStore.search;
 		},
 		isEnvDev() {
+			console.log("NODE_ENV: ", this.$config.NODE_ENV);
 			return this.$config.NODE_ENV === "development";
 		}
 	},
@@ -247,9 +248,6 @@ Vue.mixin({
 				if (firstNonZeroNumIdx === 13) return "0";
 			}
 			return xStr.slice(0, firstNonZeroNumIdx + 1);
-		},
-		skipTourCallback() {
-			this.$cookies.set("skip_tour", "true");
 		}
 	},
 });
