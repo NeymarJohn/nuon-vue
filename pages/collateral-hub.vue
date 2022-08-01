@@ -9,10 +9,12 @@
 				</PageTitle>
 				<LayoutFlex class="u-full-width-sm">
 					<TheButton
+						size="lg"
 						title="Click to mint"
 						class="u-mr-30 u-mr-lg-24 u-mr-md-12 u-full-width-sm"
 						@click="setModalVisibility('mintModal', true)">Mint</TheButton>
 					<TheButton
+						size="lg"
 						title="Click to redeem"
 						class="u-full-width-sm"
 						:disabled="isDisabled"
