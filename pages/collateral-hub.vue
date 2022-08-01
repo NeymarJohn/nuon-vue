@@ -91,25 +91,25 @@ export default {
 				{
 					target: "[data-v-step=\"1\"]",
 					header: {
-						title: "Welcome to Collateral Hub",
+						title: "Welcome to the Collateral Hub",
 					},
-					content: "This is where you deposit collateral and mint and redeem NUON.",
+					content: "This page is where you can deposit collateral and mint and redeem NUON.",
 				},
 				{
 					target: "[data-v-step=\"2\"]",
-					content: "Choose which asset to deposit.",
+					content: "Choose which asset to use as collateral.",
 				},
 				{
 					target: "[data-v-step=\"3\"]",
-					content: "Real time health status of your collateralization ratio.",
+					content: "View real-time health status of your collateralization ratio here.",
 				},
 				{
 					target: "[data-v-step=\"4\"]",
-					content: "Overview of your collateral status.",
+					content: "This section shows an overview of your collateral status.",
 				},
 				{
 					target: "[data-v-step=\"5\"]",
-					content: "Overview of the ecosystem status.",
+					content: "This section gives a status overview of the NUON ecosystem, including liquidation information for your chosen collateral.",
 				},
 			],
 			tourCallbacks: {
