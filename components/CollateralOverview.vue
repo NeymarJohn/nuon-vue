@@ -19,7 +19,7 @@
 			</ComponentLoader>
 		</DataCard>
 		<DataCard>
-			<label>My Collateralization Ratio<TooltipIcon v-tooltip="'The ratio between your locked collateral and minted NUON, expressed as a percentage. Keep this number above the Liquidation Ratio, below, to avoid being liquidated.'" /></label>
+			<label>My Collateralization Ratio<TooltipIcon v-tooltip="`The percentage of ${collateralToken} collateral you've locked to back your minted NUON. A minimum collateralization ratio is recalculated each day for each collateral asset, based on data from decentralized price oracles and an on-chain inflation oracle. The higher your collateralization ratio is above this minimum, the safer your collateral is from being liquidated.`" /></label>
 			<ComponentLoader component="h1" :loaded="myCollateralizationRatio !== null">
 				<h3 :class="getUserCrClass">{{ myCollateralizationRatio | toFixed }}<sup>%</sup></h3>
 			</ComponentLoader>

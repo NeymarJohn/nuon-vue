@@ -37,7 +37,6 @@ export default {
 		"~/plugins/helpers",
 		"~/plugins/floating-vue",
 		"~/plugins/vue-tour",
-		"~/plugins/vue-cookies",
 		"~/plugins/vue-apexcharts.client"
 	],
 

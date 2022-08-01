@@ -12,7 +12,7 @@
 		</LayoutFlex>
 		<CollateralHubOverview data-v-step="2" />
 		<TokenPrice data-v-step="3" />
-		<v-tour name="ecosystemOverviewTour" :steps="steps" :callbacks="tourCallbacks"></v-tour>
+		<v-tour name="ecosystemOverviewTour" :steps="steps"></v-tour>
 	</LayoutContainer>
 </template>
 
@@ -30,30 +30,25 @@ export default {
 				{
 					target: "[data-v-step=\"1\"]",
 					header: {
-						title: "Welcome to the Ecosystem Overview",
+						title: "Welcome to Ecosystem Overview",
 					},
-					content: "This page shows general information about the protocol.",
+					content: "This page showcases the protocol general information.",
 				},
 				{
 					target: "[data-v-step=\"2\"]",
-					content: "You can track NUON's historical TVL (Total Value Locked), as well as its total collateralization ratio and the distribution of diversified collateral backing NUON.",
+					content: "You can track the historical TVL (Total Value Locked) as well as the Nuon collateralization ratio & collateral distribution (a basket of diversified collaterals is backing Nuon).",
 					params: {
 						placement: "left"
 					}
 				},
 				{
 					target: "[data-v-step=\"3\"]",
-					content: "View market information for the NUON and nuMINT tokens.",
+					content: "View the nuMINT and NUON tokens market information.",
 					params: {
 						placement: "left"
 					}
 				},
 			],
-			tourCallbacks: {
-				onSkip: this.hideTourCallback,
-				onStop: this.hideTourCallback,
-				onFinish: this.hideTourCallback
-			},
 		};
 	},
 	head () {
@@ -65,7 +60,7 @@ export default {
 		};
 	},
 	mounted() {
-		if (!$cookies.get("skip_tour")) this.$tours.ecosystemOverviewTour.start();
+		this.$tours.ecosystemOverviewTour.start();
 	}
 };
 </script>

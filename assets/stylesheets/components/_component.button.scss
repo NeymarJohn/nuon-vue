@@ -7,7 +7,6 @@
 		6. Button link
 		7. Button approve
 		8. Button user
-		9. Button back
 */
 
 // 1. Button default
@@ -20,16 +19,16 @@
 	vertical-align: middle;
 	border-radius: $BORDER_RADIUS_24;
 	transition: $TRANSITION_ALL;
-	background: $LIME;
-	color: $DARK_GREY;
+	background: $TRANSPARENT;
+	color: $LIME;
 	border: $SPACING_1 solid $LIME;
 	cursor: pointer;
 	outline: 0;
 }
 a.btn:hover,
 .btn:hover {
-	background: $DARK_GREY;
-	color: $LIME;
+	background: $LIME;
+	color: $DARK_GREY;
 }
 .btn:active {
 	background: $LIGHT_LIME;
@@ -65,6 +64,12 @@ a.btn:hover,
 .btn--lg {
 	height: $SPACING_64;
 	padding: $SPACING_20 $SPACING_32;
+}
+.btn--chub {
+	height: $SPACING_64;
+	padding: $SPACING_20 $SPACING_32;
+	min-width: $SPACING_150;
+	border-radius: $BORDER_RADIUS_8;
 }
 @media screen and (max-width: $SPACING_1440) {
 	.btn--md,
@@ -236,22 +241,11 @@ a.btn:hover,
 	align-items: center;
 }
 .btn--user:hover svg path {
-	fill: $LIME;
+	fill: $DARK_GREY;
 }
 .btn--user svg {
 	margin-right: $SPACING_8;
 }
 .btn--user svg path {
 	transition: $TRANSITION_ALL;
-	fill: $DARK_GREY;
-}
-
-// 9. Button back
-.btn--back {
-	background: $TRANSPARENT;
-	color: $LIME;
-}
-.btn--back:hover {
-	background: $MEDIUM_GREY;
-	border-color: $DARK_GREY;
 }

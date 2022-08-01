@@ -12,7 +12,7 @@
 						My Total Value Locked
 						<TheBadge v-if="!isNaN(getChangePercent('collateralTokens', collateralRatioArr, true))" class="u-ml-8" :color="getPercentChangeBadgeClass('collateralTokens', collateralRatioArr, true)">{{ getUserTVLSign }}{{ Math.abs(getChangePercent('collateralTokens', collateralRatioArr, true)) }}%</TheBadge>
 					</label>
-					<ComponentLoader component="h1" :loaded="balanceLoaded">
+					<ComponentLoader component="h1" :loaded="totalValue ? true : false">
 						<h3>${{ (graphSelectionTVL || totalValue) | toFixed | numberWithCommas }}</h3>
 					</ComponentLoader>
 				</DataCard>
@@ -22,7 +22,7 @@
 						Total Value of My Minted NUON
 						<TheBadge v-if="!isNaN(getChangePercent('mintedNuon', collateralRatioArr, true))" class="u-ml-8" :color="getPercentChangeBadgeClass('mintedNuon', collateralRatioArr, true)">{{ getUserMintedNuonSign }}{{ Math.abs(getChangePercent('mintedNuon', collateralRatioArr, true)) }}%</TheBadge>
 					</label>
-					<ComponentLoader component="h1" :loaded="balanceLoaded">
+					<ComponentLoader component="h1" :loaded="totalMintedNuon ? true : false">
 						<h3>${{ (graphSelectionMintedNuon || totalMintedNuon) | toFixed | numberWithCommas }}</h3>
 					</ComponentLoader>
 				</DataCard>
@@ -57,13 +57,13 @@
 			<template #panel-one>
 				<DataCard>
 					<label>Total Value</label>
-					<ComponentLoader component="h1" :loaded="balanceLoaded">
+					<ComponentLoader component="h1" :loaded="(totalValue && balancesValue && stakedBalance) ? true : false">
 						<h3>${{ totalValue + balancesValue + stakedBalance | toFixed | numberWithCommas }}</h3>
 					</ComponentLoader>
 				</DataCard>
 			</template>
 			<template #panel-two>
-				<ComponentLoader class="donut-chart-balance" :loaded="balanceLoaded">
+				<ComponentLoader class="donut-chart-balance" :loaded="(totalValue && balancesValue && stakedBalance)?true:false">
 					<DonutChartBalance
 						:key="`balances-${balancesValue}-${totalValue}-${stakedBalance}`"
 						:chart-data="[balancesValue, parseFloat(totalValue), parseFloat(stakedBalance)]" />
@@ -72,7 +72,7 @@
 			<template #panel-three>
 				<DataCard>
 					<label><TheDot color="orange" />NUON &amp; nuMINT balance<TooltipIcon v-tooltip="'Total number of NUON and nuMINT tokens in your wallet.'" /></label>
-					<ComponentLoader component="h1" :loaded="balanceLoaded">
+					<ComponentLoader component="h1" :loaded="balancesValue ? true : false">
 						<h4>{{ tokenBalances.NUON | toFixed | numberWithCommas }} NUON</h4>
 						<h4>{{ tokenBalances.HX | toFixed | numberWithCommas }} nuMINT</h4>
 					</ComponentLoader>
@@ -81,7 +81,7 @@
 			<template #panel-four>
 				<DataCard>
 					<label><TheDot color="blue" /> My Locked Collateral<TooltipIcon v-tooltip="'Total number of tokens locked as collateral.'" /></label>
-					<ComponentLoader component="h1" :loaded="balanceLoaded">
+					<ComponentLoader component="h1" :loaded="totalValue ? true : false">
 						<h4>{{myCollateralLocked | toFixed | numberWithCommas }} ETH</h4>
 					</ComponentLoader>
 				</DataCard>
@@ -89,14 +89,14 @@
 			<template #panel-five>
 				<DataCard>
 					<label><TheDot color="tourquise" /> My Staked Tokens<TooltipIcon v-tooltip="'Total number of nuMINT tokens staked in the Nuon protocol.'" /></label>
-					<ComponentLoader component="h1" :loaded="balanceLoaded">
+					<ComponentLoader component="h1" :loaded="stakedBalance ? true : false">
 						<h4>{{ stakedBalance | toFixed | numberWithCommas }} nuMINT</h4>
 					</ComponentLoader>
 				</DataCard>
 			</template>
 		</LayoutAccountBalance>
 		<TransactionHistory data-v-step="7" />
-		<v-tour name="myDashboardTour" :steps="steps" :callbacks="tourCallbacks"></v-tour>
+		<v-tour name="myDashboardTour" :steps="steps"></v-tour>
 	</LayoutContainer>
 </template>
 
@@ -136,15 +136,15 @@ export default {
 					header: {
 						title: "Welcome to My Dashboard",
 					},
-					content: "This page gives you a breakdown of your activity within the Nuon Protocol.",
+					content: "This page gives you a breakdown of your activity with the Nuon protocol.",
 				},
 				{
 					target: "[data-v-step=\"2\"]",
-					content: "View your total deposited collateral here.",
+					content: "Total value locked content.",
 				},
 				{
 					target: "[data-v-step=\"3\"]",
-					content: "View the total value of your minted NUON here.",
+					content: "Total value of My Minted Nuon content.",
 				},
 				{
 					target: "[data-v-step=\"4\"]",
@@ -166,11 +166,6 @@ export default {
 					}
 				},
 			],
-			tourCallbacks: {
-				onSkip: this.hideTourCallback,
-				onStop: this.hideTourCallback,
-				onFinish: this.hideTourCallback
-			},
 			mobileView: false,
 			collateralPrices: {},
 			userMintedAmounts: {},
@@ -179,8 +174,7 @@ export default {
 			nuonPrice: null,
 			collateralRatioArr: [],
 			graphSelectionTVL: "",
-			graphSelectionMintedNuon: "",
-			balanceLoaded: false
+			graphSelectionMintedNuon: ""
 		};
 	},
 	head () {
@@ -215,6 +209,7 @@ export default {
 			return Object.values(this.userTotalLockedCollateralAmount).reduce((acc, val) => acc + parseFloat(val), 0);
 		},
 		totalValue() {
+			if (Object.entries(this.userTotalLockedCollateralAmount).length === 0) return 0;
 			return Object.entries(this.userTotalLockedCollateralAmount).reduce((acc, [collateral, amount]) => acc + this.collateralPrices[collateral] * parseFloat(amount), 0);
 		},
 		myCollateralLockedPercentage() {
@@ -290,28 +285,21 @@ export default {
 		this.mobileView = this.isMobile();
 		this.initialize(this.collaterals);
 		this.handleMouseOverChart(-1);
-		if (!$cookies.get("skip_tour")) this.$tours.myDashboardTour.start();
+		this.$tours.myDashboardTour.start();
 	},
 	methods: {
 		async initialize(collaterals) {
-			try {
-				for (let i = 0; i < collaterals.length; i++) {
-					const collateral = collaterals[i];
-					await this.$store.dispatch("collateralVaultStore/changeCollateral", collateral);
-					this.getCollateralsPrices(collateral);
-					this.getUserMintedAmount(collateral);
-					this.getUserCollateralizationRatio(collateral);
-					this.getUserCollateralAmount(collateral);
-				}
-
-				this.getNuonPrice();
-				this.getDiffMinted();
-			} catch (e) {
-			} finally {
-				setTimeout(() => {
-					this.balanceLoaded = true;
-				}, 500);
+			for (let i = 0; i < collaterals.length; i++) {
+				const collateral = collaterals[i];
+				await this.$store.dispatch("collateralVaultStore/changeCollateral", collateral);
+				this.getCollateralsPrices(collateral);
+				this.getUserMintedAmount(collateral);
+				this.getUserCollateralizationRatio(collateral);
+				this.getUserCollateralAmount(collateral);
 			}
+
+			this.getNuonPrice();
+			this.getDiffMinted();
 		},
 		async getCollateralsPrices(collateral) {
 			let result = 0;
@@ -367,15 +355,6 @@ export default {
 				this.collateralRatioArr = res.data.data.userCollateralHistories;
 			}).catch((err) => {
 				this.failureToast(() => {}, err, "An error occurred");
-			}).finally(() => {
-				if (this.collateralRatioArr.length === 0) {
-					const stringData = window.localStorage.getItem("NUON-user_collateral_history");
-					if (!stringData) return;
-					const jsonData = JSON.parse(stringData);
-					if (jsonData && jsonData.length) this.collateralRatioArr = jsonData;
-				} else {
-					window.localStorage.setItem("NUON-user_collateral_history", JSON.stringify(this.collateralRatioArr));
-				}
 			});
 		},
 		handleMouseOverChart(e) {
@@ -385,7 +364,7 @@ export default {
 			}
 			this.graphSelectionTVL = this.yAxisData[0].data[idx];
 			this.graphSelectionMintedNuon = this.yAxisData[1].data[idx];
-		},
+		}
 	}
 };
 </script>
