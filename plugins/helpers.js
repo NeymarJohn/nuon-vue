@@ -248,8 +248,8 @@ Vue.mixin({
 			}
 			return xStr.slice(0, firstNonZeroNumIdx + 1);
 		},
-		setCookie(key, value) {
-			this.$cookies.set(key, value);
+		hideTourCallback() {
+			this.$cookies.set("skip_tour", "true");
 		}
 	},
 });

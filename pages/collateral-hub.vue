@@ -7,15 +7,16 @@
 					<h1 class="u-mb-sm-12">Borrow NUON</h1>
 					<h5 v-if="mobileView" class="u-color-white u-text-decoration-underline" title="Click to view hub overview" @click="setModalVisibility('hubOverviewModal', true)">Hub Overview</h5>
 				</PageTitle>
-				<LayoutFlex direction="row">
+				<LayoutFlex class="u-full-width-sm">
 					<TheButton
-						size="chub"
+						size="md"
 						title="Click to mint"
-						class="u-mr-24"
+						class="u-mr-30 u-mr-lg-24 u-mr-md-12 u-full-width-sm u-min-width-150"
 						@click="setModalVisibility('mintModal', true)">Mint</TheButton>
 					<TheButton
-						size="chub"
+						size="md"
 						title="Click to redeem"
+						class="u-full-width-sm u-min-width-150"
 						:disabled="isDisabled"
 						@click="setModalVisibility('redeemModal', true)">Redeem</TheButton>
 				</LayoutFlex>
@@ -91,31 +92,31 @@ export default {
 				{
 					target: "[data-v-step=\"1\"]",
 					header: {
-						title: "Welcome to the Collateral Hub",
+						title: "Welcome to Collateral Hub",
 					},
-					content: "This page is where you can deposit collateral and mint and redeem NUON.",
+					content: "This is where you deposit collateral and mint and redeem NUON.",
 				},
 				{
 					target: "[data-v-step=\"2\"]",
-					content: "Choose which asset to use as collateral.",
+					content: "Choose which asset to deposit.",
 				},
 				{
 					target: "[data-v-step=\"3\"]",
-					content: "View real-time health status of your collateralization ratio here.",
+					content: "Real time health status of your collateralization ratio.",
 				},
 				{
 					target: "[data-v-step=\"4\"]",
-					content: "This section shows an overview of your collateral status.",
+					content: "Overview of your collateral status.",
 				},
 				{
 					target: "[data-v-step=\"5\"]",
-					content: "This section gives a status overview of the NUON ecosystem, including liquidation information for your chosen collateral.",
+					content: "Overview of the ecosystem status.",
 				},
 			],
 			tourCallbacks: {
-				onSkip: () => this.setCookie("skip_collateral_hub_tour", "true"),
-				onStop: () => this.setCookie("skip_collateral_hub_tour", "true"),
-				onFinish: () => this.setCookie("skip_collateral_hub_tour", "true")
+				onSkip: this.hideTourCallback,
+				onStop: this.hideTourCallback,
+				onFinish: this.hideTourCallback
 			},
 		};
 	},
@@ -184,7 +185,7 @@ export default {
 	mounted() {
 		this.initialize();
 		this.mobileView = this.isMobile();
-		if (!$cookies.get("skip_collateral_hub_tour")) this.$tours.collateralHubTour.start();
+		if (!$cookies.get("skip_tour")) this.$tours.collateralHubTour.start();
 	},
 	methods: {
 		tabChanged(e) {

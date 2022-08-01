@@ -9,6 +9,12 @@
 }
 .wallet .btn {
 	width: 100%;
+	background: $LIME;
+	color: $DARK_GREY;
+}
+.wallet .btn:hover {
+	background: $DARK_GREY;
+	color: $LIME;
 }
 
 // 2. Wallet responsive

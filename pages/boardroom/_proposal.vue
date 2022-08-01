@@ -232,9 +232,9 @@ export default {
 				},
 			],
 			tourCallbacks: {
-				onSkip: () => this.setCookie("skip_proposal_details_tour", "true"),
-				onStop: () => this.setCookie("skip_proposal_details_tour", "true"),
-				onFinish: () => this.setCookie("skip_proposal_details_tour", "true")
+				onSkip: this.hideTourCallback,
+				onStop: this.hideTourCallback,
+				onFinish: this.hideTourCallback
 			},
 		};
 	},
@@ -305,7 +305,7 @@ export default {
 		this.getProposalDetails();
 	},
 	mounted() {
-		if (!$cookies.get("skip_proposal_details_tour")) this.$tours.proposalDetailsTour.start();
+		if (!$cookies.get("skip_tour")) this.$tours.proposalDetailsTour.start();
 	},
 	methods: {
 		async submitVote() {
@@ -435,6 +435,6 @@ export default {
 				this.failureToast(null, err, "Failed to vote.");
 			}
 		}
-	}
+	},
 };
 </script>
