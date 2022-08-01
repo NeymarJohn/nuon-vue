@@ -74,17 +74,7 @@ export default {
 		this.mockMonthData[this.mockMonthData.length-1].value =finalTVL;
 		this.mockWeekData[this.mockWeekData.length-1].value =finalTVL;
 		getCollateralTVLDayData().then((res) => {
-			let data = res.data.data.collateralDayDatas;
-
-			if (data === undefined || data.length === 0) {
-				const stringData = window.localStorage.getItem("NUON-collateralTVLDayData");
-				if (!stringData) return;
-				const jsonData = JSON.parse(stringData);
-				if (jsonData && jsonData.length) data = jsonData;
-			} else {
-				window.localStorage.setItem("NUON-collateralTVLDayData", JSON.stringify(data));
-			}
-
+			const data = res.data.data.collateralDayDatas;
 			let totalValue = 0;
 			const chartData = [];
 			const weekData = {};
