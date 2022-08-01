@@ -232,9 +232,9 @@ export default {
 				},
 			],
 			tourCallbacks: {
-				onSkip: this.hideTourCallback,
-				onStop: this.hideTourCallback,
-				onFinish: this.hideTourCallback
+				onSkip: this.hideProposalDetailsCallback,
+				onStop: this.hideProposalDetailsCallback,
+				onFinish: this.hideProposalDetailsCallback
 			},
 		};
 	},
@@ -305,7 +305,7 @@ export default {
 		this.getProposalDetails();
 	},
 	mounted() {
-		if (!$cookies.get("skip_tour")) this.$tours.proposalDetailsTour.start();
+		if (!$cookies.get("skip_proposal_details_tour")) this.$tours.proposalDetailsTour.start();
 	},
 	methods: {
 		async submitVote() {
@@ -436,5 +436,8 @@ export default {
 			}
 		}
 	},
+	hideProposalDetailsCallback() {
+		this.$cookies.set("skip_proposal_details_tour", "true");
+	}
 };
 </script>

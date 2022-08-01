@@ -113,9 +113,9 @@ export default {
 				},
 			],
 			tourCallbacks: {
-				onSkip: this.hideTourCallback,
-				onStop: this.hideTourCallback,
-				onFinish: this.hideTourCallback
+				onSkip: this.hideCollateralHubTourCallback,
+				onStop: this.hideCollateralHubTourCallback,
+				onFinish: this.hideCollateralHubTourCallback
 			},
 		};
 	},
@@ -184,7 +184,7 @@ export default {
 	mounted() {
 		this.initialize();
 		this.mobileView = this.isMobile();
-		if (!$cookies.get("skip_tour")) this.$tours.collateralHubTour.start();
+		if (!$cookies.get("skip_collateral_hub_tour")) this.$tours.collateralHubTour.start();
 	},
 	methods: {
 		tabChanged(e) {
@@ -283,6 +283,9 @@ export default {
 				this.getUserMintedAmount();
 				this.getUserCollateralizationRatio();
 			}, 1000);
+		},
+		hideCollateralHubTourCallback() {
+			this.$cookies.set("skip_collateral_hub_tour", "true");
 		}
 	}
 };
