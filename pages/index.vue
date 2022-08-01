@@ -50,9 +50,9 @@ export default {
 				},
 			],
 			tourCallbacks: {
-				onSkip: this.hideEcosystemOverviewTourCallback,
-				onStop: this.hideEcosystemOverviewTourCallback,
-				onFinish: this.hideEcosystemOverviewTourCallback
+				onSkip: this.hideTourCallback,
+				onStop: this.hideTourCallback,
+				onFinish: this.hideTourCallback
 			},
 		};
 	},
@@ -65,12 +65,7 @@ export default {
 		};
 	},
 	mounted() {
-		if (!$cookies.get("skip_ecosystem_overview_tour")) this.$tours.ecosystemOverviewTour.start();
-	},
-	methods: {
-		hideEcosystemOverviewTourCallback() {
-			this.$cookies.set("skip_ecosystem_overview_tour", "true");
-		}
+		if (!$cookies.get("skip_tour")) this.$tours.ecosystemOverviewTour.start();
 	}
 };
 </script>

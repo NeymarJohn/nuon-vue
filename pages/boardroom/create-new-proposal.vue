@@ -178,9 +178,9 @@ export default {
 				},
 			],
 			tourCallbacks: {
-				onSkip: this.hideCreateProposalTourCallback,
-				onStop: this.hideCreateProposalTourCallback,
-				onFinish: this.hideCreateProposalTourCallback
+				onSkip: this.hideTourCallback,
+				onStop: this.hideTourCallback,
+				onFinish: this.hideTourCallback
 			},
 		};
 	},
@@ -208,7 +208,7 @@ export default {
 		},
 	},
 	mounted() {
-		if (!$cookies.get("skip_create_proposal_tour")) this.$tours.createProposalTour.start();
+		if (!$cookies.get("skip_tour")) this.$tours.createProposalTour.start();
 	},
 	methods: {
 		handleInputChange() {
@@ -285,8 +285,5 @@ export default {
 			this.errors = {date: "", title: ""};
 		}
 	},
-	hideCreateProposalTourCallback() {
-		this.$cookies.set("skip_create_proposal_tour", "true");
-	}
 };
 </script>

@@ -219,9 +219,9 @@ export default {
 				},
 			],
 			tourCallbacks: {
-				onSkip: this.hideBoardroomTourCallback,
-				onStop: this.hideBoardroomTourCallback,
-				onFinish: this.hideBoardroomTourCallback
+				onSkip: this.hideTourCallback,
+				onStop: this.hideTourCallback,
+				onFinish: this.hideTourCallback
 			},
 		};
 	},
@@ -284,7 +284,7 @@ export default {
 	mounted() {
 		this.updateStatus();
 		this.claimRewardsToken = {symbol: HX.symbol, price: this.tokenPrices.HX, balance: this.myRewards};
-		if (!$cookies.get("skip_boardroom_tour")) this.$tours.boardroomTour.start();
+		if (!$cookies.get("skip_tour")) this.$tours.boardroomTour.start();
 	},
 	created() {
 		this.getData();
@@ -433,9 +433,6 @@ export default {
 		claimReward() {
 			// TODO reward
 			this.setModalVisibility("claimRewardsModal", false);
-		},
-		hideBoardroomTourCallback() {
-			this.$cookies.set("skip_boardroom_tour", "true");
 		}
 	}
 };
