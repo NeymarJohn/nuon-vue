@@ -161,8 +161,8 @@ export default {
 			if (!Number(this.inputValue)) return 0;
 
 			const targetPeg = this.$store.state.collateralVaultStore.targetPeg;
-			const mintedNuon = this.$store.state.collateralVaultStore.mintedAmount[this.currentlySelectedCollateral];
-			const nounMinBacking = targetPeg * this.selectedCollateralRatio / 100;
+			const mintedNuon = this.estimatedMintedNuonValue;
+			const nounMinBacking = targetPeg * this.sliderMin / 100;
 			return nounMinBacking * mintedNuon / this.inputValue;
 		}
 	},
