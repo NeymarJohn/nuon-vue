@@ -7,15 +7,16 @@
 					<h1 class="u-mb-sm-12">Borrow NUON</h1>
 					<h5 v-if="mobileView" class="u-color-white u-text-decoration-underline" title="Click to view hub overview" @click="setModalVisibility('hubOverviewModal', true)">Hub Overview</h5>
 				</PageTitle>
-				<LayoutFlex direction="row">
+				<LayoutFlex class="u-full-width-sm">
 					<TheButton
-						size="chub"
+						size="md"
 						title="Click to mint"
-						class="u-mr-24"
+						class="u-mr-30 u-mr-lg-24 u-mr-md-12 u-full-width-sm u-min-width-150"
 						@click="setModalVisibility('mintModal', true)">Mint</TheButton>
 					<TheButton
-						size="chub"
+						size="md"
 						title="Click to redeem"
+						class="u-full-width-sm u-min-width-150"
 						:disabled="isDisabled"
 						@click="setModalVisibility('redeemModal', true)">Redeem</TheButton>
 				</LayoutFlex>

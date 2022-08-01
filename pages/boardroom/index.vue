@@ -10,17 +10,17 @@
 					<TheButton
 						:disabled="!isConnectedWallet"
 						title="Click to stake"
-						class="u-mr-30 u-mr-lg-24 u-mr-md-12 u-full-width-sm"
+						class="u-mr-30 u-mr-lg-24 u-mr-md-12 u-full-width-sm u-min-width-150"
 						@click="setModalVisibility('stakeModal', true)">Stake</TheButton>
 					<TheButton
 						:disabled="disabledWithdraw"
 						title="Click to withdraw"
-						class="u-mr-30 u-mr-lg-24 u-mr-md-12 u-full-width-sm"
+						class="u-mr-30 u-mr-lg-24 u-mr-md-12 u-full-width-sm u-min-width-150"
 						@click="setModalVisibility('withdrawModal', true)">Withdraw</TheButton>
 					<TheButton
 						:disabled="disabledClaimRewards"
 						title="Click to claim rewards"
-						class="u-full-width-sm"
+						class="u-full-width-sm u-min-width-150"
 						@click="setModalVisibility('claimRewardsModal', true)">Claim Rewards</TheButton>
 					<TheModal
 						v-show="isStakeModalVisible"
@@ -123,7 +123,7 @@
 					<h5>Create proposals and vote to improve the NUON protocol.</h5>
 				</PageTitle>
 				<DataCard align="end" class="u-full-width-sm">
-					<NuxtLink :disabled="!isConnectedWallet" :event="!isConnectedWallet ? '' : 'click'" class="btn btn--lg u-full-width-sm u-text-center-sm" to="/boardroom/create-new-proposal" title="Click to create a new proposal">Create New Proposal</NuxtLink>
+					<NuxtLink :disabled="!isConnectedWallet" :event="!isConnectedWallet ? '' : 'click'" class="btn btn--md u-full-width-sm u-text-center-sm" to="/boardroom/create-new-proposal" title="Click to create a new proposal">Create New Proposal</NuxtLink>
 				</DataCard>
 			</LayoutFlex>
 			<LayoutFlex class="u-mb-36 u-mb-md-24 l-flex--column-start-sm" direction="row-center-space-between">
