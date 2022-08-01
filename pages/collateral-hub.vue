@@ -40,6 +40,7 @@
 				:collateral-price-change="collateralPriceChange"
 				data-v-step="4" />
 			<CollateralEcosystemStatus
+				:collateral-token="currentlySelectedCollateral"
 				:min-collateralization-ratio="minimumCollateralizationRatio"
 				:liquidation-price="liquidationPrice"
 				:nuon-price="nuonPrice"
@@ -49,18 +50,18 @@
 		<TheModal
 			v-show="isMintModalVisible"
 			title="Mint"
-			subtitle="Mint subtitle"
+			subtitle="Deposit collateral to mint NUON"
 			@close-modal="setModalVisibility('mintModal', false)">
 			<CollateralMint :currently-selected-collateral="currentlySelectedCollateral" />
 		</TheModal>
 		<TheModal
 			v-show="isRedeemModalVisible"
 			title="Redeem"
-			subtitle="Redeem subtitle"
+			subtitle="Burn NUON to redeem collateral"
 			@close-modal="setModalVisibility('redeemModal', false)">
 			<CollateralRedeem :currently-selected-collateral="currentlySelectedCollateral" />
 		</TheModal>
-		<v-tour name="collateralHubTour" :steps="steps"></v-tour>
+		<v-tour name="collateralHubTour" :steps="steps" :callbacks="tourCallbacks"></v-tour>
 	</div>
 </template>
 
@@ -90,27 +91,32 @@ export default {
 				{
 					target: "[data-v-step=\"1\"]",
 					header: {
-						title: "Welcome to Collateral Hub",
+						title: "Welcome to the Collateral Hub",
 					},
-					content: "This is where you mint or redeem NUON.",
+					content: "This page is where you can deposit collateral and mint and redeem NUON.",
 				},
 				{
 					target: "[data-v-step=\"2\"]",
-					content: "Choose which asset to deposit.",
+					content: "Choose which asset to use as collateral.",
 				},
 				{
 					target: "[data-v-step=\"3\"]",
-					content: "Real time health status of your collateralization ratio.",
+					content: "View real-time health status of your collateralization ratio here.",
 				},
 				{
 					target: "[data-v-step=\"4\"]",
-					content: "Overview of your collateral status.",
+					content: "This section shows an overview of your collateral status.",
 				},
 				{
 					target: "[data-v-step=\"5\"]",
-					content: "Overview of the ecosystem status.",
+					content: "This section gives a status overview of the NUON ecosystem, including liquidation information for your chosen collateral.",
 				},
 			],
+			tourCallbacks: {
+				onSkip: () => this.setCookie("skip_collateral_hub_tour", "true"),
+				onStop: () => this.setCookie("skip_collateral_hub_tour", "true"),
+				onFinish: () => this.setCookie("skip_collateral_hub_tour", "true")
+			},
 		};
 	},
 	head () {
@@ -178,7 +184,7 @@ export default {
 	mounted() {
 		this.initialize();
 		this.mobileView = this.isMobile();
-		this.$tours.collateralHubTour.start();
+		if (!$cookies.get("skip_collateral_hub_tour")) this.$tours.collateralHubTour.start();
 	},
 	methods: {
 		tabChanged(e) {

@@ -35,7 +35,7 @@
 					<LayoutFlex direction="row-space-between" class="u-full-width">
 						<div class="collateral__text">
 							<p>Liquidation Price</p>
-							<h4>${{ liquidationPrice1 | toFixed | numberWithCommas }}</h4>
+							<h4>${{ liquidationPrice | toFixed | numberWithCommas }}</h4>
 						</div>
 						<div class="collateral__text">
 							<p>Collateral Ratio</p>
@@ -156,14 +156,6 @@ export default {
 		},
 		isLTEMinimumDepositAmount() {
 			return parseFloat(this.inputValue) <= this.minimumDepositAmount;
-		},
-		liquidationPrice1() {
-			if (!Number(this.inputValue)) return 0;
-
-			const targetPeg = this.$store.state.collateralVaultStore.targetPeg;
-			const mintedNuon = this.estimatedMintedNuonValue;
-			const nounMinBacking = targetPeg * this.sliderMin / 100;
-			return nounMinBacking * mintedNuon / this.inputValue;
 		}
 	},
 	watch: {
@@ -181,7 +173,7 @@ export default {
 		currentlySelectedCollateral() {
 			this.$store.dispatch("collateralVaultStore/updateStatus");
 			this.initialize();
-		},
+		}
 	},
 	mounted() {
 		this.initialize();
