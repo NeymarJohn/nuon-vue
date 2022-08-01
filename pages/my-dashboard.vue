@@ -360,6 +360,15 @@ export default {
 				this.collateralRatioArr = res.data.data.userCollateralHistories;
 			}).catch((err) => {
 				this.failureToast(() => {}, err, "An error occurred");
+			}).finally(() => {
+				if (this.collateralRatioArr.length === 0) {
+					const stringData = window.localStorage.getItem("NUON-user_collateral_history");
+					if (!stringData) return;
+					const jsonData = JSON.parse(stringData);
+					if (jsonData && jsonData.length) this.collateralRatioArr = jsonData;
+				} else {
+					window.localStorage.setItem("NUON-user_collateral_history", JSON.stringify(this.collateralRatioArr));
+				}
 			});
 		},
 		handleMouseOverChart(e) {
