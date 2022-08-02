@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<LayoutContainer>
-			<PageTitle class="u-mb-48" data-v-step="1">
+			<PageTitle class="u-mb-48">
 				<h4>Boardroom</h4>
 				<LayoutFlex direction="row-center">
 					<TheButton
@@ -14,7 +14,7 @@
 					</ComponentLoader>
 				</LayoutFlex>
 			</PageTitle>
-			<LayoutInfo size="1" data-v-step="2">
+			<LayoutInfo size="1">
 				<DataCard>
 					<ComponentLoader :loaded="!!details.title" component="h2"><h2 class="u-mb-24">{{ details.title }}</h2></ComponentLoader>
 					<LayoutFlex direction="row-center">
@@ -34,7 +34,7 @@
 		</LayoutContainer>
 		<LayoutGridSidePanel>
 			<div class="proposal-details">
-				<div class="proposal-description" data-v-step="3">
+				<div class="proposal-description">
 					<h4>Description<TooltipIcon v-tooltip="'Full details of the proposal.'" /></h4>
 					<ComponentLoader
 						:loaded="!!details.snapshot"
@@ -54,10 +54,9 @@
 					:proposal-id="$route.params.proposal"
 					:choices="details.choices || []"
 					:number-of-votes="numberOfVotes || 0"
-					:proposal-state="details.state"
-					data-v-step="7" />
+					:proposal-state="details.state" />
 			</div>
-			<ThePanel data-v-step="4">
+			<ThePanel>
 				<h4>Information<TooltipIcon v-tooltip="'The author, start and end date of the proposal, along with the block number that the proposal was stored on the blockchain.'" /></h4>
 				<ComponentLoader
 					:loaded="!!details.author && !!details.start && !!details.end && !!details.snapshot"
@@ -82,7 +81,7 @@
 					</div>
 				</ComponentLoader>
 			</ThePanel>
-			<ThePanel data-v-step="5">
+			<ThePanel>
 				<h4>Current Results<TooltipIcon v-tooltip="'% of current votes for and against the proposal.'" /></h4>
 				<ComponentLoader
 					:loaded="!!voteScores && !!details.choices"
@@ -93,7 +92,7 @@
 						:proposal-state="details.state" />
 				</ComponentLoader>
 			</ThePanel>
-			<ThePanel class="u-mb-48" data-v-step="6">
+			<ThePanel class="u-mb-48">
 				<h4>Cast Your Vote<TooltipIcon v-tooltip="'Choose yes or no and click ‘Vote’ to register your vote on the blockchain. You can change your vote before the end date if you wish.'" /></h4>
 				<ComponentLoader
 					:loaded="!!details.choices"
@@ -157,7 +156,6 @@
 				</TheModal>
 			</ThePanel>
 		</LayoutGridSidePanel>
-		<v-tour name="proposalDetailsTour" :steps="steps" :callbacks="tourCallbacks"></v-tour>
 	</div>
 </template>
 
@@ -197,45 +195,7 @@ export default {
 				closed: "grey",
 				pending: "yellow",
 			},
-			activeStep: 1,
-			steps: [
-				{
-					target: "[data-v-step=\"1\"]",
-					header: {
-						title: "Welcome to a Proposal",
-					},
-					content: "This is where you can view proposals to improve the ecosystem.",
-				},
-				{
-					target: "[data-v-step=\"2\"]",
-					content: "View the status of the proposal and share on Twitter.",
-				},
-				{
-					target: "[data-v-step=\"3\"]",
-					content: "Read the proposal in detail.",
-				},
-				{
-					target: "[data-v-step=\"4\"]",
-					content: "View information about the proposal.",
-				},
-				{
-					target: "[data-v-step=\"5\"]",
-					content: "View the most up-to-date vote results on the proposal.",
-				},
-				{
-					target: "[data-v-step=\"6\"]",
-					content: "Vote on the proposal.",
-				},
-				{
-					target: "[data-v-step=\"7\"]",
-					content: "View voting history for the proposal.",
-				},
-			],
-			tourCallbacks: {
-				onSkip: () => this.setCookie("skip_proposal_details_tour"),
-				onStop: () => this.setCookie("skip_proposal_details_tour"),
-				onFinish: () => this.setCookie("skip_proposal_details_tour")
-			},
+			activeStep: 1
 		};
 	},
 	head() {
@@ -303,9 +263,6 @@ export default {
 	},
 	created() {
 		this.getProposalDetails();
-	},
-	mounted() {
-		if (!$cookies.get("skip_proposal_details_tour")) this.$tours.proposalDetailsTour.start();
 	},
 	methods: {
 		async submitVote() {
@@ -435,6 +392,6 @@ export default {
 				this.failureToast(null, err, "Failed to vote.");
 			}
 		}
-	}
+	},
 };
 </script>

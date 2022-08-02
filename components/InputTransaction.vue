@@ -58,7 +58,6 @@
 					<TheButton
 						size="md"
 						title="Click to go back"
-						class="btn--back"
 						@click="activeStep = 1">Back</TheButton>
 					<TheButton
 						size="md"

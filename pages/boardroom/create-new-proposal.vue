@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<LayoutContainer>
-			<PageTitle class="u-mb-48 u-mb-sm-32" data-v-step="1">
+			<PageTitle class="u-mb-48 u-mb-sm-32">
 				<h4>Boardroom</h4>
 				<h1>
 					<TheButton
@@ -13,13 +13,13 @@
 			<LayoutInfo size="2">
 				<DataCard>
 					<label>Minimum Stake Required</label>
-					<TheLoader component="h1" data-v-step="2">
+					<TheLoader component="h1">
 						<h3>{{ numberWithCommas(minimumStake.toFixed(2)) }}<sup>nuMINT</sup></h3>
 					</TheLoader>
 				</DataCard>
 				<DataCard>
 					<label>Voting Power<TooltipIcon v-tooltip="'Enter voting power tooltip content here.'" /></label>
-					<TheLoader component="h1" data-v-step="3">
+					<TheLoader component="h1">
 						<h3>{{ numberWithCommas(votingPower.toFixed(2)) }}<sup>%</sup></h3>
 					</TheLoader>
 				</DataCard>
@@ -27,7 +27,7 @@
 		</LayoutContainer>
 		<LayoutContainer class="u-pt-48 u-pt-lg-24 u-pt-sm-12">
 			<form class="form" method="post" @submit.prevent="handleSubmit">
-				<div class="form__block form__block--one" data-v-step="4">
+				<div class="form__block form__block--one">
 					<label for="question">Proposal Title <sup>*</sup></label>
 					<input
 						id="question"
@@ -41,7 +41,7 @@
 						@input="handleInputChange" />
 					<p v-if="errors.title" class="u-is-warning u-mb-0 u-mt-4">{{ errors.title }}</p>
 				</div>
-				<div class="form__block form__block--two" data-v-step="5">
+				<div class="form__block form__block--two">
 					<label for="proposal">Proposal Description</label>
 					<textarea
 						id="proposal"
@@ -54,7 +54,7 @@
 						rows="8"
 						title="Click to enter proposal description" />
 				</div>
-				<div class="form__block form__block--three" data-v-step="6">
+				<div class="form__block form__block--three">
 					<h4>Voting Period <sup>*</sup></h4>
 					<date-picker
 						v-model="proposal.startDate"
@@ -114,7 +114,6 @@
 				</template>
 			</TheStepper>
 		</TheModal>
-		<v-tour name="createProposalTour" :steps="steps" :callbacks="tourCallbacks"></v-tour>
 	</div>
 </template>
 
@@ -147,41 +146,7 @@ export default {
 				date: "",
 				title: ""
 			},
-			activeStep: 1,
-			steps: [
-				{
-					target: "[data-v-step=\"1\"]",
-					header: {
-						title: "Welcome to Create a Proposal",
-					},
-					content: "This is where you can create proposals to improve the eco-system.",
-				},
-				{
-					target: "[data-v-step=\"2\"]",
-					content: "This is the minimum stake required to vote.",
-				},
-				{
-					target: "[data-v-step=\"3\"]",
-					content: "This is your voting power.",
-				},
-				{
-					target: "[data-v-step=\"4\"]",
-					content: "Enter your proposal title here.",
-				},
-				{
-					target: "[data-v-step=\"5\"]",
-					content: "Enter your proposal description here.",
-				},
-				{
-					target: "[data-v-step=\"6\"]",
-					content: "Select the voting period here.",
-				},
-			],
-			tourCallbacks: {
-				onSkip: () => this.setCookie("skip_create_proposal_tour"),
-				onStop: () => this.setCookie("skip_create_proposal_tour"),
-				onFinish: () => this.setCookie("skip_create_proposal_tour")
-			},
+			activeStep: 1
 		};
 	},
 	head() {
@@ -206,9 +171,6 @@ export default {
 			if (!this.totalStaked) return 0;
 			return this.myStake / this.totalStaked * 100;
 		},
-	},
-	mounted() {
-		if (!$cookies.get("skip_create_proposal_tour")) this.$tours.createProposalTour.start();
 	},
 	methods: {
 		handleInputChange() {
