@@ -188,7 +188,8 @@ export default {
 	methods: {
 		async initialize() {
 			try {
-				const min = await this.$store.getters["collateralVaultStore/getGlobalCR"]();
+				const chubAddress = this.$store.getters["addressStore/collateralHubs"][this.$store.state.collateralVaultStore.currentCollateralToken];
+				const min = await this.$store.getters["collateralVaultStore/getGlobalCR"](chubAddress);
 				this.sliderMin = Math.floor((10 ** 20 / min)) + 10;
 				this.selectedCollateralRatio = this.sliderMin;
 				const collateralPrice = await this.$store.getters["collateralVaultStore/getCollateralPrice"]();

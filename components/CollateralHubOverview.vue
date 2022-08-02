@@ -129,7 +129,8 @@ export default {
 		// 	this.dateStr = dateStr;
 		// 	this.donutChartData = data;
 		// });
-		this.$store.getters["collateralVaultStore/getGlobalCR"]().then(res => {
+		const chubAddress = this.$store.getters["addressStore/collateralHubs"][this.$store.state.collateralVaultStore.currentCollateralToken];
+		this.$store.getters["collateralVaultStore/getGlobalCR"](chubAddress).then(res => {
 			this.collateralRatio = parseFloat(fromWei(res * 100)).toFixed(0);
 		}).catch(() => {
 			this.collateralRatio = 0;

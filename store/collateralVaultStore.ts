@@ -332,8 +332,8 @@ export const getters: GetterTree<BoardroomState, Web3State> = {
 	getCollateralsValue: (_state: any, getters: any) => async () => {
 		return await getters.collateralHubContract.methods.getCollateralsValue().call();
 	},
-	getGlobalCR: (_state: any, getters: any) => async () => {
-		return await getters.collateralHubContract.methods.getGlobalCR().call();
+	getGlobalCR: (_state: any, getters: any) => async (chubAddress: string) => {
+		return await getters.nuonControllerContract.methods.getCollateralRatioInPercent(chubAddress).call();
 	},
 	getUserCollateralRatioInPercent: (_state: any, getters: any) => async (userAddress: string) => {
 		return await getters.collateralHubContract.methods.getUserCollateralRatioInPercent(userAddress).call();
@@ -362,8 +362,8 @@ export const getters: GetterTree<BoardroomState, Web3State> = {
 	getMinimumDepositAmount: (_state: any, getters: any) => async () => {
 		return await getters.collateralHubContract.methods.minimumDepositAmount().call();
 	},
-	getMaxCRatio: (_state: any, getters: any) => async () => {
-		return await getters.nuonControllerContract.methods.getMaxCratio().call();
+	getMaxCRatio: (_state: any, getters: any) => async (chubAddress: string) => {
+		return await getters.nuonControllerContract.methods.getMaxCratio(chubAddress).call();
 	},
 	getNUONSupply: (_state: any, getters: any) => async () => {
 		return await getters.nuonControllerContract.methods.getNUONSupply().call();

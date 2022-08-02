@@ -241,7 +241,8 @@ export default {
 		async getMinimumCollateralizationRatio() {
 			let result = 0;
 			try {
-				const min = await this.$store.getters["collateralVaultStore/getGlobalCR"]();
+				const chubAddress = this.$store.getters["addressStore/collateralHubs"][this.$store.state.collateralVaultStore.currentCollateralToken];
+				const min = await this.$store.getters["collateralVaultStore/getGlobalCR"](chubAddress);
 				result = (10 ** 20 / min).toFixed();
 			} catch (e) {
 			} finally {
