@@ -8,18 +8,12 @@
 			autocomplete="off"
 			autocorrect="off"
 			spellcheck="false"
-			@input="debounceInput" />
+			@input="setTransactionSearch" />
 	</div>
 </template>
 
 <script>
-import debounce from "lodash.debounce";
 export default {
-	name: "TransactionSearch",
-	methods: {
-		debounceInput: debounce(function(e) {
-			this.setTransactionSearch(e); 
-		}, 500)
-	},
+	name: "TransactionSearch"
 };
 </script>

@@ -186,34 +186,6 @@
 		"constant": true
 	},
 	{
-		"inputs": [],
-		"name": "aval",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function",
-		"constant": true
-	},
-	{
-		"inputs": [],
-		"name": "bval",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function",
-		"constant": true
-	},
-	{
 		"inputs": [
 			{
 				"internalType": "uint256",
@@ -249,7 +221,7 @@
 	},
 	{
 		"inputs": [],
-		"name": "cval",
+		"name": "decimalDivisor",
 		"outputs": [
 			{
 				"internalType": "uint256",
@@ -269,6 +241,20 @@
 				"internalType": "uint256",
 				"name": "",
 				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function",
+		"constant": true
+	},
+	{
+		"inputs": [],
+		"name": "lpPair",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
 			}
 		],
 		"stateMutability": "view",
@@ -374,6 +360,26 @@
 	{
 		"inputs": [
 			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "userLPs",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function",
+		"constant": true
+	},
+	{
+		"inputs": [
+			{
 				"internalType": "uint256",
 				"name": "",
 				"type": "uint256"
@@ -433,8 +439,41 @@
 	},
 	{
 		"inputs": [],
-		"name": "retVals",
+		"name": "vala",
 		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function",
+		"constant": true
+	},
+	{
+		"inputs": [],
+		"name": "valb",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function",
+		"constant": true
+	},
+	{
+		"inputs": [],
+		"name": "getVals",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			},
 			{
 				"internalType": "uint256",
 				"name": "",
@@ -491,6 +530,11 @@
 				"internalType": "uint256",
 				"name": "_liquidationFee",
 				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_decimalDivisor",
+				"type": "uint256"
 			}
 		],
 		"name": "initialize",
@@ -535,6 +579,19 @@
 			}
 		],
 		"name": "setCoreAddresses",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_lpPair",
+				"type": "address"
+			}
+		],
+		"name": "setLPPair",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -627,6 +684,26 @@
 			}
 		],
 		"name": "viewUserMintedAmount",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function",
+		"constant": true
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_user",
+				"type": "address"
+			}
+		],
+		"name": "viewUserLPAmount",
 		"outputs": [
 			{
 				"internalType": "uint256",
@@ -842,6 +919,11 @@
 		],
 		"name": "estimateMintedNUONAmount",
 		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			},
 			{
 				"internalType": "uint256",
 				"name": "",

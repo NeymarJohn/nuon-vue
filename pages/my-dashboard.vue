@@ -148,19 +148,19 @@ export default {
 				},
 				{
 					target: "[data-v-step=\"4\"]",
-					content: "Line chart content.",
+					content: "This chart shows your total value locked and the total value of your minted Nuon.",
 				},
 				{
 					target: "[data-v-step=\"5\"]",
-					content: "Table content.",
+					content: "This section gives important details about your collateral, including your collateralization ratio for each asset type deposited, as well as the daily market price for your reference.",
 				},
 				{
 					target: "[data-v-step=\"6\"]",
-					content: "Total value content.",
+					content: "This section shows the total value of your account, including all Nuon minted, collateral deposited and nuMINT staked.",
 				},
 				{
 					target: "[data-v-step=\"7\"]",
-					content: "Transaction history content.",
+					content: "Lastly, this section provides a full history of all your transactions.",
 					params: {
 						placement: "left"
 					}

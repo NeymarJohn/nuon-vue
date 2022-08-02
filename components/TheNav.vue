@@ -49,7 +49,7 @@
 				<FarmIcon /> Farms
 			</NuxtLink>
 		</li>
-		<a href="https://hydrolabs.gitbook.io/inflation-adjusted-algorithmic-stablecoin/" title="Click to visit the documentation" target="_blank" rel="noopener noreferrer"><DocumentationIcon /> Docs <ExternalLinkIcon class="u-mr-0 u-ml-8" /></a>
+		<a href="https://whitepaper.nuon.fi/" title="Click to visit the documentation" target="_blank" rel="noopener noreferrer"><DocumentationIcon /> Docs <ExternalLinkIcon class="u-mr-0 u-ml-8" /></a>
 		<li v-if="isEnvDev" @click="getMockToken('ETH')">
 			<NuxtLink
 				to=""
@@ -57,11 +57,11 @@
 				<img class="u-ml-8 u-mr-8" :src="require(`~/assets/images/borrow/ETH.png`)" height="23" width="23" alt=""> Get ETH
 			</NuxtLink>
 		</li>
-		<li v-if="isEnvDev" @click="getMockToken('USDC')">
+		<li v-if="isEnvDev" @click="getMockToken('USDT')">
 			<NuxtLink
 				to=""
-				title="Click to get Mock USDC">
-				<img class="u-ml-8 u-mr-8" :src="require(`~/assets/images/borrow/USDC.png`)" height="23" width="23" alt=""> Get USDC
+				title="Click to get Mock USDT">
+				<img class="u-ml-8 u-mr-8" :src="require(`~/assets/images/borrow/USDT.png`)" height="23" width="23" alt=""> Get USDT
 			</NuxtLink>
 		</li>
 	</ul>

@@ -4,7 +4,6 @@ import boardroomAbi from "./abi/boardroom.json";
 import uniswapV2FactoryAbi from "./abi/uniswap_v2_factory.json";
 import uniswapV2PairAbi from "./abi/uniswap_v2_pair.json";
 import nuonControllerAbi from  "./abi/nuon_controller.json";
-import treasuryAbi from  "./abi/treasury.json";
 
 export const state = () => ({
 	
@@ -34,10 +33,5 @@ export const getters: GetterTree<ContractState, RootState> = {
 		const web3 = store.web3Store.instance();
 		const addr = store.addressStore.addr[store.web3Store.chainId as number].nuonController;
 		return new web3.eth.Contract(nuonControllerAbi, addr);
-	},
-	treasury: (_state: any, _getters, store: any) => {
-		const web3 = store.web3Store.instance();
-		const addr = store.addressStore.addr[store.web3Store.chainId as number].treasury;
-		return new web3.eth.Contract(treasuryAbi, addr);
 	}
 };

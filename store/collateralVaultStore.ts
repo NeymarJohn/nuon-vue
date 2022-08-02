@@ -2,12 +2,12 @@ import { GetterTree, ActionTree, MutationTree } from "vuex";
 import BN from "bn.js";
 import { Web3State } from "./web3Store";
 import collateralHubAbi from "./abi/collateral_hub_native.json";
-import collateralHubUSDCAbi from "./abi/collateral_hub_usdc.json";
+import collateralHubUSDTAbi from "./abi/collateral_hub_usdt.json";
 import nuonControllerAbi from "./abi/nuon_controller.json";
 import truflationAbi from "./abi/truflation.json";
 import boardroomAbi from "./abi/boardroom.json";
 import { fromWei, toWei } from "~/utils/bnTools";
-import { ETH, USDC } from "~/constants/tokens";
+import { ETH, USDT } from "~/constants/tokens";
 
 type StateType = {
 	allowance: any,
@@ -49,11 +49,11 @@ export const state = (): StateType => ({
 	currentCollateralToken: "ETH",
 	abis: {
 		ETH: collateralHubAbi,
-		USDC: collateralHubUSDCAbi
+		USDT: collateralHubUSDTAbi
 	},
 	mintedAmount: {
 		[ETH.symbol] :0,
-		[USDC.symbol] :0
+		[USDT.symbol] :0
 	},
 	targetPeg: 0
 });
@@ -122,8 +122,8 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 
 		const getNuonAllowance = fromWei(await ctx.rootGetters["erc20Store/nuon"].methods.allowance(address, collateralHubAddress).call());
 		const getHydroAllowance = fromWei(await  ctx.rootGetters["erc20Store/hydro"].methods.allowance(address, collateralHubAddress).call());
-		const getUSDCAllowance = fromWei(await  ctx.rootGetters["erc20Store/usdc"].methods.allowance(address, collateralHubAddress).call());
-		ctx.commit("setAllowance", {HX: getHydroAllowance, NUON: getNuonAllowance, USDC: getUSDCAllowance, ETH: 1});
+		const getUSDTAllowance = fromWei(await  ctx.rootGetters["erc20Store/usdt"].methods.allowance(address, collateralHubAddress).call());
+		ctx.commit("setAllowance", {HX: getHydroAllowance, NUON: getNuonAllowance, USDT: getUSDTAllowance, ETH: 1});
 	},
 	approveToken(ctx: any, {tokenSymbol,  onConfirm, onReject, onCallback}): void {
 		const contractAddress = ctx.rootGetters["addressStore/collateralHubs"][ctx.state.currentCollateralToken];
@@ -216,7 +216,7 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 		commit("setRedeemFee", fromWei(redeemFee));
 
 		dispatch("updateMintedAmount", ETH.symbol);
-		dispatch("updateMintedAmount", USDC.symbol);
+		dispatch("updateMintedAmount", USDT.symbol);
 
 		setInterval(() => {
 			dispatch("getTargetPeg");
@@ -225,12 +225,7 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 	async mintNuon(ctx: any, {collateralRatio, collateralAmount, onTxHash, onConfirm, onReject}) {
 		const accountAddress = ctx.rootState.web3Store.account;
 		const payload: {from: string, value?: string} = {from: accountAddress};
-		const args: string[] = [collateralRatio];
-		if (ctx.state.currentCollateralToken === "ETH") {
-			payload.value = collateralAmount;
-		} else if (ctx.state.currentCollateralToken === "USDC") {
-			args.push(collateralAmount);
-		}
+		const args: string[] = [collateralRatio, collateralAmount];
 
 		return await ctx.getters.collateralHubContract.methods.mint.apply(null, args)
 			.send(payload)
@@ -326,7 +321,7 @@ export const getters: GetterTree<BoardroomState, Web3State> = {
 		return await getters.collateralHubContract.methods.getUserIndex(userAddress).call();
 	},
 	getTruflationPeg: (_state: any, getters: any) => async () => {
-		return await getters.collateralHubContract.methods.getTruflationPeg().call();
+		return await getters.nuonControllerContract.methods.getTruflationPeg().call();
 	},
 	getNuonPrice: (_state: any, getters: any) => async () => {
 		return await getters.collateralHubContract.methods.getNUONPrice().call();
@@ -378,5 +373,17 @@ export const getters: GetterTree<BoardroomState, Web3State> = {
 	},
 	getCollateralUsed: (_state: any, getters: any) => async () => {
 		return await getters.collateralHubContract.methods.collateralUsed().call();
+	},
+	depositWithoutMint: (_state: any, getters: any) => async (collateralAmount: number) => {
+		return await getters.collateralHubContract.methods.depositWithoutMint(collateralAmount).call();
+	},
+	mintWithoutDeposit: (_state: any, getters: any) => async (collateralAmount: number) => {
+		return await getters.collateralHubContract.methods.mintWithoutDeposit(collateralAmount).call();
+	},
+	redeemWithoutNuon: (_state: any, getters: any) => async (collateralAmount: number) => {
+		return await getters.collateralHubContract.methods.redeemWithoutNuon(collateralAmount).call();
+	},
+	burnNUON: (_state: any, getters: any) => async (nuonAmount: number) => {
+		return await getters.collateralHubContract.methods.burnNUON(nuonAmount).call();
 	}
 };

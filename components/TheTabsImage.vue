@@ -50,7 +50,7 @@ export default {
 	data() {
 		return {
 			selectedIndex: 0,
-			tabs: ["ETH", "USDC", "BTC", "BUSD", "AVAX", "USDT"],
+			tabs: ["ETH", "USDT", "BTC", "BUSD", "AVAX"],
 			mobileView: false,
 		};
 	},

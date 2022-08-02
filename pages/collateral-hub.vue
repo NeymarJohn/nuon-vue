@@ -155,9 +155,7 @@ export default {
 			return this.$store.state.collateralVaultStore.userJustMinted;
 		},
 		validCollaterals() {
-			const collaterals = ["ETH"];
-			if (this.isEnvDev) collaterals.push("USDC");
-			return collaterals;
+			return ["ETH", "USDT"];
 		},
 		isMintModalVisible() {
 			return this.$store.state.modalStore.modalVisible.mintModal;

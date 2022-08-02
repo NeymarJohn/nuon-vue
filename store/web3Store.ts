@@ -101,7 +101,6 @@ export const actions: ActionTree<Web3State, Web3State> = {
 				const web3 = new Web3(provider as unknown as string);
 				const [account] = await web3.eth.getAccounts();
 				commit("setAccount", account);
-
 				const chainId = await web3.eth.net.getId();
 				commit("setWeb3", () => web3);
 				dispatch("updateChain", chainId);
@@ -134,7 +133,7 @@ export const actions: ActionTree<Web3State, Web3State> = {
 			} catch (e) {
 				if (onError) onError(e);
 			}
-		}
+		};
 	},
 
 	initializeAllStore({dispatch}, {address, chainId, web3}) {
@@ -186,9 +185,18 @@ export const actions: ActionTree<Web3State, Web3State> = {
 			});
 			ethereum.on("chainChanged", () => {
 				dispatch("setChain");
+				dispatch("wrongNetwork");
 			});
+		};
+	},
+
+	async wrongNetwork({commit}){
+		const web3 = new Web3(Web3.givenProvider);
+		if(await web3.eth.net.getId() != 31010){
+			commit("modalStore/setModalInfo",{name: "alertModal", info: {title:"Wrong Network", message: "You are using a wrong network, please change to HYDRO."}}, {root: true});
+			commit("modalStore/setModalVisibility", {name: "alertModal", visibility: true}, {root:true});
 		}
-	}
+	},
 };
 
 export const getters: GetterTree<Web3State, Web3State> = {
