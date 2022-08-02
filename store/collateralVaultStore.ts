@@ -300,7 +300,7 @@ export const getters: GetterTree<BoardroomState, Web3State> = {
 		return await getters.nuonControllerContract.methods.getRedeemFee(chubAddress).call();
 	},
 	getAmountsStakedInVault: (_state: any, getters: any) => async () => {
-		return await getters.collateralHubContract.methods.getAmountsStakedInVault().call();
+		return await getters.collateralHubContract.methods.totalCollateralInCHUB().call();
 	},
 	getInflation: (_state: any, getters: any) => async () => {
 		return await getters.truflationContract.methods.inflation().call();
