@@ -10,17 +10,17 @@
 					<TheButton
 						:disabled="!isConnectedWallet"
 						title="Click to stake"
-						class="u-mr-30 u-mr-lg-24 u-mr-md-12 u-full-width-sm u-min-width-150"
+						class="u-mr-30 u-mr-lg-24 u-mr-md-12 u-full-width-sm"
 						@click="setModalVisibility('stakeModal', true)">Stake</TheButton>
 					<TheButton
 						:disabled="disabledWithdraw"
 						title="Click to withdraw"
-						class="u-mr-30 u-mr-lg-24 u-mr-md-12 u-full-width-sm u-min-width-150"
+						class="u-mr-30 u-mr-lg-24 u-mr-md-12 u-full-width-sm"
 						@click="setModalVisibility('withdrawModal', true)">Withdraw</TheButton>
 					<TheButton
 						:disabled="disabledClaimRewards"
 						title="Click to claim rewards"
-						class="u-full-width-sm u-min-width-150"
+						class="u-full-width-sm"
 						@click="setModalVisibility('claimRewardsModal', true)">Claim Rewards</TheButton>
 					<TheModal
 						v-show="isStakeModalVisible"
@@ -123,7 +123,7 @@
 					<h5>Create proposals and vote to improve the NUON protocol.</h5>
 				</PageTitle>
 				<DataCard align="end" class="u-full-width-sm">
-					<NuxtLink :disabled="!isConnectedWallet" :event="!isConnectedWallet ? '' : 'click'" class="btn btn--md u-full-width-sm u-text-center-sm" to="/boardroom/create-new-proposal" title="Click to create a new proposal">Create New Proposal</NuxtLink>
+					<NuxtLink :disabled="!isConnectedWallet" :event="!isConnectedWallet ? '' : 'click'" class="btn btn--lg u-full-width-sm u-text-center-sm" to="/boardroom/create-new-proposal" title="Click to create a new proposal">Create New Proposal</NuxtLink>
 				</DataCard>
 			</LayoutFlex>
 			<LayoutFlex class="u-mb-36 u-mb-md-24 l-flex--column-start-sm" direction="row-center-space-between">
@@ -219,9 +219,9 @@ export default {
 				},
 			],
 			tourCallbacks: {
-				onSkip: this.hideTourCallback,
-				onStop: this.hideTourCallback,
-				onFinish: this.hideTourCallback
+				onSkip: () => this.setCookie("skip_boardroom_tour"),
+				onStop: () => this.setCookie("skip_boardroom_tour"),
+				onFinish: () => this.setCookie("skip_boardroom_tour")
 			},
 		};
 	},
@@ -284,7 +284,7 @@ export default {
 	mounted() {
 		this.updateStatus();
 		this.claimRewardsToken = {symbol: HX.symbol, price: this.tokenPrices.HX, balance: this.myRewards};
-		if (!$cookies.get("skip_tour")) this.$tours.boardroomTour.start();
+		if (!$cookies.get("skip_boardroom_tour")) this.$tours.boardroomTour.start();
 	},
 	created() {
 		this.getData();

@@ -79,7 +79,7 @@
 			</div>
 			<div class="transaction-input__buttons">
 				<TheButton
-					class="btn btn--lg btn--back"
+					class="btn btn--lg"
 					size="lg"
 					title="Click to go back"
 					@click="activeStep = 1">Back</TheButton>

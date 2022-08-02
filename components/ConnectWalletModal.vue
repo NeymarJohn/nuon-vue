@@ -41,9 +41,6 @@ export default {
 					}
 				}
 			);
-			if(await this.$store.dispatch("web3Store/wrongNetwork")){
-				return (this.failureToast(null,"Wrong network, please change"))
-			}
 		}
 	}
 };

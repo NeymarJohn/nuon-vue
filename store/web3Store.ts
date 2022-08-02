@@ -188,16 +188,6 @@ export const actions: ActionTree<Web3State, Web3State> = {
 				dispatch("setChain");
 			});
 		}
-	},
-
-	async wrongNetwork(){
-		const web3 = new Web3(Web3.givenProvider);
-		if(await web3.eth.net.getId() != 31010){
-			return true
-		}
-		else {
-			return false 
-		}
 	}
 };
 

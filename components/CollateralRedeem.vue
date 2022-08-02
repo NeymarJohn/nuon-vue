@@ -60,7 +60,6 @@
 			<div class="toggle__transaction">
 				<TheButton
 					title="Click to go back"
-					class="btn--back"
 					@click="activeStep = 1">Back</TheButton>
 				<TheButton
 					class="u-full-width"
