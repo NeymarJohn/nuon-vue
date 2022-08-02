@@ -7,15 +7,16 @@
 					<h1 class="u-mb-sm-12">Borrow NUON</h1>
 					<h5 v-if="mobileView" class="u-color-white u-text-decoration-underline" title="Click to view hub overview" @click="setModalVisibility('hubOverviewModal', true)">Hub Overview</h5>
 				</PageTitle>
-				<LayoutFlex direction="row">
+				<LayoutFlex class="u-full-width-sm">
 					<TheButton
-						size="chub"
+						size="md"
 						title="Click to mint"
-						class="u-mr-24"
+						class="u-mr-30 u-mr-lg-24 u-mr-md-12 u-full-width-sm u-min-width-150"
 						@click="setModalVisibility('mintModal', true)">Mint</TheButton>
 					<TheButton
-						size="chub"
+						size="md"
 						title="Click to redeem"
+						class="u-full-width-sm u-min-width-150"
 						:disabled="isDisabled"
 						@click="setModalVisibility('redeemModal', true)">Redeem</TheButton>
 				</LayoutFlex>
@@ -40,6 +41,7 @@
 				:collateral-price-change="collateralPriceChange"
 				data-v-step="4" />
 			<CollateralEcosystemStatus
+				:collateral-token="currentlySelectedCollateral"
 				:min-collateralization-ratio="minimumCollateralizationRatio"
 				:liquidation-price="liquidationPrice"
 				:nuon-price="nuonPrice"
@@ -49,18 +51,18 @@
 		<TheModal
 			v-show="isMintModalVisible"
 			title="Mint"
-			subtitle="Mint subtitle"
+			subtitle="Deposit collateral to mint NUON"
 			@close-modal="setModalVisibility('mintModal', false)">
 			<CollateralMint :currently-selected-collateral="currentlySelectedCollateral" />
 		</TheModal>
 		<TheModal
 			v-show="isRedeemModalVisible"
 			title="Redeem"
-			subtitle="Redeem subtitle"
+			subtitle="Burn NUON to redeem collateral"
 			@close-modal="setModalVisibility('redeemModal', false)">
 			<CollateralRedeem :currently-selected-collateral="currentlySelectedCollateral" />
 		</TheModal>
-		<v-tour name="collateralHubTour" :steps="steps"></v-tour>
+		<v-tour name="collateralHubTour" :steps="steps" :callbacks="tourCallbacks"></v-tour>
 	</div>
 </template>
 
@@ -92,7 +94,7 @@ export default {
 					header: {
 						title: "Welcome to Collateral Hub",
 					},
-					content: "This is where you mint or redeem NUON.",
+					content: "This is where you deposit collateral and mint and redeem NUON.",
 				},
 				{
 					target: "[data-v-step=\"2\"]",
@@ -111,6 +113,11 @@ export default {
 					content: "Overview of the ecosystem status.",
 				},
 			],
+			tourCallbacks: {
+				onSkip: this.hideTourCallback,
+				onStop: this.hideTourCallback,
+				onFinish: this.hideTourCallback
+			},
 		};
 	},
 	head () {
@@ -178,7 +185,7 @@ export default {
 	mounted() {
 		this.initialize();
 		this.mobileView = this.isMobile();
-		this.$tours.collateralHubTour.start();
+		if (!$cookies.get("skip_tour")) this.$tours.collateralHubTour.start();
 	},
 	methods: {
 		tabChanged(e) {

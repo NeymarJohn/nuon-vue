@@ -41,6 +41,7 @@ export default {
 					}
 				}
 			);
+			this.$store.dispatch("web3Store/wrongNetwork");
 		}
 	}
 };

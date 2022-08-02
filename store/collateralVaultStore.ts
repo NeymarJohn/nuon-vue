@@ -27,8 +27,7 @@ type StateType = {
 	userJustMinted: boolean,
 	currentCollateralToken: string,
 	abis: any,
-	mintedAmount: any,
-	targetPeg: number
+	mintedAmount: any
 }
 export const state = (): StateType => ({
 	allowance: {HX:0, NUON: 0},
@@ -54,8 +53,7 @@ export const state = (): StateType => ({
 	mintedAmount: {
 		[ETH.symbol] :0,
 		[USDC.symbol] :0
-	},
-	targetPeg: 0
+	}
 });
 
 export type BoardroomState = ReturnType<typeof state>;
@@ -105,9 +103,6 @@ export const mutations: MutationTree<BoardroomState> = {
 	},
 	setMintedAmount(state, {token, amount}) {
 		state.mintedAmount = {...state.mintedAmount, [token]: amount};
-	},
-	setTargetPeg(state, payload) {
-		state.targetPeg = payload;
 	}
 };
 
@@ -209,18 +204,21 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 		const myCollateralAmount = await getters.getUserCollateralAmount(accountAddress);
 		commit("setUserCollateralAmount", myCollateralAmount);
 
+		// const totalLockedCollateral = await getters.getTotalLockedCollareralValue();
+		// commit("setTotalLockedCollateral", totalLockedCollateral);
 		const chubAddr = rootGetters["addressStore/collateralHubs"][state.currentCollateralToken];
 		const mintingFee = await getters.getMintingFee(chubAddr);
 		commit("setMintingFee",  fromWei(mintingFee));
 		const redeemFee = await getters.getRedeemFee(chubAddr);
 		commit("setRedeemFee", fromWei(redeemFee));
+		// const inflation = Number(await getters.getInflation());
+		// commit("setInflation", inflation);
 
+		// const dailyInflationRate = Number(await getters.getDailyInflationRate());
+		// commit("setDailyInflationRate", dailyInflationRate);
+		// Updated Minted Amount
 		dispatch("updateMintedAmount", ETH.symbol);
 		dispatch("updateMintedAmount", USDC.symbol);
-
-		setInterval(() => {
-			dispatch("getTargetPeg");
-		},1000);
 	},
 	async mintNuon(ctx: any, {collateralRatio, collateralAmount, onTxHash, onConfirm, onReject}) {
 		const accountAddress = ctx.rootState.web3Store.account;
@@ -266,10 +264,6 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 		const decimals = ctx.rootState.erc20Store.decimals[token];
 		const mintedAmount = fromWei(await chubContract.methods.viewUserMintedAmount(accountAddress).call(), decimals);
 		ctx.commit("setMintedAmount",  {token, amount: mintedAmount});
-	},
-	async getTargetPeg(ctx) {
-		const result = await ctx.getters.getTruflationPeg();
-		ctx.commit("setTargetPeg", Number(fromWei(result)));
 	}
 };
 
