@@ -68,23 +68,23 @@ export const actions: ActionTree<Erc20State, Erc20State> = {
 	async initializeBalance (ctx: any, {address}) {
 		const nuonBalance = fromWei(await ctx.getters.nuon.methods.balanceOf(address).call(), ctx.state.decimals.NUON);
 		const hydroBalance = fromWei(await ctx.getters.hydro.methods.balanceOf(address).call(), ctx.state.decimals.HX);
-		// const usdtBalance = fromWei(await ctx.getters.usdt.methods.balanceOf(address).call(), ctx.state.decimals.USDT);
-		// const wethBalance = fromWei(await ctx.getters.weth.methods.balanceOf(address).call(), ctx.state.decimals.WETH);
+		const usdtBalance = fromWei(await ctx.getters.usdt.methods.balanceOf(address).call(), ctx.state.decimals.USDT);
+		const wethBalance = fromWei(await ctx.getters.weth.methods.balanceOf(address).call(), ctx.state.decimals.WETH);
 		const nuonSupply = fromWei(await ctx.rootGetters["collateralVaultStore/getNUONSupply"]());
 		const hydroSupply = fromWei(await ctx.getters.hydro.methods.totalSupply().call());
 
 		ctx.commit("setBalance", {
 			HX: hydroBalance,
 			NUON: nuonBalance,
-			// USDT: usdtBalance,
-			// WETH: wethBalance,
+			USDT: usdtBalance,
+			WETH: wethBalance,
 			[nuMINT.symbol]: hydroBalance
 		});
 		ctx.commit("setDecimals", {
 			HX: 18,
 			NUON: 18,
 			WETH: 18,
-			USDT: 18,
+			USDT: 6,
 			[nuMINT.symbol]: 18
 		});
 		ctx.commit("setSupply", {
@@ -142,9 +142,7 @@ export const getters: GetterTree<Erc20State, Web3State> = {
 
 	weth: (_state: any, _getters: any, store: any, rootGetters: any) => {
 		const web3 = store.web3Store.instance();
-		const test = new web3.eth.Contract(erc20, rootGetters["addressStore/tokens"]?.WETH);
-		console.log("weth contract: ", test);
-		return test;
+		return new web3.eth.Contract(erc20, rootGetters["addressStore/tokens"]?.WETH);
 	},
 
 	ethFaucet: (_state: any, _getteres: any, store: any, rootGetters: any) => {

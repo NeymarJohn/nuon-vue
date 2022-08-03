@@ -190,7 +190,7 @@ export default {
 			try {
 				const chubAddress = this.$store.getters["addressStore/collateralHubs"][this.$store.state.collateralVaultStore.currentCollateralToken];
 				const min = await this.$store.getters["collateralVaultStore/getGlobalCR"](chubAddress);
-				this.sliderMin = Math.floor((10 ** 20 / min)) + 10;
+				this.sliderMin = Math.floor(fromWei(min)) + 10;
 				this.selectedCollateralRatio = this.sliderMin;
 				const collateralPrice = await this.$store.getters["collateralVaultStore/getCollateralPrice"]();
 				this.collateralPrice = fromWei(collateralPrice);

@@ -155,7 +155,7 @@ export default {
 			return this.$store.state.collateralVaultStore.userJustMinted;
 		},
 		validCollaterals() {
-			return ["ETH", "USDT"];
+			return ["WETH", "USDT"];
 		},
 		isMintModalVisible() {
 			return this.$store.state.modalStore.modalVisible.mintModal;
@@ -243,7 +243,7 @@ export default {
 			try {
 				const chubAddress = this.$store.getters["addressStore/collateralHubs"][this.$store.state.collateralVaultStore.currentCollateralToken];
 				const min = await this.$store.getters["collateralVaultStore/getGlobalCR"](chubAddress);
-				result = (10 ** 20 / min).toFixed();
+				result = parseFloat(fromWei(min)).toFixed(0);
 			} catch (e) {
 			} finally {
 				this.minimumCollateralizationRatio = result;

@@ -7,7 +7,7 @@ import nuonControllerAbi from "./abi/nuon_controller.json";
 import truflationAbi from "./abi/truflation.json";
 import boardroomAbi from "./abi/boardroom.json";
 import { fromWei, toWei } from "~/utils/bnTools";
-import { ETH, USDT } from "~/constants/tokens";
+import { WETH, USDT } from "~/constants/tokens";
 
 type StateType = {
 	allowance: any,
@@ -46,13 +46,13 @@ export const state = (): StateType => ({
 	dailyInflationRate: 0,
 	userTVL: 0,
 	userJustMinted: false,
-	currentCollateralToken: "ETH",
+	currentCollateralToken: "WETH",
 	abis: {
-		ETH: collateralHubAbi,
+		WETH: collateralHubAbi,
 		USDT: collateralHubUSDTAbi
 	},
 	mintedAmount: {
-		[ETH.symbol] :0,
+		[WETH.symbol] :0,
 		[USDT.symbol] :0
 	},
 	targetPeg: 0
@@ -121,9 +121,10 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 		const collateralHubAddress = ctx.rootGetters["addressStore/collateralHubs"][ctx.state.currentCollateralToken];
 
 		const getNuonAllowance = fromWei(await ctx.rootGetters["erc20Store/nuon"].methods.allowance(address, collateralHubAddress).call());
-		const getHydroAllowance = fromWei(await  ctx.rootGetters["erc20Store/hydro"].methods.allowance(address, collateralHubAddress).call());
-		const getUSDTAllowance = fromWei(await  ctx.rootGetters["erc20Store/usdt"].methods.allowance(address, collateralHubAddress).call());
-		ctx.commit("setAllowance", {HX: getHydroAllowance, NUON: getNuonAllowance, USDT: getUSDTAllowance, ETH: 1});
+		const getHydroAllowance = fromWei(await ctx.rootGetters["erc20Store/hydro"].methods.allowance(address, collateralHubAddress).call());
+		const getUSDTAllowance = fromWei(await ctx.rootGetters["erc20Store/usdt"].methods.allowance(address, collateralHubAddress).call());
+		const getWETHAllownace = fromWei(await ctx.rootGetters["erc20Store/weth"].methods.allowance(address, collateralHubAddress).call());
+		ctx.commit("setAllowance", {HX: getHydroAllowance, NUON: getNuonAllowance, USDT: getUSDTAllowance, WETH: getWETHAllownace});
 	},
 	approveToken(ctx: any, {tokenSymbol,  onConfirm, onReject, onCallback}): void {
 		const contractAddress = ctx.rootGetters["addressStore/collateralHubs"][ctx.state.currentCollateralToken];
@@ -215,7 +216,7 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 		const redeemFee = await getters.getRedeemFee(chubAddr);
 		commit("setRedeemFee", fromWei(redeemFee));
 
-		dispatch("updateMintedAmount", ETH.symbol);
+		dispatch("updateMintedAmount", WETH.symbol);
 		dispatch("updateMintedAmount", USDT.symbol);
 
 		setInterval(() => {

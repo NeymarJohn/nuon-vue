@@ -99,10 +99,11 @@ export const chainData = {
 			HX: HYDRO_ADDRESS,
 			USDT: USDT_ADDRESS,
 			NUON: NUON_ADDRESS,
+			WETH: WETH_ADDRESS,
 			[nuMINT.symbol]: HYDRO_ADDRESS
 		},
 		collatralHubs: {
-			ETH: COLLATERAL_HUB_ADDRESS,
+			WETH: COLLATERAL_HUB_ADDRESS,
 			USDT: COLLATERAL_HUB_USDT_ADDRESS
 		},
 		ethFaucet: ETH_FAUCET
@@ -127,7 +128,7 @@ export const chainData = {
 			[nuMINT.symbol]: "0xB02322B6Cf0c8C25Ebd0Cad4aDC8ab935413a177"
 		},
 		collatralHubs: {
-			ETH: COLLATERAL_HUB_ADDRESS,
+			WETH: COLLATERAL_HUB_ADDRESS,
 			USDT: COLLATERAL_HUB_USDT_ADDRESS
 		},
 		ethFaucet: ETH_FAUCET
