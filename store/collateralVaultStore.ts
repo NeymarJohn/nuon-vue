@@ -375,16 +375,16 @@ export const getters: GetterTree<BoardroomState, Web3State> = {
 	getCollateralUsed: (_state: any, getters: any) => async () => {
 		return await getters.collateralHubContract.methods.collateralUsed().call();
 	},
-	depositWithoutMint: (_state: any, getters: any) => async (collateralAmount: number) => {
-		return await getters.collateralHubContract.methods.depositWithoutMint(collateralAmount).call();
+	depositWithoutMint: (_state: any, getters: any) => async (collateralAmount: number, userAddress: string) => {
+		return await getters.collateralHubContract.methods.depositWithoutMint(collateralAmount).send({from: userAddress});
 	},
-	mintWithoutDeposit: (_state: any, getters: any) => async (collateralAmount: number) => {
-		return await getters.collateralHubContract.methods.mintWithoutDeposit(collateralAmount).call();
+	mintWithoutDeposit: (_state: any, getters: any) => async (collateralAmount: number, userAddress: string) => {
+		return await getters.collateralHubContract.methods.mintWithoutDeposit(collateralAmount).send({from: userAddress});
 	},
-	redeemWithoutNuon: (_state: any, getters: any) => async (collateralAmount: number) => {
-		return await getters.collateralHubContract.methods.redeemWithoutNuon(collateralAmount).call();
+	redeemWithoutNuon: (_state: any, getters: any) => async (collateralAmount: number, userAddress: string) => {
+		return await getters.collateralHubContract.methods.redeemWithoutNuon(collateralAmount).send({from: userAddress});
 	},
-	burnNUON: (_state: any, getters: any) => async (nuonAmount: number) => {
-		return await getters.collateralHubContract.methods.burnNUON(nuonAmount).call();
+	burnNUON: (_state: any, getters: any) => async (nuonAmount: number, userAddress: string) => {
+		return await getters.collateralHubContract.methods.burnNUON(nuonAmount).send({from: userAddress});
 	}
 };
