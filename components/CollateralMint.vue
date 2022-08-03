@@ -128,7 +128,6 @@ export default {
 			activeStep: 1,
 			isApproving: false,
 			minting: false,
-			liquidationPrice: 0,
 			sliderMin: "0",
 			minimumDepositAmount: 0
 		};
@@ -157,24 +156,31 @@ export default {
 		},
 		isLTEMinimumDepositAmount() {
 			return parseFloat(this.inputValue) <= this.minimumDepositAmount;
+		},
+		liquidationPrice() {
+			if (!Number(this.inputValue)) return 0;
+
+			if (parseFloat(this.selectedCollateralRatio) === this.sliderMin) return this.inputValue * this.collateralPrice * 0.99;
+
+			const targetPeg = this.$store.state.collateralVaultStore.targetPeg;
+			const mintedNuon = this.estimatedMintedNuonValue;
+			const nounMinBacking = targetPeg * this.sliderMin / 100;
+			return nounMinBacking * mintedNuon / this.inputValue;
 		}
 	},
 	watch: {
 		inputValue() {
 			this.getEstimatedMintedNuon();
-			if (this.selectedCollateralRatio) this.liquidationPrice = (this.collateralPrice) / (this.selectedCollateralRatio / 100);
 		},
 		selectedCollateralRatio(newValue) {
 			if (newValue) {
-				this.liquidationPrice = (this.collateralPrice) / (this.selectedCollateralRatio / 100);
-				if (this.selectedCollateralRatio === this.sliderMin) this.liquidationPrice = this.inputValue * this.collateralPrice;
 				this.getEstimatedMintedNuon();
 			}
 		},
 		currentlySelectedCollateral() {
 			this.$store.dispatch("collateralVaultStore/updateStatus");
 			this.initialize();
-		}
+		},
 	},
 	mounted() {
 		this.initialize();

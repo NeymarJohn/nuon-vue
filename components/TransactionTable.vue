@@ -25,7 +25,7 @@
 					<span v-if="obj.id === 'date'">{{ new Date(row[obj.id]) | formateDateTime }}</span>
 					<span v-else-if="obj.id === 'transactionType'">
 						<template v-if="tableData === 'collateral'">
-							<span  class="transaction-table__cell_marked">Mint</span> Nuon
+							<span  class="transaction-table__cell_marked">{{row[obj.id]}}</span> Nuon
 							<span  class="transaction-table__cell_marked">By {{row[obj.id] === 'Mint' ? 'Deposit' : 'Withdraw'}}</span><span>{{` ${row.depositToken.symbol}`}}</span>
 						</template>
 						<template v-else-if="tableData === 'swap'">

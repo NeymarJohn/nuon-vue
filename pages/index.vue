@@ -50,9 +50,9 @@ export default {
 				},
 			],
 			tourCallbacks: {
-				onSkip: this.hideTourCallback,
-				onStop: this.hideTourCallback,
-				onFinish: this.hideTourCallback
+				onSkip: () => this.setCookie("skip_ecosystem_overview_tour"),
+				onStop: () => this.setCookie("skip_ecosystem_overview_tour"),
+				onFinish: () => this.setCookie("skip_ecosystem_overview_tour")
 			},
 		};
 	},
@@ -65,7 +65,7 @@ export default {
 		};
 	},
 	mounted() {
-		if (!$cookies.get("skip_tour")) this.$tours.ecosystemOverviewTour.start();
+		if (!$cookies.get("skip_ecosystem_overview_tour")) this.$tours.ecosystemOverviewTour.start();
 	}
 };
 </script>

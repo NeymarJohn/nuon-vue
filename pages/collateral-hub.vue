@@ -68,7 +68,6 @@
 
 <script>
 import { fromWei } from "~/utils/bnTools";
-import { getTotalSupplyWithToken} from "~/services/theGraph";
 
 export default {
 	name: "TheCollateralHub",
@@ -92,31 +91,31 @@ export default {
 				{
 					target: "[data-v-step=\"1\"]",
 					header: {
-						title: "Welcome to Collateral Hub",
+						title: "Welcome to the Collateral Hub",
 					},
-					content: "This is where you deposit collateral and mint and redeem NUON.",
+					content: "This page is where you can deposit collateral and mint and redeem NUON.",
 				},
 				{
 					target: "[data-v-step=\"2\"]",
-					content: "Choose which asset to deposit.",
+					content: "Choose which asset to use as collateral.",
 				},
 				{
 					target: "[data-v-step=\"3\"]",
-					content: "Real time health status of your collateralization ratio.",
+					content: "View real-time health status of your collateralization ratio here.",
 				},
 				{
 					target: "[data-v-step=\"4\"]",
-					content: "Overview of your collateral status.",
+					content: "This section shows an overview of your collateral status.",
 				},
 				{
 					target: "[data-v-step=\"5\"]",
-					content: "Overview of the ecosystem status.",
+					content: "This section gives a status overview of the NUON ecosystem, including liquidation information for your chosen collateral.",
 				},
 			],
 			tourCallbacks: {
-				onSkip: this.hideTourCallback,
-				onStop: this.hideTourCallback,
-				onFinish: this.hideTourCallback
+				onSkip: () => this.setCookie("skip_collateral_hub_tour"),
+				onStop: () => this.setCookie("skip_collateral_hub_tour"),
+				onFinish: () => this.setCookie("skip_collateral_hub_tour")
 			},
 		};
 	},
@@ -185,7 +184,7 @@ export default {
 	mounted() {
 		this.initialize();
 		this.mobileView = this.isMobile();
-		if (!$cookies.get("skip_tour")) this.$tours.collateralHubTour.start();
+		if (!$cookies.get("skip_collateral_hub_tour")) this.$tours.collateralHubTour.start();
 	},
 	methods: {
 		tabChanged(e) {
@@ -255,7 +254,7 @@ export default {
 			let result = [];
 			try {
 				const collateralAddress = this.$store.getters["addressStore/tokens"][this.currentlySelectedCollateral];
-				const collateralSupplyResponse = await getTotalSupplyWithToken(collateralAddress);
+				const collateralSupplyResponse = await getTokenData(collateralAddress);
 				result = collateralSupplyResponse.data.data.totalSupplyDayDatas;
 			} catch (e) {
 			} finally {

@@ -167,9 +167,9 @@ export default {
 				},
 			],
 			tourCallbacks: {
-				onSkip: this.hideTourCallback,
-				onStop: this.hideTourCallback,
-				onFinish: this.hideTourCallback
+				onSkip: () => this.setCookie("skip_my_dashboard_tour"),
+				onStop: () => this.setCookie("skip_my_dashboard_tour"),
+				onFinish: () => this.setCookie("skip_my_dashboard_tour")
 			},
 			mobileView: false,
 			collateralPrices: {},
@@ -290,7 +290,7 @@ export default {
 		this.mobileView = this.isMobile();
 		this.initialize(this.collaterals);
 		this.handleMouseOverChart(-1);
-		if (!$cookies.get("skip_tour")) this.$tours.myDashboardTour.start();
+		if (!$cookies.get("skip_my_dashboard_tour")) this.$tours.myDashboardTour.start();
 	},
 	methods: {
 		async initialize(collaterals) {

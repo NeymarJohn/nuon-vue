@@ -1,6 +1,6 @@
 import axios from "axios";
 import dayjs from "dayjs";
-const THE_GRAPH_URL = "https://graphiql-nuon.hydrogenx.live/subgraphs/name/nuon/usdc";
+const THE_GRAPH_URL = "https://graphiql-nuon.hydrogenx.live/subgraphs/name/dev-nuon";
 const UNISWAP_THE_GRAPH_URL = "https://graphiql-nuon.hydrogenx.live/subgraphs/name/nuon/uniswap";
 
 export const getCollateralTVLDayData = () => axios.post(THE_GRAPH_URL, {
@@ -37,24 +37,6 @@ export const getTokenPricesDayData = () => axios.post(THE_GRAPH_URL, {
 				}
 				date
 				id
-			}
-	}`
-});
-
-export const getTotalSupplyWithToken = (token) => axios.post(THE_GRAPH_URL, {
-	query:`
-		query {
-			totalSupplyDayDatas(where: {token: "${token}"})  {
-				id
-				date
-				marketVal
-				token
-				value
-				price {
-					price
-					tokenAddress
-					time
-				}
 			}
 	}`
 });
@@ -193,7 +175,7 @@ export const getCollateralTransactionHistory = (filters) => {
 				collateralHubTransactions(orderBy: date, orderDirection: desc, 
 					where: {
 						date_gte: $startDate, 
-						transactionType_contains_nocase: $query, 
+						queryData_contains_nocase: $query, 
 						user: $user
 					}) {
 						id
@@ -206,6 +188,7 @@ export const getCollateralTransactionHistory = (filters) => {
 						user
 						input
 						output
+						queryData
 					}
 			}`,
 		variables
