@@ -215,7 +215,7 @@ export default {
 				},
 				{
 					target: "[data-v-step=\"4\"]",
-					content: "Finally, this section is where you can vote on active proposals or submit a new one. The voting system uses nuMINT staking contracts to determine your staking power, and proposals are managed by Snapshot.org for maximum transparency.",
+					content: "Finally, this section is where you can vote on active proposals or submit a new one. The voting system uses nuMINT staking contracts to determine your staking power, and proposals are hosted by Snapshot.org for maximum transparency.",
 				},
 			],
 			tourCallbacks: {
