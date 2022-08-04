@@ -202,33 +202,33 @@ export default {
 				{
 					target: "[data-v-step=\"1\"]",
 					header: {
-						title: "Welcome to a Proposal",
+						title: "Welcome to the Proposal page",
 					},
-					content: "This is where you can view proposals to improve the ecosystem.",
+					content: "Proposals aimed at improving the Nuon Finance ecosystem are shown on pages like this.",
 				},
 				{
 					target: "[data-v-step=\"2\"]",
-					content: "View the status of the proposal and share on Twitter.",
+					content: "At the top of the page, you can view the proposal’s status and share on Twitter with one click.",
 				},
 				{
 					target: "[data-v-step=\"3\"]",
-					content: "Read the proposal in detail.",
+					content: "Read the details of the proposal here.",
 				},
 				{
 					target: "[data-v-step=\"4\"]",
-					content: "View information about the proposal.",
+					content: "The most important basic information is displayed here.",
 				},
 				{
 					target: "[data-v-step=\"5\"]",
-					content: "View the most up-to-date vote results on the proposal.",
+					content: "View up-to-date voting results for the proposal here.",
 				},
 				{
 					target: "[data-v-step=\"6\"]",
-					content: "Vote on the proposal.",
+					content: "Cast your vote here. You can always change your vote before the voting period ends.",
 				},
 				{
 					target: "[data-v-step=\"7\"]",
-					content: "View voting history for the proposal.",
+					content: "And view the proposal’s voting history here.",
 				},
 			],
 			tourCallbacks: {
