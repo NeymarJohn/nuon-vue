@@ -160,7 +160,7 @@ export default {
 		liquidationPrice() {
 			if (!Number(this.inputValue)) return 0;
 
-			if (parseFloat(this.selectedCollateralRatio) === this.sliderMin) return this.inputValue * this.collateralPrice * 0.99;
+			if (parseFloat(this.selectedCollateralRatio) === this.sliderMin) return this.collateralPrice * 0.99;
 
 			const targetPeg = this.$store.state.collateralVaultStore.targetPeg;
 			const mintedNuon = this.estimatedMintedNuonValue;
@@ -220,7 +220,7 @@ export default {
 
 			const currentRatio = this.selectedCollateralRatio;
 			const collateralRatio = `${(10 ** 18) / (currentRatio / 100)}`;
-			const inputValueWithDecimals = toWei(this.inputValue, this.decimals );
+			const inputValueWithDecimals = toWei(this.inputValue, this.decimals);
 			let ans = [0];
 			try {
 				ans = await this.$store.getters["collateralVaultStore/getEstimateMintedNUONAmount"](inputValueWithDecimals, collateralRatio);

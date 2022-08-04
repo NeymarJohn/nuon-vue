@@ -98,7 +98,22 @@
 			}
 		],
 		"stateMutability": "view",
-		"type": "function"
+		"type": "function",
+		"constant": true
+	},
+	{
+		"inputs": [],
+		"name": "NLP",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function",
+		"constant": true
 	},
 	{
 		"inputs": [],
@@ -111,7 +126,8 @@
 			}
 		],
 		"stateMutability": "view",
-		"type": "function"
+		"type": "function",
+		"constant": true
 	},
 	{
 		"inputs": [],
@@ -124,7 +140,8 @@
 			}
 		],
 		"stateMutability": "view",
-		"type": "function"
+		"type": "function",
+		"constant": true
 	},
 	{
 		"inputs": [],
@@ -137,7 +154,8 @@
 			}
 		],
 		"stateMutability": "view",
-		"type": "function"
+		"type": "function",
+		"constant": true
 	},
 	{
 		"inputs": [],
@@ -150,7 +168,8 @@
 			}
 		],
 		"stateMutability": "view",
-		"type": "function"
+		"type": "function",
+		"constant": true
 	},
 	{
 		"inputs": [],
@@ -163,7 +182,8 @@
 			}
 		],
 		"stateMutability": "view",
-		"type": "function"
+		"type": "function",
+		"constant": true
 	},
 	{
 		"inputs": [],
@@ -176,7 +196,8 @@
 			}
 		],
 		"stateMutability": "view",
-		"type": "function"
+		"type": "function",
+		"constant": true
 	},
 	{
 		"inputs": [
@@ -195,7 +216,8 @@
 			}
 		],
 		"stateMutability": "view",
-		"type": "function"
+		"type": "function",
+		"constant": true
 	},
 	{
 		"inputs": [],
@@ -208,7 +230,8 @@
 			}
 		],
 		"stateMutability": "view",
-		"type": "function"
+		"type": "function",
+		"constant": true
 	},
 	{
 		"inputs": [],
@@ -221,7 +244,8 @@
 			}
 		],
 		"stateMutability": "view",
-		"type": "function"
+		"type": "function",
+		"constant": true
 	},
 	{
 		"inputs": [],
@@ -234,7 +258,8 @@
 			}
 		],
 		"stateMutability": "view",
-		"type": "function"
+		"type": "function",
+		"constant": true
 	},
 	{
 		"inputs": [],
@@ -247,7 +272,8 @@
 			}
 		],
 		"stateMutability": "view",
-		"type": "function"
+		"type": "function",
+		"constant": true
 	},
 	{
 		"inputs": [],
@@ -260,26 +286,8 @@
 			}
 		],
 		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"name": "mintedAmount",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
+		"type": "function",
+		"constant": true
 	},
 	{
 		"inputs": [],
@@ -292,7 +300,8 @@
 			}
 		],
 		"stateMutability": "view",
-		"type": "function"
+		"type": "function",
+		"constant": true
 	},
 	{
 		"inputs": [],
@@ -312,7 +321,8 @@
 			}
 		],
 		"stateMutability": "view",
-		"type": "function"
+		"type": "function",
+		"constant": true
 	},
 	{
 		"inputs": [
@@ -338,26 +348,8 @@
 			}
 		],
 		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"name": "userLPs",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
+		"type": "function",
+		"constant": true
 	},
 	{
 		"inputs": [
@@ -376,89 +368,8 @@
 			}
 		],
 		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"name": "usersAmounts",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"name": "usersIndex",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "vala",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "valb",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "getVals",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
+		"type": "function",
+		"constant": true
 	},
 	{
 		"inputs": [
@@ -552,48 +463,29 @@
 				"internalType": "address",
 				"name": "_controller",
 				"type": "address"
-			}
-		],
-		"name": "setCoreAddresses",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "_lpPair",
-				"type": "address"
-			}
-		],
-		"name": "setLPPair",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
+			},
 			{
 				"internalType": "address",
 				"name": "_router",
 				"type": "address"
-			}
-		],
-		"name": "setRouter",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
+			},
+			{
+				"internalType": "address",
+				"name": "_lpPair",
+				"type": "address"
+			},
 			{
 				"internalType": "address[]",
 				"name": "_collateralToNuonRoute",
 				"type": "address[]"
+			},
+			{
+				"internalType": "address",
+				"name": "_NLP",
+				"type": "address"
 			}
 		],
-		"name": "setSwapRoute",
+		"name": "setCoreAddresses",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -615,11 +507,11 @@
 		"inputs": [
 			{
 				"internalType": "address",
-				"name": "_token",
+				"name": "_owner",
 				"type": "address"
 			}
 		],
-		"name": "viewBalOfToken",
+		"name": "getPositionOwned",
 		"outputs": [
 			{
 				"internalType": "uint256",
@@ -628,7 +520,8 @@
 			}
 		],
 		"stateMutability": "view",
-		"type": "function"
+		"type": "function",
+		"constant": true
 	},
 	{
 		"inputs": [
@@ -647,7 +540,8 @@
 			}
 		],
 		"stateMutability": "view",
-		"type": "function"
+		"type": "function",
+		"constant": true
 	},
 	{
 		"inputs": [
@@ -666,7 +560,8 @@
 			}
 		],
 		"stateMutability": "view",
-		"type": "function"
+		"type": "function",
+		"constant": true
 	},
 	{
 		"inputs": [
@@ -685,39 +580,8 @@
 			}
 		],
 		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "_user",
-				"type": "address"
-			}
-		],
-		"name": "getUserIndex",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "getTruflationPeg",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
+		"type": "function",
+		"constant": true
 	},
 	{
 		"inputs": [],
@@ -730,59 +594,8 @@
 			}
 		],
 		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "getAllUsers",
-		"outputs": [
-			{
-				"internalType": "address[]",
-				"name": "",
-				"type": "address[]"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "getAmountsStakedInVault",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "getCollateralsValue",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "getGlobalCR",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
+		"type": "function",
+		"constant": true
 	},
 	{
 		"inputs": [
@@ -801,7 +614,8 @@
 			}
 		],
 		"stateMutability": "view",
-		"type": "function"
+		"type": "function",
+		"constant": true
 	},
 	{
 		"inputs": [
@@ -820,7 +634,8 @@
 			}
 		],
 		"stateMutability": "view",
-		"type": "function"
+		"type": "function",
+		"constant": true
 	},
 	{
 		"inputs": [
@@ -844,26 +659,8 @@
 			}
 		],
 		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "_user",
-				"type": "address"
-			}
-		],
-		"name": "getUserSupposedCollateralsValue",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
+		"type": "function",
+		"constant": true
 	},
 	{
 		"inputs": [
@@ -902,7 +699,8 @@
 			}
 		],
 		"stateMutability": "view",
-		"type": "function"
+		"type": "function",
+		"constant": true
 	},
 	{
 		"inputs": [],
@@ -915,7 +713,8 @@
 			}
 		],
 		"stateMutability": "view",
-		"type": "function"
+		"type": "function",
+		"constant": true
 	},
 	{
 		"inputs": [
@@ -949,7 +748,8 @@
 			}
 		],
 		"stateMutability": "view",
-		"type": "function"
+		"type": "function",
+		"constant": true
 	},
 	{
 		"inputs": [
@@ -984,6 +784,64 @@
 			}
 		],
 		"name": "redeem",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_amount",
+				"type": "uint256"
+			}
+		],
+		"name": "depositWithoutMint",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_amount",
+				"type": "uint256"
+			}
+		],
+		"name": "mintWithoutDeposit",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_collateralAmount",
+				"type": "uint256"
+			}
+		],
+		"name": "redeemWithoutNuon",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_nuonAmount",
+				"type": "uint256"
+			}
+		],
+		"name": "burnNUON",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -1028,7 +886,8 @@
 			}
 		],
 		"stateMutability": "view",
-		"type": "function"
+		"type": "function",
+		"constant": true
 	},
 	{
 		"inputs": [
@@ -1062,6 +921,35 @@
 			}
 		],
 		"stateMutability": "view",
+		"type": "function",
+		"constant": true
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_user",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "_receiver",
+				"type": "address"
+			},
+			{
+				"internalType": "bool",
+				"name": "_hasPosition",
+				"type": "bool"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_tokenId",
+				"type": "uint256"
+			}
+		],
+		"name": "_reAssignNewOwnerBalances",
+		"outputs": [],
+		"stateMutability": "nonpayable",
 		"type": "function"
 	}
 ]
