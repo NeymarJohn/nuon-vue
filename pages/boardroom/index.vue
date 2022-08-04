@@ -70,7 +70,7 @@
 				<DataCard class="u-mb-md-36 u-mb-sm-24">
 					<label>My Rewards</label>
 					<TheLoader component="h1">
-						<h3>{{ myRewards | toFixed | numberWithCommas }}<sup>nuMINT</sup></h3>
+						<h3>{{ myRewards | toFixed | numberWithCommas }}<sup>BUSD</sup></h3>
 					</TheLoader>
 					<TheLoader component="h5">
 						<h5>${{ getDollarValue(myRewards, tokenPrices.HX) | toFixed | numberWithCommas }}</h5>
@@ -203,19 +203,19 @@ export default {
 					header: {
 						title: "Welcome to the Boardroom",
 					},
-					content: "The Boardroom is where governance of the Nuon Finance Protocol takes place using the nuMINT governance token.",
+					content: "The boardroom is where the Nuon protocol's governance takes place using the nuMINT governance token.",
 				},
 				{
 					target: "[data-v-step=\"2\"]",
-					content: "The top information panel shows how much nuMINT you have staked, along with current and pending nuMINT rewards. It also shows how much voting power you have, based total nuMINT staked.",
+					content: "The top information panel at the top tells you how much nuMINT you staked, your pending rewards, the epoch timing (defining voting and rewards cycles) as well as your corresponding voting power.",
 				},
 				{
 					target: "[data-v-step=\"3\"]",
-					content: "This section shows global nuMINT stats, including price, TVL and staking APR.",
+					content: "Next on the page is the global stats for nuMINT where you can see the price, TVL and staking APR.",
 				},
 				{
 					target: "[data-v-step=\"4\"]",
-					content: "Finally, this section is where you can vote on active proposals or submit a new one. The voting system uses nuMINT staking contracts to determine your staking power, and proposals are hosted by Snapshot.org for maximum transparency.",
+					content: "Finally this is the proposal space where you can open a new proposal or vote on active ones. This is using our nuMINT staking contracts to determine your voting power and coupled with Snapshot.org to keep track of proposals.",
 				},
 			],
 			tourCallbacks: {

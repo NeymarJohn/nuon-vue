@@ -31,7 +31,7 @@
 	</div>
 </template>
 <script>
-import { nuMINT, NUON } from "~/constants/tokens";
+import { BUSD, nuMINT, NUON } from "~/constants/tokens";
 import { getCollateralTransactionHistory, getSwapTransactionHistory, getStakingTransactionHistory, getRewardTransactionHistory } from "~/services/theGraph";
 
 export default {
@@ -41,7 +41,7 @@ export default {
 			tableData: [],
 			selectedTab: 0,
 			filterLastDays: 0,
-			locations: ["collateral", "swap", "boardroom", "rewoard"],
+			locations: ["collateral", "swap", "boardroom", "reward"],
 			selectOptions: [
 				{label: "All", value: 0},
 				{label: "Past 7 Days", value: 7},
@@ -119,14 +119,15 @@ export default {
 					});
 				} else {
 					getRewardTransactionHistory(filter).then(res => {
-						this.tableData = res.data.data.getRewardTransactionHistory.map(item => (
+						this.tableData = res.data.data.rewardTransactions.map(item => (
 							{
 								...item,
 								amount: item.amount,
-								date: item.datetime * 1000,
+								totalAmount: item.amount,
+								date: item.dateTime * 1000,
 								txHash: item.id,
-								inputToken: nuMINT.symbol,
-								outputToken: nuMINT.symbol,
+								inputToken: BUSD.symbol,
+								outputToken: BUSD.symbol,
 							}));
 					});
 				}

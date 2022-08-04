@@ -28,6 +28,12 @@ export const ETH = {
 	name: "ETHER"
 };
 
+export const BUSD = {
+	symbol: "BUSD",
+	name: "Binance USD"
+};
+
+
 export const USDC_USDT_LP_TOKEN = {
 	symbol: "USDC-USDT LP",
 	name: "USDC-USDT LP TOKEN"
