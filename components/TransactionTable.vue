@@ -9,16 +9,7 @@
 				<TooltipIcon v-if="misc.headerTooltips && misc.headerTooltips[column.id]" v-tooltip="misc.headerTooltips[column.id]" class="tooltip--table-header" />
 			</div>
 		</div>
-		<div v-if="loading" class="transaction-table__row"  role="rowgroup">
-			<div
-				v-for="(obj, idx) in config"
-				:key="idx"
-				class="transaction-table__cell"
-				role="cell">
-				<ComponentLoader component="h3" :loaded="false" slot-classes="l-flex l-flex--row-center-space-between" />
-			</div>
-		</div>
-		<template v-else-if="data.length">
+		<template v-if="data.length">
 			<div
 				v-for="(row, index) in data.slice((currentPage - 1) * 10, currentPage * 10)"
 				:key="index"
@@ -114,10 +105,6 @@ export default {
 			default() {
 				return "";
 			}
-		},
-		loading: {
-			type: Boolean,
-			default: false
 		}
 	},
 	data() {
