@@ -16,9 +16,15 @@
 					<TheButton
 						size="md"
 						title="Click to redeem"
-						class="u-full-width-sm u-min-width-150"
+						class="u-mr-30 u-mr-lg-24 u-mr-md-12 u-full-width-sm u-min-width-150"
 						:disabled="isDisabled"
 						@click="setModalVisibility('redeemModal', true)">Redeem</TheButton>
+					<TheButton
+						size="md"
+						title="Click to adjust collateral position"
+						class="u-full-width-sm u-min-width-150"
+						:disabled="isDisabled"
+						@click="setModalVisibility('adjustPositionModal', true)">Adjust Position</TheButton>
 				</LayoutFlex>
 			</LayoutFlex>
 			<TheTabsImage
@@ -62,24 +68,19 @@
 			@close-modal="setModalVisibility('redeemModal', false)">
 			<CollateralRedeem :currently-selected-collateral="currentlySelectedCollateral" />
 		</TheModal>
+		<TheModal
+			v-show="isAdjustPositionModalVisible"
+			title="Adjust Position"
+			subtitle="Manage your collateral"
+			@close-modal="setModalVisibility('adjustPositionModal', false)">
+			<AdjustPosition :currently-selected-collateral="currentlySelectedCollateral" />
+		</TheModal>
 		<v-tour name="collateralHubTour" :steps="steps" :callbacks="tourCallbacks"></v-tour>
-		<p>depositWithoutMint</p>
-		<input v-model="depositWithoutMintInput" type="number">
-		<button @click="depositWithoutMintSubmit">submit</button>
-		<p>mintWithoutDeposit</p>
-		<input v-model="mintWithoutDepositInput" type="number">
-		<button @click="mintWithoutDepositSubmit">submit</button>
-		<p>redeemWithoutNuon</p>
-		<input v-model="redeemWithoutNuonInput" type="number">
-		<button @click="redeemWithoutNuonSubmit">submit</button>
-		<p>burnNUON</p>
-		<input v-model="burnNUONInput" type="number">
-		<button @click="burnNUONSubmit">submit</button>
 	</div>
 </template>
 
 <script>
-import { fromWei, toWei } from "~/utils/bnTools";
+import { fromWei } from "~/utils/bnTools";
 
 export default {
 	name: "TheCollateralHub",
@@ -128,11 +129,7 @@ export default {
 				onSkip: () => this.setCookie("skip_collateral_hub_tour"),
 				onStop: () => this.setCookie("skip_collateral_hub_tour"),
 				onFinish: () => this.setCookie("skip_collateral_hub_tour")
-			},
-			depositWithoutMintInput: "",
-			mintWithoutDepositInput: "",
-			redeemWithoutNuonInput: "",
-			burnNUONInput: ""
+			}
 		};
 	},
 	head () {
@@ -179,6 +176,9 @@ export default {
 		isRedeemModalVisible() {
 			return this.$store.state.modalStore.modalVisible.redeemModal;
 		},
+		isAdjustPositionModalVisible() {
+			return this.$store.state.modalStore.modalVisible.adjustPositionModal;
+		},
 		isDisabled() {
 			return this.userMintedAmount === 0;
 		},
@@ -199,18 +199,6 @@ export default {
 		this.initialize();
 		this.mobileView = this.isMobile();
 		if (!$cookies.get("skip_collateral_hub_tour")) this.$tours.collateralHubTour.start();
-		// TODO: remove below if statement after testing
-		if (!this.$store.state.collateralVaultStore.allowance[this.currentlySelectedCollateral]) {
-			this.$store.dispatch("collateralVaultStore/approveToken",
-				{
-					tokenSymbol: "NUON",
-					onConfirm: () => { },
-					onReject: () => { },
-					onCallback: () => {
-						this.isApproving = false;
-					}
-				});
-		}
 	},
 	methods: {
 		tabChanged(e) {
@@ -310,38 +298,6 @@ export default {
 				this.getUserMintedAmount();
 				this.getUserCollateralizationRatio();
 			}, 1000);
-		},
-		async depositWithoutMintSubmit() {
-			try {
-				const test = toWei(this.depositWithoutMintInput, this.$store.state.erc20Store.decimals[this.currentlySelectedCollateral]);
-				await this.$store.getters["collateralVaultStore/depositWithoutMint"](test, this.connectedAccount);
-			} catch (e) {
-				console.log(e);
-			}
-		},
-		async mintWithoutDepositSubmit() {
-			try {
-				const amount = toWei(this.mintWithoutDepositInput, this.$store.state.erc20Store.decimals[this.currentlySelectedCollateral]);
-				await this.$store.getters["collateralVaultStore/mintWithoutDeposit"](amount, this.connectedAccount);
-			} catch (e) {
-				console.log(e);
-			}
-		},
-		async redeemWithoutNuonSubmit() {
-			try {
-				const amount = toWei(this.redeemWithoutNuonInput, this.$store.state.erc20Store.decimals[this.currentlySelectedCollateral]);
-				await this.$store.getters["collateralVaultStore/redeemWithoutNuon"](amount, this.connectedAccount);
-			} catch (e) {
-				console.log(e);
-			}
-		},
-		async burnNUONSubmit() {
-			try {
-				const amount = toWei(this.burnNUONInput);
-				await this.$store.getters["collateralVaultStore/burnNUON"](amount, this.connectedAccount);
-			} catch (e) {
-				console.log(e);
-			}
 		}
 	}
 };
