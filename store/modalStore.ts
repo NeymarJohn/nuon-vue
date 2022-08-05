@@ -22,7 +22,6 @@ export const state = () => ({
 		hubOverviewModal: false,
 		mintModal: false,
 		redeemModal: false,
-		adjustPositionModal: false
 	},
 	modalInfo: {
 		claimResultModal: "",

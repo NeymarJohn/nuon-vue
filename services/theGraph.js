@@ -211,7 +211,8 @@ export const getSwapTransactionHistory = (filters) => {
 				swaps(orderBy: timestamp, orderDirection: desc, 
 					where: {
 						timestamp_gte: $startDate, 
-						from: $user
+						from: $user,
+						queryData_contains_nocase: $query
 					}) {
 					amount0In
 					amount0Out

@@ -16,15 +16,9 @@
 					<TheButton
 						size="md"
 						title="Click to redeem"
-						class="u-mr-30 u-mr-lg-24 u-mr-md-12 u-full-width-sm u-min-width-150"
-						:disabled="isDisabled"
-						@click="setModalVisibility('redeemModal', true)">Redeem</TheButton>
-					<TheButton
-						size="md"
-						title="Click to adjust collateral position"
 						class="u-full-width-sm u-min-width-150"
 						:disabled="isDisabled"
-						@click="setModalVisibility('adjustPositionModal', true)">Adjust Position</TheButton>
+						@click="setModalVisibility('redeemModal', true)">Redeem</TheButton>
 				</LayoutFlex>
 			</LayoutFlex>
 			<TheTabsImage
@@ -68,13 +62,6 @@
 			@close-modal="setModalVisibility('redeemModal', false)">
 			<CollateralRedeem :currently-selected-collateral="currentlySelectedCollateral" />
 		</TheModal>
-		<TheModal
-			v-show="isAdjustPositionModalVisible"
-			title="Adjust Position"
-			subtitle="Manage your collateral"
-			@close-modal="setModalVisibility('adjustPositionModal', false)">
-			<AdjustPosition :currently-selected-collateral="currentlySelectedCollateral" />
-		</TheModal>
 		<v-tour name="collateralHubTour" :steps="steps" :callbacks="tourCallbacks"></v-tour>
 	</div>
 </template>
@@ -88,7 +75,7 @@ export default {
 		return {
 			myCollateralizationRatio: null,
 			minimumCollateralizationRatio: null,
-			currentlySelectedCollateral: "WETH",
+			currentlySelectedCollateral: "ETH",
 			collateralPrice: null,
 			userMintedAmount: null,
 			nuonPrice: null,
@@ -129,7 +116,7 @@ export default {
 				onSkip: () => this.setCookie("skip_collateral_hub_tour"),
 				onStop: () => this.setCookie("skip_collateral_hub_tour"),
 				onFinish: () => this.setCookie("skip_collateral_hub_tour")
-			}
+			},
 		};
 	},
 	head () {
@@ -168,16 +155,15 @@ export default {
 			return this.$store.state.collateralVaultStore.userJustMinted;
 		},
 		validCollaterals() {
-			return ["WETH", "USDT"];
+			const collaterals = ["ETH"];
+			if (this.isEnvDev) collaterals.push("USDC");
+			return collaterals;
 		},
 		isMintModalVisible() {
 			return this.$store.state.modalStore.modalVisible.mintModal;
 		},
 		isRedeemModalVisible() {
 			return this.$store.state.modalStore.modalVisible.redeemModal;
-		},
-		isAdjustPositionModalVisible() {
-			return this.$store.state.modalStore.modalVisible.adjustPositionModal;
 		},
 		isDisabled() {
 			return this.userMintedAmount === 0;
@@ -257,9 +243,8 @@ export default {
 		async getMinimumCollateralizationRatio() {
 			let result = 0;
 			try {
-				const chubAddress = this.$store.getters["addressStore/collateralHubs"][this.$store.state.collateralVaultStore.currentCollateralToken];
-				const min = await this.$store.getters["collateralVaultStore/getGlobalCR"](chubAddress);
-				result = parseFloat(fromWei(min)).toFixed(0);
+				const min = await this.$store.getters["collateralVaultStore/getGlobalCR"]();
+				result = (10 ** 20 / min).toFixed();
 			} catch (e) {
 			} finally {
 				this.minimumCollateralizationRatio = result;
