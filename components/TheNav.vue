@@ -49,7 +49,7 @@
 				<FarmIcon /> Farms
 			</NuxtLink>
 		</li>
-		<a href="https://whitepaper.nuon.fi/" title="Click to visit the documentation" target="_blank" rel="noopener noreferrer"><DocumentationIcon /> Docs <ExternalLinkIcon class="u-mr-0 u-ml-8" /></a>
+		<a href="https://hydrolabs.gitbook.io/inflation-adjusted-algorithmic-stablecoin/" title="Click to visit the documentation" target="_blank" rel="noopener noreferrer"><DocumentationIcon /> Docs <ExternalLinkIcon class="u-mr-0 u-ml-8" /></a>
 		<li v-if="isEnvDev" @click="getMockToken('ETH')">
 			<NuxtLink
 				to=""
