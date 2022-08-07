@@ -22,16 +22,19 @@
 				aria="Collateral hub redeemed transactions"
 				:data="tableData"
 				:config="transactionConfig"
+				:loading="isLoading"
 				:table-data="locations[selectedTab]" />
 			<TransactionCard
 				v-else
 				:data="tableData"
-				:config="transactionConfig" />
+				:loading="isLoading"
+				:config="transactionConfig" 
+				:table-data="locations[selectedTab]" />
 		</TheLoader>
 	</div>
 </template>
 <script>
-import { nuMINT, NUON } from "~/constants/tokens";
+import { BUSD, nuMINT, NUON } from "~/constants/tokens";
 import { getCollateralTransactionHistory, getSwapTransactionHistory, getStakingTransactionHistory, getRewardTransactionHistory } from "~/services/theGraph";
 
 export default {
@@ -41,7 +44,7 @@ export default {
 			tableData: [],
 			selectedTab: 0,
 			filterLastDays: 0,
-			locations: ["collateral", "swap", "boardroom", "rewoard"],
+			locations: ["collateral", "swap", "boardroom", "reward"],
 			selectOptions: [
 				{label: "All", value: 0},
 				{label: "Past 7 Days", value: 7},
@@ -49,6 +52,7 @@ export default {
 				{label: "Past 90 Days", value:90},
 			],
 			mobileView: false,
+			isLoading: false,
 		};
 	},
 	computed: {
@@ -78,8 +82,10 @@ export default {
 					query: this.searchQuery
 				};
 				this.tableData = [];
+				this.isLoading = true;
 				if (this.locations[this.selectedTab] === "collateral") {
 					getCollateralTransactionHistory(filter).then(res => {
+						this.isLoading = false;
 						this.tableData = res.data.data.collateralHubTransactions.map(item => (
 							{
 								...item,
@@ -94,6 +100,7 @@ export default {
 					});
 				} else if (this.locations[this.selectedTab] === "swap") {
 					getSwapTransactionHistory(filter).then(res => {
+						this.isLoading = false;
 						this.tableData = res.data.data.swaps.map(item => (
 							{
 								...item,
@@ -108,6 +115,7 @@ export default {
 					});
 				} else if (this.locations[this.selectedTab] === "boardroom") {
 					getStakingTransactionHistory(filter).then(res => {
+						this.isLoading = false;
 						this.tableData = res.data.data.boardroomTransactions.map(item => (
 							{
 								...item,
@@ -119,14 +127,16 @@ export default {
 					});
 				} else {
 					getRewardTransactionHistory(filter).then(res => {
-						this.tableData = res.data.data.getRewardTransactionHistory.map(item => (
+						this.isLoading = false;
+						this.tableData = res.data.data.rewardTransactions.map(item => (
 							{
 								...item,
 								amount: item.amount,
-								date: item.datetime * 1000,
+								totalAmount: item.amount,
+								date: item.dateTime * 1000,
 								txHash: item.id,
-								inputToken: nuMINT.symbol,
-								outputToken: nuMINT.symbol,
+								inputToken: BUSD.symbol,
+								outputToken: BUSD.symbol,
 							}));
 					});
 				}

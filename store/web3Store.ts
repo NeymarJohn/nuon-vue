@@ -94,7 +94,7 @@ export const actions: ActionTree<Web3State, Web3State> = {
 						[DEFAULT_CHAIN_ID]: "https://eth-private-testnet-poa.hydrogenx.tk/"
 					},
 					chainId: DEFAULT_CHAIN_ID,
-					qrcode: true,
+					qrcode: true
 				});
 
 				await provider.enable();
@@ -197,7 +197,6 @@ export const actions: ActionTree<Web3State, Web3State> = {
 			commit("modalStore/setModalVisibility", {name: "alertModal", visibility: true}, {root:true});
 		}
 	},
-
 };
 
 export const getters: GetterTree<Web3State, Web3State> = {

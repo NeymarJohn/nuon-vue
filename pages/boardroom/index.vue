@@ -70,7 +70,7 @@
 				<DataCard class="u-mb-md-36 u-mb-sm-24">
 					<label>My Rewards</label>
 					<TheLoader component="h1">
-						<h3>{{ myRewards | toFixed | numberWithCommas }}<sup>nuMINT</sup></h3>
+						<h3>{{ myRewards | toFixed | numberWithCommas }}<sup>BUSD</sup></h3>
 					</TheLoader>
 					<TheLoader component="h5">
 						<h5>${{ getDollarValue(myRewards, tokenPrices.HX) | toFixed | numberWithCommas }}</h5>

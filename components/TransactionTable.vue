@@ -9,7 +9,16 @@
 				<TooltipIcon v-if="misc.headerTooltips && misc.headerTooltips[column.id]" v-tooltip="misc.headerTooltips[column.id]" class="tooltip--table-header" />
 			</div>
 		</div>
-		<template v-if="data.length">
+		<div v-if="loading" class="transaction-table__row"  role="rowgroup">
+			<div
+				v-for="(obj, idx) in config"
+				:key="idx"
+				class="transaction-table__cell"
+				role="cell">
+				<ComponentLoader component="h3" :loaded="false" slot-classes="l-flex l-flex--row-center-space-between" />
+			</div>
+		</div>
+		<template v-else-if="data.length">
 			<div
 				v-for="(row, index) in data.slice((currentPage - 1) * 10, currentPage * 10)"
 				:key="index"
@@ -36,7 +45,7 @@
 							<span  class="transaction-table__cell_marked">Stake</span><span> {{row.inputToken}}</span>
 						</template>
 						<template v-else-if="tableData === 'reward'">
-							<span  class="transaction-table__cell_marked">Stake</span><span> {{row.inputToken}}</span>
+							<span  class="transaction-table__cell_marked">{{row.transactionType}}</span>
 						</template>
 					</span>
 					<span v-else class="l-flex l-flex--row-center">
@@ -105,6 +114,10 @@ export default {
 			default() {
 				return "";
 			}
+		},
+		loading: {
+			type: Boolean,
+			default: false
 		}
 	},
 	data() {
