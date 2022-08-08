@@ -137,6 +137,8 @@ export default {
 			this.submitDisabled = false;
 		},
 		actionClicked(arg) {
+			this.error = "";
+			this.inputModel = "";
 			this.action = arg;
 			this.activeStep = 2;
 			this.isSubmitDisabled();
