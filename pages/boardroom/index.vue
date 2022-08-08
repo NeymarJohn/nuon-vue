@@ -77,7 +77,7 @@
 					</TheLoader>
 				</DataCard>
 				<DataCard class="u-mb-sm-24">
-					<label>My Next Reward Distribution</label>
+					<label>My Next Reward Distribution<TooltipIcon v-tooltip="'Enter tooltip content here.'" /></label>
 					<TheLoader component="h1">
 						<TheCountdown :visible="isConnectedWallet" :next-claim-date="nextEpochPoint" :is-loop="true" />
 					</TheLoader>

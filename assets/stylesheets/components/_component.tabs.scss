@@ -18,8 +18,8 @@
 .tabs__header li {
 	transition: $TRANSITION_ALL;
 	cursor: pointer;
-	margin-right: $SPACING_12;
-	padding: $SPACING_13;
+	margin-right: $SPACING_16;
+	padding: $SPACING_13 $SPACING_24;
 	border-radius: $BORDER_RADIUS_6;
 }
 .tabs__header li:hover {

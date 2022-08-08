@@ -103,20 +103,6 @@
 	},
 	{
 		"inputs": [],
-		"name": "NLP",
-		"outputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function",
-		"constant": true
-	},
-	{
-		"inputs": [],
 		"name": "NUON",
 		"outputs": [
 			{
@@ -200,6 +186,34 @@
 		"constant": true
 	},
 	{
+		"inputs": [],
+		"name": "aval",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function",
+		"constant": true
+	},
+	{
+		"inputs": [],
+		"name": "bval",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function",
+		"constant": true
+	},
+	{
 		"inputs": [
 			{
 				"internalType": "uint256",
@@ -235,7 +249,7 @@
 	},
 	{
 		"inputs": [],
-		"name": "decimalDivisor",
+		"name": "cval",
 		"outputs": [
 			{
 				"internalType": "uint256",
@@ -263,12 +277,12 @@
 	},
 	{
 		"inputs": [],
-		"name": "lpPair",
+		"name": "minimumDepositAmount",
 		"outputs": [
 			{
-				"internalType": "address",
+				"internalType": "uint256",
 				"name": "",
-				"type": "address"
+				"type": "uint256"
 			}
 		],
 		"stateMutability": "view",
@@ -276,8 +290,14 @@
 		"constant": true
 	},
 	{
-		"inputs": [],
-		"name": "minimumDepositAmount",
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "mintedAmount",
 		"outputs": [
 			{
 				"internalType": "uint256",
@@ -375,6 +395,60 @@
 		"inputs": [
 			{
 				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "usersAmounts",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function",
+		"constant": true
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "usersIndex",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function",
+		"constant": true
+	},
+	{
+		"inputs": [],
+		"name": "retVals",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function",
+		"constant": true
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
 				"name": "_NUON",
 				"type": "address"
 			},
@@ -417,11 +491,6 @@
 				"internalType": "uint256",
 				"name": "_liquidationFee",
 				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_decimalDivisor",
-				"type": "uint256"
 			}
 		],
 		"name": "initialize",
@@ -463,29 +532,35 @@
 				"internalType": "address",
 				"name": "_controller",
 				"type": "address"
-			},
+			}
+		],
+		"name": "setCoreAddresses",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
 			{
 				"internalType": "address",
 				"name": "_router",
 				"type": "address"
-			},
-			{
-				"internalType": "address",
-				"name": "_lpPair",
-				"type": "address"
-			},
+			}
+		],
+		"name": "setRouter",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
 			{
 				"internalType": "address[]",
 				"name": "_collateralToNuonRoute",
 				"type": "address[]"
-			},
-			{
-				"internalType": "address",
-				"name": "_NLP",
-				"type": "address"
 			}
 		],
-		"name": "setCoreAddresses",
+		"name": "setSwapRoute",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -507,11 +582,11 @@
 		"inputs": [
 			{
 				"internalType": "address",
-				"name": "_owner",
+				"name": "_token",
 				"type": "address"
 			}
 		],
-		"name": "getPositionOwned",
+		"name": "viewBalOfToken",
 		"outputs": [
 			{
 				"internalType": "uint256",
@@ -571,7 +646,21 @@
 				"type": "address"
 			}
 		],
-		"name": "viewUserLPAmount",
+		"name": "getUserIndex",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function",
+		"constant": true
+	},
+	{
+		"inputs": [],
+		"name": "getTruflationPeg",
 		"outputs": [
 			{
 				"internalType": "uint256",
@@ -586,6 +675,62 @@
 	{
 		"inputs": [],
 		"name": "getNUONPrice",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function",
+		"constant": true
+	},
+	{
+		"inputs": [],
+		"name": "getAllUsers",
+		"outputs": [
+			{
+				"internalType": "address[]",
+				"name": "",
+				"type": "address[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function",
+		"constant": true
+	},
+	{
+		"inputs": [],
+		"name": "getAmountsStakedInVault",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function",
+		"constant": true
+	},
+	{
+		"inputs": [],
+		"name": "getCollateralsValue",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function",
+		"constant": true
+	},
+	{
+		"inputs": [],
+		"name": "getGlobalCR",
 		"outputs": [
 			{
 				"internalType": "uint256",
@@ -665,6 +810,26 @@
 	{
 		"inputs": [
 			{
+				"internalType": "address",
+				"name": "_user",
+				"type": "address"
+			}
+		],
+		"name": "getUserSupposedCollateralsValue",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function",
+		"constant": true
+	},
+	{
+		"inputs": [
+			{
 				"internalType": "uint256",
 				"name": "collateralAmount",
 				"type": "uint256"
@@ -677,11 +842,6 @@
 		],
 		"name": "estimateMintedNUONAmount",
 		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			},
 			{
 				"internalType": "uint256",
 				"name": "",
@@ -791,64 +951,6 @@
 	{
 		"inputs": [
 			{
-				"internalType": "uint256",
-				"name": "_amount",
-				"type": "uint256"
-			}
-		],
-		"name": "depositWithoutMint",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_amount",
-				"type": "uint256"
-			}
-		],
-		"name": "mintWithoutDeposit",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_collateralAmount",
-				"type": "uint256"
-			}
-		],
-		"name": "redeemWithoutNuon",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_nuonAmount",
-				"type": "uint256"
-			}
-		],
-		"name": "burnNUON",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
 				"internalType": "address",
 				"name": "_user",
 				"type": "address"
@@ -923,33 +1025,5 @@
 		"stateMutability": "view",
 		"type": "function",
 		"constant": true
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "_user",
-				"type": "address"
-			},
-			{
-				"internalType": "address",
-				"name": "_receiver",
-				"type": "address"
-			},
-			{
-				"internalType": "bool",
-				"name": "_hasPosition",
-				"type": "bool"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_tokenId",
-				"type": "uint256"
-			}
-		],
-		"name": "_reAssignNewOwnerBalances",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
 	}
 ]
