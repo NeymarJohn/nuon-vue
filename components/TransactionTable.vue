@@ -36,7 +36,7 @@
 							<span  class="transaction-table__cell_marked">Stake</span><span> {{row.inputToken}}</span>
 						</template>
 						<template v-else-if="tableData === 'reward'">
-							<span  class="transaction-table__cell_marked">Stake</span><span> {{row.inputToken}}</span>
+							<span  class="transaction-table__cell_marked">{{row.transactionType}}</span>
 						</template>
 					</span>
 					<span v-else class="l-flex l-flex--row-center">

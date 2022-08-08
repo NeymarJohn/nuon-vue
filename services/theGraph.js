@@ -258,7 +258,8 @@ export const getStakingTransactionHistory = (filters) => {
 				boardroomTransactions(orderBy: date, orderDirection: desc, 
 					where: {
 						date_gte: $startDate, 
-						user: $user
+						user: $user,
+						queryData_contains_nocase: $query
 					}) {
 						id
 						date
@@ -288,8 +289,10 @@ export const getRewardTransactionHistory = (filters) => {
 			query getRewardTransactions($user: String!, $query: String!, $startDate: Int! ) {
 				rewardTransactions(orderBy: dateTime, orderDirection: desc, where: {
 					dateTime_gte: $startDate, 
-					user: $user
+					user: $user,
+					queryData_contains_nocase: $query
 				}) {
+					transactionType
 					id
 					dateTime
 					amount

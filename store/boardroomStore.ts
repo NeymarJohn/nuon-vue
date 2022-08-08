@@ -115,11 +115,8 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 	},
 	claimReward(ctx: any, {onConfirm, onError, onComplete}) {
 		const accountAddress = ctx.rootState.web3Store.account;
-		return ctx.getters.contract.methods.claimReward(
-			true,
-			"0x000000000000000000000000000000000000dEaD",
-			["0x000000000000000000000000000000000000dEaD", "0x000000000000000000000000000000000000dEaD"]
-		).send({from: accountAddress})
+		return ctx.getters.contract.methods.claimReward()
+			.send({from: accountAddress})
 			.on("transactionHash", (hash: string) => {
 				if (onConfirm) onConfirm(hash);
 			})
