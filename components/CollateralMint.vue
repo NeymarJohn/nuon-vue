@@ -3,7 +3,7 @@
 		<template #step-one>
 			<DataCard class="u-full-width u-mb-48">
 				<LayoutFlex direction="row-space-between" class="u-full-width">
-					<p>Amount of {{currentlySelectedCollateral}}</p>
+					<p>Amount of {{ currentlySelectedCollateral }}</p>
 					<p>Available balance: {{ (tokenBalance || 0) | formatLongNumber }}</p>
 				</LayoutFlex>
 				<div class="input u-mb-12">
@@ -59,6 +59,10 @@
 				<p>Estimated total NUON minted</p>
 				<h4 class="collateral-estimate">{{ estimatedMintedNuonValue | toFixed | numberWithCommas }} <sup>NUON</sup></h4>
 			</DataCard>
+			<DataCard class="u-full-width">
+				<label>Estimated extra required collateral<TooltipIcon v-tooltip="'Nuon requires an extra amount of collaterals to be deposited that will be converted in LPs. This amount is used to ensure liquidity protection in the ecosystem and will be returned to you at redeem.'" /></label>
+				<h4 class="collateral-estimate">{{ estimatedExtraRequiredCollateral | toFixed | numberWithCommas }} <sup>{{ currentlySelectedCollateral }}</sup></h4>
+			</DataCard>
 			<div class="toggle__transaction">
 				<TheButton
 					:disabled="isApproved || isApproving"
@@ -110,9 +114,13 @@
 
 <script>
 import { fromWei, toWei } from "~/utils/bnTools";
+import TooltipIcon from "@/assets/images/svg/svg-tooltip.svg";
 
 export default {
 	name: "CollateralMint",
+	components: {
+		TooltipIcon
+	},
 	props: {
 		currentlySelectedCollateral: {
 			type: String,
@@ -129,7 +137,8 @@ export default {
 			isApproving: false,
 			minting: false,
 			sliderMin: "0",
-			minimumDepositAmount: 0
+			minimumDepositAmount: 0,
+			estimatedExtraRequiredCollateral: "0"
 		};
 	},
 	computed: {
@@ -221,7 +230,7 @@ export default {
 			const currentRatio = this.selectedCollateralRatio;
 			const collateralRatio = `${(10 ** 18) / (currentRatio / 100)}`;
 			const inputValueWithDecimals = toWei(this.inputValue, this.decimals);
-			let ans = [0];
+			let ans = {0: 0, 3: 0};
 			try {
 				ans = await this.$store.getters["collateralVaultStore/getEstimateMintedNUONAmount"](inputValueWithDecimals, collateralRatio);
 			} catch(e) {
@@ -229,6 +238,7 @@ export default {
 				this.failureToast(null, message || e, "An error occurred");
 			} finally {
 				this.estimatedMintedNuonValue = fromWei(ans[0]);
+				this.estimatedExtraRequiredCollateral = fromWei(ans[3], this.$store.state.erc20Store.decimals[this.currentlySelectedCollateral]);
 			}
 		},
 		async mint() {
