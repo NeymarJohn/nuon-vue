@@ -1,7 +1,6 @@
 /* #COMPONENT - WALLET
 		1. Wallet default
-		2. Wallet connect
-		3. Wallet responsive
+		2. Wallet responsive
 */
 
 // 1. Wallet default
@@ -16,11 +15,6 @@
 .wallet .btn:hover {
 	background: $DARK_GREY;
 	color: $LIME;
-}
-
-// 2. Wallet connect
-.walletconnect-modal__mobile__toggle a {
-	color: $DARK_GREY;
 }
 
 // 2. Wallet responsive

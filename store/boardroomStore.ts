@@ -17,8 +17,7 @@ type StateType = {
 	allowance: any,
 	lastSnapshot: {lastSnapshotIndex: number, rewardEarned: BN, epochTimerStart: number},
 	claimFee: number,
-	director: any,
-	startTime: number
+	director: any
 }
 export const state = (): StateType => ({
 	boardroomAddress: "",
@@ -32,8 +31,7 @@ export const state = (): StateType => ({
 	allowance: {[nuMINT.symbol as string]:0, NUON: 0},
 	lastSnapshot: {lastSnapshotIndex: 0, rewardEarned: new BN(0), epochTimerStart: 0},
 	claimFee: 0,
-	director: null,
-	startTime: 0
+	director: null
 });
 
 export type BoardroomState = ReturnType<typeof state>;
@@ -74,9 +72,6 @@ export const mutations: MutationTree<BoardroomState> = {
 	},
 	setBoardroomAddress(state, payload: any) {
 		state.boardroomAddress = payload;
-	},
-	setStartTime(state, payload: number) {
-		state.startTime = payload;
 	}
 };
 
@@ -199,9 +194,6 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 		getters.getEpoch().then((epoch: number) => {
 			commit("setEpoch", epoch);
 		});
-		getters.getStartTime().then((startTime: number) => {
-			commit("setStartTime", startTime);
-		});
 	}
 };
 
@@ -240,9 +232,5 @@ export const getters: GetterTree<BoardroomState, Web3State> = {
 	},
 	checkApprovedToken: (state:any) => (tokenName: string):boolean => {
 		return state.allowance[tokenName] > 0;
-	},
-	getStartTime: (_state: any, _getters: any, _store: any, rootGetters) => async () => {
-		const startTime = await rootGetters["contractStore/treasury"].methods.startTime().call();
-		return startTime;
 	},
 };

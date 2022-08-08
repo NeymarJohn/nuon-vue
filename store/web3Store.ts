@@ -94,7 +94,7 @@ export const actions: ActionTree<Web3State, Web3State> = {
 						[DEFAULT_CHAIN_ID]: "https://eth-private-testnet-poa.hydrogenx.tk/"
 					},
 					chainId: DEFAULT_CHAIN_ID,
-					qrcode: true,
+					qrcode: true
 				});
 
 				await provider.enable();
@@ -168,7 +168,7 @@ export const actions: ActionTree<Web3State, Web3State> = {
 			commit("setBalance", balance);
 
 			dispatch("initializeAllStore", {address: state.account, chainId: state.chainId, web3});
-
+			
 			//  Set Events
 			ethereum.on("accountsChanged", async (accounts: string[]) => {
 				if (accounts.length > 0) {
@@ -192,12 +192,11 @@ export const actions: ActionTree<Web3State, Web3State> = {
 
 	async wrongNetwork({commit}){
 		const web3 = new Web3(Web3.givenProvider);
-		if(await web3.eth.net.getId() !== 31010){
+		if(await web3.eth.net.getId() != 31010){
 			commit("modalStore/setModalInfo",{name: "alertModal", info: {title:"Wrong Network", message: "You are using a wrong network, please change to HYDRO."}}, {root: true});
 			commit("modalStore/setModalVisibility", {name: "alertModal", visibility: true}, {root:true});
 		}
 	},
-
 };
 
 export const getters: GetterTree<Web3State, Web3State> = {

@@ -38,45 +38,13 @@
 		"type": "event"
 	},
 	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": false,
-				"internalType": "uint8",
-				"name": "version",
-				"type": "uint8"
-			}
-		],
-		"name": "Initialized",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": true,
-				"internalType": "address",
-				"name": "previousOwner",
-				"type": "address"
-			},
-			{
-				"indexed": true,
-				"internalType": "address",
-				"name": "newOwner",
-				"type": "address"
-			}
-		],
-		"name": "OwnershipTransferred",
-		"type": "event"
-	},
-	{
 		"inputs": [],
-		"name": "MAX_INT",
+		"name": "HYDRO",
 		"outputs": [
 			{
-				"internalType": "uint256",
+				"internalType": "address",
 				"name": "",
-				"type": "uint256"
+				"type": "address"
 			}
 		],
 		"stateMutability": "view",
@@ -96,13 +64,34 @@
 		"type": "function"
 	},
 	{
-		"inputs": [],
-		"name": "RewardToken",
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "TreasuryValue",
 		"outputs": [
 			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
+				"internalType": "uint256",
+				"name": "value",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "timestamp",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "epoch",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "HydroPaid",
+				"type": "uint256"
 			}
 		],
 		"stateMutability": "view",
@@ -111,73 +100,6 @@
 	{
 		"inputs": [],
 		"name": "boardroom",
-		"outputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"name": "collatToRewardTokenRoute",
-		"outputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"name": "collatUniqueRoutes",
-		"outputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"name": "collaterals",
 		"outputs": [
 			{
 				"internalType": "address",
@@ -203,6 +125,32 @@
 	},
 	{
 		"inputs": [],
+		"name": "hydroFeesRewardRatio",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "initialized",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
 		"name": "migrated",
 		"outputs": [
 			{
@@ -216,7 +164,26 @@
 	},
 	{
 		"inputs": [],
-		"name": "owner",
+		"name": "operator",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "oracles",
 		"outputs": [
 			{
 				"internalType": "address",
@@ -229,71 +196,12 @@
 	},
 	{
 		"inputs": [],
-		"name": "percentToIncentives",
+		"name": "percentToBoard",
 		"outputs": [
 			{
 				"internalType": "uint256",
 				"name": "",
 				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "percentToProductDev",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "percentToReserve",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "productDevAddress",
-		"outputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "renounceOwnership",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "reserveAddress",
-		"outputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
 			}
 		],
 		"stateMutability": "view",
@@ -314,51 +222,25 @@
 	},
 	{
 		"inputs": [],
-		"name": "teamFeesAddress",
-		"outputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "newOwner",
-				"type": "address"
-			}
-		],
-		"name": "transferOwnership",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "uniqueDestinationToken",
-		"outputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
 		"name": "unirouter",
 		"outputs": [
 			{
 				"internalType": "address",
 				"name": "",
 				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "isInitialized",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
 			}
 		],
 		"stateMutability": "view",
@@ -381,7 +263,7 @@
 		"inputs": [
 			{
 				"internalType": "address",
-				"name": "_RewardToken",
+				"name": "_HYDRO",
 				"type": "address"
 			},
 			{
@@ -390,28 +272,13 @@
 				"type": "address"
 			},
 			{
-				"internalType": "address",
-				"name": "_teamFeesAddress",
-				"type": "address"
-			},
-			{
-				"internalType": "address",
-				"name": "_productDevAddress",
-				"type": "address"
-			},
-			{
-				"internalType": "address",
-				"name": "_reserveAddress",
-				"type": "address"
-			},
-			{
-				"internalType": "address",
-				"name": "_uniqueDestinationToken",
-				"type": "address"
+				"internalType": "uint256",
+				"name": "_startTime",
+				"type": "uint256"
 			},
 			{
 				"internalType": "uint256",
-				"name": "_startTime",
+				"name": "_percentToBoard",
 				"type": "uint256"
 			}
 		],
@@ -423,22 +290,25 @@
 	{
 		"inputs": [
 			{
-				"internalType": "uint256",
-				"name": "_percentToProductDev",
-				"type": "uint256"
-			},
+				"internalType": "address",
+				"name": "_operator",
+				"type": "address"
+			}
+		],
+		"name": "setOperator",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
 			{
 				"internalType": "uint256",
-				"name": "_percentToReserve",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_percentToIncentives",
+				"name": "_percentToBoard",
 				"type": "uint256"
 			}
 		],
-		"name": "setSplitAlloc",
+		"name": "setBoardAlloc",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -460,92 +330,7 @@
 		"inputs": [
 			{
 				"internalType": "address",
-				"name": "_teamFeesAddress",
-				"type": "address"
-			},
-			{
-				"internalType": "address",
-				"name": "_productDevAddress",
-				"type": "address"
-			},
-			{
-				"internalType": "address",
-				"name": "_reserveAddress",
-				"type": "address"
-			}
-		],
-		"name": "setSplitAddresses",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "_collateral",
-				"type": "address"
-			},
-			{
-				"internalType": "address[]",
-				"name": "_route",
-				"type": "address[]"
-			}
-		],
-		"name": "setCollateralRoutesUnique",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "_collateral",
-				"type": "address"
-			},
-			{
-				"internalType": "address[]",
-				"name": "_route",
-				"type": "address[]"
-			}
-		],
-		"name": "setCollateralRewardTokenRoute",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "_collateral",
-				"type": "address"
-			}
-		],
-		"name": "addCollateral",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_id",
-				"type": "uint256"
-			}
-		],
-		"name": "removeCollateral",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "_RewardToken",
+				"name": "_HYDRO",
 				"type": "address"
 			},
 			{
@@ -560,21 +345,8 @@
 		"type": "function"
 	},
 	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "_uniqueDestinationToken",
-				"type": "address"
-			}
-		],
-		"name": "setUniqueDestinationToken",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
 		"inputs": [],
-		"name": "viewRewardToken",
+		"name": "viewHydro",
 		"outputs": [
 			{
 				"internalType": "uint256",
@@ -587,7 +359,7 @@
 	},
 	{
 		"inputs": [],
-		"name": "allocateRewardTokenToBoardroom",
+		"name": "allocateHydroToBoardroom",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -611,24 +383,6 @@
 			}
 		],
 		"name": "withdrawAnything",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_amount",
-				"type": "uint256"
-			},
-			{
-				"internalType": "address[]",
-				"name": "_ChosenRoute",
-				"type": "address[]"
-			}
-		],
-		"name": "swapAnything",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -668,11 +422,11 @@
 		"inputs": [
 			{
 				"internalType": "address",
-				"name": "_RewardToken",
+				"name": "_HYDRO",
 				"type": "address"
 			}
 		],
-		"name": "boardroomSetRewardToken",
+		"name": "boardroomSetHYDRO",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -709,6 +463,24 @@
 			}
 		],
 		"name": "boardroomGovernanceRecoverUnsupported",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_amount",
+				"type": "uint256"
+			},
+			{
+				"internalType": "address[]",
+				"name": "_ChosenRoute",
+				"type": "address[]"
+			}
+		],
+		"name": "swapAnything",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
