@@ -25,7 +25,7 @@
 					</div>
 				</div>
 				<h5 v-if="inputValue" class="u-mb-0 l-flex--align-self-end">~ ${{ numberWithCommas(getDollarValue(inputValue, collateralPrice).toFixed(2)) }}</h5>
-				<p v-if="readyToDeposit" class="u-is-success l-flex--align-self-end">Ready to deposit</p>
+				<p v-if="readyToDeposit && !isLTEMinimumDepositAmount" class="u-is-success l-flex--align-self-end">Ready to deposit</p>
 				<p v-if="isMoreThanBalance" class="u-is-warning l-flex--align-self-end">Insufficient balance</p>
 				<p v-if="isLTEMinimumDepositAmount" class="u-is-warning l-flex--align-self-end">Please deposit more than {{ minimumDepositAmount }}</p>
 			</DataCard>
@@ -160,7 +160,7 @@ export default {
 		liquidationPrice() {
 			if (!Number(this.inputValue)) return 0;
 
-			if (parseFloat(this.selectedCollateralRatio) === this.sliderMin) return this.inputValue * this.collateralPrice * 0.99;
+			if (parseFloat(this.selectedCollateralRatio) === this.sliderMin) return this.collateralPrice * 0.99;
 
 			const targetPeg = this.$store.state.collateralVaultStore.targetPeg;
 			const mintedNuon = this.estimatedMintedNuonValue;
@@ -188,8 +188,9 @@ export default {
 	methods: {
 		async initialize() {
 			try {
-				const min = await this.$store.getters["collateralVaultStore/getGlobalCR"]();
-				this.sliderMin = Math.floor((10 ** 20 / min)) + 10;
+				const chubAddress = this.$store.getters["addressStore/collateralHubs"][this.$store.state.collateralVaultStore.currentCollateralToken];
+				const min = await this.$store.getters["collateralVaultStore/getGlobalCR"](chubAddress);
+				this.sliderMin = Math.floor(fromWei(min)) + 10;
 				this.selectedCollateralRatio = this.sliderMin;
 				const collateralPrice = await this.$store.getters["collateralVaultStore/getCollateralPrice"]();
 				this.collateralPrice = fromWei(collateralPrice);
@@ -219,7 +220,7 @@ export default {
 
 			const currentRatio = this.selectedCollateralRatio;
 			const collateralRatio = `${(10 ** 18) / (currentRatio / 100)}`;
-			const inputValueWithDecimals = toWei(this.inputValue, this.decimals );
+			const inputValueWithDecimals = toWei(this.inputValue, this.decimals);
 			let ans = [0];
 			try {
 				ans = await this.$store.getters["collateralVaultStore/getEstimateMintedNUONAmount"](inputValueWithDecimals, collateralRatio);

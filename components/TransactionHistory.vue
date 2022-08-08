@@ -22,14 +22,11 @@
 				aria="Collateral hub redeemed transactions"
 				:data="tableData"
 				:config="transactionConfig"
-				:loading="isLoading"
 				:table-data="locations[selectedTab]" />
 			<TransactionCard
 				v-else
 				:data="tableData"
-				:loading="isLoading"
-				:config="transactionConfig" 
-				:table-data="locations[selectedTab]" />
+				:config="transactionConfig" />
 		</TheLoader>
 	</div>
 </template>
@@ -52,7 +49,6 @@ export default {
 				{label: "Past 90 Days", value:90},
 			],
 			mobileView: false,
-			isLoading: false,
 		};
 	},
 	computed: {
@@ -82,10 +78,8 @@ export default {
 					query: this.searchQuery
 				};
 				this.tableData = [];
-				this.isLoading = true;
 				if (this.locations[this.selectedTab] === "collateral") {
 					getCollateralTransactionHistory(filter).then(res => {
-						this.isLoading = false;
 						this.tableData = res.data.data.collateralHubTransactions.map(item => (
 							{
 								...item,
@@ -100,7 +94,6 @@ export default {
 					});
 				} else if (this.locations[this.selectedTab] === "swap") {
 					getSwapTransactionHistory(filter).then(res => {
-						this.isLoading = false;
 						this.tableData = res.data.data.swaps.map(item => (
 							{
 								...item,
@@ -115,7 +108,6 @@ export default {
 					});
 				} else if (this.locations[this.selectedTab] === "boardroom") {
 					getStakingTransactionHistory(filter).then(res => {
-						this.isLoading = false;
 						this.tableData = res.data.data.boardroomTransactions.map(item => (
 							{
 								...item,
@@ -127,7 +119,6 @@ export default {
 					});
 				} else {
 					getRewardTransactionHistory(filter).then(res => {
-						this.isLoading = false;
 						this.tableData = res.data.data.rewardTransactions.map(item => (
 							{
 								...item,
