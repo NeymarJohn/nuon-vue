@@ -77,7 +77,7 @@
 					</TheLoader>
 				</DataCard>
 				<DataCard class="u-mb-sm-24">
-					<label>My Next Reward Distribution</label>
+					<label>My Next Reward Distribution<TooltipIcon v-tooltip="'Rewards are distributed for every 3 epochs that pass while nuMINT is locked in the Boardroom. Any actions taken in the Boardroom will reset the reward timer. (1 epoch = 6 hours).'" /></label>
 					<TheLoader component="h1">
 						<TheCountdown :visible="isConnectedWallet" :next-claim-date="nextEpochPoint" :is-loop="true" />
 					</TheLoader>

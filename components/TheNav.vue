@@ -54,14 +54,14 @@
 			<NuxtLink
 				to=""
 				title="Click to get Mock ETH">
-				<img class="u-ml-8 u-mr-8" :src="require(`~/assets/images/borrow/ETH.png`)" height="23" width="23" alt="ETH Logo"> Get ETH
+				<img class="u-ml-8 u-mr-8" :src="require(`~/assets/images/borrow/ETH.png`)" height="23" width="23" alt=""> Get ETH
 			</NuxtLink>
 		</li>
-		<li v-if="isEnvDev" @click="getMockToken('USDT')">
+		<li v-if="isEnvDev" @click="getMockToken('USDC')">
 			<NuxtLink
 				to=""
-				title="Click to get Mock USDT">
-				<img class="u-ml-8 u-mr-8" :src="require(`~/assets/images/borrow/USDT.png`)" height="23" width="23" alt="USDT Logo"> Get USDT
+				title="Click to get Mock USDC">
+				<img class="u-ml-8 u-mr-8" :src="require(`~/assets/images/borrow/USDC.png`)" height="23" width="23" alt=""> Get USDC
 			</NuxtLink>
 		</li>
 	</ul>

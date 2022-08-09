@@ -28,15 +28,6 @@
 			</TheLoader>
 		</DataCard>
 		<DataCard>
-			<label>Liquidity Position<TooltipIcon v-tooltip="'Your liquidity coverage. Must be above 50% at all times.'" /></label>
-			<ComponentLoader component="h1" :loaded="liquidityCoverage !== null">
-				<h3>{{ liquidityCoverage | toFixed }}<sup>%</sup></h3>
-			</ComponentLoader>
-			<TheLoader component="h5">
-				<h5>${{ lpAmount | toFixed | numberWithCommas }}</h5>
-			</TheLoader>
-		</DataCard>
-		<DataCard>
 			<label>Current {{ collateralToken }} Price<TooltipIcon v-tooltip="`Current ${collateralToken} price, for your reference when considering how much collateral to keep locked up.`" /></label>
 			<ComponentLoader component="h1" :loaded="currentPrice !== null">
 				<h3>${{ currentPrice | toFixed | numberWithCommas }}</h3>
@@ -89,14 +80,6 @@ export default {
 		collateralPriceChange: {
 			type: Array,
 			required: true
-		},
-		liquidityCoverage: {
-			type: String,
-			default: null
-		},
-		lpAmount: {
-			type: String,
-			default: null
 		}
 	},
 	data() {

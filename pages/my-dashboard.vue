@@ -27,6 +27,7 @@
 					</ComponentLoader>
 				</DataCard>
 			</LayoutFlex>
+
 			<LineChart
 				v-if="xAxisData.length"
 				:key="`${collateralRatioArr}`"
@@ -180,7 +181,8 @@ export default {
 			collateralRatioArr: [],
 			graphSelectionTVL: "",
 			graphSelectionMintedNuon: "",
-			balanceLoaded: false
+			balanceLoaded: false,
+			periods: ["D", "W", "M"],
 		};
 	},
 	head () {
@@ -284,6 +286,9 @@ export default {
 	watch: {
 		connectedAccount(newValue) {
 			if (newValue) this.initialize(this.collaterals);
+		},
+		yAxisData() {
+			this.handleMouseOverChart(-1);
 		}
 	},
 	mounted() {
@@ -381,10 +386,13 @@ export default {
 		handleMouseOverChart(e) {
 			let idx = e;
 			if (e === -1) {
-				idx = this.xAxisData.length - 1;
+				idx = this.yAxisData[0]?.data?.length - 1;
 			}
 			this.graphSelectionTVL = this.yAxisData[0].data[idx];
 			this.graphSelectionMintedNuon = this.yAxisData[1].data[idx];
+		},
+		handleTabChanged(e) {
+			this.selectedPeriod = e;
 		},
 	}
 };
