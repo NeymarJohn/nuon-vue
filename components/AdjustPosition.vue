@@ -135,7 +135,7 @@ export default {
 				// this.estimatedAmount = user cratio after redeem, amount redeemed , collaterals left after redeem
 				summary.push({title: "New Collateral Amount", val: this.estimatedAmount[2]});
 			}
-			summary[1].val = `${parseFloat(summary[1].val)} ${this.currentlySelectedCollateral}`;
+			summary[1].val = `${parseFloat(summary[1].val).toFixed(2)} ${this.currentlySelectedCollateral}`;
 			return summary;
 		}
 	},
