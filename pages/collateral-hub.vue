@@ -316,10 +316,10 @@ export default {
 		async getLPValueOfUser() {
 			let result = "0";
 			try {
-				result = await this.$store.getters["collateralVaultStore/getLPValueOfUser"](this.connectedAccount);
+				result = fromWei(await this.$store.getters["collateralVaultStore/getLPValueOfUser"](this.connectedAccount), this.$store.state.erc20Store.decimals[this.currentlySelectedCollateral]);
 			} catch (e) {
 			} finally {
-				this.userLpValue = result;
+				this.userLpValue = (result * this.collateralPrice).toFixed(2);
 			}
 		},
 		async initialize() {
