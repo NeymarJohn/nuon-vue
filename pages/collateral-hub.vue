@@ -59,7 +59,7 @@
 			title="Mint"
 			subtitle="Deposit collateral to mint NUON"
 			@close-modal="setModalVisibility('mintModal', false)">
-			<CollateralMint :currently-selected-collateral="currentlySelectedCollateral" />
+			<CollateralMint :minimum-deposit-amount="minimumDepositAmount" :currently-selected-collateral="currentlySelectedCollateral" />
 		</TheModal>
 		<TheModal
 			v-show="isRedeemModalVisible"
@@ -74,6 +74,7 @@
 			subtitle="Manage your collateral"
 			@close-modal="setModalVisibility('adjustPositionModal', false)">
 			<AdjustPosition
+				:minimum-deposit-amount="minimumDepositAmount"
 				:currently-selected-collateral="currentlySelectedCollateral"
 				:user-minted-amount="userMintedAmount" />
 		</TheModal>
@@ -102,6 +103,7 @@ export default {
 			collateralHistoricalPrices: {},
 			mobileView: false,
 			truflationPeg: 0,
+			minimumDepositAmount: 0,
 			steps: [
 				{
 					target: "[data-v-step=\"1\"]",
@@ -184,6 +186,9 @@ export default {
 		isDisabled() {
 			return this.userMintedAmount === 0;
 		},
+		decimals() {
+			return this.$store.state.erc20Store.decimals[this.currentlySelectedCollateral];
+		}
 	},
 	watch: {
 		currentlySelectedCollateral() {
@@ -238,9 +243,8 @@ export default {
 		async getUserCollateralAmount() {
 			let result = 0;
 			try {
-				const decimals = this.$store.state.erc20Store.decimals[this.currentlySelectedCollateral];
 				const amount = await this.$store.getters["collateralVaultStore/getUserCollateralAmount"](this.connectedAccount);
-				result = parseFloat(fromWei(amount, decimals));
+				result = parseFloat(fromWei(amount, this.decimals));
 			} catch (e) {
 			} finally {
 				this.$set(this.userTotalLockedCollateralAmountStore, this.currentlySelectedCollateral, result);
@@ -287,12 +291,22 @@ export default {
 				this.truflationPeg = result;
 			}
 		},
+		async getMinimumDepositAmount() {
+			let result = 0;
+			try {
+				result = await this.$store.getters["collateralVaultStore/getMinimumDepositAmount"]() / (10 ** this.decimals);
+			} catch (e) {
+			} finally {
+				this.minimumDepositAmount = result;
+			}
+		},
 		async initialize() {
 			await this.$store.dispatch("collateralVaultStore/changeCollateral", this.currentlySelectedCollateral);
 			await this.$store.dispatch("collateralVaultStore/updateStatus");
 			this.getCollateralPrice();
 			this.getNuonPrice();
 			this.getMinimumCollateralizationRatio();
+			this.getMinimumDepositAmount();
 			this.getCollateralHistoricalPrices();
 			this.getTruflationPeg();
 			setTimeout(() => {

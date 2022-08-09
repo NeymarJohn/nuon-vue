@@ -125,6 +125,11 @@ export default {
 		currentlySelectedCollateral: {
 			type: String,
 			required: true
+		},
+		minimumDepositAmount: {
+			type: Number,
+			required: true,
+			default: 0
 		}
 	},
 	data() {
@@ -137,7 +142,6 @@ export default {
 			isApproving: false,
 			minting: false,
 			sliderMin: "0",
-			minimumDepositAmount: 0,
 			estimatedExtraRequiredCollateral: "0"
 		};
 	},
@@ -203,7 +207,6 @@ export default {
 				this.selectedCollateralRatio = this.sliderMin;
 				const collateralPrice = await this.$store.getters["collateralVaultStore/getCollateralPrice"]();
 				this.collateralPrice = fromWei(collateralPrice);
-				this.minimumDepositAmount = await this.$store.getters["collateralVaultStore/getMinimumDepositAmount"]() / (10 ** this.decimals);
 			} catch (e) {
 				this.failureToast(null, e, "An error occurred");
 			}
