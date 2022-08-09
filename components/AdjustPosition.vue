@@ -51,7 +51,7 @@
 				<TheButton
 					title="Click to go back"
 					class="btn--back"
-					@click="activeStep = 1; action = ''">Back</TheButton>
+					@click="backClicked">Back</TheButton>
 				<TheButton
 					v-if="action === 'Burn' && !nuonAllowance"
 					:disabled="isApproving"
@@ -135,7 +135,7 @@ export default {
 				// this.estimatedAmount = user cratio after redeem, amount redeemed , collaterals left after redeem
 				summary.push({title: "New Collateral Amount", val: this.estimatedAmount[2]});
 			}
-			summary[1].val = `${parseFloat(summary[1].val).toFixed(2)} ${this.currentlySelectedCollateral}`;
+			summary[1].val = `${parseFloat(summary[1].val).toFixed(2)} ${["Mint", "Burn"].includes(this.action) ? "NUON" : this.currentlySelectedCollateral}`;
 			return summary;
 		}
 	},
@@ -180,7 +180,7 @@ export default {
 				method = "redeemWithoutNuonEstimation";
 			}
 
-			const amount = toWei(this.inputModel, this.action === "Burn" ? 18 : this.$store.state.erc20Store.decimals[this.currentlySelectedCollateral]);
+			const amount = toWei(this.inputModel, ["Mint", "Burn"].includes(this.action) ? 18 : this.$store.state.erc20Store.decimals[this.currentlySelectedCollateral]);
 
 			let resp = {0: 0, 1: 0, 2: 0};
 			try {
@@ -202,6 +202,8 @@ export default {
 			this.action = arg;
 			this.activeStep = 2;
 			this.isSubmitDisabled();
+			const postfix = ["Mint", "Burn"].includes(this.action) ? "NUON" : "collateral";
+			this.$emit("action-changed", `${arg} ${postfix}`);
 		},
 		approveNUON() {
 			this.isApproving = true;
@@ -215,6 +217,12 @@ export default {
 					}
 				}
 			);
+		},
+		backClicked() {
+			this.activeStep = 1;
+			this.action = "";
+			this.estimatedAmount =  {0: 0, 1: 0, 2: 0};
+			this.$emit("action-changed", "");
 		},
 		async submit() {
 			try {

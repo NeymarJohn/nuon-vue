@@ -72,13 +72,14 @@
 		</TheModal>
 		<TheModal
 			v-show="isAdjustPositionModalVisible"
-			title="Adjust Position"
+			:title="`Adjust Position${adjustModalPositionTitle && ': '}${adjustModalPositionTitle}`"
 			subtitle="Manage your collateral"
 			@close-modal="setModalVisibility('adjustPositionModal', false)">
 			<AdjustPosition
 				:minimum-deposit-amount="minimumDepositAmount"
 				:currently-selected-collateral="currentlySelectedCollateral"
-				:user-minted-amount="userMintedAmount" />
+				:user-minted-amount="userMintedAmount"
+				@action-changed="setAdjustPositionModalTitle" />
 		</TheModal>
 		<v-tour name="collateralHubTour" :steps="steps" :callbacks="tourCallbacks"></v-tour>
 	</div>
@@ -137,7 +138,8 @@ export default {
 				onFinish: () => this.setCookie("skip_collateral_hub_tour")
 			},
 			userLiquidityCoverage: null,
-			userLpValue: "0"
+			userLpValue: "0",
+			adjustModalPositionTitle: ""
 		};
 	},
 	head () {
@@ -321,6 +323,9 @@ export default {
 			} finally {
 				this.userLpValue = (result * this.collateralPrice).toFixed(2);
 			}
+		},
+		setAdjustPositionModalTitle(title) {
+			this.adjustModalPositionTitle = title;
 		},
 		async initialize() {
 			await this.$store.dispatch("collateralVaultStore/changeCollateral", this.currentlySelectedCollateral);
