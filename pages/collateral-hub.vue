@@ -45,6 +45,8 @@
 				:my-collateralization-ratio="userCollateralizationRatio"
 				:current-price="collateralPrice"
 				:collateral-price-change="collateralPriceChange"
+				:liquidity-coverage="userLiquidityCoverage"
+				:lp-amount="userLpValue"
 				data-v-step="4" />
 			<CollateralEcosystemStatus
 				:collateral-token="currentlySelectedCollateral"
@@ -83,7 +85,7 @@
 </template>
 
 <script>
-import { fromWei } from "~/utils/bnTools";
+import { fromWei, toWei } from "~/utils/bnTools";
 
 export default {
 	name: "TheCollateralHub",
@@ -133,7 +135,9 @@ export default {
 				onSkip: () => this.setCookie("skip_collateral_hub_tour"),
 				onStop: () => this.setCookie("skip_collateral_hub_tour"),
 				onFinish: () => this.setCookie("skip_collateral_hub_tour")
-			}
+			},
+			userLiquidityCoverage: null,
+			userLpValue: "0"
 		};
 	},
 	head () {
@@ -300,6 +304,24 @@ export default {
 				this.minimumDepositAmount = result;
 			}
 		},
+		async getUserLiquidityCoverage() {
+			let result = "0";
+			try {
+				result = parseFloat(fromWei(await this.$store.getters["collateralVaultStore/getUserLiquidityCoverage"](toWei(0), this.connectedAccount))).toFixed(0);
+			} catch (e) {
+			} finally {
+				this.userLiquidityCoverage = result;
+			}
+		},
+		async getLPValueOfUser() {
+			let result = "0";
+			try {
+				result = await this.$store.getters["collateralVaultStore/getLPValueOfUser"](this.connectedAccount);
+			} catch (e) {
+			} finally {
+				this.userLpValue = result;
+			}
+		},
 		async initialize() {
 			await this.$store.dispatch("collateralVaultStore/changeCollateral", this.currentlySelectedCollateral);
 			await this.$store.dispatch("collateralVaultStore/updateStatus");
@@ -313,6 +335,8 @@ export default {
 				this.getUserCollateralAmount();
 				this.getUserMintedAmount();
 				this.getUserCollateralizationRatio();
+				this.getUserLiquidityCoverage();
+				this.getLPValueOfUser();
 			}, 1000);
 		}
 	}

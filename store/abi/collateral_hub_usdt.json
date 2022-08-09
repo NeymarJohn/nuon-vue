@@ -151,6 +151,12 @@
 				"internalType": "uint256",
 				"name": "mintedAmount",
 				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "collateralRequired",
+				"type": "uint256"
 			}
 		],
 		"name": "mintedWithoutDeposit",
@@ -1009,6 +1015,11 @@
 		],
 		"name": "_mintWithoutDepositEstimation",
 		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			},
 			{
 				"internalType": "uint256",
 				"name": "",

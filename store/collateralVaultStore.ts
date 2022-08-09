@@ -407,7 +407,7 @@ export const getters: GetterTree<BoardroomState, Web3State> = {
 	getLPValueOfUser: (_state: any, getters: any) => async (userAddress: string) => { // gives back the LP value IN COLLATERALS of the user
 		return await getters.collateralHubContract.methods.getLPValueOfUser(userAddress).call();
 	},
-	getUserLiquidityCoverage: (_state: any, getters: any) => async (extraAmount: number = 0, userAddress: string) => { // a percentage that gives the user liq coverage, need to be compared with liquidityCheck
+	getUserLiquidityCoverage: (_state: any, getters: any) => async (extraAmount: number, userAddress: string) => { // a percentage that gives the user liq coverage, need to be compared with liquidityCheck
 		return await getters.collateralHubContract.methods.getUserLiquidityCoverage(userAddress, extraAmount).call();
 	}
 };
