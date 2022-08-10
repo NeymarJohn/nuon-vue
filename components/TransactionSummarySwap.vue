@@ -4,7 +4,7 @@
 		<div class="transaction-summary transaction-summary--swap">
 			<LayoutFlex direction="row-center-space-between">
 				<LayoutFlex direction="row-center">
-					<img :src="require(`~/assets/images/tokens/Hydro.png`)" alt="Hydro logo">
+					<img :src="require(`~/assets/images/tokens/nuMINT.png`)" alt="token logo">
 					<h4>{{input.token}}</h4>
 				</LayoutFlex>
 				<LayoutFlex direction="column-end">

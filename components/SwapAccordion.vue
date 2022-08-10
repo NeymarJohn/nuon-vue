@@ -7,7 +7,7 @@
 				class="accordion__header"
 				title="Click to open token list"
 				@click="triggerAccordion">
-				<img v-if="selected.icon" :src="require(`~/assets/images/tokens/${selected.icon}`)" alt="Hydro logo">
+				<img v-if="selected.icon" :src="require(`~/assets/images/tokens/${selected.icon}`)" alt="token logo">
 				<div class="accordion__token">
 					<h4>{{ selected.symbol }}</h4>
 					<p>{{ selected.name }}</p>

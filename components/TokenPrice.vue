@@ -98,13 +98,13 @@ export default {
 			graphSelection: "",
 			dateSelection: "",
 			nuonSupplyInfo: [],
-			hydroSupplyInfo: [],
+			nuMintSupplyInfo: [],
 			milliSecondsInDay: 86400000
 		};
 	},
 	computed: {
 		dataToUse() {
-			return this.currentlySelectedTab === "NUON" ? this.nuonSupplyInfo : this.hydroSupplyInfo;
+			return this.currentlySelectedTab === "NUON" ? this.nuonSupplyInfo : this.nuMintSupplyInfo;
 		},
 		marketCap() {
 			if ([this.tokenPrice, this.circulatingSupply].some(v => [undefined, null].includes(v))) return null;
@@ -236,20 +236,8 @@ export default {
 	mounted() {
 		try {
 			const nuonPlaceholderData = nuonData;
-			const hydroPlaceholderData = numintData;
+			const nuMintPlaceholderData = numintData;
 
-			// const nuonAddress = this.$store.getters["addressStore/tokens"].NUON;
-			// const hydroAddress = this.$store.getters["addressStore/tokens"].HX;
-
-			// const nuonSupplyResponse = await getTokenData(nuonAddress);
-			// const hydroSupplyResponse = await getTokenData(hydroAddress);
-
-			// if (nuonSupplyResponse.status === 200 && nuonSupplyResponse.data.data.token) {
-			// 	nuonPlaceholderData = nuonSupplyResponse.data.data.token.tokenDayData.reverse();
-			// }
-			// if (hydroSupplyResponse.status === 200 && hydroSupplyResponse.data.data.token) {
-			// 	hydroPlaceholderData = hydroSupplyResponse.data.data.token.tokenDayData.reverse();
-			// }
 			this.nuonSupplyInfo = nuonPlaceholderData.map(item => {
 				return {
 					...item,
@@ -258,7 +246,7 @@ export default {
 					"priceUSD": item.price && item.price.price ? item.price.price : item.priceUSD
 				};
 			});
-			this.hydroSupplyInfo = hydroPlaceholderData.map(item => {
+			this.nuMintSupplyInfo = nuMintPlaceholderData.map(item => {
 				return {
 					...item,
 					"marketVal": item.marketVal || item.totalLiquidityUSD,
@@ -271,7 +259,7 @@ export default {
 		} catch (e) {
 			this.failureToast(null, e, "An error occurred when fetching data");
 		} finally {
-			["nuonSupplyInfo", "hydroSupplyInfo"].forEach(tokenSupplyData => {
+			["nuonSupplyInfo", "nuMintSupplyInfo"].forEach(tokenSupplyData => {
 				if (this.$data[tokenSupplyData].length === 0) {
 					const stringData = window.localStorage.getItem(`NUON-${tokenSupplyData}`);
 					if (stringData) {

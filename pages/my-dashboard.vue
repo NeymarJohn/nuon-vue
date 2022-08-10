@@ -81,7 +81,7 @@
 					<label><TheDot color="orange" />NUON &amp; nuMINT balance<TooltipIcon v-tooltip="'Total number of NUON and nuMINT tokens in your wallet.'" /></label>
 					<ComponentLoader component="h1" :loaded="balanceLoaded">
 						<h4>{{ tokenBalances.NUON | toFixed | numberWithCommas }} NUON</h4>
-						<h4>{{ tokenBalances.HX | toFixed | numberWithCommas }} nuMINT</h4>
+						<h4>{{ tokenBalances.nuMINT | toFixed | numberWithCommas }} nuMINT</h4>
 					</ComponentLoader>
 				</DataCard>
 			</template>
@@ -210,11 +210,11 @@ export default {
 		},
 		rewardsDollarValue() {
 			if (!parseFloat(this.pendingRewards)) return 0;
-			return this.pendingRewards * this.tokenPrices.HX;
+			return this.pendingRewards * this.tokenPrices.nuMINT;
 		},
 		balancesValue() {
-			if (this.tokenBalances.HX && this.tokenPrices.HX && this.tokenBalances.NUON && this.tokenPrices.NUON) {
-				return parseFloat((this.tokenBalances.HX * this.tokenPrices.HX + this.tokenBalances.NUON * this.tokenPrices.NUON).toFixed(2));
+			if (this.tokenBalances.nuMINT && this.tokenPrices.nuMINT && this.tokenBalances.NUON && this.tokenPrices.NUON) {
+				return parseFloat((this.tokenBalances.nuMINT * this.tokenPrices.nuMINT + this.tokenBalances.NUON * this.tokenPrices.NUON).toFixed(2));
 			} else {
 				return 0;
 			}

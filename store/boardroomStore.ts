@@ -89,8 +89,8 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 		const address = ctx.rootGetters["web3Store/account"];
 		if (!address) return;
 		const getNuonAllowance = fromWei(await ctx.rootGetters["erc20Store/nuon"].methods.allowance(address, ctx.state.boardroomAddress).call());
-		const getHydroAllowance = fromWei(await  ctx.rootGetters["erc20Store/hydro"].methods.allowance(address, ctx.state.boardroomAddress).call());
-		ctx.commit("setAllowance", {[nuMINT.symbol]: getHydroAllowance, NUON: getNuonAllowance});
+		const getNuMintAllowance = fromWei(await  ctx.rootGetters["erc20Store/nuMint"].methods.allowance(address, ctx.state.boardroomAddress).call());
+		ctx.commit("setAllowance", {[nuMINT.symbol]: getNuMintAllowance, NUON: getNuonAllowance});
 	},
 	approveToken(ctx: any, {tokenSymbol,  onConfirm, onReject, onCallback}): void {
 		const contractAddress = ctx.state.boardroomAddress;

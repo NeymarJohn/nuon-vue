@@ -6,7 +6,7 @@
 				class="accordion__header"
 				title="Click to open token list" @click="triggerAccordion">
 				<template v-if="selectedToken">
-					<img :src="require(`~/assets/images/tokens/${selectedToken.icon}`)" alt="Hydro logo">
+					<img :src="require(`~/assets/images/tokens/${selectedToken.icon}`)" alt="token logo">
 					<div class="accordion__token">
 						<h4>{{ selectedToken.symbol }}</h4>
 						<p>{{ selectedToken.name }}</p>
@@ -65,7 +65,7 @@
 <script>
 import ChevronDownIcon from "@/assets/images/svg/svg-chevron-down.svg";
 import ChevronUpIcon from "@/assets/images/svg/svg-chevron-up.svg";
-import { HX, collateralTokens } from "~/constants/tokens";
+import { nuMINT, collateralTokens } from "~/constants/tokens";
 
 export default {
 	name: "CollateralClaimAccordion",
@@ -76,7 +76,7 @@ export default {
 	props: {
 		token: {
 			type: Object,
-			default: () => ({ symbol: HX.symbol, price: 0, balance: 0, icon:"HX.icon" })
+			default: () => ({ symbol: nuMINT.symbol, price: 0, balance: 0, icon:"HX.icon" })
 		},
 		defaultValue: {
 			type: [Number, String],
