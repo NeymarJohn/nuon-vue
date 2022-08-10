@@ -27,15 +27,22 @@
 					</ComponentLoader>
 				</DataCard>
 			</LayoutFlex>
-			<LineChart
-				v-if="xAxisData.length"
-				:key="`${collateralRatioArr}`"
-				class="u-mt-16 u-mb-48"
-				:x-axis-labels="xAxisData"
-				:y-axis-options="{showYAxis: false, opposite: false, labels: {formatter: (val) => {}}}"
-				:series-data="yAxisData"
-				data-v-step="4"
-				@mouseOverDataPoint="handleMouseOverChart" />
+			<template v-if="xAxisData.length">
+				<LayoutFlex direction="row-space-between" class="l-flex--column-md">
+					<span>{{graphSelectionDuraton}}</span>
+					<TheTabs size="thin" color="light" margin="24" @tab-changed="handleTabChanged">
+						<TheTab v-for="(period, periodIdx) in periods" :key="periodIdx" :title="period" />
+					</TheTabs>
+				</LayoutFlex>
+				<LineChart
+					:key="selectedPeriod"
+					class="u-mt-16 u-mb-48"
+					:x-axis-labels="xAxisData"
+					:y-axis-options="{showYAxis: false, opposite: false, labels: {formatter: (val) => {}}}"
+					:series-data="yAxisData"
+					data-v-step="4"
+					@mouseOverDataPoint="handleMouseOverChart" />
+			</template>
 			<TheLoader component="table">
 				<TransactionTable
 					v-if="!mobileView"
@@ -74,7 +81,7 @@
 					<label><TheDot color="orange" />NUON &amp; nuMINT balance<TooltipIcon v-tooltip="'Total number of NUON and nuMINT tokens in your wallet.'" /></label>
 					<ComponentLoader component="h1" :loaded="balanceLoaded">
 						<h4>{{ tokenBalances.NUON | toFixed | numberWithCommas }} NUON</h4>
-						<h4>{{ tokenBalances.nuMINT | toFixed | numberWithCommas }} nuMINT</h4>
+						<h4>{{ tokenBalances.HX | toFixed | numberWithCommas }} nuMINT</h4>
 					</ComponentLoader>
 				</DataCard>
 			</template>
@@ -101,9 +108,10 @@
 </template>
 
 <script>
+import dayjs from "dayjs";
 import { fromWei } from "~/utils/bnTools";
 import TooltipIcon from "@/assets/images/svg/svg-tooltip.svg";
-import { getUserCollateralHistoryData } from "~/services/theGraph";
+import { getUserTVLDayData } from "~/services/theGraph";
 
 export default {
 	name: "MyDashboard",
@@ -180,7 +188,10 @@ export default {
 			collateralRatioArr: [],
 			graphSelectionTVL: "",
 			graphSelectionMintedNuon: "",
-			balanceLoaded: false
+			balanceLoaded: false,
+			periods: ["D", "W", "M"],
+			selectedPeriod: 0,
+			graphSelectionDuraton: ""
 		};
 	},
 	head () {
@@ -199,11 +210,11 @@ export default {
 		},
 		rewardsDollarValue() {
 			if (!parseFloat(this.pendingRewards)) return 0;
-			return this.pendingRewards * this.tokenPrices.nuMINT;
+			return this.pendingRewards * this.tokenPrices.HX;
 		},
 		balancesValue() {
-			if (this.tokenBalances.nuMINT && this.tokenPrices.nuMINT && this.tokenBalances.NUON && this.tokenPrices.NUON) {
-				return parseFloat((this.tokenBalances.nuMINT * this.tokenPrices.nuMINT + this.tokenBalances.NUON * this.tokenPrices.NUON).toFixed(2));
+			if (this.tokenBalances.HX && this.tokenPrices.HX && this.tokenBalances.NUON && this.tokenPrices.NUON) {
+				return parseFloat((this.tokenBalances.HX * this.tokenPrices.HX + this.tokenBalances.NUON * this.tokenPrices.NUON).toFixed(2));
 			} else {
 				return 0;
 			}
@@ -252,38 +263,63 @@ export default {
 			return changePercent > 0 ? "+ ":"- ";
 		},
 		xAxisData() {
-			return [...new Set(this.collateralRatioArr.map(d => new Date(d.dateTime * 1000).toLocaleDateString()).reverse())];
+			return this.chartData.xData || [];
 		},
 		yAxisData() {
-			// the following block groups together all the data by their day
-			const aggregatedData = this.collateralRatioArr.reduce((acc, val) => {
-				const day = new Date(val.dateTime * 1000).toLocaleDateString();
-				const arr = acc[day];
-				if (arr === undefined) acc[day] = [];
-				acc[day].push(val);
-				return acc;
-			}, {});
-
-			// for data on any day, we only care about the last value of the day, not the others before it.
-			const lastDataOfDay = Object.entries(aggregatedData).reduce((acc, [day, values]) => {acc[day] = values.sort((a, b) => b.dateTime - a.dateTime)[0]; return acc;}, {});
-			// now we need to recreate the sorted array using the xAxisData
-			const reducedData = [];
-			for (let i = 0; i < this.xAxisData.length; i++) {
-				reducedData.push(lastDataOfDay[this.xAxisData[i]]);
-			}
-
-			return [{
-				name: "My Total Value Locked",
-				data: reducedData.map(d => d.collateralTokens.reduce((acc, collateralToken) => acc + parseFloat(collateralToken.value) , 0))
-			}, {
-				name: "My Total Minted Value",
-				data: reducedData.map(d => d.mintedNuon)
-			}];
+			return this.chartData.yData || [];
+		},
+		chartData() {
+			const weeks = {};
+			const months = {};
+			
+			this.collateralRatioArr.forEach(item => {
+				const currentDate = dayjs(new Date(item.date * 1000));
+				if (!weeks[currentDate.startOf("week").format("YYYY-MM-DD")])
+					weeks[currentDate.startOf("week").format("YYYY-MM-DD")] = item;
+				if (!months[currentDate.startOf("month").add(1,"day").format("YYYY-MM-DD")])
+					months[currentDate.startOf("month").add(1,"day").format("YYYY-MM-DD")] = item;
+			});
+			if (this.selectedPeriod === 1) { // week
+				return { 
+					xData:Object.keys(weeks).map(d => new Date(d).toLocaleDateString()).reverse(),
+					yData:[{
+						name: "My Total Value Locked",
+						data: Object.values(weeks).map(d => d.value).reverse()
+					}, {
+						name: "My Total Minted Value",
+						data: Object.values(weeks).map(d => d.mintedValue).reverse()
+					}]
+				};}
+			if (this.selectedPeriod === 2) { // month
+				return { 
+					xData:Object.keys(months).map(d => new Date(d).toLocaleDateString()).reverse(),
+					yData:[{
+						name: "My Total Value Locked",
+						data: Object.values(months).map(d => d.value).reverse()
+					}, {
+						name: "My Total Minted Value",
+						data: Object.values(months).map(d => d.mintedValue).reverse()
+					}]
+				};
+			};
+			return {
+				xData:this.collateralRatioArr.map(d => new Date(d.date * 1000).toLocaleDateString()).reverse(),
+				yData:[{
+					name: "My Total Value Locked",
+					data: this.collateralRatioArr.map(d => d.value).reverse()
+				}, {
+					name: "My Total Minted Value",
+					data: this.collateralRatioArr.map(d => d.mintedValue).reverse()
+				}]
+			};
 		}
 	},
 	watch: {
 		connectedAccount(newValue) {
 			if (newValue) this.initialize(this.collaterals);
+		},
+		yAxisData() {
+			this.handleMouseOverChart(-1);
 		}
 	},
 	mounted() {
@@ -363,28 +399,43 @@ export default {
 			}
 		},
 		getDiffMinted() {
-			getUserCollateralHistoryData({user: this.connectedAccount}).then(res => {
-				this.collateralRatioArr = res.data.data.userCollateralHistories;
+			getUserTVLDayData({user: this.connectedAccount}).then(res => {
+				this.collateralRatioArr = res.data.data.userTVLDayDatas;
 			}).catch((err) => {
 				this.failureToast(() => {}, err, "An error occurred");
 			}).finally(() => {
+				const storageKey = `NUON-user_collateral_history_${this.connectedAccount}`;
 				if (this.collateralRatioArr.length === 0) {
-					const stringData = window.localStorage.getItem("NUON-user_collateral_history");
+					const stringData = window.localStorage.getItem(storageKey);
 					if (!stringData) return;
 					const jsonData = JSON.parse(stringData);
 					if (jsonData && jsonData.length) this.collateralRatioArr = jsonData;
 				} else {
-					window.localStorage.setItem("NUON-user_collateral_history", JSON.stringify(this.collateralRatioArr));
+					window.localStorage.setItem(storageKey, JSON.stringify(this.collateralRatioArr));
 				}
 			});
 		},
 		handleMouseOverChart(e) {
 			let idx = e;
+			if (this.yAxisData.length === 0) return;
 			if (e === -1) {
-				idx = this.xAxisData.length - 1;
+				idx = this.yAxisData[0]?.data?.length - 1;
+				this.graphSelectionDuraton = "";
 			}
-			this.graphSelectionTVL = this.yAxisData[0].data[idx];
-			this.graphSelectionMintedNuon = this.yAxisData[1].data[idx];
+			this.graphSelectionTVL = this.yAxisData[0]?.data[idx];
+			this.graphSelectionMintedNuon = this.yAxisData[1]?.data[idx];
+			if (e === -1) return;
+			const startDate = dayjs(this.xAxisData[idx]).format("MMM D YYYY");
+			if (this.selectedPeriod === 0) {
+				this.graphSelectionDuraton = startDate;
+			} else if (this.selectedPeriod === 1) {
+				this.graphSelectionDuraton = `${startDate} - ${dayjs(this.xAxisData[idx]).add(1,"week").format("MMM D YYYY")}`;
+			} else if (this.selectedPeriod === 2) {
+				this.graphSelectionDuraton = `${startDate} - ${dayjs(this.xAxisData[idx]).add(1,"month").format("MMM D YYYY")}`;
+			}
+		},
+		handleTabChanged(e) {
+			this.selectedPeriod = e;
 		},
 	}
 };

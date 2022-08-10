@@ -31,7 +31,7 @@ type StateType = {
 	targetPeg: number
 }
 export const state = (): StateType => ({
-	allowance: {nuMINT:0, NUON: 0},
+	allowance: {HX:0, NUON: 0},
 	userCollateralAmount: 0,
 	targetCollateralValue: 0,
 	globalCollateralRatioValue: 0,
@@ -61,7 +61,7 @@ export const state = (): StateType => ({
 export type BoardroomState = ReturnType<typeof state>;
 
 export const mutations: MutationTree<BoardroomState> = {
-	setAllowance(state, payload: {nuMINT:number, USX: number}) {
+	setAllowance(state, payload: {HX:number, USX: number}) {
 		state.allowance = payload;
 	},
 	setUserCollateralAmount(state, payload) {
@@ -121,9 +121,9 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 		const collateralHubAddress = ctx.rootGetters["addressStore/collateralHubs"][ctx.state.currentCollateralToken];
 
 		const getNuonAllowance = fromWei(await ctx.rootGetters["erc20Store/nuon"].methods.allowance(address, collateralHubAddress).call());
-		const getNuMintAllowance = fromWei(await  ctx.rootGetters["erc20Store/nuMint"].methods.allowance(address, collateralHubAddress).call());
+		const getHydroAllowance = fromWei(await  ctx.rootGetters["erc20Store/hydro"].methods.allowance(address, collateralHubAddress).call());
 		const getUSDCAllowance = fromWei(await  ctx.rootGetters["erc20Store/usdc"].methods.allowance(address, collateralHubAddress).call());
-		ctx.commit("setAllowance", {nuMINT: getNuMintAllowance, NUON: getNuonAllowance, USDC: getUSDCAllowance, ETH: 1});
+		ctx.commit("setAllowance", {HX: getHydroAllowance, NUON: getNuonAllowance, USDC: getUSDCAllowance, ETH: 1});
 	},
 	approveToken(ctx: any, {tokenSymbol,  onConfirm, onReject, onCallback}): void {
 		const contractAddress = ctx.rootGetters["addressStore/collateralHubs"][ctx.state.currentCollateralToken];

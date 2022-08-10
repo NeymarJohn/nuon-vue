@@ -28,7 +28,7 @@
 					</div>
 				</div>
 				<div class="transaction-input__price">
-					<p>You are {{ actionPlural }} <span>{{ parseFloat(inputValue || 0) | toFixed | numberWithCommas }} nuMINT</span> worth <span>${{ getDollarValue(inputValue, tokenPrices.nuMINT) | toFixed | numberWithCommas }}</span></p>
+					<p>You are {{ actionPlural }} <span>{{ parseFloat(inputValue || 0) | toFixed | numberWithCommas }} nuMINT</span> worth <span>${{ getDollarValue(inputValue, tokenPrices.HX) | toFixed | numberWithCommas }}</span></p>
 					<p v-if="isMoreThanBalance" class="u-is-warning">Insufficient balance.</p>
 					<p v-if="errorMessage" class="u-is-warning">{{errorMessage}}</p>
 					<p v-if="!isDisabled()" class="u-is-success u-mb-0">Ready to {{ action }}</p>
@@ -72,7 +72,7 @@
 </template>
 
 <script>
-import { nuMINT } from "~/constants/tokens";
+import { HX } from "~/constants/tokens";
 import { fromWei } from "~/utils/bnTools";
 
 export default {
@@ -122,7 +122,7 @@ export default {
 			return this.$store.getters["erc20Store/hxBalance"] || 0;
 		},
 	 	isApproved() {
-			const isApprovedToken = this.$store.getters["boardroomStore/checkApprovedToken"](nuMINT.symbol);
+			const isApprovedToken = this.$store.getters["boardroomStore/checkApprovedToken"](HX.symbol);
 			return isApprovedToken ? "btn--approved" : "";
 		},
 		myStake() {
@@ -137,18 +137,18 @@ export default {
 					title: "Amount to Stake",
 					val: this.numberWithCommas(this.inputValue),
 					currency: "nuMINT",
-					dollar: this.getDollarValue(this.inputValue, this.tokenPrices.nuMINT),
+					dollar: this.getDollarValue(this.inputValue, this.tokenPrices.HX),
 				},
 				{
 					title: "Stake Fee",
 					val: `-${this.numberWithCommas(this.feeToken.toFixed(2))}nuMINT (${this.claimFee} %)`,
-					dollar: this.getDollarValue(this.feeToken, this.tokenPrices.nuMINT)
+					dollar: this.getDollarValue(this.feeToken, this.tokenPrices.HX)
 				},
 				{
 					title: "Total",
 					val: this.numberWithCommas((parseFloat(this.inputValue) - this.feeToken).toFixed(2)) ,
 					currency: "nuMINT",
-					dollar: this.getDollarValue(parseFloat(this.inputValue) - this.feeToken, this.tokenPrices.nuMINT),
+					dollar: this.getDollarValue(parseFloat(this.inputValue) - this.feeToken, this.tokenPrices.HX),
 				}
 			];
 		}
@@ -206,7 +206,7 @@ export default {
 			this.activeStep = "approving";
 			this.$store.dispatch("boardroomStore/approveToken",
 				{
-					tokenSymbol: nuMINT.symbol,
+					tokenSymbol: HX.symbol,
 					onConfirm:  () => {
 						this.activeStep = 1;
 					},

@@ -64,7 +64,7 @@
 						<h3>{{ myStake | toFixed | numberWithCommas }}<sup>nuMINT</sup></h3>
 					</TheLoader>
 					<TheLoader component="h5">
-						<h5>${{ getDollarValue(myStake, tokenPrices.nuMINT) | toFixed | numberWithCommas }}</h5>
+						<h5>${{ getDollarValue(myStake, tokenPrices.HX) | toFixed | numberWithCommas }}</h5>
 					</TheLoader>
 				</DataCard>
 				<DataCard class="u-mb-md-36 u-mb-sm-24">
@@ -73,7 +73,7 @@
 						<h3>{{ myRewards | toFixed | numberWithCommas }}<sup>BUSD</sup></h3>
 					</TheLoader>
 					<TheLoader component="h5">
-						<h5>${{ getDollarValue(myRewards, tokenPrices.nuMINT) | toFixed | numberWithCommas }}</h5>
+						<h5>${{ getDollarValue(myRewards, tokenPrices.HX) | toFixed | numberWithCommas }}</h5>
 					</TheLoader>
 				</DataCard>
 				<DataCard class="u-mb-sm-24">
@@ -102,7 +102,7 @@
 				<StatCard class="u-mb-md-12">
 					<label>nuMINT Price<TooltipIcon v-tooltip="'USD Value of total staked nuMINT.'" /></label>
 					<TheLoader component="h3">
-						<h3>${{ tokenPrices.nuMINT | toFixed | numberWithCommas }}</h3>
+						<h3>${{ tokenPrices.HX | toFixed | numberWithCommas }}</h3>
 					</TheLoader>
 				</StatCard>
 				<StatCard>
@@ -170,7 +170,7 @@
 import axios from "axios";
 import { fromWei } from "~/utils/bnTools";
 import TooltipIcon from "@/assets/images/svg/svg-tooltip.svg";
-import { nuMINT } from "~/constants/tokens";
+import { HX } from "~/constants/tokens";
 
 export default {
 	name: "TheBoardroom",
@@ -193,7 +193,7 @@ export default {
 			numberOfUniqueVoters: null,
 			reachedEnd: false,
 			claimRewardsToken: {
-				symbol: nuMINT.symbol,
+				symbol: HX.symbol,
 				price: 0,
 				balance: 0
 			},
@@ -267,7 +267,7 @@ export default {
 			return Number(this.$store.state.boardroomStore.nextEpochPoint);
 		},
 		tvl() {
-			return this.totalStaked * this.tokenPrices.nuMINT;
+			return this.totalStaked * this.tokenPrices.HX;
 		},
 		epoch() {
 			return this.$store.state.boardroomStore.epoch;
@@ -283,7 +283,7 @@ export default {
 	},
 	mounted() {
 		this.updateStatus();
-		this.claimRewardsToken = {symbol: nuMINT.symbol, price: this.tokenPrices.nuMINT, balance: this.myRewards};
+		this.claimRewardsToken = {symbol: HX.symbol, price: this.tokenPrices.HX, balance: this.myRewards};
 		if (!$cookies.get("skip_boardroom_tour")) this.$tours.boardroomTour.start();
 	},
 	created() {

@@ -65,7 +65,7 @@
 <script>
 import ChevronDownIcon from "@/assets/images/svg/svg-chevron-down.svg";
 import ChevronUpIcon from "@/assets/images/svg/svg-chevron-up.svg";
-import { nuMINT, collateralTokens } from "~/constants/tokens";
+import { HX, collateralTokens } from "~/constants/tokens";
 
 export default {
 	name: "CollateralClaimAccordion",
@@ -76,7 +76,7 @@ export default {
 	props: {
 		token: {
 			type: Object,
-			default: () => ({ symbol: nuMINT.symbol, price: 0, balance: 0, icon:"HX.icon" })
+			default: () => ({ symbol: HX.symbol, price: 0, balance: 0, icon:"HX.icon" })
 		},
 		defaultValue: {
 			type: [Number, String],

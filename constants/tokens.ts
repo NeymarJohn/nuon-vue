@@ -1,3 +1,8 @@
+export const HX = {
+	symbol: "nuMINT",
+	name: "NUMINT TOKEN"
+};
+
 export const nuMINT = {
 	symbol: "nuMINT",
 	name: "NUMINT TOKEN"
@@ -35,6 +40,7 @@ export const USDC_USDT_LP_TOKEN = {
 };
 
 export const TOKENS_MAP:any = {
+	HX,
 	NUON,
 	USDC,
 	USDT,
@@ -52,6 +58,18 @@ const paths:any =  {
 	},
 	DAI_NUON: {
 		tokens: [USDC.symbol, NUON.symbol],
+	},
+	HX_USDC: {
+		tokens: [HX.symbol, USDC.symbol],
+	},
+	USDC_HX: {
+		tokens: [USDC.symbol, HX.symbol],
+	},
+	HX_NUON: {
+		tokens: [HX.symbol, USDC.symbol, NUON.symbol],
+	},
+	NUON_HX: {
+		tokens: [NUON.symbol, USDC.symbol, HX.symbol],
 	},
 	[`${nuMINT.symbol}_${USDC.symbol}`]: {
 		tokens: [nuMINT.symbol, USDC.symbol],
@@ -80,6 +98,6 @@ export const collateralTokens = [
 
 export const mainTokens = [
 	{ "symbol": USDC.symbol, "name": USDC.name, "icon": "USDC.png"  },
-	{ "symbol": nuMINT.symbol, "name": nuMINT.name, "icon": "Hydro.png" },
+	{ "symbol": HX.symbol, "name": HX.name, "icon": "Hydro.png" },
 	{ "symbol": NUON.symbol, "name": NUON.name, "icon": "NUON.png"  },
 ];
