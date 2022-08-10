@@ -16,9 +16,15 @@
 					<TheButton
 						size="md"
 						title="Click to redeem"
-						class="u-full-width-sm u-min-width-150"
+						class="u-mr-30 u-mr-lg-24 u-mr-md-12 u-full-width-sm u-min-width-150"
 						:disabled="isDisabled"
 						@click="setModalVisibility('redeemModal', true)">Redeem</TheButton>
+					<TheButton
+						size="md"
+						title="Click to adjust collateral position"
+						class="u-full-width-sm u-min-width-150"
+						:disabled="isDisabled"
+						@click="setModalVisibility('adjustPositionModal', true)">Adjust Position</TheButton>
 				</LayoutFlex>
 			</LayoutFlex>
 			<TheTabsImage
@@ -39,6 +45,8 @@
 				:my-collateralization-ratio="userCollateralizationRatio"
 				:current-price="collateralPrice"
 				:collateral-price-change="collateralPriceChange"
+				:liquidity-coverage="userLiquidityCoverage"
+				:lp-amount="userLpValue"
 				data-v-step="4" />
 			<CollateralEcosystemStatus
 				:collateral-token="currentlySelectedCollateral"
@@ -53,7 +61,7 @@
 			title="Mint"
 			subtitle="Deposit collateral to mint NUON"
 			@close-modal="setModalVisibility('mintModal', false)">
-			<CollateralMint :currently-selected-collateral="currentlySelectedCollateral" />
+			<CollateralMint :minimum-deposit-amount="minimumDepositAmount" :currently-selected-collateral="currentlySelectedCollateral" />
 		</TheModal>
 		<TheModal
 			v-show="isRedeemModalVisible"
@@ -62,12 +70,23 @@
 			@close-modal="setModalVisibility('redeemModal', false)">
 			<CollateralRedeem :currently-selected-collateral="currentlySelectedCollateral" />
 		</TheModal>
+		<TheModal
+			v-show="isAdjustPositionModalVisible"
+			:title="`Adjust Position${adjustModalPositionTitle && ': '}${adjustModalPositionTitle}`"
+			subtitle="Manage your collateral"
+			@close-modal="setModalVisibility('adjustPositionModal', false)">
+			<AdjustPosition
+				:minimum-deposit-amount="minimumDepositAmount"
+				:currently-selected-collateral="currentlySelectedCollateral"
+				:user-minted-amount="userMintedAmount"
+				@action-changed="setAdjustPositionModalTitle" />
+		</TheModal>
 		<v-tour name="collateralHubTour" :steps="steps" :callbacks="tourCallbacks"></v-tour>
 	</div>
 </template>
 
 <script>
-import { fromWei } from "~/utils/bnTools";
+import { fromWei, toWei } from "~/utils/bnTools";
 
 export default {
 	name: "TheCollateralHub",
@@ -75,7 +94,7 @@ export default {
 		return {
 			myCollateralizationRatio: null,
 			minimumCollateralizationRatio: null,
-			currentlySelectedCollateral: "ETH",
+			currentlySelectedCollateral: "WETH",
 			collateralPrice: null,
 			userMintedAmount: null,
 			nuonPrice: null,
@@ -87,6 +106,7 @@ export default {
 			collateralHistoricalPrices: {},
 			mobileView: false,
 			truflationPeg: 0,
+			minimumDepositAmount: 0,
 			steps: [
 				{
 					target: "[data-v-step=\"1\"]",
@@ -117,6 +137,9 @@ export default {
 				onStop: () => this.setCookie("skip_collateral_hub_tour"),
 				onFinish: () => this.setCookie("skip_collateral_hub_tour")
 			},
+			userLiquidityCoverage: null,
+			userLpValue: "0",
+			adjustModalPositionTitle: ""
 		};
 	},
 	head () {
@@ -155,9 +178,7 @@ export default {
 			return this.$store.state.collateralVaultStore.userJustMinted;
 		},
 		validCollaterals() {
-			const collaterals = ["ETH"];
-			if (this.isEnvDev) collaterals.push("USDC");
-			return collaterals;
+			return ["WETH", "USDT"];
 		},
 		isMintModalVisible() {
 			return this.$store.state.modalStore.modalVisible.mintModal;
@@ -165,9 +186,15 @@ export default {
 		isRedeemModalVisible() {
 			return this.$store.state.modalStore.modalVisible.redeemModal;
 		},
+		isAdjustPositionModalVisible() {
+			return this.$store.state.modalStore.modalVisible.adjustPositionModal;
+		},
 		isDisabled() {
 			return this.userMintedAmount === 0;
 		},
+		decimals() {
+			return this.$store.state.erc20Store.decimals[this.currentlySelectedCollateral];
+		}
 	},
 	watch: {
 		currentlySelectedCollateral() {
@@ -203,7 +230,7 @@ export default {
 		async getUserMintedAmount() {
 			let result = 0;
 			try {
-				result = parseFloat(fromWei(await this.$store.getters["collateralVaultStore/getUserMintedAmount"](this.connectedAccount)));
+				result = parseFloat(this.twoDecimalPlaces(fromWei(await this.$store.getters["collateralVaultStore/getUserMintedAmount"](this.connectedAccount))));
 			} catch (e) {
 			} finally {
 				this.$set(this.userTotalMintedNuonStore, this.currentlySelectedCollateral, result);
@@ -222,9 +249,8 @@ export default {
 		async getUserCollateralAmount() {
 			let result = 0;
 			try {
-				const decimals = this.$store.state.erc20Store.decimals[this.currentlySelectedCollateral];
 				const amount = await this.$store.getters["collateralVaultStore/getUserCollateralAmount"](this.connectedAccount);
-				result = parseFloat(fromWei(amount, decimals));
+				result = parseFloat(fromWei(amount, this.decimals));
 			} catch (e) {
 			} finally {
 				this.$set(this.userTotalLockedCollateralAmountStore, this.currentlySelectedCollateral, result);
@@ -243,8 +269,9 @@ export default {
 		async getMinimumCollateralizationRatio() {
 			let result = 0;
 			try {
-				const min = await this.$store.getters["collateralVaultStore/getGlobalCR"]();
-				result = (10 ** 20 / min).toFixed();
+				const chubAddress = this.$store.getters["addressStore/collateralHubs"][this.$store.state.collateralVaultStore.currentCollateralToken];
+				const min = await this.$store.getters["collateralVaultStore/getGlobalCR"](chubAddress);
+				result = parseFloat(fromWei(min)).toFixed(0);
 			} catch (e) {
 			} finally {
 				this.minimumCollateralizationRatio = result;
@@ -270,18 +297,51 @@ export default {
 				this.truflationPeg = result;
 			}
 		},
+		async getMinimumDepositAmount() {
+			let result = 0;
+			try {
+				result = await this.$store.getters["collateralVaultStore/getMinimumDepositAmount"]() / (10 ** this.decimals);
+			} catch (e) {
+			} finally {
+				this.minimumDepositAmount = result;
+			}
+		},
+		async getUserLiquidityCoverage() {
+			let result = "0";
+			try {
+				result = parseFloat(fromWei(await this.$store.getters["collateralVaultStore/getUserLiquidityCoverage"](toWei(0), this.connectedAccount))).toFixed(0);
+			} catch (e) {
+			} finally {
+				this.userLiquidityCoverage = result;
+			}
+		},
+		async getLPValueOfUser() {
+			let result = "0";
+			try {
+				result = fromWei(await this.$store.getters["collateralVaultStore/getLPValueOfUser"](this.connectedAccount), this.$store.state.erc20Store.decimals[this.currentlySelectedCollateral]);
+			} catch (e) {
+			} finally {
+				this.userLpValue = (result * this.collateralPrice).toFixed(2);
+			}
+		},
+		setAdjustPositionModalTitle(title) {
+			this.adjustModalPositionTitle = title;
+		},
 		async initialize() {
 			await this.$store.dispatch("collateralVaultStore/changeCollateral", this.currentlySelectedCollateral);
 			await this.$store.dispatch("collateralVaultStore/updateStatus");
 			this.getCollateralPrice();
 			this.getNuonPrice();
 			this.getMinimumCollateralizationRatio();
+			this.getMinimumDepositAmount();
 			this.getCollateralHistoricalPrices();
 			this.getTruflationPeg();
 			setTimeout(() => {
 				this.getUserCollateralAmount();
 				this.getUserMintedAmount();
 				this.getUserCollateralizationRatio();
+				this.getUserLiquidityCoverage();
+				this.getLPValueOfUser();
 			}, 1000);
 		}
 	}

@@ -29,6 +29,11 @@ export const BUSD = {
 };
 
 
+export const WETH = {
+	symbol: "WETH",
+	name: "WRAPPED ETHER"
+};
+
 export const USDC_USDT_LP_TOKEN = {
 	symbol: "USDC-USDT LP",
 	name: "USDC-USDT LP TOKEN"
@@ -40,6 +45,7 @@ export const TOKENS_MAP:any = {
 	USDT,
 	USDC_USDT_LP_TOKEN,
 	ETH,
+	WETH,
 	nuMINT
 };
 
@@ -50,6 +56,12 @@ const paths:any =  {
 	USDC_NUON: {
 		tokens: [USDC.symbol, NUON.symbol],
 	},
+	NUON_USDT: {
+		tokens: [NUON.symbol, USDT.symbol],
+	},
+	USDT_NUON: {
+		tokens: [USDT.symbol, NUON.symbol],
+	},
 	DAI_NUON: {
 		tokens: [USDC.symbol, NUON.symbol],
 	},
@@ -58,6 +70,12 @@ const paths:any =  {
 	},
 	[`${USDC.symbol}_${nuMINT.symbol}`]: {
 		tokens: [USDC.symbol, nuMINT.symbol],
+	},
+	[`${nuMINT.symbol}_${USDT.symbol}`]: {
+		tokens: [nuMINT.symbol, USDT.symbol],
+	},
+	[`${USDT.symbol}_${nuMINT.symbol}`]: {
+		tokens: [USDT.symbol, nuMINT.symbol],
 	},
 	[`${nuMINT.symbol}_${NUON.symbol}`]: {
 		tokens: [nuMINT.symbol, NUON.symbol],
@@ -79,7 +97,7 @@ export const collateralTokens = [
 ];
 
 export const mainTokens = [
-	{ "symbol": USDC.symbol, "name": USDC.name, "icon": "USDC.png"  },
+	{ "symbol": USDT.symbol, "name": USDT.name, "icon": "USDT.png"  },
 	{ "symbol": nuMINT.symbol, "name": nuMINT.name, "icon": "nuMINT.png" },
 	{ "symbol": NUON.symbol, "name": NUON.name, "icon": "NUON.png"  },
 ];

@@ -75,7 +75,7 @@
 									</div>
 								</div>
 								<LayoutFlex direction="row-justify-end">
-									<p class="u-mb-0">~ ${{ getPriceInDAI(input.token, input.value) | toFixed | numberWithCommas }}</p>
+									<p class="u-mb-0">~ ${{ getPrice(input.token, input.value) | toFixed | numberWithCommas }}</p>
 								</LayoutFlex>
 							</SwapAccordion>
 						</div>
@@ -109,7 +109,7 @@
 									</div>
 								</div>
 								<LayoutFlex direction="row-justify-end">
-									<p class="u-mb-0">~ ${{ numberWithCommas(getPriceInDAI(output.token, output.value).toFixed(2))}}</p>
+									<p class="u-mb-0">~ ${{ numberWithCommas(getPrice(output.token, output.value).toFixed(2))}}</p>
 								</LayoutFlex>
 							</SwapAccordion>
 						</div>
@@ -312,7 +312,7 @@ export default {
 			this.input.value = "";
 			this.output.value = "";
 		},
-		getPriceInDAI(token, value) {
+		getPrice(token, value) {
 			return this.getDollarValue(this.tokenPrices[token], value) || 0;
 		},
 		selectInputToken(token) {
