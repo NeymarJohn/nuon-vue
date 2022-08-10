@@ -7,7 +7,7 @@
 						direction="row-center"
 						class="accordion__header"
 						title="Click to open token list" @click="triggerAccordion">
-						<img :src="require(`~/assets/images/tokens/${selected.icon}`)" alt="Hydro logo">
+						<img :src="require(`~/assets/images/tokens/${selected.icon}`)" alt="token logo">
 						<div class="accordion__token">
 							<h4>{{ selected.symbol }}</h4>
 							<p>{{ selected.name }}</p>
@@ -71,7 +71,7 @@
 import ChevronDownIcon from "@/assets/images/svg/svg-chevron-down.svg";
 import ChevronUpIcon from "@/assets/images/svg/svg-chevron-up.svg";
 import { fromWei } from "~/utils/bnTools";
-import { HX, mainTokens } from "~/constants/tokens";
+import { mainTokens, nuMINT } from "~/constants/tokens";
 
 export default {
 	name: "ClaimAccordion",
@@ -154,7 +154,7 @@ export default {
 		}
 	},
 	async mounted() {
-		await this.getTokenPrice(HX.symbol); // Get HX token price
+		await this.getTokenPrice(nuMINT.symbol); // Get nuMINT token price
 		this.$store.commit("rootStore/setIsLoaded", true);
 		window.addEventListener("click", (e) => {
 			if (!this.$el.contains(e.target)){

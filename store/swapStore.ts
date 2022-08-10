@@ -63,9 +63,9 @@ export const actions: ActionTree<SwapState, SwapState> = {
 		const address = ctx.rootGetters["web3Store/account"];
 		const routerAddress = ctx.state.uniswapRouterAddress;
 		const nuonAllowance = fromWei(await ctx.rootGetters["erc20Store/nuon"].methods.allowance(address, routerAddress).call());
-		const hydroAllowance = fromWei(await ctx.rootGetters["erc20Store/hydro"].methods.allowance(address, routerAddress).call());
+		const nuMintAllowance = fromWei(await ctx.rootGetters["erc20Store/nuMint"].methods.allowance(address, routerAddress).call());
 		const usdcAllowance = fromWei(await ctx.rootGetters["erc20Store/usdc"].methods.allowance(address, routerAddress).call());
-		ctx.commit("setAllowance", {[nuMINT.symbol]: hydroAllowance, [NUON.symbol]: nuonAllowance, [USDC.symbol]: usdcAllowance});
+		ctx.commit("setAllowance", {[nuMINT.symbol]: nuMintAllowance, [NUON.symbol]: nuonAllowance, [USDC.symbol]: usdcAllowance});
 	},
 	approveToken(ctx: any, {tokenName, onConfirm, onReject, onCallback}): void {
 		const routerAddress = ctx.state.uniswapRouterAddress;

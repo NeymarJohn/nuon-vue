@@ -101,7 +101,7 @@
 import ChevronDownIcon from "@/assets/images/svg/svg-chevron-down.svg";
 import ChevronUpIcon from "@/assets/images/svg/svg-chevron-up.svg";
 import { fromWei } from "~/utils/bnTools";
-import { HX, mainTokens } from "~/constants/tokens";
+import { nuMINT, mainTokens } from "~/constants/tokens";
 
 export default {
 	name: "ClaimAccordionInput",
@@ -112,7 +112,7 @@ export default {
 	props: {
 		token: {
 			type: Object,
-			default: () => ({symbol: HX.symbol, price: 0, balance: 0})
+			default: () => ({symbol: nuMINT.symbol, price: 0, balance: 0})
 		},
 		stepper: {
 			type: Boolean,
@@ -163,19 +163,19 @@ export default {
 					title: "Amount to Claim",
 					val: this.claimBalance,
 					currency: this.selected.symbol,
-					dollar: this.claimBalance * this.tokenPrices.HX
+					dollar: this.claimBalance * this.tokenPrices.nuMINT
 				},
 				{
 					title: "Fee",
 					val: `${this.claimFeeToken}`,
 					currency: this.selected.symbol,
-					dollar: this.numberWithCommas(this.getDollarValue(this.claimFeeToken , this.tokenPrices.HX).toFixed(2))
+					dollar: this.numberWithCommas(this.getDollarValue(this.claimFeeToken , this.tokenPrices.nuMINT).toFixed(2))
 				},
 				{
 					title: "Total Received",
 					val: this.claimBalance - this.claimFeeToken,
 					currency: this.selected.symbol,
-					dollar: this.numberWithCommas(this.getDollarValue(this.claimBalance - this.claimFeeToken , this.tokenPrices.HX).toFixed(2))
+					dollar: this.numberWithCommas(this.getDollarValue(this.claimBalance - this.claimFeeToken , this.tokenPrices.nuMINT).toFixed(2))
 				},
 			];
 		},

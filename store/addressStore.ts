@@ -19,8 +19,8 @@ export const getters: GetterTree<ContractState, Web3State> = {
 		return addr;
 	},
 
-	hydro: (state: any, _getters, store: any) => {
-		const addr = state.addr[store.web3Store.chainId as number].hydro;
+	nuMint: (state: any, _getters, store: any) => {
+		const addr = state.addr[store.web3Store.chainId as number].nuMint;
 		return addr;
 	},
 

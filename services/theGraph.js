@@ -101,24 +101,23 @@ export const getUserCollateralHistory = (filters) => {
 	});
 };
 
-export const getUserTVLDayData = (filters) => {
+export const getUserCollateralHistoryData = (filters) => {
 	const variables = {
 		user: filters.user
 	};
 	return axios.post(THE_GRAPH_URL, {
 		query:`
-			query getUserTVLDayDatas($user: String!) {
-				userTVLDayDatas(
-					orderBy: date
+			query getUserCollateralHistory($user: String!) {
+				userCollateralHistories(
+					orderBy: dateTime
 					orderDirection: desc
 					where: {user: $user}
 				) {
-					mintedValue
-					value
-					user
-					date
 					id
+					user
+					mintedNuon
 					collateralRatio
+					dateTime
 					collateralTokens {
 						amount
 						value

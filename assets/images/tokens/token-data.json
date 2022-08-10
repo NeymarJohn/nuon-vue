@@ -34,6 +34,7 @@
 	{ "symbol": "GRS", "name": "Groestlcoin" },
 	{ "symbol": "ONE", "name": "Harmony" },
 	{ "symbol": "HT", "name": "Heco" },
+	{ "symbol": "nuMINT", "name": "nuMINT" },
 	{ "symbol": "IOST", "name": "Iost" },
 	{ "symbol": "IOTX", "name": "Iotex" },
 	{ "symbol": "KAVA", "name": "Kava" },
