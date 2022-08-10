@@ -3,7 +3,7 @@ import Web3 from "web3";
 import { Web3State } from "./web3Store";
 import router from "./abi/router.json";
 import { fromWei, toWei } from "~/utils/bnTools";
-import { getPath, nuMINT, NUON, USDC } from "~/constants/tokens";
+import { getPath, nuMINT, NUON, USDT } from "~/constants/tokens";
 
 type SwapStateType = {
 	allowance: any,
@@ -64,8 +64,8 @@ export const actions: ActionTree<SwapState, SwapState> = {
 		const routerAddress = ctx.state.uniswapRouterAddress;
 		const nuonAllowance = fromWei(await ctx.rootGetters["erc20Store/nuon"].methods.allowance(address, routerAddress).call());
 		const nuMintAllowance = fromWei(await ctx.rootGetters["erc20Store/nuMint"].methods.allowance(address, routerAddress).call());
-		const usdcAllowance = fromWei(await ctx.rootGetters["erc20Store/usdc"].methods.allowance(address, routerAddress).call());
-		ctx.commit("setAllowance", {[nuMINT.symbol]: nuMintAllowance, [NUON.symbol]: nuonAllowance, [USDC.symbol]: usdcAllowance});
+		const usdtAllowance = fromWei(await ctx.rootGetters["erc20Store/usdt"].methods.allowance(address, routerAddress).call());
+		ctx.commit("setAllowance", {[nuMINT.symbol]: nuMintAllowance, [NUON.symbol]: nuonAllowance, [USDT.symbol]: usdtAllowance});
 	},
 	approveToken(ctx: any, {tokenName, onConfirm, onReject, onCallback}): void {
 		const routerAddress = ctx.state.uniswapRouterAddress;

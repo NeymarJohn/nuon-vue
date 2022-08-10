@@ -112,6 +112,7 @@ import dayjs from "dayjs";
 import { fromWei } from "~/utils/bnTools";
 import TooltipIcon from "@/assets/images/svg/svg-tooltip.svg";
 import { getUserTVLDayData } from "~/services/theGraph";
+import { USDT, WETH } from "~/constants/tokens";
 
 export default {
 	name: "MyDashboard",
@@ -129,7 +130,7 @@ export default {
 				{title: "Total NUON Minted", id: "mintedNuon"},
 				{title: "Collateralization Ratio", id: "collateralizationRatio"}],
 			miscConfig: {
-				hasImage: {lockedCollateral: ["ETH", "USDC"] },
+				hasImage: {lockedCollateral: ["WETH", "USDT"] },
 				headerTooltips: {
 					lockedCollateral: "Tokens you have locked as collateral to mint NUON.",
 					currentPrice: "Current price of collateral tokens, for your reference when considering how much collateral to keep locked up.",
@@ -201,8 +202,7 @@ export default {
 	},
 	computed: {
 		collaterals() {
-			const collaterals = ["ETH"];
-			if (this.isEnvDev) collaterals.push("USDC");
+			const collaterals = [WETH.symbol, USDT.symbol];
 			return collaterals;
 		},
 		pendingRewards() {

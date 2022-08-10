@@ -5,6 +5,7 @@ import { fromWei } from "~/utils/bnTools";
 const initalPrice = {
 	[NUON.symbol] : 0,
 	[nuMINT.symbol]: 0,
+	USDT: 1,
 	DAI: 1,
 	USDC: 1
 };
@@ -43,7 +44,7 @@ export const actions: ActionTree<Web3State, Web3State> = {
 			NUON: { value: nuonPrice, decimals: ctx.rootState.erc20Store.decimals.NUON},
 			DAI: { value: 1, decimals: 0 },
 			USDC: { value: 1, decimals: 0},
-			USDT: 1,
+			USDT: { value: 1, decimals: 0},
 			[nuMINT.symbol]: { value: nuMintPrice, decimals: ctx.rootState.erc20Store.decimals.nuMINT }
 		});
 	},
