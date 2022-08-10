@@ -96,7 +96,7 @@ export default {
 		return {
 			inputValue: null,
 			price: {
-				hx: 0
+				nuMINT: 0
 			},
 			account: "",
 			claimAmount: 23,
@@ -106,8 +106,8 @@ export default {
 		};
 	},
 	computed: {
-		hxBalance() {
-			return this.$store.getters["erc20Store/hxBalance"] || 0;
+		nuMintBalance() {
+			return this.$store.getters["erc20Store/nuMintBalance"] || 0;
 		},
 		epoch() {
 			return this.$store.state.boardroomStore.epoch;

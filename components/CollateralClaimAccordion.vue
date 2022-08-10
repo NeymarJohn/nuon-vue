@@ -76,7 +76,7 @@ export default {
 	props: {
 		token: {
 			type: Object,
-			default: () => ({ symbol: nuMINT.symbol, price: 0, balance: 0, icon:"HX.icon" })
+			default: () => ({ symbol: nuMINT.symbol, price: 0, balance: 0, icon:"nuMINT.png" })
 		},
 		defaultValue: {
 			type: [Number, String],

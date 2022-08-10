@@ -103,7 +103,7 @@ export default {
 		return {
 			inputValue: null,
 			price: {
-				hx: 0
+				nuMINT: 0
 			},
 			account: "",
 			estimatedOut: 0,
@@ -116,10 +116,10 @@ export default {
 			return this.$store.state.boardroomStore.claimFee;
 		},
 		isMoreThanBalance() {
-			return parseFloat(this.inputValue) > this.hxBalance;
+			return parseFloat(this.inputValue) > this.nuMintBalance;
 		},
-		hxBalance() {
-			return this.$store.getters["erc20Store/hxBalance"] || 0;
+		nuMintBalance() {
+			return this.$store.getters["erc20Store/nuMintBalance"] || 0;
 		},
 	 	isApproved() {
 			const isApprovedToken = this.$store.getters["boardroomStore/checkApprovedToken"](nuMINT.symbol);
@@ -200,7 +200,7 @@ export default {
 			}
 		},
 		inputMaxBalance() {
-			this.inputValue = this.hxBalance;
+			this.inputValue = this.nuMintBalance;
 		},
 		approveToken() {
 			this.activeStep = "approving";

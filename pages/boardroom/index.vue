@@ -28,7 +28,7 @@
 						subtitle="Stake your nuMINT to gain voting power."
 						@close-modal="setModalVisibility('stakeModal', false)">
 						<InputTransaction
-							:maximum="hxBalance"
+							:maximum="nuMintBalance"
 							title="Enter amount to stake"
 							subtitle="Available nuMINT tokens"
 							action-plural="staking"
@@ -272,8 +272,8 @@ export default {
 		epoch() {
 			return this.$store.state.boardroomStore.epoch;
 		},
-		hxBalance() {
-			return this.$store.getters["erc20Store/hxBalance"] || 0;
+		nuMintBalance() {
+			return this.$store.getters["erc20Store/nuMintBalance"] || 0;
 		},
 	},
 	watch: {
