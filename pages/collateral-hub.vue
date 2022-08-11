@@ -73,7 +73,7 @@
 		<TheModal
 			v-show="isAdjustPositionModalVisible"
 			:title="`Adjust Position${adjustModalPositionTitle && ': '}${adjustModalPositionTitle}`"
-			subtitle="Manage your collateral"
+			:subtitle="adjustModalPositionSubtitle || 'Manage your collateral'"
 			@close-modal="setModalVisibility('adjustPositionModal', false)">
 			<AdjustPosition
 				:minimum-deposit-amount="minimumDepositAmount"
@@ -139,7 +139,8 @@ export default {
 			},
 			userLiquidityCoverage: null,
 			userLpValue: "0",
-			adjustModalPositionTitle: ""
+			adjustModalPositionTitle: "",
+			adjustModalPositionSubtitle: ""
 		};
 	},
 	head () {
@@ -324,8 +325,9 @@ export default {
 				this.userLpValue = (result * this.collateralPrice).toFixed(2);
 			}
 		},
-		setAdjustPositionModalTitle(title) {
-			this.adjustModalPositionTitle = title;
+		setAdjustPositionModalTitle(obj) {
+			this.adjustModalPositionTitle = obj.title;
+			this.adjustModalPositionSubtitle = obj.subtitle;
 		},
 		async initialize() {
 			await this.$store.dispatch("collateralVaultStore/changeCollateral", this.currentlySelectedCollateral);

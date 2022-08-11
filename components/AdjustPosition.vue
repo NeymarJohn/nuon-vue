@@ -27,9 +27,21 @@
 						@click="actionClicked('Mint')">Mint NUON</TheButton>
 				</LayoutFlex>
 			</div>
+			<div class="u-mt-32">
+				<p class="u-colour-light-grey">Add Liquidity To Position</p>
+				<LayoutFlex direction="row-space-between">
+					<TheButton
+						size="md u-min-width-230"
+						title="Click to liquidity"
+						@click="actionClicked('AddLiquidity')">Add Liquidity</TheButton>
+				</LayoutFlex>
+			</div>
 		</template>
 		<template #step-two>
-			<p class="u-colour-light-grey">{{ explaination }}</p>
+			<LayoutFlex v-if="action !== 'Mint'" direction="row-space-between" class="u-full-width">
+				<p>Amount of {{ actionIsMintOrBurn ? 'NUON' : currentlySelectedCollateral }}</p>
+				<p>Available balance: {{ (actionIsMintOrBurn ? nuonBalance : (tokenBalance || 0)) | formatLongNumber }}</p>
+			</LayoutFlex>
 			<div class="input">
 				<div class="input__container">
 					<input
@@ -46,7 +58,7 @@
 				</div>
 			</div>
 			<p v-if="error" class="u-is-warning u-mt-12 u-text-right">{{ error }}</p>
-			<TransactionSummary class="u-mt-16" :values="summary" :final-balance-line="false" />
+			<TransactionSummary v-if="action !== 'AddLiquidity'" class="u-mt-16" :values="summary" :final-balance-line="false" />
 			<div class="toggle__transaction u-mt-24">
 				<TheButton
 					title="Click to go back"
@@ -113,6 +125,8 @@ export default {
 				return `Redeem NUON without getting back ${this.currentlySelectedCollateral}`;
 			} else if (this.action === "Mint") {
 				return `Mint NUON without depositing more ${this.currentlySelectedCollateral}`;
+			} else if (this.action === "AddLiquidity") {
+				return `Add ${this.currentlySelectedCollateral} to your current liquidity position`;
 			} else {
 				return `Withdraw ${this.currentlySelectedCollateral} without redeeming NUON`;
 			}
@@ -145,6 +159,15 @@ export default {
 		},
 		actionIsMintOrBurn() {
 			return ["Mint", "Burn"].includes(this.action);
+		},
+		tokenBalance() {
+			return this.$store.state.erc20Store.balance[this.currentlySelectedCollateral];
+		},
+		isMoreThanBalance() {
+			return parseFloat(this.inputModel) > this.tokenBalance;
+		},
+		nuonBalance() {
+			return this.$store.state.erc20Store.balance.NUON;
 		}
 	},
 	methods: {
@@ -171,6 +194,12 @@ export default {
 					this.error = `Please deposit more than ${this.minimumDepositAmount}`;
 					return;
 				}
+			} else if (this.action === "AddLiquidity") {
+				if (this.isMoreThanBalance) {
+					this.submitDisabled = true;
+					this.error = `You don't have enough ${this.currentlySelectedCollateral}`;
+					return;
+				}
 			}
 
 			this.submitDisabled = false;
@@ -189,7 +218,7 @@ export default {
 
 			const amount = toWei(this.inputModel, this.actionIsMintOrBurn ? 18 : this.decimals);
 
-			let resp = {0: 0, 1: 0, 2: 0, 3: 0};
+			let resp = {0: 0, 1: 0, 2: 0};
 			let resp2 = {1: 0};
 			try {
 				resp = await this.$store.getters[`collateralVaultStore/${method}`](amount, this.connectedAccount);
@@ -207,7 +236,7 @@ export default {
 				this.$set(this.estimatedAmount, 1, fromWei(resp[1], this.actionIsMintOrBurn ? 18 : this.decimals));
 				this.$set(this.estimatedAmount, 2, fromWei(resp[2]));
 				if (this.action === "Mint") {
-					this.$set(this.estimatedAmount, 3, parseFloat(fromWei(resp2[1], this.decimals)).toFixed(2));
+					this.$set(this.estimatedAmount, 3, parseFloat(fromWei(resp2[0], this.decimals)).toFixed(2));
 				}
 			}
 		},
@@ -215,7 +244,7 @@ export default {
 			this.error = "";
 			this.submitDisabled = false;
 			this.isSubmitDisabled();
-			this.getEstimatedAmounts();
+			if (this.action !== "AddLiquidity") this.getEstimatedAmounts();
 		},
 		actionClicked(arg) {
 			this.error = "";
@@ -224,7 +253,9 @@ export default {
 			this.activeStep = 2;
 			this.isSubmitDisabled();
 			const postfix = this.actionIsMintOrBurn ? "NUON" : "collateral";
-			this.$emit("action-changed", `${arg} ${postfix}`);
+			let titleStr = `${arg} ${postfix}`;
+			if (this.action === "AddLiquidity") titleStr = "Add Liquidity";
+			this.$emit("action-changed", {title: titleStr, subtitle: this.explaination});
 		},
 		approveNUON() {
 			this.isApproving = true;
@@ -242,27 +273,27 @@ export default {
 		backClicked() {
 			this.activeStep = 1;
 			this.action = "";
-			this.estimatedAmount =  {0: 0, 1: 0, 2: 0};
-			this.$emit("action-changed", "");
+			this.estimatedAmount =  {0: 0, 1: 0, 2: 0, 3: 0};
+			this.$emit("action-changed", {title: "", subtitle: ""});
 		},
 		async submit() {
 			try {
 				this.error = "";
 				this.activeStep = "loading";
-				let method;
+				let methodName = "addLiquidityForUser";
 				if (this.action === "Deposit") {
-					method = "depositWithoutMint";
+					methodName = "depositWithoutMint";
 				} else if (this.action === "Burn") {
-					method = "burnNUON";
+					methodName = "burnNUON";
 				} else if (this.action === "Mint") {
-					method = "mintWithoutDeposit";
-				} else {
-					method = "redeemWithoutNuon";
+					methodName = "mintWithoutDeposit";
+				} else if (this.action === "Withdraw") {
+					methodName = "redeemWithoutNuon";
 				}
 
 				const amount = toWei(this.inputModel, this.actionIsMintOrBurn ? 18 : this.decimals);
 
-				const resp = await this.$store.getters[`collateralVaultStore/${method}`](amount, this.connectedAccount);
+				const resp = await this.$store.getters[`collateralVaultStore/${methodName}`](amount, this.connectedAccount);
 
 				this.successToast(null, "Transaction Succeeded", resp.transactionHash);
 			} catch (e) {

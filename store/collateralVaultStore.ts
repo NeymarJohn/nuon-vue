@@ -409,5 +409,8 @@ export const getters: GetterTree<BoardroomState, Web3State> = {
 	},
 	getUserLiquidityCoverage: (_state: any, getters: any) => async (extraAmount: number, userAddress: string) => { // a percentage that gives the user liq coverage, need to be compared with liquidityCheck
 		return await getters.collateralHubContract.methods.getUserLiquidityCoverage(userAddress, extraAmount).call();
+	},
+	addLiquidityForUser: (_state: any, getters: any) => async (collateralAmount: number, userAddress: string) => {
+		return await getters.collateralHubContract.methods.addLiquidityForUser(collateralAmount).send({from: userAddress});
 	}
 };
