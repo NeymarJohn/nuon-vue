@@ -1,7 +1,14 @@
 import axios from "axios";
 import dayjs from "dayjs";
-const THE_GRAPH_URL = "https://graphiql-nuon.hydrogenx.live/subgraphs/name/dev-nuon";
-const UNISWAP_THE_GRAPH_URL = "https://graphiql-nuon.hydrogenx.live/subgraphs/name/nuon/uniswap";
+let theGraphName = "nuon";
+if (process.env.NODE_ENV === "development") {
+	theGraphName = "dev-nuon";
+} 
+if (process.env.NODE_ENV === "staging") {
+	theGraphName ="staging-nuon";
+}
+const THE_GRAPH_URL = `https://graphiql-nuon.hydrogenx.live/subgraphs/name/${theGraphName}`;
+const UNISWAP_THE_GRAPH_URL = `https://graphiql-nuon.hydrogenx.live/subgraphs/name/${theGraphName}/uniswap`;
 
 export const getCollateralTVLDayData = () => axios.post(THE_GRAPH_URL, {
 	query: `

@@ -1,11 +1,10 @@
 import { GetterTree, ActionTree, MutationTree } from "vuex";
-import { NUON, nuMINT, USDT } from "~/constants/tokens";
+import { NUON, nuMINT, USDC } from "~/constants/tokens";
 import { fromWei } from "~/utils/bnTools";
 
 const initalPrice = {
 	[NUON.symbol] : 0,
 	[nuMINT.symbol]: 0,
-	USDT: 1,
 	DAI: 1,
 	USDC: 1
 };
@@ -28,14 +27,13 @@ export const mutations: MutationTree<Web3State> = {
 export const actions: ActionTree<Web3State, Web3State> = {
 	async getTokenPrices(ctx: any) {
 		const nuonController = ctx.rootGetters["contractStore/nuonController"];
-		const nuMintUsdtPair = await ctx.rootGetters["contractStore/uniswapV2Pair"]([nuMINT.symbol, USDT.symbol]);
+		const nuMintUsdcPair = await ctx.rootGetters["contractStore/uniswapV2Pair"]([nuMINT.symbol, USDC.symbol]);
 		const nuonPrice = await nuonController.methods.getNUONPrice().call();
-		const reserves = await nuMintUsdtPair.methods.getReserves().call();
-		const nuMintPrice = Number(fromWei(reserves[1], ctx.rootState.erc20Store.decimals.USDT)) / Number(fromWei(reserves[0], ctx.rootState.erc20Store.decimals.nuMINT));
+		const reserves = await nuMintUsdcPair.methods.getReserves().call();
+		const nuMintPrice = Number(fromWei(reserves[1], ctx.rootState.erc20Store.decimals.USDC)) / Number(fromWei(reserves[0], ctx.rootState.erc20Store.decimals.nuMINT));
 		ctx.commit("setPrice", {
 			NUON: Number(fromWei(nuonPrice, ctx.rootState.erc20Store.decimals.NUON)),
 			DAI: 1,
-			USDT: 1,
 			USDC: 1,
 			[nuMINT.symbol]: nuMintPrice
 		});
@@ -44,7 +42,6 @@ export const actions: ActionTree<Web3State, Web3State> = {
 			NUON: { value: nuonPrice, decimals: ctx.rootState.erc20Store.decimals.NUON},
 			DAI: { value: 1, decimals: 0 },
 			USDC: { value: 1, decimals: 0},
-			USDT: { value: 1, decimals: 0},
 			[nuMINT.symbol]: { value: nuMintPrice, decimals: ctx.rootState.erc20Store.decimals.nuMINT }
 		});
 	},
