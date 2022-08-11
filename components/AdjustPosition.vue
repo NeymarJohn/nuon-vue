@@ -129,19 +129,19 @@ export default {
 				// this.estimatedAmount = user cratio after burn, burned nuons, total amount of nuon left after burn
 				summary.push({title: "New NUON Amount", val: this.estimatedAmount[2]});
 			} else if (this.action === "Mint") {
-				// this.estimatedAmount = user cratio after mint, amount of nuon minted , user total nuon after mint
-				summary.push({title: "New NUON Amount", val: this.estimatedAmount[2]});
+				// this.estimatedAmount = user cratio after mint, amount of nuon minted, user total nuon after mint
+				summary.push({title: "NUON minted", val: this.estimatedAmount[1]});
+				summary.push({title: "New NUON Balance", val: this.estimatedAmount[2]});
 			} else {
 				// this.estimatedAmount = user cratio after redeem, amount redeemed , collaterals left after redeem
 				summary.push({title: "New Collateral Amount", val: this.estimatedAmount[2]});
 			}
-			summary[1].val = `${parseFloat(summary[1].val).toFixed(2)} ${["Mint", "Burn"].includes(this.action) ? "NUON" : this.currentlySelectedCollateral}`;
+			summary[summary.length - 1].val = `${parseFloat(summary[summary.length - 1].val).toFixed(2)} ${["Mint", "Burn"].includes(this.action) ? "NUON" : this.currentlySelectedCollateral}`;
 			return summary;
 		}
 	},
 	methods: {
 		isSubmitDisabled() {
-			this.error = "";
 			if (!parseFloat(this.inputModel)) {
 				this.submitDisabled = true;
 				return;
@@ -186,13 +186,20 @@ export default {
 			try {
 				resp = await this.$store.getters[`collateralVaultStore/${method}`](amount, this.connectedAccount);
 			} catch (e) {
+				const mintLiquidationMsg = "This will liquidate you";
+				if (e.message.includes(mintLiquidationMsg)) {
+					this.submitDisabled = true;
+					this.error = mintLiquidationMsg;
+				}
 			} finally {
 				this.$set(this.estimatedAmount, 0, fromWei(resp[0]));
-				this.$set(this.estimatedAmount, 1, fromWei(resp[1], this.$store.state.erc20Store.decimals[this.currentlySelectedCollateral]));
+				this.$set(this.estimatedAmount, 1, fromWei(resp[1], ["Mint", "Burn"].includes(this.action) ? 18 : this.$store.state.erc20Store.decimals[this.currentlySelectedCollateral]));
 				this.$set(this.estimatedAmount, 2, fromWei(resp[2]));
 			}
 		},
 		inputChanged() {
+			this.error = "";
+			this.submitDisabled = false;
 			this.isSubmitDisabled();
 			this.getEstimatedAmounts();
 		},
