@@ -46,7 +46,7 @@
 				</div>
 			</div>
 			<p v-if="error" class="u-is-warning u-mt-12 u-text-right">{{ error }}</p>
-			<TransactionSummary class="u-mt-16" :values="summary" />
+			<TransactionSummary class="u-mt-16" :values="summary" :final-balance-line="false" />
 			<div class="toggle__transaction u-mt-24">
 				<TheButton
 					title="Click to go back"
@@ -102,7 +102,7 @@ export default {
 			isApproving: false,
 			error: "",
 			submitDisabled: true,
-			estimatedAmount: {0: 0, 1: 0, 2: 0}
+			estimatedAmount: {0: 0, 1: 0, 2: 0, 3: 0}
 		};
 	},
 	computed: {
@@ -130,14 +130,21 @@ export default {
 				summary.push({title: "New NUON Amount", val: this.estimatedAmount[2]});
 			} else if (this.action === "Mint") {
 				// this.estimatedAmount = user cratio after mint, amount of nuon minted, user total nuon after mint
-				summary.push({title: "NUON minted", val: this.estimatedAmount[1]});
+				summary.push({title: "NUON Minted Amount", val: this.estimatedAmount[1]});
+				summary.push({title: `Extra ${this.currentlySelectedCollateral} Required`, val: this.estimatedAmount[3]});
 				summary.push({title: "New NUON Balance", val: this.estimatedAmount[2]});
 			} else {
 				// this.estimatedAmount = user cratio after redeem, amount redeemed , collaterals left after redeem
 				summary.push({title: "New Collateral Amount", val: this.estimatedAmount[2]});
 			}
-			summary[summary.length - 1].val = `${parseFloat(summary[summary.length - 1].val).toFixed(2)} ${["Mint", "Burn"].includes(this.action) ? "NUON" : this.currentlySelectedCollateral}`;
+			summary[summary.length - 1].val = `${parseFloat(summary[summary.length - 1].val).toFixed(2)} ${this.actionIsMintOrBurn ? "NUON" : this.currentlySelectedCollateral}`;
 			return summary;
+		},
+		decimals() {
+			return this.$store.state.erc20Store.decimals[this.currentlySelectedCollateral];
+		},
+		actionIsMintOrBurn() {
+			return ["Mint", "Burn"].includes(this.action);
 		}
 	},
 	methods: {
@@ -180,11 +187,15 @@ export default {
 				method = "redeemWithoutNuonEstimation";
 			}
 
-			const amount = toWei(this.inputModel, ["Mint", "Burn"].includes(this.action) ? 18 : this.$store.state.erc20Store.decimals[this.currentlySelectedCollateral]);
+			const amount = toWei(this.inputModel, this.actionIsMintOrBurn ? 18 : this.decimals);
 
-			let resp = {0: 0, 1: 0, 2: 0};
+			let resp = {0: 0, 1: 0, 2: 0, 3: 0};
+			let resp2 = {1: 0};
 			try {
 				resp = await this.$store.getters[`collateralVaultStore/${method}`](amount, this.connectedAccount);
+				if (this.action === "Mint") {
+					resp2 = await this.$store.getters["collateralVaultStore/mintLiquidityHelper"](resp[1]);
+				}
 			} catch (e) {
 				const mintLiquidationMsg = "This will liquidate you";
 				if (e.message.includes(mintLiquidationMsg)) {
@@ -193,8 +204,11 @@ export default {
 				}
 			} finally {
 				this.$set(this.estimatedAmount, 0, fromWei(resp[0]));
-				this.$set(this.estimatedAmount, 1, fromWei(resp[1], ["Mint", "Burn"].includes(this.action) ? 18 : this.$store.state.erc20Store.decimals[this.currentlySelectedCollateral]));
+				this.$set(this.estimatedAmount, 1, fromWei(resp[1], this.actionIsMintOrBurn ? 18 : this.decimals));
 				this.$set(this.estimatedAmount, 2, fromWei(resp[2]));
+				if (this.action === "Mint") {
+					this.$set(this.estimatedAmount, 3, parseFloat(fromWei(resp2[1], this.decimals)).toFixed(2));
+				}
 			}
 		},
 		inputChanged() {
@@ -209,7 +223,7 @@ export default {
 			this.action = arg;
 			this.activeStep = 2;
 			this.isSubmitDisabled();
-			const postfix = ["Mint", "Burn"].includes(this.action) ? "NUON" : "collateral";
+			const postfix = this.actionIsMintOrBurn ? "NUON" : "collateral";
 			this.$emit("action-changed", `${arg} ${postfix}`);
 		},
 		approveNUON() {
@@ -246,7 +260,7 @@ export default {
 					method = "redeemWithoutNuon";
 				}
 
-				const amount = toWei(this.inputModel, ["Burn", "Mint"].includes(this.action) ? 18 : this.$store.state.erc20Store.decimals[this.currentlySelectedCollateral]);
+				const amount = toWei(this.inputModel, this.actionIsMintOrBurn ? 18 : this.decimals);
 
 				const resp = await this.$store.getters[`collateralVaultStore/${method}`](amount, this.connectedAccount);
 

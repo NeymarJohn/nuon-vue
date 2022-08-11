@@ -6,7 +6,7 @@
 				v-for="(value, index) in values"
 				:key="index"
 				direction="row-start-space-between"
-				:class="`${index !== values.length - 1 && 'u-mb-8'} ${index === values.length - 2 && 'u-pb-8 u-bb-white'}`">
+				:class="`${index !== values.length - 1 && 'u-mb-8'} ${index === values.length - 2 && finalBalanceLine && 'u-pb-8 u-bb-white'}`">
 				<p>{{ value.title }}</p>
 				<LayoutFlex direction="column-end">
 					<p>{{ value.val }} {{ value.currency && value.currency }}</p>
@@ -24,6 +24,11 @@ export default {
 		values: {
 			type: Array,
 			required: true
+		},
+		finalBalanceLine: {
+			type: Boolean,
+			required: false,
+			default: true
 		}
 	}
 };
