@@ -267,7 +267,8 @@ export default {
 			this.$emit("action-changed", {title: titleStr, subtitle: this.explaination});
 
 			if (this.action === "Remove Liquidity") {
-				this.shareAmount = parseFloat(fromWei(await this.$store.getters["collateralVaultStore/viewUserVaultSharesAmount"](this.connectedAccount))).toFixed(5);
+				const decimals = this.currentlySelectedCollateral === "WETH" ? 5 : 18;
+				this.shareAmount = parseFloat(fromWei(await this.$store.getters["collateralVaultStore/viewUserVaultSharesAmount"](this.connectedAccount))).toFixed(decimals);
 			}
 		},
 		approveNUON() {
