@@ -2,14 +2,14 @@
 	<div>
 		<h2 class="u-mb-24">Collateral Hub Overview</h2>
 		<LayoutFlex direction="column" class="l-chart l-chart--vault-overview">
-			<ComponentLoader component="collateral-hub-chart-tabs" :loaded="isLoadedData ? true : false">
+			<ComponentLoader component="collateral-hub-chart-tabs" :loaded="isLoadedData">
 				<TheTabs size="thin" color="light" margin="24" @tab-changed="handleTabChanged">
 					<TheTab v-for="(period, periodIdx) in periods" :key="periodIdx" :title="period" />
 				</TheTabs>
 			</ComponentLoader>
 			<LayoutFlex class="l-flex--column-md">
 				<div class="chart chart-container">
-					<ComponentLoader component="collateral-hub-chart" :loaded="isLoadedData ? true : false">
+					<ComponentLoader component="collateral-hub-chart" :loaded="isLoadedData">
 						<LightweightChart
 							v-if="isLoadedData && !error"
 							:day-data="dayData"
@@ -19,7 +19,7 @@
 					</ComponentLoader>
 				</div>
 				<div class="chart chart--donut">
-					<ComponentLoader component="collateral-hub-chart" :loaded="isLoadedData ? true : false">
+					<ComponentLoader component="collateral-hub-chart" :loaded="isLoadedData">
 						<p class="u-mb-4">Collateral Distribution</p>
 						<p class="u-colour-white u-mb-16">{{ dateStr }}</p>
 						<DonutChartCollateral class="u-mb-24" :chart-data="{}" />
@@ -64,15 +64,15 @@ export default {
 			periods: ["D", "W", "M"],
 		};
 	},
-	async	mounted () {
+	mounted () {
 		this.loadingData = true;
 		// console.log("this.mock", this.mockDayData);
-		const stakedValue = await this.$store.getters["collateralVaultStore/getAmountsStakedInVault"]();
-		const collateralPRice = await this.$store.getters["collateralVaultStore/getCollateralPrice"]();
-		const finalTVL =  Number(fromWei(stakedValue)) * Number(fromWei(collateralPRice));
-		this.mockDayData[this.mockDayData.length-1].value = finalTVL;
-		this.mockMonthData[this.mockMonthData.length-1].value =finalTVL;
-		this.mockWeekData[this.mockWeekData.length-1].value =finalTVL;
+		// const stakedValue = await this.$store.getters["collateralVaultStore/getAmountsStakedInVault"]();
+		// const collateralPRice = await this.$store.getters["collateralVaultStore/getCollateralPrice"]();
+		// const finalTVL =  Number(fromWei(stakedValue)) * Number(fromWei(collateralPRice));
+		// this.mockDayData[this.mockDayData.length-1].value = finalTVL;
+		// this.mockMonthData[this.mockMonthData.length-1].value =finalTVL;
+		// this.mockWeekData[this.mockWeekData.length-1].value =finalTVL;
 		getCollateralTVLDayData().then((res) => {
 			let data = res.data.data.collateralDayDatas;
 
