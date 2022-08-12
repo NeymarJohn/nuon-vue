@@ -49,7 +49,7 @@ export default {
 						expandOnClick: false,
 						customScale: 0.8,
 						dataLabels: {
-							offset: 50
+							offset: 100
 						},
 						donut: {
 							size: "75%"
@@ -81,8 +81,8 @@ export default {
 	methods: {
 		updateData() {
 			// const newSeriess = this.chartData.collateralTokens.map((item) => Number(fromWei(item.amount)));
-			this.series = [49672.160947712415]; // newSeriess;
-			this.chartOptions.labels = ["WETH"]; // this.chartData.collateralTokens.map((item) => item.token.symbol);
+			this.series = [49672.160947712415, 49672.160947712415]; // newSeriess;
+			this.chartOptions.labels = ["WETH", "USDT"]; // this.chartData.collateralTokens.map((item) => item.token.symbol);
 		}
 	},
 };
