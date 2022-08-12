@@ -63,9 +63,6 @@ Vue.mixin({
 		transactionSearch() {
 			return this.$store.state.transactionStore.search;
 		},
-		isEnvDev() {
-			return this.$config.NODE_ENV === "development";
-		}
 	},
 	methods: {
 		numberWithCommas (x) {

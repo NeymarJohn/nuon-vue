@@ -69,12 +69,17 @@ export const getters: GetterTree<ContractState, Web3State> = {
 	},
 
 	collateralHubs: (state: any, _getters, store: any) => {
-		const collatralHubs = state.addr[store.web3Store.chainId as number].collatralHubs;
-		return collatralHubs;
+		const collateralHubs = state.addr[store.web3Store.chainId as number].collatralHubs;
+		return collateralHubs;
 	},
 
 	ethFaucet: (state: any, _getters, store: any) => {
 		const ethFaucet = state.addr[store.web3Store.chainId as number].ethFaucet;
 		return ethFaucet;
+	},
+
+	vaultRelayers: (state: any, _getters, store: any) => {
+		const relayers = state.addr[store.web3Store.chainId as number].vaultRelayers;
+		return relayers;
 	}
 };

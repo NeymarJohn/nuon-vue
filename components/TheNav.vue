@@ -50,18 +50,25 @@
 			</NuxtLink>
 		</li>
 		<a href="https://whitepaper.nuon.fi/" title="Click to visit the documentation" target="_blank" rel="noopener noreferrer"><DocumentationIcon /> Docs <ExternalLinkIcon class="u-mr-0 u-ml-8" /></a>
-		<li v-if="isEnvDev" @click="getMockToken('ETH')">
+		<li @click="getMockToken('ETH')">
 			<NuxtLink
 				to=""
 				title="Click to get Mock ETH">
-				<img class="u-ml-8 u-mr-8" :src="require(`~/assets/images/borrow/ETH.png`)" height="23" width="23" alt=""> Get ETH
+				<img class="u-ml-8 u-mr-8" :src="require(`~/assets/images/borrow/ETH.png`)" height="23" width="23" alt="ETH Logo"> Get ETH
 			</NuxtLink>
 		</li>
-		<li v-if="isEnvDev" @click="getMockToken('USDC')">
+		<li @click="getMockToken('WETH')">
 			<NuxtLink
 				to=""
-				title="Click to get Mock USDC">
-				<img class="u-ml-8 u-mr-8" :src="require(`~/assets/images/borrow/USDC.png`)" height="23" width="23" alt=""> Get USDC
+				title="Click to get Mock WETH">
+				<img class="u-ml-8 u-mr-8" :src="require(`~/assets/images/borrow/ETH.png`)" height="23" width="23" alt="ETH Logo"> Get WETH
+			</NuxtLink>
+		</li>
+		<li @click="getMockToken('USDT')">
+			<NuxtLink
+				to=""
+				title="Click to get Mock USDT">
+				<img class="u-ml-8 u-mr-8" :src="require(`~/assets/images/borrow/USDT.png`)" height="23" width="23" alt="USDT Logo"> Get USDT
 			</NuxtLink>
 		</li>
 	</ul>
@@ -95,12 +102,6 @@ export default {
 				this.$store.commit("nav/toggle", null);
 			}
 		},
-		isEnvDev(newVal) {
-			console.log("from nav isEnvDev watch: ", newVal);
-		}
-	},
-	mounted() {
-		console.log("from nav mounted: ", this.isEnvDev);
 	},
 	methods: {
 		isRouteActive(url) {

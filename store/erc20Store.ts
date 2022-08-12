@@ -1,23 +1,26 @@
 import { GetterTree, ActionTree, MutationTree } from "vuex";
 import { Web3State } from "./web3Store";
 import erc20 from "./abi/erc20.json";
-import usdc from "./abi/usdc.json";
+import usdtABI from "./abi/usdt.json";
+import wethABI from "./abi/weth.json";
 import ethFaucet from "./abi/eth_faucet.json";
-import { ETH, nuMINT, NUON, USDC } from "~/constants/tokens";
+import { WETH, ETH, nuMINT, NUON, USDT } from "~/constants/tokens";
 import { fromWei } from "~/utils/bnTools";
 
 type StateType = {
 	balance: {
 		NUON: string,
 		nuMINT: string,
-		USDC: string,
-		ETH: string
+		ETH: string,
+		USDT: string,
+		WETH: string
 	},
 	decimals: {
 		NUON: number,
 		nuMINT: number,
-		USDC: number,
-		ETH: number
+		ETH: number,
+		USDT: number,
+		WETH: number
 	},
 	supply: {
 		NUON: string,
@@ -30,16 +33,17 @@ type StateType = {
 export const state = (): StateType => ({
 	balance: {
 		NUON: "0",
-		USDC: "0",
+		nuMINT: "0",
 		ETH: "0",
-		nuMINT:"0"
+		USDT: "0",
+		WETH: "0"
 	},
 	decimals: {
 		NUON: 18,
-		USDC: 6,
+		nuMINT: 18,
 		ETH: 18,
-		nuMINT:18
-
+		USDT: 6,
+		WETH: 18
 	},
 	supply: {
 		NUON: "0",
@@ -63,24 +67,23 @@ export const mutations: MutationTree<Erc20State> = {
 
 export const actions: ActionTree<Erc20State, Erc20State> = {
 	async initializeBalance (ctx: any, {address}) {
-		const usdcDecimals = await ctx.getters.usdc.methods.decimals().call();
 		const nuonBalance = fromWei(await ctx.getters.nuon.methods.balanceOf(address).call(), ctx.state.decimals.NUON);
+		const usdtBalance = fromWei(await ctx.getters.usdt.methods.balanceOf(address).call(), ctx.state.decimals.USDT);
+		const wethBalance = fromWei(await ctx.getters.weth.methods.balanceOf(address).call(), ctx.state.decimals.WETH);
 		const nuMintBalance = fromWei(await ctx.getters.nuMint.methods.balanceOf(address).call(), ctx.state.decimals.nuMINT);
-		const usdcBalance = fromWei(await ctx.getters.usdc.methods.balanceOf(address).call(), usdcDecimals);
-		const ethBalance = fromWei(await ctx.rootGetters["web3Store/instance"]().eth.getBalance(address));
 		const nuonSupply = fromWei(await ctx.rootGetters["collateralVaultStore/getNUONSupply"]());
 		const nuMintSupply = fromWei(await ctx.getters.nuMint.methods.totalSupply().call());
 
 		ctx.commit("setBalance", {
 			NUON: nuonBalance,
-			USDC: usdcBalance,
-			ETH: ethBalance,
+			USDT: usdtBalance,
+			WETH: wethBalance,
 			[nuMINT.symbol]: nuMintBalance
 		});
 		ctx.commit("setDecimals", {
 			NUON: 18,
-			USDC: usdcDecimals,
-			ETH: 18,
+			WETH: 18,
+			USDT: 6,
 			[nuMINT.symbol]: 18
 		});
 		ctx.commit("setSupply", {
@@ -125,14 +128,19 @@ export const getters: GetterTree<Erc20State, Web3State> = {
 		return new web3.eth.Contract(erc20, rootGetters["addressStore/tokens"]?.NUON);
 	},
 
-	usdc: (_state: any, _getters: any, store: any, rootGetters: any) => {
+	usdt: (_state: any, _getters: any, store: any, rootGetters: any) => {
 		const web3 = store.web3Store.instance();
-		return new web3.eth.Contract(usdc, rootGetters["addressStore/tokens"]?.USDC);
+		return new web3.eth.Contract(usdtABI, rootGetters["addressStore/tokens"]?.USDT);
 	},
 
 	eth: (_state: any, _getters: any, store: any, rootGetters: any) => {
 		const web3 = store.web3Store.instance();
 		return new web3.eth.Contract(erc20, rootGetters["addressStore/tokens"]?.ETH);
+	},
+
+	weth: (_state: any, _getters: any, store: any, rootGetters: any) => {
+		const web3 = store.web3Store.instance();
+		return new web3.eth.Contract(wethABI, rootGetters["addressStore/tokens"]?.WETH);
 	},
 
 	ethFaucet: (_state: any, _getteres: any, store: any, rootGetters: any) => {
@@ -155,14 +163,16 @@ export const getters: GetterTree<Erc20State, Web3State> = {
 	tokenBalance: (state: StateType) => {
 		const nuMintBalance = parseFloat(state.balance.nuMINT);
 		const nuonBalance = parseFloat(state.balance.NUON);
-		const usdcBalance = parseFloat(state.balance.USDC);
+		const usdtBalance = parseFloat(state.balance.USDT);
 		const ethBalance = parseFloat(state.balance.ETH);
+		const wethBalance = parseFloat(state.balance.WETH);
 
 		return {
 			NUON: nuonBalance,
 			nuMINT: nuMintBalance,
-			USDC: usdcBalance,
-			ETH: ethBalance
+			USDT: usdtBalance,
+			ETH: ethBalance,
+			WETH: wethBalance
 		};
 	},
 
@@ -171,11 +181,13 @@ export const getters: GetterTree<Erc20State, Web3State> = {
 		case NUON.symbol:
 			return getters.nuon;
 		case nuMINT.symbol:
-			return getters.nuMint;
-		case USDC.symbol:
-			return getters.usdc;
+			return getters.hydro;
+		case USDT.symbol:
+			return getters.usdt;
 		case ETH.symbol:
 			return getters.eth;
+		case WETH.symbol:
+			return getters.weth;
 		default:
 			return getters.nuMint;
 		}
