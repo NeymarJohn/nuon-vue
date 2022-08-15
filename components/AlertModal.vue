@@ -6,7 +6,7 @@
 		<div v-if="message">
 			{{message}}
 		</div>
-		<div v-if="htmlContent" v-html="htmlContent" ></div>
+		<div v-if="htmlContent" v-html="htmlContent"></div>
 		<LayoutFlex v-if="cta" class="u-mt-16" direction="row-space-around">
 			<TheButton
 				size="md u-min-width-230"
@@ -50,6 +50,7 @@ export default {
 	watch: {
 		chainId(newVal) {
 			if (newVal === DEFAULT_CHAIN_ID) {
+				this.error = "";
 				this.$store.commit("modalStore/setModalVisibility", {name: "alertModal", visibility: false});
 				this.$store.commit("modalStore/setModalInfo",{name: "alertModal", info: {title:"", message: "", cta: "", htmlContent: ""}});
 			}
@@ -63,17 +64,12 @@ export default {
 					method: "wallet_switchEthereumChain",
 					params: [{ chainId: web3.utils.toHex(DEFAULT_CHAIN_ID)}],
 				});
+				this.error = "";
 				this.$store.commit("modalStore/setModalVisibility", {name: "alertModal", visibility: false});
 				this.$store.commit("modalStore/setModalInfo",{name: "alertModal", info: {title:"", message: "", cta: ""}});
 			} catch (e) {
 				if (e.code === 4902) {
 					this.error = "This network is not available in your metamask. Please add it";
-				}
-			} finally {
-				if (this.error) {
-					setTimeout(() => {
-						this.error = "";
-					}, 5000);
 				}
 			}
 		},
