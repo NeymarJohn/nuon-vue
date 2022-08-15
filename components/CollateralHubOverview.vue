@@ -114,9 +114,7 @@ export default {
 			// this.dayData = chartData;
 			// this.monthData = Object.values(monthData);
 			// this.weekData = Object.values(weekData);
-			// console.log("this.dayData",this.dayData);
 
-			console.log("this.dayData",this.mockDayData);
 			this.dayData = this.mockDayData;
 			this.monthData = this.mockMonthData;
 			this.weekData = this.mockWeekData;

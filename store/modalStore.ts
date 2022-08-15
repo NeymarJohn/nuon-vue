@@ -29,7 +29,8 @@ export const state = () => ({
 		alertModal: {
 			title: "",
 			message: "",
-			htmlContent: ""
+			htmlContent: "",
+			cta: ""
 		}
 	}
 });

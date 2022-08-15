@@ -162,13 +162,10 @@ export default {
 			return Object.values(this.userTotalMintedNuonStore).reduce((sum, value) => sum + value, 0);
 		},
 		liquidationPrice() {
-			const targetPeg = this.$store.state.collateralVaultStore.targetPeg;
-			const mintedNuon = this.userMintedAmount;
-			if (!this.userCollateralAmount) return 0;
-			if ([targetPeg, mintedNuon, this.minimumCollateralizationRatio].some(v => v === null || v === undefined)) return 0;
-			const minimumCollateralRatio = Math.floor(this.minimumCollateralizationRatio) + 10;
-			const nounMinBacking = targetPeg * minimumCollateralRatio / 100;
-			return nounMinBacking * mintedNuon / this.userCollateralAmount;
+			const collateralPrice = this.collateralPrices[this.currentlySelectedCollateral];
+			const collateralRatio = this.userCollateralizationRatioStore[this.currentlySelectedCollateral];
+			if (collateralRatio === 0) return 0;
+			return [collateralPrice, collateralRatio].includes(undefined) ? null : parseFloat(((collateralPrice) / (collateralRatio / 100)).toFixed(2));
 		},
 		userCollateralizationRatio() {
 			const collateralRatio = this.userCollateralizationRatioStore[this.currentlySelectedCollateral];

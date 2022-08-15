@@ -8,7 +8,7 @@ declare let ethereum: any;
 
 const [Metamask, Walletconnect] = wallets;
 const WALLET_CONNECTED = "wallet_connected";
-const DEFAULT_CHAIN_ID = 31010;
+export const DEFAULT_CHAIN_ID = parseInt(process.env.default_chain_id || "31010");
 
 type Web3StoreType = {
 	instance: any,
@@ -193,7 +193,7 @@ export const actions: ActionTree<Web3State, Web3State> = {
 	async wrongNetwork({commit}){
 		const web3 = new Web3(Web3.givenProvider);
 		if(await web3.eth.net.getId() !== 31010){
-			commit("modalStore/setModalInfo",{name: "alertModal", info: {title:"Wrong Network", message: "You are using a wrong network, please change to HYDRO."}}, {root: true});
+			commit("modalStore/setModalInfo",{name: "alertModal", info: {title:"Wrong Network", message: "You are using a wrong network, please change to HYDRO.", cta: "switch-network"}}, {root: true});
 			commit("modalStore/setModalVisibility", {name: "alertModal", visibility: true}, {root:true});
 		}
 	},
