@@ -126,7 +126,7 @@
 		"token": "0xde879bb60d7adf854110fa728540d8d6a3f32d90",
 		"value": "1002641693.431734289924994728",
 		"price": {
-			"price": "3.235063745385745132",
+			"price": "2.235063745385745132",
 			"tokenAddress": "0xde879bb60d7adf854110fa728540d8d6a3f32d90",
 			"time": 1657497600
 		}
@@ -138,7 +138,7 @@
 		"token": "0xde879bb60d7adf854110fa728540d8d6a3f32d90",
 		"value": "1002690366.634348669004994728",
 		"price": {
-			"price": "3.2453344",
+			"price": "2.2453344",
 			"tokenAddress": "0xde879bb60d7adf854110fa728540d8d6a3f32d90",
 			"time": 1657584000
 		}
@@ -150,7 +150,7 @@
 		"token": "0x97e09b01c44d75472fe76fd84a2bfd5e3b91600f",
 		"value": "999954975.85",
 		"price": {
-			"price": "3.1211123",
+			"price": "2.1211123",
 			"tokenAddress": "0x97e09b01c44d75472fe76fd84a2bfd5e3b91600f",
 			"time": 1657624240
 		}
@@ -162,7 +162,7 @@
 		"token": "0x97e09b01c44d75472fe76fd84a2bfd5e3b91600f",
 		"value": "999954975.85",
 		"price": {
-			"price": "3.132123",
+			"price": "2.132123",
 			"tokenAddress": "0x97e09b01c44d75472fe76fd84a2bfd5e3b91600f",
 			"time": 1657624240
 		}
@@ -174,7 +174,7 @@
 		"token": "0x97e09b01c44d75472fe76fd84a2bfd5e3b91600f",
 		"value": "998954975.85",
 		"price": {
-			"price": "3.0132123",
+			"price": "2.0132123",
 			"tokenAddress": "0x97e09b01c44d75472fe76fd84a2bfd5e3b91600f",
 			"time": 1657624240
 		}
@@ -186,7 +186,55 @@
 		"token": "0x97e09b01c44d75472fe76fd84a2bfd5e3b91600f",
 		"value": "999954975.85",
 		"price": {
-			"price": "3.2432123",
+			"price": "2.2432123",
+			"tokenAddress": "0x97e09b01c44d75472fe76fd84a2bfd5e3b91600f",
+			"time": 1657624240
+		}
+	},
+	{
+		"id": "19185-0x97e09B01C44d75472Fe76FD84A2bFD5e3b91600f",
+		"date": 1658994258,
+		"marketVal": "7530725457000299.963835003588921683",
+		"token": "0x97e09b01c44d75472fe76fd84a2bfd5e3b91600f",
+		"value": "999954975.85",
+		"price": {
+			"price": "2.7432123",
+			"tokenAddress": "0x97e09b01c44d75472fe76fd84a2bfd5e3b91600f",
+			"time": 1657624240
+		}
+	},
+	{
+		"id": "19185-0x97e09B01C44d75472Fe76FD84A2bFD5e3b91600f",
+		"date": 1659426258,
+		"marketVal": "7530725457000299.963835003588921683",
+		"token": "0x97e09b01c44d75472fe76fd84a2bfd5e3b91600f",
+		"value": "999954975.85",
+		"price": {
+			"price": "2.2432123",
+			"tokenAddress": "0x97e09b01c44d75472fe76fd84a2bfd5e3b91600f",
+			"time": 1657624240
+		}
+	},
+	{
+		"id": "19185-0x97e09B01C44d75472Fe76FD84A2bFD5e3b91600f",
+		"date": 1659858258,
+		"marketVal": "7530725457000299.963835003588921683",
+		"token": "0x97e09b01c44d75472fe76fd84a2bfd5e3b91600f",
+		"value": "999954975.85",
+		"price": {
+			"price": "2.0032123",
+			"tokenAddress": "0x97e09b01c44d75472fe76fd84a2bfd5e3b91600f",
+			"time": 1657624240
+		}
+	},
+	{
+		"id": "19185-0x97e09B01C44d75472Fe76FD84A2bFD5e3b91600f",
+		"date": 1660290258,
+		"marketVal": "7530725457000299.963835003588921683",
+		"token": "0x97e09b01c44d75472fe76fd84a2bfd5e3b91600f",
+		"value": "999954975.85",
+		"price": {
+			"price": "2.0032123",
 			"tokenAddress": "0x97e09b01c44d75472fe76fd84a2bfd5e3b91600f",
 			"time": 1657624240
 		}

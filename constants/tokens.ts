@@ -87,7 +87,9 @@ const paths:any =  {
 
 export const getPath = (inputToken:string, outputToken:string) => {
 	let path = paths[`${inputToken}_${outputToken}`];
-	if (!path) path = [TOKENS_MAP[inputToken].address, TOKENS_MAP[outputToken].address];
+	if (!path) path = {
+		tokens: [TOKENS_MAP[inputToken].symbol, TOKENS_MAP[outputToken].symbol]
+	};
 	return path;
 };
 
@@ -97,6 +99,7 @@ export const collateralTokens = [
 ];
 
 export const mainTokens = [
+	{ "symbol": WETH.symbol, "name": WETH.name, "icon": "WETH.png"  },
 	{ "symbol": USDT.symbol, "name": USDT.name, "icon": "USDT.png"  },
 	{ "symbol": nuMINT.symbol, "name": nuMINT.name, "icon": "nuMINT.png" },
 	{ "symbol": NUON.symbol, "name": NUON.name, "icon": "NUON.png"  },

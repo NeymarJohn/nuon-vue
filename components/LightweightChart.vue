@@ -179,7 +179,7 @@ export default {
 					`;
 					if (param === undefined || param.time === undefined || param.point.x < 0 || param.point.x > 600 || param.point.y < 0 || param.point.y > 300) {
 						this.tooltipDom.innerHTML =	`
-							<p>TVL</p>
+							<p>Total Value Locked</p>
 							<h1>$${this.$options.filters.numberWithCommas(data[data.length - 1].value.toFixed(2))}</h1>
 							<p class="u-colour-white u-mb-16">${dateStr}</p>
 						`;
@@ -204,7 +204,7 @@ export default {
 
 						const price = param.seriesPrices.get(this.lineSeries);
 						this.tooltipDom.innerHTML =	`
-							<p>TVL</p>
+							<p>Total Value Locked</p>
 							<h1>$${this.$options.filters.numberWithCommas((Math.round(price * 100) / 100).toFixed(2))}</h1>
 							<p class="u-colour-white u-mb-16">${dateStr}</p>
 						`;

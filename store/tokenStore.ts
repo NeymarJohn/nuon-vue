@@ -1,5 +1,5 @@
 import { GetterTree, ActionTree, MutationTree } from "vuex";
-import { NUON, nuMINT, USDT } from "~/constants/tokens";
+import { NUON, nuMINT, USDT, WETH } from "~/constants/tokens";
 import { fromWei } from "~/utils/bnTools";
 
 const initalPrice = {
@@ -28,7 +28,10 @@ export const mutations: MutationTree<Web3State> = {
 export const actions: ActionTree<Web3State, Web3State> = {
 	async getTokenPrices(ctx: any) {
 		const nuonController = ctx.rootGetters["contractStore/nuonController"];
+		const chubNativeContract = ctx.rootGetters["contractStore/collateralNative"];
 		const nuMintUsdtPair = await ctx.rootGetters["contractStore/uniswapV2Pair"]([nuMINT.symbol, USDT.symbol]);
+
+		const wethPrice = Number(fromWei(await chubNativeContract.methods.getCollateralPrice().call()));
 		const nuonPrice = await nuonController.methods.getNUONPrice().call();
 		const reserves = await nuMintUsdtPair.methods.getReserves().call();
 		const nuMintPrice = Number(fromWei(reserves[1], ctx.rootState.erc20Store.decimals.USDT)) / Number(fromWei(reserves[0], ctx.rootState.erc20Store.decimals.nuMINT));
@@ -37,6 +40,7 @@ export const actions: ActionTree<Web3State, Web3State> = {
 			DAI: 1,
 			USDT: 1,
 			USDC: 1,
+			[WETH.symbol]: wethPrice,
 			[nuMINT.symbol]: nuMintPrice
 		});
 
