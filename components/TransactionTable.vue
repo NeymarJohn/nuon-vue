@@ -6,7 +6,6 @@
 				:key="index"
 				class="transaction-table__cell"
 				role="columnheader">{{ column.title }}
-				<TooltipIcon v-if="misc.headerTooltips && misc.headerTooltips[column.id]" v-tooltip="misc.headerTooltips[column.id]" class="tooltip--table-header" />
 			</div>
 		</div>
 		<div v-if="loading" class="transaction-table__row"  role="rowgroup">
@@ -34,27 +33,8 @@
 					<span v-if="obj.id === 'date'">{{ new Date(row[obj.id]) | formateDateTime }}</span>
 					<span v-else-if="obj.id === 'transactionType'">
 						<template v-if="tableData === 'collateral'">
-							<!-- <span v-if="!Number(row.input) || !Number(row.output)" class="transaction-table__cell_marked"> {{row[obj.id]}} </span> -->
-							<template v-if="row[obj.id] === 'Deposit'">
-								<span  class="transaction-table__cell_marked">{{row[obj.id]}}</span>
-								<span>{{` ${row.depositToken.symbol}`}}</span>
-								<span  class="transaction-table__cell_marked">Without Nuon</span>
-							</template>
-							<template v-else-if="row[obj.id] === 'Burned'">
-								<span  class="transaction-table__cell_marked">{{row[obj.id]}}</span>
-								<span>Nuon</span>
-							</template>
-							<template v-else-if="row[obj.id] === 'Mint' && !Number(row.input) ">
-								<span  class="transaction-table__cell_marked">{{row[obj.id]}}</span>
-								<span>Nuon</span>
-								<span  class="transaction-table__cell_marked">Without Deposit</span>
-							</template>
-							<template v-else>
-								<span  class="transaction-table__cell_marked">{{row[obj.id]}}</span> Nuon
-								<span  class="transaction-table__cell_marked">By {{row[obj.id] === 'Mint' ? 'Deposit' : 'Withdraw'}}</span>
-								<span>{{` ${row.depositToken.symbol}`}}</span>
-							</template>
-							
+							<span  class="transaction-table__cell_marked">{{row[obj.id]}}</span> Nuon
+							<span  class="transaction-table__cell_marked">By {{row[obj.id] === 'Mint' ? 'Deposit' : 'Withdraw'}}</span><span>{{` ${row.depositToken.symbol}`}}</span>
 						</template>
 						<template v-else-if="tableData === 'swap'">
 							<span  class="transaction-table__cell_marked">From</span><span> {{row.inputToken}}</span>
@@ -67,15 +47,15 @@
 							<span  class="transaction-table__cell_marked">{{row.transactionType}}</span>
 						</template>
 					</span>
-					<span v-else class="l-flex l-flex--row-center">
-						<img v-if="misc.hasImage && misc.hasImage[obj.id]" :src="require(`~/assets/images/borrow/${misc.hasImage[obj.id][index]}.png`)" class="u-mr-8" height="17" width="17" alt="">
+					<LayoutFlex v-else direction="row-center">
+						<img v-if="misc.hasImage && misc.hasImage[obj.id]" :src="require(`~/assets/images/borrow/${misc.hasImage[obj.id][index]}.png`)" class="u-mr-8" height="24" width="24" alt="Token icon">
 						<span v-if="obj.id === 'totalAmount' || obj.id === 'amount'">
 							{{ row[obj.id] | toFixed |  numberWithCommas }}
 							<span v-if="obj.id === 'amount'">{{row.inputToken}}</span>
 							<span v-if="obj.id === 'totalAmount'">{{row.outputToken}}</span>
 						</span>
 						<span v-else>{{ row[obj.id] }}</span>
-					</span>
+					</LayoutFlex>
 				</div>
 			</div>
 		</template>
@@ -97,13 +77,8 @@
 </template>
 
 <script>
-import TooltipIcon from "@/assets/images/svg/svg-tooltip.svg";
-
 export default {
 	name: "TransactionTable",
-	components: {
-		TooltipIcon
-	},
 	props: {
 		data: {
 			type: Array,
@@ -125,7 +100,7 @@ export default {
 			type: Object,
 			required: false,
 			default() {
-				return {hasImage: {}, headerTooltips: {}};
+				return {hasImage: {}};
 			}
 		},
 		tableData: {

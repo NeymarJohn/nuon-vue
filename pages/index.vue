@@ -5,9 +5,9 @@
 				<h4>Ecosystem Overview</h4>
 				<h1>NUON Protocol Information</h1>
 			</PageTitle>
-			<NuxtLink class="btn btn--lg btn--user" to="/my-dashboard" title="Click to view my page">
+			<NuxtLink class="btn btn--lg btn--user" to="/dashboard" title="Click to view my page">
 				<UserIcon />
-				My Dashboard
+				Dashboard
 			</NuxtLink>
 		</LayoutFlex>
 		<CollateralHubOverview data-v-step="2" />

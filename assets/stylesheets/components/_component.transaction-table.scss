@@ -1,70 +1,63 @@
 /* #COMPONENT - TRANSACTION TABLE
 		1. Transaction table default
-		2. Transaction table 4 columns
-		3. Transaction table 5 columns
-		4. Transaction table responsive
+		2. Transaction table 3 columns
+		3. Transaction table 4 columns
+		4. Transaction table 5 columns
+		5. Transaction table responsive
 */
 
 // 1. Transaction table default
 .transaction-table {
 	background: $MEDIUM_LIGHT_GREY;
-	margin-bottom: $SPACING_48;
-	padding: $SPACING_40 $SPACING_32;
+	padding: $SPACING_32;
 	border-radius: $BORDER_RADIUS_8;
 }
-.transaction-table--5 .transaction-table__row {
-	&:not(:first-child):hover {
-		background-color: $TRANSPARENT;
-		cursor: text;
-		.transaction-table__cell:first-child {
-			color: $WHITE;
-		}
-	}
-}
 .transaction-table__row {
+	background-color: $HIGHLIGHT_GREY;
 	display: flex;
+	align-items: center;
 	transition: $TRANSITION_ALL;
-	&:not(:first-child):hover {
-		background-color: $DARK_GREY;
-		cursor: pointer;
-		.transaction-table__cell:first-child {
-			color: $LIME;
-		}
-	}
+	border-bottom: $SPACING_1 solid $MEDIUM_LIGHT_GREY;
 }
-.transaction-table__cell {
-	padding: $SPACING_20 0;
-	border-bottom: $SPACING_1 solid $LIGHER_GREY;
-	&_marked {
-		padding: $SPACING_6;
-		background-color: $MEDIUM_GREY;
-		border-radius: 4px;
-		&:first-child {
-			padding-left: $SPACING_8;
-		}
-	}
-	&:first-child {
-		padding-left: $SPACING_8;
-	}
+.transaction-table__row:first-child {
+	background-color: $TRANSPARENT;
+	color: $LIGHT_GREY;
 }
 .transaction-table__row:first-child .transaction-table__cell {
-	color: $LIGHT_GREY;
-	padding-bottom: $SPACING_40;
+	padding-top: 0;
+}
+.transaction-table__row:nth-child(2) {
+	border-top-left-radius: $BORDER_RADIUS_16;
+	border-top-right-radius: $BORDER_RADIUS_16;
+}
+.transaction-table__row:last-child {
+	border-bottom-left-radius: $BORDER_RADIUS_16;
+	border-bottom-right-radius: $BORDER_RADIUS_16;
+}
+.transaction-table__cell {
+	padding: $SPACING_24;
 }
 
-// 2. Transaction table 4 columns
+// 2. Transaction table 3 columns
+.transaction-table--3 .transaction-table__cell {
+	min-width: calc(100% / 3);
+	display: flex;
+	align-items: center;
+}
+
+// 3. Transaction table 4 columns
 .transaction-table--4 .transaction-table__cell {
 	min-width: calc(100% / 4);
 }
 
-// 3. Transaction table 5 columns
+// 4. Transaction table 5 columns
 .transaction-table--5 .transaction-table__cell {
 	display: flex;
 	align-items: center;
 	min-width: calc(100% / 5);
 }
 
-// 4. Transaction table responsive
+// 5. Transaction table responsive
 @media screen and (max-width: $SPACING_1440) {
 	.transaction-table {
 		font-size: $BODY_TEXT_SM;

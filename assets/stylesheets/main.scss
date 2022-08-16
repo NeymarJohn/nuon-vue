@@ -65,7 +65,9 @@
 @import "components/component.wallet"; // Components - Wallet
 
 /* Layout */
+@import "layout/layout.balance"; // Layout - Balance
 @import "layout/layout.chart"; // Layout - Chart
+@import "layout/layout.collateral"; // Layout - Collateral
 @import "layout/layout.container"; // Layout - Container
 @import "layout/layout.content"; // Layout - Content
 @import "layout/layout.data-card"; // Layout - Data Card

@@ -1,0 +1,61 @@
+/* #LAYOUT - BALANCE
+		1. Balance default
+*/
+
+// 1. Balance default
+.l-balance,
+.l-balance__toggle,
+.l-balance__toggle li,
+.l-balance__toggle li span {
+	display: flex;
+}
+.l-balance {
+	flex-direction: row;
+	margin-bottom: $SPACING_48;
+}
+.l-balance__chart,
+.l-balance__control {
+	background-color: $MEDIUM_LIGHT_GREY;
+	border-radius: $BORDER_RADIUS_16;
+	padding: $SPACING_32;
+}
+.l-balance__chart {
+	width: 65%;
+	margin-right: $SPACING_24;
+}
+.l-balance__control {
+	width: 35%;
+}
+.l-balance__control label {
+	font-size: $BODY_TEXT;
+	color: $LIGHT_GREY;
+	margin-bottom: $SPACING_4;
+	line-height: $SPACING_30;
+}
+.l-balance__control h3 {
+	margin-bottom: $SPACING_24;
+}
+.l-balance__toggle {
+	flex-direction: column;
+	margin-bottom: 0;
+}
+.l-balance__toggle li,
+.l-balance__toggle li span {
+	align-items: center;
+	flex-direction: row;
+}
+.l-balance__toggle li {
+	justify-content: space-between;
+	padding: $SPACING_32;
+	background-color: $HIGHLIGHT_GREY;
+	border-bottom: $SPACING_1 solid $MEDIUM_LIGHT_GREY;
+	cursor: pointer;
+}
+.l-balance__toggle li:first-child {
+	border-top-left-radius: $BORDER_RADIUS_16;
+	border-top-right-radius: $BORDER_RADIUS_16;
+}
+.l-balance__toggle li:last-child {
+	border-bottom-left-radius: $BORDER_RADIUS_16;
+	border-bottom-right-radius: $BORDER_RADIUS_16;
+}

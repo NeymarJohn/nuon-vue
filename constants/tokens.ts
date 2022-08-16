@@ -50,12 +50,39 @@ export const TOKENS_MAP:any = {
 };
 
 const paths:any =  {
-	[`${nuMINT.symbol}_${WETH.symbol}`]: {
-		tokens: [nuMINT.symbol, USDT.symbol, WETH.symbol],
+	NUON_USDC: {
+		tokens: [NUON.symbol, USDC.symbol],
 	},
-	[`${WETH.symbol}_${nuMINT.symbol}`]: {
-		tokens: [WETH.symbol, USDT.symbol, nuMINT.symbol],
+	USDC_NUON: {
+		tokens: [USDC.symbol, NUON.symbol],
 	},
+	NUON_USDT: {
+		tokens: [NUON.symbol, USDT.symbol],
+	},
+	USDT_NUON: {
+		tokens: [USDT.symbol, NUON.symbol],
+	},
+	DAI_NUON: {
+		tokens: [USDC.symbol, NUON.symbol],
+	},
+	[`${nuMINT.symbol}_${USDC.symbol}`]: {
+		tokens: [nuMINT.symbol, USDC.symbol],
+	},
+	[`${USDC.symbol}_${nuMINT.symbol}`]: {
+		tokens: [USDC.symbol, nuMINT.symbol],
+	},
+	[`${nuMINT.symbol}_${USDT.symbol}`]: {
+		tokens: [nuMINT.symbol, USDT.symbol],
+	},
+	[`${USDT.symbol}_${nuMINT.symbol}`]: {
+		tokens: [USDT.symbol, nuMINT.symbol],
+	},
+	[`${nuMINT.symbol}_${NUON.symbol}`]: {
+		tokens: [nuMINT.symbol, NUON.symbol],
+	},
+	[`${NUON.symbol}_${nuMINT.symbol}`]: {
+		tokens: [NUON.symbol, nuMINT.symbol],
+	}
 };
 
 export const getPath = (inputToken:string, outputToken:string) => {

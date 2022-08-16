@@ -1,36 +1,15 @@
 <template>
 	<LayoutContainer>
-		<PageTitle class="u-mb-24" data-v-step="1">
-			<h4>My Dashboard</h4>
+		<PageTitle class="u-mb-48" data-v-step="1">
+			<h4>Dashboard</h4>
+			<h1>My Portfolio</h1>
 		</PageTitle>
-		<h2 class="u-mb-24">My Collateral Hub</h2>
-		<LayoutFlex direction="column l-chart chart">
-			<LayoutFlex direction="row-space-between" class="l-flex--column-md">
-				<DataCard class="u-mb-md-16" data-v-step="2">
-					<label>
-						<TheDot color="light-green" />
-						My Total Value Locked
-						<TheBadge v-if="!isNaN(getChangePercent('collateralTokens', collateralRatioArr, true))" class="u-ml-8" :color="getPercentChangeBadgeClass('collateralTokens', collateralRatioArr, true)">{{ getUserTVLSign }}{{ Math.abs(getChangePercent('collateralTokens', collateralRatioArr, true)) }}%</TheBadge>
-					</label>
-					<ComponentLoader component="h1" :loaded="balanceLoaded">
-						<h3>${{ (graphSelectionTVL || totalValue) | toFixed | numberWithCommas }}</h3>
-					</ComponentLoader>
-				</DataCard>
-				<DataCard class="u-mb-md-16" data-v-step="3">
-					<label>
-						<TheDot color="lime" />
-						Total Value of My Minted NUON
-						<TheBadge v-if="!isNaN(getChangePercent('mintedNuon', collateralRatioArr, true))" class="u-ml-8" :color="getPercentChangeBadgeClass('mintedNuon', collateralRatioArr, true)">{{ getUserMintedNuonSign }}{{ Math.abs(getChangePercent('mintedNuon', collateralRatioArr, true)) }}%</TheBadge>
-					</label>
-					<ComponentLoader component="h1" :loaded="balanceLoaded">
-						<h3>${{ (graphSelectionMintedNuon || totalMintedNuon) | toFixed | numberWithCommas }}</h3>
-					</ComponentLoader>
-				</DataCard>
-			</LayoutFlex>
-			<template v-if="xAxisData.length">
+		<h3 class="u-mb-24">Account Balance</h3>
+		<div class="l-balance">
+			<div v-if="xAxisData.length" class="l-balance__chart">
 				<LayoutFlex direction="row-space-between" class="l-flex--column-md">
 					<span>{{graphSelectionDuraton}}</span>
-					<TheTabs size="thin" color="light" margin="24" @tab-changed="handleTabChanged">
+					<TheTabs size="thin" color="dark" margin="24" @tab-changed="handleTabChanged">
 						<TheTab v-for="(period, periodIdx) in periods" :key="periodIdx" :title="period" />
 					</TheTabs>
 				</LayoutFlex>
@@ -42,11 +21,64 @@
 					:series-data="yAxisData"
 					data-v-step="4"
 					@mouseOverDataPoint="handleMouseOverChart" />
-			</template>
+			</div>
+			<div class="l-balance__control">
+				<label>Total Value</label>
+				<h3>${{ totalValue + balancesValue + stakedBalance | toFixed | numberWithCommas }}</h3>
+				<ul class="l-balance__toggle">
+					<li><span><TheDot color="lime" /><label>NUON Balance</label></span> {{ tokenBalances.NUON | toFixed | numberWithCommas }}</li>
+					<li><span><TheDot color="light-green" /><label>NuMINT Balance</label></span> {{ tokenBalances.nuMINT | toFixed | numberWithCommas }}</li>
+					<li><span><TheDot color="blue" /><label>Locked Collateral</label></span> ${{ (graphSelectionTVL || totalValue) | toFixed | numberWithCommas }}</li>
+					<li><span><TheDot color="orange" /><label>NuMINT in Boardroom</label></span> {{ stakedBalance | toFixed | numberWithCommas }}</li>
+				</ul>
+			</div>
+		</div>
+		<h3 class="u-mb-24">Collateral Hub</h3>
+		<div class="l-collateral">
+			<div class="l-collateral__toggle">
+				<div class="l-collateral__toggle-btn is-active">
+					<label>
+						<TheDot color="light-green" />
+						Total Locked Collateral Value
+						<TheBadge v-if="!isNaN(getChangePercent('collateralTokens', collateralRatioArr, true))" class="u-ml-8" :color="getPercentChangeBadgeClass('collateralTokens', collateralRatioArr, true)">{{ getUserTVLSign }}{{ Math.abs(getChangePercent('collateralTokens', collateralRatioArr, true)) }}%</TheBadge>
+					</label>
+					<ComponentLoader component="h1" :loaded="balanceLoaded">
+						<h3>${{ (graphSelectionTVL || totalValue) | toFixed | numberWithCommas }}</h3>
+					</ComponentLoader>
+				</div>
+				<div class="l-collateral__toggle-btn">
+					<label>
+						<TheDot color="lime" />
+						Total Value of My Minted (NUON)
+						<TheBadge v-if="!isNaN(getChangePercent('mintedNuon', collateralRatioArr, true))" class="u-ml-8" :color="getPercentChangeBadgeClass('mintedNuon', collateralRatioArr, true)">{{ getUserMintedNuonSign }}{{ Math.abs(getChangePercent('mintedNuon', collateralRatioArr, true)) }}%</TheBadge>
+					</label>
+					<ComponentLoader component="h1" :loaded="balanceLoaded">
+						<h3>${{ (graphSelectionMintedNuon || totalMintedNuon) | toFixed | numberWithCommas }}</h3>
+					</ComponentLoader>
+				</div>
+			</div>
+			<div class="l-collateral__chart">
+				<template v-if="xAxisData.length">
+					<span>{{graphSelectionDuraton}}</span>
+					<TheTabs size="thin" color="light" margin="24" @tab-changed="handleTabChanged">
+						<TheTab v-for="(period, periodIdx) in periods" :key="periodIdx" :title="period" />
+					</TheTabs>
+					<LineChart
+						:key="selectedPeriod"
+						class="u-mt-16 u-mb-48"
+						:x-axis-labels="xAxisData"
+						:y-axis-options="{showYAxis: false, opposite: false, labels: {formatter: (val) => {}}}"
+						:series-data="yAxisData"
+						data-v-step="4"
+						@mouseOverDataPoint="handleMouseOverChart" />
+				</template>
+			</div>
+		</div>
+		<LayoutFlex direction="column l-chart chart">
 			<TheLoader component="table">
 				<TransactionTable
 					v-if="!mobileView"
-					size="5"
+					size="3"
 					class="u-p-0"
 					aria="Collateral Hub transactions"
 					:data="chubData"
@@ -59,49 +91,6 @@
 					:config="configData" />
 			</TheLoader>
 		</LayoutFlex>
-		<h2 class="u-mb-24">Account Balance</h2>
-		<LayoutAccountBalance data-v-step="6">
-			<template #panel-one>
-				<DataCard>
-					<label>Total Value</label>
-					<ComponentLoader component="h1" :loaded="balanceLoaded">
-						<h3>${{ totalValue + balancesValue + stakedBalance | toFixed | numberWithCommas }}</h3>
-					</ComponentLoader>
-				</DataCard>
-			</template>
-			<template #panel-two>
-				<ComponentLoader class="donut-chart-balance" :loaded="balanceLoaded">
-					<DonutChartBalance
-						:key="`balances-${balancesValue}-${totalValue}-${stakedBalance}`"
-						:chart-data="[balancesValue, parseFloat(totalValue), parseFloat(stakedBalance)]" />
-				</ComponentLoader>
-			</template>
-			<template #panel-three>
-				<DataCard>
-					<label><TheDot color="orange" />NUON &amp; nuMINT balance<TooltipIcon v-tooltip="'Total number of NUON and nuMINT tokens in your wallet.'" /></label>
-					<ComponentLoader component="h1" :loaded="balanceLoaded">
-						<h4>{{ tokenBalances.NUON | toFixed | numberWithCommas }} NUON</h4>
-						<h4>{{ tokenBalances.nuMINT | toFixed | numberWithCommas }} nuMINT</h4>
-					</ComponentLoader>
-				</DataCard>
-			</template>
-			<template #panel-four>
-				<DataCard>
-					<label><TheDot color="blue" /> My Locked Collateral<TooltipIcon v-tooltip="'Total number of tokens locked as collateral.'" /></label>
-					<ComponentLoader component="h1" :loaded="balanceLoaded">
-						<h4>{{myCollateralLocked | toFixed | numberWithCommas }} ETH</h4>
-					</ComponentLoader>
-				</DataCard>
-			</template>
-			<template #panel-five>
-				<DataCard>
-					<label><TheDot color="tourquise" /> My Staked Tokens<TooltipIcon v-tooltip="'Total number of nuMINT tokens staked in the Nuon protocol.'" /></label>
-					<ComponentLoader component="h1" :loaded="balanceLoaded">
-						<h4>{{ stakedBalance | toFixed | numberWithCommas }} nuMINT</h4>
-					</ComponentLoader>
-				</DataCard>
-			</template>
-		</LayoutAccountBalance>
 		<TransactionHistory data-v-step="7" />
 		<v-tour name="myDashboardTour" :steps="steps" :callbacks="tourCallbacks"></v-tour>
 	</LayoutContainer>
@@ -110,40 +99,31 @@
 <script>
 import dayjs from "dayjs";
 import { fromWei } from "~/utils/bnTools";
-import TooltipIcon from "@/assets/images/svg/svg-tooltip.svg";
 import { getUserTVLDayData } from "~/services/theGraph";
 import { USDT, WETH } from "~/constants/tokens";
 
 export default {
 	name: "MyDashboard",
-	components: {
-		TooltipIcon
-	},
 	data() {
 		return {
 			tvl: 0,
 			totalMintedNuonValue: 0,
 			myCollateralizationRatio: 0,
-			configData: [{title: "Locked Collateral", id: "lockedCollateral"},
-				{title: "Today's Price", id: "currentPrice"},
+			configData: [
+				{title: "Locked Collateral", id: "lockedCollateral"},
 				{title: "Total Value Locked", id: "lockedValue"},
-				{title: "Total NUON Minted", id: "mintedNuon"},
-				{title: "Collateralization Ratio", id: "collateralizationRatio"}],
+				{title: "Collateralization Ratio", id: "collateralizationRatio"}
+			],
 			miscConfig: {
-				hasImage: {lockedCollateral: ["WETH", "USDT"] },
-				headerTooltips: {
-					lockedCollateral: "Tokens you have locked as collateral to mint NUON.",
-					currentPrice: "Current price of collateral tokens, for your reference when considering how much collateral to keep locked up.",
-					lockedValue: "USD value of your locked collateral.",
-					mintedNuon: "Total NUON minted with your collateral.",
-					collateralizationRatio: "Your collateralization ratio per collateral asset."
-				}
+				hasImage: {
+					lockedCollateral: ["WETH", "USDT"]
+				},
 			},
 			steps: [
 				{
 					target: "[data-v-step=\"1\"]",
 					header: {
-						title: "Welcome to My Dashboard",
+						title: "Welcome to the Dashboard",
 					},
 					content: "This page gives you a breakdown of your activity within the Nuon Protocol.",
 				},
@@ -197,7 +177,7 @@ export default {
 	},
 	head () {
 		return {
-			title: "My Dashboard | NUON"
+			title: "Dashboard | NUON"
 		};
 	},
 	computed: {
@@ -271,7 +251,7 @@ export default {
 		chartData() {
 			const weeks = {};
 			const months = {};
-			
+
 			this.collateralRatioArr.forEach(item => {
 				const currentDate = dayjs(new Date(item.date * 1000));
 				if (!weeks[currentDate.startOf("week").format("YYYY-MM-DD")])
@@ -280,7 +260,7 @@ export default {
 					months[currentDate.startOf("month").add(1,"day").format("YYYY-MM-DD")] = item;
 			});
 			if (this.selectedPeriod === 1) { // week
-				return { 
+				return {
 					xData:Object.keys(weeks).map(d => new Date(d).toLocaleDateString()).reverse(),
 					yData:[{
 						name: "My Total Value Locked",
@@ -291,7 +271,7 @@ export default {
 					}]
 				};}
 			if (this.selectedPeriod === 2) { // month
-				return { 
+				return {
 					xData:Object.keys(months).map(d => new Date(d).toLocaleDateString()).reverse(),
 					yData:[{
 						name: "My Total Value Locked",
