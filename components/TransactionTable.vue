@@ -34,27 +34,8 @@
 					<span v-if="obj.id === 'date'">{{ new Date(row[obj.id]) | formateDateTime }}</span>
 					<span v-else-if="obj.id === 'transactionType'">
 						<template v-if="tableData === 'collateral'">
-							<!-- <span v-if="!Number(row.input) || !Number(row.output)" class="transaction-table__cell_marked"> {{row[obj.id]}} </span> -->
-							<template v-if="row[obj.id] === 'Deposit'">
-								<span  class="transaction-table__cell_marked">{{row[obj.id]}}</span>
-								<span>{{` ${row.depositToken.symbol}`}}</span>
-								<span  class="transaction-table__cell_marked">Without Nuon</span>
-							</template>
-							<template v-else-if="row[obj.id] === 'Burned'">
-								<span  class="transaction-table__cell_marked">{{row[obj.id]}}</span>
-								<span>Nuon</span>
-							</template>
-							<template v-else-if="row[obj.id] === 'Mint' && !Number(row.input) ">
-								<span  class="transaction-table__cell_marked">{{row[obj.id]}}</span>
-								<span>Nuon</span>
-								<span  class="transaction-table__cell_marked">Without Deposit</span>
-							</template>
-							<template v-else>
-								<span  class="transaction-table__cell_marked">{{row[obj.id]}}</span> Nuon
-								<span  class="transaction-table__cell_marked">By {{row[obj.id] === 'Mint' ? 'Deposit' : 'Withdraw'}}</span>
-								<span>{{` ${row.depositToken.symbol}`}}</span>
-							</template>
-							
+							<span  class="transaction-table__cell_marked">{{row[obj.id]}}</span> Nuon
+							<span  class="transaction-table__cell_marked">By {{row[obj.id] === 'Mint' ? 'Deposit' : 'Withdraw'}}</span><span>{{` ${row.depositToken.symbol}`}}</span>
 						</template>
 						<template v-else-if="tableData === 'swap'">
 							<span  class="transaction-table__cell_marked">From</span><span> {{row.inputToken}}</span>
