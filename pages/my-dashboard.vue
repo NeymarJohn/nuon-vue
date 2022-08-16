@@ -1,38 +1,9 @@
 <template>
 	<LayoutContainer>
-		<PageTitle class="u-mb-48" data-v-step="1">
-			<h4>Dashboard</h4>
-			<h1>My Portfolio</h1>
+		<PageTitle class="u-mb-24" data-v-step="1">
+			<h4>My Dashboard</h4>
 		</PageTitle>
-		<h3 class="u-mb-24">Account Balance</h3>
-		<div class="l-balance">
-			<div v-if="xAxisData.length" class="l-balance__chart">
-				<LayoutFlex direction="row-space-between" class="l-flex--column-md">
-					<span>{{graphSelectionDuraton}}</span>
-					<TheTabs size="thin" color="light" margin="24" @tab-changed="handleTabChanged">
-						<TheTab v-for="(period, periodIdx) in periods" :key="periodIdx" :title="period" />
-					</TheTabs>
-				</LayoutFlex>
-				<LineChart
-					:key="selectedPeriod"
-					class="u-mt-16 u-mb-48"
-					:x-axis-labels="xAxisData"
-					:y-axis-options="{showYAxis: false, opposite: false, labels: {formatter: (val) => {}}}"
-					:series-data="yAxisData"
-					data-v-step="4"
-					@mouseOverDataPoint="handleMouseOverChart" />
-			</div>
-			<div class="l-balance__control">
-				<label>Total Value</label>
-				<h3>${{ totalValue + balancesValue + stakedBalance | toFixed | numberWithCommas }}</h3>
-				<ul class="l-balance__toggle">
-					<li><span><TheDot color="lime" /><label>NUON Balance</label></span> {{ tokenBalances.NUON | toFixed | numberWithCommas }}</li>
-					<li><span><TheDot color="light-green" /><label>NuMINT Balance</label></span> {{ tokenBalances.nuMINT | toFixed | numberWithCommas }}</li>
-					<li><span><TheDot color="blue" /><label>My Locked Collateral</label></span> {{ myCollateralLocked | toFixed | numberWithCommas }}</li>
-					<li><span><TheDot color="orange" /><label>NuMINT in Boardroom</label></span> {{ stakedBalance | toFixed | numberWithCommas }}</li>
-				</ul>
-			</div>
-		</div>
+		<h2 class="u-mb-24">My Collateral Hub</h2>
 		<LayoutFlex direction="column l-chart chart">
 			<LayoutFlex direction="row-space-between" class="l-flex--column-md">
 				<DataCard class="u-mb-md-16" data-v-step="2">
@@ -88,6 +59,49 @@
 					:config="configData" />
 			</TheLoader>
 		</LayoutFlex>
+		<h2 class="u-mb-24">Account Balance</h2>
+		<LayoutAccountBalance data-v-step="6">
+			<template #panel-one>
+				<DataCard>
+					<label>Total Value</label>
+					<ComponentLoader component="h1" :loaded="balanceLoaded">
+						<h3>${{ totalValue + balancesValue + stakedBalance | toFixed | numberWithCommas }}</h3>
+					</ComponentLoader>
+				</DataCard>
+			</template>
+			<template #panel-two>
+				<ComponentLoader class="donut-chart-balance" :loaded="balanceLoaded">
+					<DonutChartBalance
+						:key="`balances-${balancesValue}-${totalValue}-${stakedBalance}`"
+						:chart-data="[balancesValue, parseFloat(totalValue), parseFloat(stakedBalance)]" />
+				</ComponentLoader>
+			</template>
+			<template #panel-three>
+				<DataCard>
+					<label><TheDot color="orange" />NUON &amp; nuMINT balance<TooltipIcon v-tooltip="'Total number of NUON and nuMINT tokens in your wallet.'" /></label>
+					<ComponentLoader component="h1" :loaded="balanceLoaded">
+						<h4>{{ tokenBalances.NUON | toFixed | numberWithCommas }} NUON</h4>
+						<h4>{{ tokenBalances.nuMINT | toFixed | numberWithCommas }} nuMINT</h4>
+					</ComponentLoader>
+				</DataCard>
+			</template>
+			<template #panel-four>
+				<DataCard>
+					<label><TheDot color="blue" /> My Locked Collateral<TooltipIcon v-tooltip="'Total number of tokens locked as collateral.'" /></label>
+					<ComponentLoader component="h1" :loaded="balanceLoaded">
+						<h4>{{myCollateralLocked | toFixed | numberWithCommas }} ETH</h4>
+					</ComponentLoader>
+				</DataCard>
+			</template>
+			<template #panel-five>
+				<DataCard>
+					<label><TheDot color="tourquise" /> My Staked Tokens<TooltipIcon v-tooltip="'Total number of nuMINT tokens staked in the Nuon protocol.'" /></label>
+					<ComponentLoader component="h1" :loaded="balanceLoaded">
+						<h4>{{ stakedBalance | toFixed | numberWithCommas }} nuMINT</h4>
+					</ComponentLoader>
+				</DataCard>
+			</template>
+		</LayoutAccountBalance>
 		<TransactionHistory data-v-step="7" />
 		<v-tour name="myDashboardTour" :steps="steps" :callbacks="tourCallbacks"></v-tour>
 	</LayoutContainer>
@@ -96,11 +110,15 @@
 <script>
 import dayjs from "dayjs";
 import { fromWei } from "~/utils/bnTools";
+import TooltipIcon from "@/assets/images/svg/svg-tooltip.svg";
 import { getUserTVLDayData } from "~/services/theGraph";
 import { USDT, WETH } from "~/constants/tokens";
 
 export default {
 	name: "MyDashboard",
+	components: {
+		TooltipIcon
+	},
 	data() {
 		return {
 			tvl: 0,
@@ -125,7 +143,7 @@ export default {
 				{
 					target: "[data-v-step=\"1\"]",
 					header: {
-						title: "Welcome to the Dashboard",
+						title: "Welcome to My Dashboard",
 					},
 					content: "This page gives you a breakdown of your activity within the Nuon Protocol.",
 				},
@@ -179,7 +197,7 @@ export default {
 	},
 	head () {
 		return {
-			title: "Dashboard | NUON"
+			title: "My Dashboard | NUON"
 		};
 	},
 	computed: {
@@ -253,7 +271,7 @@ export default {
 		chartData() {
 			const weeks = {};
 			const months = {};
-
+			
 			this.collateralRatioArr.forEach(item => {
 				const currentDate = dayjs(new Date(item.date * 1000));
 				if (!weeks[currentDate.startOf("week").format("YYYY-MM-DD")])
@@ -262,7 +280,7 @@ export default {
 					months[currentDate.startOf("month").add(1,"day").format("YYYY-MM-DD")] = item;
 			});
 			if (this.selectedPeriod === 1) { // week
-				return {
+				return { 
 					xData:Object.keys(weeks).map(d => new Date(d).toLocaleDateString()).reverse(),
 					yData:[{
 						name: "My Total Value Locked",
@@ -273,7 +291,7 @@ export default {
 					}]
 				};}
 			if (this.selectedPeriod === 2) { // month
-				return {
+				return { 
 					xData:Object.keys(months).map(d => new Date(d).toLocaleDateString()).reverse(),
 					yData:[{
 						name: "My Total Value Locked",

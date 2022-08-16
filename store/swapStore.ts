@@ -127,15 +127,46 @@ export const actions: ActionTree<SwapState, SwapState> = {
 		});
 	},
 	async getReserves(ctx: any, pair: Array<string>) {
-		const uniswapV2PairContract = await ctx.rootGetters["contractStore/uniswapV2Pair"](pair);
-		const result = await uniswapV2PairContract.methods.getReserves().call();
-		const token0 = await uniswapV2PairContract.methods.token0().call();
-		const token1 = await uniswapV2PairContract.methods.token1().call();
-		const token0Symbol = ctx.rootGetters["addressStore/tokenByAddress"](token0);
-		const token1Symbol = ctx.rootGetters["addressStore/tokenByAddress"](token1);
-		return {
-			[token0Symbol as string]: fromWei(result[0], ctx.rootState.erc20Store.decimals[token0Symbol as string]),
-			[token1Symbol as string]: fromWei(result[1], ctx.rootState.erc20Store.decimals[token1Symbol as string])
-		};
+		const path = getPath(pair[0], pair[1]).tokens;
+		if (path.length === 2) {
+			const uniswapV2PairContract = await ctx.rootGetters["contractStore/uniswapV2Pair"](pair);
+			const result = await uniswapV2PairContract.methods.getReserves().call();
+			const token0 = await uniswapV2PairContract.methods.token0().call();
+			const token1 = await uniswapV2PairContract.methods.token1().call();
+			const token0Symbol = ctx.rootGetters["addressStore/tokenByAddress"](token0);
+			const token1Symbol = ctx.rootGetters["addressStore/tokenByAddress"](token1);
+			return {
+				[token0Symbol as string]: fromWei(result[0], ctx.rootState.erc20Store.decimals[token0Symbol as string]),
+				[token1Symbol as string]: fromWei(result[1], ctx.rootState.erc20Store.decimals[token1Symbol as string])
+			};
+		} else if (path.length === 3) { // for the path with 3 tokens
+			const firstPair:any = {};
+			const secondPair:any = {};
+			{
+				const uniswapV2PairContract = await ctx.rootGetters["contractStore/uniswapV2Pair"]([path[0], path[1]]);
+				const result = await uniswapV2PairContract.methods.getReserves().call();
+				const token0 = await uniswapV2PairContract.methods.token0().call();
+				const token1 = await uniswapV2PairContract.methods.token1().call();
+				const token0Symbol = ctx.rootGetters["addressStore/tokenByAddress"](token0);
+				const token1Symbol = ctx.rootGetters["addressStore/tokenByAddress"](token1);
+				firstPair[token0Symbol as string] = fromWei(result[0], ctx.rootState.erc20Store.decimals[token0Symbol as string]);
+				firstPair[token1Symbol as string] = fromWei(result[1], ctx.rootState.erc20Store.decimals[token1Symbol as string]);
+			}
+			{
+				const uniswapV2PairContract = await ctx.rootGetters["contractStore/uniswapV2Pair"]([path[1], path[2]]);
+				const result = await uniswapV2PairContract.methods.getReserves().call();
+				const token0 = await uniswapV2PairContract.methods.token0().call();
+				const token1 = await uniswapV2PairContract.methods.token1().call();
+				const token0Symbol = ctx.rootGetters["addressStore/tokenByAddress"](token0);
+				const token1Symbol = ctx.rootGetters["addressStore/tokenByAddress"](token1);
+				secondPair[token0Symbol as string] = fromWei(result[0], ctx.rootState.erc20Store.decimals[token0Symbol as string]);
+				secondPair[token1Symbol as string] = fromWei(result[1], ctx.rootState.erc20Store.decimals[token1Symbol as string]);
+			}
+			return {
+				[path[0]]: firstPair[path[0]],
+				[path[2]]: secondPair[path[2]],
+			};
+		}
+		
 	}
 };
