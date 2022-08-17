@@ -56,7 +56,24 @@
 	align-items: center;
 	min-width: calc(100% / 5);
 }
-
+.transaction-table__row .high-risk-badge {
+	background-color: #1E1515;
+	padding: $SPACING_8;
+	border-radius: 8px;
+	border: 1px solid #FF4A4A;
+	font-size: $BODY_TEXT_BADGE;
+	color: #FF4A4A;
+	margin-left: $SPACING_10;
+}
+.transaction-table__cell .risk-ratio {
+	color: #FF4A4A;
+}
+.transaction-table__cell .safe-ratio {
+	color: #FFC165
+}
+.transaction-table__cell.actions {
+	flex-wrap: nowrap;
+}
 // 5. Transaction table responsive
 @media screen and (max-width: $SPACING_1440) {
 	.transaction-table {

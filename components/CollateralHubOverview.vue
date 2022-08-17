@@ -22,7 +22,7 @@
 					<ComponentLoader component="collateral-hub-chart" :loaded="isLoadedData">
 						<p class="u-mb-4">Collateral Distribution</p>
 						<p class="u-colour-white u-mb-16">{{ dateStr }}</p>
-						<DonutChartCollateral class="u-mb-24" :chart-data="{}" />
+						<DonutChartCollateral class="u-mb-24" :chart-data="[]" />
 						<p>Protocol Collateralization Ratio<TooltipIcon v-tooltip="'The amount of collateral deposited across the protocol to back all minted NUON.'" /></p>
 						<h3>{{ collateralRatio }}%</h3>
 					</ComponentLoader>

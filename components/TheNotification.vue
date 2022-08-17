@@ -29,7 +29,7 @@ export default {
 		message() {
 			if (this.myCollateralizationRatio === 0 && this.connectedAccount) return this.normal;
 			if (this.connectedAccount) {
-				return this.myCollateralizationRatio < 300 ? this.myCollateralizationRatio < 200 ? this.high : this.medium : this.low;
+				return this.myCollateralizationRatio < this.mediumRiskLevel ? this.myCollateralizationRatio < this.highRiskLevel ? this.high : this.medium : this.low;
 			}
 			return "Please connect your wallet to deposit collateral.";
 		}

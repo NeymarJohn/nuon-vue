@@ -95,16 +95,22 @@
 				</template>
 			</div>
 		</div>
-		<LayoutFlex direction="column l-chart chart">
-			<TheLoader component="table">
+		<LayoutFlex :direction="!mobileView?`row-space-between l-chart chart`:`column l-chart chart`">
+			<DonutChartCollateral class="u-mb-24" :chart-data="collateralDonutChartData" />
+			<TheLoader component="table" class="u-flex-1">
 				<TransactionTable
 					v-if="!mobileView"
-					size="3"
-					class="u-p-0"
+					size="4"
+					class="u-p-0 u-flex-1"
 					aria="Collateral Hub transactions"
 					:data="chubData"
 					:config="configData"
 					:misc="miscConfig"
+					:actions="[
+						{label: 'Mint'}, 
+						{label: 'Redeem'}, 
+						{label: 'Adjust Position'}
+					]"
 					data-v-step="5" />
 				<TransactionCard
 					v-else
@@ -132,7 +138,7 @@ export default {
 			myCollateralizationRatio: 0,
 			configData: [
 				{title: "Locked Collateral", id: "lockedCollateral"},
-				{title: "Total Value Locked", id: "lockedValue"},
+				{title: "Total Value Locked", id: "lockedValueStr"},
 				{title: "Collateralization Ratio", id: "collateralizationRatio"}
 			],
 			miscConfig: {
@@ -244,15 +250,19 @@ export default {
 				const collateral = this.collaterals[i];
 				const obj = {
 					lockedCollateral: collateral,
-					lockedValue: `$${this.numberWithCommas((this.userTotalLockedCollateralAmount[collateral] * this.collateralPrices[collateral]).toFixed(2))}`,
+					lockedValueStr: `$${this.numberWithCommas((this.userTotalLockedCollateralAmount[collateral] * this.collateralPrices[collateral]).toFixed(2))}`,
+					lockedValue: (this.userTotalLockedCollateralAmount[collateral] * this.collateralPrices[collateral]).toFixed(2),
 					mintedNuon: this.numberWithCommas(parseFloat(this.userMintedAmounts[collateral]).toFixed(2)),
-					collateralizationRatio: `${this.numberWithCommas(parseFloat(this.userCollateralizationRatios[collateral]).toFixed(2))}%`,
+					collateralizationRatio: `${this.numberWithCommas(parseFloat(this.userCollateralizationRatios[collateral]).toFixed(2))}`,
 					currentPrice: `$${this.numberWithCommas(parseFloat(this.collateralPrices[collateral]).toFixed(2))}`
 				};
 				data.push(obj);
 			}
 
 			return data;
+		},
+		collateralDonutChartData() {
+			return this.chubData.map(cdata=>({label: cdata.lockedCollateral, value: Number(cdata.lockedValue)}));
 		},
 		getUserMintedNuonSign() {
 			const changePercent = this.getChangePercent("mintedNuon", this.collateralRatioArr, true);

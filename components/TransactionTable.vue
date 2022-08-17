@@ -7,6 +7,8 @@
 				class="transaction-table__cell"
 				role="columnheader">{{ column.title }}
 			</div>
+			<div v-if="actions.length > 0" class="transaction-table__cell" role="columnheader">
+			</div>
 		</div>
 		<div v-if="loading" class="transaction-table__row"  role="rowgroup">
 			<div
@@ -54,8 +56,18 @@
 							<span v-if="obj.id === 'amount'">{{row.inputToken}}</span>
 							<span v-if="obj.id === 'totalAmount'">{{row.outputToken}}</span>
 						</span>
+						<template v-else-if="obj.id === 'collateralizationRatio'">
+							<span :class="Number(row[obj.id]) < highRiskLevel?'risk-ratio':'safe-ratio'">{{row[obj.id] }} % </span>
+							<span v-if="Number(row[obj.id]) < highRiskLevel" class="high-risk-badge">HIGH RISK</span>
+							<span v-else-if="Number(row[obj.id]) && Number(row[obj.id]) < mediumRiskLevel" class="">MEDIUM RISK</span>
+						</template>
 						<span v-else>{{ row[obj.id] }}</span>
 					</LayoutFlex>
+				</div>
+				<div
+					v-if="actions.length > 0"
+					class="transaction-table__cell actions" role="cell">
+					<button v-for="action in actions" :key="action.label" class="btn btn--action">{{action.label}}</button>
 				</div>
 			</div>
 		</template>
@@ -112,6 +124,10 @@ export default {
 		loading: {
 			type: Boolean,
 			default: false
+		},
+		actions: {
+			type: Array,
+			default: () => []
 		}
 	},
 	data() {

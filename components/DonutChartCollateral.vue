@@ -8,8 +8,8 @@ export default {
 	name: "DonutChartCollateral",
 	props: {
 		chartData: {
-			type: Object,
-			default: () => {}
+			type: Array,
+			default: () => []
 		},
 	},
 	data() {
@@ -75,14 +75,24 @@ export default {
 			},
 		};
 	},
+	watch: {
+		chartData() {
+			this.updateData();
+		}
+	},
 	mounted () {
 		this.updateData();
 	},
 	methods: {
 		updateData() {
 			// const newSeriess = this.chartData.collateralTokens.map((item) => Number(fromWei(item.amount)));
-			this.series = [49672.160947712415, 49672.160947712415]; // newSeriess;
-			this.chartOptions.labels = ["WETH", "USDT"]; // this.chartData.collateralTokens.map((item) => item.token.symbol);
+			if (this.chartData.length > 0) {
+				this.series = this.chartData.map(item => item.value);
+				this.chartOptions.labels = this.chartData.map(item => item.label);
+			} else {
+				this.series = [49672.160947712415, 49672.160947712415]; // newSeriess;
+				this.chartOptions.labels = ["WETH", "USDT"]; // this.chartData.collateralTokens.map((item) => item.token.symbol);
+			}
 		}
 	},
 };

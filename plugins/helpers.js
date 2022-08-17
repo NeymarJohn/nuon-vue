@@ -35,6 +35,12 @@ Vue.mixin({
 			return dayjs(date).format("YYYY-MM-DD hh:mm:ss");
 		}
 	},
+	data() {
+		return {
+			highRiskLevel: 200, // my collateral Ratio
+			mediumRiskLevel: 300, // my collateral Ratio
+		};
+	},
 	computed: {
 		isLoaded() {
 			return this.$store.getters["rootStore/getIsLoaded"];
