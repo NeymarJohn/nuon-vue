@@ -9,7 +9,8 @@
 		8. Badge price change
 		9. Badge key
 		10. Badge target peg
-		11. Badge responsive
+		11. Badge health status
+		12. Badge responsive
 */
 
 // 1. Badge default
@@ -97,7 +98,28 @@
 	margin-top: $SPACING_8;
 }
 
-// 11. Badge responsive
+// 11. Badge health status
+.badge--average,
+.badge--healthy,
+.badge--unhealthy {
+	background-color: $DARK_GREY;
+	border: $SPACING_1 solid $TRANSPARENT;
+	border-radius: $BORDER_RADIUS_8;
+}
+.badge--average {
+	border-color: $WARNING;
+	color: $WARNING;
+}
+.badge--healthy {
+	border-color: $SUCCESS;
+	color: $SUCCESS;
+}
+.badge--unhealthy {
+	border-color: $ERROR;
+	color: $ERROR;
+}
+
+// 12. Badge responsive
 @media screen and (max-width: $SPACING_1440) {
 	.badge {
 		font-size: $BODY_TEXT_XS;

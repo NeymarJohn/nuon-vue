@@ -1,10 +1,14 @@
+/* #COMPONENT - PILLS
+		1. Pills default
+*/
+
+// 1. Pills default
 .pill-container {
 	border-radius: $BORDER_RADIUS_32;
 	padding: $SPACING_8;
 	background-color: $DARK_GREY;
 	width: fit-content;
 }
-
 .pill {
 	border-radius: $SPACING_24;
 	color: $LIGHT_GREY;
@@ -16,11 +20,9 @@
 		background-color: $MEDIUM_LIGHT_GREY;
 	}
 }
-
 .pill:last-child {
 	margin-right: auto;
 }
-
 .pill.active {
 	background-color: $MEDIUM_LIGHT_GREY;
 	color: $LIME;

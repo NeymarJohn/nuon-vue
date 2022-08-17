@@ -1,9 +1,30 @@
 <template>
 	<LayoutContainer>
-		<PageTitle class="u-mb-48" data-v-step="1">
-			<h4>Dashboard</h4>
-			<h1>My Portfolio</h1>
-		</PageTitle>
+		<LayoutFlex direction="row-center-space-between" class="l-flex--column-start-sm u-mb-48">
+			<PageTitle data-v-step="1">
+				<h4>Dashboard</h4>
+				<h1>My Portfolio</h1>
+			</PageTitle>
+			<ul class="price-indicator">
+				<li>NUON Price:
+					<ComponentLoader component="nuon-price" :loaded="nuonPrice !== null && truflationPeg !== null">
+						<span>${{ computedNuonPrice }}</span>
+						<TheBadge v-if="nuonPrice > truflationPeg">Above</TheBadge>
+						<TheBadge v-else-if="nuonPrice < truflationPeg">Below</TheBadge>
+					</ComponentLoader>
+				</li>
+				<li>Target Peg:
+					<ComponentLoader component="target-peg" :loaded="truflationPeg !== 0">
+						<span>${{ truflationPeg | toFixed }}</span>
+					</ComponentLoader>
+				</li>
+				<li>Health Status:
+					<ComponentLoader component="health-status" :loaded="nuonPrice !== null && truflationPeg !== null">
+						<TheBadge :color="calculateHealthStatus(nuonPrice, truflationPeg)">{{ calculateHealthStatus(nuonPrice, truflationPeg) }}</TheBadge>
+					</ComponentLoader>
+				</li>
+			</ul>
+		</LayoutFlex>
 		<h3 class="u-mb-24">Account Balance</h3>
 		<div class="l-balance">
 			<div v-if="xAxisData.length" class="l-balance__chart">
@@ -166,6 +187,7 @@ export default {
 			userCollateralizationRatios: {},
 			userTotalLockedCollateralAmount: {},
 			nuonPrice: null,
+			truflationPeg: 0,
 			collateralRatioArr: [],
 			graphSelectionTVL: "",
 			graphSelectionMintedNuon: "",
@@ -321,6 +343,7 @@ export default {
 				}
 
 				this.getNuonPrice();
+				this.getTruflationPeg();
 				this.getDiffMinted();
 			} catch (e) {
 			} finally {
@@ -376,6 +399,25 @@ export default {
 			} catch (e) {
 			} finally {
 				this.nuonPrice = result;
+			}
+		},
+		async getTruflationPeg() {
+			let result = 0;
+			try {
+				result = parseFloat(fromWei(await this.$store.getters["collateralVaultStore/getTruflationPeg"]()));
+			} catch (e) {
+			} finally {
+				this.truflationPeg = result;
+			}
+		},
+		calculateHealthStatus(a, b) {
+			const difference = Math.abs(a, b);
+			if (difference >= 0.5) {
+				return "average";
+			} else if (difference >= 1) {
+				return "unhealthy";
+			} else {
+				return "healthy";
 			}
 		},
 		getDiffMinted() {

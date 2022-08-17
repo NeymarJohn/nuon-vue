@@ -1,0 +1,33 @@
+/* #COMPONENT - PRICE INDICATOR
+		1. Price indicator default
+*/
+
+// 1. Price indicator default
+.price-indicator,
+.price-indicator li,
+.price-indicator li div {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+.price-indicator {
+	background-color: $DARK_GREY;
+	padding: $SPACING_16 $SPACING_32;
+	border-radius: $BORDER_RADIUS_16;
+	color: $LIGHT_GREY;
+}
+.price-indicator li {
+	margin-right: $SPACING_64;
+}
+.price-indicator li:last-child {
+	margin-right: 0;
+}
+.price-indicator span {
+	color: $LIME;
+	margin-left: $SPACING_16;
+}
+.price-indicator .badge {
+	font-size: $SPACING_12;
+	padding: $SPACING_4 $SPACING_8;
+	margin-left: $SPACING_16;
+}

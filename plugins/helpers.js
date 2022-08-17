@@ -63,6 +63,12 @@ Vue.mixin({
 		transactionSearch() {
 			return this.$store.state.transactionStore.search;
 		},
+		computedNuonPrice() {
+			if (!this.nuonPrice) return 0;
+			if (this.nuonPrice < 1) return this.nuonPrice.toFixed(9);
+			if (this.nuonPrice > 1) return this.numberWithCommas(this.nuonPrice.toFixed(2));
+			return 0;
+		}
 	},
 	methods: {
 		numberWithCommas (x) {
@@ -247,6 +253,6 @@ Vue.mixin({
 		},
 		setCookie(key) {
 			this.$cookies.set(key, "true");
-		}
+		},
 	},
 });

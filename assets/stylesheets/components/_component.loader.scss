@@ -13,7 +13,8 @@
 		12. Loader table
 		13. Loader notification
 		14. Loader collateral hub chart
-		15. Loader responsive
+		15. Loader prices
+		16. Loader responsive
 */
 
 // 1. Loader default
@@ -148,7 +149,24 @@
 	margin-bottom: $SPACING_24;
 }
 
-// 15. Loader responsive
+// 15. Loader prices
+.loader--nuon-price,
+.loader--target-peg,
+.loader--health-status {
+	height: $SPACING_31;
+	margin-left: $SPACING_16;
+}
+.loader--nuon-price {
+	width: calc($SPACING_137 - $SPACING_16);
+}
+.loader--target-peg {
+	width: calc($SPACING_58 - $SPACING_16);
+}
+.loader--health-status {
+	width: calc($SPACING_81 - $SPACING_16);
+}
+
+// 16. Loader responsive
 @media screen and (max-width: $SPACING_1440) {
 	.loader--h1 {
 		width: $SPACING_190;
