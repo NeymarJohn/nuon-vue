@@ -9,7 +9,7 @@ import nuonControllerAbi from "./abi/nuon_controller.json";
 import truflationAbi from "./abi/truflation.json";
 import boardroomAbi from "./abi/boardroom.json";
 import { fromWei, toWei } from "~/utils/bnTools";
-import { WETH, USDT } from "~/constants/tokens";
+import { WETH, USDT, collateralTokens } from "~/constants/tokens";
 
 type StateType = {
 	allowance: any,
@@ -31,7 +31,8 @@ type StateType = {
 	abis: any,
 	vaultRelayerAbis: any,
 	mintedAmount: any,
-	targetPeg: number
+	targetPeg: number,
+	collateralPrices: any,
 }
 export const state = (): StateType => ({
 	allowance: {nuMINT:0, NUON: 0},
@@ -62,7 +63,8 @@ export const state = (): StateType => ({
 		[WETH.symbol] :0,
 		[USDT.symbol] :0
 	},
-	targetPeg: 0
+	targetPeg: 0,
+	collateralPrices:{},
 });
 
 export type BoardroomState = ReturnType<typeof state>;
@@ -115,6 +117,9 @@ export const mutations: MutationTree<BoardroomState> = {
 	},
 	setTargetPeg(state, payload) {
 		state.targetPeg = payload;
+	},
+	setCollateralPrices(state, payload) {
+		state.collateralPrices = payload;
 	}
 };
 
@@ -213,7 +218,6 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 		dispatch("getAllowance");
 		const accountAddress = rootState?.web3Store.account;
 		if (!accountAddress) return;
-
 		const myCollateralAmount = await getters.getUserCollateralAmount(accountAddress);
 		commit("setUserCollateralAmount", myCollateralAmount);
 
@@ -225,7 +229,7 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 
 		dispatch("updateMintedAmount", WETH.symbol);
 		dispatch("updateMintedAmount", USDT.symbol);
-
+		dispatch("getCollateralPrices");
 		setInterval(() => {
 			dispatch("getTargetPeg");
 		},1000);
@@ -272,6 +276,20 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 	async getTargetPeg(ctx) {
 		const result = await ctx.getters.getTruflationPeg();
 		ctx.commit("setTargetPeg", Number(fromWei(result)));
+	},
+	async getCollateralPrices(ctx: any) {
+		// eslint-disable-next-line no-unreachable-loop
+		const prices:any = {};
+		const web3 = ctx.rootState.web3Store.instance();
+		for (let i = 0; i < collateralTokens.length; i++) {
+			const collateralToken = collateralTokens[i].symbol;
+			const addr = ctx.rootGetters["addressStore/collateralHubs"][collateralToken];
+			const abi = ctx.state.abis[collateralToken];
+			const contract = new web3.eth.Contract(abi, addr);
+			const price = fromWei(await contract.methods.getCollateralPrice().call());
+			prices[collateralToken] = Number(price);
+		}
+		ctx.commit("setCollateralPrices",{...prices});
 	}
 };
 

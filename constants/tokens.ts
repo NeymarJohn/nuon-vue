@@ -94,8 +94,8 @@ export const getPath = (inputToken:string, outputToken:string) => {
 };
 
 export const collateralTokens = [
-	{ "symbol": USDC_USDT_LP_TOKEN.symbol, "name": USDC_USDT_LP_TOKEN.name, "icon": "USDC.png" },
-	{ "symbol": USDC.symbol, "name": USDC.name, "icon": "USDC.png"  },
+	{ "symbol": WETH.symbol, "name": WETH.name, "icon": "WETH.png" },
+	{ "symbol": USDT.symbol, "name": USDT.name, "icon": "USDT.png"  },
 ];
 
 export const mainTokens = [

@@ -39,6 +39,7 @@ Vue.mixin({
 		return {
 			highRiskLevel: 200, // my collateral Ratio
 			mediumRiskLevel: 300, // my collateral Ratio
+			periods: ["D", "W", "M"],
 		};
 	},
 	computed: {

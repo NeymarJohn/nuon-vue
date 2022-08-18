@@ -25,71 +25,8 @@
 				</li>
 			</ul>
 		</LayoutFlex>
-		<h3 class="u-mb-24">Account Balance</h3>
-		<div class="l-balance">
-			<div class="l-balance__control">
-				<label>Total Value</label>
-				<h3>${{ totalValue + balancesValue + stakedBalance | toFixed | numberWithCommas }}</h3>
-				<ul class="l-balance__toggle">
-					<li>
-						<span><TheDot color="lime" /><label>NUON Balance</label></span>
-						<div class="l-balance__toggle__value">
-							{{ tokenBalances.NUON | toFixed | numberWithCommas }}
-							<sub>+1.25%</sub>
-						</div>
-						<TheButton size="icon" title="Click to show chart">
-							<LineChartIcon /> <span>Show Chart</span>
-						</TheButton>
-					</li>
-					<li>
-						<span><TheDot color="light-green" /><label>NuMINT Balance</label></span>
-						<div class="l-balance__toggle__value">
-							{{ tokenBalances.nuMINT | toFixed | numberWithCommas }}
-							<sub>+1.25%</sub>
-						</div>
-						<TheButton size="icon" title="Click to show chart">
-							<LineChartIcon /> <span>Show Chart</span>
-						</TheButton>
-					</li>
-					<li>
-						<span><TheDot color="blue" /><label>Locked Collateral</label></span>
-						<div class="l-balance__toggle__value">
-							${{ (graphSelectionTVL || totalValue) | toFixed | numberWithCommas }}
-							<sub>+1.25%</sub>
-						</div>
-						<TheButton size="icon" title="Click to show chart">
-							<LineChartIcon /> <span>Show Chart</span>
-						</TheButton>
-					</li>
-					<li>
-						<span><TheDot color="orange" /><label>NuMINT in Boardroom</label></span>
-						<div class="l-balance__toggle__value">
-							{{ stakedBalance | toFixed | numberWithCommas }}
-							<sub>+1.25%</sub>
-						</div>
-						<TheButton size="icon" title="Click to show chart">
-							<LineChartIcon /> <span>Show Chart</span>
-						</TheButton>
-					</li>
-				</ul>
-			</div>
-			<div v-if="xAxisData.length" class="l-balance__chart">
-				<LayoutFlex direction="row-space-between" class="l-flex--column-md">
-					<span>{{graphSelectionDuraton}}</span>
-					<TheTabs size="thin" color="dark" margin="24" @tab-changed="handleTabChanged">
-						<TheTab v-for="(period, periodIdx) in periods" :key="periodIdx" :title="period" />
-					</TheTabs>
-				</LayoutFlex>
-				<LineChart
-					:key="selectedPeriod"
-					class="u-mt-16 u-mb-48"
-					:x-axis-labels="xAxisData"
-					:y-axis-options="{showYAxis: false, opposite: false, labels: {formatter: (val) => {}}}"
-					:series-data="yAxisData"
-					data-v-step="4"
-					@mouseOverDataPoint="handleMouseOverChart" />
-			</div>
-		</div>
+		<AccountBalance
+			:locked-amount="userTotalLockedCollateralAmount"/>
 		<h3 class="u-mb-24">Collateral Hub</h3>
 		<div class="l-collateral">
 			<div class="l-collateral__toggle">
@@ -195,16 +132,14 @@
 
 <script>
 import dayjs from "dayjs";
-import LineChartIcon from "@/assets/images/svg/svg-line-chart.svg";
+
 import { fromWei } from "~/utils/bnTools";
 import { getUserTVLDayData } from "~/services/theGraph";
 import { USDT, WETH } from "~/constants/tokens";
 
 export default {
 	name: "MyDashboard",
-	components: {
-		LineChartIcon,
-	},
+
 	data() {
 		return {
 			tvl: 0,
@@ -272,7 +207,6 @@ export default {
 			graphSelectionTVL: "",
 			graphSelectionMintedNuon: "",
 			balanceLoaded: false,
-			periods: ["D", "W", "M"],
 			selectedPeriod: 0,
 			graphSelectionDuraton: "",
 			currentlySelectedCollateral: "WETH",
@@ -322,16 +256,7 @@ export default {
 			if (!parseFloat(this.pendingRewards)) return 0;
 			return this.pendingRewards * this.tokenPrices.nuMINT;
 		},
-		balancesValue() {
-			if (this.tokenBalances.nuMINT && this.tokenPrices.nuMINT && this.tokenBalances.NUON && this.tokenPrices.NUON) {
-				return parseFloat((this.tokenBalances.nuMINT * this.tokenPrices.nuMINT + this.tokenBalances.NUON * this.tokenPrices.NUON).toFixed(2));
-			} else {
-				return 0;
-			}
-		},
-		stakedBalance() {
-			return fromWei(this.$store.state.boardroomStore.stakedBalance);
-		},
+
 		myCollateralLocked() {
 			return Object.values(this.userTotalLockedCollateralAmount).reduce((acc, val) => acc + parseFloat(val), 0);
 		},
@@ -377,12 +302,12 @@ export default {
 			return changePercent > 0 ? "+ ":"- ";
 		},
 		xAxisData() {
-			return this.chartData.xData || [];
+			return this.lockedValueChartData.xData || [];
 		},
 		yAxisData() {
-			return this.chartData.yData || [];
+			return this.lockedValueChartData.yData || [];
 		},
-		chartData() {
+		lockedValueChartData() {
 			const weeks = {};
 			const months = {};
 
