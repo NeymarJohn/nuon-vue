@@ -83,6 +83,9 @@ ol {
 	list-style-type: decimal;
 }
 
+label.light_grey {
+	color: $LIGHT_GREY
+}
 // 2. Typography responsive
 @media screen and (max-width: $SPACING_1440) {
 	h1 {

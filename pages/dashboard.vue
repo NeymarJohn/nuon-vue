@@ -27,6 +27,52 @@
 		</LayoutFlex>
 		<h3 class="u-mb-24">Account Balance</h3>
 		<div class="l-balance">
+			<div class="l-balance__control">
+				<label>Total Value</label>
+				<h3>${{ totalValue + balancesValue + stakedBalance | toFixed | numberWithCommas }}</h3>
+				<ul class="l-balance__toggle">
+					<li>
+						<span><TheDot color="lime" /><label>NUON Balance</label></span>
+						<div class="l-balance__toggle__value">
+							{{ tokenBalances.NUON | toFixed | numberWithCommas }}
+							<sub>+1.25%</sub>
+						</div>
+						<TheButton size="icon" title="Click to show chart">
+							<LineChartIcon /> <span>Show Chart</span>
+						</TheButton>
+					</li>
+					<li>
+						<span><TheDot color="light-green" /><label>NuMINT Balance</label></span>
+						<div class="l-balance__toggle__value">
+							{{ tokenBalances.nuMINT | toFixed | numberWithCommas }}
+							<sub>+1.25%</sub>
+						</div>
+						<TheButton size="icon" title="Click to show chart">
+							<LineChartIcon /> <span>Show Chart</span>
+						</TheButton>
+					</li>
+					<li>
+						<span><TheDot color="blue" /><label>Locked Collateral</label></span>
+						<div class="l-balance__toggle__value">
+							${{ (graphSelectionTVL || totalValue) | toFixed | numberWithCommas }}
+							<sub>+1.25%</sub>
+						</div>
+						<TheButton size="icon" title="Click to show chart">
+							<LineChartIcon /> <span>Show Chart</span>
+						</TheButton>
+					</li>
+					<li>
+						<span><TheDot color="orange" /><label>NuMINT in Boardroom</label></span>
+						<div class="l-balance__toggle__value">
+							{{ stakedBalance | toFixed | numberWithCommas }}
+							<sub>+1.25%</sub>
+						</div>
+						<TheButton size="icon" title="Click to show chart">
+							<LineChartIcon /> <span>Show Chart</span>
+						</TheButton>
+					</li>
+				</ul>
+			</div>
 			<div v-if="xAxisData.length" class="l-balance__chart">
 				<LayoutFlex direction="row-space-between" class="l-flex--column-md">
 					<span>{{graphSelectionDuraton}}</span>
@@ -43,16 +89,6 @@
 					data-v-step="4"
 					@mouseOverDataPoint="handleMouseOverChart" />
 			</div>
-			<div class="l-balance__control">
-				<label>Total Value</label>
-				<h3>${{ totalValue + balancesValue + stakedBalance | toFixed | numberWithCommas }}</h3>
-				<ul class="l-balance__toggle">
-					<li><span><TheDot color="lime" /><label>NUON Balance</label></span> {{ tokenBalances.NUON | toFixed | numberWithCommas }}</li>
-					<li><span><TheDot color="light-green" /><label>NuMINT Balance</label></span> {{ tokenBalances.nuMINT | toFixed | numberWithCommas }}</li>
-					<li><span><TheDot color="blue" /><label>Locked Collateral</label></span> ${{ (graphSelectionTVL || totalValue) | toFixed | numberWithCommas }}</li>
-					<li><span><TheDot color="orange" /><label>NuMINT in Boardroom</label></span> {{ stakedBalance | toFixed | numberWithCommas }}</li>
-				</ul>
-			</div>
 		</div>
 		<h3 class="u-mb-24">Collateral Hub</h3>
 		<div class="l-collateral">
@@ -60,7 +96,7 @@
 				<div class="l-collateral__toggle-btn is-active">
 					<label>
 						<TheDot color="light-green" />
-						Total Locked Collateral Value
+						Locked Collateral
 						<TheBadge v-if="!isNaN(getChangePercent('collateralTokens', collateralRatioArr, true))" class="u-ml-8" :color="getPercentChangeBadgeClass('collateralTokens', collateralRatioArr, true)">{{ getUserTVLSign }}{{ Math.abs(getChangePercent('collateralTokens', collateralRatioArr, true)) }}%</TheBadge>
 					</label>
 					<ComponentLoader component="h1" :loaded="balanceLoaded">
@@ -70,11 +106,21 @@
 				<div class="l-collateral__toggle-btn">
 					<label>
 						<TheDot color="lime" />
-						Total Value of My Minted (NUON)
+						Total Minted Value (NUON)
 						<TheBadge v-if="!isNaN(getChangePercent('mintedNuon', collateralRatioArr, true))" class="u-ml-8" :color="getPercentChangeBadgeClass('mintedNuon', collateralRatioArr, true)">{{ getUserMintedNuonSign }}{{ Math.abs(getChangePercent('mintedNuon', collateralRatioArr, true)) }}%</TheBadge>
 					</label>
 					<ComponentLoader component="h1" :loaded="balanceLoaded">
 						<h3>${{ (graphSelectionMintedNuon || totalMintedNuon) | toFixed | numberWithCommas }}</h3>
+					</ComponentLoader>
+				</div>
+				<div class="l-collateral__toggle-btn">
+					<label>
+						<TheDot color="purple" />
+						Overall Collateralization Ratio
+						<TheBadge v-if="!isNaN(getChangePercent('mintedNuon', collateralRatioArr, true))" class="u-ml-8" :color="getPercentChangeBadgeClass('mintedNuon', collateralRatioArr, true)">{{ getUserMintedNuonSign }}{{ Math.abs(getChangePercent('mintedNuon', collateralRatioArr, true)) }}%</TheBadge>
+					</label>
+					<ComponentLoader component="h1" :loaded="balanceLoaded">
+						<h3>195%</h3>
 					</ComponentLoader>
 				</div>
 			</div>
@@ -96,7 +142,10 @@
 			</div>
 		</div>
 		<LayoutFlex :direction="!mobileView?`row-space-between l-chart chart`:`column l-chart chart`">
-			<DonutChartCollateral class="u-mb-24" :chart-data="collateralDonutChartData" />
+			<div>
+				<label class="light_grey">Collateral Distribution</label>
+				<DonutChartCollateral class="u-mb-24" :chart-data="collateralDonutChartData" />
+			</div>
 			<TheLoader component="table" class="u-flex-1">
 				<TransactionTable
 					v-if="!mobileView"
@@ -106,11 +155,7 @@
 					:data="chubData"
 					:config="configData"
 					:misc="miscConfig"
-					:actions="[
-						{label: 'Mint'}, 
-						{label: 'Redeem'}, 
-						{label: 'Adjust Position'}
-					]"
+					:actions="actions"
 					data-v-step="5" />
 				<TransactionCard
 					v-else
@@ -119,18 +164,47 @@
 			</TheLoader>
 		</LayoutFlex>
 		<TransactionHistory data-v-step="7" />
+		<TheModal
+			v-show="isMintModalVisible"
+			title="Mint"
+			subtitle="Deposit collateral to mint NUON"
+			@close-modal="setModalVisibility('mintModal', false)">
+			<CollateralMint :minimum-deposit-amount="minimumDepositAmount" :currently-selected-collateral="currentlySelectedCollateral" />
+		</TheModal>
+		<TheModal
+			v-show="isRedeemModalVisible"
+			title="Redeem"
+			subtitle="Burn NUON to redeem collateral"
+			@close-modal="setModalVisibility('redeemModal', false)">
+			<CollateralRedeem :currently-selected-collateral="currentlySelectedCollateral" />
+		</TheModal>
+		<TheModal
+			v-show="isAdjustPositionModalVisible"
+			:title="`Adjust Position${adjustModalPositionTitle && ': '}${adjustModalPositionTitle}`"
+			:subtitle="adjustModalPositionSubtitle || 'Manage your collateral'"
+			@close-modal="setModalVisibility('adjustPositionModal', false)">
+			<AdjustPosition
+				:minimum-deposit-amount="minimumDepositAmount"
+				:currently-selected-collateral="currentlySelectedCollateral"
+				:user-minted-amount="userMintedAmount"
+				@action-changed="setAdjustPositionModalTitle" />
+		</TheModal>
 		<v-tour name="myDashboardTour" :steps="steps" :callbacks="tourCallbacks"></v-tour>
 	</LayoutContainer>
 </template>
 
 <script>
 import dayjs from "dayjs";
+import LineChartIcon from "@/assets/images/svg/svg-line-chart.svg";
 import { fromWei } from "~/utils/bnTools";
 import { getUserTVLDayData } from "~/services/theGraph";
 import { USDT, WETH } from "~/constants/tokens";
 
 export default {
 	name: "MyDashboard",
+	components: {
+		LineChartIcon,
+	},
 	data() {
 		return {
 			tvl: 0,
@@ -200,7 +274,35 @@ export default {
 			balanceLoaded: false,
 			periods: ["D", "W", "M"],
 			selectedPeriod: 0,
-			graphSelectionDuraton: ""
+			graphSelectionDuraton: "",
+			currentlySelectedCollateral: "WETH",
+			actions:[
+				{
+					label: "Mint", 
+					handler: (row) => {
+						this.setCurrentlySelectedCollateral(row.lockedCollateral);
+						this.setModalVisibility("mintModal", true);
+					}
+				},
+				{
+					label: "Redeem", 
+					handler: (row) =>  {
+						this.setCurrentlySelectedCollateral(row.lockedCollateral);
+						this.setModalVisibility("redeemModal", true);
+					}
+				},
+				{
+					label: "Adjust Position", 
+					handler: (row) =>  {
+						this.setCurrentlySelectedCollateral(row.lockedCollateral);
+						this.setModalVisibility("adjustPositionModal", true);
+					}
+				}
+			],
+			minimumDepositAmount: 0,
+			adjustModalPositionTitle: "",
+			adjustModalPositionSubtitle: "",
+			userMintedAmount: null,
 		};
 	},
 	head () {
@@ -324,7 +426,16 @@ export default {
 					data: this.collateralRatioArr.map(d => d.mintedValue).reverse()
 				}]
 			};
-		}
+		},
+		isMintModalVisible() {
+			return this.$store.state.modalStore.modalVisible.mintModal;
+		},
+		isRedeemModalVisible() {
+			return this.$store.state.modalStore.modalVisible.redeemModal;
+		},
+		isAdjustPositionModalVisible() {
+			return this.$store.state.modalStore.modalVisible.adjustPositionModal;
+		},
 	},
 	watch: {
 		connectedAccount(newValue) {
@@ -361,6 +472,7 @@ export default {
 					this.balanceLoaded = true;
 				}, 500);
 			}
+			this.getMinimumDepositAmount();
 		},
 		async getCollateralsPrices(collateral) {
 			let result = 0;
@@ -468,6 +580,23 @@ export default {
 		},
 		handleTabChanged(e) {
 			this.selectedPeriod = e;
+		},
+		setCurrentlySelectedCollateral(cToken) {
+			this.$store.commit("collateralVaultStore/setCollateralToken", cToken );
+			this.currentlySelectedCollateral = cToken;
+		},
+		setAdjustPositionModalTitle(obj) {
+			this.adjustModalPositionTitle = obj.title;
+			this.adjustModalPositionSubtitle = obj.subtitle;
+		},
+		async getMinimumDepositAmount() {
+			let result = 0;
+			try {
+				result = await this.$store.getters["collateralVaultStore/getMinimumDepositAmount"]() / (10 ** this.decimals);
+			} catch (e) {
+			} finally {
+				this.minimumDepositAmount = result;
+			}
 		},
 	}
 };

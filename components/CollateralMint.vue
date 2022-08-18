@@ -179,6 +179,9 @@ export default {
 			const mintedNuon = this.estimatedMintedNuonValue;
 			const nounMinBacking = targetPeg * this.sliderMin / 100;
 			return nounMinBacking * mintedNuon / this.inputValue;
+		},
+		currentCollateralToken() {
+			return this.$store.state.collateralVaultStore.currentCollateralToken;
 		}
 	},
 	watch: {
@@ -194,6 +197,10 @@ export default {
 			this.$store.dispatch("collateralVaultStore/updateStatus");
 			this.initialize();
 		},
+		currentCollateralToken() {
+			this.$store.dispatch("collateralVaultStore/updateStatus");
+			this.initialize();
+		}
 	},
 	mounted() {
 		this.initialize();

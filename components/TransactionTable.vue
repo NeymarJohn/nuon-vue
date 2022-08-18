@@ -67,7 +67,13 @@
 				<div
 					v-if="actions.length > 0"
 					class="transaction-table__cell actions" role="cell">
-					<button v-for="action in actions" :key="action.label" class="btn btn--action">{{action.label}}</button>
+					<TheButton
+						v-for="action in actions"
+						:key="action.label"
+						size="xs"
+						title="Click to mint"
+						class="btn btn--action"
+						@click="action.handler(row)">{{action.label}}</TheButton>
 				</div>
 			</div>
 		</template>

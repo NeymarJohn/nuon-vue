@@ -43,6 +43,15 @@ a.btn:hover,
 }
 
 // 2. Button sizes
+.btn--xs {
+	font-size: $BODY_TEXT_XS;
+	line-height: $SPACING_16;
+	height: $SPACING_40;
+	border-radius: $BORDER_RADIUS_4;
+	padding: $SPACING_8 $SPACING_24;
+	background: $LIME;
+	color: $DARK_GREY;
+}
 .btn--sm {
 	font-size: $BODY_TEXT;
 	line-height: $SPACING_16;
