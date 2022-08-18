@@ -1,12 +1,16 @@
 /* #COMPONENT - BADGE
 		1. Badge default
-		2. Badge colors
-		3. Badge balance
-		4. Badge price change
-		5. Badge key
-		6. Badge target peg
-		7. Badge health status
-		8. Badge responsive
+		2. Badge lime
+		3. Badge grey
+		4. Badge yellow
+		5. Badge green
+		6. Badge orange
+		7. Badge balance
+		8. Badge price change
+		9. Badge key
+		10. Badge target peg
+		11. Badge health status
+		12. Badge responsive
 */
 
 // 1. Badge default
@@ -18,19 +22,25 @@
 	text-transform: uppercase;
 }
 
-// 2. Badge colors
+// 2. Badge lime
 .badge--lime {
 	background: $LIME;
 	color: $DARK_GREY;
 }
+
+// 3. Badge grey
 .badge--grey {
 	border: $SPACING_1 solid $LIGHT_GREY;
 	color: $LIGHT_GREY;
 }
+
+// 4. Badge yellow
 .badge--yellow {
 	color: $WARNING;
 	border: $SPACING_1 solid $WARNING;
 }
+
+// 5. Badge green
 .badge--green {
 	color: $SUCCESS;
 	border: $SPACING_1 solid $SUCCESS;
@@ -38,14 +48,13 @@
 .badge--light-green {
 	background: $LIGHT_GREEN;
 }
+
+// 6. Badge orange
 .badge--orange {
 	background: $ORANGE;
 }
-.badge--pruple {
-	background: $PURPLE;
-}
 
-// 3. Badge balance
+// 7. Badge balance
 .badge--balance {
 	background: $DARK_GREY;
 	color: $LIME;
@@ -53,7 +62,7 @@
 	border-radius: $BORDER_RADIUS_8;
 }
 
-// 4. Badge price change
+// 8. Badge price change
 .badge--price-up,
 .badge--price-down,
 .badge--price-same {
@@ -71,7 +80,7 @@
 	color: $ERROR;
 }
 
-// 5. Badge key
+// 9. Badge key
 .badge--key {
 	border-radius: 50%;
 	padding: 0;
@@ -79,7 +88,7 @@
 	width: $SPACING_12;
 }
 
-// 6. Badge target peg
+// 10. Badge target peg
 .badge--target-peg {
 	background: $MEDIUM_LIGHT_GREY;
 	align-self: flex-start;
@@ -89,7 +98,7 @@
 	margin-top: $SPACING_8;
 }
 
-// 7. Badge health status
+// 11. Badge health status
 .badge--average,
 .badge--healthy,
 .badge--unhealthy {
@@ -110,7 +119,7 @@
 	color: $ERROR;
 }
 
-// 8. Badge responsive
+// 12. Badge responsive
 @media screen and (max-width: $SPACING_1440) {
 	.badge {
 		font-size: $BODY_TEXT_XS;

@@ -72,7 +72,9 @@
 	color: #FFC165
 }
 .transaction-table__cell.actions {
-	flex-wrap: nowrap;
+	display: flex;
+  justify-content: flex-end;
+	flex-grow: 1;
 }
 // 5. Transaction table responsive
 @media screen and (max-width: $SPACING_1440) {
