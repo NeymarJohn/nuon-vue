@@ -77,6 +77,8 @@
 				</ul>
 			</div>
 			<div v-if="xAxisData.length" class="l-balance__chart">
+				<label>Total Value</label>
+				<h3>${{ totalValue + balancesValue + stakedBalance | toFixed | numberWithCommas }}</h3>
 				<LayoutFlex direction="row-space-between" class="l-flex--column-md">
 					<span>{{graphSelectionDuraton}}</span>
 					<TheTabs size="thin" color="dark" margin="24" @tab-changed="handleTabChanged">
@@ -84,7 +86,7 @@
 					</TheTabs>
 				</LayoutFlex>
 				<LineChart
-					:key="selectedPeriod"
+					:key="`${selectedPeriod}-${yAxisData.length}`"
 					class="u-mt-16 u-mb-48"
 					:x-axis-labels="xAxisData"
 					:y-axis-options="{showYAxis: false, opposite: false, labels: {formatter: (val) => {}}}"
@@ -146,37 +148,97 @@ export default {
 					months[currentDate.startOf("month").add(1,"day").format("YYYY-MM-DD")] = item;
 			});
 			if (this.selectedPeriod === 1) { // week
+				const yData = [];
+				if (this.activeCharts.includes("collateral")) {
+					yData.push({
+						name: "My Total Value Locked In Collateral",
+						data: Object.values(weeks).map(d => d.value).reverse()
+					});	
+				}
+				if (this.activeCharts.includes("nuon")) {
+					yData.push({
+						name: "My Total Nuon Balance",
+						data: Object.values(weeks).map(d => d.value * 1.2).reverse()
+					});	
+				}
+				if (this.activeCharts.includes("nuMint")) {
+					yData.push({
+						name: "My Total nuMint Balance",
+						data: Object.values(weeks).map(d => d.value * 1.5).reverse()
+					});	
+				}
+				if (this.activeCharts.includes("boardroom")) {
+					yData.push({
+						name: "My Total Locked Value In Boardroom",
+						data: Object.values(weeks).map(d => d.value * 0.8).reverse()
+					});	
+				}
 				return {
 					xData:Object.keys(weeks).map(d => new Date(d).toLocaleDateString()).reverse(),
-					yData:[{
-						name: "My Total Value Locked",
-						data: Object.values(weeks).map(d => d.value).reverse()
-					}, {
-						name: "My Total Minted Value",
-						data: Object.values(weeks).map(d => d.mintedValue).reverse()
-					}]
-				};}
+					yData
+				};
+			}
 			if (this.selectedPeriod === 2) { // month
+				const yData = [];
+				if (this.activeCharts.includes("collateral")) {
+					yData.push({
+						name: "My Total Value Locked In Collateral",
+						data: Object.values(months).map(d => d.value).reverse()
+					});	
+				}
+				if (this.activeCharts.includes("nuon")) {
+					yData.push({
+						name: "My Total Nuon Balance",
+						data: Object.values(months).map(d => d.value * 1.2).reverse()
+					});	
+				}
+				if (this.activeCharts.includes("nuMint")) {
+					yData.push({
+						name: "My Total nuMint Balance",
+						data: Object.values(months).map(d => d.value * 1.5).reverse()
+					});	
+				}
+				if (this.activeCharts.includes("boardroom")) {
+					yData.push({
+						name: "My Total Locked Value In Boardroom",
+						data: Object.values(months).map(d => d.value * 0.8).reverse()
+					});	
+				}
 				return {
 					xData:Object.keys(months).map(d => new Date(d).toLocaleDateString()).reverse(),
-					yData:[{
-						name: "My Total Value Locked",
-						data: Object.values(months).map(d => d.value).reverse()
-					}, {
-						name: "My Total Minted Value",
-						data: Object.values(months).map(d => d.mintedValue).reverse()
-					}]
+					yData
 				};
 			};
+
+			const yData = [];
+			if (this.activeCharts.includes("collateral")) {
+				yData.push({
+					name: "My Total Value Locked In Collateral",
+					data: this.collateralRatioArr.map(d => d.value).reverse()
+				});	
+			}
+			if (this.activeCharts.includes("nuon")) {
+				yData.push({
+					name: "My Total Nuon Balance",
+					data: this.collateralRatioArr.map(d => d.value * 1.2).reverse()
+				});	
+			}
+			if (this.activeCharts.includes("nuMint")) {
+				yData.push({
+					name: "My Total nuMint Balance",
+					data: this.collateralRatioArr.map(d => d.value * 1.5).reverse()
+				});	
+			}
+			if (this.activeCharts.includes("boardroom")) {
+				yData.push({
+					name: "My Total Locked Value In Boardroom",
+					data: this.collateralRatioArr.map(d => d.value * 0.8).reverse()
+				});	
+			}
+				
 			return {
 				xData:this.collateralRatioArr.map(d => new Date(d.date * 1000).toLocaleDateString()).reverse(),
-				yData:[{
-					name: "My Total Value Locked",
-					data: this.collateralRatioArr.map(d => d.value).reverse()
-				}, {
-					name: "My Total Minted Value",
-					data: this.collateralRatioArr.map(d => d.mintedValue).reverse()
-				}]
+				yData
 			};
 		},
 		xAxisData() {
@@ -184,6 +246,9 @@ export default {
 		},
 		yAxisData() {
 			return this.lockedValueChartData.yData || [];
+		},
+		colors() {
+			return this.lockedValueChartData.colors || [];
 		},
 		collateralPrices() {
 			return this.$store.state.collateralVaultStore.collateralPrices;
@@ -239,11 +304,11 @@ export default {
 			}else {
 				this.activeCharts.splice(itemIndex,1);
 			}
-			this.updateLockedValueChart();
+			this.activeCharts = [...this.activeCharts];
 		},
-		updateLockedValueChart() {
-			
-		}
+		handleTabChanged(e) {
+			this.selectedPeriod = e;
+		},
 	},
 };
 </script>
