@@ -96,7 +96,7 @@
 				<div class="l-collateral__toggle-btn is-active">
 					<label>
 						<TheDot color="light-green" />
-						Total Locked Collateral Value
+						Locked Collateral
 						<TheBadge v-if="!isNaN(getChangePercent('collateralTokens', collateralRatioArr, true))" class="u-ml-8" :color="getPercentChangeBadgeClass('collateralTokens', collateralRatioArr, true)">{{ getUserTVLSign }}{{ Math.abs(getChangePercent('collateralTokens', collateralRatioArr, true)) }}%</TheBadge>
 					</label>
 					<ComponentLoader component="h1" :loaded="balanceLoaded">
@@ -106,11 +106,21 @@
 				<div class="l-collateral__toggle-btn">
 					<label>
 						<TheDot color="lime" />
-						Total Value of My Minted (NUON)
+						Total Minted Value (NUON)
 						<TheBadge v-if="!isNaN(getChangePercent('mintedNuon', collateralRatioArr, true))" class="u-ml-8" :color="getPercentChangeBadgeClass('mintedNuon', collateralRatioArr, true)">{{ getUserMintedNuonSign }}{{ Math.abs(getChangePercent('mintedNuon', collateralRatioArr, true)) }}%</TheBadge>
 					</label>
 					<ComponentLoader component="h1" :loaded="balanceLoaded">
 						<h3>${{ (graphSelectionMintedNuon || totalMintedNuon) | toFixed | numberWithCommas }}</h3>
+					</ComponentLoader>
+				</div>
+				<div class="l-collateral__toggle-btn">
+					<label>
+						<TheDot color="purple" />
+						Overall Collateralization Ratio
+						<TheBadge v-if="!isNaN(getChangePercent('mintedNuon', collateralRatioArr, true))" class="u-ml-8" :color="getPercentChangeBadgeClass('mintedNuon', collateralRatioArr, true)">{{ getUserMintedNuonSign }}{{ Math.abs(getChangePercent('mintedNuon', collateralRatioArr, true)) }}%</TheBadge>
+					</label>
+					<ComponentLoader component="h1" :loaded="balanceLoaded">
+						<h3>195%</h3>
 					</ComponentLoader>
 				</div>
 			</div>
