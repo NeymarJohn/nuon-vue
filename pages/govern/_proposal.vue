@@ -250,9 +250,6 @@ export default {
 				const allChoices = this.totalVotesForActive.map(v => v.choice);
 				const uniqueAnswers = new Set(allChoices);
 				const calculatedVotes = {};
-				// gives {1: 8} for 8 yes and 0 no with key 1 denoting yes
-				// gives {2: 3} for 0 yes and 3 no
-				// gives {1: 8, 2: 3} for 8 yes and 3 no with key 1 denoting yes, 2 denoting no
 				uniqueAnswers.forEach((ans) => {
 					calculatedVotes[ans] = allChoices.filter(c => c === ans).length;
 				});
@@ -382,8 +379,6 @@ export default {
 
 				if (details.status === 200) {
 					this.details = details.data.data.proposals[0];
-					/* for currently active proposals, have to calculate vote distribution and count ourselves
-					   for the time being as some features in their api aren't supported for active proposals  */
 					if (this.details.state === "active") {
 						this.getVotes();
 					}

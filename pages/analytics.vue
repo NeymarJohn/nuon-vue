@@ -20,7 +20,7 @@
 import UserIcon from "@/assets/images/svg/svg-user.svg";
 
 export default {
-	name: "Analytics",
+	name: "TheAnalytics",
 	components: {
 		UserIcon,
 	},

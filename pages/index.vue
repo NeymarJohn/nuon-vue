@@ -5,28 +5,9 @@
 				<h4>Dashboard</h4>
 				<h1>My Portfolio</h1>
 			</PageTitle>
-			<ul class="price-indicator">
-				<li>NUON Price:
-					<ComponentLoader component="nuon-price" :loaded="nuonPrice !== null && truflationPeg !== null">
-						<span>${{ computedNuonPrice }}</span>
-						<TheBadge v-if="nuonPrice > truflationPeg">Above</TheBadge>
-						<TheBadge v-else-if="nuonPrice < truflationPeg">Below</TheBadge>
-					</ComponentLoader>
-				</li>
-				<li>Target Peg:
-					<ComponentLoader component="target-peg" :loaded="truflationPeg !== 0">
-						<span>${{ truflationPeg | toFixed }}</span>
-					</ComponentLoader>
-				</li>
-				<li>Health Status:
-					<ComponentLoader component="health-status" :loaded="nuonPrice !== null && truflationPeg !== null">
-						<TheBadge :color="calculateHealthStatus(nuonPrice, truflationPeg)">{{ calculateHealthStatus(nuonPrice, truflationPeg) }}</TheBadge>
-					</ComponentLoader>
-				</li>
-			</ul>
+			<PriceIndicator :nuon-price="nuonPrice" :truflation-peg="truflationPeg" />
 		</LayoutFlex>
-		<AccountBalance
-			:locked-amount="userTotalLockedCollateralAmount" />
+		<AccountBalance :locked-amount="userTotalLockedCollateralAmount" />
 		<h3 class="u-mb-24">Collateral Hub</h3>
 		<div class="l-collateral">
 			<div class="l-collateral__toggle">
@@ -68,7 +49,7 @@
 				</template>
 			</div>
 		</div>
-		<LayoutFlex :direction="!mobileView?`row-space-between l-chart chart`:`column l-chart chart`">
+		<LayoutFlex :direction="!mobileView ? `row-space-between l-chart chart` : `column l-chart chart`">
 			<div>
 				<label class="light_grey">Collateral Distribution</label>
 				<DonutChartCollateral class="u-mb-24" :chart-data="collateralDonutChartData" />
@@ -96,7 +77,8 @@
 			title="Mint"
 			subtitle="Deposit collateral to mint NUON"
 			@close-modal="setModalVisibility('mintModal', false)">
-			<CollateralMint :minimum-deposit-amount="minimumDepositAmount" :currently-selected-collateral="currentlySelectedCollateral" />
+			<CollateralMint
+				:minimum-deposit-amount="minimumDepositAmount" :currently-selected-collateral="currentlySelectedCollateral" />
 		</TheModal>
 		<TheModal
 			v-show="isRedeemModalVisible"
@@ -128,8 +110,7 @@ import { getUserTVLDayData } from "~/services/theGraph";
 import { USDT, WETH } from "~/constants/tokens";
 
 export default {
-	name: "MyDashboard",
-
+	name: "TheDashboard",
 	data() {
 		return {
 			tvl: 0,
@@ -445,16 +426,6 @@ export default {
 			} catch (e) {
 			} finally {
 				this.truflationPeg = result;
-			}
-		},
-		calculateHealthStatus(a, b) {
-			const difference = Math.abs(a, b);
-			if (difference >= 0.5) {
-				return "average";
-			} else if (difference >= 1) {
-				return "unhealthy";
-			} else {
-				return "healthy";
 			}
 		},
 		getDiffMinted() {

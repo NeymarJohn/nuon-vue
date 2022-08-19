@@ -173,7 +173,7 @@ import TooltipIcon from "@/assets/images/svg/svg-tooltip.svg";
 import { nuMINT } from "~/constants/tokens";
 
 export default {
-	name: "Govern",
+	name: "TheGovern",
 	components: {
 		TooltipIcon
 	},
