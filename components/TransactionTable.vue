@@ -5,10 +5,8 @@
 				v-for="(column, index) in config"
 				:key="index"
 				class="transaction-table__cell"
-				role="columnheader">{{ column.title }}
-			</div>
-			<div v-if="actions.length > 0" class="transaction-table__cell" role="columnheader">
-			</div>
+				role="columnheader">{{ column.title }}</div>
+			<div v-if="actions.length > 0" class="transaction-table__cell" role="columnheader"></div>
 		</div>
 		<div v-if="loading" class="transaction-table__row"  role="rowgroup">
 			<div
