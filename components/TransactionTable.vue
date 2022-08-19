@@ -55,8 +55,9 @@
 						</span>
 						<template v-else-if="obj.id === 'collateralizationRatio'">
 							<span :class="Number(row[obj.id]) < highRiskLevel ? 'u-color-error' : 'u-color-warning'">{{row[obj.id] }}%</span>
-							<TheBadge v-if="Number(row[obj.id]) < highRiskLevel" color="high-risk">High Risk</TheBadge>
+							<TheBadge v-if="Number(row[obj.id]) && Number(row[obj.id]) < highRiskLevel" color="high-risk">High Risk</TheBadge>
 							<TheBadge v-else-if="Number(row[obj.id]) && Number(row[obj.id]) < mediumRiskLevel" color="medium-risk">Medium Risk</TheBadge>
+							<TheBadge v-else color="low-risk">Low Risk</TheBadge>
 						</template>
 						<span v-else>{{ row[obj.id] }}</span>
 					</LayoutFlex>

@@ -31,3 +31,15 @@
 	padding: $SPACING_4 $SPACING_8;
 	margin-left: $SPACING_16;
 }
+
+.price-indicator .healthy {
+	color: $SUCCESS;
+}
+.price-indicator .unhealthy {
+	color: $ERROR;
+}
+
+.price-indicator .average {
+	color: $WARNING;
+}
+

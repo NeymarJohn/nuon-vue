@@ -14,7 +14,10 @@
 		</li>
 		<li>Health Status:
 			<ComponentLoader component="health-status" :loaded="nuonPrice !== null && truflationPeg !== null">
-				<TheBadge :color="calculateHealthStatus(nuonPrice, truflationPeg)">{{ calculateHealthStatus(nuonPrice, truflationPeg) }}</TheBadge>
+				<span :class="getColorForHealth(nuonPrice, truflationPeg)">
+					{{healthMetrics( truflationPeg, nuonPrice)>0?"+":""}}{{ healthMetrics( truflationPeg, nuonPrice) | toFixed }} %
+				</span>
+				<TheBadge :color="getColorForHealth(nuonPrice, truflationPeg)">{{ getColorForHealth( truflationPeg, nuonPrice) }}</TheBadge>
 			</ComponentLoader>
 		</li>
 	</ul>
@@ -26,24 +29,29 @@ export default {
 	props: {
 		nuonPrice: {
 			type: Number,
-			required: true
+			required: true,
+			default: 0
 		},
 		truflationPeg: {
 			type: Number,
-			required: true
+			required: true,
+			default: 0
 		}
 	},
 	methods: {
-		calculateHealthStatus(a, b) {
-			const difference = Math.abs(a, b);
-			if (difference >= 0.5) {
-				return "average";
-			} else if (difference >= 1) {
-				return "unhealthy";
-			} else {
-				return "healthy";
-			}
+		healthMetrics(target, current) {
+			const difference = (current - target) / target * 100;
+			return difference;
 		},
+		getColorForHealth(target, current) {
+			if (Math.abs(this.healthMetrics(target, current)) < this.healthStatusMetrics.healthy) {
+				return "healthy";
+			} else if (Math.abs(this.healthMetrics(target, current)) < this.healthStatusMetrics.average) {
+				return "average";
+			} else {
+				return "unhealthy";
+			}
+		}
 	}
 };
 </script>

@@ -45,10 +45,11 @@
 
 // 3. Badge Risk
 .badge--high-risk,
-.badge--medium-risk {
+.badge--medium-risk,
+.badge--low-risk {
 	padding: $SPACING_4 $SPACING_8;
 	border-radius: $BORDER_RADIUS_8;
-	font-size: $SPACING_12;
+	font-size: $BODY_TEXT_XXS;
 	margin-left: $SPACING_8;
 }
 .badge--high-risk {
@@ -60,6 +61,11 @@
 	background-color: $DARK_GREY;
 	border: $SPACING_1 solid $WARNING;
 	color: $WARNING;
+}
+.badge--low-risk {
+	background-color: $DARK_GREY;
+	border: $SPACING_1 solid $LIME;
+	color: $LIME;
 }
 
 // 4. Badge balance
@@ -132,5 +138,13 @@
 	.badge {
 		font-size: $BODY_TEXT_XS;
 		line-height: $SPACING_18;
+	}
+	.badge--high-risk,
+	.badge--medium-risk,
+	.badge--low-risk {
+		padding: $SPACING_4 $SPACING_8;
+		border-radius: $BORDER_RADIUS_8;
+		font-size: $BODY_TEXT_XXS;
+		margin-left: $SPACING_8;
 	}
 }

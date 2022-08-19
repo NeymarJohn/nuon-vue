@@ -40,6 +40,7 @@ Vue.mixin({
 			highRiskLevel: 200, // my collateral Ratio
 			mediumRiskLevel: 300, // my collateral Ratio
 			periods: ["D", "W", "M"],
+			healthStatusMetrics: { healthy: 10, average: 30}
 		};
 	},
 	computed: {
