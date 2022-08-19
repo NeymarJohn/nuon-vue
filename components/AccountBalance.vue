@@ -86,7 +86,7 @@
 					</TheTabs>
 				</LayoutFlex>
 				<LineChart
-					:key="`${selectedPeriod}-${yAxisData.length}`"
+					:key="`${selectedPeriod}-${activeCharts[0]}`"
 					class="u-mt-16 u-mb-48"
 					:x-axis-labels="xAxisData"
 					:y-axis-options="{showYAxis: false, opposite: false, labels: {formatter: (val) => {}}}"
@@ -121,7 +121,7 @@ export default {
 			collateralRatioArr: [],
 			graphSelectionDuraton: "",
 			graphSelectionTVL: "",
-			activeCharts: ["nuon", "nuMint", "boardroom", "collateral"],
+			activeCharts: [],
 			selectedPeriod: 0
 		};
 	},
@@ -149,6 +149,10 @@ export default {
 			});
 			if (this.selectedPeriod === 1) { // week
 				const yData = [];
+				yData.push({
+					name: "Locked Collateral",
+					data: Object.values(weeks).map(d => d.value).reverse()
+				});
 				if (this.activeCharts.includes("nuon")) {
 					yData.push({
 						name: "NUON Balance",
@@ -180,6 +184,10 @@ export default {
 			}
 			if (this.selectedPeriod === 2) { // month
 				const yData = [];
+				yData.push({
+					name: "Locked Collateral",
+					data: Object.values(months).map(d => d.value).reverse()
+				});
 				if (this.activeCharts.includes("nuon")) {
 					yData.push({
 						name: "NUON Balance",
@@ -211,6 +219,10 @@ export default {
 			};
 
 			const yData = [];
+			yData.push({
+				name: "Locked Collateral",
+				data: this.collateralRatioArr.map(d => d.value).reverse()
+			});
 			if (this.activeCharts.includes("nuon")) {
 				yData.push({
 					name: "NUON Balance",
@@ -298,13 +310,11 @@ export default {
 			}
 		},
 		toggleShowChart(element) {
-			const itemIndex = this.activeCharts.findIndex((it) => it===element);
-			if (itemIndex < 0) {
-				this.activeCharts.push(element);
+			if (this.activeCharts[0] === element) {
+				this.activeCharts = [];
 			} else {
-				this.activeCharts.splice(itemIndex,1);
+				this.activeCharts = [element];
 			}
-			this.activeCharts = [...this.activeCharts];
 		},
 		handleTabChanged(e) {
 			this.selectedPeriod = e;
