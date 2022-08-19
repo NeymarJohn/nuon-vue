@@ -10,7 +10,7 @@
 						<span><TheDot color="lime" /><label>NUON Balance</label></span>
 						<div class="l-balance__toggle__value">
 							{{ tokenBalances.NUON | toFixed | numberWithCommas }}
-							<sub>+1.25%</sub>
+							<sub class="badge--success--no_border" >+1.25%</sub>
 						</div>
 						<TheButton size="icon" title="Click to show chart" @click="toggleShowChart('nuon')">
 							<template v-if="!activeCharts.includes('nuon')">
@@ -27,7 +27,7 @@
 						<span><TheDot color="light-green" /><label>NuMINT Balance</label></span>
 						<div class="l-balance__toggle__value">
 							{{ tokenBalances.nuMINT | toFixed | numberWithCommas }}
-							<sub>+1.25%</sub>
+							<sub class="badge--grey--no_border">0.00%</sub>
 						</div>
 						<TheButton size="icon" title="Click to show chart" @click="toggleShowChart('nuMint')">
 							<template v-if="!activeCharts.includes('nuMint')">
@@ -44,7 +44,7 @@
 						<span><TheDot color="blue" /><label>Locked Collateral</label></span>
 						<div class="l-balance__toggle__value">
 							${{ (graphSelectionTVL || totalValue) | toFixed | numberWithCommas }}
-							<sub>+1.25%</sub>
+							<sub class="badge--success--no_border">+1.25%</sub>
 						</div>
 						<TheButton size="icon" title="Click to show chart" @click="toggleShowChart('collateral')">
 							<template v-if="!activeCharts.includes('collateral')">
@@ -61,7 +61,7 @@
 						<span><TheDot color="orange" /><label>NuMINT in Boardroom</label></span>
 						<div class="l-balance__toggle__value">
 							{{ stakedBalance | toFixed | numberWithCommas }}
-							<sub>+1.25%</sub>
+							<sub class="badge--error--no_border">-1.25%</sub>
 						</div>
 						<TheButton size="icon" title="Click to show chart" @click="toggleShowChart('boardroom')">
 							<template v-if="!activeCharts.includes('boardroom')">

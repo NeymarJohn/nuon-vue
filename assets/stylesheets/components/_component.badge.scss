@@ -132,7 +132,15 @@
 	border-color: $ERROR;
 	color: $ERROR;
 }
-
+.badge--success--no_border {
+	color: $SUCCESS;
+}
+.badge--error--no_border {
+	color: $ERROR;
+}
+.badge--grey--no_border {
+	color: $LIGHT_GREY;
+}
 // 9. Badge responsive
 @media screen and (max-width: $SPACING_1440) {
 	.badge {
