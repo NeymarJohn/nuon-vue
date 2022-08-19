@@ -14,7 +14,7 @@
 						</div>
 						<TheButton size="icon" title="Click to show chart" @click="toggleShowChart('nuon')">
 							<template v-if="!activeCharts.includes('nuon')">
-								<LineChartIcon v-if="!activeCharts.includes('nuon')"/> 
+								<LineChartIcon v-if="!activeCharts.includes('nuon')"/>
 								<span>Show Chart</span>
 							</template>
 							<template v-else>
@@ -31,7 +31,7 @@
 						</div>
 						<TheButton size="icon" title="Click to show chart" @click="toggleShowChart('nuMint')">
 							<template v-if="!activeCharts.includes('nuMint')">
-								<LineChartIcon /> 
+								<LineChartIcon />
 								<span>Show Chart</span>
 							</template>
 							<template v-else>
@@ -48,7 +48,7 @@
 						</div>
 						<TheButton size="icon" title="Click to show chart" @click="toggleShowChart('collateral')">
 							<template v-if="!activeCharts.includes('collateral')">
-								<LineChartIcon /> 
+								<LineChartIcon />
 								<span>Show Chart</span>
 							</template>
 							<template v-else>
@@ -65,7 +65,7 @@
 						</div>
 						<TheButton size="icon" title="Click to show chart" @click="toggleShowChart('boardroom')">
 							<template v-if="!activeCharts.includes('boardroom')">
-								<LineChartIcon /> 
+								<LineChartIcon />
 								<span>Show Chart</span>
 							</template>
 							<template v-else>
@@ -91,7 +91,6 @@
 					:x-axis-labels="xAxisData"
 					:y-axis-options="{showYAxis: false, opposite: false, labels: {formatter: (val) => {}}}"
 					:series-data="yAxisData"
-					data-v-step="4"
 					@mouseOverDataPoint="handleMouseOverChart" />
 			</div>
 		</div>
@@ -106,6 +105,7 @@ import { fromWei } from "~/utils/bnTools";
 import { getUserTVLDayData } from "~/services/theGraph";
 
 export default {
+	name: "AccountBalance",
 	components: {
 		LineChartIcon,
 		LineChartIconActive
@@ -113,7 +113,7 @@ export default {
 	props: {
 		lockedAmount: {
 			type: Object,
-			default: ()=>{}
+			default: () => {}
 		},
 	},
 	data() {
@@ -149,29 +149,29 @@ export default {
 			});
 			if (this.selectedPeriod === 1) { // week
 				const yData = [];
-				if (this.activeCharts.includes("collateral")) {
-					yData.push({
-						name: "My Total Value Locked In Collateral",
-						data: Object.values(weeks).map(d => d.value).reverse()
-					});	
-				}
 				if (this.activeCharts.includes("nuon")) {
 					yData.push({
-						name: "My Total Nuon Balance",
+						name: "NUON Balance",
 						data: Object.values(weeks).map(d => d.value * 1.2).reverse()
-					});	
+					});
 				}
 				if (this.activeCharts.includes("nuMint")) {
 					yData.push({
-						name: "My Total nuMint Balance",
+						name: "NuMINT Balance",
 						data: Object.values(weeks).map(d => d.value * 1.5).reverse()
-					});	
+					});
+				}
+				if (this.activeCharts.includes("collateral")) {
+					yData.push({
+						name: "Locked Collateral",
+						data: Object.values(weeks).map(d => d.value).reverse()
+					});
 				}
 				if (this.activeCharts.includes("boardroom")) {
 					yData.push({
-						name: "My Total Locked Value In Boardroom",
+						name: "NuMINT In Boardroom",
 						data: Object.values(weeks).map(d => d.value * 0.8).reverse()
-					});	
+					});
 				}
 				return {
 					xData:Object.keys(weeks).map(d => new Date(d).toLocaleDateString()).reverse(),
@@ -180,29 +180,29 @@ export default {
 			}
 			if (this.selectedPeriod === 2) { // month
 				const yData = [];
-				if (this.activeCharts.includes("collateral")) {
-					yData.push({
-						name: "My Total Value Locked In Collateral",
-						data: Object.values(months).map(d => d.value).reverse()
-					});	
-				}
 				if (this.activeCharts.includes("nuon")) {
 					yData.push({
-						name: "My Total Nuon Balance",
+						name: "NUON Balance",
 						data: Object.values(months).map(d => d.value * 1.2).reverse()
-					});	
+					});
 				}
 				if (this.activeCharts.includes("nuMint")) {
 					yData.push({
-						name: "My Total nuMint Balance",
+						name: "NuMINT Balance",
 						data: Object.values(months).map(d => d.value * 1.5).reverse()
-					});	
+					});
+				}
+				if (this.activeCharts.includes("collateral")) {
+					yData.push({
+						name: "Locked Collateral",
+						data: Object.values(months).map(d => d.value).reverse()
+					});
 				}
 				if (this.activeCharts.includes("boardroom")) {
 					yData.push({
-						name: "My Total Locked Value In Boardroom",
+						name: "NuMINT In Boardroom",
 						data: Object.values(months).map(d => d.value * 0.8).reverse()
-					});	
+					});
 				}
 				return {
 					xData:Object.keys(months).map(d => new Date(d).toLocaleDateString()).reverse(),
@@ -211,31 +211,31 @@ export default {
 			};
 
 			const yData = [];
-			if (this.activeCharts.includes("collateral")) {
-				yData.push({
-					name: "My Total Value Locked In Collateral",
-					data: this.collateralRatioArr.map(d => d.value).reverse()
-				});	
-			}
 			if (this.activeCharts.includes("nuon")) {
 				yData.push({
-					name: "My Total Nuon Balance",
+					name: "NUON Balance",
 					data: this.collateralRatioArr.map(d => d.value * 1.2).reverse()
-				});	
+				});
 			}
 			if (this.activeCharts.includes("nuMint")) {
 				yData.push({
-					name: "My Total nuMint Balance",
+					name: "NuMINT Balance",
 					data: this.collateralRatioArr.map(d => d.value * 1.5).reverse()
-				});	
+				});
+			}
+			if (this.activeCharts.includes("collateral")) {
+				yData.push({
+					name: "Locked Collateral",
+					data: this.collateralRatioArr.map(d => d.value).reverse()
+				});
 			}
 			if (this.activeCharts.includes("boardroom")) {
 				yData.push({
-					name: "My Total Locked Value In Boardroom",
+					name: "NuMINT In Boardroom",
 					data: this.collateralRatioArr.map(d => d.value * 0.8).reverse()
-				});	
+				});
 			}
-				
+
 			return {
 				xData:this.collateralRatioArr.map(d => new Date(d.date * 1000).toLocaleDateString()).reverse(),
 				yData
@@ -301,7 +301,7 @@ export default {
 			const itemIndex = this.activeCharts.findIndex((it) => it===element);
 			if (itemIndex < 0) {
 				this.activeCharts.push(element);
-			}else {
+			} else {
 				this.activeCharts.splice(itemIndex,1);
 			}
 			this.activeCharts = [...this.activeCharts];
@@ -312,7 +312,3 @@ export default {
 	},
 };
 </script>
-
-<style>
-
-</style>

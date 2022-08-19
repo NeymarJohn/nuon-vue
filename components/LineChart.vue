@@ -24,7 +24,14 @@ export default {
 		yAxisOptions: {
 			type: Object,
 			default() {
-				return {showYAxis: false, opposite: false, labels: {align: "right", formatter: () => {}}};
+				return {
+					showYAxis: false,
+					opposite: false,
+					labels: {
+						align: "right",
+						formatter: () => {}
+					}
+				};
 			},
 			required: false
 		},
@@ -44,7 +51,7 @@ export default {
 			type: Array,
 			required: false,
 			default() {
-				return ["#DFFF65", "#65FFB5"];
+				return ["#DFFF65", "#65FFB5", "#65B5FF", "#FFC165"];
 			}
 		},
 	},

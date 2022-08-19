@@ -26,7 +26,7 @@
 			</ul>
 		</LayoutFlex>
 		<AccountBalance
-			:locked-amount="userTotalLockedCollateralAmount"/>
+			:locked-amount="userTotalLockedCollateralAmount" />
 		<h3 class="u-mb-24">Collateral Hub</h3>
 		<div class="l-collateral">
 			<div class="l-collateral__toggle">
@@ -48,16 +48,6 @@
 					</label>
 					<ComponentLoader component="h1" :loaded="balanceLoaded">
 						<h3>${{ (graphSelectionMintedNuon || totalMintedNuon) | toFixed | numberWithCommas }}</h3>
-					</ComponentLoader>
-				</div>
-				<div class="l-collateral__toggle-btn">
-					<label>
-						<TheDot color="purple" />
-						Overall Collateralization Ratio
-						<TheBadge v-if="!isNaN(getChangePercent('mintedNuon', collateralRatioArr, true))" class="u-ml-8" :color="getPercentChangeBadgeClass('mintedNuon', collateralRatioArr, true)">{{ getUserMintedNuonSign }}{{ Math.abs(getChangePercent('mintedNuon', collateralRatioArr, true)) }}%</TheBadge>
-					</label>
-					<ComponentLoader component="h1" :loaded="balanceLoaded">
-						<h3>195%</h3>
 					</ComponentLoader>
 				</div>
 			</div>
@@ -212,21 +202,21 @@ export default {
 			currentlySelectedCollateral: "WETH",
 			actions:[
 				{
-					label: "Mint", 
+					label: "Mint",
 					handler: (row) => {
 						this.setCurrentlySelectedCollateral(row.lockedCollateral);
 						this.setModalVisibility("mintModal", true);
 					}
 				},
 				{
-					label: "Redeem", 
+					label: "Redeem",
 					handler: (row) =>  {
 						this.setCurrentlySelectedCollateral(row.lockedCollateral);
 						this.setModalVisibility("redeemModal", true);
 					}
 				},
 				{
-					label: "Adjust Position", 
+					label: "Adjust Position",
 					handler: (row) =>  {
 						this.setCurrentlySelectedCollateral(row.lockedCollateral);
 						this.setModalVisibility("adjustPositionModal", true);
