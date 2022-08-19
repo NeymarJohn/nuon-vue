@@ -169,8 +169,6 @@ export default {
 			mobileView: false,
 			collateralPrices: {},
 			userMintedAmounts: {},
-			userCollateralizationRatios: {},
-			userTotalLockedCollateralAmount: {},
 			nuonPrice: null,
 			truflationPeg: 0,
 			collateralRatioArr: [],
@@ -239,6 +237,12 @@ export default {
 		totalMintedNuon() {
 			if (Object.values(this.userMintedAmounts).length === 0) return 0;
 			return parseFloat(Object.values(this.userMintedAmounts).reduce((acc, amount) => acc + amount, 0) * this.nuonPrice).toFixed(2);
+		},
+		userTotalLockedCollateralAmount() {
+			return this.$store.state.collateralVaultStore.lockedAmount;
+		}, 
+		userCollateralizationRatios() {
+			return this.$store.state.collateralVaultStore.collateralRatio;
 		},
 		chubData() {
 			const data = [];
@@ -354,8 +358,6 @@ export default {
 					await this.$store.dispatch("collateralVaultStore/changeCollateral", collateral);
 					this.getCollateralsPrices(collateral);
 					this.getUserMintedAmount(collateral);
-					this.getUserCollateralizationRatio(collateral);
-					this.getUserCollateralAmount(collateral);
 				}
 
 				this.getNuonPrice();
@@ -386,27 +388,6 @@ export default {
 			} catch (e) {
 			} finally {
 				this.$set(this.userMintedAmounts, collateral, result);
-			}
-		},
-		async getUserCollateralizationRatio(collateral) {
-			let result = 0;
-			try {
-				const amount = fromWei(await this.$store.getters["collateralVaultStore/getUserCollateralRatioInPercent"](this.connectedAccount));
-				result = parseFloat(amount);
-			} catch (e) {
-			} finally {
-				this.$set(this.userCollateralizationRatios, collateral, result);
-			}
-		},
-		async getUserCollateralAmount(collateral) {
-			let result = 0;
-			try {
-				const decimals = this.$store.state.erc20Store.decimals[collateral];
-				const amount = (await this.$store.getters["collateralVaultStore/getUserCollateralAmount"](this.connectedAccount));
-				result = parseFloat(fromWei(amount, decimals));
-			} catch (e) {
-			} finally {
-				this.$set(this.userTotalLockedCollateralAmount, collateral, result);
 			}
 		},
 		async getNuonPrice() {

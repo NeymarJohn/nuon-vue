@@ -20,7 +20,6 @@ type StateType = {
 	aprCollateral: number,
 	totalLockedCollateral: number,
 	allCollaterals: any,
-	userUSXMintedAmount: number,
 	mintingFee: 0,
 	redeemFee: number,
 	inflation: number,
@@ -31,8 +30,11 @@ type StateType = {
 	abis: any,
 	vaultRelayerAbis: any,
 	mintedAmount: any,
+	lockedAmount: any
+	collateralRatio: any,
 	targetPeg: number,
 	collateralPrices: any,
+	lpValueOfUser: any
 }
 export const state = (): StateType => ({
 	allowance: {nuMINT:0, NUON: 0},
@@ -43,7 +45,6 @@ export const state = (): StateType => ({
 	aprCollateral: 0,
 	totalLockedCollateral: 0,
 	allCollaterals: [],
-	userUSXMintedAmount: 0,
 	mintingFee: 0,
 	redeemFee: 0,
 	inflation: 0,
@@ -51,6 +52,7 @@ export const state = (): StateType => ({
 	userTVL: 0,
 	userJustMinted: false,
 	currentCollateralToken: "WETH",
+	targetPeg: 0,
 	abis: {
 		WETH: collateralHubAbi,
 		USDT: collateralHubUSDTAbi
@@ -59,12 +61,11 @@ export const state = (): StateType => ({
 		WETH: vaultRelayerNativeAbi,
 		USDT: vaultRelayerUsdtAbi
 	},
-	mintedAmount: {
-		[WETH.symbol] :0,
-		[USDT.symbol] :0
-	},
-	targetPeg: 0,
-	collateralPrices:{},
+	mintedAmount: {},   // {WETH: 0 USDT: 0}  mintedNuon  for all collateral tokens for user
+	lockedAmount: {},   // {WETH: 0 USDT: 0}  locked collateral  for all collateral tokens for user
+	collateralRatio: {},  // {WETH: 0 USDT: 0} collateral Raito for all collateral tokens for user
+	collateralPrices:{},  // {WETH: 0 USDT: 0} collateral price for all collateral tokens
+	lpValueOfUser: {},  // {WETH: 0 USDT: 0} collateral price for all collateral tokens
 });
 
 export type BoardroomState = ReturnType<typeof state>;
@@ -87,9 +88,6 @@ export const mutations: MutationTree<BoardroomState> = {
 	},
 	setTotalLockedCollateral(state, payload) {
 		state.totalLockedCollateral = payload;
-	},
-	setUserUSXMintedAmount(state, payload) {
-		state.userUSXMintedAmount = payload;
 	},
 	setMintingFee(state, payload) {
 		state.mintingFee = payload;
@@ -115,11 +113,20 @@ export const mutations: MutationTree<BoardroomState> = {
 	setMintedAmount(state, {token, amount}) {
 		state.mintedAmount = {...state.mintedAmount, [token]: amount};
 	},
+	setLockedAmount(state, {token, amount}) {
+		state.lockedAmount = {...state.lockedAmount, [token]: amount};
+	},
+	setCollateralRatio(state, {token, value}) {
+		state.collateralRatio = {...state.collateralRatio, [token]: value};
+	},
 	setTargetPeg(state, payload) {
 		state.targetPeg = payload;
 	},
 	setCollateralPrices(state, payload) {
 		state.collateralPrices = payload;
+	},
+	setLpValueOfUser(state, {token, value}) {
+		state.lpValueOfUser = {...state.lpValueOfUser, [token]: value};
 	}
 };
 
@@ -221,14 +228,17 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 		const myCollateralAmount = await getters.getUserCollateralAmount(accountAddress);
 		commit("setUserCollateralAmount", myCollateralAmount);
 
+		
 		const chubAddr = rootGetters["addressStore/collateralHubs"][state.currentCollateralToken];
 		const mintingFee = await getters.getMintingFee(chubAddr);
 		commit("setMintingFee",  fromWei(mintingFee));
 		const redeemFee = await getters.getRedeemFee(chubAddr);
 		commit("setRedeemFee", fromWei(redeemFee));
 
-		dispatch("updateMintedAmount", WETH.symbol);
-		dispatch("updateMintedAmount", USDT.symbol);
+		for (let i = 0; i < collateralTokens.length; i ++ ) {
+			dispatch("updateCollateralTokenStatus", collateralTokens[i].symbol);
+		}
+		
 		dispatch("getCollateralPrices");
 		setInterval(() => {
 			dispatch("getTargetPeg");
@@ -264,15 +274,32 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 	changeCollateral(ctx, token) {
 		ctx.commit("setCollateralToken", token);
 	},
-	async updateMintedAmount(ctx: any, token) {
+
+	async updateCollateralTokenStatus(ctx: any, token: string) {
 		const web3 = ctx.rootState.web3Store.instance();
 		const addr = ctx.rootGetters["addressStore/collateralHubs"][token];
 		const abi = ctx.state.abis[token];
 		const chubContract =  new web3.eth.Contract(abi, addr);
 		const accountAddress = ctx.rootState.web3Store.account;
+
+		// Update minted Nuon
 		const mintedAmount = fromWei(await chubContract.methods.viewUserMintedAmount(accountAddress).call());
 		ctx.commit("setMintedAmount",  {token, amount: mintedAmount});
+
+		// update locked token amount
+		const lockedAmount = fromWei(await chubContract.methods.viewUserCollateralAmount(accountAddress).call(),ctx.rootState.erc20Store.decimals[token]);
+		ctx.commit("setLockedAmount",  {token, amount: lockedAmount});
+
+		// update collateral ratio
+		const collateralRatio = fromWei(await chubContract.methods.getUserCollateralRatioInPercent(accountAddress).call());
+		ctx.commit("setCollateralRatio",  {token, value: collateralRatio});
+
+		// Update getLPValueOfUser
+		const lpValueOfUser = fromWei(await chubContract.methods.getLPValueOfUser(accountAddress).call(), ctx.rootState.erc20Store.decimals[token]);
+		ctx.commit("setLpValueOfUser", {token, value: lpValueOfUser});
+
 	},
+	
 	async getTargetPeg(ctx) {
 		const result = await ctx.getters.getTruflationPeg();
 		ctx.commit("setTargetPeg", Number(fromWei(result)));

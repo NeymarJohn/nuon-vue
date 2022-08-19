@@ -44,7 +44,7 @@
 		<template #step-two>
 			<LayoutFlex v-if="!actionIsMintOrBurn && action !== 'Remove Liquidity'" direction="row-space-between" class="u-full-width">
 				<p>Amount of {{ actionIsMintOrBurn ? 'NUON' : currentlySelectedCollateral }}</p>
-				<p>Available balance: {{ (actionIsMintOrBurn ? nuonBalance : (tokenBalance || 0)) | formatLongNumber }}</p>
+				<p>Available balance: {{ availableAmount() | formatLongNumber }}</p>
 			</LayoutFlex>
 			<p v-if="action === 'Remove Liquidity'" class="u-text-right">LP: {{ shareAmount }}</p>
 			<div class="input">
@@ -310,14 +310,25 @@ export default {
 				const amount = toWei(this.inputModel, this.actionIsMintOrBurn ? 18 : this.decimals);
 
 				const resp = await this.$store.getters[`collateralVaultStore/${methodName}`](amount, this.connectedAccount);
-
+				this.$store.dispatch("collateralVaultStore/updateStatus");
 				this.successToast(null, "Transaction Succeeded", resp.transactionHash);
 			} catch (e) {
 				this.failureToast(null, e, "Transaction Failed");
 			} finally {
 				this.activeStep = 2;
 			}
+		},
+		availableAmount() {
+			if (this.actionIsMintOrBurn) {
+				return nuonBalance;
+			}
+			if (this.action === "Deposit") {
+				return this.tokenBalance || 0;
+			} else if (this.action === "Withdraw") {
+				return this.$store.state.collateralVaultStore.lockedAmount[this.currentlySelectedCollateral];
+			}
 		}
+
 	}
 };
 </script>

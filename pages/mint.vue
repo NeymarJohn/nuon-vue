@@ -95,14 +95,10 @@ export default {
 			myCollateralizationRatio: null,
 			minimumCollateralizationRatio: null,
 			currentlySelectedCollateral: "WETH",
-			collateralPrice: null,
-			userMintedAmount: null,
 			nuonPrice: null,
-			userCollateralAmount: null,
 			userCollateralizationRatioStore: {},
 			userTotalLockedCollateralAmountStore: {},
 			userTotalMintedNuonStore: {},
-			collateralPrices: {},
 			collateralHistoricalPrices: {},
 			mobileView: false,
 			truflationPeg: 0,
@@ -198,6 +194,18 @@ export default {
 		},
 		decimals() {
 			return this.$store.state.erc20Store.decimals[this.currentlySelectedCollateral];
+		},
+		userCollateralAmount() {
+			return Number(this.$store.state.collateralVaultStore.lockedAmount[this.currentlySelectedCollateral] || 0);
+		},
+		userMintedAmount() {
+			return Number(this.$store.state.collateralVaultStore.mintedAmount[this.currentlySelectedCollateral] || 0);
+		},
+		collateralPrices() {
+			return this.$store.state.collateralVaultStore.collateralPrices;
+		},
+		collateralPrice() {
+			return this.collateralPrices[this.currentlySelectedCollateral];
 		}
 	},
 	watch: {
@@ -221,26 +229,6 @@ export default {
 		tabChanged(e) {
 			this.currentlySelectedCollateral = e.selectedValue;
 		},
-		async getCollateralPrice() {
-			let result = 0;
-			try {
-				result = parseFloat(fromWei(await this.$store.getters["collateralVaultStore/getCollateralPrice"]()));
-			} catch (e) {
-			} finally {
-				this.$set(this.collateralPrices, this.currentlySelectedCollateral, result);
-				this.collateralPrice = result;
-			}
-		},
-		async getUserMintedAmount() {
-			let result = 0;
-			try {
-				result = parseFloat(this.twoDecimalPlaces(fromWei(await this.$store.getters["collateralVaultStore/getUserMintedAmount"](this.connectedAccount))));
-			} catch (e) {
-			} finally {
-				this.$set(this.userTotalMintedNuonStore, this.currentlySelectedCollateral, result);
-				this.userMintedAmount = result;
-			}
-		},
 		async getNuonPrice() {
 			let result = 0;
 			try {
@@ -248,17 +236,6 @@ export default {
 			} catch (e) {
 			} finally {
 				this.nuonPrice = result;
-			}
-		},
-		async getUserCollateralAmount() {
-			let result = 0;
-			try {
-				const amount = await this.$store.getters["collateralVaultStore/getUserCollateralAmount"](this.connectedAccount);
-				result = parseFloat(fromWei(amount, this.decimals));
-			} catch (e) {
-			} finally {
-				this.$set(this.userTotalLockedCollateralAmountStore, this.currentlySelectedCollateral, result);
-				this.userCollateralAmount = result;
 			}
 		},
 		async getUserCollateralizationRatio() {
@@ -335,15 +312,12 @@ export default {
 		async initialize() {
 			await this.$store.dispatch("collateralVaultStore/changeCollateral", this.currentlySelectedCollateral);
 			await this.$store.dispatch("collateralVaultStore/updateStatus");
-			this.getCollateralPrice();
 			this.getNuonPrice();
 			this.getMinimumCollateralizationRatio();
 			this.getMinimumDepositAmount();
 			this.getCollateralHistoricalPrices();
 			this.getTruflationPeg();
 			setTimeout(() => {
-				this.getUserCollateralAmount();
-				this.getUserMintedAmount();
 				this.getUserCollateralizationRatio();
 				this.getUserLiquidityCoverage();
 				this.getLPValueOfUser();
