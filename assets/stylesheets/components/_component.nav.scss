@@ -10,6 +10,17 @@
 	margin-bottom: 0;
 	padding: 0 $SPACING_24;
 }
+.faucet {
+	display: flex;
+	flex-direction: row;
+	padding: 0 $SPACING_40;
+	justify-content: space-between;
+	font-size: $SPACING_14;
+	margin-top: $SPACING_32;
+}
+.faucet a {
+	color: $WHITE;
+}
 .nav li {
 	margin-bottom: $SPACING_16;
 }

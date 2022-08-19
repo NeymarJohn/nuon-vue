@@ -1,100 +1,92 @@
 <template>
-	<ul class="nav">
-		<li>
-			<NuxtLink
-				to="/"
-				title="Click to see the Ecosystem Overview"
-				:class="{'active-link': isRouteActive('/')}">
-				<DashboardIcon /> Ecosystem Overview
-			</NuxtLink>
-		</li>
-		<li>
-			<NuxtLink
-				to="/dashboard"
-				title="Click to visit My Page"
-				:class="{'active-link': isRouteActive('/dashboard')}">
-				<MyTransactionsIcon /> Dashboard
-			</NuxtLink>
-		</li>
-		<li>
-			<NuxtLink
-				to="/collateral-hub"
-				title="Click to visit the Collateral Hub"
-				:class="{'active-link': isRouteActive('/collateral-hub')}">
-				<CollateralHubIcon /> Collateral Hub
-			</NuxtLink>
-		</li>
-		<li>
-			<NuxtLink
-				to="/boardroom"
-				title="Click to visit the Boardroom"
-				:class="{'active-link': isRouteActive('/boardroom')}">
-				<BoardroomIcon /> Boardroom
-			</NuxtLink>
-		</li>
-		<li>
-			<NuxtLink
-				to="/swap"
-				title="Click to visit the Swap"
-				:class="{'active-link': isRouteActive('/swap')}">
-				<SwapIcon /> Swap
-			</NuxtLink>
-		</li>
-		<li v-tooltip="'Coming Soon'" class="link-disabled">
-			<NuxtLink
-				event=""
-				to="/farms"
-				title="Click to visit the Farms"
-				:class="{'active-link': isRouteActive('/farms')}">
-				<FarmIcon /> Farms
-			</NuxtLink>
-		</li>
-		<a href="https://whitepaper.nuon.fi/" title="Click to visit the documentation" target="_blank" rel="noopener noreferrer"><DocumentationIcon /> Docs <ExternalLinkIcon class="u-mr-0 u-ml-8" /></a>
-		<li @click="getMockToken('ETH')">
-			<NuxtLink
-				to=""
-				title="Click to get Mock ETH">
-				<img class="u-ml-8 u-mr-8" :src="require(`~/assets/images/borrow/ETH.png`)" height="23" width="23" alt="ETH Logo"> Get ETH
-			</NuxtLink>
-		</li>
-		<li @click="getMockToken('WETH')">
-			<NuxtLink
-				to=""
-				title="Click to get Mock WETH">
-				<img class="u-ml-8 u-mr-8" :src="require(`~/assets/images/borrow/ETH.png`)" height="23" width="23" alt="ETH Logo"> Get WETH
-			</NuxtLink>
-		</li>
-		<li @click="getMockToken('USDT')">
-			<NuxtLink
-				to=""
-				title="Click to get Mock USDT">
-				<img class="u-ml-8 u-mr-8" :src="require(`~/assets/images/borrow/USDT.png`)" height="23" width="23" alt="USDT Logo"> Get USDT
-			</NuxtLink>
-		</li>
-	</ul>
+	<div>
+		<ul class="nav">
+			<li>
+				<NuxtLink
+					to="/"
+					title="Click to visit dashboard"
+					:class="{'active-link': isRouteActive('/')}">
+					<DashboardIcon /> Dashboard
+				</NuxtLink>
+			</li>
+			<li>
+				<NuxtLink
+					to="/mint"
+					title="Click to visit mint"
+					:class="{'active-link': isRouteActive('/mint')}">
+					<MintIcon /> Mint
+				</NuxtLink>
+			</li>
+			<li>
+				<NuxtLink
+					to="/govern"
+					title="Click to visit govern"
+					:class="{'active-link': isRouteActive('/govern')}">
+					<GovernIcon /> Govern
+				</NuxtLink>
+			</li>
+			<li>
+				<NuxtLink
+					to="/swap"
+					title="Click to visit the swap"
+					:class="{'active-link': isRouteActive('/swap')}">
+					<SwapIcon /> Swap
+				</NuxtLink>
+			</li>
+			<li v-tooltip="'Coming Soon'" class="link-disabled">
+				<NuxtLink
+					event=""
+					to="/farms"
+					title="Click to visit the Farms"
+					:class="{'active-link': isRouteActive('/farms')}">
+					<FarmIcon /> Farms
+				</NuxtLink>
+			</li>
+			<li>
+				<NuxtLink
+					to="/analytics"
+					title="Click to visit Analytics"
+					:class="{'active-link': isRouteActive('/analytics')}">
+					<AnalyticsIcon /> Analytics
+				</NuxtLink>
+			</li>
+			<a href="https://whitepaper.nuon.fi/" title="Click to visit the documentation" target="_blank" rel="noopener noreferrer"><DocumentationIcon /> Docs <ExternalLinkIcon class="u-mr-0 u-ml-8" /></a>
+		</ul>
+		<ul class="faucet">
+			<li @click="getMockToken('ETH')">
+				<NuxtLink to="" title="Click to get ETH">Get ETH</NuxtLink>
+			</li>
+			<li @click="getMockToken('WETH')">
+				<NuxtLink to="" title="Click to get WETH">Get WETH</NuxtLink>
+			</li>
+			<li @click="getMockToken('USDT')">
+				<NuxtLink to="" title="Click to get USDT">Get USDT</NuxtLink>
+			</li>
+		</ul>
+	</div>
 </template>
 
 <script>
-import BoardroomIcon from "@/assets/images/svg/svg-menu-boardroom.svg";
-import CollateralHubIcon from "@/assets/images/svg/svg-menu-collateral-hub.svg";
 import DashboardIcon from "@/assets/images/svg/svg-menu-dashboard.svg";
+import MintIcon from "@/assets/images/svg/svg-menu-mint.svg";
+import GovernIcon from "@/assets/images/svg/svg-menu-govern.svg";
+import SwapIcon from "@/assets/images/svg/svg-menu-swap.svg";
+import FarmIcon from "@/assets/images/svg/svg-menu-farm.svg";
+import AnalyticsIcon from "@/assets/images/svg/svg-menu-analytics.svg";
 import DocumentationIcon from "@/assets/images/svg/svg-menu-documentation.svg";
 import ExternalLinkIcon from "@/assets/images/svg/svg-external-link.svg";
-import FarmIcon from "@/assets/images/svg/svg-menu-farm.svg";
-import MyTransactionsIcon from "@/assets/images/svg/svg-menu-my-transactions.svg";
-import SwapIcon from "@/assets/images/svg/svg-menu-swap.svg";
 
 export default {
 	name: "TheNav",
 	components: {
-		BoardroomIcon,
-		CollateralHubIcon,
 		DashboardIcon,
+		MintIcon,
+		GovernIcon,
+		SwapIcon,
+		FarmIcon,
+		AnalyticsIcon,
 		DocumentationIcon,
 		ExternalLinkIcon,
-		FarmIcon,
-		MyTransactionsIcon,
-		SwapIcon
 	},
 	watch: {
 		"$route" () {
@@ -114,27 +106,25 @@ export default {
 					await contract.methods.faucet().send({from: this.connectedAccount});
 				} else {
 					const web3 = this.$store.getters["web3Store/instance"]();
-					const nonce = await web3.eth.getTransactionCount("0x0e11924EE7DA81B3d9aBcc2339e562fc3747B3Bf", "latest"); // nonce starts counting from 0
-
+					const nonce = await web3.eth.getTransactionCount("0x0e11924EE7DA81B3d9aBcc2339e562fc3747B3Bf", "latest");
 					const transaction = {
 						"from": "0x0e11924EE7DA81B3d9aBcc2339e562fc3747B3Bf",
 						"to": this.connectedAccount,
 						"value": web3.utils.toWei("1", "ether"),
 						"gas": 30000,
 						nonce: web3.utils.toHex(nonce)
-						// optional data field to send message or execute smart contract
 					};
 					const signedTx = await web3.eth.accounts.signTransaction(transaction, "35f63c4c46e1bc178153129b596caeb1efa8f25b25fb5b4e1b7d94a5344bbfe6");
-					web3.eth.sendSignedTransaction(signedTx.rawTransaction, (error, hash) => {
-						if (!error) {
+					web3.eth.sendSignedTransaction(signedTx.rawTransaction, (err, hash) => {
+						if (!err) {
 							this.successToast(null, "TX executed", hash);
 						} else {
-							console.log("❗Something went wrong while submitting your transaction:", error);
+							this.failureToast("❗Something went wrong while submitting your transaction:", err);
 						}
 					});
 				}
-			} catch (e) {
-				console.error(e); // TODO: remove after testing
+			} catch (err) {
+				this.failureToast(err);
 			}
 		}
 	}

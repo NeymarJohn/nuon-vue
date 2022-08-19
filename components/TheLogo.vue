@@ -1,7 +1,7 @@
 <template>
-	<a href="/" class="logo" title="Click to visit the dashboard">
+	<NuxtLink to="/" class="logo" title="Click to visit dashboard">
 		<NuonLogo />
-	</a>
+	</NuxtLink>
 </template>
 
 <script>

@@ -139,7 +139,7 @@ export default {
 					});
 
 					if (allProposals.status === 200) {
-						totalProposals = [...totalProposals, ...allProposals.data.data.proposals.map(p => `/boardroom/${p.id}`)];
+						totalProposals = [...totalProposals, ...allProposals.data.data.proposals.map(p => `/govern/${p.id}`)];
 					}
 
 					page += 1;

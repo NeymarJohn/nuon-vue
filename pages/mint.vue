@@ -3,8 +3,8 @@
 		<LayoutContainer>
 			<LayoutFlex direction="row-center-space-between" class="l-flex--column-start-sm u-mb-48">
 				<PageTitle data-v-step="1">
-					<h4>Collateral Hub</h4>
-					<h1 class="u-mb-sm-12">Borrow NUON</h1>
+					<h4>Mint</h4>
+					<h1 class="u-mb-sm-12">Mint NUON</h1>
 					<h5 v-if="mobileView" class="u-color-white u-text-decoration-underline" title="Click to view hub overview" @click="setModalVisibility('hubOverviewModal', true)">Hub Overview</h5>
 				</PageTitle>
 				<LayoutFlex class="u-full-width-sm">
@@ -89,7 +89,7 @@
 import { fromWei, toWei } from "~/utils/bnTools";
 
 export default {
-	name: "TheCollateralHub",
+	name: "Mint",
 	data () {
 		return {
 			myCollateralizationRatio: null,

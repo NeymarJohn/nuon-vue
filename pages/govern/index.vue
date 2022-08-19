@@ -123,7 +123,7 @@
 					<h5>Create proposals and vote to improve the NUON protocol.</h5>
 				</PageTitle>
 				<DataCard align="end" class="u-full-width-sm">
-					<NuxtLink :disabled="!isConnectedWallet" :event="!isConnectedWallet ? '' : 'click'" class="btn btn--md u-full-width-sm u-text-center-sm" to="/boardroom/create-new-proposal" title="Click to create a new proposal">Create New Proposal</NuxtLink>
+					<NuxtLink :disabled="!isConnectedWallet" :event="!isConnectedWallet ? '' : 'click'" class="btn btn--md u-full-width-sm u-text-center-sm" to="/govern/create-new-proposal" title="Click to create a new proposal">Create New Proposal</NuxtLink>
 				</DataCard>
 			</LayoutFlex>
 			<LayoutFlex class="u-mb-36 u-mb-md-24 l-flex--column-start-sm" direction="row-center-space-between">
@@ -173,7 +173,7 @@ import TooltipIcon from "@/assets/images/svg/svg-tooltip.svg";
 import { nuMINT } from "~/constants/tokens";
 
 export default {
-	name: "TheBoardroom",
+	name: "Govern",
 	components: {
 		TooltipIcon
 	},
