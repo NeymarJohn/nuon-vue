@@ -35,14 +35,7 @@ export default {
 					width: 0
 				},
 				dataLabels: {
-					enabled: true,
-					dropShadow: false,
-					textAnchor: "start",
-					style: {
-						fontSize: "16",
-						fontWeight: "400",
-						fontFamily: "Plus Jakarta Sans",
-					},
+					enabled: false,
 				},
 				plotOptions: {
 					pie: {
@@ -58,7 +51,6 @@ export default {
 				},
 				tooltip: {
 					enabled: false,
-					theme: "dark",
 				},
 				states: {
 					hover: {

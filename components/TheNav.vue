@@ -54,13 +54,13 @@
 		</ul>
 		<ul class="faucet">
 			<li @click="getMockToken('ETH')">
-				<NuxtLink to="" title="Click to get ETH">Get ETH</NuxtLink>
+				<NuxtLink to="" title="Click to get ETH">ETH</NuxtLink>
 			</li>
 			<li @click="getMockToken('WETH')">
-				<NuxtLink to="" title="Click to get WETH">Get WETH</NuxtLink>
+				<NuxtLink to="" title="Click to get WETH">WETH</NuxtLink>
 			</li>
 			<li @click="getMockToken('USDT')">
-				<NuxtLink to="" title="Click to get USDT">Get USDT</NuxtLink>
+				<NuxtLink to="" title="Click to get USDT">USDT</NuxtLink>
 			</li>
 		</ul>
 	</div>

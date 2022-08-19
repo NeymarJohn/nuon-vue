@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="u-mb-72">
 		<h2 class="u-mb-24">Transaction History</h2>
 		<TheTabs size="full-width" color="mobile-scroll tabs--dark" margin="sm-24" @tab-changed="changeTab">
 			<TheTab title="Collateral Hub" />
@@ -18,7 +18,7 @@
 		<TheLoader component="table">
 			<TransactionTable
 				v-if="!mobileView"
-				size="4"
+				size="history"
 				aria="Collateral hub redeemed transactions"
 				:data="tableData"
 				:config="transactionConfig"
@@ -28,7 +28,7 @@
 				v-else
 				:data="tableData"
 				:loading="isLoading"
-				:config="transactionConfig" 
+				:config="transactionConfig"
 				:table-data="locations[selectedTab]" />
 		</TheLoader>
 	</div>

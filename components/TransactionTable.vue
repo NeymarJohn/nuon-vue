@@ -25,30 +25,29 @@
 				:key="index"
 				class="transaction-table__row"
 				role="rowgroup"
-				@click="handleClickRow(row)"
-			>
+				title="Click to view transaction in block explorer"
+				@click="handleClickRow(row)">
 				<div
 					v-for="(obj, idx) in config"
 					:key="idx"
 					class="transaction-table__cell"
 					role="cell">
 					<span v-if="obj.id === 'date'">{{ new Date(row[obj.id]) | formateDateTime }}</span>
-					<span v-else-if="obj.id === 'transactionType'">
+					<template v-else-if="obj.id === 'transactionType'">
 						<template v-if="tableData === 'collateral'">
-							<span  class="transaction-table__cell_marked">{{row[obj.id]}}</span> Nuon
-							<span  class="transaction-table__cell_marked">By {{row[obj.id] === 'Mint' ? 'Deposit' : 'Withdraw'}}</span><span>{{` ${row.depositToken.symbol}`}}</span>
+							<span class="transaction-table__cell--marked">{{row[obj.id]}}</span>Nuon<span class="transaction-table__cell--marked">By {{row[obj.id] === 'Mint' ? 'Depositing' : 'Withdrawing'}}</span>{{`${row.depositToken.symbol}`}}
 						</template>
 						<template v-else-if="tableData === 'swap'">
-							<span  class="transaction-table__cell_marked">From</span><span> {{row.inputToken}}</span>
-							<span  class="transaction-table__cell_marked">To</span><span> {{row.outputToken}}</span>
+							<span class="transaction-table__cell--marked">From</span>{{row.inputToken}}
+							<span class="transaction-table__cell--marked">To</span>{{row.outputToken}}
 						</template>
 						<template v-else-if="tableData === 'boardroom'">
-							<span  class="transaction-table__cell_marked">Stake</span><span> {{row.inputToken}}</span>
+							<span class="transaction-table__cell--marked">Stake</span>{{row.inputToken}}
 						</template>
 						<template v-else-if="tableData === 'reward'">
-							<span  class="transaction-table__cell_marked">{{row.transactionType}}</span>
+							<span class="transaction-table__cell--marked">{{row.transactionType}}</span>
 						</template>
-					</span>
+					</template>
 					<LayoutFlex v-else direction="row-center">
 						<img v-if="misc.hasImage && misc.hasImage[obj.id]" :src="require(`~/assets/images/borrow/${misc.hasImage[obj.id][index]}.png`)" class="u-mr-8" height="24" width="24" alt="Token icon">
 						<span v-if="obj.id === 'totalAmount' || obj.id === 'amount'">
@@ -57,29 +56,28 @@
 							<span v-if="obj.id === 'totalAmount'">{{row.outputToken}}</span>
 						</span>
 						<template v-else-if="obj.id === 'collateralizationRatio'">
-							<span :class="Number(row[obj.id]) < highRiskLevel?'risk-ratio':'safe-ratio'">{{row[obj.id] }} % </span>
-							<span v-if="Number(row[obj.id]) < highRiskLevel" class="high-risk-badge">HIGH RISK</span>
-							<span v-else-if="Number(row[obj.id]) && Number(row[obj.id]) < mediumRiskLevel" class="">MEDIUM RISK</span>
+							<span :class="Number(row[obj.id]) < highRiskLevel ? 'u-color-error' : 'u-color-warning'">{{row[obj.id] }}%</span>
+							<TheBadge v-if="Number(row[obj.id]) < highRiskLevel" color="high-risk">High Risk</TheBadge>
+							<TheBadge v-else-if="Number(row[obj.id]) && Number(row[obj.id]) < mediumRiskLevel" color="medium-risk">Medium Risk</TheBadge>
 						</template>
 						<span v-else>{{ row[obj.id] }}</span>
 					</LayoutFlex>
 				</div>
 				<div
 					v-if="actions.length > 0"
-					class="transaction-table__cell actions" role="cell">
+					class="transaction-table__cell" role="cell">
 					<TheButton
 						v-for="action in actions"
 						:key="action.label"
 						size="xs"
-						title="Click to mint"
-						class="btn btn--action"
+						:title="`Click to ${action.label.toLowerCase()}`"
 						@click="action.handler(row)">{{action.label}}</TheButton>
 				</div>
 			</div>
 		</template>
 		<template v-else>
-			<div class="transaction-table__row" role="rowgroup">
-				<div class="transaction-table__cell u-full-width u-text-center">
+			<div class="transaction-table__row--no-results" role="rowgroup">
+				<div class="transaction-table__cell">
 					<span>No transaction records found</span>
 				</div>
 			</div>

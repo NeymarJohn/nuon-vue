@@ -1,9 +1,8 @@
 /* #COMPONENT - TRANSACTION TABLE
 		1. Transaction table default
-		2. Transaction table 3 columns
-		3. Transaction table 4 columns
-		4. Transaction table 5 columns
-		5. Transaction table responsive
+		2. Transaction table collateral
+		3. Transaction table history
+		4. Transaction table responsive
 */
 
 // 1. Transaction table default
@@ -18,6 +17,15 @@
 	align-items: center;
 	transition: $TRANSITION_ALL;
 	border-bottom: $SPACING_1 solid $MEDIUM_LIGHT_GREY;
+}
+.transaction-table__row--no-results .transaction-table__cell {
+	text-align: center;
+	width: 100% !important;
+	padding-bottom: 0;
+}
+.transaction-table__row--no-results:hover {
+	background-color: $TRANSPARENT;
+	color: $WHITE;
 }
 .transaction-table__row:first-child {
 	background-color: $TRANSPARENT;
@@ -37,46 +45,80 @@
 .transaction-table__cell {
 	padding: $SPACING_24;
 }
-
-// 2. Transaction table 3 columns
-.transaction-table--3 .transaction-table__cell {
-	min-width: calc(100% / 3);
-	display: flex;
-	align-items: center;
+.transaction-table__cell--marked {
+	border-radius: $BORDER_RADIUS_4;
+	background-color: $MEDIUM_GREY;
+	padding: $SPACING_4 $SPACING_8;
+	transition: $TRANSITION_ALL;
+}
+.transaction-table__cell--marked:nth-child(1),
+.transaction-table__cell--marked:nth-child(2) {
+	margin-right: $SPACING_8;
+}
+.transaction-table__cell--marked:nth-child(2) {
+	margin-left: $SPACING_8;
+}
+.transaction-table__cell .btn {
+	background-color: $TRANSPARENT;
+	border: $SPACING_1 solid $LIME;
+	color: $LIME;
+	border-radius: $BORDER_RADIUS_8;
+	margin-right: $SPACING_8;
+}
+.transaction-table__cell .btn:hover {
+	background-color: $DARK_GREY;
+}
+.transaction-table__cell .btn:last-child {
+	margin-right: 0;
 }
 
-// 3. Transaction table 4 columns
-.transaction-table--4 .transaction-table__cell {
-	min-width: calc(100% / 4);
+// 2. Transaction table collateral
+.transaction-table--collateral .transaction-table__cell:nth-child(1) {
+	width: 15%;
+}
+.transaction-table--collateral .transaction-table__cell:nth-child(2) {
+	width: 25%;
+}
+.transaction-table--collateral .transaction-table__cell:nth-child(3) {
+	width: 25%;
+}
+.transaction-table--collateral .transaction-table__cell:nth-child(4) {
+	width: 35%;
 }
 
-// 4. Transaction table 5 columns
-.transaction-table--5 .transaction-table__cell {
-	display: flex;
-	align-items: center;
-	min-width: calc(100% / 5);
+// 3. Transaction table history
+.transaction-table--history .transaction-table__row {
+	transition: $TRANSITION_ALL;
+	cursor: pointer;
 }
-.transaction-table__row .high-risk-badge {
-	background-color: #1E1515;
-	padding: $SPACING_8;
-	border-radius: 8px;
-	border: 1px solid #FF4A4A;
-	font-size: $BODY_TEXT_XXS;
-	color: #FF4A4A;
-	margin-left: $SPACING_10;
+.transaction-table--history .transaction-table__row:first-child:hover {
+	background-color: $TRANSPARENT;
+	cursor: text;
+	color: $LIGHT_GREY;
 }
-.transaction-table__cell .risk-ratio {
-	color: #FF4A4A;
+.transaction-table--history .transaction-table__row:hover {
+	background-color: $MEDIUM_GREY;
+	color: $LIME;
 }
-.transaction-table__cell .safe-ratio {
-	color: #FFC165
+.transaction-table--history
+	.transaction-table__row:hover
+	.transaction-table__cell--marked {
+	background-color: $HIGHLIGHT_GREY;
 }
-.transaction-table__cell.actions {
-	display: flex;
-  justify-content: flex-end;
-	flex-grow: 1;
+.transaction-table--history .transaction-table__cell:nth-child(1) {
+	width: 35%;
 }
-// 5. Transaction table responsive
+.transaction-table--history .transaction-table__cell:nth-child(2) {
+	width: 25%;
+}
+.transaction-table--history .transaction-table__cell:nth-child(3) {
+	width: 25%;
+}
+.transaction-table--history .transaction-table__cell:nth-child(4) {
+	width: 15%;
+}
+
+// 4. Transaction table responsive
 @media screen and (max-width: $SPACING_1440) {
 	.transaction-table {
 		font-size: $BODY_TEXT_SM;

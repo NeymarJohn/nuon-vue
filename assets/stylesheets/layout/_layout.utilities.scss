@@ -71,6 +71,9 @@
 .u-mb-64 {
 	margin-bottom: $SPACING_64 !important;
 }
+.u-mb-72 {
+	margin-bottom: $SPACING_72 !important;
+}
 @media screen and (max-width: $SPACING_1440) {
 	.u-mb-lg-14 {
 		margin-bottom: $SPACING_14 !important;
@@ -247,6 +250,12 @@
 }
 .u-color-light-grey {
 	color: $LIGHT_GREY !important;
+}
+.u-color-warning {
+	color: $WARNING !important;
+}
+.u-color-error {
+	color: $ERROR !important;
 }
 
 // 10. Border

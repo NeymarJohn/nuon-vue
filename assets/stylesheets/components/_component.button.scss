@@ -264,18 +264,3 @@ a.btn:hover,
 	background: $MEDIUM_GREY;
 	border-color: $DARK_GREY;
 }
-
-
-// 10. Button action in table
-.btn--action {
-	background: $TRANSPARENT;
-	border-radius: $BORDER_RADIUS_8;
-	color: $LIME;
-	padding: $SPACING_10;
-	margin: $SPACING_5
-}
-.btn--action:hover {
-	background: $MEDIUM_GREY;
-	border-color: $DARK_GREY;
-}
-

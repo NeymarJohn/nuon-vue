@@ -1,5 +1,6 @@
 /* #LAYOUT - COLLATERAL
 		1. Collateral default
+		2. Collateral distribution
 */
 
 // 1. Collateral default
@@ -34,4 +35,16 @@
 }
 .l-collateral__chart {
 	width: 65%;
+}
+
+// 2. Collateral distribution
+.l-collateral__donut {
+	width: 25%;
+	margin-right: $SPACING_24;
+}
+.l-collateral__donut label {
+	color: $LIGHT_GREY;
+}
+.l-collateral__table {
+	width: 75%;
 }

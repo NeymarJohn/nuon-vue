@@ -49,28 +49,27 @@
 				</template>
 			</div>
 		</div>
-		<LayoutFlex :direction="!mobileView ? `row-space-between l-chart chart` : `column l-chart chart`">
-			<div>
-				<label class="light_grey">Collateral Distribution</label>
-				<DonutChartCollateral class="u-mb-24" :chart-data="collateralDonutChartData" />
+		<div class="l-collateral l-collateral--distribution">
+			<div class="l-collateral__donut">
+				<label>Collateral Distribution</label>
+				<DonutChartCollateral :chart-data="collateralDonutChartData" />
 			</div>
-			<TheLoader component="table" class="u-flex-1">
+			<TheLoader component="table" class="l-collateral__table">
 				<TransactionTable
 					v-if="!mobileView"
-					size="5"
-					class="u-p-0 u-flex-1"
+					size="collateral"
+					class="u-p-0"
 					aria="Collateral Hub transactions"
 					:data="chubData"
 					:config="configData"
 					:misc="miscConfig"
-					:actions="actions"
-					data-v-step="5" />
+					:actions="actions" />
 				<TransactionCard
 					v-else
 					:data="chubData"
 					:config="configData" />
 			</TheLoader>
-		</LayoutFlex>
+		</div>
 		<TransactionHistory data-v-step="7" />
 		<TheModal
 			v-show="isMintModalVisible"

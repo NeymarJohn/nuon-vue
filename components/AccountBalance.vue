@@ -19,7 +19,7 @@
 							</template>
 							<template v-else>
 								<LineChartIconActive />
-								<span class="highlight_text">Hide Chart</span>
+								<span>Hide Chart</span>
 							</template>
 						</TheButton>
 					</li>
@@ -36,7 +36,7 @@
 							</template>
 							<template v-else>
 								<LineChartIconActive />
-								<span class="highlight_text">Hide Chart</span>
+								<span>Hide Chart</span>
 							</template>
 						</TheButton>
 					</li>
@@ -53,7 +53,7 @@
 							</template>
 							<template v-else>
 								<LineChartIconActive />
-								<span class="highlight_text">Hide Chart</span>
+								<span>Hide Chart</span>
 							</template>
 						</TheButton>
 					</li>
@@ -70,7 +70,7 @@
 							</template>
 							<template v-else>
 								<LineChartIconActive />
-								<span class="highlight_text">Hide Chart</span>
+								<span>Hide Chart</span>
 							</template>
 						</TheButton>
 					</li>
