@@ -89,7 +89,7 @@
 				</LayoutFlex>
 				<LineChart
 					:key="`${selectedPeriod}-${activeCharts[0]}`"
-					class="u-mt-16 u-mb-48"
+					class="u-mt-16"
 					:x-axis-labels="xAxisData"
 					:y-axis-options="{showYAxis: false, opposite: false, labels: {formatter: (val) => {}}}"
 					:series-data="yAxisData"

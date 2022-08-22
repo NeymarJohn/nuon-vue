@@ -34,17 +34,21 @@
 			</div>
 			<div class="l-collateral__chart">
 				<template v-if="xAxisData.length">
-					<span>{{graphSelectionDuraton}}</span>
-					<TheTabs size="thin" color="light" margin="24" @tab-changed="handleTabChanged">
-						<TheTab v-for="(period, periodIdx) in periods" :key="periodIdx" :title="period" />
-					</TheTabs>
+					<LayoutFlex direction="row-justify-end">
+						<TheTabs size="thin" color="dark" margin="24" @tab-changed="handleTabChanged">
+							<TheTab v-for="(period, periodIdx) in periods" :key="periodIdx" :title="period" />
+						</TheTabs>
+					</LayoutFlex>
 					<LineChart
 						:key="selectedPeriod"
-						class="u-mt-16 u-mb-48"
+						class="u-mt-16"
 						:x-axis-labels="xAxisData"
-						:y-axis-options="{showYAxis: false, opposite: false, labels: {formatter: (val) => {}}}"
+						:y-axis-options="{
+							showYAxis: false,
+							opposite: false,
+							labels: {formatter: (val) => {}}
+						}"
 						:series-data="yAxisData"
-						data-v-step="4"
 						@mouseOverDataPoint="handleMouseOverChart" />
 				</template>
 			</div>
@@ -240,7 +244,7 @@ export default {
 		},
 		userTotalLockedCollateralAmount() {
 			return this.$store.state.collateralVaultStore.lockedAmount;
-		}, 
+		},
 		userCollateralizationRatios() {
 			return this.$store.state.collateralVaultStore.collateralRatio;
 		},
@@ -268,12 +272,12 @@ export default {
 		getUserMintedNuonSign() {
 			const changePercent = this.getChangePercent("mintedNuon", this.collateralRatioArr, true);
 			if (parseFloat(changePercent) === 0) return "";
-			return changePercent > 0 ? "+ ":"- ";
+			return changePercent > 0 ? "+ " : "- ";
 		},
 		getUserTVLSign() {
 			const changePercent = this.getChangePercent("collateralTokens", this.collateralRatioArr, true);
 			if (parseFloat(changePercent) === 0) return "";
-			return changePercent > 0 ? "+ ":"- ";
+			return changePercent > 0 ? "+ " : "- ";
 		},
 		xAxisData() {
 			return this.lockedValueChartData.xData || [];
@@ -316,7 +320,7 @@ export default {
 				};
 			};
 			return {
-				xData:this.collateralRatioArr.map(d => new Date(d.date * 1000).toLocaleDateString()).reverse(),
+				xData: this.collateralRatioArr.map(d => new Date(d.date * 1000).toLocaleDateString()).reverse(),
 				yData:[{
 					name: "My Total Value Locked",
 					data: this.collateralRatioArr.map(d => d.value).reverse()

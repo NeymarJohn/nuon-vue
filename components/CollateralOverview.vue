@@ -112,7 +112,7 @@ export default {
 		getUserCrSign() {
 			const changePercent = this.getChangePercent("collateralRatio", this.collateralRatioArr, true);
 			if (changePercent === 0) return "";
-			return changePercent > 0 ? "+ ":"- ";
+			return changePercent > 0 ? "+ " : "- ";
 		}
 	},
 	watch: {
