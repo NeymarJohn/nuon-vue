@@ -13,7 +13,7 @@
 			<div class="l-collateral__toggle">
 				<div class="l-collateral__toggle-btn is-active">
 					<label>
-						<TheDot color="light-green" />
+						<TheDot color="blue" />
 						Locked Collateral
 						<TheBadge v-if="!isNaN(getChangePercent('collateralTokens', collateralRatioArr, true))" class="u-ml-8" :color="getPercentChangeBadgeClass('collateralTokens', collateralRatioArr, true)">{{ getUserTVLSign }}{{ Math.abs(getChangePercent('collateralTokens', collateralRatioArr, true)) }}%</TheBadge>
 					</label>
@@ -48,6 +48,7 @@
 							opposite: false,
 							labels: {formatter: (val) => {}}
 						}"
+						:colors="['#65b5ff', '#dfff65']"
 						:series-data="yAxisData"
 						@mouseOverDataPoint="handleMouseOverChart" />
 				</template>
