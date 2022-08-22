@@ -15,9 +15,8 @@
 		<li>Health Status:
 			<ComponentLoader component="health-status" :loaded="nuonPrice !== null && truflationPeg !== null">
 				<span :class="getColorForHealth(nuonPrice, truflationPeg)">
-					{{healthMetrics( truflationPeg, nuonPrice)>0?"+":""}}{{ healthMetrics( truflationPeg, nuonPrice) | toFixed }} %
+					{{healthMetrics( truflationPeg, nuonPrice) > 0 ? "+" : ""}}{{ healthMetrics( truflationPeg, nuonPrice) | toFixed }} %
 				</span>
-				<TheBadge :color="getColorForHealth(nuonPrice, truflationPeg)">{{ getColorForHealth( truflationPeg, nuonPrice) }}</TheBadge>
 			</ComponentLoader>
 		</li>
 	</ul>
