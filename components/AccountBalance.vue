@@ -77,10 +77,12 @@
 				</ul>
 			</div>
 			<div v-if="xAxisData.length" class="l-balance__chart">
-				<label>Total Value</label>
-				<h3>${{ totalValue + balancesValue + stakedBalance | toFixed | numberWithCommas }}</h3>
 				<LayoutFlex direction="row-space-between" class="l-flex--column-md">
-					<span>{{graphSelectionDuraton}}</span>
+					<div>
+						<label>Total Value</label>
+						<h3>${{ totalValue + balancesValue + stakedBalance | toFixed | numberWithCommas }}</h3>
+						<span>{{graphSelectionDuraton}}</span>
+					</div>
 					<TheTabs size="thin" color="dark" margin="24" @tab-changed="handleTabChanged">
 						<TheTab v-for="(period, periodIdx) in periods" :key="periodIdx" :title="period" />
 					</TheTabs>
