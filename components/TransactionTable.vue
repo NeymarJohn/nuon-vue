@@ -23,7 +23,6 @@
 				:key="index"
 				class="transaction-table__row"
 				role="rowgroup"
-				title="Click to view transaction in block explorer"
 				@click="handleClickRow(row)">
 				<div
 					v-for="(obj, idx) in config"

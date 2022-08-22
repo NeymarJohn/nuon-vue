@@ -194,7 +194,7 @@ export default {
 					}
 				},
 				{
-					label: "Adjust Position",
+					label: "Adjust",
 					handler: (row) =>  {
 						this.setCurrentlySelectedCollateral(row.lockedCollateral);
 						this.setModalVisibility("adjustPositionModal", true);
