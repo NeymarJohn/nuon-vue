@@ -26,7 +26,7 @@
 				<div class="l-collateral__toggle-btn">
 					<label>
 						<TheDot color="lime" />
-						Total Minted Value (NUON)
+						Total NUON Minted Value
 						<ComponentLoader component="badge u-ml-8" :loaded="collateralRatioArr.length > 0">
 							<TheBadge v-if="!isNaN(getChangePercent('mintedNuon', collateralRatioArr, true))" class="u-ml-8" :color="getPercentChangeBadgeClass('mintedNuon', collateralRatioArr, true)">{{ getUserMintedNuonSign }}{{ Math.abs(getChangePercent('mintedNuon', collateralRatioArr, true)) }}%</TheBadge>
 						</ComponentLoader>
