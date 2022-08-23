@@ -15,9 +15,11 @@
 					<label>
 						<TheDot color="blue" />
 						Locked Collateral
-						<TheBadge v-if="!isNaN(getChangePercent('collateralTokens', collateralRatioArr, true))" class="u-ml-8" :color="getPercentChangeBadgeClass('collateralTokens', collateralRatioArr, true)">{{ getUserTVLSign }}{{ Math.abs(getChangePercent('collateralTokens', collateralRatioArr, true)) }}%</TheBadge>
+						<ComponentLoader component="badge u-ml-8" :loaded="collateralRatioArr.length > 0">
+							<TheBadge v-if="!isNaN(getChangePercent('collateralTokens', collateralRatioArr, true))" class="u-ml-8" :color="getPercentChangeBadgeClass('collateralTokens', collateralRatioArr, true)">{{ getUserTVLSign }}{{ Math.abs(getChangePercent('collateralTokens', collateralRatioArr, true)) }}%</TheBadge>
+						</ComponentLoader>
 					</label>
-					<ComponentLoader component="h1" :loaded="balanceLoaded">
+					<ComponentLoader component="h3" :loaded="balanceLoaded">
 						<h3>${{ (graphSelectionTVL || totalValue) | toFixed | numberWithCommas }}</h3>
 					</ComponentLoader>
 				</div>
@@ -25,20 +27,24 @@
 					<label>
 						<TheDot color="lime" />
 						Total Minted Value (NUON)
-						<TheBadge v-if="!isNaN(getChangePercent('mintedNuon', collateralRatioArr, true))" class="u-ml-8" :color="getPercentChangeBadgeClass('mintedNuon', collateralRatioArr, true)">{{ getUserMintedNuonSign }}{{ Math.abs(getChangePercent('mintedNuon', collateralRatioArr, true)) }}%</TheBadge>
+						<ComponentLoader component="badge u-ml-8" :loaded="collateralRatioArr.length > 0">
+							<TheBadge v-if="!isNaN(getChangePercent('mintedNuon', collateralRatioArr, true))" class="u-ml-8" :color="getPercentChangeBadgeClass('mintedNuon', collateralRatioArr, true)">{{ getUserMintedNuonSign }}{{ Math.abs(getChangePercent('mintedNuon', collateralRatioArr, true)) }}%</TheBadge>
+						</ComponentLoader>
 					</label>
-					<ComponentLoader component="h1" :loaded="balanceLoaded">
+					<ComponentLoader component="h3" :loaded="balanceLoaded">
 						<h3>${{ (graphSelectionMintedNuon || totalMintedNuon) | toFixed | numberWithCommas }}</h3>
 					</ComponentLoader>
 				</div>
 			</div>
 			<div class="l-collateral__chart">
-				<template v-if="xAxisData.length">
-					<LayoutFlex direction="row-justify-end">
+				<LayoutFlex direction="row-justify-end">
+					<ComponentLoader component="tab u-mb-24" :loaded="xAxisData.length > 0">
 						<TheTabs size="thin" color="dark" margin="24" @tab-changed="handleTabChanged">
 							<TheTab v-for="(period, periodIdx) in periods" :key="periodIdx" :title="period" />
 						</TheTabs>
-					</LayoutFlex>
+					</ComponentLoader>
+				</LayoutFlex>
+				<ComponentLoader component="chart u-mt-16" :loaded="xAxisData.length > 0">
 					<LineChart
 						:key="selectedPeriod"
 						class="u-mt-16"
@@ -51,7 +57,7 @@
 						:colors="['#65b5ff', '#dfff65']"
 						:series-data="yAxisData"
 						@mouseOverDataPoint="handleMouseOverChart" />
-				</template>
+				</ComponentLoader>
 			</div>
 		</div>
 		<div class="l-collateral l-collateral--distribution">
@@ -174,7 +180,7 @@ export default {
 			mobileView: false,
 			collateralPrices: {},
 			userMintedAmounts: {},
-			nuonPrice: null,
+			nuonPrice: 0,
 			truflationPeg: 0,
 			collateralRatioArr: [],
 			graphSelectionTVL: "",
@@ -229,7 +235,6 @@ export default {
 			if (!parseFloat(this.pendingRewards)) return 0;
 			return this.pendingRewards * this.tokenPrices.nuMINT;
 		},
-
 		myCollateralLocked() {
 			return Object.values(this.userTotalLockedCollateralAmount).reduce((acc, val) => acc + parseFloat(val), 0);
 		},

@@ -1,7 +1,7 @@
 <template>
 	<ul class="price-indicator">
 		<li>NUON Price:
-			<ComponentLoader component="nuon-price" :loaded="nuonPrice !== null && truflationPeg !== null">
+			<ComponentLoader component="nuon-price" :loaded="nuonPrice !== 0 && truflationPeg !== 0">
 				<span>${{ computedNuonPrice }}</span>
 				<TheBadge v-if="nuonPrice > truflationPeg">Above</TheBadge>
 				<TheBadge v-else-if="nuonPrice < truflationPeg">Below</TheBadge>
@@ -13,7 +13,7 @@
 			</ComponentLoader>
 		</li>
 		<li>Health Status:
-			<ComponentLoader component="health-status" :loaded="nuonPrice !== null && truflationPeg !== null">
+			<ComponentLoader component="health-status" :loaded="nuonPrice !== 0 && truflationPeg !== 0">
 				<span :class="getColorForHealth(nuonPrice, truflationPeg)">
 					{{healthMetrics( truflationPeg, nuonPrice) > 0 ? "+" : ""}}{{ healthMetrics( truflationPeg, nuonPrice) | toFixed }} %
 				</span>

@@ -20,14 +20,15 @@
 	padding: $SPACING_32;
 	width: 50%;
 }
-.l-balance__control {
-	margin-right: $SPACING_24;
-}
+.l-balance__chart label,
 .l-balance__control label {
 	font-size: $BODY_TEXT;
 	color: $LIGHT_GREY;
 	margin-bottom: $SPACING_4;
 	line-height: $SPACING_30;
+}
+.l-balance__control {
+	margin-right: $SPACING_24;
 }
 .l-balance__control h3 {
 	margin-bottom: $SPACING_24;

@@ -4,13 +4,17 @@
 		<div class="l-balance">
 			<div class="l-balance__control">
 				<label>Total Value</label>
-				<h3>${{ totalValue + balancesValue + stakedBalance | toFixed | numberWithCommas }}</h3>
+				<ComponentLoader component="h3 u-mb-24" :loaded="totalValue !== 0 && balancesValue !== 0 && stakedBalance !== 0">
+					<h3>${{ totalValue + balancesValue + stakedBalance | toFixed | numberWithCommas }}</h3>
+				</ComponentLoader>
 				<ul class="l-balance__toggle">
 					<li>
 						<span><TheDot color="lime" /><label>NUON Balance</label></span>
 						<div class="l-balance__toggle__value">
-							{{ tokenBalances.NUON | toFixed | numberWithCommas }}
-							<sub class="badge--success--no_border" >+1.25%</sub>
+							<ComponentLoader component="account-balance" :loaded="balancesValue !== 0">
+								{{ tokenBalances.NUON | toFixed | numberWithCommas }}
+								<sub class="badge--success--no_border" >+1.25%</sub>
+							</ComponentLoader>
 						</div>
 						<TheButton size="icon" title="Click to show chart" @click="toggleShowChart('nuon')">
 							<template v-if="!activeCharts.includes('nuon')">
@@ -26,8 +30,10 @@
 					<li>
 						<span><TheDot color="light-green" /><label>NuMINT Balance</label></span>
 						<div class="l-balance__toggle__value">
-							{{ tokenBalances.nuMINT | toFixed | numberWithCommas }}
-							<sub class="badge--grey--no_border">0.00%</sub>
+							<ComponentLoader component="account-balance" :loaded="balancesValue !== 0">
+								{{ tokenBalances.nuMINT | toFixed | numberWithCommas }}
+								<sub class="badge--grey--no_border">0.00%</sub>
+							</ComponentLoader>
 						</div>
 						<TheButton size="icon" title="Click to show chart" @click="toggleShowChart('nuMint')">
 							<template v-if="!activeCharts.includes('nuMint')">
@@ -43,8 +49,10 @@
 					<li>
 						<span><TheDot color="blue" /><label>Locked Collateral</label></span>
 						<div class="l-balance__toggle__value">
-							${{ (graphSelectionTVL || totalValue) | toFixed | numberWithCommas }}
-							<sub class="badge--success--no_border">+1.25%</sub>
+							<ComponentLoader component="account-balance" :loaded="balancesValue !== 0">
+								${{ (graphSelectionTVL || totalValue) | toFixed | numberWithCommas }}
+								<sub class="badge--success--no_border">+1.25%</sub>
+							</ComponentLoader>
 						</div>
 						<TheButton size="icon" title="Click to show chart" @click="toggleShowChart('collateral')">
 							<template v-if="!activeCharts.includes('collateral')">
@@ -60,8 +68,10 @@
 					<li>
 						<span><TheDot color="orange" /><label>NuMINT in Boardroom</label></span>
 						<div class="l-balance__toggle__value">
-							{{ stakedBalance | toFixed | numberWithCommas }}
-							<sub class="badge--error--no_border">-1.25%</sub>
+							<ComponentLoader component="account-balance" :loaded="balancesValue !== 0">
+								{{ stakedBalance | toFixed | numberWithCommas }}
+								<sub class="badge--error--no_border">-1.25%</sub>
+							</ComponentLoader>
 						</div>
 						<TheButton size="icon" title="Click to show chart" @click="toggleShowChart('boardroom')">
 							<template v-if="!activeCharts.includes('boardroom')">
@@ -76,24 +86,30 @@
 					</li>
 				</ul>
 			</div>
-			<div v-if="xAxisData.length" class="l-balance__chart">
+			<div class="l-balance__chart">
 				<LayoutFlex direction="row-space-between" class="l-flex--column-md">
 					<div>
 						<label>Total Value</label>
-						<h3>${{ totalValue + balancesValue + stakedBalance | toFixed | numberWithCommas }}</h3>
+						<ComponentLoader component="h3" :loaded="totalValue !== 0 && balancesValue !== 0 && stakedBalance !== 0">
+							<h3>${{ totalValue + balancesValue + stakedBalance | toFixed | numberWithCommas }}</h3>
+						</ComponentLoader>
 						<span>{{graphSelectionDuraton}}</span>
 					</div>
-					<TheTabs size="thin" color="dark" margin="24" @tab-changed="handleTabChanged">
-						<TheTab v-for="(period, periodIdx) in periods" :key="periodIdx" :title="period" />
-					</TheTabs>
+					<ComponentLoader component="tab u-mb-24" :loaded="xAxisData.length > 0">
+						<TheTabs size="thin" color="dark" margin="24" @tab-changed="handleTabChanged">
+							<TheTab v-for="(period, periodIdx) in periods" :key="periodIdx" :title="period" />
+						</TheTabs>
+					</ComponentLoader>
 				</LayoutFlex>
-				<LineChart
-					:key="`${selectedPeriod}-${activeCharts[0]}`"
-					class="u-mt-16"
-					:x-axis-labels="xAxisData"
-					:y-axis-options="{showYAxis: false, opposite: false, labels: {formatter: (val) => {}}}"
-					:series-data="yAxisData"
-					@mouseOverDataPoint="handleMouseOverChart" />
+				<ComponentLoader component="chart u-mt-16" :loaded="xAxisData.length > 0">
+					<LineChart
+						:key="`${selectedPeriod}-${activeCharts[0]}`"
+						class="u-mt-16"
+						:x-axis-labels="xAxisData"
+						:y-axis-options="{showYAxis: false, opposite: false, labels: {formatter: (val) => {}}}"
+						:series-data="yAxisData"
+						@mouseOverDataPoint="handleMouseOverChart" />
+				</ComponentLoader>
 			</div>
 		</div>
 	</div>

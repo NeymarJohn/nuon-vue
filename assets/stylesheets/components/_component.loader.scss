@@ -14,7 +14,10 @@
 		13. Loader notification
 		14. Loader collateral hub chart
 		15. Loader prices
-		16. Loader responsive
+		16. Loader chart
+		17. Loader tab
+		18. Loader account balance
+		19. Loader responsive
 */
 
 // 1. Loader default
@@ -166,7 +169,24 @@
 	width: calc($SPACING_81 - $SPACING_16);
 }
 
-// 16. Loader responsive
+// 16. Loader chart
+.loader--chart {
+	height: $SPACING_335;
+}
+
+// 17. Loader tab
+.loader--tab {
+	height: $SPACING_54;
+	width: $SPACING_194;
+}
+
+// 18. Loader account balance
+.loader--account-balance {
+	height: $SPACING_24;
+	max-width: $SPACING_190;
+}
+
+// 19. Loader responsive
 @media screen and (max-width: $SPACING_1440) {
 	.loader--h1 {
 		width: $SPACING_190;
