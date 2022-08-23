@@ -112,6 +112,9 @@ export default {
 							fontWeight: "400",
 							fontFamily: "Plus Jakarta Sans",
 						}
+					},
+					tooltip: {
+						enabled: false
 					}
 				},
 				tooltip: {
