@@ -304,7 +304,7 @@ export default {
 			});
 			if (this.selectedPeriod === 1) { // week
 				return {
-					xData:Object.keys(weeks).map(d => new Date(d).toLocaleDateString()).reverse(),
+					xData: Object.keys(weeks).map(d => new Date(d).toLocaleDateString()).reverse(),
 					yData:[{
 						name: "My Total Value Locked",
 						data: Object.values(weeks).map(d => d.value).reverse()
@@ -315,7 +315,7 @@ export default {
 				};}
 			if (this.selectedPeriod === 2) { // month
 				return {
-					xData:Object.keys(months).map(d => new Date(d).toLocaleDateString()).reverse(),
+					xData: Object.keys(months).map(d => new Date(d).toLocaleDateString("default", { month: "short" })).reverse(),
 					yData:[{
 						name: "My Total Value Locked",
 						data: Object.values(months).map(d => d.value).reverse()

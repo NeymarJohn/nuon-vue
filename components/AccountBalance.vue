@@ -231,7 +231,7 @@ export default {
 					});
 				}
 				return {
-					xData:Object.keys(months).map(d => new Date(d).toLocaleDateString()).reverse(),
+					xData: Object.keys(months).map(d => new Date(d).toLocaleDateString("default", { month: "short"})).reverse(),
 					yData
 				};
 			};
