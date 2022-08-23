@@ -50,7 +50,7 @@
 						<span><TheDot color="blue" /><label>Locked Collateral</label></span>
 						<div class="l-balance__toggle__value">
 							<ComponentLoader component="account-balance" :loaded="balancesValue !== 0">
-								${{ (graphSelectionTVL || totalValue) | toFixed | numberWithCommas }}
+								${{ totalValue | toFixed | numberWithCommas }}
 								<sub class="badge--success--no_border">+1.25%</sub>
 							</ComponentLoader>
 						</div>
@@ -89,9 +89,13 @@
 			<div class="l-balance__chart">
 				<LayoutFlex direction="row-space-between" class="l-flex--column-md">
 					<div>
-						<label>Total Value</label>
+						<LayoutFlex direction="row-center" class="l-flex--column-md">
+							<TheDot :color="selectedChart.color" />
+							<label>{{selectedChart.title}}</label>
+							<TheBadge color="price-down">-12%</TheBadge>
+						</LayoutFlex>
 						<ComponentLoader component="h3" :loaded="totalValue !== 0 && balancesValue !== 0 && stakedBalance !== 0">
-							<h3>${{ totalValue + balancesValue + stakedBalance | toFixed | numberWithCommas }}</h3>
+							<h3>${{ graphSelectionTVL || (totalValue + balancesValue + stakedBalance) | toFixed | numberWithCommas }}</h3>
 						</ComponentLoader>
 						<label>{{graphSelectionDuraton}}</label>
 					</div>
@@ -165,104 +169,51 @@ export default {
 				if (!months[currentDate.startOf("month").add(1,"day").format("YYYY-MM-DD")])
 					months[currentDate.startOf("month").add(1,"day").format("YYYY-MM-DD")] = item;
 			});
-			if (this.selectedPeriod === 1) { // week
-				const yData = [];
-				yData.push({
-					name: "Locked Collateral",
-					data: Object.values(weeks).map(d => d.value).reverse()
-				});
-				if (this.activeCharts.includes("nuon")) {
-					yData.push({
-						name: "NUON Balance",
-						data: Object.values(weeks).map(d => d.value * 1.2).reverse()
-					});
-				}
-				if (this.activeCharts.includes("nuMint")) {
-					yData.push({
-						name: "NuMINT Balance",
-						data: Object.values(weeks).map(d => d.value * 1.5).reverse()
-					});
-				}
-				if (this.activeCharts.includes("collateral")) {
-					yData.push({
-						name: "Locked Collateral",
-						data: Object.values(weeks).map(d => d.value).reverse()
-					});
-				}
-				if (this.activeCharts.includes("boardroom")) {
-					yData.push({
-						name: "NuMINT In Boardroom",
-						data: Object.values(weeks).map(d => d.value * 0.8).reverse()
-					});
-				}
-				return {
-					xData:Object.keys(weeks).map(d => new Date(d).toLocaleDateString()).reverse(),
-					yData
-				};
-			}
-			if (this.selectedPeriod === 2) { // month
-				const yData = [];
-				yData.push({
-					name: "Locked Collateral",
-					data: Object.values(months).map(d => d.value).reverse()
-				});
-				if (this.activeCharts.includes("nuon")) {
-					yData.push({
-						name: "NUON Balance",
-						data: Object.values(months).map(d => d.value * 1.2).reverse()
-					});
-				}
-				if (this.activeCharts.includes("nuMint")) {
-					yData.push({
-						name: "NuMINT Balance",
-						data: Object.values(months).map(d => d.value * 1.5).reverse()
-					});
-				}
-				if (this.activeCharts.includes("collateral")) {
-					yData.push({
-						name: "Locked Collateral",
-						data: Object.values(months).map(d => d.value).reverse()
-					});
-				}
-				if (this.activeCharts.includes("boardroom")) {
-					yData.push({
-						name: "NuMINT In Boardroom",
-						data: Object.values(months).map(d => d.value * 0.8).reverse()
-					});
-				}
-				return {
-					xData: Object.keys(months).map(d => new Date(d).toLocaleDateString("default", { month: "short"})).reverse(),
-					yData
-				};
-			};
-
 			const yData = [];
-			yData.push({
-				name: "Locked Collateral",
-				data: this.collateralRatioArr.map(d => d.value).reverse()
-			});
 			if (this.activeCharts.includes("nuon")) {
+				const monthData = Object.values(months).map(d => d.value * 1.2).reverse();
+				const weekData  =  Object.values(weeks).map(d => d.value * 1.2).reverse();
+				const dayData = this.collateralRatioArr.map(d => d.value * 1.2).reverse();
 				yData.push({
 					name: "NUON Balance",
-					data: this.collateralRatioArr.map(d => d.value * 1.2).reverse()
+					data: this.selectedPeriod === 0?dayData: this.selectedPeriod === 1?weekData:monthData,
+					color: "#dfff65" // Lime
 				});
-			}
-			if (this.activeCharts.includes("nuMint")) {
+			} else if (this.activeCharts.includes("nuMint")) {
+				const monthData = Object.values(months).map(d => d.value * 1.5).reverse();
+				const weekData  =  Object.values(weeks).map(d => d.value * 1.5).reverse();
+				const dayData = this.collateralRatioArr.map(d => d.value * 1.5).reverse();
 				yData.push({
 					name: "NuMINT Balance",
-					data: this.collateralRatioArr.map(d => d.value * 1.5).reverse()
+					data: this.selectedPeriod === 0?dayData: this.selectedPeriod === 1?weekData:monthData,
+					color: "#65ffb5" // Green
 				});
-			}
-			if (this.activeCharts.includes("collateral")) {
+			} else if (this.activeCharts.includes("collateral")) {
+				const monthData = Object.values(months).map(d => d.value * 0.8).reverse();
+				const weekData  =  Object.values(weeks).map(d => d.value * 0.8).reverse();
+				const dayData = this.collateralRatioArr.map(d => d.value * 0.8).reverse();
 				yData.push({
 					name: "Locked Collateral",
-					data: this.collateralRatioArr.map(d => d.value).reverse()
+					data: this.selectedPeriod === 0?dayData: this.selectedPeriod === 1?weekData:monthData,
+					color: "#65b5ff" // Blue
 				});
-			}
-			if (this.activeCharts.includes("boardroom")) {
+			} else if (this.activeCharts.includes("boardroom")) {
+				const monthData = Object.values(months).map(d => d.value * 0.5).reverse();
+				const weekData  =  Object.values(weeks).map(d => d.value * 0.5).reverse();
+				const dayData = this.collateralRatioArr.map(d => d.value * 0.5).reverse();
 				yData.push({
 					name: "NuMINT In Boardroom",
-					data: this.collateralRatioArr.map(d => d.value * 0.8).reverse()
+					data: this.selectedPeriod === 0?dayData: this.selectedPeriod === 1?weekData:monthData,
+					color: "#ffc165" // Orange
+				});
+			} else {
+				const monthData = Object.values(months).map(d => d.value ).reverse();
+				const weekData  =  Object.values(weeks).map(d => d.value ).reverse();
+				const dayData = this.collateralRatioArr.map(d => d.value ).reverse();
+				yData.push({
+					name: "Locked Collateral",
+					data: this.selectedPeriod === 0?dayData: this.selectedPeriod === 1?weekData:monthData,
+					color: "#fff" // Green
 				});
 			}
 
@@ -286,12 +237,43 @@ export default {
 		totalValue() {
 			return Object.entries(this.lockedAmount).reduce((acc, [collateral, amount]) => acc + this.collateralPrices[collateral] * parseFloat(amount), 0);
 		},
+		selectedChart() {
+			switch (this.activeCharts[0]){	
+			case "nuon": 
+				return {
+					title: "NUON Balance",
+					color: "lime"
+				};
+			case "nuMint": 
+				return {
+					title: "NuMINT Balance",
+					color: "light-green"
+				};
+			case "collateral": 
+				return {
+					title: "Locked Collateral",
+					color: "blue"
+				};
+			case "boardroom": 
+				return {
+					title: "NuMINT in Boardroom",
+					color: "orange"
+				};
+			default: 
+				return {
+					title: "Total Value",
+					color: "white"
+				};
+			}
+		
+		}
 	},
 	mounted () {
 		this.getDiffMinted();
 	},
 	methods: {
 		getDiffMinted() {
+			this.graphSelectionDuraton = dayjs(new Date()).format("M/DD/YYYY");
 			getUserTVLDayData({user: this.connectedAccount}).then(res => {
 				this.collateralRatioArr = res.data.data.userTVLDayDatas;
 			}).catch((err) => {
@@ -313,7 +295,7 @@ export default {
 			if (this.yAxisData.length === 0) return;
 			if (e === -1) {
 				idx = this.yAxisData[0]?.data?.length - 1;
-				this.graphSelectionDuraton = "";
+				this.graphSelectionDuraton = dayjs(new Date()).format("M/DD/YYYY");
 			}
 			this.graphSelectionTVL = this.yAxisData[0]?.data[idx];
 			this.graphSelectionMintedNuon = this.yAxisData[1]?.data[idx];

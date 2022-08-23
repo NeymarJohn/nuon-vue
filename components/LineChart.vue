@@ -51,7 +51,7 @@ export default {
 			type: Array,
 			required: false,
 			default() {
-				return ["#DFFF65", "#65FFB5", "#65B5FF", "#FFC165"];
+				return ["#FFF", "#65FFB5", "#65B5FF", "#FFC165"];
 			}
 		},
 	},

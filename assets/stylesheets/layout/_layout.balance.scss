@@ -24,8 +24,7 @@
 .l-balance__control label {
 	font-size: $BODY_TEXT;
 	color: $LIGHT_GREY;
-	margin-bottom: $SPACING_4;
-	line-height: $SPACING_30;
+	padding: $SPACING_2 $SPACING_12 $SPACING_2 0;
 }
 .l-balance__control {
 	margin-right: $SPACING_24;
