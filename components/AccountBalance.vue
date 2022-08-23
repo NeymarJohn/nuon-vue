@@ -93,7 +93,7 @@
 						<ComponentLoader component="h3" :loaded="totalValue !== 0 && balancesValue !== 0 && stakedBalance !== 0">
 							<h3>${{ totalValue + balancesValue + stakedBalance | toFixed | numberWithCommas }}</h3>
 						</ComponentLoader>
-						<span>{{graphSelectionDuraton}}</span>
+						<label>{{graphSelectionDuraton}}</label>
 					</div>
 					<ComponentLoader component="tab u-mb-24" :loaded="xAxisData.length > 0">
 						<TheTabs size="thin" color="dark" margin="24" @tab-changed="handleTabChanged">
@@ -318,13 +318,13 @@ export default {
 			this.graphSelectionTVL = this.yAxisData[0]?.data[idx];
 			this.graphSelectionMintedNuon = this.yAxisData[1]?.data[idx];
 			if (e === -1) return;
-			const startDate = dayjs(this.xAxisData[idx]).format("MMM D YYYY");
+			const startDate = this.xAxisData[idx];
 			if (this.selectedPeriod === 0) {
 				this.graphSelectionDuraton = startDate;
 			} else if (this.selectedPeriod === 1) {
-				this.graphSelectionDuraton = `${startDate} - ${dayjs(this.xAxisData[idx]).add(1,"week").format("MMM D YYYY")}`;
+				this.graphSelectionDuraton = `${startDate} - ${this.xAxisData[idx]}`;
 			} else if (this.selectedPeriod === 2) {
-				this.graphSelectionDuraton = `${startDate} - ${dayjs(this.xAxisData[idx]).add(1,"month").format("MMM D YYYY")}`;
+				this.graphSelectionDuraton = `${startDate}`;
 			}
 		},
 		toggleShowChart(element) {
