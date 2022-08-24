@@ -26,6 +26,13 @@
 	display: flex;
 	flex-direction: column;
 }
+.chart-donut .apexcharts-canvas {
+	background-color: $TRANSPARENT;
+}
+.apexcharts-canvas {
+	background-color: $HIGHLIGHT_GREY;
+	border-radius: $BORDER_RADIUS_16;
+}
 
 // 2. Chart token price
 .chart--token-price .tabs {

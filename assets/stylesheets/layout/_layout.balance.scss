@@ -62,6 +62,7 @@
 .l-balance__toggle .btn {
 	display: flex;
 	align-items: center;
+	min-height: $SPACING_32;
 }
 .l-balance__toggle .btn:hover {
 	transform: none;

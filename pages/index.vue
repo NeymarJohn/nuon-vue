@@ -7,8 +7,28 @@
 			</PageTitle>
 			<PriceIndicator :nuon-price="nuonPrice" :truflation-peg="truflationPeg" />
 		</LayoutFlex>
-		<AccountBalance :locked-amount="userTotalLockedCollateralAmount" />
-		<h3 class="u-mb-24">Collateral Hub</h3>
+		<h3 class="u-mb-24">Account Health</h3>
+		<div class="l-collateral l-collateral--distribution">
+			<div class="l-collateral__donut">
+				<label>Collateral Distribution</label>
+				<DonutChartCollateral :chart-data="collateralDonutChartData" />
+			</div>
+			<TheLoader component="table" class="l-collateral__table">
+				<TransactionTable
+					v-if="!mobileView"
+					size="collateral"
+					class="u-p-0"
+					aria="Collateral Hub transactions"
+					:data="chubData"
+					:config="configData"
+					:misc="miscConfig"
+					:actions="actions" />
+				<TransactionCard
+					v-else
+					:data="chubData"
+					:config="configData" />
+			</TheLoader>
+		</div>
 		<div class="l-collateral">
 			<div class="l-collateral__toggle">
 				<div class="l-collateral__toggle-btn is-active">
@@ -47,7 +67,6 @@
 				<ComponentLoader component="chart u-mt-16" :loaded="xAxisData.length > 0">
 					<LineChart
 						:key="selectedPeriod"
-						class="u-mt-16"
 						:x-axis-labels="xAxisData"
 						:y-axis-options="{
 							showYAxis: false,
@@ -60,27 +79,9 @@
 				</ComponentLoader>
 			</div>
 		</div>
-		<div class="l-collateral l-collateral--distribution">
-			<div class="l-collateral__donut">
-				<label>Collateral Distribution</label>
-				<DonutChartCollateral :chart-data="collateralDonutChartData" />
-			</div>
-			<TheLoader component="table" class="l-collateral__table">
-				<TransactionTable
-					v-if="!mobileView"
-					size="collateral"
-					class="u-p-0"
-					aria="Collateral Hub transactions"
-					:data="chubData"
-					:config="configData"
-					:misc="miscConfig"
-					:actions="actions" />
-				<TransactionCard
-					v-else
-					:data="chubData"
-					:config="configData" />
-			</TheLoader>
-		</div>
+		<AccountBalance :locked-amount="userTotalLockedCollateralAmount" />
+		<h3 class="u-mb-24">Governance</h3>
+		<p>Collateral hub overview here</p>
 		<TransactionHistory data-v-step="7" />
 		<TheModal
 			v-show="isMintModalVisible"

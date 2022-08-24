@@ -1,6 +1,6 @@
 <template>
 	<client-only>
-		<apexchart type="line" height="320" :options="chartOptions" :series="series"></apexchart>
+		<apexchart type="line" height="367" :options="chartOptions" :series="series"></apexchart>
 	</client-only>
 </template>
 <script>
@@ -81,6 +81,12 @@ export default {
 				},
 				grid: {
 					show: false,
+					 padding: {
+						top: 32,
+						right: 0,
+						bottom: 32,
+						left: 0
+					},
 				},
 				yaxis: {
 					opposite: this.yAxisOptions.opposite,
@@ -100,6 +106,7 @@ export default {
 				},
 				xaxis: {
 					categories: this.xAxisLabels,
+					tickPlacement: "between",
 					axisTicks: {
 						show: false
 					},
@@ -111,7 +118,7 @@ export default {
 							fontSize: "14",
 							fontWeight: "400",
 							fontFamily: "Plus Jakarta Sans",
-						}
+						},
 					},
 					tooltip: {
 						enabled: false
