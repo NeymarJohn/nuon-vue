@@ -8,6 +8,7 @@
 		7. Button approve
 		8. Button user
 		9. Button back
+		10. Button dropdown(ellipsis)
 */
 
 // 1. Button default
@@ -263,4 +264,17 @@ a.btn:hover,
 .btn--back:hover {
 	background: $MEDIUM_GREY;
 	border-color: $DARK_GREY;
+}
+
+// 10. Dropdown
+.btn--dropdown {
+	background: $MEDIUM_LIGHT_GREY;
+	border-radius: $BORDER_RADIUS_CIRCLE;
+	border: none;
+	z-index: 2;
+	width: $SPACING_36;
+	height: $SPACING_36;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
