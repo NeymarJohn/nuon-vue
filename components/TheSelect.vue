@@ -1,21 +1,24 @@
 <template>
-	<div class="select" :class="{ active: isActive }" @click="toggleSelect" >
+	<div class="select" :class="{ active: isActive, inline: inline }" @click="toggleSelect" >
 		<label>{{ label }}</label>
-		<div class="select__selected">
-			{{ options[selectedIndex].label || options[selectedIndex]}}
-			<ChevronDownIcon v-if="!isActive" />
-			<ChevronUpIcon v-else />
-		</div>
-		<div class="select__options">
-			<div
-				v-for="(option, index) in options"
-				:key="index"
-				:class="{ selected: option.value === value || option === value }"
-				class="select__option"
-				@click="selectOption(option, index)">
-				{{ option.label || option }} <SelectedIcon v-if="option.value === value || option === value" />
+		<div class="select__button">
+			<div class="select__selected">
+				{{ options[selectedIndex].label || options[selectedIndex]}}
+				<ChevronDownIcon v-if="!isActive" />
+				<ChevronUpIcon v-else />
+			</div>
+			<div class="select__options">
+				<div
+					v-for="(option, index) in options"
+					:key="index"
+					:class="{ selected: option.value === value || option === value }"
+					class="select__option"
+					@click="selectOption(option, index)">
+					{{ option.label || option }} <SelectedIcon v-if="option.value === value || option === value" />
+				</div>
 			</div>
 		</div>
+		
 	</div>
 </template>
 
@@ -45,6 +48,10 @@ export default {
 			type: String,
 			required: true,
 			default: "Filter"
+		},
+		inline: {
+			type: Boolean,
+			default: false
 		}
 	},
 	data() {

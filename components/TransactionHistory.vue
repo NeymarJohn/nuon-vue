@@ -1,19 +1,23 @@
 <template>
 	<div class="u-mb-72">
 		<h2 class="u-mb-24">Transaction History</h2>
-		<TheTabs size="full-width" color="mobile-scroll tabs--dark" margin="sm-24" @tab-changed="changeTab">
-			<TheTab title="Collateral Hub" />
-			<TheTab title="Swap" />
-			<TheTab title="Boardroom" />
-			<TheTab title="Rewards" />
-		</TheTabs>
 		<div class="tabs__filter">
 			<TransactionSearch class="u-half-width-md"/>
-			<TheSelect
-				:options="selectOptions"
-				:default="dateFilterComputed || 'All'"
-				label="Filter by date"
-				@filter-select="onDateFilterChange" />
+			
+			<LayoutFlex direction="row-justify-end  u-full-width">
+				<TheSelect
+					:options="filterOptions"
+					inline
+					label="Filter"
+					@filter-select="onChangeFilter" />
+				<TheSelect
+					:options="selectOptions"
+					:default="dateFilterComputed || 'All'"
+					inline
+					label="Date"
+					@filter-select="onDateFilterChange" />
+			</LayoutFlex>
+			
 		</div>
 		<TheLoader component="table">
 			<TransactionTable
@@ -23,13 +27,13 @@
 				:data="tableData"
 				:config="transactionConfig"
 				:loading="isLoading"
-				:table-data="locations[selectedTab]" />
+				:table-data="selectedFilter" />
 			<TransactionCard
 				v-else
 				:data="tableData"
 				:loading="isLoading"
 				:config="transactionConfig"
-				:table-data="locations[selectedTab]" />
+				:table-data="selectedFilter" />
 		</TheLoader>
 	</div>
 </template>
@@ -43,6 +47,7 @@ export default {
 		return {
 			tableData: [],
 			selectedTab: 0,
+			selectedFilter: "collateral",
 			filterLastDays: 0,
 			locations: ["collateral", "swap", "boardroom", "reward"],
 			selectOptions: [
@@ -50,6 +55,12 @@ export default {
 				{label: "Past 7 Days", value: 7},
 				{label: "Past 30 Days", value: 30},
 				{label: "Past 90 Days", value:90},
+			],
+			filterOptions: [
+				{label: "Collateral", value: "collateral"},
+				{label: "Swap", value: "swap"},
+				{label: "Boardroom", value: "boardroom"},
+				{label: "Reward", value: "reward"},
 			],
 			mobileView: false,
 			isLoading: false,
@@ -77,13 +88,13 @@ export default {
 			if (this.connectedAccount) {
 				const filter = {
 					user: this.connectedAccount,
-					location: this.locations[this.selectedTab],
+					location: this.selectedFilter,
 					lastDays: this.filterLastDays,
 					query: this.searchQuery
 				};
 				this.tableData = [];
 				this.isLoading = true;
-				if (this.locations[this.selectedTab] === "collateral") {
+				if (this.selectedFilter === "collateral") {
 					getCollateralTransactionHistory(filter).then(res => {
 						this.isLoading = false;
 						this.tableData = res.data.data.collateralHubTransactions.map(item => (
@@ -94,11 +105,11 @@ export default {
 								inputToken: item.depositToken.symbol,
 								outputToken: NUON.symbol,
 								date: item.date * 1000,
-								selectedTab: this.locations[this.selectedTab],
+								selectedTab: this.selectedFilter,
 								txHash: item.id
 							}));
 					});
-				} else if (this.locations[this.selectedTab] === "swap") {
+				} else if (this.selectedFilter === "swap") {
 					getSwapTransactionHistory(filter).then(res => {
 						this.isLoading = false;
 						this.tableData = res.data.data.swaps.map(item => (
@@ -109,11 +120,11 @@ export default {
 								inputToken: item.amount0In>0?item.pair.token0.symbol:item.pair.token1.symbol,
 								outputToken: item.amount0Out>0?item.pair.token0.symbol:item.pair.token1.symbol,
 								date: item.timestamp * 1000,
-								selectedTab: this.locations[this.selectedTab],
+								selectedTab: this.selectedFilter,
 								txHash: item.transaction.id
 							}));
 					});
-				} else if (this.locations[this.selectedTab] === "boardroom") {
+				} else if (this.selectedFilter === "boardroom") {
 					getStakingTransactionHistory(filter).then(res => {
 						this.isLoading = false;
 						this.tableData = res.data.data.boardroomTransactions.map(item => (
@@ -148,6 +159,10 @@ export default {
 		},
 		onDateFilterChange(option) {
 			this.filterLastDays = option.value;
+			this.searchTransactions();
+		},
+		onChangeFilter(option) {
+			this.selectedFilter = option.value;
 			this.searchTransactions();
 		}
 	},

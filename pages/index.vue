@@ -80,8 +80,6 @@
 			</div>
 		</div>
 		<AccountBalance :locked-amount="userTotalLockedCollateralAmount" />
-		<h3 class="u-mb-24">Governance</h3>
-		<p>Collateral hub overview here</p>
 		<TransactionHistory data-v-step="7" />
 		<TheModal
 			v-show="isMintModalVisible"

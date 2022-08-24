@@ -6,10 +6,17 @@
 // 1. Select default
 .select {
 	position: relative;
-	max-width: $SPACING_200;
+	max-width: $SPACING_300;
 	width: 100%;
 	height: $SPACING_80;
 	z-index: 1;
+}
+.select.inline {
+	display: flex;
+	align-items: center;
+}
+.select.inline label {
+	padding: 0 $SPACING_10;
 }
 .select,
 .select label {
@@ -24,6 +31,10 @@
 .select.active .select__selected {
 	background: $LIME;
 	color: $MEDIUM_LIGHT_GREY;
+}
+.select__button {
+	position: relative;
+	min-width: $SPACING_200;
 }
 .select__selected {
 	transition: $TRANSITION_ALL;
@@ -56,13 +67,15 @@
 }
 .select__options {
 	background: $DARK_GREY;
-	display: none;
+	visibility: hidden;
 	border-radius: $BORDER_RADIUS_8;
 	box-shadow: $BOX_SHADOW_SELECT;
 	margin-top: $SPACING_20;
+	position: absolute;
+	width: 100%;
 }
 .select.active .select__options {
-	display: block;
+	visibility: visible;
 }
 .select__option {
 	display: flex;
