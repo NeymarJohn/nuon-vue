@@ -64,12 +64,9 @@
 				<div
 					v-if="actions.length > 0"
 					class="transaction-table__cell" role="cell">
-					<TheButton
-						v-for="action in actions"
-						:key="action.label"
-						size="xs"
-						:title="`Click to ${action.label.toLowerCase()}`"
-						@click="action.handler(row)">{{action.label}}</TheButton>
+					<LayoutFlex direction="row-justify-end">
+						<dropdown :items="actions" @click="(action) => {action.handler(row)}"></dropdown>
+					</LayoutFlex>
 				</div>
 			</div>
 		</template>

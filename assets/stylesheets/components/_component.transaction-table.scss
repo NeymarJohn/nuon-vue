@@ -58,16 +58,6 @@
 .transaction-table__cell--marked:nth-child(2) {
 	margin-left: $SPACING_8;
 }
-.transaction-table__cell .btn {
-	background-color: $TRANSPARENT;
-	border: $SPACING_1 solid $LIME;
-	color: $LIME;
-	border-radius: $BORDER_RADIUS_8;
-	margin-right: $SPACING_8;
-}
-.transaction-table__cell .btn:hover {
-	background-color: $DARK_GREY;
-}
 .transaction-table__cell .btn:last-child {
 	margin-right: 0;
 }
