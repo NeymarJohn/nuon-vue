@@ -1,30 +1,41 @@
-.dropdown .menu {
+/* #COMPONENT - DROPDOWN
+		1. Dropdown default
+*/
+
+// 1. Dropdown default
+.dropdown {
+	position: relative;
+}
+.dropdown__menu {
 	background-color: $MEDIUM_LIGHT_GREY;
-	background-clip: padding-box;
-	border: 1px solid rgba(0, 0, 0, 0.15);
-	border-radius: 0.25rem;
-	color: $WHITE;
+	border-radius: $BORDER_RADIUS_8;
 	cursor: pointer;
-	display: flex;
-	flex-direction: column;
-	font-size: 1rem;
-	list-style: none;
-	margin: 0.125rem 0 0;
-	padding: 0.5rem 0;
 	position: absolute;
-	text-align: left;
-	z-index: 10;
+	top: 50%;
+	left: 50px;
+	transform: translate(0, -50%);
+	z-index: 1;
+	box-shadow: $BOX_SHADOW_DROPDOWN;
 }
-
-.dropdown .menu-item {
+.dropdown__menu-item {
 	color: $WHITE;
-	padding: 0.25rem 1.5rem;
-	transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
-		border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+	padding: $SPACING_8 $SPACING_24;
+	transition: $TRANSITION_ALL;
+	border-bottom: $SPACING_1 solid $HIGHLIGHT_GREY;
 }
-
-.menu-item:hover {
+.dropdown__menu-item:last-child {
+	border-bottom: 0;
+}
+.dropdown__menu-item:hover {
 	background-color: $LIME;
 	color: $DARK_GREY;
 	cursor: pointer;
+}
+.dropdown__menu-item:first-child:hover {
+	border-top-left-radius: $BORDER_RADIUS_8;
+	border-top-right-radius: $BORDER_RADIUS_8;
+}
+.dropdown__menu-item:last-child:hover {
+	border-bottom-left-radius: $BORDER_RADIUS_8;
+	border-bottom-right-radius: $BORDER_RADIUS_8;
 }

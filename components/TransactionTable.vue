@@ -65,7 +65,7 @@
 					v-if="actions.length > 0"
 					class="transaction-table__cell" role="cell">
 					<LayoutFlex direction="row-justify-end">
-						<dropdown :items="actions" @click="(action) => {action.handler(row)}"></dropdown>
+						<TheDropdown :items="actions" @click="(action) => {action.handler(row)}" />
 					</LayoutFlex>
 				</div>
 			</div>
