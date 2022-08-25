@@ -172,48 +172,48 @@ export default {
 			const yData = [];
 			if (this.activeCharts.includes("nuon")) {
 				const monthData = Object.values(months).map(d => d.value * 1.2).reverse();
-				const weekData  =  Object.values(weeks).map(d => d.value * 1.2).reverse();
+				const weekData = Object.values(weeks).map(d => d.value * 1.2).reverse();
 				const dayData = this.collateralRatioArr.map(d => d.value * 1.2).reverse();
 				yData.push({
 					name: "NUON Balance",
-					data: this.selectedPeriod === 0?dayData: this.selectedPeriod === 1?weekData:monthData,
-					color: "#dfff65" // Lime
+					data: this.selectedPeriod === 0 ? dayData : this.selectedPeriod === 1 ? weekData : monthData,
+					color: "#dfff65"
 				});
 			} else if (this.activeCharts.includes("nuMint")) {
 				const monthData = Object.values(months).map(d => d.value * 1.5).reverse();
-				const weekData  =  Object.values(weeks).map(d => d.value * 1.5).reverse();
+				const weekData = Object.values(weeks).map(d => d.value * 1.5).reverse();
 				const dayData = this.collateralRatioArr.map(d => d.value * 1.5).reverse();
 				yData.push({
 					name: "NuMINT Balance",
-					data: this.selectedPeriod === 0?dayData: this.selectedPeriod === 1?weekData:monthData,
-					color: "#65ffb5" // Green
+					data: this.selectedPeriod === 0 ? dayData : this.selectedPeriod === 1 ? weekData : monthData,
+					color: "#65ffb5"
 				});
 			} else if (this.activeCharts.includes("collateral")) {
 				const monthData = Object.values(months).map(d => d.value * 0.8).reverse();
-				const weekData  =  Object.values(weeks).map(d => d.value * 0.8).reverse();
+				const weekData = Object.values(weeks).map(d => d.value * 0.8).reverse();
 				const dayData = this.collateralRatioArr.map(d => d.value * 0.8).reverse();
 				yData.push({
 					name: "Locked Collateral",
-					data: this.selectedPeriod === 0?dayData: this.selectedPeriod === 1?weekData:monthData,
-					color: "#65b5ff" // Blue
+					data: this.selectedPeriod === 0 ? dayData : this.selectedPeriod === 1 ? weekData : monthData,
+					color: "#65b5ff"
 				});
 			} else if (this.activeCharts.includes("boardroom")) {
 				const monthData = Object.values(months).map(d => d.value * 0.5).reverse();
-				const weekData  =  Object.values(weeks).map(d => d.value * 0.5).reverse();
+				const weekData = Object.values(weeks).map(d => d.value * 0.5).reverse();
 				const dayData = this.collateralRatioArr.map(d => d.value * 0.5).reverse();
 				yData.push({
 					name: "NuMINT In Boardroom",
-					data: this.selectedPeriod === 0?dayData: this.selectedPeriod === 1?weekData:monthData,
-					color: "#ffc165" // Orange
+					data: this.selectedPeriod === 0 ? dayData : this.selectedPeriod === 1 ? weekData : monthData,
+					color: "#ffc165"
 				});
 			} else {
 				const monthData = Object.values(months).map(d => d.value ).reverse();
-				const weekData  =  Object.values(weeks).map(d => d.value ).reverse();
+				const weekData = Object.values(weeks).map(d => d.value ).reverse();
 				const dayData = this.collateralRatioArr.map(d => d.value ).reverse();
 				yData.push({
 					name: "Locked Collateral",
-					data: this.selectedPeriod === 0?dayData: this.selectedPeriod === 1?weekData:monthData,
-					color: "#fff" // Green
+					data: this.selectedPeriod === 0 ? dayData : this.selectedPeriod === 1 ? weekData : monthData,
+					color: "#fff"
 				});
 			}
 
@@ -238,34 +238,33 @@ export default {
 			return Object.entries(this.lockedAmount).reduce((acc, [collateral, amount]) => acc + this.collateralPrices[collateral] * parseFloat(amount), 0);
 		},
 		selectedChart() {
-			switch (this.activeCharts[0]){	
-			case "nuon": 
+			switch (this.activeCharts[0]){
+			case "nuon":
 				return {
 					title: "NUON Balance",
 					color: "lime"
 				};
-			case "nuMint": 
+			case "nuMint":
 				return {
 					title: "NuMINT Balance",
 					color: "light-green"
 				};
-			case "collateral": 
+			case "collateral":
 				return {
 					title: "Locked Collateral",
 					color: "blue"
 				};
-			case "boardroom": 
+			case "boardroom":
 				return {
 					title: "NuMINT in Boardroom",
 					color: "orange"
 				};
-			default: 
+			default:
 				return {
 					title: "Total Value",
 					color: "white"
 				};
 			}
-		
 		}
 	},
 	mounted () {
@@ -273,7 +272,7 @@ export default {
 	},
 	methods: {
 		getDiffMinted() {
-			this.graphSelectionDuraton = dayjs(new Date()).format("M/DD/YYYY");
+			this.graphSelectionDuraton = dayjs(new Date()).format("DD/MM/YYYY");
 			getUserTVLDayData({user: this.connectedAccount}).then(res => {
 				this.collateralRatioArr = res.data.data.userTVLDayDatas;
 			}).catch((err) => {
@@ -295,7 +294,7 @@ export default {
 			if (this.yAxisData.length === 0) return;
 			if (e === -1) {
 				idx = this.yAxisData[0]?.data?.length - 1;
-				this.graphSelectionDuraton = dayjs(new Date()).format("M/DD/YYYY");
+				this.graphSelectionDuraton = dayjs(new Date()).format("DD/MM/YYYY");
 			}
 			this.graphSelectionTVL = this.yAxisData[0]?.data[idx];
 			this.graphSelectionMintedNuon = this.yAxisData[1]?.data[idx];
