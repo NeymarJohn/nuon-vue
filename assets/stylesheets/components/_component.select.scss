@@ -17,6 +17,7 @@
 }
 .select.inline label {
 	padding: 0 $SPACING_10;
+	margin-bottom: 0;
 }
 .select,
 .select label {
@@ -46,7 +47,7 @@
 	background: $MEDIUM_LIGHT_GREY;
 	border-radius: $BORDER_RADIUS_8;
 	color: $LIGHT_GREY;
-	font-size: $BODY_TEXT_SM;
+	font-size: $BODY_TEXT;
 	line-height: $SPACING_24;
 }
 .select__selected:hover {
@@ -84,7 +85,7 @@
 	justify-content: space-between;
 	padding: $SPACING_12 $SPACING_24;
 	transition: background-color 0.3s ease;
-	font-size: $BODY_TEXT_SM;
+	font-size: $BODY_TEXT;
 	line-height: $SPACING_24;
 	color: $LIGHT_GREY;
 }
