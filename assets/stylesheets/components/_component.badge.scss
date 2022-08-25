@@ -65,6 +65,7 @@
 	color: $WARNING;
 }
 .badge--low-risk {
+	background-color: $SUCCESS_DARK;
 	border: $SPACING_1 solid $SUCCESS;
 	color: $SUCCESS;
 }
