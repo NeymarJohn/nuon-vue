@@ -1,7 +1,7 @@
 <template>
 	<div class="dropdown">
 		<TheButton size="dropdown" title="Click to show menu" @click="toggleShow">
-			<EllipsisIcon />
+			<EllipsisIcon @click="handleClickIcon"/>
 		</TheButton>
 		<div v-if="showMenu" class="dropdown__menu">
 			<div v-for="(item, idx) in items" :key="idx" class="dropdown__menu-item" @click="itemClicked(item)">{{item.label}}</div>
@@ -25,7 +25,7 @@ export default{
 	},
 	data() {
 		return {
-			showMenu: false
+			showMenu: false,
 		};
 	},
 	mounted () {
@@ -34,6 +34,10 @@ export default{
 				this.showMenu = false;
 			}
 		});
+		document.addEventListener("click", (e) => {
+			if (!e.target.classList.contains("btn--dropdown")) this.showMenu = false;
+		});
+		this.handleClickIcon = this.handleClickIcon.bind(this);
 	},
 	methods: {
 		toggleShow() {
@@ -42,6 +46,10 @@ export default{
 		itemClicked(item) {
 			this.toggleShow();
 			this.$emit("click", item);
+		},
+		handleClickIcon(e) {
+			e.stopPropagation(); 
+			this.toggleShow();
 		}
 	}
 };

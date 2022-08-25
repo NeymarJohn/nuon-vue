@@ -47,27 +47,25 @@
 .badge--high-risk,
 .badge--medium-risk,
 .badge--low-risk {
-	padding: $SPACING_4 $SPACING_16;
-	border-radius: $BORDER_RADIUS_24;
-	font-size: $BODY_TEXT_XS;
-	line-height: $SPACING_20;
+	padding: $SPACING_4 $SPACING_8;
+	border-radius: $BORDER_RADIUS_8;
+	font-size: $BODY_TEXT_XXS;
 	margin-left: $SPACING_8;
-	font-weight: 500;
-	text-transform: capitalize;
 }
 .badge--high-risk {
-	background-color: $ERROR_DARK;
+	background-color: $DARK_GREY;
 	border: $SPACING_1 solid $ERROR;
 	color: $ERROR;
 }
 .badge--medium-risk {
+	background-color: $DARK_GREY;
 	border: $SPACING_1 solid $WARNING;
 	color: $WARNING;
 }
 .badge--low-risk {
-	background-color: $SUCCESS_DARK;
-	border: $SPACING_1 solid $SUCCESS;
-	color: $SUCCESS;
+	background-color: $DARK_GREY;
+	border: $SPACING_1 solid $LIME;
+	color: $LIME;
 }
 
 // 4. Badge balance
@@ -82,16 +80,16 @@
 .badge--price-up,
 .badge--price-down,
 .badge--price-same {
+	background: $DARK_GREY;
 	padding: $SPACING_1 $SPACING_16;
 	border-radius: $BORDER_RADIUS_24;
-	border: $SPACING_1 solid;
+	border: 1px solid;
 }
 .badge--price-up {
 	border-color: $SUCCESS;
 	color: $SUCCESS;
 }
 .badge--price-down {
-	background-color: $ERROR_DARK;
 	border-color: $ERROR;
 	color: $ERROR;
 }
@@ -160,8 +158,7 @@
 }
 
 // 10. Badge balance difference
-.badge--balance-up,
-.badge--balance-up {
+.badge--balance-up, .badge--balance-up {
 	border-width: 1px;
 	border-style: solid;
 }

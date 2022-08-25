@@ -31,6 +31,7 @@ export const getCollateralTVLDayData = () => axios.post(THE_GRAPH_URL, {
 			}
 		}`
 });
+
 export const getTokenPricesDayData = () => axios.post(THE_GRAPH_URL, {
 	query:`
 		query {
@@ -47,41 +48,6 @@ export const getTokenPricesDayData = () => axios.post(THE_GRAPH_URL, {
 			}
 	}`
 });
-
-export const getUserTransactionHistory = (filters) => {
-	const variables = {
-		location: filters.location || "collateral",
-		user: filters.user,
-		query: filters.query || ""
-	};
-	if (filters.lastDays) {
-		variables.startDate = Math.floor(new Date(dayjs().subtract(filters.lastDays, "day")).getTime() / 1000);
-	} else {
-		variables.startDate = 0;
-	}
-
-	return axios.post(THE_GRAPH_URL, {
-		query:`
-			query getUserTransactions($user: String!, $query: String!, $startDate: Int!, $location: String! ){
-				userTransactions(orderBy: date, orderDirection: desc, 
-					where: {
-						date_gte: $startDate, 
-						transactionType_contains_nocase: $query, 
-						location: $location, 
-						user: $user
-					}) {
-						id
-						date
-						transactionType
-						location
-						user
-						amount
-						totalAmount
-					}
-			}`,
-		variables
-	});
-};
 
 export const getUserCollateralHistory = (filters) => {
 	const variables = {
@@ -202,6 +168,7 @@ export const getCollateralTransactionHistory = (filters) => {
 		variables
 	});
 };
+
 export const getSwapTransactionHistory = (filters) => {
 	const variables = {
 		user: filters.user,

@@ -3,9 +3,9 @@
 		<h2 class="u-mb-24">Transaction History</h2>
 		<div class="tabs__filter">
 			<TransactionSearch class="u-half-width-md"/>
-			<LayoutFlex direction="row-justify-end">
+			
+			<LayoutFlex direction="row-justify-end  u-full-width">
 				<TheSelect
-					class="u-mr-64"
 					:options="filterOptions"
 					inline
 					label="Filter"
@@ -17,6 +17,7 @@
 					label="Date"
 					@filter-select="onDateFilterChange" />
 			</LayoutFlex>
+			
 		</div>
 		<TheLoader component="table">
 			<TransactionTable
