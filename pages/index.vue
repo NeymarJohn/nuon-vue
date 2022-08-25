@@ -5,7 +5,7 @@
 				<h4>Dashboard</h4>
 				<h1>My Portfolio</h1>
 			</PageTitle>
-			<PriceIndicator :nuon-price="nuonPrice" :truflation-peg="truflationPeg" />
+			<PriceIndicator :nuon-price="tokenPrices.NUON" :truflation-peg="truflationPeg" />
 		</LayoutFlex>
 		<h3 class="u-mb-24">Account Health</h3>
 		<div class="l-collateral l-collateral--distribution">
@@ -31,7 +31,7 @@
 		</div>
 		<div class="l-collateral">
 			<div class="l-collateral__toggle">
-				<div class="l-collateral__toggle-btn is-active">
+				<div class="l-collateral__toggle-btn" :class="{'is-active': selectedCollateralToggleBtn === 0}" @click="handleCollaterlToggleBtn(0)">
 					<label>
 						<TheDot color="blue" />
 						Locked Collateral
@@ -43,7 +43,7 @@
 						<h3>${{ (graphSelectionTVL || totalValue) | toFixed | numberWithCommas }}</h3>
 					</ComponentLoader>
 				</div>
-				<div class="l-collateral__toggle-btn">
+				<div class="l-collateral__toggle-btn" :class="{'is-active': selectedCollateralToggleBtn === 1}" @click="handleCollaterlToggleBtn(1)">
 					<label>
 						<TheDot color="lime" />
 						Total NUON Minted Value
@@ -116,7 +116,7 @@ import dayjs from "dayjs";
 
 import { fromWei } from "~/utils/bnTools";
 import { getUserTVLDayData } from "~/services/theGraph";
-import { USDT, WETH } from "~/constants/tokens";
+import { NUON, USDT, WETH } from "~/constants/tokens";
 
 export default {
 	name: "TheDashboard",
@@ -177,9 +177,6 @@ export default {
 				onFinish: () => this.setCookie("skip_my_dashboard_tour")
 			},
 			mobileView: false,
-			collateralPrices: {},
-			userMintedAmounts: {},
-			nuonPrice: 0,
 			truflationPeg: 0,
 			collateralRatioArr: [],
 			graphSelectionTVL: "",
@@ -215,6 +212,7 @@ export default {
 			adjustModalPositionTitle: "",
 			adjustModalPositionSubtitle: "",
 			userMintedAmount: null,
+			selectedCollateralToggleBtn: 0
 		};
 	},
 	head () {
@@ -226,6 +224,12 @@ export default {
 		collaterals() {
 			const collaterals = [WETH.symbol, USDT.symbol];
 			return collaterals;
+		},
+		collateralPrices() {
+			return this.$store.state.collateralVaultStore.collateralPrices;
+		},
+		userMintedAmounts() {
+			return this.$store.state.collateralVaultStore.mintedAmount;
 		},
 		pendingRewards() {
 			return this.$store.state.boardroomStore.earned;
@@ -245,7 +249,7 @@ export default {
 		},
 		totalMintedNuon() {
 			if (Object.values(this.userMintedAmounts).length === 0) return 0;
-			return parseFloat(Object.values(this.userMintedAmounts).reduce((acc, amount) => acc + amount, 0) * this.nuonPrice).toFixed(2);
+			return parseFloat(Object.values(this.userMintedAmounts).reduce((acc, amount) => acc + amount, 0) * this.tokenPrices[NUON.symbol]).toFixed(2);
 		},
 		userTotalLockedCollateralAmount() {
 			return this.$store.state.collateralVaultStore.lockedAmount;
@@ -365,11 +369,7 @@ export default {
 				for (let i = 0; i < collaterals.length; i++) {
 					const collateral = collaterals[i];
 					await this.$store.dispatch("collateralVaultStore/changeCollateral", collateral);
-					this.getCollateralsPrices(collateral);
-					this.getUserMintedAmount(collateral);
 				}
-
-				this.getNuonPrice();
 				this.getTruflationPeg();
 				this.getDiffMinted();
 			} catch (e) {
@@ -379,34 +379,6 @@ export default {
 				}, 500);
 			}
 			this.getMinimumDepositAmount();
-		},
-		async getCollateralsPrices(collateral) {
-			let result = 0;
-			try {
-				result = parseFloat(fromWei(await this.$store.getters["collateralVaultStore/getCollateralPrice"]()));
-				this.$set(this.collateralPrices, collateral, result);
-			} catch (e) {
-			} finally {
-				this.collateralPrice = result;
-			}
-		},
-		async getUserMintedAmount(collateral) {
-			let result = 0;
-			try {
-				result = fromWei(await this.$store.getters["collateralVaultStore/getUserMintedAmount"](this.connectedAccount));
-			} catch (e) {
-			} finally {
-				this.$set(this.userMintedAmounts, collateral, result);
-			}
-		},
-		async getNuonPrice() {
-			let result = 0;
-			try {
-				result = parseFloat(fromWei(await this.$store.getters["collateralVaultStore/getNuonPrice"]()));
-			} catch (e) {
-			} finally {
-				this.nuonPrice = result;
-			}
 		},
 		async getTruflationPeg() {
 			let result = 0;
@@ -473,6 +445,9 @@ export default {
 				this.minimumDepositAmount = result;
 			}
 		},
+		handleCollaterlToggleBtn(selectedIndex) {
+			this.selectedCollateralToggleBtn = selectedIndex;
+		}
 	}
 };
 </script>

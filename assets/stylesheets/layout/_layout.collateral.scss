@@ -9,6 +9,9 @@
 	border-radius: $BORDER_RADIUS_16;
 	padding: $SPACING_32;
 }
+.l-collateral__toggle-btn {
+	cursor: pointer;
+}
 .l-collateral {
 	display: flex;
 	background-color: $MEDIUM_LIGHT_GREY;
