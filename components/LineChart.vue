@@ -19,7 +19,7 @@ export default {
 		animate: {
 			type: Boolean,
 			required: false,
-			default: true
+			default: false
 		},
 		yAxisOptions: {
 			type: Object,
