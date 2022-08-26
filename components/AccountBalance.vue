@@ -217,8 +217,12 @@ export default {
 				});
 			}
 
+			let xData = this.collateralRatioArr.map(d => new Date(d.date * 1000).toLocaleDateString()).reverse();
+			if (this.selectedPeriod === 2) {
+				xData = this.collateralRatioArr.map(d => new Date(d.date * 1000).toLocaleDateString("default", { month: "short" })).reverse();
+			}
 			return {
-				xData:this.collateralRatioArr.map(d => new Date(d.date * 1000).toLocaleDateString()).reverse(),
+				xData,
 				yData
 			};
 		},

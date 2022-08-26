@@ -1,8 +1,8 @@
 <template>
 	<div>
 		<LayoutContainer>
-			<LayoutFlex direction="row-center-space-between" class="u-mb-48 u-pb-32 u-bb-medium-light-grey">
-				<PageTitle class="u-mb-md-36">
+			<LayoutFlex class="u-mb-48 u-mb-md-36 l-flex--column-sm l-flex--column-start-md" direction="row-center-space-between">
+				<PageTitle class="u-mb-md-36" data-v-step="1">
 					<h4>Boardroom</h4>
 					<h1>Stake - Vote - Earn Rewards</h1>
 				</PageTitle>
@@ -57,7 +57,7 @@
 					</TheModal>
 				</LayoutFlex>
 			</LayoutFlex>
-			<LayoutInfo size="boardroom">
+			<LayoutInfo size="boardroom" data-v-step="2">
 				<DataCard class="u-mb-md-36 u-mb-sm-24">
 					<label>My Stake</label>
 					<TheLoader component="h1">
@@ -92,7 +92,7 @@
 		</LayoutContainer>
 		<LayoutContainer class="u-pt-48">
 			<h2 class="u-mb-20 u-mb-lg-14">nuMINT Stake Status</h2>
-			<LayoutGrid class="u-mb-56 u-mb-lg-48" :size="'3-stretch'">
+			<LayoutGrid class="u-mb-56 u-mb-lg-48" :size="'3-stretch'" data-v-step="3">
 				<StatCard class="u-mb-md-12">
 					<label>Total Staked<TooltipIcon v-tooltip="'Total nuMINT staked on the protocol.'" /></label>
 					<TheLoader component="h3">
@@ -118,7 +118,7 @@
 				</StatCard>
 			</LayoutGrid>
 			<LayoutFlex class="u-mb-36 u-mb-md-24 l-flex--column-start-sm" direction="row-space-between">
-				<PageTitle>
+				<PageTitle data-v-step="4">
 					<h2>Proposals<TooltipIcon v-tooltip="'nuMINT stakers have the right to make and vote on proposals that affect the future direction of the protocol. All proposals can be accessed and managed here.'" /></h2>
 					<h5>Create proposals and vote to improve the NUON protocol.</h5>
 				</PageTitle>
@@ -161,7 +161,7 @@
 			</InfiniteScroll>
 			<ComponentLoader :loaded="!isLoading" component="content-block" />
 			<p v-if="!isLoading && filteredProposals !== null && filteredProposals.length === 0" class="u-text-center u-mt-xs">No proposals to show.</p>
-			<!-- <v-tour name="boardroomTour" :steps="steps" :callbacks="tourCallbacks"></v-tour> -->
+			<v-tour name="boardroomTour" :steps="steps" :callbacks="tourCallbacks"></v-tour>
 		</LayoutContainer>
 	</div>
 </template>
@@ -197,12 +197,32 @@ export default {
 				price: 0,
 				balance: 0
 			},
-			// To be implemented after govern is finished.
-			// tourCallbacks: {
-			// 	onSkip: () => this.setCookie("skip_boardroom_tour"),
-			// 	onStop: () => this.setCookie("skip_boardroom_tour"),
-			// 	onFinish: () => this.setCookie("skip_boardroom_tour")
-			// },
+			steps: [
+				{
+					target: "[data-v-step=\"1\"]",
+					header: {
+						title: "Welcome to the Boardroom",
+					},
+					content: "The Boardroom is where governance of the Nuon Finance Protocol takes place using the nuMINT governance token.",
+				},
+				{
+					target: "[data-v-step=\"2\"]",
+					content: "The top information panel shows how much nuMINT you have staked, along with current and pending nuMINT rewards. It also shows how much voting power you have, based total nuMINT staked.",
+				},
+				{
+					target: "[data-v-step=\"3\"]",
+					content: "This section shows global nuMINT stats, including price, TVL and staking APR.",
+				},
+				{
+					target: "[data-v-step=\"4\"]",
+					content: "Finally, this section is where you can vote on active proposals or submit a new one. The voting system uses nuMINT staking contracts to determine your staking power, and proposals are hosted by Snapshot.org for maximum transparency.",
+				},
+			],
+			tourCallbacks: {
+				onSkip: () => this.setCookie("skip_boardroom_tour"),
+				onStop: () => this.setCookie("skip_boardroom_tour"),
+				onFinish: () => this.setCookie("skip_boardroom_tour")
+			},
 		};
 	},
 	head() {

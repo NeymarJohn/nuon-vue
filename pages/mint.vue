@@ -1,8 +1,8 @@
 <template>
 	<div>
 		<LayoutContainer>
-			<LayoutFlex direction="row-center-space-between" class="u-mb-48 u-pb-32 u-bb-medium-light-grey">
-				<PageTitle>
+			<LayoutFlex direction="row-center-space-between" class="l-flex--column-start-sm u-mb-48">
+				<PageTitle data-v-step="1">
 					<h4>Mint</h4>
 					<h1 class="u-mb-sm-12">Mint NUON</h1>
 					<h5 v-if="mobileView" class="u-color-white u-text-decoration-underline" title="Click to view hub overview" @click="setModalVisibility('hubOverviewModal', true)">Hub Overview</h5>
@@ -29,10 +29,12 @@
 			</LayoutFlex>
 			<TheTabsImage
 				:user-total-collateral-amount="userTotalLockedCollateralAmount" :user-total-minted-nuon="userTotalMintedNuon"
+				data-v-step="2"
 				@tab-changed="tabChanged"/>
 			<ComponentLoader :loaded="userCollateralizationRatio !== null && minimumCollateralizationRatio !== null" component="notification" class="u-width-auto u-mb-12">
 				<TheNotification
-					:my-collateralization-ratio="userCollateralizationRatio" />
+					:my-collateralization-ratio="userCollateralizationRatio"
+					data-v-step="3" />
 			</ComponentLoader>
 			<CollateralOverview
 				:collateral-token="currentlySelectedCollateral"
@@ -44,13 +46,15 @@
 				:current-price="collateralPrice"
 				:collateral-price-change="collateralPriceChange"
 				:liquidity-coverage="userLiquidityCoverage"
-				:lp-amount="userLpValue" />
+				:lp-amount="userLpValue"
+				data-v-step="4" />
 			<CollateralEcosystemStatus
 				:collateral-token="currentlySelectedCollateral"
 				:min-collateralization-ratio="minimumCollateralizationRatio"
 				:liquidation-price="liquidationPrice"
 				:nuon-price="nuonPrice"
-				:truflation-peg="truflationPeg" />
+				:truflation-peg="truflationPeg"
+				data-v-step="5" />
 		</LayoutContainer>
 		<TheModal
 			v-show="isMintModalVisible"
@@ -77,7 +81,7 @@
 				:user-minted-amount="userMintedAmount"
 				@action-changed="setAdjustPositionModalTitle" />
 		</TheModal>
-		<!-- <v-tour name="collateralHubTour" :steps="steps" :callbacks="tourCallbacks"></v-tour> -->
+		<v-tour name="collateralHubTour" :steps="steps" :callbacks="tourCallbacks"></v-tour>
 	</div>
 </template>
 
@@ -99,12 +103,36 @@ export default {
 			mobileView: false,
 			truflationPeg: 0,
 			minimumDepositAmount: 0,
-			// To be implemented after mint is finished.
-			// tourCallbacks: {
-			// 	onSkip: () => this.setCookie("skip_collateral_hub_tour"),
-			// 	onStop: () => this.setCookie("skip_collateral_hub_tour"),
-			// 	onFinish: () => this.setCookie("skip_collateral_hub_tour")
-			// },
+			steps: [
+				{
+					target: "[data-v-step=\"1\"]",
+					header: {
+						title: "Welcome to the Collateral Hub",
+					},
+					content: "This page is where you can deposit collateral and mint and redeem NUON.",
+				},
+				{
+					target: "[data-v-step=\"2\"]",
+					content: "Choose which asset to use as collateral.",
+				},
+				{
+					target: "[data-v-step=\"3\"]",
+					content: "View real-time health status of your collateralization ratio here.",
+				},
+				{
+					target: "[data-v-step=\"4\"]",
+					content: "This section shows an overview of your collateral status.",
+				},
+				{
+					target: "[data-v-step=\"5\"]",
+					content: "This section gives a status overview of the NUON ecosystem, including liquidation information for your chosen collateral.",
+				},
+			],
+			tourCallbacks: {
+				onSkip: () => this.setCookie("skip_collateral_hub_tour"),
+				onStop: () => this.setCookie("skip_collateral_hub_tour"),
+				onFinish: () => this.setCookie("skip_collateral_hub_tour")
+			},
 			userLiquidityCoverage: null,
 			userLpValue: "0",
 			adjustModalPositionTitle: "",

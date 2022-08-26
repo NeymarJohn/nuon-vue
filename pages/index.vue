@@ -1,7 +1,7 @@
 <template>
 	<LayoutContainer>
-		<LayoutFlex direction="row-center-space-between" class="u-mb-48 u-pb-32 u-bb-medium-light-grey">
-			<PageTitle>
+		<LayoutFlex direction="row-center-space-between" class="l-flex--column-start-sm u-mb-48">
+			<PageTitle data-v-step="1">
 				<h4>Dashboard</h4>
 				<h1>My Portfolio</h1>
 			</PageTitle>
@@ -48,7 +48,7 @@
 						<TheDot color="lime" />
 						Total NUON Minted Value
 						<ComponentLoader component="badge u-ml-8" :loaded="collateralRatioArr.length > 0">
-							<TheBadge v-if="!isNaN(getChangePercent('mintedNuon', collateralRatioArr, true))" class="u-ml-8" :color="getPercentChangeBadgeClass('mintedNuon', collateralRatioArr, true)">{{ getUserMintedNuonSign }}{{ Math.abs(getChangePercent('mintedNuon', collateralRatioArr, true)) }}%</TheBadge>
+							<TheBadge v-if="!isNaN(getChangePercent('mintedValue', collateralRatioArr, true))" class="u-ml-8" :color="getPercentChangeBadgeClass('mintedValue', collateralRatioArr, true)">{{ getUserMintedNuonSign }}{{ Math.abs(getChangePercent('mintedValue', collateralRatioArr, true)) }}%</TheBadge>
 						</ComponentLoader>
 					</label>
 					<ComponentLoader component="h3" :loaded="balanceLoaded">
@@ -66,7 +66,7 @@
 				</LayoutFlex>
 				<ComponentLoader component="chart u-mt-16" :loaded="xAxisData.length > 0">
 					<LineChart
-						:key="selectedPeriod"
+						:key="`${selectedPeriod}_${selectedCollateralToggleBtn}`"
 						:x-axis-labels="xAxisData"
 						:y-axis-options="{
 							showYAxis: false,
@@ -80,7 +80,7 @@
 			</div>
 		</div>
 		<AccountBalance :locked-amount="userTotalLockedCollateralAmount" />
-		<TransactionHistory />
+		<TransactionHistory data-v-step="7" />
 		<TheModal
 			v-show="isMintModalVisible"
 			title="Mint"
@@ -107,12 +107,13 @@
 				:user-minted-amount="userMintedAmount"
 				@action-changed="setAdjustPositionModalTitle" />
 		</TheModal>
-		<!-- <v-tour name="myDashboardTour" :steps="steps" :callbacks="tourCallbacks"></v-tour> -->
+		<v-tour name="myDashboardTour" :steps="steps" :callbacks="tourCallbacks"></v-tour>
 	</LayoutContainer>
 </template>
 
 <script>
 import dayjs from "dayjs";
+
 import { fromWei } from "~/utils/bnTools";
 import { getUserTVLDayData } from "~/services/theGraph";
 import { NUON, USDT, WETH } from "~/constants/tokens";
@@ -134,12 +135,47 @@ export default {
 					lockedCollateral: ["WETH", "USDT"]
 				},
 			},
-			// To be implemented after dashboard is finished.
-			// tourCallbacks: {
-			// 	onSkip: () => this.setCookie("skip_my_dashboard_tour"),
-			// 	onStop: () => this.setCookie("skip_my_dashboard_tour"),
-			// 	onFinish: () => this.setCookie("skip_my_dashboard_tour")
-			// },
+			steps: [
+				{
+					target: "[data-v-step=\"1\"]",
+					header: {
+						title: "Welcome to the Dashboard",
+					},
+					content: "This page gives you a breakdown of your activity within the Nuon Protocol.",
+				},
+				{
+					target: "[data-v-step=\"2\"]",
+					content: "View your total deposited collateral here.",
+				},
+				{
+					target: "[data-v-step=\"3\"]",
+					content: "View the total value of your minted NUON here.",
+				},
+				{
+					target: "[data-v-step=\"4\"]",
+					content: "This chart shows your total value locked and the total value of your minted Nuon.",
+				},
+				{
+					target: "[data-v-step=\"5\"]",
+					content: "This section gives important details about your collateral, including your collateralization ratio for each asset type deposited, as well as the daily market price for your reference.",
+				},
+				{
+					target: "[data-v-step=\"6\"]",
+					content: "This section shows the total value of your account, including all Nuon minted, collateral deposited and nuMINT staked.",
+				},
+				{
+					target: "[data-v-step=\"7\"]",
+					content: "Lastly, this section provides a full history of all your transactions.",
+					params: {
+						placement: "left"
+					}
+				},
+			],
+			tourCallbacks: {
+				onSkip: () => this.setCookie("skip_my_dashboard_tour"),
+				onStop: () => this.setCookie("skip_my_dashboard_tour"),
+				onFinish: () => this.setCookie("skip_my_dashboard_tour")
+			},
 			mobileView: false,
 			truflationPeg: 0,
 			collateralRatioArr: [],
@@ -243,7 +279,7 @@ export default {
 			return this.chubData.map(cdata=>({label: cdata.lockedCollateral, value: Number(cdata.lockedValue)}));
 		},
 		getUserMintedNuonSign() {
-			const changePercent = this.getChangePercent("mintedNuon", this.collateralRatioArr, true);
+			const changePercent = this.getChangePercent("mintedValue", this.collateralRatioArr, true);
 			if (parseFloat(changePercent) === 0) return "";
 			return changePercent > 0 ? "+ " : "- ";
 		},
@@ -272,34 +308,40 @@ export default {
 			if (this.selectedPeriod === 1) { // week
 				return {
 					xData: Object.keys(weeks).map(d => new Date(d).toLocaleDateString()).reverse(),
-					yData:[{
+					yData:[this.selectedCollateralToggleBtn === 0 ? {
 						name: "My Total Value Locked",
-						data: Object.values(weeks).map(d => d.value).reverse()
-					}, {
+						data: Object.values(weeks).map(d => d.value).reverse(),
+						color: "#65b5ff"
+					}:{
 						name: "My Total Minted Value",
-						data: Object.values(weeks).map(d => d.mintedValue).reverse()
+						data: Object.values(weeks).map(d => d.mintedValue).reverse(),
+						color: "#dfff65"
 					}]
 				};}
 			if (this.selectedPeriod === 2) { // month
 				return {
 					xData: Object.keys(months).map(d => new Date(d).toLocaleDateString("default", { month: "short" })).reverse(),
-					yData:[{
+					yData:[this.selectedCollateralToggleBtn === 0 ? {
 						name: "My Total Value Locked",
-						data: Object.values(months).map(d => d.value).reverse()
-					}, {
+						data: Object.values(months).map(d => d.value).reverse(),
+						color: "#65b5ff"
+					} : {
 						name: "My Total Minted Value",
-						data: Object.values(months).map(d => d.mintedValue).reverse()
+						data: Object.values(months).map(d => d.mintedValue).reverse(),
+						color: "#dfff65"
 					}]
 				};
 			};
 			return {
 				xData: this.collateralRatioArr.map(d => new Date(d.date * 1000).toLocaleDateString()).reverse(),
-				yData:[{
+				yData:[this.selectedCollateralToggleBtn === 0 ? {
 					name: "My Total Value Locked",
-					data: this.collateralRatioArr.map(d => d.value).reverse()
-				}, {
+					data: this.collateralRatioArr.map(d => d.value).reverse(),
+					color: "#65b5ff"
+				} : {
 					name: "My Total Minted Value",
-					data: this.collateralRatioArr.map(d => d.mintedValue).reverse()
+					data: this.collateralRatioArr.map(d => d.mintedValue).reverse(),
+					color: "#dfff65"
 				}]
 			};
 		},
