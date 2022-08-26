@@ -1,6 +1,6 @@
 <template>
 	<LayoutContainer>
-		<LayoutFlex direction="row-center-space-between" class="l-flex--column-start-sm u-mb-48">
+		<LayoutFlex direction="row-center-space-between" class="u-mb-48 u-pb-32 u-bb-medium-light-grey">
 			<PageTitle>
 				<h4>Dashboard</h4>
 				<h1>My Portfolio</h1>
