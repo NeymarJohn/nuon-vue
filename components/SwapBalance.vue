@@ -3,7 +3,7 @@
 		direction="row-center-space-between"
 		class="swap__balance">
 		<label>{{ label }}</label>
-		<p>{{token}} Balance: <span>{{ tokenBalances[token] | formatLongNumber }}</span></p>
+		<label>Available balance: <span>{{ tokenBalances[token] | formatLongNumber }}</span></label>
 	</LayoutFlex>
 </template>
 
