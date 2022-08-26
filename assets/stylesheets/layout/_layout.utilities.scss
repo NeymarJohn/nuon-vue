@@ -430,10 +430,6 @@
 }
 
 // 24. Font size
-.u-font-size-14 {
-	font-size: $SPACING_14 !important;
-	line-height: $SPACING_20 !important;
-}
 @media screen and (max-width: $SPACING_1440) {
 	.u-font-size-h2-1440 {
 		font-size: $HEADING_TWO_990 !important;

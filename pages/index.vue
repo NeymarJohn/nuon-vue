@@ -1,11 +1,11 @@
 <template>
 	<LayoutContainer>
-		<LayoutFlex direction="row-center-space-between" class="u-mb-48 u-pb-32 u-bb-medium-light-grey">
-			<PageTitle>
+		<LayoutFlex direction="row-center-space-between" class="l-flex--column-start-sm u-mb-48">
+			<PageTitle data-v-step="1">
 				<h4>Dashboard</h4>
 				<h1>My Portfolio</h1>
 			</PageTitle>
-			<PriceIndicator />
+			<PriceIndicator :nuon-price="tokenPrices.NUON" :truflation-peg="truflationPeg" />
 		</LayoutFlex>
 		<h3 class="u-mb-24">Account Health</h3>
 		<div class="l-collateral l-collateral--distribution">
@@ -40,7 +40,8 @@
 						</ComponentLoader>
 					</label>
 					<ComponentLoader component="h3" :loaded="balanceLoaded">
-						<h3>${{ (graphSelectionTVL || totalValue) | toFixed | numberWithCommas }}</h3>
+						<h3 v-if="selectedCollateralToggleBtn === 0">${{ (graphSelectionTVL || totalValue) | toFixed | numberWithCommas }}</h3>
+						<h3 v-else>${{ totalValue | toFixed | numberWithCommas }}</h3>
 					</ComponentLoader>
 				</div>
 				<div class="l-collateral__toggle-btn" :class="{'is-active': selectedCollateralToggleBtn === 1}" @click="handleCollaterlToggleBtn(1)">
@@ -52,7 +53,8 @@
 						</ComponentLoader>
 					</label>
 					<ComponentLoader component="h3" :loaded="balanceLoaded">
-						<h3>${{ (graphSelectionMintedNuon || totalMintedNuon) | toFixed | numberWithCommas }}</h3>
+						<h3 v-if="selectedCollateralToggleBtn === 1">${{ (graphSelectionMintedNuon || totalMintedNuon) | toFixed | numberWithCommas }}</h3>
+						<h3 v-else>${{ totalMintedNuon | toFixed | numberWithCommas }}</h3>
 					</ComponentLoader>
 				</div>
 			</div>
@@ -80,7 +82,7 @@
 			</div>
 		</div>
 		<AccountBalance :locked-amount="userTotalLockedCollateralAmount" />
-		<TransactionHistory />
+		<TransactionHistory data-v-step="7" />
 		<TheModal
 			v-show="isMintModalVisible"
 			title="Mint"
@@ -107,12 +109,14 @@
 				:user-minted-amount="userMintedAmount"
 				@action-changed="setAdjustPositionModalTitle" />
 		</TheModal>
-		<!-- <v-tour name="myDashboardTour" :steps="steps" :callbacks="tourCallbacks"></v-tour> -->
+		<v-tour name="myDashboardTour" :steps="steps" :callbacks="tourCallbacks"></v-tour>
 	</LayoutContainer>
 </template>
 
 <script>
 import dayjs from "dayjs";
+
+import { fromWei } from "~/utils/bnTools";
 import { getUserTVLDayData } from "~/services/theGraph";
 import { NUON, USDT, WETH } from "~/constants/tokens";
 
@@ -133,13 +137,49 @@ export default {
 					lockedCollateral: ["WETH", "USDT"]
 				},
 			},
-			// To be implemented after dashboard is finished.
-			// tourCallbacks: {
-			// 	onSkip: () => this.setCookie("skip_my_dashboard_tour"),
-			// 	onStop: () => this.setCookie("skip_my_dashboard_tour"),
-			// 	onFinish: () => this.setCookie("skip_my_dashboard_tour")
-			// },
+			steps: [
+				{
+					target: "[data-v-step=\"1\"]",
+					header: {
+						title: "Welcome to the Dashboard",
+					},
+					content: "This page gives you a breakdown of your activity within the Nuon Protocol.",
+				},
+				{
+					target: "[data-v-step=\"2\"]",
+					content: "View your total deposited collateral here.",
+				},
+				{
+					target: "[data-v-step=\"3\"]",
+					content: "View the total value of your minted NUON here.",
+				},
+				{
+					target: "[data-v-step=\"4\"]",
+					content: "This chart shows your total value locked and the total value of your minted Nuon.",
+				},
+				{
+					target: "[data-v-step=\"5\"]",
+					content: "This section gives important details about your collateral, including your collateralization ratio for each asset type deposited, as well as the daily market price for your reference.",
+				},
+				{
+					target: "[data-v-step=\"6\"]",
+					content: "This section shows the total value of your account, including all Nuon minted, collateral deposited and nuMINT staked.",
+				},
+				{
+					target: "[data-v-step=\"7\"]",
+					content: "Lastly, this section provides a full history of all your transactions.",
+					params: {
+						placement: "left"
+					}
+				},
+			],
+			tourCallbacks: {
+				onSkip: () => this.setCookie("skip_my_dashboard_tour"),
+				onStop: () => this.setCookie("skip_my_dashboard_tour"),
+				onFinish: () => this.setCookie("skip_my_dashboard_tour")
+			},
 			mobileView: false,
+			truflationPeg: 0,
 			collateralRatioArr: [],
 			graphSelectionTVL: "",
 			graphSelectionMintedNuon: "",
@@ -329,7 +369,7 @@ export default {
 		this.mobileView = this.isMobile();
 		this.initialize(this.collaterals);
 		this.handleMouseOverChart(-1);
-		// if (!$cookies.get("skip_my_dashboard_tour")) this.$tours.myDashboardTour.start();
+		if (!$cookies.get("skip_my_dashboard_tour")) this.$tours.myDashboardTour.start();
 	},
 	methods: {
 		async initialize(collaterals) {
@@ -338,6 +378,7 @@ export default {
 					const collateral = collaterals[i];
 					await this.$store.dispatch("collateralVaultStore/changeCollateral", collateral);
 				}
+				this.getTruflationPeg();
 				this.getDiffMinted();
 			} catch (e) {
 			} finally {
@@ -346,6 +387,15 @@ export default {
 				}, 500);
 			}
 			this.getMinimumDepositAmount();
+		},
+		async getTruflationPeg() {
+			let result = 0;
+			try {
+				result = parseFloat(fromWei(await this.$store.getters["collateralVaultStore/getTruflationPeg"]()));
+			} catch (e) {
+			} finally {
+				this.truflationPeg = result;
+			}
 		},
 		getDiffMinted() {
 			getUserTVLDayData({user: this.connectedAccount}).then(res => {
@@ -371,8 +421,11 @@ export default {
 				idx = this.yAxisData[0]?.data?.length - 1;
 				this.graphSelectionDuraton = "";
 			}
-			this.graphSelectionTVL = this.yAxisData[0]?.data[idx];
-			this.graphSelectionMintedNuon = this.yAxisData[1]?.data[idx];
+			if (this.selectedCollateralToggleBtn === 0) {
+				this.graphSelectionTVL = this.yAxisData[0]?.data[idx];
+			} else {
+				this.graphSelectionMintedNuon = this.yAxisData[0]?.data[idx];
+			}
 			if (e === -1) return;
 			const startDate = dayjs(this.xAxisData[idx]).format("MMM D YYYY");
 			if (this.selectedPeriod === 0) {

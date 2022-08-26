@@ -7,6 +7,7 @@ const initalPrice = {
 	[nuMINT.symbol]: 0,
 	USDT: 1,
 	DAI: 1,
+	USDC: 1
 };
 export const state = () => ({
 	price: initalPrice,
@@ -38,6 +39,7 @@ export const actions: ActionTree<Web3State, Web3State> = {
 			NUON: Number(fromWei(nuonPrice, ctx.rootState.erc20Store.decimals.NUON)),
 			DAI: 1,
 			USDT: 1,
+			USDC: 1,
 			[WETH.symbol]: wethPrice,
 			[nuMINT.symbol]: nuMintPrice
 		});
@@ -45,6 +47,7 @@ export const actions: ActionTree<Web3State, Web3State> = {
 		ctx.commit("setPriceWithDecimal", {
 			NUON: { value: nuonPrice, decimals: ctx.rootState.erc20Store.decimals.NUON},
 			DAI: { value: 1, decimals: 0 },
+			USDC: { value: 1, decimals: 0},
 			USDT: { value: 1, decimals: 0},
 			[nuMINT.symbol]: { value: nuMintPrice, decimals: ctx.rootState.erc20Store.decimals.nuMINT }
 		});
