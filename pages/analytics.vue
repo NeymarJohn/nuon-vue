@@ -64,8 +64,8 @@ export default {
 			]
 		};
 	},
-	// mounted() {
-	// 	if (!$cookies.get("skip_ecosystem_overview_tour")) this.$tours.ecosystemOverviewTour.start();
-	// }
+	mounted() {
+		if (!$cookies.get("skip_ecosystem_overview_tour")) this.$tours.ecosystemOverviewTour.start();
+	}
 };
 </script>

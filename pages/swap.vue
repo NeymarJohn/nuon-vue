@@ -10,26 +10,18 @@
 		</LayoutContainer>
 		<LayoutContainer size="sm" class="u-pt-0">
 			<div class="swap">
-				<LayoutFlex direction="row-start-space-between" class="u-mb-48 u-mb-sm-24">
-					<PageTitle class="u-mb-sm-0">
-						<h2 class="u-mb-0">Instant Swap<TooltipIcon v-tooltip="'Instantly exchange your tokens for other tokens supported by the protocol.'" /></h2>
-					</PageTitle>
-					<TheButton
-						size="icon"
-						title="Click to open swap settings"
-						@click="setModalVisibility('settingsModal', true)">
-						<SettingsIcon />
-					</TheButton>
-					<TheModal
-						v-show="isSettingsModalVisible"
-						title="Transaction Settings"
-						@close-modal="setModalVisibility('settingsModal', false)">
-						<label>Slippage Tolerance <TooltipIcon v-tooltip="'Enter your chosen slippage tolerance. The swap feature relies on liquidity pools of paired tokens to facilitate trades. As liquidity pools deplete, the amount of assets received may sometimes be slightly smaller than expected (by a small %) — this is called ‘slippage’. Slippage tolerance is the maximum amount of slippage you are willing to accept in the swap. (If in doubt, we suggest keeping slippage tolerance set at the default value of 0.5%.).'" /></label>
-						<div class="input">
+				<div class="swap__container">
+					<SwapBalance
+						label="Deposit"
+						:token="input.token" />
+					<SwapAccordion
+						:disabled-tokens="[output.token]"
+						:default-token="input.token"
+						@selected-token="selectInputToken">
+						<div class="input u-mb-12">
 							<div class="input__container">
 								<input
-									id="slippage"
-									v-model="maxSlippage"
+									v-model="input.value"
 									placeholder="0.0"
 									type="number"
 									min="0"
@@ -38,171 +30,104 @@
 									autocorrect="off"
 									spellcheck="false"
 									inputmode="decimal"
-									@change="calculateSlippage" />
+									@keyup="onInputKeyUp('input')" />
+								<TheButton
+									size="sm"
+									title="Click to input your max balance"
+									@click="inputMaxBalance">Max</TheButton>
 							</div>
 						</div>
-					</TheModal>
-				</LayoutFlex>
-				<TheStepper :active-step="activeStep" :steps="['Token', 'Confirm']">
-					<template #step-one>
-						<LayoutFlex direction="row-center-space-between" class="u-mb-12 u-mt-24">
-							<h5>Select Token To Swap</h5>
-							<h5>Max Slippage {{ maxSlippage }}%</h5>
+						<LayoutFlex direction="row-justify-end">
+							<p class="u-mb-0">~ ${{ getPrice(input.token, input.value) | toFixed | numberWithCommas }}</p>
 						</LayoutFlex>
-						<div class="swap__container">
-							<SwapBalance
-								label="From"
-								:token="input.token" />
-							<SwapAccordion
-								:disabled-tokens="[output.token]"
-								:default-token="input.token"
-								@selected-token="selectInputToken">
-								<div class="input u-mb-12">
-									<div class="input__container">
-										<input
-											v-model="input.value"
-											placeholder="0.0"
-											type="number"
-											min="0"
-											max="79"
-											autocomplete="off"
-											autocorrect="off"
-											spellcheck="false"
-											inputmode="decimal"
-											@keyup="onInputKeyUp('input')" />
-										<TheButton
-											size="sm"
-											title="Click to input your max balance"
-											@click="inputMaxBalance">Max</TheButton>
-									</div>
-								</div>
-								<LayoutFlex direction="row-justify-end">
-									<p class="u-mb-0">~ ${{ getPrice(input.token, input.value) | toFixed | numberWithCommas }}</p>
-								</LayoutFlex>
-							</SwapAccordion>
+					</SwapAccordion>
+				</div>
+				<TheButton
+					size="swap"
+					:disabled="loadingPrice || !output.token"
+					@click="reverseToken">
+					<img :src="swapButtonHover" @mouseover="hover = true" @mouseleave="hover = false">
+				</TheButton>
+				<div class="swap__container u-mb-36">
+					<SwapBalance
+						label="Receive"
+						:token="output.token" />
+					<SwapAccordion
+						:disabled-tokens="[input.token]"
+						:default-token="output.token"
+						@selected-token="selectOutputToken">
+						<div class="input u-mb-12">
+							<div class="input__container">
+								<input
+									v-model="output.value"
+									placeholder="0.0"
+									type="number"
+									min="0"
+									max="79"
+									autocomplete="off"
+									autocorrect="off"
+									spellcheck="false"
+									inputmode="decimal"
+									@keyup="onInputKeyUp('output')" />
+							</div>
 						</div>
-						<TheButton
-							size="swap"
-							:disabled="loadingPrice || !output.token"
-							@click="reverseToken">
-							<img :src="swapButtonHover" @mouseover="hover = true" @mouseleave="hover = false">
-						</TheButton>
-						<div class="swap__container u-mb-36">
-							<SwapBalance
-								label="To"
-								:token="output.token" />
-							<SwapAccordion
-								:disabled-tokens="[input.token]"
-								:default-token="output.token"
-								@selected-token="selectOutputToken">
-								<div class="input u-mb-12">
-									<div class="input__container">
-										<input
-											v-model="output.value"
-											placeholder="0.0"
-											type="number"
-											min="0"
-											max="79"
-											autocomplete="off"
-											autocorrect="off"
-											spellcheck="false"
-											inputmode="decimal"
-											@keyup="onInputKeyUp('output')" />
-									</div>
-								</div>
-								<LayoutFlex direction="row-justify-end">
-									<p class="u-mb-0">~ ${{ numberWithCommas(getPrice(output.token, output.value).toFixed(2))}}</p>
-								</LayoutFlex>
-							</SwapAccordion>
-						</div>
-						<div class="swap__output">
-							<LayoutFlex v-if="output.value && input.value" direction="row-center" class="u-mb-12">
-								<h4 v-if="isInputRate">1 {{ output.token }} = {{ (input.value / output.value).toFixed(8) | numberWithCommas }} {{ input.token }}</h4>
-								<h4 v-else>1 {{ input.token }} = {{ (output.value / input.value).toFixed(8) | numberWithCommas}} {{ output.token }}</h4>
-								<TheButton
-									size="icon"
-									title="Click to convert rate"
-									@click="convertRate"><RefreshIcon />
-								</TheButton>
-							</LayoutFlex>
-							<LayoutFlex direction="row-space-between">
-								<h4>Slippage Tolerance</h4>
-								<h4><strong>{{maxSlippage}}%</strong></h4>
-							</LayoutFlex>
-							<template  v-if="output.value && input.value">
-								<LayoutFlex direction="row-space-between" class="u-mt-12">
-									<h4>Price Impact</h4>
-									<ComponentLoader component="h4" :loaded="!isLoadingPriceImpact">
-										<h4><strong>{{priceImpact | toFixed | numberWithCommas}}%</strong></h4>
-									</ComponentLoader>
-								</LayoutFlex>
-								<LayoutFlex direction="row-space-between" class="u-mt-12">
-									<h4>Minimum received after slippage</h4>
-									<ComponentLoader component="h4" :loaded="!isLoadingPriceImpact">
-										<h4><strong>{{calculateSlippage() | toFixed | numberWithCommas}} {{output.token}}</strong></h4>
-									</ComponentLoader>
-								</LayoutFlex>
-								<LayoutFlex direction="row-space-between" class="u-mt-12">
-									<h4>{{input.token}} reserves</h4>
-									<ComponentLoader component="h4" :loaded="!isLoadingPriceImpact">
-										<h4><strong>{{reserves[input.token] | toFixed | numberWithCommas}} {{input.token}}</strong></h4>
-									</ComponentLoader>
-								</LayoutFlex>
-								<LayoutFlex direction="row-space-between" class="u-mt-12">
-									<h4>{{output.token}} reserves</h4>
-									<ComponentLoader component="h4" :loaded="!isLoadingPriceImpact">
-										<h4><strong>{{reserves[output.token] | toFixed | numberWithCommas}} {{output.token}}</strong></h4>
-									</ComponentLoader>
-								</LayoutFlex>
-							</template>
-						</div>
-						<div class="transaction-input__buttons">
-							<TheButton
-								v-if="!isConnectedWallet"
-								size="lg"
-								title="Click to connect wallet"
-								@click="connectWallet">Connect Wallet</TheButton>
-							<TheButton
-								v-else-if="isMoreThanBalance"
-								size="lg"
-								disabled>Insufficient Balance</TheButton>
-							<TheButton
-								v-else-if="!isApproved(input.token)"
-								size="lg"
-								@click="approveToken(input.token)">
-								<span>Approve {{input.token}} Token</span>
-							</TheButton>
-							<TheButton
-								v-else-if="!isApproved(output.token)"
-								size="lg"
-								@click="approveToken(output.token)">
-								<span>Approve {{output.token}} Token</span>
-							</TheButton>
-							<TheButton
-								v-if="isConnectedWallet"
-								size="lg"
-								title="Click to go next"
-								:disabled="disabledSwap"
-								@click="activeStep = 2">Next</TheButton>
-						</div>
+						<LayoutFlex direction="row-justify-end">
+							<p class="u-mb-0">~ ${{ numberWithCommas(getPrice(output.token, output.value).toFixed(2))}}</p>
+						</LayoutFlex>
+					</SwapAccordion>
+				</div>
+				<div class="swap__output">
+					<LayoutFlex direction="row-space-between">
+						<h4>Slippage Tolerance</h4>
+						<h4><strong>{{maxSlippage}}%</strong></h4>
+					</LayoutFlex>
+					<template  v-if="output.value && input.value">
+						<LayoutFlex direction="row-space-between" class="u-mt-12">
+							<h4>Price Impact</h4>
+							<ComponentLoader component="h4" :loaded="!isLoadingPriceImpact">
+								<h4><strong>{{priceImpact | toFixed | numberWithCommas}}%</strong></h4>
+							</ComponentLoader>
+						</LayoutFlex>
+						<LayoutFlex direction="row-space-between" class="u-mt-12">
+							<h4>Minimum received after slippage</h4>
+							<ComponentLoader component="h4" :loaded="!isLoadingPriceImpact">
+								<h4><strong>{{calculateSlippage() | toFixed | numberWithCommas}} {{output.token}}</strong></h4>
+							</ComponentLoader>
+						</LayoutFlex>
+						<LayoutFlex direction="row-space-between" class="u-mt-12">
+							<h4>{{input.token}} reserves</h4>
+							<ComponentLoader component="h4" :loaded="!isLoadingPriceImpact">
+								<h4><strong>{{reserves[input.token] | toFixed | numberWithCommas}} {{input.token}}</strong></h4>
+							</ComponentLoader>
+						</LayoutFlex>
+						<LayoutFlex direction="row-space-between" class="u-mt-12">
+							<h4>{{output.token}} reserves</h4>
+							<ComponentLoader component="h4" :loaded="!isLoadingPriceImpact">
+								<h4><strong>{{reserves[output.token] | toFixed | numberWithCommas}} {{output.token}}</strong></h4>
+							</ComponentLoader>
+						</LayoutFlex>
 					</template>
-					<template #step-two>
-						<TransactionSummarySwap :values="summary" :input="input" :output="output"/>
-						<p class="u-color-light-grey u-pb-32">Minimum received is estimated. You will receive at least <strong>{{ calculateSlippage() | formatPrice }} {{ output.token }}</strong> or the transaction will revert.</p>
-						<div class="transaction-input__buttons">
-							<TheButton
-								size="lg"
-								title="Click to go back"
-								class="btn--back"
-								@click="activeStep = 1">Back</TheButton>
-							<TheButton
-								size="lg"
-								title="Click to confirm"
-								:disabled="disabledSwap"
-								@click="swap">Confirm</TheButton>
-						</div>
-					</template>
-				</TheStepper>
+				</div>
+				<div class="transaction-input__buttons">
+					<TheButton
+						v-if="!isConnectedWallet"
+						size="lg"
+						title="Click to connect wallet"
+						@click="connectWallet">Connect Wallet</TheButton>
+					<TheButton
+						v-else-if="isMoreThanBalance"
+						size="lg"
+						disabled>Insufficient Balance</TheButton>
+				</div>
+				<!-- <TransactionSummarySwap :values="summary" :input="input" :output="output"/> -->
+				<p class="u-color-light-grey u-pb-32">Minimum received is estimated. You will receive at least <strong>{{ calculateSlippage() | formatPrice }} {{ output.token }}</strong> or the transaction will revert.</p>
+				<div class="transaction-input__buttons">
+					<TheButton
+						size="lg"
+						title="Click to confirm"
+						:disabled="disabledSwap"
+						@click="swap">Confirm</TheButton>
+				</div>
 			</div>
 		</LayoutContainer>
 	</div>
@@ -210,17 +135,9 @@
 
 <script>
 import { fromWei } from "~/utils/bnTools";
-import RefreshIcon from "@/assets/images/svg/svg-refresh.svg";
-import SettingsIcon from "@/assets/images/svg/svg-settings.svg";
-import TooltipIcon from "@/assets/images/svg/svg-tooltip.svg";
 
 export default {
 	name: "TheSwap",
-	components: {
-		RefreshIcon,
-		SettingsIcon,
-		TooltipIcon
-	},
 	data() {
 		return {
 			arrowDown: require("~/assets/images/png/png-arrow-down.png"),
@@ -453,7 +370,6 @@ export default {
 				slippage: this.maxSlippage,
 				formatted: true
 			});
-			
 		},
 		inputMaxBalance() {
 			this.input.value = this.tokenBalances[this.input.token];
@@ -493,9 +409,6 @@ export default {
 		refreshPrice() {
 			this.calculate();
 		},
-		convertRate() {
-			this.isInputRate = !this.isInputRate;
-		}
 	}
 };
 </script>
