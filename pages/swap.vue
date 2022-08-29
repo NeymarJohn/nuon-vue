@@ -6,6 +6,7 @@
 					<h4>Swap</h4>
 					<h1>Token Exchange</h1>
 				</PageTitle>
+				<PriceIndicator :nuon-price="tokenPrices.NUON" :truflation-peg="truflationPeg" />
 			</LayoutFlex>
 		</LayoutContainer>
 		<LayoutContainer size="sm" class="u-pt-0">
@@ -152,6 +153,7 @@ export default {
 				value: "",
 				token: ""
 			},
+			truflationPeg: 0,
 			priceImpact: 0,
 			isActive: false,
 			loadingPrice: false,
@@ -221,6 +223,7 @@ export default {
 		}
 	},
 	mounted () {
+		this.getTruflationPeg();
 		const routeQuery = this.$route.query;
 		if (routeQuery.inputToken) this.input.token = routeQuery.inputToken;
 		if (routeQuery.outputToken) this.output.token = routeQuery.outputToken;

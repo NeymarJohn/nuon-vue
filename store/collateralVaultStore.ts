@@ -299,7 +299,6 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 		ctx.commit("setLpValueOfUser", {token, value: lpValueOfUser});
 
 	},
-	
 	async getTargetPeg(ctx) {
 		const result = await ctx.getters.getTruflationPeg();
 		ctx.commit("setTargetPeg", Number(fromWei(result)));

@@ -113,7 +113,6 @@
 
 <script>
 import dayjs from "dayjs";
-import { fromWei } from "~/utils/bnTools";
 import { getUserTVLDayData } from "~/services/theGraph";
 import { NUON, USDT, WETH } from "~/constants/tokens";
 
@@ -349,15 +348,6 @@ export default {
 				}, 500);
 			}
 			this.getMinimumDepositAmount();
-		},
-		async getTruflationPeg() {
-			let result = 0;
-			try {
-				result = parseFloat(fromWei(await this.$store.getters["collateralVaultStore/getTruflationPeg"]()));
-			} catch (e) {
-			} finally {
-				this.truflationPeg = result;
-			}
 		},
 		getDiffMinted() {
 			getUserTVLDayData({user: this.connectedAccount}).then(res => {
