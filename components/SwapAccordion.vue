@@ -8,8 +8,7 @@
 				@click="triggerAccordion">
 				<img v-if="selected.icon" :src="require(`~/assets/images/tokens/${selected.icon}`)" alt="token logo">
 				<div class="accordion__token">
-					<h4>{{ selected.symbol }}</h4>
-					<p>{{ selected.name }}</p>
+					<h5>{{ selected.symbol }}</h5>
 				</div>
 				<ChevronDownIcon v-if="!isActive" />
 				<ChevronUpIcon v-else />
@@ -19,8 +18,7 @@
 				direction="row-center accordion__header"
 				title="Click to open token list" @click="triggerAccordion">
 				<div class="accordion__token">
-					<h4>Select Token</h4>
-					<p>{{ selected.name }}</p>
+					<h5>Select Token</h5>
 				</div>
 				<ChevronDownIcon v-if="!isActive" />
 				<ChevronUpIcon v-else />

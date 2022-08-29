@@ -19,11 +19,11 @@
 						:disabled-tokens="[output.token]"
 						:default-token="input.token"
 						@selected-token="selectInputToken">
-						<div class="input u-mb-12">
+						<div class="input">
 							<div class="input__container">
 								<input
 									v-model="input.value"
-									placeholder="0.0"
+									placeholder="Enter amount"
 									type="number"
 									min="0"
 									max="79"
@@ -39,7 +39,7 @@
 							</div>
 						</div>
 						<LayoutFlex direction="row-justify-end">
-							<p class="u-mb-0">~ ${{ getPrice(input.token, input.value) | toFixed | numberWithCommas }}</p>
+							<p class="u-mb-0 u-font-size-14">~ ${{ getPrice(input.token, input.value) | toFixed | numberWithCommas }}</p>
 						</LayoutFlex>
 					</SwapAccordion>
 				</div>
@@ -49,7 +49,7 @@
 					@click="reverseToken">
 					<SwapIcon />
 				</TheButton>
-				<div class="swap__container u-mb-36">
+				<div class="swap__container u-mb-24">
 					<SwapBalance
 						label="Receive"
 						:token="output.token" />
@@ -57,11 +57,11 @@
 						:disabled-tokens="[input.token]"
 						:default-token="output.token"
 						@selected-token="selectOutputToken">
-						<div class="input u-mb-12">
+						<div class="input">
 							<div class="input__container">
 								<input
 									v-model="output.value"
-									placeholder="0.0"
+									placeholder="0.00"
 									type="number"
 									min="0"
 									max="79"
@@ -73,7 +73,7 @@
 							</div>
 						</div>
 						<LayoutFlex direction="row-justify-end">
-							<p class="u-mb-0">~ ${{ numberWithCommas(getPrice(output.token, output.value).toFixed(2))}}</p>
+							<p class="u-mb-0 u-font-size-14">~ ${{ numberWithCommas(getPrice(output.token, output.value).toFixed(2))}}</p>
 						</LayoutFlex>
 					</SwapAccordion>
 				</div>
