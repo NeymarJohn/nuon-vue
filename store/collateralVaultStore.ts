@@ -228,7 +228,6 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 		const myCollateralAmount = await getters.getUserCollateralAmount(accountAddress);
 		commit("setUserCollateralAmount", myCollateralAmount);
 
-		
 		const chubAddr = rootGetters["addressStore/collateralHubs"][state.currentCollateralToken];
 		const mintingFee = await getters.getMintingFee(chubAddr);
 		commit("setMintingFee",  fromWei(mintingFee));
@@ -238,7 +237,7 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 		for (let i = 0; i < collateralTokens.length; i ++ ) {
 			dispatch("updateCollateralTokenStatus", collateralTokens[i].symbol);
 		}
-		
+
 		dispatch("getCollateralPrices");
 		setInterval(() => {
 			dispatch("getTargetPeg");
@@ -274,7 +273,6 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 	changeCollateral(ctx, token) {
 		ctx.commit("setCollateralToken", token);
 	},
-
 	async updateCollateralTokenStatus(ctx: any, token: string) {
 		const web3 = ctx.rootState.web3Store.instance();
 		const addr = ctx.rootGetters["addressStore/collateralHubs"][token];
