@@ -13,7 +13,7 @@
 			<div class="swap">
 				<div class="swap__container">
 					<SwapBalance
-						label="Deposit"
+						label="Spend"
 						:token="input.token" />
 					<SwapAccordion
 						:disabled-tokens="[output.token]"
@@ -47,7 +47,7 @@
 					size="swap"
 					:disabled="loadingPrice || !output.token"
 					@click="reverseToken">
-					<img :src="swapButtonHover" @mouseover="hover = true" @mouseleave="hover = false">
+					<SwapIcon />
 				</TheButton>
 				<div class="swap__container u-mb-36">
 					<SwapBalance
@@ -135,15 +135,16 @@
 </template>
 
 <script>
+import SwapIcon from "@/assets/images/svg/svg-swap.svg";
 import { fromWei } from "~/utils/bnTools";
 
 export default {
 	name: "TheSwap",
+	components: {
+		SwapIcon,
+	},
 	data() {
 		return {
-			arrowDown: require("~/assets/images/png/png-arrow-down.png"),
-			arrowDownDisabled: require("~/assets/images/png/png-arrow-down-disabled.png"),
-			arrowCollapse: require("~/assets/images/png/png-arrow-collapse.png"),
 			hover: false,
 			input: {
 				value: "",
@@ -172,24 +173,12 @@ export default {
 		};
 	},
 	computed: {
-		swapButtonHover() {
-			if (this.hover === true && this.loadingPrice || !this.output.token) {
-				return this.arrowDownDisabled;
-			} else if (this.hover === true ) {
-				return this.arrowCollapse;
-			} else {
-				return this.arrowDown;
-			}
-		},
 		tokens() {
 			return this.$store.state.addressStore.tokens;
 		},
 		disabledSwap() {
 			if (this.loadingPrice || !this.input.value || !this.output.value || !this.output.token || this.maxSlippage > 10) return true;
 			return false;
-		},
-		isSettingsModalVisible() {
-			return this.$store.state.modalStore.modalVisible.settingsModal;
 		},
 		summary() {
 			return [
@@ -377,14 +366,6 @@ export default {
 		inputMaxBalance() {
 			this.input.value = this.tokenBalances[this.input.token];
 			this.getMaxOutput();
-		},
-		showSettingsModal() {
-			this.isSettingsModalVisible = true;
-			document.body.classList.add("is-active");
-		},
-		closeSettingsModal() {
-			this.isSettingsModalVisible = false;
-			document.body.classList.remove("is-active");
 		},
 		triggerAccordion() {
 			this.isActive = !this.isActive;

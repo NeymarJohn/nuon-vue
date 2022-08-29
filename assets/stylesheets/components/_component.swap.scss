@@ -9,14 +9,11 @@
 	flex-direction: column;
 	background: $DARK_GREY;
 	border-radius: $BORDER_RADIUS_16;
-	padding: $SPACING_64 $SPACING_40;
+	padding: $SPACING_32;
 	box-shadow: $BOX_SHADOW_CONTAINER;
 }
-.swap .modal__container {
-	max-width: $SPACING_575;
-}
 .swap__container {
-	padding: $SPACING_32;
+	padding: $SPACING_24;
 	background: $MEDIUM_LIGHT_GREY;
 	border-radius: $BORDER_RADIUS_8;
 	position: relative;
@@ -29,11 +26,13 @@
 	margin-left: $SPACING_8;
 }
 .swap__balance {
-	margin-bottom: $SPACING_12;
+	margin-bottom: $SPACING_16;
 }
 .swap__balance label,
 .swap__balance p {
 	color: $LIGHT_GREY;
+	font-size: $SPACING_14;
+	line-height: $SPACING_20;
 }
 .swap__balance p {
 	margin-bottom: 0;

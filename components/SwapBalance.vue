@@ -1,7 +1,5 @@
 <template>
-	<LayoutFlex
-		direction="row-center-space-between"
-		class="swap__balance">
+	<LayoutFlex direction="row-center-space-between swap__balance">
 		<label>{{ label }}</label>
 		<label>Available balance: <span>{{ tokenBalances[token] | formatLongNumber }}</span></label>
 	</LayoutFlex>

@@ -1,10 +1,9 @@
 <template>
 	<div class="accordion accordion--swap" :class="{ active: isActive }">
-		<LayoutFlex class="l-flex--column-sm" direction="row-start-space-between">
+		<LayoutFlex direction="row-start-space-between">
 			<LayoutFlex
 				v-if="selected.symbol"
-				direction="row-center"
-				class="accordion__header"
+				direction="row-center accordion__header"
 				title="Click to open token list"
 				@click="triggerAccordion">
 				<img v-if="selected.icon" :src="require(`~/assets/images/tokens/${selected.icon}`)" alt="token logo">
@@ -17,8 +16,7 @@
 			</LayoutFlex>
 			<LayoutFlex
 				v-else
-				direction="row-center"
-				class="accordion__header"
+				direction="row-center accordion__header"
 				title="Click to open token list" @click="triggerAccordion">
 				<div class="accordion__token">
 					<h4>Select Token</h4>
