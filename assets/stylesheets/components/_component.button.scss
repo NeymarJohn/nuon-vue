@@ -73,8 +73,8 @@ a.btn:hover,
 	padding: $SPACING_16 $SPACING_32;
 }
 .btn--lg {
-	height: $SPACING_64;
-	padding: $SPACING_20 $SPACING_32;
+	height: $SPACING_56;
+	padding: $SPACING_16;
 }
 @media screen and (max-width: $SPACING_1440) {
 	.btn--md,

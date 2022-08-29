@@ -50,9 +50,9 @@
 					<SwapIcon />
 				</TheButton>
 				<div class="swap__container u-mb-24">
-					<SwapBalance
-						label="Receive"
-						:token="output.token" />
+					<div class="swap__balance">
+						<label>Receive</label>
+					</div>
 					<SwapAccordion
 						:disabled-tokens="[input.token]"
 						:default-token="output.token"
@@ -77,58 +77,69 @@
 						</LayoutFlex>
 					</SwapAccordion>
 				</div>
-				<div class="swap__output">
-					<LayoutFlex direction="row-space-between">
-						<h4>Slippage Tolerance</h4>
-						<h4><strong>{{maxSlippage}}%</strong></h4>
-					</LayoutFlex>
-					<template  v-if="output.value && input.value">
-						<LayoutFlex direction="row-space-between" class="u-mt-12">
-							<h4>Price Impact</h4>
-							<ComponentLoader component="h4" :loaded="!isLoadingPriceImpact">
-								<h4><strong>{{priceImpact | toFixed | numberWithCommas}}%</strong></h4>
-							</ComponentLoader>
-						</LayoutFlex>
-						<LayoutFlex direction="row-space-between" class="u-mt-12">
-							<h4>Minimum received after slippage</h4>
-							<ComponentLoader component="h4" :loaded="!isLoadingPriceImpact">
-								<h4><strong>{{calculateSlippage() | toFixed | numberWithCommas}} {{output.token}}</strong></h4>
-							</ComponentLoader>
-						</LayoutFlex>
-						<LayoutFlex direction="row-space-between" class="u-mt-12">
-							<h4>{{input.token}} reserves</h4>
-							<ComponentLoader component="h4" :loaded="!isLoadingPriceImpact">
-								<h4><strong>{{reserves[input.token] | toFixed | numberWithCommas}} {{input.token}}</strong></h4>
-							</ComponentLoader>
-						</LayoutFlex>
-						<LayoutFlex direction="row-space-between" class="u-mt-12">
-							<h4>{{output.token}} reserves</h4>
-							<ComponentLoader component="h4" :loaded="!isLoadingPriceImpact">
-								<h4><strong>{{reserves[output.token] | toFixed | numberWithCommas}} {{output.token}}</strong></h4>
-							</ComponentLoader>
-						</LayoutFlex>
-					</template>
+				<div class="swap__slippage u-mb-24">
+					<label>Slippage Tolerance<TooltipIcon v-tooltip="'Slippage tolerance tooltip.'" /></label>
+					<div class="input">
+						<div class="input__container">
+							<input
+								v-model="maxSlippage"
+								placeholder="0"
+								type="number"
+								min="0"
+								max="100"
+								autocomplete="off"
+								autocorrect="off"
+								spellcheck="false"
+								inputmode="decimal"
+								@change="calculateSlippage" />
+							<span>%</span>
+						</div>
+					</div>
 				</div>
-				<div class="transaction-input__buttons">
-					<TheButton
-						v-if="!isConnectedWallet"
-						size="lg"
-						title="Click to connect wallet"
-						@click="connectWallet">Connect Wallet</TheButton>
-					<TheButton
-						v-else-if="isMoreThanBalance"
-						size="lg"
-						disabled>Insufficient Balance</TheButton>
+				<div v-if="output.value && input.value" class="swap__output u-mb-24">
+					<label class="u-mb-16">Transaction Summary</label>
+					<div class="swap__container">
+						<LayoutFlex direction="row-space-between u-mb-20">
+							<label>Price impact</label>
+							<ComponentLoader component="h4" :loaded="!isLoadingPriceImpact">
+								<label><strong>{{priceImpact | numberWithCommas}}%</strong></label>
+							</ComponentLoader>
+						</LayoutFlex>
+						<LayoutFlex direction="row-space-between u-mb-20">
+							<label>Minimum received after slippage</label>
+							<ComponentLoader component="h4" :loaded="!isLoadingPriceImpact">
+								<label><strong>{{calculateSlippage() | toFixed | numberWithCommas}} {{output.token}}</strong></label>
+							</ComponentLoader>
+						</LayoutFlex>
+						<LayoutFlex direction="row-space-between u-mb-20">
+							<label>{{input.token}} reserves</label>
+							<ComponentLoader component="h4" :loaded="!isLoadingPriceImpact">
+								<label><strong>{{reserves[input.token] | toFixed | numberWithCommas}} {{input.token}}</strong></label>
+							</ComponentLoader>
+						</LayoutFlex>
+						<LayoutFlex direction="row-space-between">
+							<label>{{output.token}} reserves</label>
+							<ComponentLoader component="h4" :loaded="!isLoadingPriceImpact">
+								<label><strong>{{reserves[output.token] | toFixed | numberWithCommas}} {{output.token}}</strong></label>
+							</ComponentLoader>
+						</LayoutFlex>
+					</div>
 				</div>
-				<!-- <TransactionSummarySwap :values="summary" :input="input" :output="output"/> -->
-				<p class="u-color-light-grey u-pb-32">Minimum received is estimated. You will receive at least <strong>{{ calculateSlippage() | formatPrice }} {{ output.token }}</strong> or the transaction will revert.</p>
-				<div class="transaction-input__buttons">
-					<TheButton
-						size="lg"
-						title="Click to confirm"
-						:disabled="disabledSwap"
-						@click="swap">Confirm</TheButton>
-				</div>
+				<!--
+					TODO - Remove after implementing price updated button:
+					<TransactionSummarySwap :values="summary" :input="input" :output="output"/>
+					-->
+				<TheButton
+					v-if="!isConnectedWallet"
+					size="lg"
+					title="Click to connect wallet"
+					@click="connectWallet">Connect Wallet</TheButton>
+				<TheButton
+					v-else
+					size="lg"
+					title="Click to swap"
+					:disabled="disabledSwap"
+					@click="swap">Swap</TheButton>
 			</div>
 		</LayoutContainer>
 	</div>
@@ -136,12 +147,14 @@
 
 <script>
 import SwapIcon from "@/assets/images/svg/svg-swap.svg";
+import TooltipIcon from "@/assets/images/svg/svg-tooltip.svg";
 import { fromWei } from "~/utils/bnTools";
 
 export default {
 	name: "TheSwap",
 	components: {
 		SwapIcon,
+		TooltipIcon,
 	},
 	data() {
 		return {
@@ -179,24 +192,6 @@ export default {
 		disabledSwap() {
 			if (this.loadingPrice || !this.input.value || !this.output.value || !this.output.token || this.maxSlippage > 10) return true;
 			return false;
-		},
-		summary() {
-			return [
-				{
-					title: "Price Impact",
-					val: `${this.priceImpact}%`,
-				},
-				{
-					title: "Fee",
-					val: this.swapFee,
-					dollar: this.getDollarValue(this.swapFeePrice, 1)
-				},
-				{
-					title: `Minimum received after slippage (${this.maxSlippage}%)`,
-					val: this.formatPrice(this.calculateSlippage()),
-					currency: this.output.token,
-				}
-			];
 		},
 		swapPrice() {
 			return this.input.value / this.output.value;
