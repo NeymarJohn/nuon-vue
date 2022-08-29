@@ -264,7 +264,7 @@ export default {
 	mounted() {
 		this.updateStatus();
 		this.claimRewardsToken = {symbol: nuMINT.symbol, price: this.tokenPrices.nuMINT, balance: this.myRewards};
-		if (!$cookies.get("skip_boardroom_tour")) this.$tours.boardroomTour.start();
+		// if (!$cookies.get("skip_boardroom_tour")) this.$tours.boardroomTour.start();
 	},
 	created() {
 		this.getData();
