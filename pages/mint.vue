@@ -195,7 +195,7 @@ export default {
 	mounted() {
 		this.initialize();
 		this.mobileView = this.isMobile();
-		if (!$cookies.get("skip_collateral_hub_tour")) this.$tours.collateralHubTour.start();
+		// if (!$cookies.get("skip_collateral_hub_tour")) this.$tours.collateralHubTour.start();
 	},
 	methods: {
 		tabChanged(e) {

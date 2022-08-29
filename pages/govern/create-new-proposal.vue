@@ -207,9 +207,9 @@ export default {
 			return this.myStake / this.totalStaked * 100;
 		},
 	},
-	mounted() {
-		if (!$cookies.get("skip_create_proposal_tour")) this.$tours.createProposalTour.start();
-	},
+	// mounted() {
+	// 	if (!$cookies.get("skip_create_proposal_tour")) this.$tours.createProposalTour.start();
+	// },
 	methods: {
 		handleInputChange() {
 			this.$set(this.errors, "title", "");

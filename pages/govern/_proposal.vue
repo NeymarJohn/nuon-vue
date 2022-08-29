@@ -301,9 +301,9 @@ export default {
 	created() {
 		this.getProposalDetails();
 	},
-	mounted() {
-		if (!$cookies.get("skip_proposal_details_tour")) this.$tours.proposalDetailsTour.start();
-	},
+	// mounted() {
+	// 	if (!$cookies.get("skip_proposal_details_tour")) this.$tours.proposalDetailsTour.start();
+	// },
 	methods: {
 		async submitVote() {
 			this.activeStep = "loading";

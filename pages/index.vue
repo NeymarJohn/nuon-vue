@@ -331,7 +331,7 @@ export default {
 		this.mobileView = this.isMobile();
 		this.initialize(this.collaterals);
 		this.handleMouseOverChart(-1);
-		if (!$cookies.get("skip_my_dashboard_tour")) this.$tours.myDashboardTour.start();
+		// if (!$cookies.get("skip_my_dashboard_tour")) this.$tours.myDashboardTour.start();
 	},
 	methods: {
 		async initialize(collaterals) {
