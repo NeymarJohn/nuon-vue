@@ -3,28 +3,14 @@
 */
 
 // 1. Transaction input default
-.transaction-input .input {
-	margin-bottom: $SPACING_12;
-}
-.transaction-input__price {
-	margin-bottom: $SPACING_32;
-}
-.transaction-input__price p,
-.data-card .transaction-input__price p {
-	color: $LIGHT_GREY;
-}
-.transaction-input__buttons {
+.transaction-input__title {
 	display: flex;
 	flex-direction: row;
-	align-items: center;
+	justify-content: space-between;
+	margin-bottom: $SPACING_16;
 }
-.transaction-input__buttons .btn {
-	text-transform: capitalize;
-}
-.transaction-input__buttons .btn:first-child {
-	margin-right: $SPACING_16;
-	min-width: $SPACING_185;
-}
-.transaction-input__buttons .btn:last-child {
-	flex: 1;
+.transaction-input__title label {
+	color: $LIGHT_GREY;
+	font-size: $SPACING_14;
+	line-height: $SPACING_20;
 }

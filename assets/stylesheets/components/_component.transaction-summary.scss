@@ -7,10 +7,10 @@
 
 // 1. Transaction summary default
 .transaction-summary {
-	padding: $SPACING_32;
-	border-radius: $BORDER_RADIUS_16;
-	margin-bottom: $SPACING_48;
-	background: $MEDIUM_LIGHT_GREY;
+	padding: $SPACING_24;
+	background: $MEDIUM_GREY;
+	border-radius: $BORDER_RADIUS_8;
+	position: relative;
 }
 .transaction-summary img {
 	height: $SPACING_56;

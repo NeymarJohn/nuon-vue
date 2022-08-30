@@ -1,7 +1,9 @@
 <template>
 	<div class="transaction-input">
-		<label>{{ title }}</label>
-		<h5 class="u-mb-0">{{ subtitle }}: {{ numberWithCommas(maximum.toFixed(2)) }}</h5>
+		<div class="transaction-input__title">
+			<label>{{ title }}</label>
+			<label>{{ subtitle }}: {{ numberWithCommas(maximum.toFixed(2)) }}</label>
+		</div>
 		<div class="input">
 			<div class="input__container">
 				<input
@@ -20,11 +22,6 @@
 					title="Click to input your max balance"
 					@click="inputMaxBalance">Max</TheButton>
 			</div>
-		</div>
-		<div class="transaction-input__price">
-			<p v-if="isMoreThanBalance" class="u-is-warning">Insufficient balance.</p>
-			<p v-if="errorMessage" class="u-is-warning">{{errorMessage}}</p>
-			<p v-if="!isDisabled()" class="u-is-success u-mb-0">Ready to {{ action }}</p>
 		</div>
 		<TransactionSummary :values="summary" />
 		<div class="transaction-input__buttons">
