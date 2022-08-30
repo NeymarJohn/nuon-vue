@@ -30,10 +30,8 @@
 	color: $LIGHT_GREY;
 }
 .select.active .select__selected {
-	color: $LIME;
-}
-.select.active .select__selected svg path {
-	fill: $LIME;
+	background: $LIME;
+	color: $MEDIUM_LIGHT_GREY;
 }
 .select__button {
 	position: relative;
@@ -52,15 +50,24 @@
 	font-size: $BODY_TEXT;
 	line-height: $SPACING_24;
 }
+.select__selected:hover {
+	color: $LIME;
+}
+.select__selected:hover svg path {
+	fill: $LIME;
+}
 .select__selected svg path {
 	transition: $TRANSITION_ALL;
-	fill: $LIGHT_GREY;
 }
 .select__selected svg {
 	margin-left: $SPACING_16;
+	fill: $LIGHT_GREY;
+}
+.select.active .select__selected svg path {
+	fill: $MEDIUM_LIGHT_GREY;
 }
 .select__options {
-	background: $MEDIUM_LIGHT_GREY;
+	background: $DARK_GREY;
 	visibility: hidden;
 	border-radius: $BORDER_RADIUS_8;
 	box-shadow: $BOX_SHADOW_SELECT;
@@ -77,21 +84,13 @@
 	align-items: center;
 	justify-content: space-between;
 	padding: $SPACING_12 $SPACING_24;
-	transition: background-color 0.3s ease, color 0.3s ease;
+	transition: background-color 0.3s ease;
 	font-size: $BODY_TEXT;
 	line-height: $SPACING_24;
-	color: $WHITE;
+	color: $LIGHT_GREY;
 }
-.select__option:hover,
-.select__option.selected:hover {
-	background-color: $LIME;
-	color: $DARK_GREY;
-}
-.select__option.selected svg path {
-	transition: $TRANSITION_ALL;
-}
-.select__option.selected:hover svg path {
-	stroke: $DARK_GREY;
+.select__option:hover {
+	background-color: $MEDIUM_LIGHT_GREY;
 }
 .select__option:first-child:hover {
 	border-top-left-radius: $SPACING_8;

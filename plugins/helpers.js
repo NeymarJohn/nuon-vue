@@ -1,7 +1,6 @@
 import Vue from "vue";
 import Web3 from "web3";
 import dayjs from "dayjs";
-import { fromWei } from "~/utils/bnTools";
 
 Vue.mixin({
 	filters: {
@@ -262,15 +261,6 @@ Vue.mixin({
 		},
 		setCookie(key) {
 			this.$cookies.set(key, "true");
-		},
-		async getTruflationPeg() {
-			let result = 0;
-			try {
-				result = parseFloat(fromWei(await this.$store.getters["collateralVaultStore/getTruflationPeg"]()));
-			} catch (e) {
-			} finally {
-				this.truflationPeg = result;
-			}
 		},
 	},
 });

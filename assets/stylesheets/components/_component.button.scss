@@ -73,8 +73,8 @@ a.btn:hover,
 	padding: $SPACING_16 $SPACING_32;
 }
 .btn--lg {
-	height: $SPACING_56;
-	padding: $SPACING_16;
+	height: $SPACING_64;
+	padding: $SPACING_20 $SPACING_32;
 }
 @media screen and (max-width: $SPACING_1440) {
 	.btn--md,
@@ -153,19 +153,15 @@ a.btn:hover,
 .btn--swap {
 	background: $LIME;
 	border-radius: $BORDER_RADIUS_CIRCLE;
-	border: $SPACING_2 solid $DARK_GREY;
+	border: $SPACING_4 solid $WHITE;
 	padding: 0;
 	margin: -$SPACING_20 auto;
 	z-index: 2;
-	width: $SPACING_48;
-	height: $SPACING_48;
-	position: relative;
+	width: $SPACING_72;
+	height: $SPACING_72;
 }
-.btn--swap svg {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
+.btn--swap img {
+	padding: $SPACING_14;
 }
 .btn--swap:hover {
 	background: $LIME;
@@ -173,9 +169,6 @@ a.btn:hover,
 .btn--swap.btn[disabled] {
 	opacity: 1;
 	background: $DARK_GREY;
-}
-.btn--swap.btn[disabled] svg path {
-	fill: $LIGHT_GREY;
 }
 @media screen and (max-width: $SPACING_480) {
 	.btn--swap {
