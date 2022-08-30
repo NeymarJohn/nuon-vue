@@ -124,42 +124,11 @@
 	border-bottom-left-radius: $BORDER_RADIUS_8;
 	border-bottom-right-radius: $BORDER_RADIUS_8;
 }
-.accordion--claim .input__container {
-	background: $WHITE;
-}
 
 // 3. Accordion swap
 .accordion--swap {
 	padding: 0;
 	border: 0;
-}
-.accordion--swap .input,
-.accordion--swap .input__container {
-	background: $TRANSPARENT;
-}
-.accordion--swap .input {
-	border: $SPACING_1 solid $HIGHLIGHT_LIGHT_GREY;
-	border-radius: $BORDER_RADIUS_8;
-	margin-bottom: $SPACING_8;
-}
-.accordion--swap .input input::placeholder {
-	color: $LIGHT_GREY;
-}
-.accordion--swap .input input {
-	color: $WHITE;
-	line-height: $SPACING_24;
-	padding: 0;
-	margin-right: $SPACING_8;
-}
-.accordion--swap .input__container {
-	padding: $SPACING_12 $SPACING_8;
-	height: $SPACING_48;
-}
-.accordion--swap .input__container .btn {
-	padding: $SPACING_4 $SPACING_12;
-	height: $SPACING_32;
-	font-size: $SPACING_12;
-	line-height: $SPACING_24;
 }
 .accordion--swap .data-card {
 	width: 55%;

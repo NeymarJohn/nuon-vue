@@ -53,27 +53,8 @@
 	height: $SPACING_20;
 	width: $SPACING_20;
 }
-.swap__slippage .input,
-.swap__slippage .input__container {
-	background: $TRANSPARENT;
-}
-.swap__slippage .input {
-	border: $SPACING_1 solid $HIGHLIGHT_LIGHT_GREY;
-	border-radius: $BORDER_RADIUS_8;
-	margin-bottom: $SPACING_8;
-}
-.swap__slippage .input input::placeholder,
-.swap__slippage .input input,
 .swap__slippage .input span {
 	color: $LIGHT_GREY;
-}
-.swap__slippage .input input {
-	line-height: $SPACING_24;
-	padding: 0;
-}
-.swap__slippage .input__container {
-	padding: $SPACING_12 $SPACING_8;
-	height: $SPACING_48;
 }
 .swap__output label {
 	display: block;
