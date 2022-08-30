@@ -3,7 +3,8 @@
 		2. Tabs size
 		3. Tabs color
 		4. Tabs image
-		5. Tabs responsive
+		5. Tabs govern
+		6. Tabs responsive
 */
 
 // 1. Tabs default
@@ -115,7 +116,21 @@
 	margin-right: $SPACING_8;
 }
 
-// 5. Tabs responsive
+// 5. Tabs govern
+.tabs--govern .tabs__header {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: flex-end;
+}
+.tabs--govern .tabs__header li.is-active {
+	background-color: $TRANSPARENT;
+}
+.tabs--govern .tabs__header li.is-active h5 {
+	color: $LIME;
+}
+
+// 6. Tabs responsive
 @media screen and (max-width: $SPACING_990) {
 	.tabs--default .tabs__header,
 	.tabs--full-width .tabs__header {
