@@ -23,6 +23,9 @@
 					@click="inputMaxBalance">Max</TheButton>
 			</div>
 		</div>
+		<p v-if="isMoreThanBalance" class="u-is-warning">Insufficient balance.</p>
+		<p v-if="errorMessage" class="u-is-warning">{{errorMessage}}</p>
+		<p v-if="!isDisabled()" class="u-is-success u-mb-0">Ready to {{ action }}</p>
 		<TransactionSummary :values="summary" />
 		<div class="transaction-input__buttons">
 			<TheButton
