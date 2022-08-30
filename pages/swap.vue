@@ -6,7 +6,7 @@
 					<h4>Swap</h4>
 					<h1>Token Exchange</h1>
 				</PageTitle>
-				<PriceIndicator :nuon-price="tokenPrices.NUON" :truflation-peg="truflationPeg" />
+				<PriceIndicator />
 			</LayoutFlex>
 		</LayoutContainer>
 		<LayoutContainer size="sm" class="u-pt-0">
@@ -102,7 +102,7 @@
 						<LayoutFlex direction="row-space-between u-mb-20">
 							<label>Price impact</label>
 							<ComponentLoader component="h4" :loaded="!isLoadingPriceImpact">
-								<label><strong>{{priceImpact | numberWithCommas}}%</strong></label>
+								<label><strong>{{priceImpact | toFixed | numberWithCommas}}%</strong></label>
 							</ComponentLoader>
 						</LayoutFlex>
 						<LayoutFlex direction="row-space-between u-mb-20">
@@ -125,10 +125,6 @@
 						</LayoutFlex>
 					</div>
 				</div>
-				<!--
-					TODO - Remove after implementing price updated button:
-					<TransactionSummarySwap :values="summary" :input="input" :output="output"/>
-					-->
 				<TheButton
 					v-if="!isConnectedWallet"
 					size="lg"
@@ -167,14 +163,12 @@ export default {
 				value: "",
 				token: ""
 			},
-			truflationPeg: 0,
 			priceImpact: 0,
 			isActive: false,
 			loadingPrice: false,
 			loadedPrice: false,
 			changedValue: "input",
 			maxSlippage: 0.5,
-			activeStep: 1,
 			isInputRate: true,
 			reserves: {},
 			isLoadingPriceImpact: false
@@ -207,7 +201,6 @@ export default {
 		}
 	},
 	mounted () {
-		this.getTruflationPeg();
 		const routeQuery = this.$route.query;
 		if (routeQuery.inputToken) this.input.token = routeQuery.inputToken;
 		if (routeQuery.outputToken) this.output.token = routeQuery.outputToken;
@@ -296,11 +289,14 @@ export default {
 					}
 				}
 			)
-				.then(() => {
+				.then((receipt) => {
+					this.successToast(null, "You've successfully swapped", receipt.transactionHash);
 					this.initialize();
 				})
-				.catch(() => {})
-				.finally(() => {this.activeStep = 1;});
+				.catch((e) => {
+					this.failureToast(null, e, "Transaction Failed");
+				})
+				.finally(() => {});
 		},
 		swapForOutput() {
 			this.$store.dispatch(
@@ -318,7 +314,7 @@ export default {
 			).then(() => {
 				this.initialize();
 			}).catch(() => {})
-				.finally(() => {this.activeStep = 1;});
+				.finally(() => {});
 		},
 		calcuatePriceImpact() {
 			if (!this.input.token || !this.output.token) return;
@@ -337,7 +333,6 @@ export default {
 			this.$store.commit("modalStore/setModalVisibility", {name: "connectWalletModal", visibility: true});
 		},
 		swap() {
-			this.activeStep = "loading";
 			if (this.changedValue === "input") {
 				this.swapForInput();
 			} else {
@@ -371,15 +366,12 @@ export default {
 			return allowance[tokenName] > 0;
 		},
 		approveToken(tokenName) {
-			this.activeStep = "approving";
 			this.$store.dispatch("swapStore/approveToken",
 				{
 					tokenName,
 					onConfirm: () =>{
-						this.activeStep = 1;
 					},
 					onReject: () => {
-						this.activeStep = 1;
 					},
 					onCallback: () => {
 					}

@@ -5,7 +5,7 @@
 				<h4>Dashboard</h4>
 				<h1>My Portfolio</h1>
 			</PageTitle>
-			<PriceIndicator :nuon-price="tokenPrices.NUON" :truflation-peg="truflationPeg" />
+			<PriceIndicator />
 		</LayoutFlex>
 		<h3 class="u-mb-24">Account Health</h3>
 		<div class="l-collateral l-collateral--distribution">
@@ -140,7 +140,6 @@ export default {
 			// 	onFinish: () => this.setCookie("skip_my_dashboard_tour")
 			// },
 			mobileView: false,
-			truflationPeg: 0,
 			collateralRatioArr: [],
 			graphSelectionTVL: "",
 			graphSelectionMintedNuon: "",
@@ -339,7 +338,6 @@ export default {
 					const collateral = collaterals[i];
 					await this.$store.dispatch("collateralVaultStore/changeCollateral", collateral);
 				}
-				this.getTruflationPeg();
 				this.getDiffMinted();
 			} catch (e) {
 			} finally {
