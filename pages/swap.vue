@@ -144,7 +144,7 @@
 <script>
 import SwapIcon from "@/assets/images/svg/svg-swap.svg";
 import TooltipIcon from "@/assets/images/svg/svg-tooltip.svg";
-import { fromWei } from "~/utils/bnTools";
+import { fromWei, toFixedAfterZero } from "~/utils/bnTools";
 
 export default {
 	name: "TheSwap",
@@ -247,7 +247,8 @@ export default {
 			).then(res => {
 				this.loadingPrice = false;
 				this.loadedPrice = true;
-				this.output.value = fromWei(res[this.output.token], this.$store.state.erc20Store.decimals[this.output.token]);
+				const estimatedOutPutValue = Number(fromWei(res[this.output.token], this.$store.state.erc20Store.decimals[this.output.token]));
+				this.output.value = toFixedAfterZero(estimatedOutPutValue) ;
 			}).catch(() => {
 				this.loadedPrice = false;
 				this.loadingPrice = false;
@@ -268,7 +269,8 @@ export default {
 			).then(res => {
 				this.loadingPrice = false;
 				this.loadedPrice = true;
-				this.input.value = fromWei(res[this.input.token], this.$store.state.erc20Store.decimals[this.input.token]);
+				const estimatedInputValue = Number(fromWei(res[this.input.token], this.$store.state.erc20Store.decimals[this.input.token]));
+				this.input.value = toFixedAfterZero(estimatedInputValue);
 			}).catch(() => {
 				this.loadingPrice = false;
 				this.loadedPrice = false;
