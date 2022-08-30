@@ -9,15 +9,12 @@
 	flex-direction: column;
 	background: $DARK_GREY;
 	border-radius: $BORDER_RADIUS_16;
-	padding: $SPACING_64 $SPACING_40;
+	padding: $SPACING_32;
 	box-shadow: $BOX_SHADOW_CONTAINER;
 }
-.swap .modal__container {
-	max-width: $SPACING_575;
-}
 .swap__container {
-	padding: $SPACING_32;
-	background: $MEDIUM_LIGHT_GREY;
+	padding: $SPACING_24;
+	background: $MEDIUM_GREY;
 	border-radius: $BORDER_RADIUS_8;
 	position: relative;
 }
@@ -29,22 +26,65 @@
 	margin-left: $SPACING_8;
 }
 .swap__balance {
-	margin-bottom: $SPACING_12;
+	margin-bottom: $SPACING_16;
 }
 .swap__balance label,
 .swap__balance p {
 	color: $LIGHT_GREY;
+	font-size: $SPACING_14;
+	line-height: $SPACING_20;
 }
 .swap__balance p {
 	margin-bottom: 0;
 }
-.swap__output {
-	background: $MEDIUM_LIGHT_GREY;
-	border-radius: $BORDER_RADIUS_8;
-	padding: $SPACING_26 $SPACING_32;
-	margin-bottom: $SPACING_48;
+.swap__slippage {
+	display: flex;
+	flex-direction: column;
 }
-
+.swap__slippage label {
+	display: flex;
+	align-items: center;
+	font-size: $SPACING_14;
+	line-height: $SPACING_20;
+	color: $LIGHT_GREY;
+	margin-bottom: $SPACING_16;
+}
+.swap__slippage label svg {
+	height: $SPACING_20;
+	width: $SPACING_20;
+}
+.swap__slippage .input,
+.swap__slippage .input__container {
+	background: $TRANSPARENT;
+}
+.swap__slippage .input {
+	border: $SPACING_1 solid $HIGHLIGHT_LIGHT_GREY;
+	border-radius: $BORDER_RADIUS_8;
+	margin-bottom: $SPACING_8;
+}
+.swap__slippage .input input::placeholder,
+.swap__slippage .input input,
+.swap__slippage .input span {
+	color: $LIGHT_GREY;
+}
+.swap__slippage .input input {
+	line-height: $SPACING_24;
+	padding: 0;
+}
+.swap__slippage .input__container {
+	padding: $SPACING_12 $SPACING_8;
+	height: $SPACING_48;
+}
+.swap__output label {
+	display: block;
+	font-size: $SPACING_14;
+	line-height: $SPACING_20;
+	color: $LIGHT_GREY;
+	margin-bottom: 0;
+}
+.swap__output label strong {
+	color: $WHITE;
+}
 // 2. Swap responsive
 @media screen and (max-width: $SPACING_990) {
 	.swap {
