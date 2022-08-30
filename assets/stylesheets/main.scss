@@ -20,6 +20,7 @@
 @import "components/component.chart"; // Components - Chart
 @import "components/component.collateral"; // Components - Collateral
 @import "components/component.countdown"; // Components - Countdown
+@import "components/component.currency-card"; // Components - Currency Card
 @import "components/component.data-card"; // Components - Data Card
 @import "components/component.datepicker"; // Components - Datepicker
 @import "components/component.dot"; // Components - Dot
@@ -67,6 +68,7 @@
 @import "components/component.wallet"; // Components - Wallet
 
 /* Layout */
+@import "layout/layout.action"; // Layout - Action
 @import "layout/layout.balance"; // Layout - Balance
 @import "layout/layout.chart"; // Layout - Chart
 @import "layout/layout.collateral"; // Layout - Collateral

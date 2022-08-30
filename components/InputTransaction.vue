@@ -1,73 +1,39 @@
 <template>
 	<div class="transaction-input">
-		<TheStepper :active-step="activeStep" :steps="['Input', 'Confirm']">
-			<template #step-one>
-				<LayoutFlex
-					direction="row-center-space-between"
-					class="l-m-flex--column u-mb-12">
-					<h5>{{ title }}</h5>
-					<h5 class="u-mb-0">{{ subtitle }}: {{ numberWithCommas(maximum.toFixed(2)) }}</h5>
-				</LayoutFlex>
-				<div class="input">
-					<div class="input__container">
-						<input
-							v-model="inputValue"
-							placeholder="0.0"
-							type="number"
-							min="0"
-							max="79"
-							autocomplete="off"
-							autocorrect="off"
-							spellcheck="false"
-							inputmode="decimal">
-						<TheButton
-							:disabled="isMaxInputDisabled(maximum)"
-							size="sm"
-							title="Click to input your max balance"
-							@click="inputMaxBalance">Max</TheButton>
-					</div>
-				</div>
-				<div class="transaction-input__price">
-					<p>You are {{ actionPlural }} <span>{{ parseFloat(inputValue || 0) | toFixed | numberWithCommas }} nuMINT</span> worth <span>${{ getDollarValue(inputValue, tokenPrices.nuMINT) | toFixed | numberWithCommas }}</span></p>
-					<p v-if="isMoreThanBalance" class="u-is-warning">Insufficient balance.</p>
-					<p v-if="errorMessage" class="u-is-warning">{{errorMessage}}</p>
-					<p v-if="!isDisabled()" class="u-is-success u-mb-0">Ready to {{ action }}</p>
-				</div>
-				<div class="transaction-input__buttons">
-					<TheButton
-						size="md"
-						:disabled="!!isApproved"
-						:class="isApproved"
-						title="Click to approve"
-						@click="approveToken">
-						<span v-if="isApproved">Verified</span>
-						<span v-else>Approve</span>
-					</TheButton>
-					<TheButton
-						size="md"
-						:disabled="isDisabled()"
-						title="Click to go next"
-						@click="activeStep = 2">
-						Next
-					</TheButton>
-				</div>
-			</template>
-			<template #step-two>
-				<TransactionSummary :values="summary" />
-				<div class="transaction-input__buttons">
-					<TheButton
-						size="md"
-						title="Click to go back"
-						class="btn--back"
-						@click="activeStep = 1">Back</TheButton>
-					<TheButton
-						size="md"
-						:disabled="isDisabled()"
-						title="Click to confirm"
-						@click="submitTransaction">Confirm</TheButton>
-				</div>
-			</template>
-		</TheStepper>
+		<label>{{ title }}</label>
+		<h5 class="u-mb-0">{{ subtitle }}: {{ numberWithCommas(maximum.toFixed(2)) }}</h5>
+		<div class="input">
+			<div class="input__container">
+				<input
+					v-model="inputValue"
+					placeholder="0.0"
+					type="number"
+					min="0"
+					max="79"
+					autocomplete="off"
+					autocorrect="off"
+					spellcheck="false"
+					inputmode="decimal" />
+				<TheButton
+					:disabled="isMaxInputDisabled(maximum)"
+					size="sm"
+					title="Click to input your max balance"
+					@click="inputMaxBalance">Max</TheButton>
+			</div>
+		</div>
+		<div class="transaction-input__price">
+			<p v-if="isMoreThanBalance" class="u-is-warning">Insufficient balance.</p>
+			<p v-if="errorMessage" class="u-is-warning">{{errorMessage}}</p>
+			<p v-if="!isDisabled()" class="u-is-success u-mb-0">Ready to {{ action }}</p>
+		</div>
+		<TransactionSummary :values="summary" />
+		<div class="transaction-input__buttons">
+			<TheButton
+				size="md"
+				:disabled="isDisabled()"
+				title="Click to confirm"
+				@click="submitTransaction">Confirm</TheButton>
+		</div>
 	</div>
 </template>
 
@@ -87,10 +53,6 @@ export default {
 			required: true
 		},
 		action: {
-			type: String,
-			required: true
-		},
-		actionPlural: {
 			type: String,
 			required: true
 		},
@@ -120,10 +82,6 @@ export default {
 		},
 		nuMintBalance() {
 			return this.$store.getters["erc20Store/nuMintBalance"] || 0;
-		},
-	 	isApproved() {
-			const isApprovedToken = this.$store.getters["boardroomStore/checkApprovedToken"](nuMINT.symbol);
-			return isApprovedToken ? "btn--approved" : "";
 		},
 		myStake() {
 			return parseFloat(fromWei(this.$store.state.boardroomStore.stakedBalance));

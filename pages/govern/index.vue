@@ -58,45 +58,21 @@
 					<p v-if="!isLoading && filteredProposals !== null && filteredProposals.length === 0" class="u-text-center u-mt-xs">No proposals to show.</p>
 				</TheTab>
 				<TheTab title="Stake">
-					<InputTransaction
-						:maximum="nuMintBalance"
-						title="Enter amount to stake"
-						subtitle="Available nuMINT tokens"
-						action-plural="staking"
-						action="stake"
-						@close-modal="setModalVisibility('stakeModal', false)" />
-					<LayoutInfo size="boardroom">
-						<DataCard class="u-mb-md-36 u-mb-sm-24">
-							<label>My Stake</label>
-							<TheLoader component="h1">
-								<h3>{{ myStake | toFixed | numberWithCommas }}<sup>nuMINT</sup></h3>
-							</TheLoader>
-							<TheLoader component="h5">
-								<h5>${{ getDollarValue(myStake, tokenPrices.nuMINT) | toFixed | numberWithCommas }}</h5>
-							</TheLoader>
-						</DataCard>
-						<DataCard class="u-mb-md-36 u-mb-sm-24">
-							<label>My Rewards</label>
-							<TheLoader component="h1">
-								<h3>{{ myRewards | toFixed | numberWithCommas }}<sup>BUSD</sup></h3>
-							</TheLoader>
-							<TheLoader component="h5">
-								<h5>${{ getDollarValue(myRewards, tokenPrices.nuMINT) | toFixed | numberWithCommas }}</h5>
-							</TheLoader>
-						</DataCard>
-						<DataCard class="u-mb-sm-24">
-							<label>My Next Reward Distribution<TooltipIcon v-tooltip="'Rewards are distributed for every 3 epochs that pass while nuMINT is locked in the Boardroom. Any actions taken in the Boardroom will reset the reward timer. (1 epoch = 6 hours).'" /></label>
-							<TheLoader component="h1">
-								<TheCountdown :visible="isConnectedWallet" :next-claim-date="nextEpochPoint" :is-loop="true" />
-							</TheLoader>
-						</DataCard>
-						<DataCard>
-							<label>My Voting Power<TooltipIcon v-tooltip="'1 nuMINT = 1 vote. The more nuMINT you stake compared to other voters, the higher your voting power will rise.'" /></label>
-							<TheLoader component="h1">
-								<h3>{{ votingPower | toFixed | numberWithCommas }}<sup>%</sup></h3>
-							</TheLoader>
-						</DataCard>
-					</LayoutInfo>
+					<LayoutAction>
+						<template #left>
+							<InputTransaction
+								:maximum="nuMintBalance"
+								title="Stake"
+								subtitle="Balance"
+								action="stake" />
+						</template>
+						<template #right>
+							<CurrencyCard label="My Stake" :value="myStake" :change="getDollarValue(myStake, tokenPrices.nuMINT)" currency="nuMINT" />
+							<CurrencyCard label="My Rewards" :value="myRewards" :change="getDollarValue(myRewards, tokenPrices.nuMINT)" currency="BUSD" />
+							<TheCountdown label="My Next Reward Distribution" :visible="isConnectedWallet" :next-claim-date="nextEpochPoint" :is-loop="true" />
+							<CurrencyCard label="My Voting Power" :percent="votingPower" />
+						</template>
+					</LayoutAction>
 				</TheTab>
 				<TheTab title="Withdraw">
 					<InputWithdraw
@@ -186,14 +162,10 @@
 <script>
 import axios from "axios";
 import { fromWei } from "~/utils/bnTools";
-import TooltipIcon from "@/assets/images/svg/svg-tooltip.svg";
 import { nuMINT } from "~/constants/tokens";
 
 export default {
 	name: "TheGovern",
-	components: {
-		TooltipIcon
-	},
 	data() {
 		return {
 			truflationPeg: 0,

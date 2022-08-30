@@ -1,0 +1,35 @@
+/* #LAYOUT - ACTION
+		1. Action default
+*/
+
+// 1. Action default
+.l-action {
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+}
+.l-action__left,
+.l-action__right {
+	border-radius: $BORDER_RADIUS_16;
+	padding: $SPACING_32;
+}
+.l-action__left {
+	margin-right: $SPACING_24;
+	width: 40%;
+	background-color: $DARK_GREY;
+}
+.l-action__right {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	width: 60%;
+	background-color: $MEDIUM_LIGHT_GREY;
+}
+.l-action__right .currency-card,
+.l-action__right .countdown {
+	width: 50%;
+}
+.l-action__right .currency-card:nth-child(1),
+.l-action__right .currency-card:nth-child(2) {
+	margin-bottom: $SPACING_32;
+}
