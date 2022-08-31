@@ -1,0 +1,16 @@
+/* #COMPONENT - INPUT WITHDRAW
+		1. Input withdraw default
+*/
+
+// 1. Input withdraw default
+.input-withdraw__title {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	margin-bottom: $SPACING_16;
+}
+.input-withdraw__title label {
+	color: $LIGHT_GREY;
+	font-size: $SPACING_14;
+	line-height: $SPACING_20;
+}

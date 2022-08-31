@@ -65,9 +65,7 @@
 									<InputStake :maximum="nuMintBalance" />
 								</TheTab>
 								<TheTab title="Withdraw">
-									<InputWithdraw
-										action="withdraw"
-										:maximum="myStake" />
+									<InputWithdraw :maximum="myStake" />
 								</TheTab>
 							</TheTabs>
 						</template>
