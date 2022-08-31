@@ -31,17 +31,11 @@
 				</div>
 			</div>
 		</div>
-		<div v-if="inputValue === maximum">
-			<div class="modal__info--lower u-green-prompt">
-				<p>Inputting maximum unstake amount will enable claim rewards at the same time when exiting staking.</p>
-			</div>
-			<LayoutFlex direction="column">
-				<h4>Select Your Reward Token</h4>
-				<div class="modal__info">
-					<ClaimAccordion from="boardroom" :stepper="false" @selected-token="selectedTokenChanged" />
-				</div>
-			</LayoutFlex>
+		<div v-if="inputValue === maximum" class="input-withdraw__message">
+			<p>Inputting maximum unstake amount will enable claim rewards at the same time when exiting staking.</p>
 		</div>
+		<h4>Select Your Reward Token</h4>
+		<ClaimAccordion @selected-token="selectedTokenChanged" />
 		<TransactionSummary
 			v-if="inputValue > 0 && inputValue === maximum"
 			:values="maximumSummary" />

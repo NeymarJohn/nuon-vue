@@ -18,10 +18,14 @@
 	justify-content: space-between;
 	margin-bottom: $SPACING_16;
 }
-.input-withdraw__title label {
+.input-withdraw__title label,
+.input-withdraw__message p {
 	color: $LIGHT_GREY;
 	font-size: $SPACING_14;
 	line-height: $SPACING_20;
+}
+.input-withdraw__message p {
+	margin-bottom: $SPACING_24;
 }
 .input-withdraw .btn--md {
 	width: 100%;
