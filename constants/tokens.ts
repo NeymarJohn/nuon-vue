@@ -22,7 +22,6 @@ export const BUSD = {
 	name: "Binance USD"
 };
 
-
 export const WETH = {
 	symbol: "WETH",
 	name: "Wrapped Ether"
