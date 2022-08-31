@@ -17,20 +17,25 @@
 	margin-bottom: 0;
 }
 .accordion__header {
+	transition: $TRANSITION_ALL;
 	cursor: pointer;
+	padding: $SPACING_12 $SPACING_16;
+	border-radius: $BORDER_RADIUS_8;
+}
+.accordion__header:hover {
+	background-color: $HIGHLIGHT_GREY;
 }
 .accordion__header img {
-	height: $SPACING_48;
-	width: $SPACING_48;
+	height: $SPACING_24;
+	width: $SPACING_24;
 	border-radius: $BORDER_RADIUS_CIRCLE;
-	margin-right: $SPACING_16;
+	margin-right: $SPACING_8;
 }
 .accordion__header svg {
 	margin-left: $SPACING_16;
-	fill: $LIME;
 }
-.accordion__token h4 {
-	color: $LIME;
+.accordion__header svg path {
+	fill: $WHITE;
 }
 .accordion__token p {
 	color: $LIGHT_GREY;
@@ -128,18 +133,43 @@
 	padding: 0;
 	border: 0;
 }
+.accordion--swap .input,
 .accordion--swap .input__container {
-	background: $WHITE;
+	background: $TRANSPARENT;
+}
+.accordion--swap .input {
+	border: $SPACING_1 solid $HIGHLIGHT_LIGHT_GREY;
+	border-radius: $BORDER_RADIUS_8;
+	margin-bottom: $SPACING_8;
+}
+.accordion--swap .input input::placeholder {
+	color: $LIGHT_GREY;
+}
+.accordion--swap .input input {
+	color: $WHITE;
+	line-height: $SPACING_24;
+	padding: 0;
+	margin-right: $SPACING_8;
+}
+.accordion--swap .input__container {
+	padding: $SPACING_12 $SPACING_8;
+	height: $SPACING_48;
+}
+.accordion--swap .input__container .btn {
+	padding: $SPACING_4 $SPACING_12;
+	height: $SPACING_32;
+	font-size: $SPACING_12;
+	line-height: $SPACING_24;
 }
 .accordion--swap .data-card {
-	width: 50%;
+	width: 55%;
 }
 .accordion--swap .accordion__body {
 	z-index: 9;
 	position: absolute;
 	top: 100%;
-	left: -$SPACING_32;
-	right: -$SPACING_32;
+	left: -$SPACING_24;
+	right: -$SPACING_24;
 	padding: $SPACING_32;
 	border-left: $SPACING_1 solid $MEDIUM_LIGHT_GREY;
 	border-right: $SPACING_1 solid $MEDIUM_LIGHT_GREY;
