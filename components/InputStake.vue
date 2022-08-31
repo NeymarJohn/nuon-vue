@@ -77,18 +77,15 @@ export default {
 					title: "Amount",
 					val: this.numberWithCommas(this.inputValue),
 					currency: "nuMINT",
-					dollar: this.getDollarValue(this.inputValue, this.tokenPrices.nuMINT),
 				},
 				{
 					title: "Fee",
 					val: `-${this.numberWithCommas(this.feeToken.toFixed(2))}nuMINT (${this.claimFee} %)`,
-					dollar: this.getDollarValue(this.feeToken, this.tokenPrices.nuMINT)
 				},
 				{
 					title: "Total",
 					val: this.numberWithCommas((parseFloat(this.inputValue) - this.feeToken).toFixed(2)) ,
 					currency: "nuMINT",
-					dollar: this.getDollarValue(parseFloat(this.inputValue) - this.feeToken, this.tokenPrices.nuMINT),
 				}
 			];
 		}

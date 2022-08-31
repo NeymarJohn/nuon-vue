@@ -3,6 +3,9 @@
 */
 
 // 1. Input withdraw default
+.input-withdraw .input {
+	margin-bottom: $SPACING_24;
+}
 .input-withdraw__title {
 	display: flex;
 	flex-direction: row;
@@ -13,4 +16,7 @@
 	color: $LIGHT_GREY;
 	font-size: $SPACING_14;
 	line-height: $SPACING_20;
+}
+.input-withdraw .btn--md {
+	width: 100%;
 }

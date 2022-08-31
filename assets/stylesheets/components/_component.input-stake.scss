@@ -3,6 +3,9 @@
 */
 
 // 1. Input stake default
+.input-stake .input {
+	margin-bottom: $SPACING_24;
+}
 .input-stake__title {
 	display: flex;
 	flex-direction: row;
