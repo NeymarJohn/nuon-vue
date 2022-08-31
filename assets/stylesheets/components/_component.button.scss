@@ -37,10 +37,10 @@ a.btn:hover,
 }
 .btn[disabled],
 .btn[disabled]:hover {
-	background: $DARK_GREY;
+	background: $DISABLED_GREY;
 	color: $LIGHT_GREY;
 	cursor: not-allowed;
-	border-color: $LIGHT_GREY;
+	border-color: $MEDIUM_LIGHT_GREY;
 }
 
 // 2. Button sizes
@@ -172,10 +172,10 @@ a.btn:hover,
 }
 .btn--swap.btn[disabled] {
 	opacity: 1;
-	background: $DARK_GREY;
+	background-color: $LIGHT_GREY;
 }
 .btn--swap.btn[disabled] svg path {
-	fill: $LIGHT_GREY;
+	fill: $DARK_GREY;
 }
 @media screen and (max-width: $SPACING_480) {
 	.btn--swap {

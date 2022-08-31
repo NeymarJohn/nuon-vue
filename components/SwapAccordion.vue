@@ -32,8 +32,8 @@
 				<input ref="searchtoken" v-model="search" type="text" placeholder="Search for your token" autocomplete="off">
 			</div>
 			<div class="accordion__tokens">
-				<div v-for="(token, index) in filteredTokens" :key="index" class="token" title="Click to select token" @click="changeToken(token)">
-					<div class="token__wrapper" :class="isDisabled(token.symbol)?'disabled':''">
+				<div v-for="(token, index) in filteredTokens" :key="index" class="token" title="Click to select token" :class="isDisabled(token.symbol) ? 'is-disabled' : ''" @click="changeToken(token)">
+					<div class="token__wrapper">
 						<img :src="require(`~/assets/images/tokens/${token.icon}`)" :alt="`${token.name} logo`">
 						<div class="token__body">
 							<h4>{{ token.symbol }}</h4>

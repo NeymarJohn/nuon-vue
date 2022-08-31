@@ -1,20 +1,20 @@
 export const nuMINT = {
 	symbol: "nuMINT",
-	name: "NUMINT TOKEN"
+	name: "NuMint Token"
 };
 
 export const NUON = {
 	symbol: "NUON",
-	name: "NUON TOKEN"
+	name: "Nuon Token"
 };
 export const USDT = {
 	symbol: "USDT",
-	name: "USDT TOKEN"
+	name: "USDT Token"
 };
 
 export const ETH = {
 	symbol: "ETH",
-	name: "ETHER"
+	name: "Ethereum"
 };
 
 export const BUSD = {
@@ -25,7 +25,7 @@ export const BUSD = {
 
 export const WETH = {
 	symbol: "WETH",
-	name: "WRAPPED ETHER"
+	name: "Wrapped Ether"
 };
 
 export const USDC_USDT_LP_TOKEN = {

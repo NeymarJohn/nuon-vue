@@ -22,6 +22,7 @@
 	padding: $SPACING_12 $SPACING_16;
 	border-radius: $BORDER_RADIUS_8;
 }
+.accordion--swap.active .accordion__header,
 .accordion__header:hover {
 	background-color: $HIGHLIGHT_GREY;
 }
@@ -62,7 +63,7 @@
 	margin-bottom: $SPACING_16;
 }
 .accordion__filter:before {
-	content: url("data:image/svg+xml,%3Csvg width='18' height='18' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M11.385 12.446a6.75 6.75 0 1 1 1.06-1.06l5.156 5.155a.75.75 0 0 1-1.06 1.06l-5.156-5.155Zm-7.926-1.562a5.25 5.25 0 1 1 7.43-.004l-.005.004-.005.005a5.25 5.25 0 0 1-7.42-.005Z' fill='%23000'/%3E%3C/svg%3E");
+	content: url("data:image/svg+xml,%3Csvg width='14' height='14' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M8.789 9.585a5.063 5.063 0 1 1 .796-.796l3.866 3.867a.563.563 0 0 1-.795.795L8.789 9.585ZM2.845 8.413a3.938 3.938 0 1 1 5.568 0l-.003.004a3.938 3.938 0 0 1-5.565-.004Z' fill='%23B7B7B7'/%3E%3C/svg%3E");
 	position: absolute;
 	top: 50%;
 	left: $SPACING_16;
@@ -70,37 +71,29 @@
 	line-height: normal;
 	z-index: 1;
 }
+.accordion__filter input,
+.accordion__filter input::placeholder {
+	color: $LIGHT_GREY;
+}
 .accordion__filter input {
 	position: relative;
 	display: flex;
-	padding: $SPACING_16 $SPACING_56;
+	padding: $SPACING_8 $SPACING_46;
 	align-items: center;
-	background: $WHITE;
+	background: $MEDIUM_GREY;
 	border-radius: $BORDER_RADIUS_32;
-	color: $DARK_GREY;
-	font-size: $BODY_TEXT;
-	line-height: $SPACING_28;
+	font-size: $SPACING_14;
+	line-height: $SPACING_24;
+}
+.accordion__tokens {
+	background: $MEDIUM_GREY;
+	border-radius: $BORDER_RADIUS_8;
 }
 .accordion__results {
 	text-align: center;
 	color: $LIME;
 	padding: $SPACING_16;
 	font-size: $BODY_TEXT;
-}
-.accordion__tokens {
-	max-height: $SPACING_225;
-	overflow-y: scroll;
-	padding: 0 $SPACING_16;
-}
-.accordion__tokens::-webkit-scrollbar {
-	background: $MEDIUM_GREY;
-	width: $SPACING_8;
-	border-radius: $BORDER_RADIUS_8;
-}
-.accordion__tokens::-webkit-scrollbar-thumb {
-	background: $LIME;
-	height: $SPACING_16;
-	border-radius: $BORDER_RADIUS_8;
 }
 
 // 2. Accordion claim
@@ -136,15 +129,10 @@
 .accordion--swap .accordion__body {
 	z-index: 9;
 	position: absolute;
-	top: 100%;
-	left: -$SPACING_24;
-	right: -$SPACING_24;
-	padding: $SPACING_32;
-	border-left: $SPACING_1 solid $MEDIUM_LIGHT_GREY;
-	border-right: $SPACING_1 solid $MEDIUM_LIGHT_GREY;
-	border-bottom: $SPACING_1 solid $MEDIUM_LIGHT_GREY;
-	border-bottom-left-radius: $BORDER_RADIUS_8;
-	border-bottom-right-radius: $BORDER_RADIUS_8;
+	top: 80%;
+	width: $SPACING_400;
+	padding: $SPACING_24;
+	border-radius: $BORDER_RADIUS_8;
 }
 
 // 4. Accordion responsive
