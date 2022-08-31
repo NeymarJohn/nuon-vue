@@ -33,6 +33,19 @@ input:focus {
 textarea {
 	resize: vertical;
 }
+.input-wrapper,
+.input-token {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+.input-token {
+	min-width: $SPACING_120;
+	margin-right: $SPACING_32;
+}
+.input-token svg {
+	margin-right: $SPACING_8;
+}
 .input,
 .input__container {
 	background: $TRANSPARENT;

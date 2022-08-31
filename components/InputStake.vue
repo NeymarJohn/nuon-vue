@@ -1,26 +1,34 @@
 <template>
 	<div class="input-stake">
-		<div class="input-stake__title">
-			<label>Stake</label>
-			<label>Balance: {{ numberWithCommas(maximum.toFixed(2)) }}</label>
-		</div>
-		<div class="input">
-			<div class="input__container">
-				<input
-					v-model="inputValue"
-					placeholder="0.0"
-					type="number"
-					min="0"
-					max="79"
-					autocomplete="off"
-					autocorrect="off"
-					spellcheck="false"
-					inputmode="decimal" />
-				<TheButton
-					:disabled="isMaxInputDisabled(maximum)"
-					size="sm"
-					title="Click to input your max balance"
-					@click="inputMaxBalance">Max</TheButton>
+		<div class="input-stake__wrapper">
+			<div class="input-stake__title">
+				<label>Stake</label>
+				<label>nuMINT Balance: {{ numberWithCommas(maximum.toFixed(2)) }}</label>
+			</div>
+			<div class="input-wrapper">
+				<div class="input-token">
+					<nuMintLogo />
+					<h5>nuMINT</h5>
+				</div>
+				<div class="input">
+					<div class="input__container">
+						<input
+							v-model="inputValue"
+							placeholder="0.0"
+							type="number"
+							min="0"
+							max="79"
+							autocomplete="off"
+							autocorrect="off"
+							spellcheck="false"
+							inputmode="decimal" />
+						<TheButton
+							:disabled="isMaxInputDisabled(maximum)"
+							size="sm"
+							title="Click to input your max balance"
+							@click="inputMaxBalance">Max</TheButton>
+					</div>
+				</div>
 			</div>
 		</div>
 		<p v-if="isMoreThanBalance" class="u-is-warning">Insufficient balance.</p>
@@ -35,9 +43,13 @@
 
 <script>
 import { fromWei } from "~/utils/bnTools";
+import nuMintLogo from "@/assets/images/logo/logo-numint.svg";
 
 export default {
 	name: "InputStake",
+	components: {
+		nuMintLogo,
+	},
 	props: {
 		maximum: {
 			type: Number,

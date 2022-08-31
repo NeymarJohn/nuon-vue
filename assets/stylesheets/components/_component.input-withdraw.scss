@@ -3,8 +3,14 @@
 */
 
 // 1. Input withdraw default
-.input-withdraw .input {
+.input-withdraw__wrapper {
+	background-color: $MEDIUM_GREY;
+	border-radius: $BORDER_RADIUS_8;
+	padding: $SPACING_24;
 	margin-bottom: $SPACING_24;
+}
+.input-withdraw .input {
+	margin-bottom: 0;
 }
 .input-withdraw__title {
 	display: flex;
