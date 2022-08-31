@@ -76,7 +76,7 @@
 							</TheTabs>
 						</template>
 						<template #right>
-							<CurrencyCard label="My Stake" :value="myStake" :change="getDollarValue(myStake, tokenPrices.nuMINT)" currency="nuMINT" />
+							<CurrencyCard class="u-mb-32" label="My Stake" :value="myStake" :change="getDollarValue(myStake, tokenPrices.nuMINT)" currency="nuMINT" />
 							<CurrencyCard label="My Voting Power" :percent="votingPower" />
 							<CurrencyCard label="nuMINT Price" :value="tokenPrices.nuMINT" />
 							<CurrencyCard label="Total Staked" :value="totalStaked" currency="nuMINT" />
@@ -91,15 +91,23 @@
 								@selected-token="selectClaimToken" />
 						</template>
 						<template #right>
-							<CurrencyCard label="My Rewards" :value="myRewards" :change="getDollarValue(myRewards, tokenPrices.nuMINT)" currency="BUSD" />
+							<CurrencyCard class="u-mb-32" label="My Rewards" :value="myRewards" :change="getDollarValue(myRewards, tokenPrices.nuMINT)" currency="BUSD" />
 							<TheCountdown label="My Next Reward Distribution" :visible="isConnectedWallet" :next-claim-date="nextEpochPoint" :is-loop="true" />
 							<CurrencyCard label="APR" :percent="apr" />
-							<CurrencyCard label="TVL" :value="tvl" />
+							<CurrencyCard label="TVL" :value="tvl" symbol="$" />
 						</template>
 					</LayoutAction>
 				</TheTab>
 				<TheTab title="Add Proposal">
-					<p>add proposal</p>
+					<LayoutAction type="form">
+						<template #left>
+							<ProposalForm />
+						</template>
+						<template #right>
+							<CurrencyCard label="Minimum Stake Required" :value="minimumStake" currency="nuMINT" />
+							<CurrencyCard label="Voting Power" :percent="votingPower" />
+						</template>
+					</LayoutAction>
 				</TheTab>
 			</TheTabs>
 		</LayoutContainer>
@@ -133,6 +141,7 @@ export default {
 				price: 0,
 				balance: 0
 			},
+			minimumStake: 100,
 			// To be implemented after govern is finished.
 			// tourCallbacks: {
 			// 	onSkip: () => this.setCookie("skip_boardroom_tour"),
@@ -349,7 +358,7 @@ export default {
 		claimReward() {
 			// TODO reward
 			this.setModalVisibility("claimRewardsModal", false);
-		}
+		},
 	}
 };
 </script>

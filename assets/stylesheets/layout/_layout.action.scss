@@ -1,6 +1,7 @@
 /* #LAYOUT - ACTION
 		1. Action default
 		2. Action tabs
+		3. Action form
 */
 
 // 1. Action default
@@ -30,10 +31,6 @@
 .l-action__right .countdown {
 	width: 50%;
 }
-.l-action__right .currency-card:nth-child(1),
-.l-action__right .currency-card:nth-child(2) {
-	margin-bottom: $SPACING_32;
-}
 
 // 2. Action tabs
 .l-action--tabs .l-action__left {
@@ -45,4 +42,12 @@
 }
 .l-action--tabs .l-action__left .tabs__body {
 	padding: $SPACING_32;
+}
+
+// 3. Action form
+.l-action--form .l-action__left {
+	width: 60%;
+}
+.l-action--form .l-action__right {
+	width: 40%;
 }

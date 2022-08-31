@@ -21,8 +21,17 @@ input:not([type="range"]) {
 	border: 0;
 	line-height: $SPACING_30;
 }
+input::placeholder,
+textarea::placeholder {
+	color: $LIGHT_GREY;
+	font-size: $SPACING_14;
+}
+textarea:focus,
 input:focus {
 	outline: 0;
+}
+textarea {
+	resize: vertical;
 }
 .input,
 .input__container {
@@ -33,9 +42,6 @@ input:focus {
 	border: $SPACING_1 solid $HIGHLIGHT_LIGHT_GREY;
 	border-radius: $BORDER_RADIUS_8;
 	margin-bottom: $SPACING_8;
-}
-.input input::placeholder {
-	color: $LIGHT_GREY;
 }
 .input input {
 	color: $WHITE;
