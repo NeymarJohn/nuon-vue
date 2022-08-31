@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="input-claim">
 		<div class="accordion accordion--claim" :class="{ active: isActive }">
 			<LayoutFlex direction="row-center-space-between">
 				<LayoutFlex
@@ -65,17 +65,13 @@
 			<h4>Days before unstake: {{ epoch }} Days</h4>
 			<p>Withdrawing the staked token partially will reset the unstaked window to another 14 days.</p>
 		</div>
-		<div class="transaction-input__buttons">
-			<TheButton
-				class="btn btn--lg"
-				size="lg"
-				title="Click to confirm"
-				:disabled="!canClaimRewards || isPending"
-				@click="submitTransaction">
-				<span v-if="isPending">Pending...</span>
-				<span v-else >Confirm</span>
-			</TheButton>
-		</div>
+		<TheButton
+			size="md"
+			title="Click to confirm"
+			:disabled="!canClaimRewards || isPending"
+			@click="submitTransaction">
+			Confirm
+		</TheButton>
 	</div>
 </template>
 
@@ -86,7 +82,7 @@ import { fromWei } from "~/utils/bnTools";
 import { nuMINT, mainTokens } from "~/constants/tokens";
 
 export default {
-	name: "ClaimAccordionInput",
+	name: "InputClaim",
 	components: {
 		ChevronDownIcon,
 		ChevronUpIcon,

@@ -80,7 +80,7 @@
 				<TheTab title="Claim">
 					<LayoutAction>
 						<template #left>
-							<ClaimAccordionInput
+							<InputClaim
 								:token="claimRewardsToken"
 								@selected-token="selectClaimToken" />
 						</template>

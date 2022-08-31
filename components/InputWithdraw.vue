@@ -45,7 +45,7 @@
 			<p>Withdrawing the staked token partially will reset the unstaked window to another 14 days.</p>
 		</div>
 		<TheButton
-			size="lg"
+			size="md"
 			:disabled="isDisabled()"
 			title="Click to withdraw"
 			@click="submitTransaction">Confirm</TheButton>
