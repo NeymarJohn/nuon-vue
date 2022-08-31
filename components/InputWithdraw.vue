@@ -48,7 +48,7 @@
 			size="md"
 			:disabled="isDisabled()"
 			title="Click to withdraw"
-			@click="submitTransaction">Confirm</TheButton>
+			@click="submitTransaction">Withdraw</TheButton>
 	</div>
 </template>
 

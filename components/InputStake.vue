@@ -28,8 +28,8 @@
 		<TheButton
 			size="md"
 			:disabled="isDisabled()"
-			title="Click to confirm"
-			@click="submitTransaction">Confirm</TheButton>
+			title="Click to stake"
+			@click="submitTransaction">Stake</TheButton>
 	</div>
 </template>
 

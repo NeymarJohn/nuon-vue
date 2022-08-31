@@ -67,10 +67,10 @@
 		</div>
 		<TheButton
 			size="md"
-			title="Click to confirm"
+			title="Click to claim"
 			:disabled="!canClaimRewards || isPending"
 			@click="submitTransaction">
-			Confirm
+			Claim
 		</TheButton>
 	</div>
 </template>

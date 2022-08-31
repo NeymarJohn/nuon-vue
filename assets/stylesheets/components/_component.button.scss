@@ -62,15 +62,10 @@ a.btn:hover,
 	background: $LIME;
 	color: $DARK_GREY;
 }
-.btn--md,
-.btn--lg {
-	font-size: $HEADING_FIVE;
-	line-height: $SPACING_22;
-	border-radius: $BORDER_RADIUS_32;
-}
 .btn--md {
-	height: $SPACING_54;
-	padding: $SPACING_16 $SPACING_32;
+	height: $SPACING_42;
+	padding: $SPACING_8 $SPACING_64;
+	font-size: $SPACING_14;
 }
 .btn--lg {
 	height: $SPACING_56;
