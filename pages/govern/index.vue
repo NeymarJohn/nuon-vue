@@ -6,7 +6,7 @@
 					<h4>Govern</h4>
 					<h1>Proposals</h1>
 				</PageTitle>
-				<PriceIndicator :nuon-price="tokenPrices.NUON" :truflation-peg="truflationPeg" />
+				<PriceIndicator />
 			</LayoutFlex>
 			<TheTabs margin="24" size="govern" color="transparent">
 				<TheTab title="Vote">
@@ -168,7 +168,6 @@ export default {
 	name: "TheGovern",
 	data() {
 		return {
-			truflationPeg: 0,
 			proposals: [],
 			apr: 134,
 			filterOption: "All",
@@ -252,7 +251,6 @@ export default {
 		}
 	},
 	mounted() {
-		this.getTruflationPeg();
 		this.updateStatus();
 		this.claimRewardsToken = {symbol: nuMINT.symbol, price: this.tokenPrices.nuMINT, balance: this.myRewards};
 		// if (!$cookies.get("skip_boardroom_tour")) this.$tours.boardroomTour.start();
