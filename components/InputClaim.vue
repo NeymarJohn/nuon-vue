@@ -60,7 +60,7 @@
 				</div>
 			</div>
 		</div>
-		<TransactionSummary :values="summary" />
+		<TransactionSummary v-if="inputValue > 0" :values="summary" />
 		<div v-if="inputValue > 0" class="modal__info--lower">
 			<h4>Days before unstake: {{ epoch }} Days</h4>
 			<p>Withdrawing the staked token partially will reset the unstaked window to another 14 days.</p>

@@ -35,10 +35,10 @@
 			</LayoutFlex>
 		</div>
 		<TransactionSummary
-			v-if="inputValue === maximum"
+			v-if="inputValue > 0 && inputValue === maximum"
 			:values="maximumSummary" />
 		<TransactionSummary
-			v-else
+			v-if="inputValue > 0 && inputValue != maximum"
 			:values="partialSummary" />
 		<div v-if="inputValue > 0 && inputValue < maximum" class="modal__info--lower">
 			<h4>Days before unstake: {{ epoch }} Days</h4>

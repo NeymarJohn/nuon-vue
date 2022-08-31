@@ -24,7 +24,7 @@
 			</div>
 		</div>
 		<p v-if="isMoreThanBalance" class="u-is-warning">Insufficient balance.</p>
-		<TransactionSummary :values="summary" />
+		<TransactionSummary v-if="inputValue > 0" :values="summary" />
 		<TheButton
 			size="md"
 			:disabled="isDisabled()"
