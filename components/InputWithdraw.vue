@@ -34,7 +34,6 @@
 		<div v-if="inputValue === maximum" class="input-withdraw__message">
 			<p>Inputting maximum unstake amount will enable claim rewards at the same time when exiting staking.</p>
 		</div>
-		<h4>Select Your Reward Token</h4>
 		<ClaimAccordion @selected-token="selectedTokenChanged" />
 		<TransactionSummary
 			v-if="inputValue > 0 && inputValue === maximum"

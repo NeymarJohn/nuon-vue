@@ -1,5 +1,5 @@
 <template>
-	<div class="accordion accordion--swap" :class="{ active: isActive }">
+	<div class="accordion" :class="{ active: isActive }">
 		<LayoutFlex direction="row-start-space-between">
 			<LayoutFlex
 				v-if="selected.symbol"
@@ -16,7 +16,8 @@
 			<LayoutFlex
 				v-else
 				direction="row-center accordion__header"
-				title="Click to open token list" @click="triggerAccordion">
+				title="Click to open token list"
+				@click="triggerAccordion">
 				<div class="accordion__token">
 					<h5>Select Token</h5>
 				</div>
@@ -32,7 +33,12 @@
 				<input ref="searchtoken" v-model="search" type="text" placeholder="Search for your token" autocomplete="off">
 			</div>
 			<div class="accordion__tokens">
-				<div v-for="(token, index) in filteredTokens" :key="index" class="token" title="Click to select token" :class="isDisabled(token.symbol) ? 'is-disabled' : ''" @click="changeToken(token)">
+				<div
+					v-for="(token, index) in filteredTokens"
+					:key="index"
+					class="token"
+					title="Click to select token"
+					:class="isDisabled(token.symbol) ? 'is-disabled' : ''" @click="changeToken(token)">
 					<div class="token__wrapper">
 						<img :src="require(`~/assets/images/tokens/${token.icon}`)" :alt="`${token.name} logo`">
 						<div class="token__body">

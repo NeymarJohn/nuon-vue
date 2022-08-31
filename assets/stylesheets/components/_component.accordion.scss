@@ -1,20 +1,37 @@
 /* #COMPONENT - ACCORDION
 		1. Accordion default
-		2. Accordion claim
-		3. Accordion swap
-		4. Accordion responsive
 */
 
 // 1. Accordion default
 .accordion {
 	background: $MEDIUM_LIGHT_GREY;
 	border-radius: $BORDER_RADIUS_24;
-	padding: $SPACING_32;
 	position: relative;
 	width: 100%;
+	padding: 0;
+	border: 0;
 }
 .accordion h5 {
 	margin-bottom: 0;
+}
+.accordion .data-card {
+	width: 55%;
+}
+.accordion__container {
+	padding: $SPACING_24;
+	background: $MEDIUM_GREY;
+	border-radius: $BORDER_RADIUS_8;
+	position: relative;
+}
+.accordion__container label {
+	display: block;
+	color: $LIGHT_GREY;
+	font-size: $SPACING_14;
+	line-height: $SPACING_20;
+	margin-bottom: $SPACING_16;
+}
+.accordion__container .accordion {
+	background: $TRANSPARENT;
 }
 .accordion__header {
 	transition: $TRANSITION_ALL;
@@ -22,7 +39,6 @@
 	padding: $SPACING_12 $SPACING_16;
 	border-radius: $BORDER_RADIUS_8;
 }
-.accordion--swap.active .accordion__header,
 .accordion__header:hover {
 	background-color: $HIGHLIGHT_GREY;
 }
@@ -42,13 +58,15 @@
 	color: $LIGHT_GREY;
 	margin-bottom: 0;
 }
-.modal__info .accordion__token p {
-	color: $DARK_GREY;
-	font-size: $BODY_TEXT;
-}
 .accordion__body {
 	display: none;
 	background: $MEDIUM_LIGHT_GREY;
+	z-index: 9;
+	position: absolute;
+	top: 80%;
+	width: $SPACING_400;
+	padding: $SPACING_24;
+	border-radius: $BORDER_RADIUS_8;
 }
 .accordion.active .accordion__body {
 	display: block;
@@ -94,87 +112,4 @@
 	color: $WHITE;
 	padding: $SPACING_16;
 	font-size: $SPACING_14;
-}
-
-// 2. Accordion claim
-.accordion.accordion--claim {
-	border-radius: $BORDER_RADIUS_8;
-}
-.accordion--claim.active {
-	border-bottom-left-radius: 0;
-	border-bottom-right-radius: 0;
-}
-.accordion--claim .accordion__body {
-	z-index: 9;
-	position: absolute;
-	top: 100%;
-	left: 0;
-	right: 0;
-	padding: $SPACING_16 $SPACING_32;
-	border-left: $SPACING_1 solid $MEDIUM_LIGHT_GREY;
-	border-right: $SPACING_1 solid $MEDIUM_LIGHT_GREY;
-	border-bottom: $SPACING_1 solid $MEDIUM_LIGHT_GREY;
-	border-bottom-left-radius: $BORDER_RADIUS_8;
-	border-bottom-right-radius: $BORDER_RADIUS_8;
-}
-
-// 3. Accordion swap
-.accordion--swap {
-	padding: 0;
-	border: 0;
-}
-.accordion--swap .data-card {
-	width: 55%;
-}
-.accordion--swap .accordion__body {
-	z-index: 9;
-	position: absolute;
-	top: 80%;
-	width: $SPACING_400;
-	padding: $SPACING_24;
-	border-radius: $BORDER_RADIUS_8;
-}
-
-// 4. Accordion responsive
-@media screen and (max-width: $SPACING_990) {
-	.accordion--swap .data-card--end {
-		align-items: flex-end;
-	}
-}
-@media screen and (max-width: $SPACING_480) {
-	.accordion--swap .data-card--end,
-	.accordion--swap .accordion__header,
-	.accordion--claim .accordion__header {
-		width: 100%;
-	}
-	.accordion--swap .accordion__header,
-	.accordion--claim .accordion__header {
-		margin-bottom: $SPACING_32;
-	}
-	.accordion--swap .accordion__token,
-	.accordion--claim .accordion__token {
-		flex: 1;
-	}
-	.accordion--swap .data-card--end .btn--sm {
-		font-size: $HEADING_FIVE_480;
-		line-height: $SPACING_18;
-		padding: $SPACING_7 $SPACING_21;
-		height: $SPACING_32;
-	}
-	.accordion--swap .accordion__body {
-		padding: 0 $SPACING_24;
-		top: $SPACING_40;
-		left: -$SPACING_24;
-		right: -$SPACING_24;
-		border: 0;
-	}
-	.accordion__filter input {
-		font-size: $HEADING_FIVE_480;
-		line-height: $SPACING_18;
-		padding: $SPACING_8 $SPACING_16 $SPACING_8 $SPACING_50;
-	}
-	.accordion__tokens {
-		padding: 0;
-		max-height: $SPACING_320;
-	}
 }
