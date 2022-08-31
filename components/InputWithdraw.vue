@@ -53,13 +53,11 @@
 			<h4>Days before unstake: {{ epoch }} Days</h4>
 			<p>Withdrawing the staked token partially will reset the unstaked window to another 14 days.</p>
 		</div>
-		<div class="transaction-input__buttons">
-			<TheButton
-				size="lg"
-				:disabled="isDisabled()"
-				title="Click to withdraw"
-				@click="submitTransaction">Confirm</TheButton>
-		</div>
+		<TheButton
+			size="lg"
+			:disabled="isDisabled()"
+			title="Click to withdraw"
+			@click="submitTransaction">Confirm</TheButton>
 	</div>
 </template>
 

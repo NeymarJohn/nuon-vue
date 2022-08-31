@@ -1,15 +1,15 @@
-/* #COMPONENT - TRANSACTION INPUT
-		1. Transaction input default
+/* #COMPONENT - INPUT STAKE
+		1. Input stake default
 */
 
-// 1. Transaction input default
-.transaction-input__title {
+// 1. Input stake default
+.input-stake__title {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
 	margin-bottom: $SPACING_16;
 }
-.transaction-input__title label {
+.input-stake__title label {
 	color: $LIGHT_GREY;
 	font-size: $SPACING_14;
 	line-height: $SPACING_20;

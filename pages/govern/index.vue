@@ -62,11 +62,7 @@
 						<template #left>
 							<TheTabs margin="0" size="full">
 								<TheTab title="Stake">
-									<InputTransaction
-										:maximum="nuMintBalance"
-										title="Stake"
-										subtitle="Balance"
-										action="stake" />
+									<InputStake :maximum="nuMintBalance" />
 								</TheTab>
 								<TheTab title="Withdraw">
 									<InputWithdraw
