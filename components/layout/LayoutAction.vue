@@ -1,5 +1,5 @@
 <template>
-	<div class="l-action">
+	<div :class="`l-action l-action--${type}`">
 		<div class="l-action__left">
 			<slot name="left" />
 		</div>
@@ -11,6 +11,12 @@
 
 <script>
 export default {
-	name: "LayoutAction"
+	name: "LayoutAction",
+	props: {
+		type: {
+			type: String,
+			default: "",
+		},
+	},
 };
 </script>

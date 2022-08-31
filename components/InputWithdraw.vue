@@ -1,85 +1,71 @@
 <template>
-	<TheStepper :active-step="activeStep" :steps="['Locked', 'Confirm']">
-		<template #step-one>
-			<div class="transaction-input">
-				<LayoutFlex
-					direction="row-center-space-between"
-					class="l-m-flex--column">
-					<h4>Enter amount to withdraw</h4>
-					<p class="u-mb-0">Available nuMINT tokens: {{ numberWithCommas(maximum.toFixed(2)) }}</p>
-				</LayoutFlex>
-				<div class="input">
-					<div class="input__container">
-						<input
-							v-model="inputValue"
-							placeholder="0.0"
-							type="number"
-							min="0"
-							max="79"
-							autocomplete="off"
-							autocorrect="off"
-							spellcheck="false"
-							inputmode="decimal" />
-						<TheButton
-							:disabled="isMaxInputDisabled(maximum)"
-							size="sm"
-							title="Click to input your max balance"
-							@click="inputMaxBalance">Max</TheButton>
-					</div>
-				</div>
-				<div class="transaction-input__price">
-					<p>You are withdrawing <span>{{ numberWithCommas(parseFloat(inputValue || 0).toFixed(2)) }} nuMINT</span> worth <span>${{ numberWithCommas(getDollarValue(inputValue, tokenPrices.nuMINT).toFixed(2)) }}</span></p>
-					<p v-if="errorMessage" class="u-is-warning">{{errorMessage}}</p>
-					<p v-if="!isDisabled()" class="u-is-success">Ready to withdraw</p>
-				</div>
-				<div v-if="inputValue === maximum">
-					<div class="modal__info--lower u-green-prompt">
-						<p>Inputting maximum unstake amount will enable claim rewards at the same time when exiting staking.</p>
-					</div>
-					<LayoutFlex direction="column">
-						<h4>Select Your Reward Token</h4>
-						<div class="modal__info">
-							<ClaimAccordion from="boardroom" :stepper="false" @selected-token="selectedTokenChanged" />
-						</div>
-					</LayoutFlex>
-				</div>
-				<div class="transaction-input__buttons">
+	<div>
+		<div class="transaction-input">
+			<LayoutFlex
+				direction="row-center-space-between"
+				class="l-m-flex--column">
+				<h4>Enter amount to withdraw</h4>
+				<p class="u-mb-0">Available nuMINT tokens: {{ numberWithCommas(maximum.toFixed(2)) }}</p>
+			</LayoutFlex>
+			<div class="input">
+				<div class="input__container">
+					<input
+						v-model="inputValue"
+						placeholder="0.0"
+						type="number"
+						min="0"
+						max="79"
+						autocomplete="off"
+						autocorrect="off"
+						spellcheck="false"
+						inputmode="decimal" />
 					<TheButton
-						size="lg"
-						:disabled="isDisabled()"
-						title="Click to exit"
-						@click="activeStep = 2">Next</TheButton>
+						:disabled="isMaxInputDisabled(maximum)"
+						size="sm"
+						title="Click to input your max balance"
+						@click="inputMaxBalance">Max</TheButton>
 				</div>
 			</div>
-		</template>
-		<template #step-two>
-			<TransactionSummary
-				v-if="inputValue === maximum"
-				:values="maximumSummary" />
-			<TransactionSummary
-				v-else
-				:values="partialSummary" />
-			<div v-if="inputValue > 0 && inputValue < maximum" class="modal__info--lower">
-				<h4>Days before unstake: {{ epoch }} Days</h4>
-				<p>Withdrawing the staked token partially will reset the unstaked window to another 14 days.</p>
+			<div class="transaction-input__price">
+				<p>You are withdrawing <span>{{ numberWithCommas(parseFloat(inputValue || 0).toFixed(2)) }} nuMINT</span> worth <span>${{ numberWithCommas(getDollarValue(inputValue, tokenPrices.nuMINT).toFixed(2)) }}</span></p>
+				<p v-if="errorMessage" class="u-is-warning">{{errorMessage}}</p>
+				<p v-if="!isDisabled()" class="u-is-success">Ready to withdraw</p>
 			</div>
-			<div class="transaction-input__buttons">
-				<TheButton
-					size="lg"
-					title="Click to withdraw"
-					@click="activeStep = 1">Back</TheButton>
-				<TheButton
-					size="lg"
-					:disabled="isDisabled()"
-					title="Click to withdraw"
-					@click="submitTransaction">Confirm</TheButton>
+			<div v-if="inputValue === maximum">
+				<div class="modal__info--lower u-green-prompt">
+					<p>Inputting maximum unstake amount will enable claim rewards at the same time when exiting staking.</p>
+				</div>
+				<LayoutFlex direction="column">
+					<h4>Select Your Reward Token</h4>
+					<div class="modal__info">
+						<ClaimAccordion from="boardroom" :stepper="false" @selected-token="selectedTokenChanged" />
+					</div>
+				</LayoutFlex>
 			</div>
-		</template>
-	</TheStepper>
+		</div>
+		<TransactionSummary
+			v-if="inputValue === maximum"
+			:values="maximumSummary" />
+		<TransactionSummary
+			v-else
+			:values="partialSummary" />
+		<div v-if="inputValue > 0 && inputValue < maximum" class="modal__info--lower">
+			<h4>Days before unstake: {{ epoch }} Days</h4>
+			<p>Withdrawing the staked token partially will reset the unstaked window to another 14 days.</p>
+		</div>
+		<div class="transaction-input__buttons">
+			<TheButton
+				size="lg"
+				:disabled="isDisabled()"
+				title="Click to withdraw"
+				@click="submitTransaction">Confirm</TheButton>
+		</div>
+	</div>
 </template>
 
 <script>
 import { fromWei } from "~/utils/bnTools";
+
 export default {
 	name: "InputWithdraw",
 	props: {

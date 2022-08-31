@@ -1,100 +1,82 @@
 <template>
-	<TheStepper :active-step="activeStep" :steps="['Input', 'Confirm']">
-		<template #step-one>
-			<div class="accordion accordion--claim" :class="{ active: isActive }">
-				<LayoutFlex direction="row-center-space-between">
-					<LayoutFlex
-						direction="row-center"
-						class="accordion__header"
-						title="Click to open token list" @click="triggerAccordion">
-						<img :src="require(`~/assets/images/tokens/${selected.icon}`)" alt="token logo">
-						<div class="accordion__token">
-							<h2>{{ selected.symbol }}</h2>
-							<p>{{ selected.name }}</p>
-						</div>
-						<ChevronDownIcon v-if="!isActive" />
-						<ChevronUpIcon v-else />
-					</LayoutFlex>
-					<DataCard align="end" class="u-half-width">
-						<p v-if="token">Available {{token.symbol}} tokens: {{ token.balance | toFixed | numberWithCommas }}</p>
-						<div class="input">
-							<div class="input__container">
-								<input
-									v-model="inputValue"
-									placeholder="0.0"
-									type="number"
-									min="0"
-									max="79"
-									autocomplete="off"
-									autocorrect="off"
-									spellcheck="false"
-									inputmode="decimal" />
-								<TheButton
-									:disabled="isMaxInputDisabled(token.balance)"
-									size="sm"
-									title="Click to input your max balance"
-									@click="inputMaxBalance">Max</TheButton>
-							</div>
-						</div>
-						<h5 v-if="token">~ ${{ numberWithCommas(getDollarValue(inputValue, tokenPrices[token.symbol]).toFixed(2)) }}</h5>
-					</DataCard>
-				</LayoutFlex>
-				<p v-if="isMoreThanBalance" class="u-is-warning u-mb-0 u-text-right">Insufficient balance.</p>
-				<div class="accordion__body">
-					<div class="accordion__filter">
-						<input ref="searchtoken" v-model="search" type="text" placeholder="Search for your token" autocomplete="off">
+	<div>
+		<div class="accordion accordion--claim" :class="{ active: isActive }">
+			<LayoutFlex direction="row-center-space-between">
+				<LayoutFlex
+					direction="row-center"
+					class="accordion__header"
+					title="Click to open token list" @click="triggerAccordion">
+					<img :src="require(`~/assets/images/tokens/${selected.icon}`)" alt="token logo">
+					<div class="accordion__token">
+						<h2>{{ selected.symbol }}</h2>
+						<p>{{ selected.name }}</p>
 					</div>
-					<div class="accordion__tokens">
-						<div v-for="(t, index) in filteredTokens" :key="index" class="token" title="Click to select token" @click="changeToken(t)">
-							<div class="token__wrapper">
-								<img :src="require(`~/assets/images/tokens/${t.icon}`)" :alt="`${t.name} logo`">
-								<div class="token__body">
-									<h4>{{ t.symbol }}</h4>
-									<h5>{{ t.name }}</h5>
-								</div>
+					<ChevronDownIcon v-if="!isActive" />
+					<ChevronUpIcon v-else />
+				</LayoutFlex>
+				<DataCard align="end" class="u-half-width">
+					<p v-if="token">Available {{token.symbol}} tokens: {{ token.balance | toFixed | numberWithCommas }}</p>
+					<div class="input">
+						<div class="input__container">
+							<input
+								v-model="inputValue"
+								placeholder="0.0"
+								type="number"
+								min="0"
+								max="79"
+								autocomplete="off"
+								autocorrect="off"
+								spellcheck="false"
+								inputmode="decimal" />
+							<TheButton
+								:disabled="isMaxInputDisabled(token.balance)"
+								size="sm"
+								title="Click to input your max balance"
+								@click="inputMaxBalance">Max</TheButton>
+						</div>
+					</div>
+					<h5 v-if="token">~ ${{ numberWithCommas(getDollarValue(inputValue, tokenPrices[token.symbol]).toFixed(2)) }}</h5>
+				</DataCard>
+			</LayoutFlex>
+			<p v-if="isMoreThanBalance" class="u-is-warning u-mb-0 u-text-right">Insufficient balance.</p>
+			<div class="accordion__body">
+				<div class="accordion__filter">
+					<input ref="searchtoken" v-model="search" type="text" placeholder="Search for your token" autocomplete="off">
+				</div>
+				<div class="accordion__tokens">
+					<div v-for="(t, index) in filteredTokens" :key="index" class="token" title="Click to select token" @click="changeToken(t)">
+						<div class="token__wrapper">
+							<img :src="require(`~/assets/images/tokens/${t.icon}`)" :alt="`${t.name} logo`">
+							<div class="token__body">
+								<h4>{{ t.symbol }}</h4>
+								<h5>{{ t.name }}</h5>
 							</div>
-							<h5>~ ${{ numberWithCommas(getDollarValue(inputValue, t.price).toFixed(2)) }}</h5>
 						</div>
-						<div v-if="filteredTokens.length <= 0" class="accordion__results">
-							No results found.
-						</div>
+						<h5>~ ${{ numberWithCommas(getDollarValue(inputValue, t.price).toFixed(2)) }}</h5>
+					</div>
+					<div v-if="filteredTokens.length <= 0" class="accordion__results">
+						No results found.
 					</div>
 				</div>
 			</div>
+		</div>
+		<TransactionSummary :values="summary" />
+		<div v-if="inputValue > 0" class="modal__info--lower">
+			<h4>Days before unstake: {{ epoch }} Days</h4>
+			<p>Withdrawing the staked token partially will reset the unstaked window to another 14 days.</p>
+		</div>
+		<div class="transaction-input__buttons">
 			<TheButton
-				v-if="stepper"
-				class="u-full-width"
+				class="btn btn--lg"
 				size="lg"
-				title="Click to go next"
-				:disabled="!canClaimRewards"
-				@click="activeStep = 2">
-				Next
+				title="Click to confirm"
+				:disabled="!canClaimRewards || isPending"
+				@click="submitTransaction">
+				<span v-if="isPending">Pending...</span>
+				<span v-else >Confirm</span>
 			</TheButton>
-		</template>
-		<template #step-two>
-			<TransactionSummary :values="summary" />
-			<div v-if="inputValue > 0" class="modal__info--lower">
-				<h4>Days before unstake: {{ epoch }} Days</h4>
-				<p>Withdrawing the staked token partially will reset the unstaked window to another 14 days.</p>
-			</div>
-			<div class="transaction-input__buttons">
-				<TheButton
-					class="btn btn--lg btn--back"
-					size="lg"
-					title="Click to go back"
-					@click="activeStep = 1">Back</TheButton>
-				<TheButton
-					class="btn btn--lg"
-					size="lg"
-					title="Click to confirm"
-					:disabled="!canClaimRewards || isPending"
-					@click="submitTransaction">
-					<span v-if="isPending">Pending...</span>
-					<span v-else >Confirm</span>
-				</TheButton>
-			</div>
-		</template>
-	</TheStepper>
+		</div>
+	</div>
 </template>
 
 <script>

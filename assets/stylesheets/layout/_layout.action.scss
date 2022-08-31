@@ -1,5 +1,6 @@
 /* #LAYOUT - ACTION
 		1. Action default
+		2. Action tabs
 */
 
 // 1. Action default
@@ -32,4 +33,16 @@
 .l-action__right .currency-card:nth-child(1),
 .l-action__right .currency-card:nth-child(2) {
 	margin-bottom: $SPACING_32;
+}
+
+// 2. Action tabs
+.l-action--tabs .l-action__left {
+	padding: 0;
+}
+.l-action--tabs .l-action__left .tabs__header {
+	border-top-left-radius: $SPACING_16;
+	border-top-right-radius: $SPACING_16;
+}
+.l-action--tabs .l-action__left .tabs__body {
+	padding: $SPACING_32;
 }

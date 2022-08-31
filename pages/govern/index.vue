@@ -58,104 +58,51 @@
 					<p v-if="!isLoading && filteredProposals !== null && filteredProposals.length === 0" class="u-text-center u-mt-xs">No proposals to show.</p>
 				</TheTab>
 				<TheTab title="Stake">
-					<LayoutAction>
+					<LayoutAction type="tabs">
 						<template #left>
-							<InputTransaction
-								:maximum="nuMintBalance"
-								title="Stake"
-								subtitle="Balance"
-								action="stake" />
+							<TheTabs margin="0" size="full">
+								<TheTab title="Stake">
+									<InputTransaction
+										:maximum="nuMintBalance"
+										title="Stake"
+										subtitle="Balance"
+										action="stake" />
+								</TheTab>
+								<TheTab title="Withdraw">
+									<InputWithdraw
+										action="withdraw"
+										:maximum="myStake" />
+								</TheTab>
+							</TheTabs>
 						</template>
 						<template #right>
 							<CurrencyCard label="My Stake" :value="myStake" :change="getDollarValue(myStake, tokenPrices.nuMINT)" currency="nuMINT" />
-							<CurrencyCard label="My Rewards" :value="myRewards" :change="getDollarValue(myRewards, tokenPrices.nuMINT)" currency="BUSD" />
-							<TheCountdown label="My Next Reward Distribution" :visible="isConnectedWallet" :next-claim-date="nextEpochPoint" :is-loop="true" />
 							<CurrencyCard label="My Voting Power" :percent="votingPower" />
+							<CurrencyCard label="nuMINT Price" :value="tokenPrices.nuMINT" />
+							<CurrencyCard label="Total Staked" :value="totalStaked" currency="nuMINT" />
 						</template>
 					</LayoutAction>
 				</TheTab>
-				<TheTab title="Withdraw">
-					<InputWithdraw
-						action="withdraw"
-						:maximum="myStake" />
-				</TheTab>
 				<TheTab title="Claim">
-					<ClaimAccordionInput
-						:token="claimRewardsToken"
-						@selected-token="selectClaimToken" />
+					<LayoutAction>
+						<template #left>
+							<ClaimAccordionInput
+								:token="claimRewardsToken"
+								@selected-token="selectClaimToken" />
+						</template>
+						<template #right>
+							<CurrencyCard label="My Rewards" :value="myRewards" :change="getDollarValue(myRewards, tokenPrices.nuMINT)" currency="BUSD" />
+							<TheCountdown label="My Next Reward Distribution" :visible="isConnectedWallet" :next-claim-date="nextEpochPoint" :is-loop="true" />
+							<CurrencyCard label="APR" :percent="apr" />
+							<CurrencyCard label="TVL" :value="tvl" />
+						</template>
+					</LayoutAction>
 				</TheTab>
 				<TheTab title="Add Proposal">
 					<p>add proposal</p>
 				</TheTab>
 			</TheTabs>
-			<!-- <TheModal
-					v-show="isStakeModalVisible"
-					title="Stake nuMINT Token"
-					subtitle="Stake your nuMINT to gain voting power."
-					@close-modal="setModalVisibility('stakeModal', false)">
-					<InputTransaction
-						:maximum="nuMintBalance"
-						title="Enter amount to stake"
-						subtitle="Available nuMINT tokens"
-						action-plural="staking"
-						action="stake"
-						@close-modal="setModalVisibility('stakeModal', false)" />
-				</TheModal> -->
-			<!-- <TheModal
-					v-show="isWithdrawModalVisible"
-					title="Withdraw nuMINT Token"
-					:subtitle="`Days before unstake: ${epoch} Days`"
-					@close-modal="setModalVisibility('withdrawModal', false)">
-					<InputWithdraw
-						action="withdraw"
-						:maximum="myStake" />
-				</TheModal> -->
-			<!-- <TheModal
-					v-show="isClaimRewardsModalVisible"
-					class="modal--boardroom"
-					title="Claim Reward Tokens"
-					:subtitle="`Days before you can claim rewards: ${epoch} Days`"
-					@close-modal="setModalVisibility('claimRewardsModal', false)"
-					@claim="claimReward">
-					<ClaimAccordionInput
-						:token="claimRewardsToken"
-						@selected-token="selectClaimToken" />
-				</TheModal> -->
 		</LayoutContainer>
-		<!-- <LayoutContainer class="u-pt-48">
-			<h2 class="u-mb-20 u-mb-lg-14">nuMINT Stake Status</h2>
-			<LayoutGrid class="u-mb-56 u-mb-lg-48" :size="'3-stretch'">
-				<StatCard class="u-mb-md-12">
-					<label>Total Staked<TooltipIcon v-tooltip="'Total nuMINT staked on the protocol.'" /></label>
-					<TheLoader component="h3">
-						<h3>{{ totalStaked | toFixed | numberWithCommas }}<sup>nuMINT</sup></h3>
-					</TheLoader>
-				</StatCard>
-				<StatCard class="u-mb-md-12">
-					<label>nuMINT Price<TooltipIcon v-tooltip="'USD Value of total staked nuMINT.'" /></label>
-					<TheLoader component="h3">
-						<h3>${{ tokenPrices.nuMINT | toFixed | numberWithCommas }}</h3>
-					</TheLoader>
-				</StatCard>
-				<StatCard>
-					<label class="u-mb-sm-12">Reward Information<TooltipIcon v-tooltip="'The annual percentage rate and total value locked of all staked nuMINT.'" /></label>
-					<LayoutFlex class="l-flex--column-sm" direction="row-space-between">
-						<TheLoader component="h3">
-							<h3 class="u-mr-32 u-mb-sm-12">APR {{ apr | toFixed | numberWithCommas }}%</h3>
-						</TheLoader>
-						<TheLoader component="h3">
-							<h3 class="u-mr-32 u-mb-sm-12">TVL ${{ tvl | toFixed | numberWithCommas }}</h3>
-						</TheLoader>
-					</LayoutFlex>
-				</StatCard>
-			</LayoutGrid>
-			<LayoutFlex class="u-mb-36 u-mb-md-24 l-flex--column-start-sm" direction="row-space-between">
-				<DataCard align="end" class="u-full-width-sm">
-					<NuxtLink :disabled="!isConnectedWallet" :event="!isConnectedWallet ? '' : 'click'" class="btn btn--md u-full-width-sm u-text-center-sm" to="/govern/create-new-proposal" title="Click to create a new proposal">Create New Proposal</NuxtLink>
-				</DataCard>
-			</LayoutFlex>
-			<v-tour name="boardroomTour" :steps="steps" :callbacks="tourCallbacks"></v-tour>
-		</LayoutContainer> -->
 	</div>
 </template>
 
