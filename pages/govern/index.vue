@@ -62,10 +62,10 @@
 						<template #left>
 							<TheTabs margin="0" size="full">
 								<TheTab title="Stake">
-									<InputStake :maximum="nuMintBalance" />
+									<InputStake :maximum="nuMintBalance" action="stake" />
 								</TheTab>
 								<TheTab title="Withdraw">
-									<InputWithdraw :maximum="myStake" />
+									<InputStake :maximum="myStake" action="withdraw"/>
 								</TheTab>
 							</TheTabs>
 						</template>
@@ -80,7 +80,8 @@
 				<TheTab title="Claim">
 					<LayoutAction>
 						<template #left>
-							<InputClaim :token="myRewards" />
+							<!-- <InputClaim :token="myRewards" /> -->
+							<InputStake :maximum="myRewards" action="claim" />
 						</template>
 						<template #right>
 							<CurrencyCard class="u-mb-32" label="My Rewards" :value="myRewards" :change="getDollarValue(myRewards, tokenPrices.nuMINT)" currency="BUSD" />

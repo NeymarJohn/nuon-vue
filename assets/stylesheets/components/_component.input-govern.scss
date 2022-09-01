@@ -18,6 +18,9 @@
 	justify-content: space-between;
 	margin-bottom: $SPACING_16;
 }
+.text-capitalize {
+	text-transform: capitalize;
+}
 .input-govern__title label,
 .input-govern__message p {
 	color: $LIGHT_GREY;
