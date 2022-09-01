@@ -21,18 +21,6 @@ export function toFixedFloorNumber(a: number, b :number = 2 ) : number {
 	return Math.floor(a * Math.pow(10, b)) / Math.pow(10, b);
 }
 
-export function toFixedAfterZero(a: number, b: number = 3) : number {
-	if (a >= 0.1) return Number(a.toFixed(b));
-	let countOfZero = 0;
-	let temp = a;
-	while(temp < 0.1) {
-		temp = temp * 10;
-		countOfZero ++ ;
-	}
-
-	return toFixedFloorNumber(temp, b) / 10 ** countOfZero;
-}
-
 export function getUnitFromDecimal(a: number): Unit {
 	const units: any = {
 		1: "wei",

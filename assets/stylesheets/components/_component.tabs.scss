@@ -3,9 +3,7 @@
 		2. Tabs size
 		3. Tabs color
 		4. Tabs image
-		5. Tabs govern
-		6. Tabs full
-		7. Tabs responsive
+		5. Tabs responsive
 */
 
 // 1. Tabs default
@@ -21,7 +19,7 @@
 	transition: $TRANSITION_ALL;
 	cursor: pointer;
 	margin-right: $SPACING_12;
-	padding: $SPACING_12;
+	padding: $SPACING_13;
 	border-radius: $BORDER_RADIUS_6;
 }
 .tabs__header li:hover {
@@ -117,41 +115,7 @@
 	margin-right: $SPACING_8;
 }
 
-// 5. Tabs govern
-.tabs--govern .tabs__header {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: flex-end;
-}
-.tabs--govern .tabs__header li.is-active {
-	background-color: $TRANSPARENT;
-}
-.tabs--govern .tabs__header li.is-active h5 {
-	color: $LIME;
-}
-
-// 6. Tabs full
-.tabs--full .tabs__header {
-	justify-content: center;
-	text-align: center;
-}
-.tabs--full .tabs__header li {
-	margin-right: 0;
-	width: 50%;
-	border-radius: 0;
-	border-bottom: $SPACING_2 solid $TRANSPARENT;
-	padding-top: $SPACING_32;
-	padding-bottom: $SPACING_32;
-}
-.tabs--full .tabs__header li:hover {
-	background-color: $TRANSPARENT;
-}
-.tabs--full .tabs__header li.is-active {
-	border-bottom: $SPACING_2 solid $LIME;
-}
-
-// 7. Tabs responsive
+// 5. Tabs responsive
 @media screen and (max-width: $SPACING_990) {
 	.tabs--default .tabs__header,
 	.tabs--full-width .tabs__header {

@@ -1,55 +1,96 @@
 <template>
-	<div class="input-govern">
-		<div class="input-govern__wrapper">
-			<div class="input-govern__title">
-				<label>Withdraw</label>
-				<label>nuMINT Available: {{ numberWithCommas(maximum.toFixed(2)) }}</label>
-			</div>
-			<div class="input-wrapper">
-				<div class="input-token">
-					<NuMintLogo />
-					<h5>nuMINT</h5>
+	<TheStepper :active-step="activeStep" :steps="['Locked', 'Confirm']">
+		<template #step-one>
+			<div class="transaction-input">
+				<LayoutFlex
+					direction="row-center-space-between"
+					class="l-m-flex--column">
+					<h4>Enter amount to withdraw</h4>
+					<p class="u-mb-0">Available nuMINT tokens: {{ numberWithCommas(maximum.toFixed(2)) }}</p>
+				</LayoutFlex>
+				<div class="input">
+					<div class="input__container">
+						<input
+							v-model="inputValue"
+							placeholder="0.0"
+							type="number"
+							min="0"
+							max="79"
+							autocomplete="off"
+							autocorrect="off"
+							spellcheck="false"
+							inputmode="decimal" />
+						<TheButton
+							:disabled="isMaxInputDisabled(maximum)"
+							size="sm"
+							title="Click to input your max balance"
+							@click="inputMaxBalance">Max</TheButton>
+					</div>
 				</div>
-				<InputMax v-model="inputValue" :click="inputMaxBalance" :maximum="maximum" />
+				<div class="transaction-input__price">
+					<p>You are withdrawing <span>{{ numberWithCommas(parseFloat(inputValue || 0).toFixed(2)) }} nuMINT</span> worth <span>${{ numberWithCommas(getDollarValue(inputValue, tokenPrices.nuMINT).toFixed(2)) }}</span></p>
+					<p v-if="errorMessage" class="u-is-warning">{{errorMessage}}</p>
+					<p v-if="!isDisabled()" class="u-is-success">Ready to withdraw</p>
+				</div>
+				<div v-if="inputValue === maximum">
+					<div class="modal__info--lower u-green-prompt">
+						<p>Inputting maximum unstake amount will enable claim rewards at the same time when exiting staking.</p>
+					</div>
+					<LayoutFlex direction="column">
+						<h4>Select Your Reward Token</h4>
+						<div class="modal__info">
+							<ClaimAccordion from="boardroom" :stepper="false" @selected-token="selectedTokenChanged" />
+						</div>
+					</LayoutFlex>
+				</div>
+				<div class="transaction-input__buttons">
+					<TheButton
+						size="lg"
+						:disabled="isDisabled()"
+						title="Click to exit"
+						@click="activeStep = 2">Next</TheButton>
+				</div>
 			</div>
-		</div>
-		<p v-if="isMoreThanBalance" class="u-is-warning">Insufficient balance.</p>
-		<div v-if="inputValue === maximum" class="input-govern__message">
-			<p>Inputting maximum unstake amount will enable claim rewards at the same time when exiting staking.</p>
-		</div>
-		<ClaimWithdraw />
-		<TransactionSummary
-			v-if="inputValue > 0 && inputValue === maximum"
-			:values="maximumSummary" />
-		<TransactionSummary
-			v-if="inputValue > 0 && inputValue != maximum"
-			:values="partialSummary" />
-		<div v-if="inputValue > 0 && inputValue < maximum">
-			<h4>Days before unstake: {{ epoch }} Days</h4>
-			<p>Withdrawing the staked token partially will reset the unstaked window to another 14 days.</p>
-		</div>
-		<TheButton
-			size="md"
-			:disabled="isDisabled()"
-			title="Click to withdraw"
-			@click="submitTransaction">Withdraw</TheButton>
-	</div>
+		</template>
+		<template #step-two>
+			<TransactionSummary
+				v-if="inputValue === maximum"
+				:values="maximumSummary" />
+			<TransactionSummary
+				v-else
+				:values="partialSummary" />
+			<div v-if="inputValue > 0 && inputValue < maximum" class="modal__info--lower">
+				<h4>Days before unstake: {{ epoch }} Days</h4>
+				<p>Withdrawing the staked token partially will reset the unstaked window to another 14 days.</p>
+			</div>
+			<div class="transaction-input__buttons">
+				<TheButton
+					size="lg"
+					title="Click to withdraw"
+					@click="activeStep = 1">Back</TheButton>
+				<TheButton
+					size="lg"
+					:disabled="isDisabled()"
+					title="Click to withdraw"
+					@click="submitTransaction">Confirm</TheButton>
+			</div>
+		</template>
+	</TheStepper>
 </template>
 
 <script>
 import { fromWei } from "~/utils/bnTools";
-import NuMintLogo from "@/assets/images/logo/logo-numint.svg";
-
 export default {
 	name: "InputWithdraw",
-	components: {
-		NuMintLogo,
-	},
 	props: {
 		maximum: {
 			type: Number,
 			default: 0
 		},
+		action: {
+			type: String,
+			required: true
+		}
 	},
 	data () {
 		return {
@@ -58,13 +99,13 @@ export default {
 				nuMINT: 0
 			},
 			account: "",
+			claimAmount: 23,
+			activeStep: 1,
 			selectedToken: {},
+			errorMessage: ""
 		};
 	},
 	computed: {
-		isMoreThanBalance() {
-			return parseFloat(this.inputValue) > this.maximum;
-		},
 		nuMintBalance() {
 			return this.$store.getters["erc20Store/nuMintBalance"] || 0;
 		},
@@ -114,7 +155,7 @@ export default {
 		partialSummary() {
 			return [
 				{
-					title: "Amount",
+					title: "Amount to Withdraw",
 					val: this.numberWithCommas(parseFloat(this.inputValue).toFixed(2)),
 					currency: "nuMINT",
 					dollar: this.numberWithCommas(this.getDollarValue(this.inputValue, this.tokenPrices.nuMINT).toFixed(2)),
@@ -125,7 +166,7 @@ export default {
 					dollar: this.numberWithCommas(this.getDollarValue(this.feePrice, this.tokenPrices.nuMINT).toFixed(2))
 				},
 				{
-					title: "Total",
+					title: "Total Received",
 					val: `$${this.numberWithCommas(this.totalReceived.toFixed(2))}`,
 				}
 			];
@@ -140,22 +181,43 @@ export default {
 		isDisabled () {
 			return this.inputValue <= 0 || !this.canWithdraw;
 		},
+		selectedTokenChanged(token) {
+			this.selectedToken = token;
+		},
 		submitTransaction() {
 			if (this.account !== "") {
+				this.activeStep = "loading";
 				const _this = this;
-				if (this.inputValue < this.maximum) {
-					this.$store.dispatch("boardroomStore/withdraw", {
+				if (this.action === "stake") {
+					this.$store.dispatch("boardroomStore/stake", {
 						amount: this.inputValue,
-						onConfirm: (txHash) => this.successToast(() => `You have withdrawn ${this.inputValue} nuMINT`, txHash),
-						onReject: (err) => this.failureToast(() => err)
-					}).then(()=>{
+						onConfirm: (txHash) => this.successToast(() => {this.activeStep = 1;}, `You have staked ${this.inputValue} nuMINT`, txHash),
+						onReject: (e) => this.failureToast(() => {this.activeStep = 1;}, e)
+					}).then(() => {
 						_this.$store.dispatch("boardroomStore/updateStatus");
-					}).catch(()=>{});
-				} else {
-					this.$store.dispatch("boardroomStore/claimRewardsAndWithdraw", {
-						amount: this.inputValue,
-						onConfirm: (txHash) => this.successToast(() => `You have claimed ${this.inputValue} nuMINT`, txHash),
-						onReject: (err) => this.failureToast(() => err)
+					});
+				} else if (this.action === "withdraw") {
+					if (this.inputValue < this.maximum) {
+						this.$store.dispatch("boardroomStore/withdraw", {
+							amount: this.inputValue,
+							onConfirm: (txHash) => this.successToast(() => {this.activeStep = 1;}, `You have withdrawn ${this.inputValue} nuMINT`, txHash),
+							onReject: (e) => this.failureToast(() => {this.activeStep = 1;}, e)
+						}).then(()=>{
+							_this.$store.dispatch("boardroomStore/updateStatus");
+						}).catch(()=>{});
+					} else {
+						this.$store.dispatch("boardroomStore/claimRewardsAndWithdraw", {
+							amount: this.inputValue,
+							onConfirm: (txHash) => this.successToast(() => {this.activeStep = 1;}, `You have claimed ${this.inputValue} nuMINT`, txHash),
+							onReject: (e) => this.failureToast(() => {this.activeStep = 1;}, e)
+						}).then(()=>{
+							_this.$store.dispatch("boardroomStore/updateStatus");
+						}).catch(()=>{});
+					}
+				} else if (this.action === "claim") {
+					this.$store.dispatch("boardroomStore/claimReward", {
+						onConfirm: (txHash) => this.successToast(() => {this.activeStep = 1;}, `You have claimed ${this.inputValue} nuMINT`, txHash),
+						onReject: (e) => this.failureToast(() => {this.activeStep = 1;}, e)
 					}).then(()=>{
 						_this.$store.dispatch("boardroomStore/updateStatus");
 					}).catch(()=>{});

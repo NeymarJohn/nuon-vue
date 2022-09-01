@@ -68,16 +68,6 @@
 .data-card--end .btn {
 	align-items: flex-end;
 }
-.data-card--end h3 {
-	font-size: $HEADING_THREE;
-	line-height: $SPACING_45;
-	margin-bottom: 0;
-}
-.data-card--end h3 sup {
-	font-size: $SPACING_14;
-	line-height: $SPACING_20;
-	margin-left: $SPACING_10;
-}
 
 // 2. Data card responsive
 @media screen and (max-width: $SPACING_1440) {
