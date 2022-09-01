@@ -161,15 +161,6 @@ export default {
 			if (!this.totalStaked) return 0;
 			return this.myStake / this.totalStaked * 100;
 		},
-		isStakeModalVisible() {
-			return this.$store.state.modalStore.modalVisible.stakeModal;
-		},
-		isWithdrawModalVisible() {
-			return this.$store.state.modalStore.modalVisible.withdrawModal;
-		},
-		isClaimRewardsModalVisible() {
-			return this.$store.state.modalStore.modalVisible.claimRewardsModal;
-		},
 		filteredProposals() {
 			if (this.filterOption === "All") return this.proposals;
 			return this.proposals.filter(p => p.state === this.firstLetterLowercase(this.filterOption));
@@ -343,10 +334,6 @@ export default {
 		},
 		updateStatus() {
 			return this.$store.dispatch("boardroomStore/updateStatus");
-		},
-		claimReward() {
-			// TODO reward
-			this.setModalVisibility("claimRewardsModal", false);
 		},
 	}
 };
