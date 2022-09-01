@@ -181,7 +181,7 @@ export const getters: GetterTree<Erc20State, Web3State> = {
 		case NUON.symbol:
 			return getters.nuon;
 		case nuMINT.symbol:
-			return getters.hydro;
+			return getters.nuMint;
 		case USDT.symbol:
 			return getters.usdt;
 		case ETH.symbol:

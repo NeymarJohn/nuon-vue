@@ -25,6 +25,12 @@
 			v-if="inputValue > 0 && inputValue != maximum"
 			:values="partialSummary" />
 		<TheButton
+			v-if="!isApproved"
+			size="md"
+			title="Click to stake"
+			@click="approveToken">Approve</TheButton>
+		<TheButton
+			v-else
 			size="md"
 			:disabled="isDisabled()"
 			title="Click to stake"
@@ -36,6 +42,7 @@
 import { fromWei } from "~/utils/bnTools";
 import BusdLogo from "@/assets/images/logo/logo-busd.svg";
 import NuMintLogo from "@/assets/images/logo/logo-numint.svg";
+import { nuMINT } from "~/constants/tokens";
 
 export default {
 	name: "InputStake",
@@ -114,7 +121,10 @@ export default {
 					currency: "nuMINT",
 				}
 			];
-		}
+		},
+		isApproved() {
+			return this.$store.getters["boardroomStore/checkApprovedToken"](nuMINT.symbol);
+		},
 	},
 	mounted() {
 		this.$store.watch((state) => {
@@ -172,6 +182,21 @@ export default {
 		},
 		inputMaxBalance() {
 			this.inputValue = this.maximum;
+		},
+		approveToken() {
+			this.activeStep = "approving";
+			this.$store.dispatch("boardroomStore/approveToken",
+				{
+					tokenSymbol: nuMINT.symbol,
+					onConfirm:  () => {
+						this.successToast(() => "You have confirmed approving token");
+					},
+					onReject: () => {
+					},
+					onCallback: () => {
+						this.successToast(() => "You have approved nuMINT for goven");
+					}
+				});
 		},
 	}
 };
