@@ -1,0 +1,53 @@
+/* #LAYOUT - ACTION
+		1. Action default
+		2. Action tabs
+		3. Action form
+*/
+
+// 1. Action default
+.l-action {
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+}
+.l-action__left,
+.l-action__right {
+	border-radius: $BORDER_RADIUS_16;
+	padding: $SPACING_32;
+}
+.l-action__left {
+	margin-right: $SPACING_24;
+	width: 40%;
+	background-color: $DARK_GREY;
+}
+.l-action__right {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	width: 60%;
+	background-color: $MEDIUM_LIGHT_GREY;
+}
+.l-action__right .currency-card,
+.l-action__right .countdown {
+	width: 50%;
+}
+
+// 2. Action tabs
+.l-action--tabs .l-action__left {
+	padding: 0;
+}
+.l-action--tabs .l-action__left .tabs__header {
+	border-top-left-radius: $SPACING_16;
+	border-top-right-radius: $SPACING_16;
+}
+.l-action--tabs .l-action__left .tabs__body {
+	padding: $SPACING_32;
+}
+
+// 3. Action form
+.l-action--form .l-action__left {
+	width: 60%;
+}
+.l-action--form .l-action__right {
+	width: 40%;
+}

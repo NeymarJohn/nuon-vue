@@ -1,0 +1,41 @@
+/* #COMPONENT - CLAIM WITHDRAW
+		1. Claim withdraw default
+*/
+
+// 1. Claim withdraw default
+.claim-withdraw {
+	background-color: $MEDIUM_GREY;
+	border-radius: $BORDER_RADIUS_8;
+	padding: $SPACING_24;
+	margin-bottom: $SPACING_24;
+}
+.claim-withdraw label {
+	color: $LIGHT_GREY;
+	font-size: $SPACING_14;
+	line-height: $SPACING_20;
+}
+.claim-withdraw__wrapper,
+.claim-withdraw__token,
+.claim-withdraw__title {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+.claim-withdraw__title {
+	justify-content: space-between;
+	margin-bottom: $SPACING_16;
+}
+.claim-withdraw__wrapper {
+	justify-content: space-between;
+}
+.claim-withdraw__token svg {
+	margin-right: $SPACING_8;
+}
+.claim-withdraw__value {
+	text-align: right;
+}
+.claim-withdraw__value sup {
+	font-size: $SPACING_14;
+	line-height: $SPACING_20;
+	margin-left: $SPACING_10;
+}

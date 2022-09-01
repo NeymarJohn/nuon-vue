@@ -1,7 +1,7 @@
 import Vue from "vue";
 import Web3 from "web3";
 import dayjs from "dayjs";
-import { BigNumber } from "bignumber.js";
+import { NUON } from "~/constants/tokens";
 
 Vue.mixin({
 	filters: {
@@ -73,9 +73,10 @@ Vue.mixin({
 			return this.$store.state.transactionStore.search;
 		},
 		computedNuonPrice() {
-			if (!this.nuonPrice) return 0;
-			if (this.nuonPrice < 1) return this.nuonPrice.toFixed(9);
-			if (this.nuonPrice > 1) return this.numberWithCommas(this.nuonPrice.toFixed(2));
+			const nuonPrice = this.tokenPrices[NUON.symbol];
+			if (!nuonPrice) return 0;
+			if (nuonPrice < 1) return nuonPrice.toFixed(9);
+			if (nuonPrice > 1) return this.numberWithCommas(nuonPrice.toFixed(2));
 			return 0;
 		}
 	},
@@ -263,8 +264,5 @@ Vue.mixin({
 		setCookie(key) {
 			this.$cookies.set(key, "true");
 		},
-		getValueWithBN(amount, price) {
-			return new BigNumber(amount).times(price).toString();
-		}
 	},
 });

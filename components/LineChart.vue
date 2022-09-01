@@ -77,9 +77,6 @@ export default {
 						mouseMove: (_event, _chartContext, config) => {
 							this.$emit("mouseOverDataPoint", config.dataPointIndex);
 						},
-						mouseLeave: (_event, _chartContext, _config) => {
-							this.$emit("mouseOverDataPoint", -1);
-						}
 					}
 				},
 				grid: {
