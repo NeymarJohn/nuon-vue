@@ -11,6 +11,11 @@ import boardroomAbi from "./abi/boardroom.json";
 import { fromWei, toWei } from "~/utils/bnTools";
 import { collateralTokens } from "~/constants/tokens";
 
+const DEFAULVALUES = {
+	WETH: 0, 
+	USDT: 0
+};
+
 type StateType = {
 	allowance: any,
 	userCollateralAmount: number,
@@ -61,11 +66,11 @@ export const state = (): StateType => ({
 		WETH: vaultRelayerNativeAbi,
 		USDT: vaultRelayerUsdtAbi
 	},
-	mintedAmount: {},   // {WETH: 0 USDT: 0}  mintedNuon  for all collateral tokens for user
-	lockedAmount: {},   // {WETH: 0 USDT: 0}  locked collateral  for all collateral tokens for user
-	collateralRatio: {},  // {WETH: 0 USDT: 0} collateral Raito for all collateral tokens for user
-	collateralPrices:{},  // {WETH: 0 USDT: 0} collateral price for all collateral tokens
-	lpValueOfUser: {},  // {WETH: 0 USDT: 0} collateral price for all collateral tokens
+	mintedAmount: {...DEFAULVALUES},   // {WETH: 0 USDT: 0}  mintedNuon  for all collateral tokens for user
+	lockedAmount: {...DEFAULVALUES},   // {WETH: 0 USDT: 0}  locked collateral  for all collateral tokens for user
+	collateralRatio: {...DEFAULVALUES},  // {WETH: 0 USDT: 0} collateral Raito for all collateral tokens for user
+	collateralPrices:{...DEFAULVALUES},  // {WETH: 0 USDT: 0} collateral price for all collateral tokens
+	lpValueOfUser: {...DEFAULVALUES},  // {WETH: 0 USDT: 0} collateral price for all collateral tokens
 });
 
 export type BoardroomState = ReturnType<typeof state>;
@@ -228,7 +233,6 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 		const myCollateralAmount = await getters.getUserCollateralAmount(accountAddress);
 		commit("setUserCollateralAmount", myCollateralAmount);
 
-		
 		const chubAddr = rootGetters["addressStore/collateralHubs"][state.currentCollateralToken];
 		const mintingFee = await getters.getMintingFee(chubAddr);
 		commit("setMintingFee",  fromWei(mintingFee));
@@ -238,7 +242,7 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 		for (let i = 0; i < collateralTokens.length; i ++ ) {
 			dispatch("updateCollateralTokenStatus", collateralTokens[i].symbol);
 		}
-		
+
 		dispatch("getCollateralPrices");
 		setInterval(() => {
 			dispatch("getTargetPeg");
@@ -274,12 +278,10 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 	changeCollateral(ctx, token) {
 		ctx.commit("setCollateralToken", token);
 	},
-
 	async updateCollateralTokenStatus(ctx: any, token: string) {
-		const web3 = ctx.rootState.web3Store.instance();
 		const addr = ctx.rootGetters["addressStore/collateralHubs"][token];
 		const abi = ctx.state.abis[token];
-		const chubContract =  new web3.eth.Contract(abi, addr);
+		const chubContract =  new ctx.getters.web3Instance.eth.Contract(abi, addr);
 		const accountAddress = ctx.rootState.web3Store.account;
 
 		// Update minted Nuon
@@ -299,7 +301,6 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 		ctx.commit("setLpValueOfUser", {token, value: Number(lpValueOfUser)});
 
 	},
-	
 	async getTargetPeg(ctx) {
 		const result = await ctx.getters.getTruflationPeg();
 		ctx.commit("setTargetPeg", Number(fromWei(result)));
@@ -321,32 +322,31 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 };
 
 export const getters: GetterTree<BoardroomState, Web3State> = {
-	collateralHubContract: (state: any, _getters: any, store: any, rootGetters: any) => {
-		const web3 = store.web3Store.instance();
+	web3Instance: (_state: any, _getters: any, _store: any, rootGetters: any) => {
+		const web3 = rootGetters["web3Store/instance"]();
+		return web3;
+	},
+	collateralHubContract: (state: any, _getters: any, _store: any, rootGetters: any) => {
 		const addr = rootGetters["addressStore/collateralHubs"][state.currentCollateralToken];
 		const abi = state.abis[state.currentCollateralToken];
-		return new web3.eth.Contract(abi, addr);
+		return new _getters.web3Instance.eth.Contract(abi, addr);
 	},
-	boardroomContract: (_state: any, _getters: any, store: any, rootGetters) => {
-		const web3 = store.web3Store.instance();
+	boardroomContract: (_state: any, _getters: any, _store: any, rootGetters) => {
 		const addr = rootGetters["addressStore/addresses"].boardroom;
-		return new web3.eth.Contract(boardroomAbi, addr);
+		return new _getters.web3Instance.eth.Contract(boardroomAbi, addr);
 	},
-	nuonControllerContract:  (_state: any, _getters: any, store: any, rootGetters: any) => {
-		const web3 = store.web3Store.instance();
+	nuonControllerContract:  (_state: any, _getters: any, _store: any, rootGetters: any) => {
 		const addr = rootGetters["addressStore/addresses"].nuonController;
-		return new web3.eth.Contract(nuonControllerAbi, addr);
+		return new _getters.web3Instance.eth.Contract(nuonControllerAbi, addr);
 	},
-	truflationContract: (_state: any, _getters: any, store: any, rootGetters) => {
+	truflationContract: (_state: any, _getters: any, _store: any, rootGetters) => {
 		const truffleAddress = rootGetters["addressStore/addresses"].truflation;
-		const web3 = store.web3Store.instance();
-		return new web3.eth.Contract(truflationAbi, truffleAddress);
+		return new _getters.web3Instance.eth.Contract(truflationAbi, truffleAddress);
 	},
-	vaultRelayerContract: (state: any, _getters: any, store: any, rootGetters: any) => {
-		const web3 = store.web3Store.instance();
+	vaultRelayerContract: (state: any, _getters: any, _store: any, rootGetters: any) => {
 		const addr = rootGetters["addressStore/vaultRelayers"][state.currentCollateralToken];
 		const abi = state.vaultRelayerAbis[state.currentCollateralToken];
-		return new web3.eth.Contract(abi, addr);
+		return new _getters.web3Instance.eth.Contract(abi, addr);
 	},
 	checkApprovedToken: (state:any) => (tokenName: string):boolean => {
 		return state.allowance[tokenName] > 0;
