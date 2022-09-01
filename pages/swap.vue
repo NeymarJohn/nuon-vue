@@ -19,25 +19,7 @@
 						:disabled-tokens="[output.token]"
 						:default-token="input.token"
 						@selected-token="selectInputToken">
-						<div class="input">
-							<div class="input__container">
-								<input
-									v-model="input.value"
-									placeholder="Enter amount"
-									type="number"
-									min="0"
-									max="79"
-									autocomplete="off"
-									autocorrect="off"
-									spellcheck="false"
-									inputmode="decimal"
-									@keyup="onInputKeyUp('input')" />
-								<TheButton
-									size="sm"
-									title="Click to input your max balance"
-									@click="inputMaxBalance">Max</TheButton>
-							</div>
-						</div>
+						<InputMax v-model="input.value" :maximum="tokenBalances[input.token]" @click="inputMaxBalance" />
 						<LayoutFlex direction="row-justify-end">
 							<p class="u-mb-0 u-font-size-14">~ ${{ getPrice(input.token, input.value) | toFixed | numberWithCommas }}</p>
 						</LayoutFlex>
