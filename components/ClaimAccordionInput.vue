@@ -1,5 +1,5 @@
 <template>
-	<TheStepper :active-step="activeStep" :steps="['Token', 'Confirm']" :stepper="stepper">
+	<TheStepper :active-step="activeStep" :steps="['Input', 'Confirm']">
 		<template #step-one>
 			<div class="accordion accordion--claim" :class="{ active: isActive }">
 				<LayoutFlex direction="row-center-space-between">
@@ -9,31 +9,51 @@
 						title="Click to open token list" @click="triggerAccordion">
 						<img :src="require(`~/assets/images/tokens/${selected.icon}`)" alt="token logo">
 						<div class="accordion__token">
-							<h4>{{ selected.symbol }}</h4>
+							<h2>{{ selected.symbol }}</h2>
 							<p>{{ selected.name }}</p>
 						</div>
 						<ChevronDownIcon v-if="!isActive" />
 						<ChevronUpIcon v-else />
 					</LayoutFlex>
-					<DataCard align="end">
-						<h3>{{ numberWithCommas(claimBalance.toFixed(2)) }}<sup>{{ selected.symbol }}</sup></h3>
-						<h5>~ ${{ numberWithCommas(getDollarValue(claimBalance, tokenPrice).toFixed(2)) }}</h5>
+					<DataCard align="end" class="u-half-width">
+						<p v-if="token">Available {{token.symbol}} tokens: {{ token.balance | toFixed | numberWithCommas }}</p>
+						<div class="input">
+							<div class="input__container">
+								<input
+									v-model="inputValue"
+									placeholder="0.0"
+									type="number"
+									min="0"
+									max="79"
+									autocomplete="off"
+									autocorrect="off"
+									spellcheck="false"
+									inputmode="decimal" />
+								<TheButton
+									:disabled="isMaxInputDisabled(token.balance)"
+									size="sm"
+									title="Click to input your max balance"
+									@click="inputMaxBalance">Max</TheButton>
+							</div>
+						</div>
+						<h5 v-if="token">~ ${{ numberWithCommas(getDollarValue(inputValue, tokenPrices[token.symbol]).toFixed(2)) }}</h5>
 					</DataCard>
 				</LayoutFlex>
+				<p v-if="isMoreThanBalance" class="u-is-warning u-mb-0 u-text-right">Insufficient balance.</p>
 				<div class="accordion__body">
 					<div class="accordion__filter">
 						<input ref="searchtoken" v-model="search" type="text" placeholder="Search for your token" autocomplete="off">
 					</div>
 					<div class="accordion__tokens">
-						<div v-for="(token, index) in filteredTokens" :key="index" class="token" title="Click to select token" @click="changeToken(token)">
+						<div v-for="(t, index) in filteredTokens" :key="index" class="token" title="Click to select token" @click="changeToken(t)">
 							<div class="token__wrapper">
-								<img :src="require(`~/assets/images/tokens/${token.icon}`)" :alt="`${token.name} logo`">
+								<img :src="require(`~/assets/images/tokens/${t.icon}`)" :alt="`${t.name} logo`">
 								<div class="token__body">
-									<h4>{{ token.symbol }}</h4>
-									<h5>{{ token.name }}</h5>
+									<h4>{{ t.symbol }}</h4>
+									<h5>{{ t.name }}</h5>
 								</div>
 							</div>
-							<h5>~ ${{ numberWithCommas(getDollarValue(claimBalance, tokenPrice).toFixed(2)) }}</h5>
+							<h5>~ ${{ numberWithCommas(getDollarValue(inputValue, t.price).toFixed(2)) }}</h5>
 						</div>
 						<div v-if="filteredTokens.length <= 0" class="accordion__results">
 							No results found.
@@ -46,22 +66,32 @@
 				class="u-full-width"
 				size="lg"
 				title="Click to go next"
+				:disabled="!canClaimRewards"
 				@click="activeStep = 2">
 				Next
 			</TheButton>
 		</template>
 		<template #step-two>
 			<TransactionSummary :values="summary" />
+			<div v-if="inputValue > 0" class="modal__info--lower">
+				<h4>Days before unstake: {{ epoch }} Days</h4>
+				<p>Withdrawing the staked token partially will reset the unstaked window to another 14 days.</p>
+			</div>
 			<div class="transaction-input__buttons">
 				<TheButton
+					class="btn btn--lg btn--back"
 					size="lg"
 					title="Click to go back"
-					class="btn--back"
 					@click="activeStep = 1">Back</TheButton>
 				<TheButton
+					class="btn btn--lg"
 					size="lg"
 					title="Click to confirm"
-					@click="submitTransaction">Confirm</TheButton>
+					:disabled="!canClaimRewards || isPending"
+					@click="submitTransaction">
+					<span v-if="isPending">Pending...</span>
+					<span v-else >Confirm</span>
+				</TheButton>
 			</div>
 		</template>
 	</TheStepper>
@@ -71,18 +101,18 @@
 import ChevronDownIcon from "@/assets/images/svg/svg-chevron-down.svg";
 import ChevronUpIcon from "@/assets/images/svg/svg-chevron-up.svg";
 import { fromWei } from "~/utils/bnTools";
-import { mainTokens, nuMINT } from "~/constants/tokens";
+import { nuMINT, mainTokens } from "~/constants/tokens";
 
 export default {
-	name: "ClaimAccordion",
+	name: "ClaimAccordionInput",
 	components: {
 		ChevronDownIcon,
 		ChevronUpIcon,
 	},
 	props: {
-		from: {
-			type: String,
-			default: ""  // "boardroom"
+		token: {
+			type: Object,
+			default: () => ({symbol: nuMINT.symbol, price: 0, balance: 0})
 		},
 		stepper: {
 			type: Boolean,
@@ -92,11 +122,12 @@ export default {
 	},
 	data () {
 		return {
-			tokenPrice: 0,
 			isActive: false,
+			isPending: false,
+			inputValue: 0,
 			search: "",
 			selected: {
-				name: "nuMINT Token",
+				name: "nuMINT",
 				symbol: "nuMINT",
 				icon: "nuMINT.png"
 			},
@@ -111,6 +142,9 @@ export default {
 				return filterTokenByName || filterTokenBySymbol;
 			});
 		},
+		canClaimRewards() {
+			return this.$store.state.boardroomStore.canClaimRewards;
+		},
 		claimFee() {
 			return this.$store.state.boardroomStore.claimFee;
 		},
@@ -118,10 +152,10 @@ export default {
 			return this.claimFee * this.claimBalance / 100 || 0;
 		},
 		claimBalance() {
-			return this.rewardFromBoardroom;
-		},
-		rewardFromBoardroom() {
 			return parseFloat(fromWei(this.$store.state.boardroomStore.earned));
+		},
+		isMoreThanBalance() {
+			return this.inputValue > this.token.balance;
 		},
 		summary() {
 			return [
@@ -129,23 +163,19 @@ export default {
 					title: "Amount to Claim",
 					val: this.claimBalance,
 					currency: this.selected.symbol,
-					dollar: this.claimBalance * this.tokenPrice
-				},
-				{
-					title: "Claim Ratio",
-					val: `${this.claimFee || 0}%`,
+					dollar: this.claimBalance * this.tokenPrices.nuMINT
 				},
 				{
 					title: "Fee",
 					val: `${this.claimFeeToken}`,
 					currency: this.selected.symbol,
-					dollar: this.numberWithCommas(this.getDollarValue(this.claimFeeToken , this.tokenPrice).toFixed(2))
+					dollar: this.numberWithCommas(this.getDollarValue(this.claimFeeToken , this.tokenPrices.nuMINT).toFixed(2))
 				},
 				{
 					title: "Total Received",
 					val: this.claimBalance - this.claimFeeToken,
 					currency: this.selected.symbol,
-					dollar: this.numberWithCommas(this.getDollarValue(this.claimBalance - this.claimFeeToken , this.tokenPrice).toFixed(2))
+					dollar: this.numberWithCommas(this.getDollarValue(this.claimBalance - this.claimFeeToken , this.tokenPrices.nuMINT).toFixed(2))
 				},
 			];
 		},
@@ -153,8 +183,7 @@ export default {
 			return mainTokens;
 		}
 	},
-	async mounted() {
-		await this.getTokenPrice(nuMINT.symbol); // Get nuMINT token price
+	mounted() {
 		this.$store.commit("rootStore/setIsLoaded", true);
 		window.addEventListener("click", (e) => {
 			if (!this.$el.contains(e.target)){
@@ -169,21 +198,22 @@ export default {
 		},
 		changeToken(token) {
 			this.$emit("selected-token", token);
-			this.selected = { ...token };
+			this.selected = {...token};
 			this.isActive = !this.isActive;
-			this.getTokenPrice(token.symbol);
 		},
-	  getTokenPrice(tokenSymbol) {
-			this.tokenPrice = this.tokenPrices[tokenSymbol] || 0;
+		inputMaxBalance() {
+			this.inputValue = parseFloat(this.token.balance);
 		},
 		submitTransaction() {
+			this.activeStep = "loading";
 			this.$store.dispatch("boardroomStore/claimReward", {
 				onConfirm: () =>{
 					this.isPending = true;
+					this.activeStep = 1;
 				},
-				onReject: () =>{
+				onReject: (err) =>{
 					this.isPending = false;
-					this.failureToast(() => {}, "Transaction is failed!");
+					this.failureToast(() => {this.activeStep = 2;}, err);
 				}
 			}).then((txHash) => {
 				this.isPending = false;

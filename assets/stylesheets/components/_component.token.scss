@@ -10,62 +10,36 @@
 	align-items: center;
 	justify-content: space-between;
 	cursor: pointer;
-	padding: $SPACING_16;
+	padding: $SPACING_12;
 	transition: $TRANSITION_ALL;
 }
-.token.is-disabled {
-	cursor: not-allowed;
-	opacity: 0.4;
-}
-.token.is-disabled:hover {
-	background-color: $TRANSPARENT;
-	color: inherit;
-}
-.token.is-disabled:hover h4 {
-	color: $WHITE;
-}
-.token.is-disabled:hover h5 {
-	color: $LIGHT_GREY;
-}
-.token:first-child {
-	border-top-left-radius: $SPACING_8;
-	border-top-right-radius: $SPACING_8;
-}
-.token:last-child {
-	border-bottom-left-radius: $SPACING_8;
-	border-bottom-right-radius: $SPACING_8;
-}
 .token:hover {
-	background: $LIME;
-}
-.token:hover h4,
-.token:hover h5 {
-	color: $DARK_GREY;
+	background: $DARK_GREY;
+	border-radius: $BORDER_RADIUS_8;
 }
 .token__wrapper {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
 }
+.token__wrapper .disabled {
+	opacity: 0.4;
+}
 .token img {
-	width: $SPACING_24;
-	height: $SPACING_24;
+	width: $SPACING_36;
+	height: $SPACING_36;
 	border-radius: $BORDER_RADIUS_CIRCLE;
-	margin-right: $SPACING_8;
+	margin-right: $SPACING_16;
 }
-.token__body h4,
-.token__body h5 {
-	transition: $TRANSITION_ALL;
+.token h3,
+.token p,
+.token h5 {
+	color: $WHITE;
 }
-.token__body h4 {
-	font-size: $SPACING_14;
-	line-height: $SPACING_15;
-}
-.token__body h5 {
-	font-size: $SPACING_12;
-	line-height: $SPACING_18;
-	color: $LIGHT_GREY;
-	text-transform: capitalize;
+.token p {
+	font-size: $HEADING_FIVE;
+	line-height: $SPACING_24;
+	margin-bottom: 0;
 }
 
 // 2. Token responsive

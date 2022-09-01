@@ -2,7 +2,7 @@
 	<div>
 		<LayoutContainer>
 			<PageTitle class="u-mb-48" data-v-step="1">
-				<h4>Govern</h4>
+				<h4>Boardroom</h4>
 				<LayoutFlex direction="row-center">
 					<TheButton
 						size="icon"
@@ -240,7 +240,7 @@ export default {
 	},
 	head() {
 		return {
-			title: `${this.pageTitle} - Govern | NUON`
+			title: `${this.pageTitle} - Boardroom | NUON`
 		};
 	},
 	computed: {

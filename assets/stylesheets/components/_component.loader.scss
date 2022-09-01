@@ -17,8 +17,7 @@
 		16. Loader chart
 		17. Loader tab
 		18. Loader account balance
-		19. Loader label
-		20. Loader responsive
+		19. Loader responsive
 */
 
 // 1. Loader default
@@ -187,13 +186,7 @@
 	max-width: $SPACING_190;
 }
 
-// 19. Loader label
-.loader--label {
-	height: $SPACING_24;
-	width: $SPACING_220;
-}
-
-// 20. Loader responsive
+// 19. Loader responsive
 @media screen and (max-width: $SPACING_1440) {
 	.loader--h1 {
 		width: $SPACING_190;
