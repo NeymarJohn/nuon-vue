@@ -35,31 +35,30 @@
 }
 .mx-datepicker {
 	width: 100% !important;
-	margin-bottom: $SPACING_8;
+	margin-bottom: $SPACING_24;
 }
+.mx-input,
 .mx-input::placeholder {
-	color: $LIGHT_GREY !important;
-	font-size: $SPACING_14 !important;
-}
-.mx-input {
-	font-size: $BODY_TEXT !important;
+	font-size: $HEADING_FIVE !important;
 	line-height: $SPACING_24 !important;
 	color: $DARK_GREY !important;
-	background: $TRANSPARENT !important;
+}
+.mx-input {
+	background: $WHITE !important;
 	border-radius: $BORDER_RADIUS_8;
-	height: $SPACING_50 !important;
-	padding: $SPACING_12 $SPACING_8 !important;
+	height: $SPACING_56 !important;
+	padding: $SPACING_16 $SPACING_24 !important;
 }
 .mx-input:hover {
 	cursor: pointer;
 }
 .mx-datepicker i {
-	right: $SPACING_8;
-	color: $LIGHT_GREY;
+	right: $SPACING_24;
+	color: $DARK_GREY;
 }
 .mx-datepicker svg {
-	height: $SPACING_16 !important;
-	width: $SPACING_16 !important;
+	height: $SPACING_24 !important;
+	width: $SPACING_24 !important;
 }
 .mx-datepicker-main,
 .mx-calendar-time {

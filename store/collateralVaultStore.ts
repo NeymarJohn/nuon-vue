@@ -228,6 +228,7 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 		const myCollateralAmount = await getters.getUserCollateralAmount(accountAddress);
 		commit("setUserCollateralAmount", myCollateralAmount);
 
+		
 		const chubAddr = rootGetters["addressStore/collateralHubs"][state.currentCollateralToken];
 		const mintingFee = await getters.getMintingFee(chubAddr);
 		commit("setMintingFee",  fromWei(mintingFee));
@@ -237,7 +238,7 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 		for (let i = 0; i < collateralTokens.length; i ++ ) {
 			dispatch("updateCollateralTokenStatus", collateralTokens[i].symbol);
 		}
-
+		
 		dispatch("getCollateralPrices");
 		setInterval(() => {
 			dispatch("getTargetPeg");
@@ -273,6 +274,7 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 	changeCollateral(ctx, token) {
 		ctx.commit("setCollateralToken", token);
 	},
+
 	async updateCollateralTokenStatus(ctx: any, token: string) {
 		const web3 = ctx.rootState.web3Store.instance();
 		const addr = ctx.rootGetters["addressStore/collateralHubs"][token];
@@ -282,21 +284,22 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 
 		// Update minted Nuon
 		const mintedAmount = fromWei(await chubContract.methods.viewUserMintedAmount(accountAddress).call());
-		ctx.commit("setMintedAmount",  {token, amount: mintedAmount});
+		ctx.commit("setMintedAmount",  {token, amount: Number(mintedAmount)});
 
 		// update locked token amount
 		const lockedAmount = fromWei(await chubContract.methods.viewUserCollateralAmount(accountAddress).call(),ctx.rootState.erc20Store.decimals[token]);
-		ctx.commit("setLockedAmount",  {token, amount: lockedAmount});
+		ctx.commit("setLockedAmount",  {token, amount: Number(lockedAmount)});
 
 		// update collateral ratio
 		const collateralRatio = fromWei(await chubContract.methods.getUserCollateralRatioInPercent(accountAddress).call());
-		ctx.commit("setCollateralRatio",  {token, value: collateralRatio});
+		ctx.commit("setCollateralRatio",  {token, value: Number(collateralRatio)});
 
 		// Update getLPValueOfUser
 		const lpValueOfUser = fromWei(await chubContract.methods.getLPValueOfUser(accountAddress).call(), ctx.rootState.erc20Store.decimals[token]);
-		ctx.commit("setLpValueOfUser", {token, value: lpValueOfUser});
+		ctx.commit("setLpValueOfUser", {token, value: Number(lpValueOfUser)});
 
 	},
+	
 	async getTargetPeg(ctx) {
 		const result = await ctx.getters.getTruflationPeg();
 		ctx.commit("setTargetPeg", Number(fromWei(result)));

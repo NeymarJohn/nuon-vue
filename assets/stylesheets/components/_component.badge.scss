@@ -85,6 +85,8 @@
 	padding: $SPACING_1 $SPACING_16;
 	border-radius: $BORDER_RADIUS_24;
 	border: $SPACING_1 solid;
+	border-color: $LIGHT_GREY;
+	color: $LIGHT_GREY;
 }
 .badge--price-up {
 	border-color: $SUCCESS;

@@ -5,7 +5,7 @@
 				<h4>Dashboard</h4>
 				<h1>My Portfolio</h1>
 			</PageTitle>
-			<PriceIndicator />
+			<PriceIndicator :nuon-price="tokenPrices.NUON" :truflation-peg="truflationPeg" />
 		</LayoutFlex>
 		<h3 class="u-mb-24">Account Health</h3>
 		<div class="l-collateral l-collateral--distribution">
@@ -40,7 +40,8 @@
 						</ComponentLoader>
 					</label>
 					<ComponentLoader component="h3" :loaded="balanceLoaded">
-						<h3>${{ (graphSelectionTVL || totalValue) | toFixed | numberWithCommas }}</h3>
+						<h3 v-if="selectedCollateralToggleBtn === 0">${{ (graphSelectionTVL || totalValue) | toFixed | numberWithCommas }}</h3>
+						<h3 v-else>${{ totalValue | toFixed | numberWithCommas }}</h3>
 					</ComponentLoader>
 				</div>
 				<div class="l-collateral__toggle-btn" :class="{'is-active': selectedCollateralToggleBtn === 1}" @click="handleCollaterlToggleBtn(1)">
@@ -52,7 +53,8 @@
 						</ComponentLoader>
 					</label>
 					<ComponentLoader component="h3" :loaded="balanceLoaded">
-						<h3>${{ (graphSelectionMintedNuon || totalMintedNuon) | toFixed | numberWithCommas }}</h3>
+						<h3 v-if="selectedCollateralToggleBtn === 1">${{ (graphSelectionMintedNuon || totalMintedNuon) | toFixed | numberWithCommas }}</h3>
+						<h3 v-else>${{ totalMintedNuon | toFixed | numberWithCommas }}</h3>
 					</ComponentLoader>
 				</div>
 			</div>
@@ -113,6 +115,7 @@
 
 <script>
 import dayjs from "dayjs";
+import { fromWei } from "~/utils/bnTools";
 import { getUserTVLDayData } from "~/services/theGraph";
 import { NUON, USDT, WETH } from "~/constants/tokens";
 
@@ -140,6 +143,7 @@ export default {
 			// 	onFinish: () => this.setCookie("skip_my_dashboard_tour")
 			// },
 			mobileView: false,
+			truflationPeg: 0,
 			collateralRatioArr: [],
 			graphSelectionTVL: "",
 			graphSelectionMintedNuon: "",
@@ -338,6 +342,7 @@ export default {
 					const collateral = collaterals[i];
 					await this.$store.dispatch("collateralVaultStore/changeCollateral", collateral);
 				}
+				this.getTruflationPeg();
 				this.getDiffMinted();
 			} catch (e) {
 			} finally {
@@ -346,6 +351,15 @@ export default {
 				}, 500);
 			}
 			this.getMinimumDepositAmount();
+		},
+		async getTruflationPeg() {
+			let result = 0;
+			try {
+				result = parseFloat(fromWei(await this.$store.getters["collateralVaultStore/getTruflationPeg"]()));
+			} catch (e) {
+			} finally {
+				this.truflationPeg = result;
+			}
 		},
 		getDiffMinted() {
 			getUserTVLDayData({user: this.connectedAccount}).then(res => {
@@ -371,8 +385,11 @@ export default {
 				idx = this.yAxisData[0]?.data?.length - 1;
 				this.graphSelectionDuraton = "";
 			}
-			this.graphSelectionTVL = this.yAxisData[0]?.data[idx];
-			this.graphSelectionMintedNuon = this.yAxisData[1]?.data[idx];
+			if (this.selectedCollateralToggleBtn === 0) {
+				this.graphSelectionTVL = this.yAxisData[0]?.data[idx];
+			} else {
+				this.graphSelectionMintedNuon = this.yAxisData[0]?.data[idx];
+			}
 			if (e === -1) return;
 			const startDate = dayjs(this.xAxisData[idx]).format("MMM D YYYY");
 			if (this.selectedPeriod === 0) {

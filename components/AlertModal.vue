@@ -18,6 +18,7 @@
 </template>
 
 <script>
+import Web3 from "web3";
 import { DEFAULT_CHAIN_ID } from "~/store/web3Store.ts";
 
 export default {
@@ -58,18 +59,32 @@ export default {
 	},
 	methods: {
 		async switchNetwork() {
-			try {
-				const web3 = this.$store.getters["web3Store/instance"]();
-				await web3.currentProvider.request({
-					method: "wallet_switchEthereumChain",
-					params: [{ chainId: web3.utils.toHex(DEFAULT_CHAIN_ID)}],
-				});
+			const callbackAfterSuccess  = () => {
 				this.error = "";
 				this.$store.commit("modalStore/setModalVisibility", {name: "alertModal", visibility: false});
 				this.$store.commit("modalStore/setModalInfo",{name: "alertModal", info: {title:"", message: "", cta: ""}});
+			};
+			try {
+				await window.ethereum.request({
+					method: "wallet_switchEthereumChain",
+					params: [{ chainId: Web3.utils.toHex(DEFAULT_CHAIN_ID)}],
+				});
+				callbackAfterSuccess();
 			} catch (e) {
 				if (e.code === 4902) {
-					this.error = "This network is not available in your metamask. Please add it";
+					try {
+						await window.ethereum.request({
+							method: "wallet_addEthereumChain",
+							params: [{ 
+								chainId: Web3.utils.toHex(DEFAULT_CHAIN_ID),
+								chainName: "TK",
+								rpcUrls: ["https://eth-private-testnet-poa.hydrogenx.tk/"]
+							}],
+						});
+						callbackAfterSuccess();
+					} catch (addError) {
+						this.error = "This network is not available in your metamask. Please add it by manulally";
+					}
 				}
 			}
 		},
