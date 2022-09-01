@@ -10,25 +10,7 @@
 					<BusdLogo />
 					<h5>BUSD</h5>
 				</div>
-				<div class="input">
-					<div class="input__container">
-						<input
-							v-model="inputValue"
-							placeholder="0.0"
-							type="number"
-							min="0"
-							max="79"
-							autocomplete="off"
-							autocorrect="off"
-							spellcheck="false"
-							inputmode="decimal" />
-						<TheButton
-							:disabled="isMaxInputDisabled(token)"
-							size="sm"
-							title="Click to input your max balance"
-							@click="inputMaxBalance">Max</TheButton>
-					</div>
-				</div>
+				<InputMax v-model="inputValue" :click="inputMaxBalance" :maximum="token" />
 			</div>
 		</div>
 		<p v-if="isMoreThanBalance" class="u-is-warning">Insufficient balance.</p>
