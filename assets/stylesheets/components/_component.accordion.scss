@@ -1,48 +1,72 @@
 /* #COMPONENT - ACCORDION
 		1. Accordion default
-		2. Accordion claim
-		3. Accordion swap
-		4. Accordion responsive
 */
 
 // 1. Accordion default
 .accordion {
 	background: $MEDIUM_LIGHT_GREY;
 	border-radius: $BORDER_RADIUS_24;
-	padding: $SPACING_32;
 	position: relative;
 	width: 100%;
+	padding: 0;
+	border: 0;
 }
 .accordion h5 {
 	margin-bottom: 0;
 }
+.accordion .data-card {
+	width: 55%;
+}
+.accordion__container {
+	padding: $SPACING_24;
+	background: $MEDIUM_GREY;
+	border-radius: $BORDER_RADIUS_8;
+	position: relative;
+}
+.accordion__container label {
+	display: block;
+	color: $LIGHT_GREY;
+	font-size: $SPACING_14;
+	line-height: $SPACING_20;
+	margin-bottom: $SPACING_16;
+}
+.accordion__container .accordion {
+	background: $TRANSPARENT;
+}
 .accordion__header {
+	transition: $TRANSITION_ALL;
 	cursor: pointer;
+	padding: $SPACING_12 $SPACING_16;
+	border-radius: $BORDER_RADIUS_8;
+}
+.accordion__header:hover {
+	background-color: $HIGHLIGHT_GREY;
 }
 .accordion__header img {
-	height: $SPACING_48;
-	width: $SPACING_48;
+	height: $SPACING_24;
+	width: $SPACING_24;
 	border-radius: $BORDER_RADIUS_CIRCLE;
-	margin-right: $SPACING_16;
+	margin-right: $SPACING_8;
 }
 .accordion__header svg {
 	margin-left: $SPACING_16;
-	fill: $LIME;
 }
-.accordion__token h4 {
-	color: $LIME;
+.accordion__header svg path {
+	fill: $WHITE;
 }
 .accordion__token p {
 	color: $LIGHT_GREY;
 	margin-bottom: 0;
 }
-.modal__info .accordion__token p {
-	color: $DARK_GREY;
-	font-size: $BODY_TEXT;
-}
 .accordion__body {
 	display: none;
 	background: $MEDIUM_LIGHT_GREY;
+	z-index: 9;
+	position: absolute;
+	top: 80%;
+	width: $SPACING_400;
+	padding: $SPACING_24;
+	border-radius: $BORDER_RADIUS_8;
 }
 .accordion.active .accordion__body {
 	display: block;
@@ -57,7 +81,7 @@
 	margin-bottom: $SPACING_16;
 }
 .accordion__filter:before {
-	content: url("data:image/svg+xml,%3Csvg width='18' height='18' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M11.385 12.446a6.75 6.75 0 1 1 1.06-1.06l5.156 5.155a.75.75 0 0 1-1.06 1.06l-5.156-5.155Zm-7.926-1.562a5.25 5.25 0 1 1 7.43-.004l-.005.004-.005.005a5.25 5.25 0 0 1-7.42-.005Z' fill='%23000'/%3E%3C/svg%3E");
+	content: url("data:image/svg+xml,%3Csvg width='14' height='14' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M8.789 9.585a5.063 5.063 0 1 1 .796-.796l3.866 3.867a.563.563 0 0 1-.795.795L8.789 9.585ZM2.845 8.413a3.938 3.938 0 1 1 5.568 0l-.003.004a3.938 3.938 0 0 1-5.565-.004Z' fill='%23B7B7B7'/%3E%3C/svg%3E");
 	position: absolute;
 	top: 50%;
 	left: $SPACING_16;
@@ -65,129 +89,27 @@
 	line-height: normal;
 	z-index: 1;
 }
+.accordion__filter input,
+.accordion__filter input::placeholder {
+	color: $LIGHT_GREY;
+}
 .accordion__filter input {
 	position: relative;
 	display: flex;
-	padding: $SPACING_16 $SPACING_56;
+	padding: $SPACING_8 $SPACING_46;
 	align-items: center;
-	background: $WHITE;
+	background: $MEDIUM_GREY;
 	border-radius: $BORDER_RADIUS_32;
-	color: $DARK_GREY;
-	font-size: $BODY_TEXT;
-	line-height: $SPACING_28;
+	font-size: $SPACING_14;
+	line-height: $SPACING_24;
+}
+.accordion__tokens {
+	background: $MEDIUM_GREY;
+	border-radius: $BORDER_RADIUS_8;
 }
 .accordion__results {
 	text-align: center;
-	color: $LIME;
+	color: $WHITE;
 	padding: $SPACING_16;
-	font-size: $BODY_TEXT;
-}
-.accordion__tokens {
-	max-height: $SPACING_225;
-	overflow-y: scroll;
-	padding: 0 $SPACING_16;
-}
-.accordion__tokens::-webkit-scrollbar {
-	background: $MEDIUM_GREY;
-	width: $SPACING_8;
-	border-radius: $BORDER_RADIUS_8;
-}
-.accordion__tokens::-webkit-scrollbar-thumb {
-	background: $LIME;
-	height: $SPACING_16;
-	border-radius: $BORDER_RADIUS_8;
-}
-
-// 2. Accordion claim
-.accordion.accordion--claim {
-	border-radius: $BORDER_RADIUS_8;
-}
-.accordion--claim.active {
-	border-bottom-left-radius: 0;
-	border-bottom-right-radius: 0;
-}
-.accordion--claim .accordion__body {
-	z-index: 9;
-	position: absolute;
-	top: 100%;
-	left: 0;
-	right: 0;
-	padding: $SPACING_16 $SPACING_32;
-	border-left: $SPACING_1 solid $MEDIUM_LIGHT_GREY;
-	border-right: $SPACING_1 solid $MEDIUM_LIGHT_GREY;
-	border-bottom: $SPACING_1 solid $MEDIUM_LIGHT_GREY;
-	border-bottom-left-radius: $BORDER_RADIUS_8;
-	border-bottom-right-radius: $BORDER_RADIUS_8;
-}
-.accordion--claim .input__container {
-	background: $WHITE;
-}
-
-// 3. Accordion swap
-.accordion--swap {
-	padding: 0;
-	border: 0;
-}
-.accordion--swap .input__container {
-	background: $WHITE;
-}
-.accordion--swap .data-card {
-	width: 50%;
-}
-.accordion--swap .accordion__body {
-	z-index: 9;
-	position: absolute;
-	top: 100%;
-	left: -$SPACING_32;
-	right: -$SPACING_32;
-	padding: $SPACING_32;
-	border-left: $SPACING_1 solid $MEDIUM_LIGHT_GREY;
-	border-right: $SPACING_1 solid $MEDIUM_LIGHT_GREY;
-	border-bottom: $SPACING_1 solid $MEDIUM_LIGHT_GREY;
-	border-bottom-left-radius: $BORDER_RADIUS_8;
-	border-bottom-right-radius: $BORDER_RADIUS_8;
-}
-
-// 4. Accordion responsive
-@media screen and (max-width: $SPACING_990) {
-	.accordion--swap .data-card--end {
-		align-items: flex-end;
-	}
-}
-@media screen and (max-width: $SPACING_480) {
-	.accordion--swap .data-card--end,
-	.accordion--swap .accordion__header,
-	.accordion--claim .accordion__header {
-		width: 100%;
-	}
-	.accordion--swap .accordion__header,
-	.accordion--claim .accordion__header {
-		margin-bottom: $SPACING_32;
-	}
-	.accordion--swap .accordion__token,
-	.accordion--claim .accordion__token {
-		flex: 1;
-	}
-	.accordion--swap .data-card--end .btn--sm {
-		font-size: $HEADING_FIVE_480;
-		line-height: $SPACING_18;
-		padding: $SPACING_7 $SPACING_21;
-		height: $SPACING_32;
-	}
-	.accordion--swap .accordion__body {
-		padding: 0 $SPACING_24;
-		top: $SPACING_40;
-		left: -$SPACING_24;
-		right: -$SPACING_24;
-		border: 0;
-	}
-	.accordion__filter input {
-		font-size: $HEADING_FIVE_480;
-		line-height: $SPACING_18;
-		padding: $SPACING_8 $SPACING_16 $SPACING_8 $SPACING_50;
-	}
-	.accordion__tokens {
-		padding: 0;
-		max-height: $SPACING_320;
-	}
+	font-size: $SPACING_14;
 }

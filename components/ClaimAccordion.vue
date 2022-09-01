@@ -1,70 +1,57 @@
 <template>
-	<TheStepper :active-step="activeStep" :steps="['Token', 'Confirm']" :stepper="stepper">
-		<template #step-one>
-			<div class="accordion accordion--claim" :class="{ active: isActive }">
-				<LayoutFlex direction="row-center-space-between">
+	<div>
+		<div class="accordion u-mb-24" :class="{ active: isActive }">
+			<div class="accordion__container">
+				<label>Select Your Reward Token</label>
+				<LayoutFlex direction="row-start-space-between">
 					<LayoutFlex
-						direction="row-center"
-						class="accordion__header"
-						title="Click to open token list" @click="triggerAccordion">
-						<img :src="require(`~/assets/images/tokens/${selected.icon}`)" alt="token logo">
+						direction="row-center accordion__header"
+						title="Click to open token list"
+						@click="triggerAccordion">
+						<img v-if="selected.icon" :src="require(`~/assets/images/tokens/${selected.icon}`)" :alt="`${selected.name} logo`">
 						<div class="accordion__token">
-							<h4>{{ selected.symbol }}</h4>
-							<p>{{ selected.name }}</p>
+							<h5>{{ selected.symbol }}</h5>
 						</div>
 						<ChevronDownIcon v-if="!isActive" />
 						<ChevronUpIcon v-else />
 					</LayoutFlex>
 					<DataCard align="end">
 						<h3>{{ numberWithCommas(claimBalance.toFixed(2)) }}<sup>{{ selected.symbol }}</sup></h3>
-						<h5>~ ${{ numberWithCommas(getDollarValue(claimBalance, tokenPrice).toFixed(2)) }}</h5>
+						<label>~ ${{ numberWithCommas(getDollarValue(claimBalance, tokenPrice).toFixed(2)) }}</label>
 					</DataCard>
 				</LayoutFlex>
-				<div class="accordion__body">
-					<div class="accordion__filter">
-						<input ref="searchtoken" v-model="search" type="text" placeholder="Search for your token" autocomplete="off">
-					</div>
-					<div class="accordion__tokens">
-						<div v-for="(token, index) in filteredTokens" :key="index" class="token" title="Click to select token" @click="changeToken(token)">
-							<div class="token__wrapper">
-								<img :src="require(`~/assets/images/tokens/${token.icon}`)" :alt="`${token.name} logo`">
-								<div class="token__body">
-									<h4>{{ token.symbol }}</h4>
-									<h5>{{ token.name }}</h5>
-								</div>
+			</div>
+			<div class="accordion__body">
+				<div class="accordion__filter">
+					<input ref="searchtoken" v-model="search" type="text" placeholder="Search for your token" autocomplete="off">
+				</div>
+				<div class="accordion__tokens">
+					<div
+						v-for="(token, index) in filteredTokens"
+						:key="index"
+						class="token"
+						title="Click to select token"
+						@click="changeToken(token)">
+						<div class="token__wrapper">
+							<img :src="require(`~/assets/images/tokens/${token.icon}`)" :alt="`${token.name} logo`">
+							<div class="token__body">
+								<h4>{{ token.symbol }}</h4>
+								<h5>{{ token.name }}</h5>
 							</div>
-							<h5>~ ${{ numberWithCommas(getDollarValue(claimBalance, tokenPrice).toFixed(2)) }}</h5>
 						</div>
-						<div v-if="filteredTokens.length <= 0" class="accordion__results">
-							No results found.
-						</div>
+					</div>
+					<div v-if="filteredTokens.length <= 0" class="accordion__results">
+						No results found.
 					</div>
 				</div>
 			</div>
-			<TheButton
-				v-if="stepper"
-				class="u-full-width"
-				size="lg"
-				title="Click to go next"
-				@click="activeStep = 2">
-				Next
-			</TheButton>
-		</template>
-		<template #step-two>
-			<TransactionSummary :values="summary" />
-			<div class="transaction-input__buttons">
-				<TheButton
-					size="lg"
-					title="Click to go back"
-					class="btn--back"
-					@click="activeStep = 1">Back</TheButton>
-				<TheButton
-					size="lg"
-					title="Click to confirm"
-					@click="submitTransaction">Confirm</TheButton>
-			</div>
-		</template>
-	</TheStepper>
+		</div>
+		<TransactionSummary :values="summary" />
+		<TheButton
+			size="md"
+			title="Click to withdraw"
+			@click="submitTransaction">Withdraw</TheButton>
+	</div>
 </template>
 
 <script>
@@ -78,17 +65,6 @@ export default {
 	components: {
 		ChevronDownIcon,
 		ChevronUpIcon,
-	},
-	props: {
-		from: {
-			type: String,
-			default: ""  // "boardroom"
-		},
-		stepper: {
-			type: Boolean,
-			required: false,
-			default: true
-		}
 	},
 	data () {
 		return {

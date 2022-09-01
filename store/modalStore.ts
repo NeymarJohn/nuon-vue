@@ -8,7 +8,6 @@ export const state = () => ({
 		burnModal: false,
 		collateralModal: false,
 		depositCollateralModal: false,
-		settingsModal: false,
 		stakeModal: false,
 		claimModal: false,
 		claimRewardsModal: false,

@@ -1,28 +1,25 @@
 <template>
-	<div class="accordion accordion--swap" :class="{ active: isActive }">
-		<LayoutFlex class="l-flex--column-sm" direction="row-start-space-between">
+	<div class="accordion" :class="{ active: isActive }">
+		<LayoutFlex direction="row-start-space-between">
 			<LayoutFlex
 				v-if="selected.symbol"
-				direction="row-center"
-				class="accordion__header"
+				direction="row-center accordion__header"
 				title="Click to open token list"
 				@click="triggerAccordion">
 				<img v-if="selected.icon" :src="require(`~/assets/images/tokens/${selected.icon}`)" alt="token logo">
 				<div class="accordion__token">
-					<h4>{{ selected.symbol }}</h4>
-					<p>{{ selected.name }}</p>
+					<h5>{{ selected.symbol }}</h5>
 				</div>
 				<ChevronDownIcon v-if="!isActive" />
 				<ChevronUpIcon v-else />
 			</LayoutFlex>
 			<LayoutFlex
 				v-else
-				direction="row-center"
-				class="accordion__header"
-				title="Click to open token list" @click="triggerAccordion">
+				direction="row-center accordion__header"
+				title="Click to open token list"
+				@click="triggerAccordion">
 				<div class="accordion__token">
-					<h4>Select Token</h4>
-					<p>{{ selected.name }}</p>
+					<h5>Select Token</h5>
 				</div>
 				<ChevronDownIcon v-if="!isActive" />
 				<ChevronUpIcon v-else />
@@ -36,8 +33,13 @@
 				<input ref="searchtoken" v-model="search" type="text" placeholder="Search for your token" autocomplete="off">
 			</div>
 			<div class="accordion__tokens">
-				<div v-for="(token, index) in filteredTokens" :key="index" class="token" title="Click to select token" @click="changeToken(token)">
-					<div class="token__wrapper" :class="isDisabled(token.symbol)?'disabled':''">
+				<div
+					v-for="(token, index) in filteredTokens"
+					:key="index"
+					class="token"
+					title="Click to select token"
+					:class="isDisabled(token.symbol) ? 'is-disabled' : ''" @click="changeToken(token)">
+					<div class="token__wrapper">
 						<img :src="require(`~/assets/images/tokens/${token.icon}`)" :alt="`${token.name} logo`">
 						<div class="token__body">
 							<h4>{{ token.symbol }}</h4>

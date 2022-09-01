@@ -1,21 +1,21 @@
 <template>
 	<ul class="price-indicator">
 		<li>NUON Price:
-			<ComponentLoader component="nuon-price" :loaded="nuonPrice !== 0 && truflationPeg !== 0">
+			<ComponentLoader component="nuon-price" :loaded="nuonPrice !== 0 && targetPeg !== 0">
 				<span>${{ computedNuonPrice }}</span>
-				<TheBadge v-if="nuonPrice > truflationPeg">Above</TheBadge>
-				<TheBadge v-else-if="nuonPrice < truflationPeg">Below</TheBadge>
+				<TheBadge v-if="nuonPrice > targetPeg">Above</TheBadge>
+				<TheBadge v-else-if="nuonPrice < targetPeg">Below</TheBadge>
 			</ComponentLoader>
 		</li>
 		<li>Target Peg:
-			<ComponentLoader component="target-peg" :loaded="truflationPeg !== 0">
-				<span>${{ truflationPeg | toFixed }}</span>
+			<ComponentLoader component="target-peg" :loaded="targetPeg !== 0">
+				<span>${{ targetPeg | toFixed }}</span>
 			</ComponentLoader>
 		</li>
 		<li>Health Status:
-			<ComponentLoader component="health-status" :loaded="nuonPrice !== 0 && truflationPeg !== 0">
-				<span :class="getColorForHealth(nuonPrice, truflationPeg)">
-					{{healthMetrics( truflationPeg, nuonPrice) > 0 ? "+" : ""}}{{ healthMetrics( truflationPeg, nuonPrice) | toFixed }} %
+			<ComponentLoader component="health-status" :loaded="nuonPrice !== 0 && targetPeg !== 0">
+				<span :class="getColorForHealth(nuonPrice, targetPeg)">
+					{{healthMetrics( targetPeg, nuonPrice) > 0 ? "+" : ""}}{{ healthMetrics( targetPeg, nuonPrice) | toFixed }} %
 				</span>
 			</ComponentLoader>
 		</li>
@@ -23,18 +23,15 @@
 </template>
 
 <script>
+import { NUON } from "~/constants/tokens";
 export default {
 	name: "PriceIndicator",
-	props: {
-		nuonPrice: {
-			type: Number,
-			required: true,
-			default: 0
+	computed: {
+		nuonPrice() {
+			return this.tokenPrices[NUON.symbol];
 		},
-		truflationPeg: {
-			type: Number,
-			required: true,
-			default: 0
+		targetPeg() {
+			return this.$store.state.collateralVaultStore.targetPeg || 0;
 		}
 	},
 	methods: {

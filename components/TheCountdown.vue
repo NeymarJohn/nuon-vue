@@ -1,10 +1,7 @@
 <template>
-	<div v-if="visible">
-		<div class="countdown">
-			<div class="countdown__block">
-				<h3>{{days | formatWithTwoDigit}}</h3>
-				<p>D</p>
-			</div>
+	<div v-if="visible" class="countdown">
+		<label>{{ label }}</label>
+		<div class="countdown__wrapper">
 			<div class="countdown__block">
 				<h3>{{hours | formatWithTwoDigit}}</h3>
 				<p>H</p>
@@ -20,7 +17,7 @@
 		</div>
 	</div>
 	<div v-else>
-		<h3 class="countdown__placeholder">00<sup>D</sup> 00<sup>H</sup> 00<sup>M</sup>00<sup>S</sup></h3>
+		<h3 class="countdown__placeholder">00<sup>H</sup> 00<sup>M</sup>00<sup>S</sup></h3>
 	</div>
 </template>
 
@@ -28,6 +25,10 @@
 export default {
 	name: "TheCountdown",
 	props: {
+		label: {
+			type: String,
+			required: true
+		},
 		nextClaimDate: {
 			type: Number,
 			default: 0
@@ -51,7 +52,6 @@ export default {
 	},
 	watch: {
 		nextClaimDate() {
-			// initial value
 			const now = new Date();
 			const end = new Date(this.nextClaimDate * 1000);
 			const distance = end.getTime() - now.getTime();
@@ -84,12 +84,10 @@ export default {
 			const _minutes = 60000;
 			const _seconds = 1000;
 
-			const days = Math.floor(distance / _days);
 			const hours = Math.floor((distance % _days) / _hours);
 			const minutes = Math.floor((distance % _hours) / _minutes);
 			const seconds = Math.floor((distance % _minutes) / _seconds);
 
-			this.days = this.formatNumber(days);
 			this.hours = this.formatNumber(hours);
 			this.minutes = this.formatNumber(minutes);
 			this.seconds = this.formatNumber(seconds);

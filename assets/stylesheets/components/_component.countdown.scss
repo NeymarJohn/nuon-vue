@@ -3,12 +3,17 @@
 */
 
 // 1. Countdown default
-.countdown {
-	display: flex;
-	flex-direction: row;
+.countdown label {
+	color: $LIGHT_GREY;
+	font-size: $SPACING_14;
+	line-height: $SPACING_20;
 }
 .countdown h3 {
 	font-size: $HEADING_THREE;
+}
+.countdown__wrapper {
+	display: flex;
+	flex-direction: row;
 }
 .countdown__block {
 	display: flex;
@@ -27,6 +32,7 @@
 	background: $DARK_GREY;
 	padding: 0 $SPACING_6;
 	border-radius: $BORDER_RADIUS_4;
+	margin-bottom: 0;
 }
 .countdown__placeholder sup {
 	font-family: $FONT_BODY;
