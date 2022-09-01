@@ -21,9 +21,9 @@
 		</div>
 		<ClaimWithdraw v-if="action==='withdraw'"/>
 		<TransactionSummary v-if="inputValue > 0" :values="summary" />
-		<TransactionSummary
+		<!-- <TransactionSummary
 			v-if="inputValue > 0 && inputValue != maximum"
-			:values="partialSummary" />
+			:values="partialSummary" /> -->
 		<TheButton
 			v-if="!isApproved"
 			size="md"
@@ -70,9 +70,6 @@ export default {
 		};
 	},
 	computed: {
-		claimFee() {
-			return this.$store.state.boardroomStore.claimFee;
-		},
 		isMoreThanBalance() {
 			return parseFloat(this.inputValue) > this.nuMintBalance;
 		},
@@ -84,6 +81,15 @@ export default {
 		},
 		feeToken() {
 			return this.inputValue * this.claimFee / 100;
+		},
+		claimFee() {
+			return parseFloat(this.$store.state.boardroomStore.claimFee);
+		},
+		feePrice() {
+			return this.myRewards * this.claimFee / 100;
+		},
+		totalReceived() {
+			return (this.inputValue + this.myRewards - this.feePrice) * this.tokenPrices.nuMINT;
 		},
 		partialSummary() {
 			return [

@@ -30,7 +30,7 @@ export default {
 			default: 0
 		},
 		value: {
-			type: String,
+			type: [String, Number],
 			default: ""
 		}
 	},
