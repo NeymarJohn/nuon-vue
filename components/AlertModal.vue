@@ -59,7 +59,7 @@ export default {
 	},
 	methods: {
 		async switchNetwork() {
-			const callbackAfterSuccess  = () => {
+			const callbackAfterSuccess = () => {
 				this.error = "";
 				this.$store.commit("modalStore/setModalVisibility", {name: "alertModal", visibility: false});
 				this.$store.commit("modalStore/setModalInfo",{name: "alertModal", info: {title:"", message: "", cta: ""}});
@@ -75,7 +75,7 @@ export default {
 					try {
 						await window.ethereum.request({
 							method: "wallet_addEthereumChain",
-							params: [{ 
+							params: [{
 								chainId: Web3.utils.toHex(DEFAULT_CHAIN_ID),
 								chainName: "TK",
 								rpcUrls: ["https://eth-private-testnet-poa.hydrogenx.tk/"]
@@ -83,7 +83,7 @@ export default {
 						});
 						callbackAfterSuccess();
 					} catch (addError) {
-						this.error = "This network is not available in your metamask. Please add it by manulally";
+						this.error = "This network is not available in your Metamask. Please add it manulally.";
 					}
 				}
 			}

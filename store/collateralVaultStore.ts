@@ -12,7 +12,7 @@ import { fromWei, toWei } from "~/utils/bnTools";
 import { collateralTokens } from "~/constants/tokens";
 
 const DEFAULVALUES = {
-	WETH: 0, 
+	WETH: 0,
 	USDT: 0
 };
 
@@ -42,7 +42,10 @@ type StateType = {
 	lpValueOfUser: any
 }
 export const state = (): StateType => ({
-	allowance: {nuMINT:0, NUON: 0},
+	allowance: {
+		nuMINT:0,
+		NUON: 0
+	},
 	userCollateralAmount: 0,
 	targetCollateralValue: 0,
 	globalCollateralRatioValue: 0,
@@ -66,11 +69,11 @@ export const state = (): StateType => ({
 		WETH: vaultRelayerNativeAbi,
 		USDT: vaultRelayerUsdtAbi
 	},
-	mintedAmount: {...DEFAULVALUES},   // {WETH: 0 USDT: 0}  mintedNuon  for all collateral tokens for user
-	lockedAmount: {...DEFAULVALUES},   // {WETH: 0 USDT: 0}  locked collateral  for all collateral tokens for user
-	collateralRatio: {...DEFAULVALUES},  // {WETH: 0 USDT: 0} collateral Raito for all collateral tokens for user
-	collateralPrices:{...DEFAULVALUES},  // {WETH: 0 USDT: 0} collateral price for all collateral tokens
-	lpValueOfUser: {...DEFAULVALUES},  // {WETH: 0 USDT: 0} collateral price for all collateral tokens
+	mintedAmount: {...DEFAULVALUES}, // {WETH: 0 USDT: 0} mintedNuon for all collateral tokens for user
+	lockedAmount: {...DEFAULVALUES}, // {WETH: 0 USDT: 0} locked collateral for all collateral tokens for user
+	collateralRatio: {...DEFAULVALUES}, // {WETH: 0 USDT: 0} collateral ratio for all collateral tokens for user
+	collateralPrices:{...DEFAULVALUES}, // {WETH: 0 USDT: 0} collateral price for all collateral tokens
+	lpValueOfUser: {...DEFAULVALUES}, // {WETH: 0 USDT: 0} collateral price for all collateral tokens
 });
 
 export type BoardroomState = ReturnType<typeof state>;
