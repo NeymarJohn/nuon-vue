@@ -202,6 +202,7 @@ export const actions: ActionTree<Web3State, Web3State> = {
 
 export const getters: GetterTree<Web3State, Web3State> = {
 	instance: state => state.instance,
+	chainId: state => state.chainId,
 	balance: state => state.balance,
 	account: (state) => {
 		if (state.account === "") {
@@ -212,7 +213,6 @@ export const getters: GetterTree<Web3State, Web3State> = {
 	isConnectedWallet: (state) => {
 		return !!state.account;
 	},
-	chainId: state => state.chainId,
 	explorerLink: state => {
 		const chainId: any = state.chainId;
 		const chainInfo: any = state.chains[chainId];
