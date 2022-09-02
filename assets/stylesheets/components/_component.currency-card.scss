@@ -1,0 +1,16 @@
+/* #COMPONENT - CURRENCY CARD
+		1. Currency card default
+*/
+
+// 1. Currency card default
+.currency-card label,
+.currency-card h5 {
+	color: $LIGHT_GREY;
+	font-size: $SPACING_14;
+	line-height: $SPACING_20;
+}
+.currency-card h3 sup {
+	font-size: $SPACING_14;
+	line-height: $SPACING_20;
+	margin-left: $SPACING_10;
+}

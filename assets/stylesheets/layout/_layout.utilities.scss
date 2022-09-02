@@ -177,6 +177,9 @@
 .u-mt-4 {
 	margin-top: $SPACING_4 !important;
 }
+.u-mt-8 {
+	margin-top: $SPACING_8 !important;
+}
 .u-mt-12 {
 	margin-top: $SPACING_12 !important;
 }
@@ -259,9 +262,6 @@
 }
 .u-color-error {
 	color: $ERROR !important;
-}
-.u-color-success {
-	color: $SUCCESS !important;
 }
 
 // 10. Border
@@ -431,8 +431,15 @@
 .u-text-decoration-underline {
 	text-decoration: underline !important;
 }
+.u-text-capitalize {
+	text-transform: capitalize !important;
+}
 
 // 24. Font size
+.u-font-size-14 {
+	font-size: $SPACING_14 !important;
+	line-height: $SPACING_20 !important;
+}
 @media screen and (max-width: $SPACING_1440) {
 	.u-font-size-h2-1440 {
 		font-size: $HEADING_TWO_990 !important;

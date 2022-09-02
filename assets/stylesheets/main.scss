@@ -18,8 +18,10 @@
 @import "components/component.borrow-card"; // Components - Borrow Card
 @import "components/component.button"; // Components - Button
 @import "components/component.chart"; // Components - Chart
+@import "components/component.claim-withdraw"; // Components - Claim Withdraw
 @import "components/component.collateral"; // Components - Collateral
 @import "components/component.countdown"; // Components - Countdown
+@import "components/component.currency-card"; // Components - Currency Card
 @import "components/component.data-card"; // Components - Data Card
 @import "components/component.datepicker"; // Components - Datepicker
 @import "components/component.dot"; // Components - Dot
@@ -29,6 +31,7 @@
 @import "components/component.gas"; // Components - Gas
 @import "components/component.hamburger"; // Components - Hamburger
 @import "components/component.icon-list"; // Components - Icon List
+@import "components/component.input-govern"; // Components - Input Govern
 @import "components/component.input"; // Components - Input
 @import "components/component.loader"; // Components - Loader
 @import "components/component.loading-spinner"; // Components - Loading Spinner
@@ -57,7 +60,6 @@
 @import "components/component.token"; // Components - Token
 @import "components/component.tooltip"; // Components - Tooltip
 @import "components/component.transaction-card"; // Components - Transaction Card
-@import "components/component.transaction-input"; // Components - Transaction Input
 @import "components/component.transaction-search"; // Components - Transaction Search
 @import "components/component.transaction-summary"; // Components - Transaction Summary
 @import "components/component.transaction-table"; // Components - Transaction table
@@ -67,6 +69,7 @@
 @import "components/component.wallet"; // Components - Wallet
 
 /* Layout */
+@import "layout/layout.action"; // Layout - Action
 @import "layout/layout.balance"; // Layout - Balance
 @import "layout/layout.chart"; // Layout - Chart
 @import "layout/layout.collateral"; // Layout - Collateral

@@ -6,11 +6,27 @@
 */
 
 // 1. Transaction summary default
+.transaction-summary__container {
+	padding: $SPACING_24;
+	background: $MEDIUM_GREY;
+	border-radius: $BORDER_RADIUS_8;
+	position: relative;
+}
+.transaction-summary__container .l-flex--row-space-between:last-child {
+	margin-bottom: 0 !important;
+}
 .transaction-summary {
-	padding: $SPACING_32;
-	border-radius: $BORDER_RADIUS_16;
-	margin-bottom: $SPACING_48;
-	background: $MEDIUM_LIGHT_GREY;
+	margin-bottom: $SPACING_24;
+}
+.transaction-summary label {
+	display: block;
+	font-size: $SPACING_14;
+	line-height: $SPACING_20;
+	color: $LIGHT_GREY;
+	margin-bottom: 0;
+}
+.transaction-summary label strong {
+	color: $WHITE;
 }
 .transaction-summary img {
 	height: $SPACING_56;
@@ -26,16 +42,6 @@
 }
 .transaction-summary .svg-arrow-down {
 	margin: $SPACING_24 $SPACING_10;
-}
-.transaction__update {
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	align-items: center;
-	padding: $SPACING_32;
-	background: $MEDIUM_LIGHT_GREY;
-	border-radius: $BORDER_RADIUS_8;
-	margin: $SPACING_32 0;
 }
 
 // 2. Transaction summary swap

@@ -71,9 +71,7 @@
 							<span v-if="obj.id === 'totalAmount'">{{row.outputToken}}</span>
 						</span>
 						<template v-else-if="obj.id === 'collateralizationRatio'">
-							<span v-if="Number(row[obj.id]) && Number(row[obj.id]) < highRiskLevel" class="u-color-error">{{row[obj.id] }}%</span>
-							<span v-else-if="Number(row[obj.id]) && Number(row[obj.id]) < mediumRiskLevel" class="u-color-warning">{{row[obj.id] }}%</span>
-							<span v-else class="u-color-success">{{row[obj.id] }}%</span>
+							<span :class="Number(row[obj.id]) < highRiskLevel ? 'u-color-error' : 'u-color-warning'">{{row[obj.id] }}%</span>
 							<TheBadge v-if="Number(row[obj.id]) && Number(row[obj.id]) < highRiskLevel" color="high-risk">High Risk</TheBadge>
 							<TheBadge v-else-if="Number(row[obj.id]) && Number(row[obj.id]) < mediumRiskLevel" color="medium-risk">Medium Risk</TheBadge>
 							<TheBadge v-else color="low-risk">Low Risk</TheBadge>
