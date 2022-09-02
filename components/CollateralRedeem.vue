@@ -6,7 +6,20 @@
 					<p>Amount of NUON</p>
 					<p>Available balance: {{ (mintedAmount || 0) | formatLongNumber }}</p>
 				</LayoutFlex>
-				<InputMax v-model="inputValue" :maximum="mintedAmount" @click="inputMaxBalance" />
+				<div class="input u-mb-12">
+					<div class="input__container">
+						<input
+							v-model="inputValue"
+							placeholder="0.0"
+							type="number"
+							min="0"
+							autocomplete="off"
+							autocorrect="off"
+							spellcheck="false"
+							inputmode="decimal" />
+						<TheButton :disabled="isMaxInputDisabled(mintedAmount ? mintedAmount : 0)" size="sm" title="Click to input your max balance" @click="inputMaxBalance">Max</TheButton>
+					</div>
+				</div>
 				<h5 v-if="inputValue" class="u-mb-0 l-flex--align-self-end">~ ${{ numberWithCommas(getDollarValue(inputValue, nuonPrice).toFixed(2)) }}</h5>
 				<p v-if="readyToRepay" class="u-is-success l-flex--align-self-end">Ready to repay</p>
 				<p v-if="amountMoreThanUserMinted" class="u-is-warning l-flex--align-self-end">Insufficient balance.</p>

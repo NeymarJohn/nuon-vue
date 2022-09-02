@@ -4,15 +4,15 @@
 		<div class="l-balance">
 			<div class="l-balance__control">
 				<label>Total Value</label>
-				<ComponentLoader component="h3 u-mb-24" :loaded="totalValue !== 0 && balancesValue !== 0 && stakedBalance !== 0">
-					<h3>${{ totalValue + balancesValue + stakedBalance | toFixed | numberWithCommas }}</h3>
+				<ComponentLoader component="h3 u-mb-24" :loaded="totalLockedValue !== 0 && balancesValue !== 0 && stakedBalance !== 0">
+					<h3>${{ totalUserAsset | formatLongNumber }}</h3>
 				</ComponentLoader>
 				<ul class="l-balance__toggle">
 					<li>
 						<span><TheDot color="lime" /><label>NUON Balance</label></span>
 						<div class="l-balance__toggle__value">
 							<ComponentLoader component="account-balance" :loaded="balancesValue !== 0">
-								{{ tokenBalances.NUON | toFixed | numberWithCommas }}
+								${{ getValueWithBN(tokenBalances.NUON, tokenPrices.NUON) | formatLongNumber }}
 								<sub class="badge--success--no_border" >+1.25%</sub>
 							</ComponentLoader>
 						</div>
@@ -31,7 +31,7 @@
 						<span><TheDot color="light-green" /><label>NuMINT Balance</label></span>
 						<div class="l-balance__toggle__value">
 							<ComponentLoader component="account-balance" :loaded="balancesValue !== 0">
-								{{ tokenBalances.nuMINT | toFixed | numberWithCommas }}
+								${{ getValueWithBN(tokenBalances.nuMINT, tokenPrices.nuMINT) | formatLongNumber }}
 								<sub class="badge--grey--no_border">0.00%</sub>
 							</ComponentLoader>
 						</div>
@@ -50,7 +50,7 @@
 						<span><TheDot color="blue" /><label>Locked Collateral</label></span>
 						<div class="l-balance__toggle__value">
 							<ComponentLoader component="account-balance" :loaded="balancesValue !== 0">
-								${{ totalValue | toFixed | numberWithCommas }}
+								${{ totalLockedValue | toFixed | numberWithCommas }}
 								<sub class="badge--success--no_border">+1.25%</sub>
 							</ComponentLoader>
 						</div>
@@ -69,7 +69,7 @@
 						<span><TheDot color="orange" /><label>NuMINT in Boardroom</label></span>
 						<div class="l-balance__toggle__value">
 							<ComponentLoader component="account-balance" :loaded="balancesValue !== 0">
-								{{ stakedBalance | toFixed | numberWithCommas }}
+								${{ getValueWithBN(stakedBalance, tokenPrices.nuMINT) | formatLongNumber }}
 								<sub class="badge--error--no_border">-1.25%</sub>
 							</ComponentLoader>
 						</div>
@@ -94,8 +94,8 @@
 							<label>{{selectedChart.title}}</label>
 							<TheBadge color="price-down">-12%</TheBadge>
 						</LayoutFlex>
-						<ComponentLoader component="h3" :loaded="totalValue !== 0 && balancesValue !== 0 && stakedBalance !== 0">
-							<h3>${{ graphSelectionTVL || (totalValue + balancesValue + stakedBalance) | toFixed | numberWithCommas }}</h3>
+						<ComponentLoader component="h3" :loaded="totalLockedValue !== 0 && balancesValue !== 0 && stakedBalance !== 0">
+							<h3>${{ graphSelectionTVL || totalUserAsset | formatLongNumber }}</h3>
 						</ComponentLoader>
 						<label>{{graphSelectionDuraton}}</label>
 					</div>
@@ -121,6 +121,7 @@
 
 <script>
 import dayjs from "dayjs";
+import { BigNumber } from "bignumber.js";
 import LineChartIcon from "@/assets/images/svg/svg-line-chart.svg";
 import LineChartIconActive from "@/assets/images/svg/svg-line-chart-active.svg";
 import { fromWei } from "~/utils/bnTools";
@@ -150,13 +151,32 @@ export default {
 	computed: {
 		balancesValue() {
 			if (this.tokenBalances.nuMINT && this.tokenPrices.nuMINT && this.tokenBalances.NUON && this.tokenPrices.NUON) {
-				return parseFloat((this.tokenBalances.nuMINT * this.tokenPrices.nuMINT + this.tokenBalances.NUON * this.tokenPrices.NUON).toFixed(2));
+				const nuMintBalance = new BigNumber(this.tokenBalances.nuMINT);
+				const nuMintPrice = new BigNumber(this.tokenPrices.nuMINT);
+				const nuonBalance = new BigNumber(this.tokenBalances.NUON);
+				const nuonPrice = new BigNumber(this.tokenPrices.NUON);
+				const totalBalanceValue = nuMintBalance.times(nuMintPrice).plus(nuonBalance.times(nuonPrice));
+				return totalBalanceValue.toString();
 			} else {
 				return 0;
 			}
 		},
+		totalLockedValue() {
+			const totalLockedValueBN =  Object.entries(this.lockedAmount).reduce((acc, [collateral, amount]) => {
+				const priceBN = new BigNumber(this.collateralPrices[collateral]);
+				const amountBN = new BigNumber(amount);
+				return acc.plus(priceBN.times(amountBN));
+			}, new BigNumber(0));
+			return totalLockedValueBN.toString();
+		},
+		stakedValue() {
+			return new BigNumber(this.stakedBalance).times(new BigNumber(this.tokenPrices.nuMINT)).toString();
+		},
 		stakedBalance() {
 			return fromWei(this.$store.state.boardroomStore.stakedBalance);
+		},
+		totalUserAsset() {
+			return new BigNumber(this.totalLockedValue).plus(new BigNumber(this.balancesValue)).plus(new BigNumber(this.stakedValue));
 		},
 		lockedValueChartData() {
 			const weeks = {};
@@ -237,9 +257,6 @@ export default {
 		},
 		collateralPrices() {
 			return this.$store.state.collateralVaultStore.collateralPrices;
-		},
-		totalValue() {
-			return Object.entries(this.lockedAmount).reduce((acc, [collateral, amount]) => acc + this.collateralPrices[collateral] * parseFloat(amount), 0);
 		},
 		selectedChart() {
 			switch (this.activeCharts[0]){

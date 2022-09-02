@@ -47,7 +47,21 @@
 				<p>Available balance: {{ availableAmount() | formatLongNumber }}</p>
 			</LayoutFlex>
 			<p v-if="action === 'Remove Liquidity'" class="u-text-right">LP: {{ shareAmount }}</p>
-			<InputMax v-model="inputModel" :maximum="availableAmount()" @click="inputMaxBalance" />
+			<div class="input">
+				<div class="input__container">
+					<input
+						v-model="inputModel"
+						placeholder="0.0"
+						type="number"
+						min="0"
+						max="79"
+						autocomplete="off"
+						autocorrect="off"
+						spellcheck="false"
+						inputmode="decimal"
+						@input="inputChanged" />
+				</div>
+			</div>
 			<p v-if="error" class="u-is-warning u-mt-12 u-text-right">{{ error }}</p>
 			<TransactionSummary v-if="!action.includes('Liquidity')" class="u-mt-16" :values="summary" :final-balance-line="false" />
 			<div class="toggle__transaction u-mt-24">
@@ -241,9 +255,6 @@ export default {
 			this.isSubmitDisabled();
 			if (!this.action.includes("Liquidity")) this.getEstimatedAmounts();
 		},
-		inputMaxBalance() {
-			
-		},
 		async actionClicked(arg) {
 			this.error = "";
 			this.inputModel = "";
@@ -309,7 +320,7 @@ export default {
 		},
 		availableAmount() {
 			if (this.actionIsMintOrBurn) {
-				return this.nuonBalance;
+				return nuonBalance;
 			}
 			if (this.action === "Deposit") {
 				return this.tokenBalance || 0;

@@ -11,6 +11,11 @@ import boardroomAbi from "./abi/boardroom.json";
 import { fromWei, toWei } from "~/utils/bnTools";
 import { collateralTokens } from "~/constants/tokens";
 
+const DEFAULVALUES = {
+	WETH: 0,
+	USDT: 0
+};
+
 type StateType = {
 	allowance: any,
 	userCollateralAmount: number,
@@ -37,7 +42,10 @@ type StateType = {
 	lpValueOfUser: any
 }
 export const state = (): StateType => ({
-	allowance: {nuMINT:0, NUON: 0},
+	allowance: {
+		nuMINT:0,
+		NUON: 0
+	},
 	userCollateralAmount: 0,
 	targetCollateralValue: 0,
 	globalCollateralRatioValue: 0,
@@ -61,11 +69,11 @@ export const state = (): StateType => ({
 		WETH: vaultRelayerNativeAbi,
 		USDT: vaultRelayerUsdtAbi
 	},
-	mintedAmount: {},   // {WETH: 0 USDT: 0}  mintedNuon  for all collateral tokens for user
-	lockedAmount: {},   // {WETH: 0 USDT: 0}  locked collateral  for all collateral tokens for user
-	collateralRatio: {},  // {WETH: 0 USDT: 0} collateral Raito for all collateral tokens for user
-	collateralPrices:{},  // {WETH: 0 USDT: 0} collateral price for all collateral tokens
-	lpValueOfUser: {},  // {WETH: 0 USDT: 0} collateral price for all collateral tokens
+	mintedAmount: {...DEFAULVALUES}, // {WETH: 0 USDT: 0} mintedNuon for all collateral tokens for user
+	lockedAmount: {...DEFAULVALUES}, // {WETH: 0 USDT: 0} locked collateral for all collateral tokens for user
+	collateralRatio: {...DEFAULVALUES}, // {WETH: 0 USDT: 0} collateral ratio for all collateral tokens for user
+	collateralPrices:{...DEFAULVALUES}, // {WETH: 0 USDT: 0} collateral price for all collateral tokens
+	lpValueOfUser: {...DEFAULVALUES}, // {WETH: 0 USDT: 0} collateral price for all collateral tokens
 });
 
 export type BoardroomState = ReturnType<typeof state>;
@@ -274,27 +282,26 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 		ctx.commit("setCollateralToken", token);
 	},
 	async updateCollateralTokenStatus(ctx: any, token: string) {
-		const web3 = ctx.rootState.web3Store.instance();
 		const addr = ctx.rootGetters["addressStore/collateralHubs"][token];
 		const abi = ctx.state.abis[token];
-		const chubContract =  new web3.eth.Contract(abi, addr);
+		const chubContract =  new ctx.getters.web3Instance.eth.Contract(abi, addr);
 		const accountAddress = ctx.rootState.web3Store.account;
 
 		// Update minted Nuon
 		const mintedAmount = fromWei(await chubContract.methods.viewUserMintedAmount(accountAddress).call());
-		ctx.commit("setMintedAmount",  {token, amount: mintedAmount});
+		ctx.commit("setMintedAmount",  {token, amount: Number(mintedAmount)});
 
 		// update locked token amount
 		const lockedAmount = fromWei(await chubContract.methods.viewUserCollateralAmount(accountAddress).call(),ctx.rootState.erc20Store.decimals[token]);
-		ctx.commit("setLockedAmount",  {token, amount: lockedAmount});
+		ctx.commit("setLockedAmount",  {token, amount: Number(lockedAmount)});
 
 		// update collateral ratio
 		const collateralRatio = fromWei(await chubContract.methods.getUserCollateralRatioInPercent(accountAddress).call());
-		ctx.commit("setCollateralRatio",  {token, value: collateralRatio});
+		ctx.commit("setCollateralRatio",  {token, value: Number(collateralRatio)});
 
 		// Update getLPValueOfUser
 		const lpValueOfUser = fromWei(await chubContract.methods.getLPValueOfUser(accountAddress).call(), ctx.rootState.erc20Store.decimals[token]);
-		ctx.commit("setLpValueOfUser", {token, value: lpValueOfUser});
+		ctx.commit("setLpValueOfUser", {token, value: Number(lpValueOfUser)});
 
 	},
 	async getTargetPeg(ctx) {
@@ -318,32 +325,31 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 };
 
 export const getters: GetterTree<BoardroomState, Web3State> = {
-	collateralHubContract: (state: any, _getters: any, store: any, rootGetters: any) => {
-		const web3 = store.web3Store.instance();
+	web3Instance: (_state: any, _getters: any, _store: any, rootGetters: any) => {
+		const web3 = rootGetters["web3Store/instance"]();
+		return web3;
+	},
+	collateralHubContract: (state: any, _getters: any, _store: any, rootGetters: any) => {
 		const addr = rootGetters["addressStore/collateralHubs"][state.currentCollateralToken];
 		const abi = state.abis[state.currentCollateralToken];
-		return new web3.eth.Contract(abi, addr);
+		return new _getters.web3Instance.eth.Contract(abi, addr);
 	},
-	boardroomContract: (_state: any, _getters: any, store: any, rootGetters) => {
-		const web3 = store.web3Store.instance();
+	boardroomContract: (_state: any, _getters: any, _store: any, rootGetters) => {
 		const addr = rootGetters["addressStore/addresses"].boardroom;
-		return new web3.eth.Contract(boardroomAbi, addr);
+		return new _getters.web3Instance.eth.Contract(boardroomAbi, addr);
 	},
-	nuonControllerContract:  (_state: any, _getters: any, store: any, rootGetters: any) => {
-		const web3 = store.web3Store.instance();
+	nuonControllerContract:  (_state: any, _getters: any, _store: any, rootGetters: any) => {
 		const addr = rootGetters["addressStore/addresses"].nuonController;
-		return new web3.eth.Contract(nuonControllerAbi, addr);
+		return new _getters.web3Instance.eth.Contract(nuonControllerAbi, addr);
 	},
-	truflationContract: (_state: any, _getters: any, store: any, rootGetters) => {
+	truflationContract: (_state: any, _getters: any, _store: any, rootGetters) => {
 		const truffleAddress = rootGetters["addressStore/addresses"].truflation;
-		const web3 = store.web3Store.instance();
-		return new web3.eth.Contract(truflationAbi, truffleAddress);
+		return new _getters.web3Instance.eth.Contract(truflationAbi, truffleAddress);
 	},
-	vaultRelayerContract: (state: any, _getters: any, store: any, rootGetters: any) => {
-		const web3 = store.web3Store.instance();
+	vaultRelayerContract: (state: any, _getters: any, _store: any, rootGetters: any) => {
 		const addr = rootGetters["addressStore/vaultRelayers"][state.currentCollateralToken];
 		const abi = state.vaultRelayerAbis[state.currentCollateralToken];
-		return new web3.eth.Contract(abi, addr);
+		return new _getters.web3Instance.eth.Contract(abi, addr);
 	},
 	checkApprovedToken: (state:any) => (tokenName: string):boolean => {
 		return state.allowance[tokenName] > 0;

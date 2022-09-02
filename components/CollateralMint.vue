@@ -6,7 +6,24 @@
 					<p>Amount of {{ currentlySelectedCollateral }}</p>
 					<p>Available balance: {{ (tokenBalance || 0) | formatLongNumber }}</p>
 				</LayoutFlex>
-				<InputMax v-model="inputValue" :maximum="tokenBalance" @click="inputMaxBalance" />
+				<div class="input u-mb-12">
+					<div class="input__container">
+						<input
+							v-model="inputValue"
+							placeholder="0.0"
+							type="number"
+							:min="minimumDepositAmount"
+							autocomplete="off"
+							autocorrect="off"
+							spellcheck="false"
+							inputmode="decimal" />
+						<TheButton
+							:disabled="isMaxInputDisabled(tokenBalance ? tokenBalance : 0)"
+							size="sm"
+							title="Click to input your max balance"
+							@click="inputMaxBalance">Max</TheButton>
+					</div>
+				</div>
 				<h5 v-if="inputValue" class="u-mb-0 l-flex--align-self-end">~ ${{ numberWithCommas(getDollarValue(inputValue, collateralPrice).toFixed(2)) }}</h5>
 				<p v-if="readyToDeposit && !isLTEMinimumDepositAmount" class="u-is-success l-flex--align-self-end">Ready to deposit</p>
 				<p v-if="isMoreThanBalance" class="u-is-warning l-flex--align-self-end">Insufficient balance</p>
