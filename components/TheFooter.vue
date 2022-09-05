@@ -24,7 +24,7 @@
 		<div class="app-info">
 			<p>Version {{ appVersion }}</p>
 			<TheLoader component="p">
-				<p class="block-number">Latest Block: <a :href="`https://etherscan.io/block/${blockNumber}`" title="Click to view the latest block" target="_blank" rel="noopener noreferrer">{{ blockNumber }}</a></p>
+				<p class="block-number">Latest Block: <a :href="`${explorerLink}/block/${blockNumber}`" title="Click to view the latest block" target="_blank" rel="noopener noreferrer">{{ blockNumber }}</a></p>
 			</TheLoader>
 		</div>
 	</LayoutFooter>
@@ -36,6 +36,7 @@ import DiscordIcon from "@/assets/images/svg/svg-discord.svg";
 import MediumIcon from "@/assets/images/svg/svg-medium.svg";
 import TelegramIcon from "@/assets/images/svg/svg-telegram.svg";
 import TwitterIcon from "@/assets/images/svg/svg-twitter.svg";
+import { chainData } from "~/constants/web3";
 
 export default {
 	name: "TheFooter",
@@ -48,16 +49,17 @@ export default {
 	data () {
 		return {
 			currentYear: new Date().getFullYear(),
-			blockNumber: 0,
 			appVersion: version
 		};
 	},
-	async mounted() {
-		if (this.$store.getters["web3Store/instance"]) {
-			const web3 = this.$store.getters["web3Store/instance"]();
-			this.blockNumber = await web3.eth.getBlockNumber();
-			this.$store.commit("rootStore/setIsLoaded", true);
+	computed: {
+		blockNumber() {
+			return this.$store.state.web3Store.blockNumber; 
+		},
+		explorerLink() {
+			if (!chainData[this.$store.state.web3Store.chainId]) return "";
+			return chainData[this.$store.state.web3Store.chainId].explorerLink;
 		}
-	}
+	},
 };
 </script>
