@@ -9,6 +9,40 @@
 				<PriceIndicator />
 			</LayoutFlex>
 			<TheTabs margin="24" size="govern" color="transparent">
+				<TheTab title="Stake">
+					<LayoutAction type="tabs">
+						<template #left>
+							<TheTabs margin="0" size="full">
+								<TheTab title="Stake">
+									<InputStake :maximum="nuMintBalance" action="stake" />
+								</TheTab>
+								<TheTab title="Withdraw">
+									<InputStake :maximum="myStake" action="withdraw"/>
+								</TheTab>
+							</TheTabs>
+						</template>
+						<template #right>
+							<CurrencyCard class="u-mb-32" label="My Stake" :value="myStake" :change="getDollarValue(myStake, tokenPrices.nuMINT)" currency="nuMINT" />
+							<CurrencyCard label="My Voting Power" :percent="votingPower" />
+							<CurrencyCard label="nuMINT Price" :value="tokenPrices.nuMINT" />
+							<CurrencyCard label="Total Staked" :value="totalStaked" currency="nuMINT" />
+						</template>
+					</LayoutAction>
+				</TheTab>
+				<TheTab title="Claim">
+					<LayoutAction>
+						<template #left>
+							<!-- <InputClaim :token="myRewards" /> -->
+							<InputStake :maximum="myRewards" action="claim" />
+						</template>
+						<template #right>
+							<CurrencyCard class="u-mb-32" label="My Rewards" :value="myRewards" :change="getDollarValue(myRewards, tokenPrices.nuMINT)" currency="BUSD" />
+							<TheCountdown label="Next Reward Distribution" :visible="isConnectedWallet" :next-claim-date="nextEpochPoint" :is-loop="true" />
+							<CurrencyCard label="APR" :percent="apr" />
+							<CurrencyCard label="TVL" :value="tvl" symbol="$" />
+						</template>
+					</LayoutAction>
+				</TheTab>
 				<TheTab title="Vote">
 					<LayoutFlex direction="row-center-space-between u-mb-24">
 						<ul class="icon-list">
@@ -56,40 +90,6 @@
 					</InfiniteScroll>
 					<ComponentLoader :loaded="!isLoading" component="content-block" />
 					<p v-if="!isLoading && filteredProposals !== null && filteredProposals.length === 0" class="u-text-center u-mt-xs">No proposals to show.</p>
-				</TheTab>
-				<TheTab title="Stake">
-					<LayoutAction type="tabs">
-						<template #left>
-							<TheTabs margin="0" size="full">
-								<TheTab title="Stake">
-									<InputStake :maximum="nuMintBalance" action="stake" />
-								</TheTab>
-								<TheTab title="Withdraw">
-									<InputStake :maximum="myStake" action="withdraw"/>
-								</TheTab>
-							</TheTabs>
-						</template>
-						<template #right>
-							<CurrencyCard class="u-mb-32" label="My Stake" :value="myStake" :change="getDollarValue(myStake, tokenPrices.nuMINT)" currency="nuMINT" />
-							<CurrencyCard label="My Voting Power" :percent="votingPower" />
-							<CurrencyCard label="nuMINT Price" :value="tokenPrices.nuMINT" />
-							<CurrencyCard label="Total Staked" :value="totalStaked" currency="nuMINT" />
-						</template>
-					</LayoutAction>
-				</TheTab>
-				<TheTab title="Claim">
-					<LayoutAction>
-						<template #left>
-							<!-- <InputClaim :token="myRewards" /> -->
-							<InputStake :maximum="myRewards" action="claim" />
-						</template>
-						<template #right>
-							<CurrencyCard class="u-mb-32" label="My Rewards" :value="myRewards" :change="getDollarValue(myRewards, tokenPrices.nuMINT)" currency="BUSD" />
-							<TheCountdown label="Next Reward Distribution" :visible="isConnectedWallet" :next-claim-date="nextEpochPoint" :is-loop="true" />
-							<CurrencyCard label="APR" :percent="apr" />
-							<CurrencyCard label="TVL" :value="tvl" symbol="$" />
-						</template>
-					</LayoutAction>
 				</TheTab>
 				<TheTab title="Add Proposal">
 					<LayoutAction type="form">
