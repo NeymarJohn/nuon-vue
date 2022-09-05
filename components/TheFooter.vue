@@ -53,9 +53,11 @@ export default {
 		};
 	},
 	async mounted() {
-		const web3 = this.$store.getters["web3Store/instance"]();
-		this.blockNumber = await web3.eth.getBlockNumber();
-		this.$store.commit("rootStore/setIsLoaded", true);
+		if (this.$store.getters["web3Store/instance"]) {
+			const web3 = this.$store.getters["web3Store/instance"]();
+			this.blockNumber = await web3.eth.getBlockNumber();
+			this.$store.commit("rootStore/setIsLoaded", true);
+		}
 	}
 };
 </script>

@@ -63,6 +63,7 @@ export default {
 				this.error = "";
 				this.$store.commit("modalStore/setModalVisibility", {name: "alertModal", visibility: false});
 				this.$store.commit("modalStore/setModalInfo",{name: "alertModal", info: {title:"", message: "", cta: ""}});
+				this.$store.dispatch("web3Store/setChain");
 			};
 			try {
 				await window.ethereum.request({

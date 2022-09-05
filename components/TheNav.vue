@@ -19,14 +19,6 @@
 			</li>
 			<li>
 				<NuxtLink
-					to="/manage"
-					title="Click to visit manage"
-					:class="{'active-link': isRouteActive('/manage')}">
-					<ManageIcon /> Manage
-				</NuxtLink>
-			</li>
-			<li>
-				<NuxtLink
 					to="/govern"
 					title="Click to visit govern"
 					:class="{'active-link': isRouteActive('/govern')}">
@@ -77,7 +69,6 @@
 <script>
 import DashboardIcon from "@/assets/images/svg/svg-menu-dashboard.svg";
 import MintIcon from "@/assets/images/svg/svg-menu-mint.svg";
-import ManageIcon from "@/assets/images/svg/svg-menu-manage.svg";
 import GovernIcon from "@/assets/images/svg/svg-menu-govern.svg";
 import SwapIcon from "@/assets/images/svg/svg-menu-swap.svg";
 import FarmIcon from "@/assets/images/svg/svg-menu-farm.svg";
@@ -90,7 +81,6 @@ export default {
 	components: {
 		DashboardIcon,
 		MintIcon,
-		ManageIcon,
 		GovernIcon,
 		SwapIcon,
 		FarmIcon,
