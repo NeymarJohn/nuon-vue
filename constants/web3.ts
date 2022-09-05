@@ -1,4 +1,3 @@
-
 export const chainData = {
 	4: {
 		name: "Rinkeby",
@@ -14,4 +13,3 @@ export const chainData = {
 	}
 };
 export const wallets = ["metamask", "walletconnect"];
-export const networks = [4, 31010];

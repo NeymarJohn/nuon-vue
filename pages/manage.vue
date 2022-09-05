@@ -3,13 +3,81 @@
 		<LayoutContainer>
 			<LayoutFlex direction="row-center-space-between" class="u-mb-48 u-pb-32 u-bb-medium-light-grey">
 				<PageTitle>
-					<h4>Mint</h4>
-					<h1 class="u-mb-sm-12">Mint NUON</h1>
+					<h4>Manage</h4>
+					<h1 class="u-mb-sm-12">Manage NUON</h1>
+					<h5 v-if="mobileView" class="u-color-white u-text-decoration-underline" title="Click to view hub overview" @click="setModalVisibility('hubOverviewModal', true)">Hub Overview</h5>
 				</PageTitle>
-				<PriceIndicator />
+				<LayoutFlex class="u-full-width-sm">
+					<TheButton
+						size="md"
+						title="Click to mint"
+						class="u-mr-30 u-mr-lg-24 u-mr-md-12 u-full-width-sm u-min-width-150"
+						@click="setModalVisibility('mintModal', true)">Mint</TheButton>
+					<TheButton
+						size="md"
+						title="Click to redeem"
+						class="u-mr-30 u-mr-lg-24 u-mr-md-12 u-full-width-sm u-min-width-150"
+						:disabled="isDisabled"
+						@click="setModalVisibility('redeemModal', true)">Redeem</TheButton>
+					<TheButton
+						size="md"
+						title="Click to adjust collateral position"
+						class="u-full-width-sm u-min-width-150"
+						:disabled="isDisabled"
+						@click="setModalVisibility('adjustPositionModal', true)">Adjust Position</TheButton>
+				</LayoutFlex>
 			</LayoutFlex>
-			<CollateralMint :minimum-deposit-amount="minimumDepositAmount" :currently-selected-collateral="currentlySelectedCollateral" />
+			<TheTabsImage
+				:user-total-collateral-amount="userTotalLockedCollateralAmount" :user-total-minted-nuon="userTotalMintedNuon"
+				@tab-changed="tabChanged"/>
+			<ComponentLoader :loaded="userCollateralizationRatio !== null && minimumCollateralizationRatio !== null" component="notification" class="u-width-auto u-mb-12">
+				<TheNotification
+					:my-collateralization-ratio="userCollateralizationRatio" />
+			</ComponentLoader>
+			<CollateralOverview
+				:collateral-token="currentlySelectedCollateral"
+				:my-total-locked-collateral="userCollateralAmount"
+				:my-total-locked-collateral-dollar="totalLockedCollateralDollarValue"
+				:my-total-minted-tokens="userMintedAmount"
+				:my-total-minted-tokens-dollar="totalMintedTokensDollarValue"
+				:my-collateralization-ratio="userCollateralizationRatio"
+				:current-price="collateralPrice"
+				:collateral-price-change="collateralPriceChange"
+				:liquidity-coverage="userLiquidityCoverage"
+				:lp-amount="userLpValue" />
+			<CollateralEcosystemStatus
+				:collateral-token="currentlySelectedCollateral"
+				:min-collateralization-ratio="minimumCollateralizationRatio"
+				:liquidation-price="liquidationPrice"
+				:nuon-price="nuonPrice"
+				:truflation-peg="truflationPeg" />
 		</LayoutContainer>
+		<TheModal
+			v-show="isMintModalVisible"
+			title="Mint"
+			subtitle="Deposit collateral to mint NUON"
+			@close-modal="setModalVisibility('mintModal', false)">
+			<CollateralMint :minimum-deposit-amount="minimumDepositAmount" :currently-selected-collateral="currentlySelectedCollateral" />
+		</TheModal>
+		<TheModal
+			v-show="isRedeemModalVisible"
+			title="Redeem"
+			subtitle="Burn NUON to redeem collateral"
+			@close-modal="setModalVisibility('redeemModal', false)">
+			<CollateralRedeem :currently-selected-collateral="currentlySelectedCollateral" />
+		</TheModal>
+		<TheModal
+			v-show="isAdjustPositionModalVisible"
+			:title="`Adjust Position${adjustModalPositionTitle && ': '}${adjustModalPositionTitle}`"
+			:subtitle="adjustModalPositionSubtitle || 'Manage your collateral'"
+			@close-modal="setModalVisibility('adjustPositionModal', false)">
+			<AdjustPosition
+				:minimum-deposit-amount="minimumDepositAmount"
+				:currently-selected-collateral="currentlySelectedCollateral"
+				:user-minted-amount="userMintedAmount"
+				@action-changed="setAdjustPositionModalTitle" />
+		</TheModal>
+		<!-- <v-tour name="collateralHubTour" :steps="steps" :callbacks="tourCallbacks"></v-tour> -->
 	</div>
 </template>
 
@@ -17,7 +85,7 @@
 import { fromWei, toWei } from "~/utils/bnTools";
 
 export default {
-	name: "Mint",
+	name: "Manage",
 	data () {
 		return {
 			myCollateralizationRatio: null,

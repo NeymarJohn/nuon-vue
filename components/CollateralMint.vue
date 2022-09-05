@@ -1,109 +1,56 @@
 <template>
-	<TheStepper :active-step="activeStep" :steps="['Input', 'Confirm']">
-		<template #step-one>
-			<DataCard class="u-full-width u-mb-48">
+	<LayoutContainer size="sm" class="u-pt-0">
+		<div class="swap">
+			<LayoutFlex direction="row-space-between" class="u-full-width">
+				<p>Amount of {{ currentlySelectedCollateral }}</p>
+				<p>Available balance: {{ (tokenBalance || 0) | formatLongNumber }}</p>
+			</LayoutFlex>
+			<InputMax v-model="inputValue" :maximum="tokenBalance" @click="inputMaxBalance" />
+			<LayoutFlex direction="row-justify-end">
+				<p class="u-mb-0 u-font-size-14">~ ${{ numberWithCommas(getDollarValue(inputValue, collateralPrice).toFixed(2)) }}</p>
+			</LayoutFlex>
+			<p v-if="isMoreThanBalance" class="u-is-warning l-flex--align-self-end">Insufficient balance</p>
+			<p v-if="isLTEMinimumDepositAmount" class="u-is-warning l-flex--align-self-end">Please deposit more than {{ minimumDepositAmount }}</p>
+			<p>Set your Collateral Ratio</p>
+			<div class="collateral">
 				<LayoutFlex direction="row-space-between" class="u-full-width">
-					<p>Amount of {{ currentlySelectedCollateral }}</p>
-					<p>Available balance: {{ (tokenBalance || 0) | formatLongNumber }}</p>
+					<div class="collateral__text">
+						<p>Liquidation Price</p>
+						<h4>${{ liquidationPrice | toFixed | numberWithCommas }}</h4>
+					</div>
+					<div class="collateral__text">
+						<p>Collateral Ratio</p>
+						<h4 :class="selectedCollateralRatio < 300 ? selectedCollateralRatio < 200 ? 'u-is-warning' : 'u-is-caution' : 'u-is-success'">{{ selectedCollateralRatio }}%</h4>
+					</div>
 				</LayoutFlex>
-				<InputMax v-model="inputValue" :maximum="tokenBalance" @click="inputMaxBalance" />
-				<h5 v-if="inputValue" class="u-mb-0 l-flex--align-self-end">~ ${{ numberWithCommas(getDollarValue(inputValue, collateralPrice).toFixed(2)) }}</h5>
-				<p v-if="readyToDeposit && !isLTEMinimumDepositAmount" class="u-is-success l-flex--align-self-end">Ready to deposit</p>
-				<p v-if="isMoreThanBalance" class="u-is-warning l-flex--align-self-end">Insufficient balance</p>
-				<p v-if="isLTEMinimumDepositAmount" class="u-is-warning l-flex--align-self-end">Please deposit more than {{ minimumDepositAmount }}</p>
-			</DataCard>
-			<DataCard class="u-full-width">
-				<p>Set Your Collateral Ratio</p>
-				<div class="collateral">
-					<LayoutFlex direction="row-space-between" class="u-full-width">
-						<div class="collateral__text">
-							<p>Liquidation Price</p>
-							<h4>${{ liquidationPrice | toFixed | numberWithCommas }}</h4>
-						</div>
-						<div class="collateral__text">
-							<p>Collateral Ratio</p>
-							<h4 :class="selectedCollateralRatio < 300 ? selectedCollateralRatio < 200 ? 'u-is-warning' : 'u-is-caution' : 'u-is-success'">{{ selectedCollateralRatio }}%</h4>
-						</div>
-					</LayoutFlex>
-					<RangeSlider :min="`${sliderMin}`" :max="'1000'" :slider-disabled="!inputValue || isMoreThanBalance" :selected-collateral-ratio="`${selectedCollateralRatio}`" @emit-change="sliderChanged" />
-					<LayoutFlex direction="row-space-between">
-						<div class="range-slider__value">
-							<h5>{{ sliderMin }}%</h5>
-							<p>Increased Risk</p>
-						</div>
-						<div class="range-slider__value">
-							<h5>1000%</h5>
-							<p>Decreased Risk</p>
-						</div>
-					</LayoutFlex>
-				</div>
-			</DataCard>
-			<DataCard class="u-full-width">
-				<p>Estimated total NUON minted</p>
-				<h4 class="collateral-estimate">{{ estimatedMintedNuonValue | toFixed | numberWithCommas }} <sup>NUON</sup></h4>
-			</DataCard>
-			<DataCard class="u-full-width">
-				<label>Estimated extra required collateral<TooltipIcon v-tooltip="'Nuon requires an extra amount of collaterals to be deposited that will be converted in LPs. This amount is used to ensure liquidity protection in the ecosystem and will be returned to you at redeem.'" /></label>
-				<h4 class="collateral-estimate">{{ estimatedExtraRequiredCollateral | toFixed | numberWithCommas }} <sup>{{ currentlySelectedCollateral }}</sup></h4>
-			</DataCard>
-			<div class="toggle__transaction">
-				<TheButton
-					:disabled="isApproved || isApproving"
-					:class="isApproved"
-					title="Click to approve"
-					size="approved"
-					class="u-min-width-185"
-					@click="approveTokens">
-					<span v-if="isApproved">Verified</span>
-					<span v-else-if="isApproving">Approving...</span>
-					<span v-else>Approve</span>
-				</TheButton>
-				<TheButton
-					class="u-full-width"
-					title="Click to deposit"
-					:disabled="disabledMint"
-					@click="activeStep = 2">Next</TheButton>
+				<RangeSlider :min="`${sliderMin}`" :max="'1000'" :slider-disabled="!inputValue || isMoreThanBalance" :selected-collateral-ratio="`${selectedCollateralRatio}`" @emit-change="sliderChanged" />
+				<LayoutFlex direction="row-space-between">
+					<div class="range-slider__value">
+						<h5>{{ sliderMin }}%</h5>
+						<p>Increased Risk</p>
+					</div>
+					<div class="range-slider__value">
+						<h5>1000%</h5>
+						<p>Decreased Risk</p>
+					</div>
+				</LayoutFlex>
 			</div>
-		</template>
-		<template #step-two>
-			<TransactionSummaryChub
-				:convert-from-amount="`${inputValue}`"
-				convert-from-title="Deposit"
-				:convert-to-amount="estimatedMintedNuonValue"
-				convert-to-title="Mint"
-				:collateral-ratio="selectedCollateralRatio"
-				:liquidation-price="liquidationPrice"
-				:from-token="currentlySelectedCollateral"
-				:to-token="'NUON'"
-				:fee="mintFee"
-			/>
-			<div class="toggle__transaction">
-				<TheButton
-					title="Click to go back"
-					class="btn--back"
-					@click="activeStep = 1">Back</TheButton>
-				<TheButton
-					class="u-full-width"
-					title="Click to confirm"
-					:disabled="minting"
-					@click="mint">
-					<span v-if="minting">Minting...</span>
-					<span v-else>Confirm</span>
-				</TheButton>
-			</div>
-		</template>
-	</TheStepper>
+			<TransactionSummary v-if="inputValue > 0" :values="summary" />
+			<TheButton
+				title="Click to confirm"
+				:disabled="minting"
+				@click="mint">
+				Confirm
+			</TheButton>
+		</div>
+	</LayoutContainer>
 </template>
 
 <script>
 import { fromWei, toWei } from "~/utils/bnTools";
-import TooltipIcon from "@/assets/images/svg/svg-tooltip.svg";
 
 export default {
 	name: "CollateralMint",
-	components: {
-		TooltipIcon
-	},
 	props: {
 		currentlySelectedCollateral: {
 			type: String,
@@ -129,11 +76,32 @@ export default {
 		};
 	},
 	computed: {
-		isApproved() {
-			return !!parseFloat(this.$store.state.collateralVaultStore.allowance[this.currentlySelectedCollateral]);
+		summary() {
+			return [
+				{
+					title: "Estimated total NUON minted",
+					val: this.numberWithCommas(this.estimatedMintedNuonValue),
+					currency: "NUON",
+				},
+				{
+					title: "Estimated extra required collateral",
+					val: this.numberWithCommas(this.estimatedExtraRequiredCollateral),
+					currency: "WETH",
+				},
+				{
+					title: "Collateral ratio",
+					val: this.selectedCollateralRatio,
+					currency: "%",
+				},
+				{
+					title: "Fee",
+					val: this.mintFee,
+					currency: "%",
+				},
+			];
 		},
 		disabledMint() {
-			return !this.isApproved || !parseFloat(this.inputValue) || this.isMoreThanBalance || !this.connectedAccount || this.isLTEMinimumDepositAmount;
+			return !parseFloat(this.inputValue) || this.isMoreThanBalance || !this.connectedAccount || this.isLTEMinimumDepositAmount;
 		},
 		isMoreThanBalance() {
 			return  parseFloat(this.inputValue) > this.tokenBalance;
@@ -190,7 +158,6 @@ export default {
 	},
 	methods: {
 		async initialize() {
-			if (!this.isConnectedWallet) return;
 			try {
 				const chubAddress = this.$store.getters["addressStore/collateralHubs"][this.$store.state.collateralVaultStore.currentCollateralToken];
 				const min = await this.$store.getters["collateralVaultStore/getGlobalCR"](chubAddress);
