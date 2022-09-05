@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Web3 from "web3";
 import dayjs from "dayjs";
+import { BigNumber } from "bignumber.js";
 import { NUON } from "~/constants/tokens";
 
 Vue.mixin({
@@ -264,5 +265,8 @@ Vue.mixin({
 		setCookie(key) {
 			this.$cookies.set(key, "true");
 		},
+		getValueWithBN(amount, price) {
+			return new BigNumber(amount).times(price).toString();
+		}
 	},
 });

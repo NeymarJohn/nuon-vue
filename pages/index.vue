@@ -9,10 +9,10 @@
 		</LayoutFlex>
 		<h3 class="u-mb-24">Account Health</h3>
 		<div class="l-collateral l-collateral--distribution">
-			<div class="l-collateral__donut">
+			<TheLoader component="table"  class="l-collateral__donut">
 				<label>Collateral Distribution</label>
 				<DonutChartCollateral :chart-data="collateralDonutChartData" />
-			</div>
+			</TheLoader>
 			<TheLoader component="table" class="l-collateral__table">
 				<TransactionTable
 					v-if="!mobileView"
@@ -40,7 +40,8 @@
 						</ComponentLoader>
 					</label>
 					<ComponentLoader component="h3" :loaded="balanceLoaded">
-						<h3>${{ (graphSelectionTVL || totalValue) | toFixed | numberWithCommas }}</h3>
+						<h3 v-if="selectedCollateralToggleBtn === 0">${{ (graphSelectionTVL || totalValue) | toFixed | numberWithCommas }}</h3>
+						<h3 v-else>${{ totalValue | toFixed | numberWithCommas }}</h3>
 					</ComponentLoader>
 				</div>
 				<div class="l-collateral__toggle-btn" :class="{'is-active': selectedCollateralToggleBtn === 1}" @click="handleCollaterlToggleBtn(1)">
@@ -52,7 +53,8 @@
 						</ComponentLoader>
 					</label>
 					<ComponentLoader component="h3" :loaded="balanceLoaded">
-						<h3>${{ (graphSelectionMintedNuon || totalMintedNuon) | toFixed | numberWithCommas }}</h3>
+						<h3 v-if="selectedCollateralToggleBtn === 1">${{ (graphSelectionMintedNuon || totalMintedNuon) | toFixed | numberWithCommas }}</h3>
+						<h3 v-else>${{ totalMintedNuon | toFixed | numberWithCommas }}</h3>
 					</ComponentLoader>
 				</div>
 			</div>
@@ -371,8 +373,11 @@ export default {
 				idx = this.yAxisData[0]?.data?.length - 1;
 				this.graphSelectionDuraton = "";
 			}
-			this.graphSelectionTVL = this.yAxisData[0]?.data[idx];
-			this.graphSelectionMintedNuon = this.yAxisData[1]?.data[idx];
+			if (this.selectedCollateralToggleBtn === 0) {
+				this.graphSelectionTVL = this.yAxisData[0]?.data[idx];
+			} else {
+				this.graphSelectionMintedNuon = this.yAxisData[0]?.data[idx];
+			}
 			if (e === -1) return;
 			const startDate = dayjs(this.xAxisData[idx]).format("MMM D YYYY");
 			if (this.selectedPeriod === 0) {

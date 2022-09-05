@@ -12,7 +12,7 @@
 				<span>${{ targetPeg | toFixed }}</span>
 			</ComponentLoader>
 		</li>
-		<li>Health Status:
+		<li>Soft Peg Gap:
 			<ComponentLoader component="health-status" :loaded="nuonPrice !== 0 && targetPeg !== 0">
 				<span :class="getColorForHealth(nuonPrice, targetPeg)">
 					{{healthMetrics( targetPeg, nuonPrice) > 0 ? "+" : ""}}{{ healthMetrics( targetPeg, nuonPrice) | toFixed }} %
