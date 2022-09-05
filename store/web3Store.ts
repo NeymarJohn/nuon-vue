@@ -20,6 +20,7 @@ type Web3StoreType = {
 	chainId: number | null,
 	chains: any,
 	connectedWallet: any,
+	blockNumber: string | null
 }
 export const state = ():Web3StoreType => ({
 	instance: null,
@@ -29,6 +30,7 @@ export const state = ():Web3StoreType => ({
 	chainId: null,
 	chains: chainData,
 	connectedWallet: null,
+	blockNumber: null
 });
 
 export type Web3State = ReturnType<typeof state>
@@ -48,6 +50,9 @@ export const mutations: MutationTree<Web3State> = {
 	},
 	setConnectedWallet (state, payload) {
 		state.connectedWallet = payload;
+	},
+	setBlockNumber(state, payload) {
+		state.blockNumber = payload;
 	}
 };
 
@@ -160,7 +165,7 @@ export const actions: ActionTree<Web3State, Web3State> = {
 			const chainId = Web3.utils.hexToNumber(await window.ethereum.request({ method: "eth_chainId" }));
 			const web3 = new Web3(Web3.givenProvider);
 			// check if network is valid
-			if(await web3.eth.net.getId() !== 31010){
+			if(!networks.includes(chainId)){
 				commit("modalStore/setModalInfo",{name: "alertModal", info: {title:"Wrong Network", message: "You are using a wrong network, please change to HYDRO.", cta: "switch-network"}}, {root: true});
 				commit("modalStore/setModalVisibility", {name: "alertModal", visibility: true}, {root:true});
 				return;
@@ -173,6 +178,9 @@ export const actions: ActionTree<Web3State, Web3State> = {
 
 			dispatch("initializeAllStore", {address: state.account, chainId: state.chainId, web3});
 
+			const blockNumber = await web3.eth.getBlockNumber();
+			commit("setBlockNumber", blockNumber);
+			commit("rootStore/setIsLoaded", true, {root:true});
 			// Fetch Token Prices
 			dispatch("tokenStore/getTokenPrices",{}, {root:true});
 
