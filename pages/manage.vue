@@ -7,77 +7,69 @@
 					<h1 class="u-mb-sm-12">Manage NUON</h1>
 					<h5 v-if="mobileView" class="u-color-white u-text-decoration-underline" title="Click to view hub overview" @click="setModalVisibility('hubOverviewModal', true)">Hub Overview</h5>
 				</PageTitle>
-				<LayoutFlex class="u-full-width-sm">
-					<TheButton
-						size="md"
-						title="Click to mint"
-						class="u-mr-30 u-mr-lg-24 u-mr-md-12 u-full-width-sm u-min-width-150"
-						@click="setModalVisibility('mintModal', true)">Mint</TheButton>
-					<TheButton
-						size="md"
-						title="Click to redeem"
-						class="u-mr-30 u-mr-lg-24 u-mr-md-12 u-full-width-sm u-min-width-150"
-						:disabled="isDisabled"
-						@click="setModalVisibility('redeemModal', true)">Redeem</TheButton>
-					<TheButton
-						size="md"
-						title="Click to adjust collateral position"
-						class="u-full-width-sm u-min-width-150"
-						:disabled="isDisabled"
-						@click="setModalVisibility('adjustPositionModal', true)">Adjust Position</TheButton>
-				</LayoutFlex>
+				<PriceIndicator />
 			</LayoutFlex>
-			<TheTabsImage
-				:user-total-collateral-amount="userTotalLockedCollateralAmount" :user-total-minted-nuon="userTotalMintedNuon"
-				@tab-changed="tabChanged"/>
-			<ComponentLoader :loaded="userCollateralizationRatio !== null && minimumCollateralizationRatio !== null" component="notification" class="u-width-auto u-mb-12">
-				<TheNotification
-					:my-collateralization-ratio="userCollateralizationRatio" />
-			</ComponentLoader>
-			<CollateralOverview
-				:collateral-token="currentlySelectedCollateral"
-				:my-total-locked-collateral="userCollateralAmount"
-				:my-total-locked-collateral-dollar="totalLockedCollateralDollarValue"
-				:my-total-minted-tokens="userMintedAmount"
-				:my-total-minted-tokens-dollar="totalMintedTokensDollarValue"
-				:my-collateralization-ratio="userCollateralizationRatio"
-				:current-price="collateralPrice"
-				:collateral-price-change="collateralPriceChange"
-				:liquidity-coverage="userLiquidityCoverage"
-				:lp-amount="userLpValue" />
-			<CollateralEcosystemStatus
-				:collateral-token="currentlySelectedCollateral"
-				:min-collateralization-ratio="minimumCollateralizationRatio"
-				:liquidation-price="liquidationPrice"
-				:nuon-price="nuonPrice"
-				:truflation-peg="truflationPeg" />
+			<TheTabs margin="24" size="govern" color="transparent">
+				<TheTab title="Nuon">
+					<LayoutAction type="tabs">
+						<template #left>
+							<TheTabs margin="0" size="full">
+								<TheTab title="Mint">
+									<InputManage/>
+								</TheTab>
+								<TheTab title="Redeem">
+								</TheTab>
+							</TheTabs>
+						</template>
+						<template #right>
+							<CurrencyCard class="u-mb-32" label="Locked Collateral" :value="myStake" :change="getDollarValue(myStake, tokenPrices.nuMINT)" currency="nuMINT" />
+							<CurrencyCard label="My Collateralization Ratio" :percent="votingPower" />
+							<CurrencyCard label="Liquidation Price" :value="tokenPrices.nuMINT" />
+							<CurrencyCard label="Liquidation Ratio" :value="totalStaked" currency="nuMINT" />
+							<CurrencyCard label="Liquidation Position" :value="totalStaked" currency="nuMINT" />
+						</template>
+					</LayoutAction>
+				</TheTab>
+				<TheTab title="Collateral">
+					<LayoutAction type="tabs">
+						<template #left>
+							<TheTabs margin="0" size="full">
+								<TheTab title="Deposite">
+								</TheTab>
+								<TheTab title="Withdraw">
+								</TheTab>
+							</TheTabs>
+						</template>
+						<template #right>
+							<CurrencyCard class="u-mb-32" label="Locked Collateral" :value="myStake" :change="getDollarValue(myStake, tokenPrices.nuMINT)" currency="nuMINT" />
+							<CurrencyCard label="My Collateralization Ratio" :percent="votingPower" />
+							<CurrencyCard label="Liquidation Price" :value="tokenPrices.nuMINT" />
+							<CurrencyCard label="Liquidation Ratio" :value="totalStaked" currency="nuMINT" />
+							<CurrencyCard label="Liquidation Position" :value="totalStaked" currency="nuMINT" />
+						</template>
+					</LayoutAction>
+				</TheTab>
+				<TheTab title="Liquidity">
+					<LayoutAction type="tabs">
+						<template #left>
+							<TheTabs margin="0" size="full">
+								<TheTab title="Add">
+								</TheTab>
+								<TheTab title="Remove">
+								</TheTab>
+							</TheTabs>
+						</template>
+						<template #right>
+							<CurrencyCard class="u-mb-32" label="Locked Collateral" :value="myStake" :change="getDollarValue(myStake, tokenPrices.nuMINT)" currency="nuMINT" />
+							<CurrencyCard label="My Collateralization Ratio" :percent="votingPower" />
+							<CurrencyCard label="Liquidation Price" :value="tokenPrices.nuMINT" />
+							<CurrencyCard label="Liquidation Ratio" :value="totalStaked" currency="nuMINT" />
+							<CurrencyCard label="Liquidation Position" :value="totalStaked" currency="nuMINT" />
+						</template>
+					</LayoutAction>
+				</TheTab>
+			</TheTabs>
 		</LayoutContainer>
-		<TheModal
-			v-show="isMintModalVisible"
-			title="Mint"
-			subtitle="Deposit collateral to mint NUON"
-			@close-modal="setModalVisibility('mintModal', false)">
-			<CollateralMint :minimum-deposit-amount="minimumDepositAmount" :currently-selected-collateral="currentlySelectedCollateral" />
-		</TheModal>
-		<TheModal
-			v-show="isRedeemModalVisible"
-			title="Redeem"
-			subtitle="Burn NUON to redeem collateral"
-			@close-modal="setModalVisibility('redeemModal', false)">
-			<CollateralRedeem :currently-selected-collateral="currentlySelectedCollateral" />
-		</TheModal>
-		<TheModal
-			v-show="isAdjustPositionModalVisible"
-			:title="`Adjust Position${adjustModalPositionTitle && ': '}${adjustModalPositionTitle}`"
-			:subtitle="adjustModalPositionSubtitle || 'Manage your collateral'"
-			@close-modal="setModalVisibility('adjustPositionModal', false)">
-			<AdjustPosition
-				:minimum-deposit-amount="minimumDepositAmount"
-				:currently-selected-collateral="currentlySelectedCollateral"
-				:user-minted-amount="userMintedAmount"
-				@action-changed="setAdjustPositionModalTitle" />
-		</TheModal>
-		<!-- <v-tour name="collateralHubTour" :steps="steps" :callbacks="tourCallbacks"></v-tour> -->
 	</div>
 </template>
 
