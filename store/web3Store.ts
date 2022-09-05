@@ -1,13 +1,15 @@
 import { GetterTree, ActionTree, MutationTree } from "vuex";
 import Web3 from "web3";
 import WalletConnectProvider from "@walletconnect/web3-provider";
-import { chainData, wallets } from "~/constants/web3";
+import { chainData, networks, wallets } from "~/constants/web3";
 
 declare let window: any;
 declare let ethereum: any;
 
 const [Metamask, Walletconnect] = wallets;
-const WALLET_CONNECTED = "wallet_connected";
+const WALLET_CONNECTED = "nuon_wallet_connected";
+const LAST_CHAIN_ID = "nuon_last_connected_chain";
+const WALLET_TYPE = "nuon_wallet_type";
 export const DEFAULT_CHAIN_ID = parseInt(process.env.default_chain_id || "31010");
 
 type Web3StoreType = {
@@ -54,17 +56,15 @@ export const actions: ActionTree<Web3State, Web3State> = {
    * @dev initialize with default web3 values
    */
 	init ({ state, commit, dispatch }) {
-		// Set default chain
-		const rpcUrl = state.chains[DEFAULT_CHAIN_ID].provider;
-		const defaultWeb3 = new Web3(new Web3.providers.HttpProvider(rpcUrl));
-		commit("setWeb3", () => defaultWeb3);
-		commit("setChainId", DEFAULT_CHAIN_ID);
-
-		if (localStorage.getItem(WALLET_CONNECTED)) {
-			const wallet = localStorage.getItem("nuon-wallet");
+		if (localStorage.getItem(WALLET_CONNECTED) && localStorage.getItem(LAST_CHAIN_ID)) {
+			const wallet = localStorage.getItem(WALLET_TYPE);
+			const chainId = localStorage.getItem(LAST_CHAIN_ID) as string;
+			const rpcUrl = state.chains[chainId].provider;
+			const defaultWeb3 = new Web3(new Web3.providers.HttpProvider(rpcUrl));
+			commit("setWeb3", () => defaultWeb3);
+			commit("setChainId", DEFAULT_CHAIN_ID);
 			dispatch("connect", {wallet});
 		}
-		dispatch("tokenStore/getTokenPrices",{}, {root:true});
 	},
 
 	async connect (ctx: any, {wallet, onError}) {
@@ -75,8 +75,7 @@ export const actions: ActionTree<Web3State, Web3State> = {
 			if (window.ethereum) {
 				try {
 					dispatch("setChain");
-					localStorage.setItem(WALLET_CONNECTED, "connected");
-					localStorage.setItem("nuon-wallet", wallet);
+					localStorage.setItem(WALLET_TYPE, wallet);
 				} catch (e) {
 					if (onError) onError(e);
 				} finally {
@@ -104,8 +103,7 @@ export const actions: ActionTree<Web3State, Web3State> = {
 				const chainId = await web3.eth.net.getId();
 				commit("setWeb3", () => web3);
 				dispatch("updateChain", chainId);
-				localStorage.setItem(WALLET_CONNECTED, "connected");
-				localStorage.setItem("nuon-wallet", wallet);
+				localStorage.setItem(WALLET_TYPE, wallet);
 				dispatch("initializeAllStore", {address: state.account, chainId: state.chainId, web3});
 
 				provider.on("accountsChanged", async (accounts: string[]) => {
@@ -161,6 +159,12 @@ export const actions: ActionTree<Web3State, Web3State> = {
 			const [account] = await window.ethereum.request({ method: "eth_requestAccounts" });
 			const chainId = Web3.utils.hexToNumber(await window.ethereum.request({ method: "eth_chainId" }));
 			const web3 = new Web3(Web3.givenProvider);
+			// check if network is valid
+			if(await web3.eth.net.getId() !== 31010){
+				commit("modalStore/setModalInfo",{name: "alertModal", info: {title:"Wrong Network", message: "You are using a wrong network, please change to HYDRO.", cta: "switch-network"}}, {root: true});
+				commit("modalStore/setModalVisibility", {name: "alertModal", visibility: true}, {root:true});
+				return;
+			}
 			const balance = await web3.eth.getBalance(account);
 			commit("setChainId", chainId);
 			commit("setWeb3", () => web3);
@@ -168,6 +172,9 @@ export const actions: ActionTree<Web3State, Web3State> = {
 			commit("setBalance", balance);
 
 			dispatch("initializeAllStore", {address: state.account, chainId: state.chainId, web3});
+
+			// Fetch Token Prices
+			dispatch("tokenStore/getTokenPrices",{}, {root:true});
 
 			//  Set Events
 			ethereum.on("accountsChanged", async (accounts: string[]) => {
@@ -185,19 +192,13 @@ export const actions: ActionTree<Web3State, Web3State> = {
 			});
 			ethereum.on("chainChanged", () => {
 				dispatch("setChain");
-				dispatch("wrongNetwork");
 			});
+
+			// Put Storage Value
+			localStorage.setItem(WALLET_CONNECTED, "connected");
+			localStorage.setItem(LAST_CHAIN_ID, `${chainId}`);
 		};
 	},
-
-	async wrongNetwork({commit}){
-		const web3 = new Web3(Web3.givenProvider);
-		if(await web3.eth.net.getId() !== 31010){
-			commit("modalStore/setModalInfo",{name: "alertModal", info: {title:"Wrong Network", message: "You are using a wrong network, please change to HYDRO.", cta: "switch-network"}}, {root: true});
-			commit("modalStore/setModalVisibility", {name: "alertModal", visibility: true}, {root:true});
-		}
-	},
-
 };
 
 export const getters: GetterTree<Web3State, Web3State> = {

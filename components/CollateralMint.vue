@@ -192,6 +192,7 @@ export default {
 	},
 	methods: {
 		async initialize() {
+			if (!this.isConnectedWallet) return;
 			try {
 				const chubAddress = this.$store.getters["addressStore/collateralHubs"][this.$store.state.collateralVaultStore.currentCollateralToken];
 				const min = await this.$store.getters["collateralVaultStore/getGlobalCR"](chubAddress);
