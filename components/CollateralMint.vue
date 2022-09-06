@@ -31,7 +31,19 @@
 					<h3>{{numberWithCommas(estimatedMintedNuonValue | toFixed)}}<sup>NUON</sup></h3>
 				</div>
 			</div>
-			<p>Set your Collateral Ratio</p>
+			<div class="collateral">
+				<div class="collateral__header">
+					<p>Set your Collateral Ratio<TooltipIcon v-tooltip="'Enter content here'" /></p>
+					<TheButton size="link" title="Click to view advanced options">Advanced</TheButton>
+				</div>
+				<div class="collateral__body">
+					<TheButton title="Click to select high risk">200% <span>High Risk</span></TheButton>
+					<TheButton title="Click to select medium risk">300% <span>Medium Risk</span></TheButton>
+					<TheButton title="Click to select low risk">400% <span>Low Risk</span></TheButton>
+				</div>
+			</div>
+
+
 			<div class="collateral">
 				<LayoutFlex direction="row-space-between" class="u-full-width">
 					<div class="collateral__text">
@@ -68,9 +80,13 @@
 
 <script>
 import { fromWei, toWei } from "~/utils/bnTools";
+import TooltipIcon from "@/assets/images/svg/svg-tooltip.svg";
 
 export default {
 	name: "CollateralMint",
+	components: {
+		TooltipIcon
+	},
 	props: {
 		currentlySelectedCollateral: {
 			type: String,
