@@ -1,7 +1,7 @@
 <template>
 	<LayoutContainer size="sm" class="u-pt-0">
 		<div class="swap">
-			<div class="swap__container">
+			<div class="swap__container u-mb-8">
 				<SwapBalance
 					label="Deposit"
 					:token="input.token" />
@@ -14,9 +14,23 @@
 						<p class="u-mb-0 u-font-size-14">~ ${{ getPrice(inputValue, collateralPrice) | toFixed | numberWithCommas }}</p>
 					</LayoutFlex>
 				</MintAccordion>
+				<p v-if="isMoreThanBalance" class="u-is-warning l-flex--align-self-end">Insufficient balance</p>
+				<p v-if="isLTEMinimumDepositAmount" class="u-is-warning l-flex--align-self-end">Please deposit more than {{ minimumDepositAmount }}</p>
 			</div>
-			<p v-if="isMoreThanBalance" class="u-is-warning l-flex--align-self-end">Insufficient balance</p>
-			<p v-if="isLTEMinimumDepositAmount" class="u-is-warning l-flex--align-self-end">Please deposit more than {{ minimumDepositAmount }}</p>
+			<div class="swap__container u-mb-24">
+				<div class="swap__balance">
+					<label>Mint</label>
+				</div>
+				<div class="swap__wrapper">
+					<div class="swap__return">
+						<img src="~/assets/images/borrow/NUON.png" alt="NUON logo">
+						<div class="swap__token">
+							<h5>NUON</h5>
+						</div>
+					</div>
+					<h3>{{numberWithCommas(estimatedMintedNuonValue | toFixed)}}<sup>NUON</sup></h3>
+				</div>
+			</div>
 			<p>Set your Collateral Ratio</p>
 			<div class="collateral">
 				<LayoutFlex direction="row-space-between" class="u-full-width">
@@ -93,12 +107,12 @@ export default {
 			return [
 				{
 					title: "Estimated total NUON minted",
-					val: this.numberWithCommas(this.estimatedMintedNuonValue),
+					val: this.numberWithCommas(this.estimatedMintedNuonValue | this.toFixed),
 					currency: "NUON",
 				},
 				{
 					title: "Estimated extra required collateral",
-					val: this.numberWithCommas(this.estimatedExtraRequiredCollateral),
+					val: this.numberWithCommas(this.estimatedExtraRequiredCollateral | this.toFixed),
 					currency: "WETH",
 				},
 				{
@@ -121,9 +135,6 @@ export default {
 		},
 		tokenBalance() {
 			return this.$store.state.erc20Store.balance[this.currentlySelectedCollateral];
-		},
-		readyToDeposit() {
-			return !!this.inputValue && !this.isMoreThanBalance;
 		},
 		mintFee() {
 			return parseFloat(this.$store.state.collateralVaultStore.mintingFee) * 100;

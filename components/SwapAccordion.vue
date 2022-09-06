@@ -6,7 +6,7 @@
 				direction="row-center accordion__header"
 				title="Click to open token list"
 				@click="triggerAccordion">
-				<img v-if="selected.icon" :src="require(`~/assets/images/tokens/${selected.icon}`)" alt="token logo">
+				<img v-if="selected.icon" :src="require(`~/assets/images/tokens/${selected.icon}`)" :alt="`${selected.symbol} logo`">
 				<div class="accordion__token">
 					<h5>{{ selected.symbol }}</h5>
 				</div>

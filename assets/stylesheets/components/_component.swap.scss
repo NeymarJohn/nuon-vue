@@ -66,6 +66,30 @@
 .swap__output label strong {
 	color: $WHITE;
 }
+.swap__wrapper,
+.swap__return {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+.swap__wrapper {
+	justify-content: space-between;
+}
+.swap__wrapper h3 sup {
+	font-size: $SPACING_14;
+	line-height: $SPACING_20;
+	margin-left: $SPACING_10;
+}
+.swap__return {
+	padding: $SPACING_12 $SPACING_16;
+}
+.swap__return img {
+	height: $SPACING_24;
+	width: $SPACING_24;
+	border-radius: $BORDER_RADIUS_CIRCLE;
+	margin-right: $SPACING_8;
+}
+
 // 2. Swap responsive
 @media screen and (max-width: $SPACING_990) {
 	.swap {
