@@ -22,6 +22,16 @@ export const BUSD = {
 	name: "Binance USD"
 };
 
+export const BTC = {
+	symbol: "BTC",
+	name: "Bitcoin"
+};
+
+export const AVAX = {
+	symbol: "AVAX",
+	name: "Avalanche"
+};
+
 export const WETH = {
 	symbol: "WETH",
 	name: "Wrapped Ether"
@@ -68,4 +78,12 @@ export const mainTokens = [
 	{ "symbol": USDT.symbol, "name": USDT.name, "icon": "USDT.png"  },
 	{ "symbol": nuMINT.symbol, "name": nuMINT.name, "icon": "nuMINT.png" },
 	{ "symbol": NUON.symbol, "name": NUON.name, "icon": "NUON.png"  },
+];
+
+export const mintTokens = [
+	{ "symbol": WETH.symbol, "name": WETH.name, "icon": "WETH.png"  },
+	{ "symbol": USDT.symbol, "name": USDT.name, "icon": "USDT.png"  },
+	{ "symbol": BTC.symbol, "name": BTC.name, "icon": "BTC.png" },
+	{ "symbol": BUSD.symbol, "name": BUSD.name, "icon": "BUSD.png"  },
+	{ "symbol": AVAX.symbol, "name": AVAX.name, "icon": "AVAX.png"  },
 ];

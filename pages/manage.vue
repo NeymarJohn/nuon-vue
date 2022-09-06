@@ -4,8 +4,7 @@
 			<LayoutFlex direction="row-center-space-between" class="u-mb-48 u-pb-32 u-bb-medium-light-grey">
 				<PageTitle>
 					<h4>Manage</h4>
-					<h1 class="u-mb-sm-12">Manage NUON</h1>
-					<h5 v-if="mobileView" class="u-color-white u-text-decoration-underline" title="Click to view hub overview" @click="setModalVisibility('hubOverviewModal', true)">Hub Overview</h5>
+					<h1>Manage NUON</h1>
 				</PageTitle>
 				<PriceIndicator />
 			</LayoutFlex>

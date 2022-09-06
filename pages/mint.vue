@@ -4,7 +4,7 @@
 			<LayoutFlex direction="row-center-space-between" class="u-mb-48 u-pb-32 u-bb-medium-light-grey">
 				<PageTitle>
 					<h4>Mint</h4>
-					<h1 class="u-mb-sm-12">Mint NUON</h1>
+					<h1>Mint NUON</h1>
 				</PageTitle>
 				<PriceIndicator />
 			</LayoutFlex>

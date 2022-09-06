@@ -1,14 +1,20 @@
 <template>
 	<LayoutContainer size="sm" class="u-pt-0">
 		<div class="swap">
-			<LayoutFlex direction="row-space-between" class="u-full-width">
-				<p>Amount of {{ currentlySelectedCollateral }}</p>
-				<p>Available balance: {{ (tokenBalance || 0) | formatLongNumber }}</p>
-			</LayoutFlex>
-			<InputMax v-model="inputValue" :maximum="tokenBalance" @click="inputMaxBalance" />
-			<LayoutFlex direction="row-justify-end">
-				<p class="u-mb-0 u-font-size-14">~ ${{ numberWithCommas(getDollarValue(inputValue, collateralPrice).toFixed(2)) }}</p>
-			</LayoutFlex>
+			<div class="swap__container">
+				<SwapBalance
+					label="Deposit"
+					:token="input.token" />
+				<MintAccordion
+					:disabled-tokens="[input.token, 'BTC', 'BUSD', 'AVAX']"
+					:default-token="input.token"
+					@selected-token="selectInputToken">
+					<InputMax v-model="inputValue" :maximum="tokenBalances[input.token]" @click="inputMaxBalance" />
+					<LayoutFlex direction="row-justify-end">
+						<p class="u-mb-0 u-font-size-14">~ ${{ getPrice(inputValue, collateralPrice) | toFixed | numberWithCommas }}</p>
+					</LayoutFlex>
+				</MintAccordion>
+			</div>
 			<p v-if="isMoreThanBalance" class="u-is-warning l-flex--align-self-end">Insufficient balance</p>
 			<p v-if="isLTEMinimumDepositAmount" class="u-is-warning l-flex--align-self-end">Please deposit more than {{ minimumDepositAmount }}</p>
 			<p>Set your Collateral Ratio</p>
@@ -68,11 +74,18 @@ export default {
 			collateralPrice: 0,
 			inputValue: null,
 			estimatedMintedNuonValue: "0",
-			activeStep: 1,
 			isApproving: false,
 			minting: false,
 			sliderMin: "0",
-			estimatedExtraRequiredCollateral: "0"
+			estimatedExtraRequiredCollateral: "0",
+			input: {
+				value: "",
+				token: "WETH"
+			},
+			output: {
+				value: "",
+				token: ""
+			},
 		};
 	},
 	computed: {
@@ -203,7 +216,6 @@ export default {
 			}
 		},
 		async mint() {
-			this.activeStep = "loading";
 			this.minting = true;
 			const amount = toWei(this.inputValue, this.decimals);
 			const collateralRatioToWei = 10 ** 18 / parseFloat(this.selectedCollateralRatio / 100);
@@ -227,12 +239,23 @@ export default {
 				this.failureToast(null, message || e, "Minting failed");
 			} finally {
 				this.minting = false;
-				this.activeStep = 1;
 			}
 		},
 		inputMaxBalance() {
 			this.inputValue = this.twoDecimalPlaces(this.tokenBalance);
-		}
+		},
+		selectInputToken(token) {
+			this.input.token = token.symbol;
+		},
+		selectOutputToken(token) {
+			this.output.token = token.symbol;
+		},
+		onInputKeyUp(changedValue) {
+			this.changedValue = changedValue;
+		},
+		getPrice(token, value) {
+			return this.getDollarValue(this.tokenPrices[token], value) || 0;
+		},
 	}
 };
 </script>
