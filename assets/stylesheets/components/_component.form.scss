@@ -11,24 +11,24 @@
 .form label,
 .form__block p {
 	color: $LIGHT_GREY;
-	font-size: $SPACING_14;
-	line-height: $SPACING_20;
-	margin-bottom: $SPACING_8;
+	font-size: $PX_14;
+	line-height: $PX_20;
+	margin-bottom: $PX_8;
 }
 .form sup {
 	color: $ERROR;
 }
 .form__block {
-	margin-bottom: $SPACING_24;
+	margin-bottom: $PX_24;
 }
 .form__block input,
 .form__block textarea {
-	padding: $SPACING_12 $SPACING_8 !important;
+	padding: $PX_12 $PX_8 !important;
 	width: 100% !important;
-	border: $SPACING_1 solid $HIGHLIGHT_LIGHT_GREY !important;
+	border: $PX_1 solid $HIGHLIGHT_LIGHT_GREY !important;
 	border-radius: $BORDER_RADIUS_8;
 	color: $WHITE;
-	line-height: $SPACING_24 !important;
+	line-height: $PX_24 !important;
 	padding: 0;
 	background: $TRANSPARENT;
 }
@@ -37,6 +37,6 @@
 	font-size: $BODY_TEXT;
 }
 .form__block .datepicker input {
-	border: $SPACING_1 solid $DARK_GREY;
-	padding: $SPACING_12;
+	border: $PX_1 solid $DARK_GREY;
+	padding: $PX_12;
 }

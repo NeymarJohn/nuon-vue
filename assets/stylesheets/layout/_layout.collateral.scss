@@ -7,7 +7,7 @@
 .l-collateral,
 .l-collateral__toggle-btn {
 	border-radius: $BORDER_RADIUS_16;
-	padding: $SPACING_32;
+	padding: $PX_32;
 }
 .l-collateral__toggle-btn {
 	cursor: pointer;
@@ -15,7 +15,7 @@
 .l-collateral {
 	display: flex;
 	background-color: $MEDIUM_LIGHT_GREY;
-	margin-bottom: $SPACING_24;
+	margin-bottom: $PX_24;
 }
 .l-collateral__toggle-btn,
 .l-collateral__toggle-btn label {
@@ -25,16 +25,16 @@
 	background-color: $HIGHLIGHT_GREY;
 }
 .l-collateral__toggle-btn:first-child {
-	margin-bottom: $SPACING_16;
+	margin-bottom: $PX_16;
 }
 .l-collateral__toggle-btn label {
 	display: flex;
 	align-items: center;
-	margin-bottom: $SPACING_4;
+	margin-bottom: $PX_4;
 }
 .l-collateral__toggle {
 	width: 35%;
-	margin-right: $SPACING_24;
+	margin-right: $PX_24;
 }
 .l-collateral__chart {
 	width: 65%;
@@ -43,7 +43,7 @@
 // 2. Collateral distribution
 .l-collateral__donut {
 	width: 25%;
-	margin-right: $SPACING_24;
+	margin-right: $PX_24;
 }
 .l-collateral__donut label {
 	color: $LIGHT_GREY;

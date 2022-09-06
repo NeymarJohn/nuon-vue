@@ -9,18 +9,18 @@
 	flex-direction: row;
 	align-items: center;
 	justify-content: space-between;
-	margin-bottom: $SPACING_52;
+	margin-bottom: $PX_52;
 	position: relative;
 	z-index: 0;
 }
 .stepper__progress {
 	position: absolute;
 	background: $LIGHT_GREY;
-	height: $SPACING_4;
+	height: $PX_4;
 	border-radius: $BORDER_RADIUS_50;
 	z-index: -1;
-	left: $SPACING_45;
-	right: $SPACING_45;
+	left: $PX_45;
+	right: $PX_45;
 	margin: 0 auto;
 }
 .stepper__progress-bar {
@@ -45,13 +45,13 @@
 	transition: $TRANSITION_ALL;
 }
 .stepper__counter {
-	height: $SPACING_32;
-	width: $SPACING_32;
+	height: $PX_32;
+	width: $PX_32;
 	display: grid;
 	place-items: center;
 	background: $MEDIUM_LIGHT_GREY;
 	border-radius: $BORDER_RADIUS_CIRCLE;
-	border: $SPACING_2 solid $LIGHT_GREY;
+	border: $PX_2 solid $LIGHT_GREY;
 	position: relative;
 }
 .stepper__counter svg {
@@ -67,16 +67,16 @@
 }
 .stepper__title {
 	position: absolute;
-	bottom: -$SPACING_28;
+	bottom: -$PX_28;
 	font-size: $BODY_TEXT;
-	line-height: $SPACING_28;
+	line-height: $PX_28;
 	color: $LIGHT_GREY;
 }
 .stepper__loading {
 	text-align: center;
 }
 .stepper__loading h2 {
-	margin-bottom: $SPACING_8;
+	margin-bottom: $PX_8;
 }
 .stepper__loading p {
 	margin-bottom: 0;
@@ -84,9 +84,9 @@
 .stepper__loading svg {
 	display: block;
 	position: relative;
-	width: $SPACING_80;
-	height: $SPACING_80;
-	margin: $SPACING_32 auto;
+	width: $PX_80;
+	height: $PX_80;
+	margin: $PX_32 auto;
 }
 .stepper__item.active .stepper__title {
 	color: $LIME;
@@ -97,8 +97,8 @@
 }
 .stepper__item.active .stepper__number {
 	background: $LIME;
-	height: $SPACING_12;
-	width: $SPACING_12;
+	height: $PX_12;
+	width: $PX_12;
 	border-radius: $BORDER_RADIUS_CIRCLE;
 	opacity: 1;
 	transform: scale(1);
@@ -122,14 +122,14 @@
 }
 
 // 2. Stepper responsive
-@media screen and (max-width: $SPACING_1440) {
+@media screen and (max-width: $PX_1440) {
 	.stepper__title {
 		font-size: $HEADING_FIVE_1440;
-		line-height: $SPACING_26;
+		line-height: $PX_26;
 	}
 }
-@media screen and (max-width: $SPACING_480) {
+@media screen and (max-width: $PX_480) {
 	.stepper {
-		margin-bottom: $SPACING_24;
+		margin-bottom: $PX_24;
 	}
 }

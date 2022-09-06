@@ -11,11 +11,11 @@
 .farms-toggle {
 	background: $DARK_GREY;
 	border-radius: $BORDER_RADIUS_32;
-	padding: $SPACING_8;
+	padding: $PX_8;
 }
 .farms-toggle .btn {
 	transform: none;
-	padding: $SPACING_12 $SPACING_24;
+	padding: $PX_12 $PX_24;
 }
 .farms-toggle .btn.active {
 	background: $MEDIUM_GREY;
@@ -32,7 +32,7 @@
 	align-items: flex-end;
 }
 .farms-filter .select {
-	min-width: $SPACING_200;
+	min-width: $PX_200;
 }
 
 // 3. Farms search
@@ -43,42 +43,42 @@
 	align-items: center;
 	justify-content: flex-start;
 	position: relative;
-	margin-left: $SPACING_16;
+	margin-left: $PX_16;
 }
 .farms-search:before {
 	content: url("data:image/svg+xml,%3Csvg width='18' height='18' viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M11.3851 12.4458C8.73488 14.5685 4.85544 14.4014 2.39866 11.9446C-0.237379 9.30856 -0.237379 5.0347 2.39866 2.39866C5.0347 -0.237379 9.30856 -0.237379 11.9446 2.39866C14.4014 4.85544 14.5685 8.73487 12.4458 11.3851L17.6014 16.5408C17.8943 16.8337 17.8943 17.3085 17.6014 17.6014C17.3085 17.8943 16.8337 17.8943 16.5408 17.6014L11.3851 12.4458ZM3.45932 10.8839C1.40907 8.83369 1.40907 5.50957 3.45932 3.45932C5.50957 1.40907 8.83369 1.40907 10.8839 3.45932C12.9327 5.50807 12.9342 8.82881 10.8885 10.8794C10.8869 10.8809 10.8854 10.8824 10.8839 10.8839C10.8824 10.8854 10.8809 10.8869 10.8794 10.8884C8.82882 12.9342 5.50807 12.9327 3.45932 10.8839Z' fill='%23B7B7B7'/%3E%3C/svg%3E%0A");
 	position: absolute;
 	top: 50%;
-	left: $SPACING_16;
+	left: $PX_16;
 	transform: translate(0%, -50%);
 	line-height: normal;
 	z-index: 1;
-	height: $SPACING_20;
+	height: $PX_20;
 }
 .farms-search input,
 .farms-search input::placeholder {
 	color: $LIGHT_GREY;
 	font-size: $BODY_TEXT_SM;
-	line-height: $SPACING_24;
+	line-height: $PX_24;
 }
 .farms-search input {
 	position: relative;
 	display: flex;
-	padding: $SPACING_12 $SPACING_48;
+	padding: $PX_12 $PX_48;
 	align-items: center;
 	background: $MEDIUM_LIGHT_GREY;
 	border-radius: $BORDER_RADIUS_32;
-	min-width: $SPACING_250;
+	min-width: $PX_250;
 }
 
 // 4. Farms card
 .farms-card {
-	width: calc(33.3% - $SPACING_16);
-	margin-right: $SPACING_24;
+	width: calc(33.3% - $PX_16);
+	margin-right: $PX_24;
 	background: $MEDIUM_LIGHT_GREY;
 	border-radius: $BORDER_RADIUS_16;
-	padding: $SPACING_24;
-	margin-bottom: $SPACING_24;
+	padding: $PX_24;
+	margin-bottom: $PX_24;
 	display: flex;
 	flex-direction: column;
 }
@@ -91,9 +91,9 @@
 	justify-content: space-between;
 	align-items: center;
 	background: $DARK_GREY;
-	padding: $SPACING_32 $SPACING_24;
+	padding: $PX_32 $PX_24;
 	border-radius: $BORDER_RADIUS_8;
-	margin-bottom: $SPACING_24;
+	margin-bottom: $PX_24;
 }
 .farms-card__earned .btn {
 	display: flex;
@@ -104,7 +104,7 @@
 	color: $LIGHT_GREY;
 }
 .farms-card__earned .btn svg {
-	margin-right: $SPACING_12;
+	margin-right: $PX_12;
 }
 .farms-card__text {
 	display: flex;
@@ -114,7 +114,7 @@
 	color: $LIME;
 }
 .farm-card__details {
-	padding-top: $SPACING_24;
+	padding-top: $PX_24;
 }
 .farm-card__details a,
 .farms-table__details a {
@@ -122,7 +122,7 @@
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-	margin-bottom: $SPACING_6;
+	margin-bottom: $PX_6;
 	transition: $TRANSITION_ALL;
 }
 .farm-card__details a:hover,
@@ -139,13 +139,13 @@
 }
 .farm-card__details a svg,
 .farms-table__details a svg {
-	margin-left: $SPACING_8;
+	margin-left: $PX_8;
 }
 
 // 5. Farms table
 .farms-table {
 	background: $MEDIUM_LIGHT_GREY;
-	margin-bottom: $SPACING_16;
+	margin-bottom: $PX_16;
 	border-radius: $BORDER_RADIUS_8;
 }
 .farms-table__row {
@@ -154,7 +154,7 @@
 	justify-content: space-between;
 	align-items: center;
 	cursor: pointer;
-	padding: $SPACING_16 $SPACING_32;
+	padding: $PX_16 $PX_32;
 }
 .farms-table__cell {
 	display: flex;
@@ -169,26 +169,26 @@
 	flex-direction: row;
 	align-items: center;
 	width: 100%;
-	padding: $SPACING_40 $SPACING_32 $SPACING_24;
+	padding: $PX_40 $PX_32 $PX_24;
 }
 .farms-table__earned {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
 	justify-content: space-between;
-	padding: $SPACING_32;
+	padding: $PX_32;
 	border-radius: $BORDER_RADIUS_8;
 	background: $DARK_GREY;
-	margin-right: $SPACING_40;
+	margin-right: $PX_40;
 }
 .farms-table__earned p {
-	margin-bottom: $SPACING_4;
+	margin-bottom: $PX_4;
 }
 .farms-table__earned h3 {
 	color: $LIME;
 }
 .farms-table__earned .btn {
-	margin-left: $SPACING_80;
+	margin-left: $PX_80;
 	background: $LIME;
 	color: $DARK_GREY;
 	display: flex;
@@ -196,51 +196,51 @@
 	align-items: center;
 }
 .farms-table__earned .btn svg {
-	margin-right: $SPACING_12;
+	margin-right: $PX_12;
 }
 .farms-table__earned .btn svg path {
 	fill: $DARK_GREY;
 }
 
 // 6. Farms responsive
-@media screen and (max-width: $SPACING_1440) {
+@media screen and (max-width: $PX_1440) {
 	.farms-card {
-		margin-bottom: $SPACING_12;
-		margin-right: $SPACING_12;
-		width: calc(33.3% - $SPACING_8);
+		margin-bottom: $PX_12;
+		margin-right: $PX_12;
+		width: calc(33.3% - $PX_8);
 	}
 	.farms-toggle .btn {
-		padding: $SPACING_8 $SPACING_24;
+		padding: $PX_8 $PX_24;
 	}
 	.farms-card__earned {
-		padding: $SPACING_16;
+		padding: $PX_16;
 	}
 }
-@media screen and (max-width: $SPACING_990) {
+@media screen and (max-width: $PX_990) {
 	.farms-card {
-		padding: $SPACING_24 $SPACING_16;
+		padding: $PX_24 $PX_16;
 	}
 	.farms-card__earned {
 		flex-direction: column;
 		align-items: flex-start;
-		margin-bottom: $SPACING_20;
+		margin-bottom: $PX_20;
 	}
 	.farms-card__text {
-		margin-bottom: $SPACING_16;
+		margin-bottom: $PX_16;
 	}
 	.farm-card__details a,
 	.farms-table__details a {
 		font-size: $BODY_TEXT_XS;
-		line-height: $SPACING_18;
+		line-height: $PX_18;
 	}
 	.farms-table__row {
-		padding: $SPACING_24 $SPACING_32;
+		padding: $PX_24 $PX_32;
 	}
 	.farms-table__details {
-		padding: $SPACING_32;
+		padding: $PX_32;
 	}
 }
-@media screen and (max-width: $SPACING_480) {
+@media screen and (max-width: $PX_480) {
 	.farms-filter,
 	.farms-toggle {
 		width: 100%;
@@ -250,7 +250,7 @@
 	}
 	.farms-filter .select,
 	.farms-toggle {
-		margin-bottom: $SPACING_24;
+		margin-bottom: $PX_24;
 	}
 	.farms-toggle {
 		display: flex;
@@ -264,7 +264,7 @@
 	.farms-card {
 		width: 100%;
 		margin-right: 0;
-		padding: $SPACING_32;
+		padding: $PX_32;
 	}
 	.farms-card__earned {
 		flex-direction: row;
@@ -276,22 +276,22 @@
 	.farms-table__row {
 		flex-direction: column;
 		align-items: flex-start;
-		padding: $SPACING_32;
+		padding: $PX_32;
 	}
 	.farms-table__cell {
-		margin-bottom: $SPACING_8;
+		margin-bottom: $PX_8;
 	}
 	.farms-table__details,
 	.farms-table__earned {
 		flex-direction: column;
 	}
 	.farms-table__earned {
-		padding: $SPACING_16;
+		padding: $PX_16;
 		flex-direction: row;
 		align-items: center;
 		margin-right: 0;
 		width: 100%;
-		margin-bottom: $SPACING_24;
+		margin-bottom: $PX_24;
 	}
 	.farms-table__earned .btn {
 		margin-left: 0;

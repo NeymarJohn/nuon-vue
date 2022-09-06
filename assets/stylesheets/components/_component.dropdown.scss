@@ -19,9 +19,9 @@
 }
 .dropdown__menu-item {
 	color: $WHITE;
-	padding: $SPACING_8 $SPACING_24;
+	padding: $PX_8 $PX_24;
 	transition: $TRANSITION_ALL;
-	border-bottom: $SPACING_1 solid $HIGHLIGHT_GREY;
+	border-bottom: $PX_1 solid $HIGHLIGHT_GREY;
 }
 .dropdown__menu-item:last-child {
 	border-bottom: 0;

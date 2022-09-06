@@ -8,10 +8,10 @@
 // 1. Info default
 .l-info {
 	display: grid;
-	column-gap: $SPACING_56;
+	column-gap: $PX_56;
 	background: $MEDIUM_LIGHT_GREY;
 	border-radius: $BORDER_RADIUS_16;
-	padding: $SPACING_48;
+	padding: $PX_48;
 }
 .l-info--2 {
 	grid-template-columns: 3fr 1fr;
@@ -41,15 +41,15 @@
 }
 
 // 4. Info responsive
-@media screen and (max-width: $SPACING_1440) {
+@media screen and (max-width: $PX_1440) {
 	.l-info {
-		padding: $SPACING_36;
-		column-gap: $SPACING_38;
+		padding: $PX_36;
+		column-gap: $PX_38;
 	}
 }
-@media screen and (max-width: $SPACING_990) {
+@media screen and (max-width: $PX_990) {
 	.l-info {
-		padding: $SPACING_36;
+		padding: $PX_36;
 	}
 	.l-info--boardroom {
 		grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -61,17 +61,17 @@
 		width: 47%;
 	}
 	.l-info--chub .data-card:first-child {
-		margin-bottom: $SPACING_36;
+		margin-bottom: $PX_36;
 	}
 }
-@media screen and (max-width: $SPACING_480) {
+@media screen and (max-width: $PX_480) {
 	.l-info {
 		display: flex;
 		flex-direction: column;
-		padding: $SPACING_32;
+		padding: $PX_32;
 	}
 	.l-info .data-card {
-		margin-bottom: $SPACING_24;
+		margin-bottom: $PX_24;
 	}
 	.l-info .data-card:last-child {
 		margin-bottom: 0;

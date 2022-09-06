@@ -8,21 +8,21 @@
 	display: flex;
 	flex-direction: column;
 	margin-bottom: 0;
-	padding: 0 $SPACING_24;
+	padding: 0 $PX_24;
 }
 .faucet {
 	display: flex;
 	flex-direction: row;
-	padding: 0 $SPACING_40;
+	padding: 0 $PX_40;
 	justify-content: space-between;
-	font-size: $SPACING_14;
-	margin-top: $SPACING_32;
+	font-size: $PX_14;
+	margin-top: $PX_32;
 }
 .faucet a {
 	color: $WHITE;
 }
 .nav li {
-	margin-bottom: $SPACING_16;
+	margin-bottom: $PX_16;
 }
 .nav a,
 .nav svg path {
@@ -36,17 +36,17 @@
 	color: $WHITE;
 	text-decoration: none;
 	font-size: $HEADING_FIVE;
-	padding: $SPACING_10 $SPACING_16;
+	padding: $PX_10 $PX_16;
 	border-radius: $BORDER_RADIUS_8;
-	line-height: $SPACING_24;
+	line-height: $PX_24;
 }
 .nav a:hover {
 	background: $MEDIUM_GREY;
 }
 .nav a .external-link-icon {
 	fill: $WHITE;
-	height: $SPACING_12;
-	margin-left: $SPACING_5;
+	height: $PX_12;
+	margin-left: $PX_5;
 }
 .nav .active-link {
 	position: relative;
@@ -68,41 +68,41 @@
 }
 .nav a.nuxt-link-active.active-link:after {
 	content: "";
-	width: $SPACING_4;
-	height: $SPACING_40;
+	width: $PX_4;
+	height: $PX_40;
 	border-top-left-radius: $BORDER_RADIUS_4;
 	border-top-right-radius: $BORDER_RADIUS_4;
 	background: $LIME;
-	right: -$SPACING_23;
+	right: -$PX_23;
 	top: 50%;
 	transform: translateY(-50%);
 	bottom: 0;
 	position: absolute;
 }
 .nav a svg {
-	margin-right: $SPACING_10;
+	margin-right: $PX_10;
 }
 .link-disabled {
 	opacity: 0.5;
 }
 
 // 2. Nav responsive
-@media screen and (max-width: $SPACING_1440) {
+@media screen and (max-width: $PX_1440) {
 	.nav a {
 		font-size: $HEADING_FIVE_1440;
-		line-height: $SPACING_26;
+		line-height: $PX_26;
 	}
 	.nav li {
-		margin-bottom: $SPACING_8;
+		margin-bottom: $PX_8;
 	}
 	.nav a.nuxt-link-active.active-link:after {
-		height: $SPACING_30;
+		height: $PX_30;
 	}
 }
-@media screen and (max-width: $SPACING_990) {
+@media screen and (max-width: $PX_990) {
 	.nav a {
 		font-size: $HEADING_TWO_990;
-		line-height: $SPACING_28;
-		padding: $SPACING_8 0;
+		line-height: $PX_28;
+		padding: $PX_8 0;
 	}
 }

@@ -10,11 +10,11 @@
 .range-slider__input {
 	appearance: none;
 	width: 100%;
-	height: $SPACING_8;
+	height: $PX_8;
 	border-radius: $BORDER_RADIUS_8;
 	opacity: 0.7;
 	transition: $TRANSITION_ALL;
-	margin-bottom: $SPACING_20;
+	margin-bottom: $PX_20;
 	background: $WHITE;
 }
 .range-slider__input:disabled,
@@ -31,31 +31,31 @@
 }
 .range-slider__input::-webkit-slider-thumb {
 	appearance: none;
-	width: $SPACING_32;
-	height: $SPACING_32;
+	width: $PX_32;
+	height: $PX_32;
 	border-radius: $BORDER_RADIUS_CIRCLE;
 	background: $LIME;
 	cursor: pointer;
 }
 .range-slider__input::-moz-range-thumb {
-	width: $SPACING_32;
-	height: $SPACING_32;
+	width: $PX_32;
+	height: $PX_32;
 	border-radius: $BORDER_RADIUS_CIRCLE;
 	background: $LIME;
 	cursor: pointer;
 }
 .range-slider__value h5 {
-	margin-bottom: $SPACING_16;
+	margin-bottom: $PX_16;
 }
 .range-slider__value:last-child {
 	text-align: right;
 }
 
 // 2. Range slider responsive
-@media screen and (max-width: $SPACING_480) {
+@media screen and (max-width: $PX_480) {
 	.range-slider__input::-webkit-slider-thumb,
 	.range-slider__input::-moz-range-thumb {
-		width: $SPACING_24;
-		height: $SPACING_24;
+		width: $PX_24;
+		height: $PX_24;
 	}
 }

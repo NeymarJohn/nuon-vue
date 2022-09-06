@@ -10,7 +10,7 @@
 	align-items: center;
 	justify-content: space-between;
 	cursor: pointer;
-	padding: $SPACING_16;
+	padding: $PX_16;
 	transition: $TRANSITION_ALL;
 }
 .token.is-disabled {
@@ -28,12 +28,12 @@
 	color: $LIGHT_GREY;
 }
 .token:first-child {
-	border-top-left-radius: $SPACING_8;
-	border-top-right-radius: $SPACING_8;
+	border-top-left-radius: $PX_8;
+	border-top-right-radius: $PX_8;
 }
 .token:last-child {
-	border-bottom-left-radius: $SPACING_8;
-	border-bottom-right-radius: $SPACING_8;
+	border-bottom-left-radius: $PX_8;
+	border-bottom-right-radius: $PX_8;
 }
 .token:hover {
 	background: $LIME;
@@ -48,34 +48,34 @@
 	align-items: center;
 }
 .token img {
-	width: $SPACING_24;
-	height: $SPACING_24;
+	width: $PX_24;
+	height: $PX_24;
 	border-radius: $BORDER_RADIUS_CIRCLE;
-	margin-right: $SPACING_8;
+	margin-right: $PX_8;
 }
 .token__body h4,
 .token__body h5 {
 	transition: $TRANSITION_ALL;
 }
 .token__body h4 {
-	font-size: $SPACING_14;
-	line-height: $SPACING_15;
+	font-size: $PX_14;
+	line-height: $PX_15;
 }
 .token__body h5 {
-	font-size: $SPACING_12;
-	line-height: $SPACING_18;
+	font-size: $PX_12;
+	line-height: $PX_18;
 	color: $LIGHT_GREY;
 	text-transform: capitalize;
 }
 
 // 2. Token responsive
-@media screen and (max-width: $SPACING_480) {
+@media screen and (max-width: $PX_480) {
 	.token h3 {
 		font-size: $HEADING_FOUR_480;
-		line-height: $SPACING_26;
+		line-height: $PX_26;
 	}
 	.token p {
 		font-size: $HEADING_FIVE_480;
-		line-height: $SPACING_18;
+		line-height: $PX_18;
 	}
 }

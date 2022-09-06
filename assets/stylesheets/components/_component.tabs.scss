@@ -15,13 +15,13 @@
 	flex-direction: row;
 	align-items: center;
 	border-radius: $BORDER_RADIUS_8;
-	padding: $SPACING_16;
+	padding: $PX_16;
 }
 .tabs__header li {
 	transition: $TRANSITION_ALL;
 	cursor: pointer;
-	margin-right: $SPACING_12;
-	padding: $SPACING_12;
+	margin-right: $PX_12;
+	padding: $PX_12;
 	border-radius: $BORDER_RADIUS_6;
 }
 .tabs__header li:hover {
@@ -55,7 +55,7 @@
 	flex-direction: row;
 	align-items: center;
 	justify-content: space-between;
-	margin-bottom: $SPACING_24;
+	margin-bottom: $PX_24;
 }
 
 // 2. Tabs size
@@ -63,13 +63,13 @@
 	display: inline-flex;
 	background: $MEDIUM_LIGHT_GREY;
 	border-radius: $BORDER_RADIUS_32;
-	padding: $SPACING_8;
+	padding: $PX_8;
 	margin-bottom: 0;
 	width: auto !important;
 }
 .tabs--thin .tabs__header li {
-	padding: $SPACING_8 $SPACING_20;
-	margin-right: $SPACING_4;
+	padding: $PX_8 $PX_20;
+	margin-right: $PX_4;
 	border-radius: $BORDER_RADIUS_24;
 }
 .tabs--thin .tabs__header li:hover {
@@ -99,7 +99,7 @@
 // 4. Tabs image
 .tabs--image {
 	background: $DARK_GREY;
-	margin-bottom: $SPACING_12;
+	margin-bottom: $PX_12;
 }
 .tabs--image .tabs__header {
 	margin-bottom: 0;
@@ -114,7 +114,7 @@
 	margin-left: auto;
 }
 .tabs--image .tabs__header li img {
-	margin-right: $SPACING_8;
+	margin-right: $PX_8;
 }
 
 // 5. Tabs govern
@@ -140,43 +140,43 @@
 	margin-right: 0;
 	width: 50%;
 	border-radius: 0;
-	border-bottom: $SPACING_2 solid $TRANSPARENT;
-	padding-top: $SPACING_32;
-	padding-bottom: $SPACING_32;
+	border-bottom: $PX_2 solid $TRANSPARENT;
+	padding-top: $PX_32;
+	padding-bottom: $PX_32;
 }
 .tabs--full .tabs__header li:hover {
 	background-color: $TRANSPARENT;
 }
 .tabs--full .tabs__header li.is-active {
-	border-bottom: $SPACING_2 solid $LIME;
+	border-bottom: $PX_2 solid $LIME;
 }
 
 // 7. Tabs responsive
-@media screen and (max-width: $SPACING_990) {
+@media screen and (max-width: $PX_990) {
 	.tabs--default .tabs__header,
 	.tabs--full-width .tabs__header {
-		padding: $SPACING_8;
+		padding: $PX_8;
 	}
 	.tabs__header li {
-		padding: $SPACING_8 $SPACING_16;
+		padding: $PX_8 $PX_16;
 	}
 	.tabs__header li h5 {
 		font-size: $BODY_TEXT_SM;
-		line-height: $SPACING_18;
+		line-height: $PX_18;
 	}
 }
-@media screen and (max-width: $SPACING_480) {
+@media screen and (max-width: $PX_480) {
 	.tabs__filter {
 		flex-direction: column;
 	}
 	.tabs--mobile-scroll {
-		width: $SPACING_350;
+		width: $PX_350;
 	}
 	.tabs--mobile-scroll ul {
 		display: grid !important;
-		grid-template-columns: $SPACING_170;
+		grid-template-columns: $PX_170;
 		grid-auto-flow: column;
-		grid-auto-columns: $SPACING_170 !important;
+		grid-auto-columns: $PX_170 !important;
 		overflow-x: scroll;
 		scroll-snap-type: x proximity;
 	}

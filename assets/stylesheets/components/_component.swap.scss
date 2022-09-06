@@ -9,11 +9,11 @@
 	flex-direction: column;
 	background: $DARK_GREY;
 	border-radius: $BORDER_RADIUS_16;
-	padding: $SPACING_32;
+	padding: $PX_32;
 	box-shadow: $BOX_SHADOW_CONTAINER;
 }
 .swap__container {
-	padding: $SPACING_24;
+	padding: $PX_24;
 	background: $MEDIUM_GREY;
 	border-radius: $BORDER_RADIUS_8;
 	position: relative;
@@ -23,16 +23,16 @@
 }
 .swap .btn--icon {
 	padding: 0;
-	margin-left: $SPACING_8;
+	margin-left: $PX_8;
 }
 .swap__balance {
-	margin-bottom: $SPACING_16;
+	margin-bottom: $PX_16;
 }
 .swap__balance label,
 .swap__balance p {
 	color: $LIGHT_GREY;
-	font-size: $SPACING_14;
-	line-height: $SPACING_20;
+	font-size: $PX_14;
+	line-height: $PX_20;
 }
 .swap__balance p {
 	margin-bottom: 0;
@@ -44,22 +44,22 @@
 .swap__slippage label {
 	display: flex;
 	align-items: center;
-	font-size: $SPACING_14;
-	line-height: $SPACING_20;
+	font-size: $PX_14;
+	line-height: $PX_20;
 	color: $LIGHT_GREY;
-	margin-bottom: $SPACING_16;
+	margin-bottom: $PX_16;
 }
 .swap__slippage label svg {
-	height: $SPACING_20;
-	width: $SPACING_20;
+	height: $PX_20;
+	width: $PX_20;
 }
 .swap__slippage .input span {
 	color: $LIGHT_GREY;
 }
 .swap__output label {
 	display: block;
-	font-size: $SPACING_14;
-	line-height: $SPACING_20;
+	font-size: $PX_14;
+	line-height: $PX_20;
 	color: $LIGHT_GREY;
 	margin-bottom: 0;
 }
@@ -76,35 +76,35 @@
 	justify-content: space-between;
 }
 .swap__wrapper h3 sup {
-	font-size: $SPACING_14;
-	line-height: $SPACING_20;
-	margin-left: $SPACING_10;
+	font-size: $PX_14;
+	line-height: $PX_20;
+	margin-left: $PX_10;
 }
 .swap__return {
-	padding: $SPACING_12 $SPACING_16;
+	padding: $PX_12 $PX_16;
 }
 .swap__return img {
-	height: $SPACING_24;
-	width: $SPACING_24;
+	height: $PX_24;
+	width: $PX_24;
 	border-radius: $BORDER_RADIUS_CIRCLE;
-	margin-right: $SPACING_8;
+	margin-right: $PX_8;
 }
 
 // 2. Swap responsive
-@media screen and (max-width: $SPACING_990) {
+@media screen and (max-width: $PX_990) {
 	.swap {
-		margin-bottom: $SPACING_48;
+		margin-bottom: $PX_48;
 	}
 }
-@media screen and (max-width: $SPACING_480) {
+@media screen and (max-width: $PX_480) {
 	.swap {
-		padding: $SPACING_48 $SPACING_32;
+		padding: $PX_48 $PX_32;
 	}
 	.swap__container {
-		padding: $SPACING_24;
+		padding: $PX_24;
 	}
 	.swap__output {
-		padding: $SPACING_24;
+		padding: $PX_24;
 		flex-direction: column;
 		align-items: flex-start;
 	}

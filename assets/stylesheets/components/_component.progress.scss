@@ -16,12 +16,12 @@
 }
 .progress h5 {
 	text-align: right;
-	min-width: $SPACING_55;
+	min-width: $PX_55;
 }
 .progress__bar {
-	height: $SPACING_8;
+	height: $PX_8;
 	border-radius: $BORDER_RADIUS_8;
-	margin-right: $SPACING_16;
+	margin-right: $PX_16;
 }
 
 // 2. Progress balance

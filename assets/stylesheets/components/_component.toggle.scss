@@ -5,8 +5,8 @@
 
 // 1. Toggle default
 .toggle {
-	max-width: $SPACING_870;
-	margin: $SPACING_32 auto;
+	max-width: $PX_870;
+	margin: $PX_32 auto;
 }
 .toggle,
 .toggle__buttons,
@@ -21,28 +21,28 @@
 	align-items: center;
 	background: $DARK_GREY;
 	border-radius: $BORDER_RADIUS_16;
-	padding: $SPACING_72 $SPACING_40;
+	padding: $PX_72 $PX_40;
 	box-shadow: $BOX_SHADOW_CONTAINER;
 }
 .toggle__buttons {
 	flex-direction: row;
-	margin-bottom: $SPACING_56;
+	margin-bottom: $PX_56;
 }
 .toggle__buttons .btn {
 	background-color: $MEDIUM_GREY;
 	color: $LIME;
-	border-top: $SPACING_1 solid $LIME;
-	border-bottom: $SPACING_1 solid $LIME;
+	border-top: $PX_1 solid $LIME;
+	border-bottom: $PX_1 solid $LIME;
 	border-radius: $BORDER_RADIUS_32;
-	padding: $SPACING_14 $SPACING_100;
-	min-height: $SPACING_56;
-	line-height: $SPACING_18;
+	padding: $PX_14 $PX_100;
+	min-height: $PX_56;
+	line-height: $PX_18;
 	font-weight: 300;
 }
 .toggle__buttons .btn:hover,
 .toggle__buttons .btn.active:hover {
 	background: $MEDIUM_LIGHT_GREY;
-	border: $SPACING_1 solid $MEDIUM_LIGHT_GREY !important;
+	border: $PX_1 solid $MEDIUM_LIGHT_GREY !important;
 	color: $LIME;
 }
 .toggle__buttons .btn.active:hover {
@@ -55,12 +55,12 @@
 .toggle__buttons .btn:first-child {
 	border-top-right-radius: 0;
 	border-bottom-right-radius: 0;
-	border-left: $SPACING_1 solid $LIME;
+	border-left: $PX_1 solid $LIME;
 }
 .toggle__buttons .btn:last-child {
 	border-top-left-radius: 0;
 	border-bottom-left-radius: 0;
-	border-right: $SPACING_1 solid $LIME;
+	border-right: $PX_1 solid $LIME;
 }
 .toggle__content,
 .toggle__transaction {
@@ -70,43 +70,43 @@
 	align-items: flex-start;
 }
 .toggle__content .accordion {
-	margin-bottom: $SPACING_48;
+	margin-bottom: $PX_48;
 }
 .toggle__transaction {
 	display: flex;
 	flex-direction: row;
 }
 .toggle__transaction .btn:first-child {
-	margin-right: $SPACING_32;
+	margin-right: $PX_32;
 }
 
 // 2. Toggle responsive
-@media screen and (max-width: $SPACING_990) {
+@media screen and (max-width: $PX_990) {
 	.toggle {
-		padding: $SPACING_48 $SPACING_32;
+		padding: $PX_48 $PX_32;
 	}
 }
-@media screen and (max-width: $SPACING_480) {
+@media screen and (max-width: $PX_480) {
 	.toggle .stepper {
-		margin-bottom: $SPACING_52;
+		margin-bottom: $PX_52;
 	}
 	.toggle__buttons {
-		margin-bottom: $SPACING_24;
+		margin-bottom: $PX_24;
 	}
 	.toggle__buttons .btn {
-		padding: $SPACING_20 $SPACING_48;
+		padding: $PX_20 $PX_48;
 		font-size: $BODY_TEXT_SM;
-		line-height: $SPACING_18;
+		line-height: $PX_18;
 	}
 	.toggle__content .accordion {
-		padding: $SPACING_24;
-		margin-bottom: $SPACING_24;
+		padding: $PX_24;
+		margin-bottom: $PX_24;
 	}
 	.toggle__buttons .btn,
 	.toggle__transaction .btn {
 		width: 50%;
 	}
 	.toggle__transaction .btn:first-child {
-		margin-right: $SPACING_16;
+		margin-right: $PX_16;
 	}
 }

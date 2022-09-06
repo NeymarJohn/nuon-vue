@@ -9,29 +9,29 @@
 	width: 100%;
 	background: $MEDIUM_LIGHT_GREY;
 	border-radius: $BORDER_RADIUS_8;
-	padding: $SPACING_32;
-	margin-bottom: $SPACING_48;
+	padding: $PX_32;
+	margin-bottom: $PX_48;
 }
 .collateral__text,
 .collateral__text p {
-	margin-bottom: $SPACING_16;
+	margin-bottom: $PX_16;
 }
 .collateral__text:last-child {
 	text-align: right;
 }
 .collateral-estimate sup {
-	top: -$SPACING_10 !important;
+	top: -$PX_10 !important;
 }
 
 // 2. Collateral responsive
-@media screen and (max-width: $SPACING_480) {
+@media screen and (max-width: $PX_480) {
 	.collateral,
 	.collateral-estimate {
-		padding: $SPACING_24;
+		padding: $PX_24;
 	}
 	.collateral__text h4,
 	.collateral-estimate {
 		font-size: $HEADING_THREE_480 !important;
-		line-height: $SPACING_36;
+		line-height: $PX_36;
 	}
 }

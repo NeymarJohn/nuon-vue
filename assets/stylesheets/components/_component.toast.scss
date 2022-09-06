@@ -8,12 +8,12 @@
 // 1. Toast default
 .toast {
 	position: fixed;
-	top: $SPACING_32;
-	right: $SPACING_32;
+	top: $PX_32;
+	right: $PX_32;
 	border-radius: $BORDER_RADIUS_16;
 	z-index: 4;
-	padding: $SPACING_32;
-	min-width: $SPACING_425;
+	padding: $PX_32;
+	min-width: $PX_425;
 	background: $DARK_GREY;
 }
 .toast__header {
@@ -21,11 +21,11 @@
 	flex-direction: row;
 	justify-content: space-between;
 	align-items: center;
-	margin-bottom: $SPACING_12;
+	margin-bottom: $PX_12;
 }
 .toast__header p {
 	font-size: $BODY_TEXT;
-	line-height: $SPACING_30;
+	line-height: $PX_30;
 	margin-bottom: 0;
 }
 .toast__header svg path {
@@ -42,7 +42,7 @@
 }
 .toast-slide-enter,
 .toast-slide-leave-to {
-	transform: translateX($SPACING_10);
+	transform: translateX($PX_10);
 	opacity: 0;
 }
 
@@ -59,16 +59,16 @@
 }
 
 // 4. Toast responsive
-@media screen and (max-width: $SPACING_1440) {
+@media screen and (max-width: $PX_1440) {
 	.toast {
-		padding: $SPACING_24;
-		min-width: $SPACING_325;
+		padding: $PX_24;
+		min-width: $PX_325;
 	}
 	.toast__header {
-		margin-bottom: $SPACING_8;
+		margin-bottom: $PX_8;
 	}
 	.toast__header p {
 		font-size: $BODY_TEXT_SM;
-		line-height: $SPACING_21;
+		line-height: $PX_21;
 	}
 }

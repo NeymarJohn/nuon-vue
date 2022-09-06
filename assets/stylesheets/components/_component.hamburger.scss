@@ -15,8 +15,8 @@
 	display: none;
 }
 .hamburger-box {
-	width: $SPACING_25;
-	height: $SPACING_20;
+	width: $PX_25;
+	height: $PX_20;
 	display: inline-block;
 	position: relative;
 }
@@ -29,8 +29,8 @@
 .hamburger-inner,
 .hamburger-inner::before,
 .hamburger-inner::after {
-	width: $SPACING_25;
-	height: $SPACING_2;
+	width: $PX_25;
+	height: $PX_2;
 	background-color: $WHITE;
 	position: absolute;
 	transition-property: transform;
@@ -43,11 +43,11 @@
 	display: block;
 }
 .hamburger-inner::before {
-	top: -$SPACING_8;
+	top: -$PX_8;
 	transition: top 0.1s 0.25s ease-in, opacity 0.1s ease-in;
 }
 .hamburger-inner::after {
-	bottom: -$SPACING_8;
+	bottom: -$PX_8;
 	transition: bottom 0.1s 0.25s ease-in,
 		transform 0.22s cubic-bezier(0.55, 0.055, 0.675, 0.19);
 }
@@ -73,9 +73,9 @@
 		transform 0.22s 0.12s cubic-bezier(0.215, 0.61, 0.355, 1);
 }
 // 2. Hamburger responsive
-@media screen and (max-width: $SPACING_990) {
+@media screen and (max-width: $PX_990) {
 	.hamburger {
 		display: block;
-		padding: $SPACING_24;
+		padding: $PX_24;
 	}
 }

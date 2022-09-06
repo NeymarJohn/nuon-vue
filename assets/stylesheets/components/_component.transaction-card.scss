@@ -7,28 +7,28 @@
 	display: flex;
 	flex-direction: row;
 	background: $MEDIUM_LIGHT_GREY;
-	margin-bottom: $SPACING_12;
-	padding: $SPACING_12 $SPACING_16;
+	margin-bottom: $PX_12;
+	padding: $PX_12 $PX_16;
 	border-radius: $BORDER_RADIUS_8;
 }
 .transaction-card p {
-	border-bottom: $SPACING_1 solid $LIGHT_GREY;
-	padding: $SPACING_16 0;
+	border-bottom: $PX_1 solid $LIGHT_GREY;
+	padding: $PX_16 0;
 	margin-bottom: 0;
 }
 .transaction-card p:last-child {
 	border-bottom: 0;
 }
 .transaction-card__header {
-	min-width: $SPACING_100;
-	border-right: $SPACING_1 solid $LIGHT_GREY;
+	min-width: $PX_100;
+	border-right: $PX_1 solid $LIGHT_GREY;
 }
 .transaction-card__header p {
-	padding-right: $SPACING_16;
+	padding-right: $PX_16;
 }
 .transaction-card__body {
 	flex: 1;
 }
 .transaction-card__body p {
-	padding-left: $SPACING_16;
+	padding-left: $PX_16;
 }
