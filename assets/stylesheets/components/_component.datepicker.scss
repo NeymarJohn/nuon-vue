@@ -5,12 +5,12 @@
 
 // 1. Datepicker default
 .mx-calendar {
-	width: $PX_350 !important;
-	padding: $PX_16 !important;
+	width: $SPACING_350 !important;
+	padding: $SPACING_16 !important;
 }
 .mx-btn {
 	font-size: $FONT_BODY !important;
-	line-height: $PX_24 !important;
+	line-height: $SPACING_24 !important;
 }
 .mx-btn,
 .mx-btn:hover {
@@ -25,41 +25,41 @@
 .mx-icon-double-right:before,
 .mx-icon-double-left:after,
 .mx-icon-double-right:after {
-	width: $PX_12 !important;
-	height: $PX_12 !important;
+	width: $SPACING_12 !important;
+	height: $SPACING_12 !important;
 }
 .mx-calendar-header-label .mx-btn-text {
 	font-size: $BODY_TEXT !important;
 	color: $LIGHT_GREY !important;
-	line-height: $PX_30 !important;
+	line-height: $SPACING_30 !important;
 }
 .mx-datepicker {
 	width: 100% !important;
-	margin-bottom: $PX_8;
+	margin-bottom: $SPACING_8;
 }
 .mx-input::placeholder {
 	color: $LIGHT_GREY !important;
-	font-size: $PX_14 !important;
+	font-size: $SPACING_14 !important;
 }
 .mx-input {
 	font-size: $BODY_TEXT !important;
-	line-height: $PX_24 !important;
+	line-height: $SPACING_24 !important;
 	color: $DARK_GREY !important;
 	background: $TRANSPARENT !important;
 	border-radius: $BORDER_RADIUS_8;
-	height: $PX_50 !important;
-	padding: $PX_12 $PX_8 !important;
+	height: $SPACING_50 !important;
+	padding: $SPACING_12 $SPACING_8 !important;
 }
 .mx-input:hover {
 	cursor: pointer;
 }
 .mx-datepicker i {
-	right: $PX_8;
+	right: $SPACING_8;
 	color: $LIGHT_GREY;
 }
 .mx-datepicker svg {
-	height: $PX_16 !important;
-	width: $PX_16 !important;
+	height: $SPACING_16 !important;
+	width: $SPACING_16 !important;
 }
 .mx-datepicker-main,
 .mx-calendar-time {
@@ -72,7 +72,7 @@
 	color: $WHITE;
 }
 .mx-table tbody {
-	border-top: $PX_1 solid $LIGHT_GREY;
+	border-top: $SPACING_1 solid $LIGHT_GREY;
 }
 .mx-table th {
 	font-weight: normal !important;
@@ -83,8 +83,8 @@
 .mx-table-date th {
 	font-family: $FONT_BODY !important;
 	font-size: $BODY_TEXT !important;
-	line-height: $PX_30 !important;
-	height: $PX_36 !important;
+	line-height: $SPACING_30 !important;
+	height: $SPACING_36 !important;
 }
 .mx-calendar-content {
 	height: auto !important;
@@ -93,7 +93,7 @@
 	transition: $TRANSITION_ALL;
 }
 .mx-calendar-content .cell.active {
-	border: $PX_1 solid $LIME !important;
+	border: $SPACING_1 solid $LIME !important;
 	color: $LIME !important;
 	background: $MEDIUM_GREY !important;
 	border-radius: $BORDER_RADIUS_4 !important;
@@ -111,13 +111,13 @@
 	color: $DARK_GREY !important;
 }
 .mx-datepicker-footer {
-	padding: $PX_16 !important;
-	border-top: $PX_1 solid $MEDIUM_LIGHT_GREY !important;
+	padding: $SPACING_16 !important;
+	border-top: $SPACING_1 solid $MEDIUM_LIGHT_GREY !important;
 }
 button.mx-btn.mx-datepicker-btn-confirm {
 	background: $LIME;
 	color: $DARK_GREY;
-	padding: $PX_8 $PX_24;
+	padding: $SPACING_8 $SPACING_24;
 	transition: $TRANSITION_ALL;
 }
 button.mx-btn.mx-datepicker-btn-confirm:hover {
@@ -129,23 +129,23 @@ td.cell.today.not-current-month {
 }
 .mx-table-date .today {
 	color: $LIME !important;
-	border: $PX_1 solid $LIME !important;
+	border: $SPACING_1 solid $LIME !important;
 	background: $TRANSPARENT !important;
 }
 .mx-time-header {
-	border-bottom: $PX_1 solid $MEDIUM_LIGHT_GREY !important;
-	height: $PX_46 !important;
-	line-height: $PX_46 !important;
+	border-bottom: $SPACING_1 solid $MEDIUM_LIGHT_GREY !important;
+	height: $SPACING_46 !important;
+	line-height: $SPACING_46 !important;
 }
 .mx-time-content {
-	height: $PX_270 !important;
+	height: $SPACING_270 !important;
 }
 .mx-time-column {
-	border-left: $PX_1 solid $MEDIUM_LIGHT_GREY !important;
+	border-left: $SPACING_1 solid $MEDIUM_LIGHT_GREY !important;
 }
 .mx-time-header-title {
 	font-size: $BODY_TEXT !important;
-	line-height: $PX_30 !important;
+	line-height: $SPACING_30 !important;
 	color: $LIGHT_GREY !important;
 	transition: $TRANSITION_ALL !important;
 }
@@ -158,9 +158,9 @@ td.cell.today.not-current-month {
 }
 .mx-time-column .mx-time-item {
 	font-size: $BODY_TEXT !important;
-	line-height: $PX_30 !important;
+	line-height: $SPACING_30 !important;
 	transition: $TRANSITION_ALL !important;
-	height: $PX_36 !important;
+	height: $SPACING_36 !important;
 }
 .mx-time-column .mx-time-item:hover {
 	background: $LIME !important;
@@ -169,20 +169,20 @@ td.cell.today.not-current-month {
 .mx-calendar-header-label,
 .mx-table-year .cell div {
 	font-size: $BODY_TEXT !important;
-	line-height: $PX_30 !important;
+	line-height: $SPACING_30 !important;
 }
 
 // 2. Datepicker responsive
-@media screen and (max-width: $PX_1440) {
+@media screen and (max-width: $SPACING_1440) {
 	.mx-datepicker .mx-input {
-		padding: $PX_16 !important;
+		padding: $SPACING_16 !important;
 	}
 	.mx-datepicker i {
-		right: $PX_16;
+		right: $SPACING_16;
 	}
 	.mx-input,
 	.mx-input::placeholder {
 		font-size: $HEADING_FIVE_1440 !important;
-		line-height: $PX_26 !important;
+		line-height: $SPACING_26 !important;
 	}
 }

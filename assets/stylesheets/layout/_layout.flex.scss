@@ -97,7 +97,7 @@
 }
 
 // 4. Flex responsive
-@media screen and (max-width: $PX_990) {
+@media screen and (max-width: $SPACING_990) {
 	.l-flex--column-reverse-md {
 		flex-direction: column-reverse;
 	}
@@ -112,7 +112,7 @@
 		flex-direction: column;
 	}
 }
-@media screen and (max-width: $PX_480) {
+@media screen and (max-width: $SPACING_480) {
 	.l-flex--column-sm {
 		flex-direction: column;
 	}

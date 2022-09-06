@@ -56,52 +56,52 @@
 	}
 }
 .loader--default {
-	height: $PX_36;
+	height: $SPACING_36;
 }
 
 // 2. Loader H1
 .loader--h1 {
-	height: $PX_48;
-	width: $PX_250;
-	margin-bottom: $PX_14;
+	height: $SPACING_48;
+	width: $SPACING_250;
+	margin-bottom: $SPACING_14;
 }
 
 // 3. Loader H2
 .loader--h2 {
-	height: $PX_32;
-	width: $PX_250;
-	margin-bottom: $PX_24;
+	height: $SPACING_32;
+	width: $SPACING_250;
+	margin-bottom: $SPACING_24;
 }
 
 // 4. Loader H3
 .loader--h3 {
-	height: $PX_45;
-	width: $PX_210;
+	height: $SPACING_45;
+	width: $SPACING_210;
 }
 
 // 5. Loader H4
 .loader--h4 {
-	height: $PX_24;
-	width: $PX_80;
+	height: $SPACING_24;
+	width: $SPACING_80;
 }
 
 // 6. Loader H5
 .loader--h5 {
-	height: $PX_24;
-	width: $PX_80;
+	height: $SPACING_24;
+	width: $SPACING_80;
 }
 
 // 7. Loader P
 .loader--p {
-	height: $PX_24;
-	width: $PX_150;
+	height: $SPACING_24;
+	width: $SPACING_150;
 }
 
 // 8. Loader content block
 .loader--content-block {
-	height: $PX_250;
+	height: $SPACING_250;
 	background: $DARK_GREY;
-	margin-bottom: $PX_48;
+	margin-bottom: $SPACING_48;
 }
 .loader--content-block:before {
 	background-image: linear-gradient(
@@ -116,91 +116,91 @@
 
 // 9. Loader inline list
 .loader--inline-list {
-	height: $PX_30;
-	width: $PX_150;
+	height: $SPACING_30;
+	width: $SPACING_150;
 }
 
 // 10. Loader badge {
 .loader--badge {
-	height: $PX_30;
-	width: $PX_70;
+	height: $SPACING_30;
+	width: $SPACING_70;
 }
 
 // 11. Loader donut
 .loader--donut-claimable {
-	width: $PX_419;
-	height: $PX_320;
+	width: $SPACING_419;
+	height: $SPACING_320;
 }
 
 // 12. Loader table
 .loader--table {
-	height: $PX_375;
+	height: $SPACING_375;
 }
 
 // 13. Loader notification
 .loader--notification {
-	width: $PX_500;
-	height: $PX_50;
+	width: $SPACING_500;
+	height: $SPACING_50;
 }
 
 // 14. Loader collateral hub chart
 .loader--collateral-hub-chart {
-	height: $PX_500;
+	height: $SPACING_500;
 }
 .loader--collateral-hub-chart-tabs {
-	height: $PX_54;
-	width: $PX_200;
-	margin-bottom: $PX_24;
+	height: $SPACING_54;
+	width: $SPACING_200;
+	margin-bottom: $SPACING_24;
 }
 
 // 15. Loader prices
 .loader--nuon-price,
 .loader--target-peg,
 .loader--health-status {
-	height: $PX_31;
-	margin-left: $PX_16;
+	height: $SPACING_31;
+	margin-left: $SPACING_16;
 }
 .loader--nuon-price {
-	width: calc($PX_137 - $PX_16);
+	width: calc($SPACING_137 - $SPACING_16);
 }
 .loader--target-peg {
-	width: calc($PX_58 - $PX_16);
+	width: calc($SPACING_58 - $SPACING_16);
 }
 .loader--health-status {
-	width: calc($PX_81 - $PX_16);
+	width: calc($SPACING_81 - $SPACING_16);
 }
 
 // 16. Loader chart
 .loader--chart {
-	height: $PX_335;
+	height: $SPACING_335;
 }
 
 // 17. Loader tab
 .loader--tab {
-	height: $PX_54;
-	width: $PX_194;
+	height: $SPACING_54;
+	width: $SPACING_194;
 }
 
 // 18. Loader account balance
 .loader--account-balance {
-	height: $PX_24;
-	max-width: $PX_190;
+	height: $SPACING_24;
+	max-width: $SPACING_190;
 }
 
 // 19. Loader label
 .loader--label {
-	height: $PX_24;
-	width: $PX_220;
+	height: $SPACING_24;
+	width: $SPACING_220;
 }
 
 // 20. Loader responsive
-@media screen and (max-width: $PX_1440) {
+@media screen and (max-width: $SPACING_1440) {
 	.loader--h1 {
-		width: $PX_190;
-		margin-bottom: $PX_2;
+		width: $SPACING_190;
+		margin-bottom: $SPACING_2;
 	}
 	.loader--h3 {
-		width: $PX_100;
-		height: $PX_36;
+		width: $SPACING_100;
+		height: $SPACING_36;
 	}
 }

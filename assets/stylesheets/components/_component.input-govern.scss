@@ -6,8 +6,8 @@
 .input-govern__wrapper {
 	background-color: $MEDIUM_GREY;
 	border-radius: $BORDER_RADIUS_8;
-	padding: $PX_24;
-	margin-bottom: $PX_24;
+	padding: $SPACING_24;
+	margin-bottom: $SPACING_24;
 }
 .input-govern .input {
 	margin-bottom: 0;
@@ -16,16 +16,16 @@
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
-	margin-bottom: $PX_16;
+	margin-bottom: $SPACING_16;
 }
 .input-govern__title label,
 .input-govern__message p {
 	color: $LIGHT_GREY;
-	font-size: $PX_14;
-	line-height: $PX_20;
+	font-size: $SPACING_14;
+	line-height: $SPACING_20;
 }
 .input-govern__message p {
-	margin-bottom: $PX_24;
+	margin-bottom: $SPACING_24;
 }
 .input-govern .btn--md {
 	width: 100%;

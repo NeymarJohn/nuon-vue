@@ -6,13 +6,13 @@
 .v-step {
 	background: $DARK_GREY !important;
 	border-radius: $BORDER_RADIUS_8 !important;
-	border: $PX_2 solid $LIME !important;
+	border: $SPACING_2 solid $LIME !important;
 }
 .v-step__header {
 	border-top-left-radius: $BORDER_RADIUS_8 !important;
 	border-top-right-radius: $BORDER_RADIUS_8 !important;
 	color: $WHITE !important;
-	padding: $PX_16 !important;
+	padding: $SPACING_16 !important;
 	margin-bottom: 0 !important;
 }
 .v-step__header,
@@ -20,9 +20,9 @@
 	background: $DARK_GREY !important;
 }
 .v-step__arrow:before {
-	border-top: $PX_2 solid $LIME !important;
-	border-left: $PX_2 solid $LIME !important;
-	top: -$PX_1 !important;
+	border-top: $SPACING_2 solid $LIME !important;
+	border-left: $SPACING_2 solid $LIME !important;
+	top: -$SPACING_1 !important;
 }
 .v-step__content {
 	text-align: left !important;
@@ -31,15 +31,15 @@
 	transition: $TRANSITION_ALL !important;
 	font-family: $FONT_BODY !important;
 	font-size: $BODY_TEXT_SM !important;
-	line-height: $PX_16 !important;
-	height: $PX_40 !important;
+	line-height: $SPACING_16 !important;
+	height: $SPACING_40 !important;
 	border-radius: $BORDER_RADIUS_4 !important;
-	padding: $PX_8 !important;
+	padding: $SPACING_8 !important;
 	background: $DARK_GREY !important;
-	border: $PX_1 solid $LIGHT_GREY !important;
+	border: $SPACING_1 solid $LIGHT_GREY !important;
 	color: $LIGHT_GREY !important;
 }
 .v-step__button:hover {
-	border: $PX_1 solid $LIME !important;
+	border: $SPACING_1 solid $LIME !important;
 	color: $LIME !important;
 }

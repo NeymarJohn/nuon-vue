@@ -1,39 +1,32 @@
 <template>
 	<div class="input-manage-container">
-		<div class="input-manage-reverse">
-			<div class="input-manage__wrapper">
-				<LayoutFlex v-if="!actionIsMintOrBurn && action !== 'Remove Liquidity'" direction="row-space-between" class="u-full-width">
-					<p>Amount of {{ actionIsMintOrBurn ? 'NUON' : currentlySelectedCollateral }}</p>
-					<p>Available balance: {{ availableAmount() | formatLongNumber }}</p>
-				</LayoutFlex>
-				<p v-if="action === 'Remove Liquidity'" class="u-text-right">LP: {{ shareAmount }}</p>
+		<div class="swap__container u-mb-24">
+			<div class="swap__balance">
+				<label class="u-text-capitalize">{{action}}</label>
+			</div>
+			<MintAccordion
+				:disabled-tokens="[selectedCollateral, 'BTC', 'BUSD', 'AVAX']"
+				:default-token="selectedCollateral"
+				@selected-token="selectCollateral">					
 				<InputMax v-model="inputModel" :maximum="availableAmount()" @click="inputMaxBalance" />
-				<p v-if="error" class="u-is-warning u-mt-12 u-text-right">{{ error }}</p>
-			</div>
-			<div class="input-manage__wrapper">
-				<SwapAccordion
-					:default-token="`WETH`"
-					@selected-token="selectOutputToken">
-					<LayoutFlex direction="row-justify-end">
-						<h2 class="u-mb-0 u-font-size-26"> 3.47 WETH</h2>
-					</LayoutFlex>
-				</SwapAccordion>
-			</div>
+				<LayoutFlex direction="row-justify-end">
+					<p>xxx</p>
+				</LayoutFlex>
+			</MintAccordion>
 		</div>
-		<div class="toggle__transaction u-mt-24">
+		<LayoutFlex direction="row-justify-end">
 			<TheButton
-				class="u-full-width"
 				title="Click to submit"
 				:disabled="submitDisabled"
 				@click="submit">Submit</TheButton>
-		</div>
+		</LayoutFlex>
 	</div>
 </template>
 <script>
 import { fromWei, toWei } from "~/utils/bnTools";
 
 export default {
-	name: "InputManage",
+	name: "InputManageCollateral",
 	props: {
 		currentlySelectedCollateral: {
 			type: String,
@@ -48,19 +41,27 @@ export default {
 			type: Number,
 			required: true,
 			default: 0
-		}
+		},
+		action: {
+			type: String,
+			required: true
+		},
+		currrentTab: {
+			type: String,
+			required: true
+		},
 	},
 	data() {
 		return {
 			activeStep: 1,
-			action: "",
 			depositInput: "",
 			inputModel: "",
 			isApproving: false,
 			error: "",
 			submitDisabled: true,
 			estimatedAmount: {0: 0, 1: 0, 2: 0, 3: 0},
-			shareAmount: ""
+			shareAmount: "",
+			selectedCollateral: "WETH"
 		};
 	},
 	computed: {
@@ -270,7 +271,10 @@ export default {
 			} else if (this.action === "Withdraw") {
 				return this.$store.state.collateralVaultStore.lockedAmount[this.currentlySelectedCollateral];
 			}
-		}
+		},
+		selectCollateral(token) {
+			this.selectedCollateral = token.symbol;
+		},
 
 	}
 };

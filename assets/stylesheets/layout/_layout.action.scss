@@ -13,10 +13,10 @@
 .l-action__left,
 .l-action__right {
 	border-radius: $BORDER_RADIUS_16;
-	padding: $PX_32;
+	padding: $SPACING_32;
 }
 .l-action__left {
-	margin-right: $PX_24;
+	margin-right: $SPACING_24;
 	width: 40%;
 	background-color: $DARK_GREY;
 }
@@ -37,11 +37,11 @@
 	padding: 0;
 }
 .l-action--tabs .l-action__left .tabs__header {
-	border-top-left-radius: $PX_16;
-	border-top-right-radius: $PX_16;
+	border-top-left-radius: $SPACING_16;
+	border-top-right-radius: $SPACING_16;
 }
 .l-action--tabs .l-action__left .tabs__body {
-	padding: $PX_32;
+	padding: $SPACING_32;
 }
 
 // 3. Action form

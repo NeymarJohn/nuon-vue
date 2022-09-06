@@ -14,24 +14,24 @@
 	background: $MEDIUM_LIGHT_GREY;
 	border-radius: $BORDER_RADIUS_8;
 	position: relative;
-	margin-bottom: $PX_32;
+	margin-bottom: $SPACING_32;
 }
 .proposal:last-child {
 	margin-bottom: 0;
 }
 .proposal a {
 	display: grid;
-	grid-template-columns: calc(60% - $PX_20) 40%;
-	grid-gap: $PX_32;
+	grid-template-columns: calc(60% - $SPACING_20) 40%;
+	grid-gap: $SPACING_32;
 	width: 100%;
-	padding: $PX_32;
+	padding: $SPACING_32;
 	border-radius: $BORDER_RADIUS_8;
 	transition: $TRANSITION_ALL;
-	border: $PX_2 solid $TRANSPARENT;
+	border: $SPACING_2 solid $TRANSPARENT;
 }
 .proposal a:hover {
 	background-color: $DARK_GREY;
-	border: $PX_2 solid $LIME;
+	border: $SPACING_2 solid $LIME;
 }
 .proposal a:hover h4,
 .proposal a:hover p,
@@ -40,7 +40,7 @@
 }
 .proposal h4 {
 	color: $WHITE;
-	margin-bottom: $PX_4;
+	margin-bottom: $SPACING_4;
 }
 .proposal__left {
 	flex-direction: column;
@@ -48,7 +48,7 @@
 .proposal__left p {
 	margin-bottom: 0;
 	font-size: $BODY_TEXT;
-	line-height: $PX_21;
+	line-height: $SPACING_21;
 	color: $WHITE;
 	text-transform: uppercase;
 }
@@ -62,11 +62,11 @@
 	font-size: $BODY_TEXT;
 	text-transform: uppercase;
 	color: $WHITE;
-	margin-right: $PX_72;
-	line-height: $PX_21;
+	margin-right: $SPACING_72;
+	line-height: $SPACING_21;
 }
 .proposal__right .badge {
-	min-width: $PX_82;
+	min-width: $SPACING_82;
 	text-align: center;
 }
 .proposal-details {
@@ -76,7 +76,7 @@
 }
 .proposal-description {
 	background: $MEDIUM_LIGHT_GREY;
-	padding: $PX_32;
+	padding: $SPACING_32;
 	border-radius: $BORDER_RADIUS_8;
 	width: 100%;
 }
@@ -84,29 +84,29 @@
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-	margin-bottom: $PX_24;
+	margin-bottom: $SPACING_24;
 }
 .proposal-description .btn {
 	align-self: center;
 }
 
 // 2. Proposal responsive
-@media screen and (max-width: $PX_1440) {
+@media screen and (max-width: $SPACING_1440) {
 	.proposal {
-		margin-bottom: $PX_16;
+		margin-bottom: $SPACING_16;
 	}
 	.proposal__left p,
 	.proposal__right time {
 		font-size: $BODY_TEXT_XS;
-		line-height: $PX_18;
+		line-height: $SPACING_18;
 	}
 }
-@media screen and (max-width: $PX_990) {
+@media screen and (max-width: $SPACING_990) {
 	.proposal {
-		margin-bottom: $PX_12;
+		margin-bottom: $SPACING_12;
 	}
 	.proposal a {
-		padding: $PX_28 $PX_32;
+		padding: $SPACING_28 $SPACING_32;
 		display: flex;
 		flex-direction: row;
 		justify-content: space-between;
@@ -116,19 +116,19 @@
 		width: 50%;
 	}
 }
-@media screen and (max-width: $PX_480) {
+@media screen and (max-width: $SPACING_480) {
 	.proposal a {
 		flex-direction: column;
 		grid-gap: unset;
 		grid-template-columns: none;
-		padding: $PX_24;
+		padding: $SPACING_24;
 	}
 	.proposal__left,
 	.proposal__right {
 		width: 100%;
 	}
 	.proposal__left {
-		margin-bottom: $PX_24;
+		margin-bottom: $SPACING_24;
 	}
 	.proposal__right {
 		justify-content: space-between;

@@ -31,36 +31,36 @@
 					<h3>{{numberWithCommas(estimatedMintedNuonValue | toFixed)}}<sup>NUON</sup></h3>
 				</div>
 			</div>
+			<p>Set your Collateral Ratio</p>
 			<div class="collateral">
-				<div class="collateral__header">
-					<p>Set your Collateral Ratio<TooltipIcon v-tooltip="'Enter content here'" /></p>
-					<TheButton size="link" title="Click to view advanced options" @click="isVisible = !isVisible">{{ isVisible ? "Basic" : "Advanced" }}</TheButton>
-				</div>
-				<div v-if="isVisible !== true" class="collateral__body">
-					<TheButton title="Click to select high risk">200% <span>High Risk</span></TheButton>
-					<TheButton title="Click to select medium risk">300% <span>Medium Risk</span></TheButton>
-					<TheButton title="Click to select low risk">400% <span>Low Risk</span></TheButton>
-				</div>
-				<div v-else class="collateral__body">
-					<RangeSlider :min="`${sliderMin}`" :max="'1000'" :slider-disabled="!inputValue || isMoreThanBalance" :selected-collateral-ratio="`${selectedCollateralRatio}`" @emit-change="sliderChanged" />
-					<LayoutFlex direction="row-space-between">
-						<div class="range-slider__value">
-							<h5>{{ sliderMin }}%</h5>
-							<p>Increased Risk</p>
-						</div>
-						<div class="range-slider__value">
-							<h5>1000%</h5>
-							<p>Decreased Risk</p>
-						</div>
-					</LayoutFlex>
-				</div>
+				<LayoutFlex direction="row-space-between" class="u-full-width">
+					<div class="collateral__text">
+						<p>Liquidation Price</p>
+						<h4>${{ liquidationPrice | toFixed | numberWithCommas }}</h4>
+					</div>
+					<div class="collateral__text">
+						<p>Collateral Ratio</p>
+						<h4 :class="selectedCollateralRatio < 300 ? selectedCollateralRatio < 200 ? 'u-is-warning' : 'u-is-caution' : 'u-is-success'">{{ selectedCollateralRatio }}%</h4>
+					</div>
+				</LayoutFlex>
+				<RangeSlider :min="`${sliderMin}`" :max="'1000'" :slider-disabled="!inputValue || isMoreThanBalance" :selected-collateral-ratio="`${selectedCollateralRatio}`" @emit-change="sliderChanged" />
+				<LayoutFlex direction="row-space-between">
+					<div class="range-slider__value">
+						<h5>{{ sliderMin }}%</h5>
+						<p>Increased Risk</p>
+					</div>
+					<div class="range-slider__value">
+						<h5>1000%</h5>
+						<p>Decreased Risk</p>
+					</div>
+				</LayoutFlex>
 			</div>
 			<TransactionSummary v-if="inputValue > 0" :values="summary" />
 			<TheButton
-				title="Click to mint"
+				title="Click to confirm"
 				:disabled="minting"
 				@click="mint">
-				Mint
+				Confirm
 			</TheButton>
 		</div>
 	</LayoutContainer>
@@ -68,13 +68,9 @@
 
 <script>
 import { fromWei, toWei } from "~/utils/bnTools";
-import TooltipIcon from "@/assets/images/svg/svg-tooltip.svg";
 
 export default {
 	name: "CollateralMint",
-	components: {
-		TooltipIcon
-	},
 	props: {
 		currentlySelectedCollateral: {
 			type: String,
@@ -88,7 +84,6 @@ export default {
 	},
 	data() {
 		return {
-			isVisible: false,
 			selectedCollateralRatio: null,
 			collateralPrice: 0,
 			inputValue: null,
@@ -124,11 +119,6 @@ export default {
 					title: "Collateral ratio",
 					val: this.selectedCollateralRatio,
 					currency: "%",
-				},
-				{
-					title: "Liquidation price",
-					val: this.liquidationPrice | this.toFixed,
-					currency: "USD",
 				},
 				{
 					title: "Fee",

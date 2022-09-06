@@ -5,9 +5,9 @@
 
 // 1. Notification default
 .notification {
-	padding: $PX_12 $PX_24;
+	padding: $SPACING_12 $SPACING_24;
 	border-radius: $BORDER_RADIUS_8;
-	border: $PX_1 solid;
+	border: $SPACING_1 solid;
 	text-align: center;
 }
 .notification p {

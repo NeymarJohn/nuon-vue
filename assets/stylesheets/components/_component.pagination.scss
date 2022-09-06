@@ -10,11 +10,11 @@
 	align-items: center;
 	justify-content: center;
 	margin-bottom: 0;
-	margin-top: $PX_40;
+	margin-top: $SPACING_40;
 }
 .pagination .btn {
 	transform: none;
-	padding: $PX_10 $PX_13;
+	padding: $SPACING_10 $SPACING_13;
 	color: $LIGHT_GREY;
 }
 .pagination .btn[disabled],
@@ -47,9 +47,9 @@
 }
 
 // 2. Pagination responsive
-@media screen and (max-width: $PX_990) {
+@media screen and (max-width: $SPACING_990) {
 	.pagination {
-		margin-top: $PX_32;
-		margin-bottom: $PX_16;
+		margin-top: $SPACING_32;
+		margin-bottom: $SPACING_16;
 	}
 }

@@ -6,11 +6,11 @@
 .l-data-card-container {
 	background: $LIGHT_GREY;
 	border-radius: $BORDER_RADIUS_8;
-	padding: $PX_40;
-	margin-top: $PX_16;
+	padding: $SPACING_40;
+	margin-top: $SPACING_16;
 }
 .l-data-card {
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
-	grid-gap: $PX_16;
+	grid-gap: $SPACING_16;
 }

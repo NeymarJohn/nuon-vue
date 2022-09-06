@@ -12,24 +12,24 @@
 }
 .price-indicator {
 	background-color: $DARK_GREY;
-	padding: $PX_16 $PX_32;
+	padding: $SPACING_16 $SPACING_32;
 	border-radius: $BORDER_RADIUS_16;
 	color: $LIGHT_GREY;
 }
 .price-indicator li {
-	margin-right: $PX_64;
+	margin-right: $SPACING_64;
 }
 .price-indicator li:last-child {
 	margin-right: 0;
 }
 .price-indicator span {
 	color: $LIME;
-	margin-left: $PX_16;
+	margin-left: $SPACING_16;
 }
 .price-indicator .badge {
-	font-size: $PX_12;
-	padding: $PX_4 $PX_8;
-	margin-left: $PX_16;
+	font-size: $SPACING_12;
+	padding: $SPACING_4 $SPACING_8;
+	margin-left: $SPACING_16;
 }
 
 .price-indicator .healthy {
@@ -42,3 +42,4 @@
 .price-indicator .average {
 	color: $WARNING;
 }
+

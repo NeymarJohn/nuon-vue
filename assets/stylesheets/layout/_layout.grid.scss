@@ -9,15 +9,15 @@
 }
 .l-grid--column-2 {
 	grid-template-columns: repeat(2, minmax(0, 1fr));
-	column-gap: $PX_24;
+	column-gap: $SPACING_24;
 }
 .l-grid--column-3 {
 	grid-template-columns: repeat(3, minmax(0, 1fr));
-	column-gap: $PX_32;
+	column-gap: $SPACING_32;
 }
 .l-grid--column-3-stretch {
 	grid-template-columns: repeat(4, minmax(0, 1fr));
-	column-gap: $PX_24;
+	column-gap: $SPACING_24;
 }
 .l-grid--column-3-stretch .stat-card:nth-child(1) {
 	grid-area: 1 / 1 / 2 / 2;
@@ -30,19 +30,19 @@
 }
 .l-grid--column-3-stretch-alt {
 	grid-template-columns: 0.6fr 1.5fr 1.5fr;
-	column-gap: $PX_24;
+	column-gap: $SPACING_24;
 }
 .l-grid--column-4 {
 	grid-template-columns: repeat(4, minmax(0, 1fr));
-	column-gap: $PX_24;
+	column-gap: $SPACING_24;
 }
 .l-grid-side-panel {
-	padding: $PX_48 $PX_100 0;
+	padding: $SPACING_48 $SPACING_100 0;
 	display: grid;
-	grid-template-columns: calc(60% - $PX_16) calc(40% - $PX_16);
+	grid-template-columns: calc(60% - $SPACING_16) calc(40% - $SPACING_16);
 	grid-template-rows: repeat(3, 1fr);
-	grid-column-gap: $PX_24;
-	grid-row-gap: $PX_24;
+	grid-column-gap: $SPACING_24;
+	grid-row-gap: $SPACING_24;
 	max-height: 0;
 }
 .proposal-details {
@@ -62,12 +62,12 @@
 	flex-direction: column;
 	background: $MEDIUM_LIGHT_GREY;
 	border-radius: $BORDER_RADIUS_16;
-	padding: $PX_32;
-	margin-bottom: $PX_48;
+	padding: $SPACING_32;
+	margin-bottom: $SPACING_48;
 }
 .l-grid-account-balance h4 {
 	font-size: $BODY_TEXT;
-	line-height: $PX_28;
+	line-height: $SPACING_28;
 }
 .l-grid-account-balance__body {
 	display: flex;
@@ -80,38 +80,38 @@
 }
 .l-grid-account-balance__body .l-flex .data-card {
 	flex: 1;
-	margin-right: $PX_30;
+	margin-right: $SPACING_30;
 }
 .l-grid-account-balance__body .l-flex .data-card:last-child {
 	margin-right: 0;
 }
 .l-grid-account-balance__body .donut-chart-balance {
-	width: calc(25% - $PX_30);
-	min-height: $PX_141;
-	margin-right: $PX_30;
+	width: calc(25% - $SPACING_30);
+	min-height: $SPACING_141;
+	margin-right: $SPACING_30;
 }
 
 // 2. Grid responsive
-@media screen and (max-width: $PX_1440) {
+@media screen and (max-width: $SPACING_1440) {
 	.l-grid--column-3-stretch {
-		column-gap: $PX_12;
+		column-gap: $SPACING_12;
 	}
 	.l-grid--column-3-stretch-alt {
-		column-gap: $PX_12;
+		column-gap: $SPACING_12;
 	}
 	.l-grid-side-panel {
-		padding: $PX_24 $PX_60 $PX_24 $PX_80;
-		grid-column-gap: $PX_12;
-		grid-row-gap: $PX_12;
+		padding: $SPACING_24 $SPACING_60 $SPACING_24 $SPACING_80;
+		grid-column-gap: $SPACING_12;
+		grid-row-gap: $SPACING_12;
 	}
 }
-@media screen and (max-width: $PX_990) {
+@media screen and (max-width: $SPACING_990) {
 	.l-grid {
 		display: flex;
 		flex-direction: column;
 	}
 	.l-grid-side-panel {
-		padding: $PX_36 $PX_30 $PX_36 $PX_50;
+		padding: $SPACING_36 $SPACING_30 $SPACING_36 $SPACING_50;
 	}
 	.l-grid-account-balance {
 		display: flex;
@@ -130,23 +130,23 @@
 	.l-grid-account-balance__panel-three,
 	.l-grid-account-balance__panel-four,
 	.l-grid-account-balance__panel-five {
-		margin-bottom: $PX_16;
+		margin-bottom: $SPACING_16;
 	}
 	.l-grid-account-balance__panel-six {
 		border-left: 0;
-		border-top: $PX_1 solid $LIGHT_GREY;
+		border-top: $SPACING_1 solid $LIGHT_GREY;
 		padding-left: 0;
 		width: 100%;
-		padding-top: $PX_16;
+		padding-top: $SPACING_16;
 	}
 }
-@media screen and (max-width: $PX_480) {
+@media screen and (max-width: $SPACING_480) {
 	.l-grid-side-panel {
 		display: flex;
 		flex-direction: column;
 		grid-column-gap: 0;
 		grid-row-gap: 0;
 		max-height: unset;
-		padding: $PX_12 $PX_24;
+		padding: $SPACING_12 $SPACING_24;
 	}
 }

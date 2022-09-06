@@ -5,13 +5,13 @@
 // 1. Social sharing default
 .share-network-twitter {
 	display: inherit;
-	margin-left: $PX_24;
+	margin-left: $SPACING_24;
 }
 .share-network-twitter:hover svg path {
 	fill: $LIME;
 }
 .share-network-twitter svg {
-	height: $PX_24;
+	height: $SPACING_24;
 }
 .share-network-twitter svg path {
 	transition: $TRANSITION_ALL;

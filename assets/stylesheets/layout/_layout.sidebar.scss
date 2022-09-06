@@ -13,35 +13,35 @@
 	flex-direction: column;
 	justify-content: space-between;
 	background: $DARK_GREY;
-	width: $PX_300;
+	width: $SPACING_300;
 	overflow-y: auto;
 	transition: transform 0.3s ease-in-out;
 	z-index: 3;
 }
 
 // 2. Sidebar responsive
-@media screen and (max-width: $PX_1440) {
+@media screen and (max-width: $SPACING_1440) {
 	.l-sidebar {
-		width: $PX_265;
+		width: $SPACING_265;
 	}
 }
-@media screen and (max-width: $PX_990) {
+@media screen and (max-width: $SPACING_990) {
 	.l-sidebar--top .logo {
 		display: none;
 	}
 	.l-sidebar--top {
-		padding-top: $PX_16;
+		padding-top: $SPACING_16;
 	}
 	.l-sidebar {
 		transform: translateX(-100%);
 		width: 75%;
-		top: $PX_79;
+		top: $SPACING_79;
 	}
 	.l-sidebar.is-active {
 		transform: translateX(0%);
 	}
 }
-@media screen and (max-width: $PX_480) {
+@media screen and (max-width: $SPACING_480) {
 	.l-sidebar {
 		width: 100%;
 	}

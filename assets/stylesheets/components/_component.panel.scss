@@ -12,7 +12,7 @@
 	flex-direction: column;
 	align-items: flex-start;
 	background: $MEDIUM_LIGHT_GREY;
-	padding: $PX_32;
+	padding: $SPACING_32;
 	border-radius: $BORDER_RADIUS_8;
 	position: relative;
 }
@@ -20,13 +20,13 @@
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-	margin-bottom: $PX_24;
+	margin-bottom: $SPACING_24;
 }
 .panel__row {
 	flex-direction: row;
 	justify-content: space-between;
 	align-items: center;
-	margin-bottom: $PX_18;
+	margin-bottom: $SPACING_18;
 	width: 100%;
 	position: relative;
 }
@@ -39,7 +39,7 @@
 }
 .panel__row p,
 .panel__row span {
-	line-height: $PX_24;
+	line-height: $SPACING_24;
 }
 .panel__row span,
 .panel__row span a {
@@ -52,7 +52,7 @@
 }
 .panel__row span svg,
 .panel__row span a svg {
-	margin-left: $PX_20;
+	margin-left: $SPACING_20;
 	cursor: pointer;
 }
 .panel__row span svg path,
@@ -64,23 +64,23 @@
 }
 
 // 2. Panel responsive
-@media screen and (max-width: $PX_1440) {
+@media screen and (max-width: $SPACING_1440) {
 	.panel__row {
-		margin-bottom: $PX_16;
+		margin-bottom: $SPACING_16;
 	}
 	.panel__row p,
 	.panel__row span {
 		font-size: $BODY_TEXT_SM;
-		line-height: $PX_24;
+		line-height: $SPACING_24;
 	}
 	.panel__row span svg,
 	.panel__row span a svg {
-		margin-left: $PX_8;
+		margin-left: $SPACING_8;
 	}
 }
-@media screen and (max-width: $PX_480) {
+@media screen and (max-width: $SPACING_480) {
 	.panel {
 		border-radius: $BORDER_RADIUS_16;
-		margin-bottom: $PX_12;
+		margin-bottom: $SPACING_12;
 	}
 }

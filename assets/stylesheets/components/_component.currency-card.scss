@@ -6,11 +6,11 @@
 .currency-card label,
 .currency-card h5 {
 	color: $LIGHT_GREY;
-	font-size: $PX_14;
-	line-height: $PX_20;
+	font-size: $SPACING_14;
+	line-height: $SPACING_20;
 }
 .currency-card h3 sup {
-	font-size: $PX_14;
-	line-height: $PX_20;
-	margin-left: $PX_10;
+	font-size: $SPACING_14;
+	line-height: $SPACING_20;
+	margin-left: $SPACING_10;
 }

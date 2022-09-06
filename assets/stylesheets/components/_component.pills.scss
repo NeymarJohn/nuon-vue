@@ -5,15 +5,15 @@
 // 1. Pills default
 .pill-container {
 	border-radius: $BORDER_RADIUS_32;
-	padding: $PX_8;
+	padding: $SPACING_8;
 	background-color: $DARK_GREY;
 	width: fit-content;
 }
 .pill {
-	border-radius: $PX_24;
+	border-radius: $SPACING_24;
 	color: $LIGHT_GREY;
-	padding: $PX_8 $PX_20;
-	margin-right: $PX_20;
+	padding: $SPACING_8 $SPACING_20;
+	margin-right: $SPACING_20;
 	cursor: pointer;
 	&:hover {
 		color: $LIME;

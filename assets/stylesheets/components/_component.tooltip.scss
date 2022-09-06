@@ -12,17 +12,17 @@
 	background: $SUCCESS;
 	color: $WHITE;
 	font-size: $BODY_TEXT_SM;
-	padding: $PX_8;
+	padding: $SPACING_8;
 	border-radius: $BORDER_RADIUS_8;
-	top: -$PX_48;
+	top: -$SPACING_48;
 }
 .tooltip.visible {
 	opacity: 1;
 }
 .tooltip--icon {
-	height: $PX_20;
-	width: $PX_20;
-	margin-left: $PX_10;
+	height: $SPACING_24;
+	width: $SPACING_24;
+	margin-left: $SPACING_10;
 }
 .tooltip--icon:focus {
 	outline: 0;
@@ -39,10 +39,10 @@
 }
 
 // 2. Tooltip responsive
-@media screen and (max-width: $PX_1440) {
+@media screen and (max-width: $SPACING_1440) {
 	.tooltip--icon {
-		height: $PX_18;
-		width: $PX_18;
-		margin-left: $PX_8;
+		height: $SPACING_18;
+		width: $SPACING_18;
+		margin-left: $SPACING_8;
 	}
 }

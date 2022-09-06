@@ -1,62 +1,37 @@
 /* #COMPONENT - COLLATERAL
 		1. Collateral default
+		2. Collateral responsive
 */
 
 // 1. Collateral default
-.collateral {
-	margin-bottom: $PX_24;
+.collateral,
+.collateral-estimate {
+	width: 100%;
+	background: $MEDIUM_LIGHT_GREY;
+	border-radius: $BORDER_RADIUS_8;
+	padding: $SPACING_32;
+	margin-bottom: $SPACING_48;
 }
-.collateral__header,
-.collateral__header,
-.collateral__body,
-.collateral__header p {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
+.collateral__text,
+.collateral__text p {
+	margin-bottom: $SPACING_16;
 }
-.collateral__header {
-	justify-content: space-between;
-	margin-bottom: $PX_16;
+.collateral__text:last-child {
+	text-align: right;
 }
-.collateral__header .btn {
-	font-size: $PX_14;
-	text-decoration: none;
-	line-height: $PX_20;
+.collateral-estimate sup {
+	top: -$SPACING_10 !important;
 }
-.collateral__header .btn--link:after {
-	display: none;
-}
-.collateral__header p {
-	margin-bottom: 0;
-	color: $LIGHT_GREY;
-	font-size: $PX_14;
-	line-height: $PX_20;
-}
-.collateral__body {
-	justify-content: space-between;
-}
-.collateral__body .btn {
-	font-size: $HEADING_THREE;
-	font-weight: 500;
-	line-height: $PX_32;
-	display: flex;
-	flex-direction: column;
-	align-items: flex-start;
-	justify-content: center;
-	width: calc(100% / 3);
-	margin-right: $PX_8;
-	padding: $PX_24;
-	color: $WHITE;
-	background-color: $MEDIUM_GREY;
-	border: $PX_1 solid $MEDIUM_LIGHT_GREY;
-	border-radius: $PX_8;
-	min-height: $PX_100;
-}
-.collateral__body .btn span {
-	color: $LIGHT_GREY;
-	font-size: $PX_14;
-	line-height: $PX_20;
-}
-.collateral__body .btn:last-child {
-	margin-right: 0;
+
+// 2. Collateral responsive
+@media screen and (max-width: $SPACING_480) {
+	.collateral,
+	.collateral-estimate {
+		padding: $SPACING_24;
+	}
+	.collateral__text h4,
+	.collateral-estimate {
+		font-size: $HEADING_THREE_480 !important;
+		line-height: $SPACING_36;
+	}
 }

@@ -17,14 +17,14 @@ input:not([type="range"]) {
 	font-size: $BODY_TEXT;
 	appearance: none;
 	width: 100%;
-	padding-right: $PX_16;
+	padding-right: $SPACING_16;
 	border: 0;
-	line-height: $PX_30;
+	line-height: $SPACING_30;
 }
 input::placeholder,
 textarea::placeholder {
 	color: $LIGHT_GREY;
-	font-size: $PX_14;
+	font-size: $SPACING_14;
 }
 textarea:focus,
 input:focus {
@@ -40,11 +40,11 @@ textarea {
 	align-items: center;
 }
 .input-token {
-	min-width: $PX_120;
-	margin-right: $PX_32;
+	min-width: $SPACING_120;
+	margin-right: $SPACING_32;
 }
 .input-token svg {
-	margin-right: $PX_8;
+	margin-right: $SPACING_8;
 }
 .input,
 .input__container {
@@ -52,37 +52,37 @@ textarea {
 }
 .input {
 	width: 100%;
-	border: $PX_1 solid $HIGHLIGHT_LIGHT_GREY;
+	border: $SPACING_1 solid $HIGHLIGHT_LIGHT_GREY;
 	border-radius: $BORDER_RADIUS_8;
-	margin-bottom: $PX_8;
+	margin-bottom: $SPACING_8;
 }
 .input input {
 	color: $WHITE;
-	line-height: $PX_24;
+	line-height: $SPACING_24;
 	padding: 0;
-	margin-right: $PX_8;
+	margin-right: $SPACING_8;
 	text-align: right;
 	background: $TRANSPARENT;
 }
 .input__container {
-	padding: $PX_12 $PX_8;
-	height: $PX_48;
+	padding: $SPACING_12 $SPACING_8;
+	height: $SPACING_48;
 	display: flex;
 	flex-flow: row nowrap;
 	align-items: center;
 	justify-content: space-between;
 }
 .input__container .btn {
-	padding: $PX_4 $PX_12;
-	height: $PX_32;
-	font-size: $PX_12;
-	line-height: $PX_24;
+	padding: $SPACING_4 $SPACING_12;
+	height: $SPACING_32;
+	font-size: $SPACING_12;
+	line-height: $SPACING_24;
 }
 
 // 2. Input responsive
-@media screen and (max-width: $PX_480) {
+@media screen and (max-width: $SPACING_480) {
 	input {
 		font-size: $HEADING_FIVE_480;
-		line-height: $PX_18;
+		line-height: $SPACING_18;
 	}
 }

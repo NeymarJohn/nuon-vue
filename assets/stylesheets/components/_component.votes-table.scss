@@ -6,8 +6,8 @@
 // 1. Votes table default
 .votes-table {
 	width: 100%;
-	margin-top: $PX_24;
-	padding-bottom: $PX_48;
+	margin-top: $SPACING_24;
+	padding-bottom: $SPACING_48;
 }
 .votes-table h5 {
 	color: $LIGHT_GREY;
@@ -18,11 +18,11 @@
 	align-items: center;
 }
 .votes-table h4 svg {
-	margin-right: $PX_16;
+	margin-right: $SPACING_16;
 }
 .votes-table__container {
 	background: $MEDIUM_LIGHT_GREY;
-	padding: $PX_32;
+	padding: $SPACING_32;
 	border-radius: $BORDER_RADIUS_8;
 	display: block;
 	width: 100%;
@@ -33,15 +33,15 @@
 	font-size: $BODY_TEXT;
 }
 .votes-table__row:first-child .votes-table__cell {
-	padding: 0 0 $PX_32 0;
+	padding: 0 0 $SPACING_32 0;
 }
 .votes-table__row:first-child .votes-table__cell:first-child {
 	text-transform: none;
 }
 .votes-table__cell {
 	width: calc(100% / 3);
-	padding: $PX_32 0;
-	border-bottom: $PX_1 solid $LIGHT_GREY;
+	padding: $SPACING_32 0;
+	border-bottom: $SPACING_1 solid $LIGHT_GREY;
 }
 .votes-table__cell:first-child {
 	text-transform: uppercase;
@@ -63,26 +63,26 @@
 }
 
 // 2. Votes table responsive
-@media screen and (max-width: $PX_1440) {
+@media screen and (max-width: $SPACING_1440) {
 	.votes-table__row,
 	.votes-table__cell--full p {
 		font-size: $BODY_TEXT_SM;
-		line-height: $PX_24;
+		line-height: $SPACING_24;
 	}
 }
-@media screen and (max-width: $PX_990) {
+@media screen and (max-width: $SPACING_990) {
 	.votes-table__cell {
-		padding: $PX_24 0;
+		padding: $SPACING_24 0;
 	}
 }
-@media screen and (max-width: $PX_480) {
+@media screen and (max-width: $SPACING_480) {
 	.votes-table {
-		padding-bottom: $PX_12;
+		padding-bottom: $SPACING_12;
 	}
 	.votes-table__container {
 		border-radius: $BORDER_RADIUS_16;
 	}
 	.votes-table__cell {
-		padding: $PX_12 0;
+		padding: $SPACING_12 0;
 	}
 }

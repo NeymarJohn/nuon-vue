@@ -8,44 +8,44 @@
 
 // 1. Chart default
 .l-chart {
-	margin-bottom: $PX_48;
+	margin-bottom: $SPACING_48;
 }
 .l-chart .chart:first-child {
-	margin-right: $PX_32;
+	margin-right: $SPACING_32;
 }
 
 // 2. Chart vault overview
 .l-chart--vault-overview {
 	background: $DARK_GREY;
 	border-radius: $BORDER_RADIUS_24;
-	padding: $PX_32;
+	padding: $SPACING_32;
 }
 .l-chart--vault-overview .chart:first-child {
-	flex-basis: calc(60% - $PX_16);
-	margin-bottom: $PX_4;
+	flex-basis: calc(60% - $SPACING_16);
+	margin-bottom: $SPACING_4;
 }
 .l-chart--vault-overview .chart:last-child {
-	flex-basis: calc(40% - $PX_16);
+	flex-basis: calc(40% - $SPACING_16);
 }
 
 // 3. Chart token price
 .l-chart--token-price .chart:first-child {
-	width: calc(35% - $PX_16);
+	width: calc(35% - $SPACING_16);
 }
 .l-chart--token-price .chart:last-child {
-	width: calc(65% - $PX_16);
+	width: calc(65% - $SPACING_16);
 }
 
 // 4. Chart account balance
 .l-chart--account-balance .chart:first-child {
-	flex-basis: calc(50% - $PX_16);
+	flex-basis: calc(50% - $SPACING_16);
 }
 .l-chart--account-balance .chart:last-child {
-	flex-basis: calc(50% - $PX_16);
+	flex-basis: calc(50% - $SPACING_16);
 }
 
 // 5. Chart responsive
-@media screen and (max-width: $PX_990) {
+@media screen and (max-width: $SPACING_990) {
 	.l-chart--vault-overview .chart:first-child,
 	.l-chart--vault-overview .chart:last-child {
 		flex-basis: calc(100%);
@@ -57,16 +57,16 @@
 	}
 	.l-chart--vault-overview .chart:first-child,
 	.l-chart--token-price .chart:first-child {
-		margin-bottom: $PX_16;
+		margin-bottom: $SPACING_16;
 	}
 }
-@media screen and (max-width: $PX_480) {
+@media screen and (max-width: $SPACING_480) {
 	.l-chart--account-balance .chart:first-child,
 	.l-chart--account-balance .chart:last-child {
 		flex-basis: calc(100%);
 		margin-right: 0;
 	}
 	.l-chart--account-balance .chart:first-child {
-		margin-bottom: $PX_24;
+		margin-bottom: $SPACING_24;
 	}
 }

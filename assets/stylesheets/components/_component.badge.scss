@@ -13,9 +13,9 @@
 // 1. Badge default
 .badge {
 	border-radius: $BORDER_RADIUS_4;
-	padding: $PX_5 $PX_16;
+	padding: $SPACING_5 $SPACING_16;
 	font-size: $BODY_TEXT;
-	line-height: $PX_21;
+	line-height: $SPACING_21;
 	text-transform: uppercase;
 }
 
@@ -25,16 +25,16 @@
 	color: $DARK_GREY;
 }
 .badge--grey {
-	border: $PX_1 solid $LIGHT_GREY;
+	border: $SPACING_1 solid $LIGHT_GREY;
 	color: $LIGHT_GREY;
 }
 .badge--yellow {
 	color: $WARNING;
-	border: $PX_1 solid $WARNING;
+	border: $SPACING_1 solid $WARNING;
 }
 .badge--green {
 	color: $SUCCESS;
-	border: $PX_1 solid $SUCCESS;
+	border: $SPACING_1 solid $SUCCESS;
 }
 .badge--light-green {
 	background: $LIGHT_GREEN;
@@ -47,26 +47,26 @@
 .badge--high-risk,
 .badge--medium-risk,
 .badge--low-risk {
-	padding: $PX_4 $PX_16;
+	padding: $SPACING_4 $SPACING_16;
 	border-radius: $BORDER_RADIUS_24;
 	font-size: $BODY_TEXT_XS;
-	line-height: $PX_20;
-	margin-left: $PX_8;
+	line-height: $SPACING_20;
+	margin-left: $SPACING_8;
 	font-weight: 500;
 	text-transform: capitalize;
 }
 .badge--high-risk {
 	background-color: $ERROR_DARK;
-	border: $PX_1 solid $ERROR;
+	border: $SPACING_1 solid $ERROR;
 	color: $ERROR;
 }
 .badge--medium-risk {
-	border: $PX_1 solid $WARNING;
+	border: $SPACING_1 solid $WARNING;
 	color: $WARNING;
 }
 .badge--low-risk {
 	background-color: $SUCCESS_DARK;
-	border: $PX_1 solid $SUCCESS;
+	border: $SPACING_1 solid $SUCCESS;
 	color: $SUCCESS;
 }
 
@@ -74,7 +74,7 @@
 .badge--balance {
 	background: $DARK_GREY;
 	color: $LIME;
-	padding: calc($PX_1 + 2px) $PX_16 $PX_1 $PX_16;
+	padding: calc($SPACING_1 + 2px) $SPACING_16 $SPACING_1 $SPACING_16;
 	border-radius: $BORDER_RADIUS_8;
 }
 
@@ -82,9 +82,9 @@
 .badge--price-up,
 .badge--price-down,
 .badge--price-same {
-	padding: $PX_1 $PX_16;
+	padding: $SPACING_1 $SPACING_16;
 	border-radius: $BORDER_RADIUS_24;
-	border: $PX_1 solid;
+	border: $SPACING_1 solid;
 	border-color: $LIGHT_GREY;
 	color: $LIGHT_GREY;
 }
@@ -102,8 +102,8 @@
 .badge--key {
 	border-radius: 50%;
 	padding: 0;
-	height: $PX_12;
-	width: $PX_12;
+	height: $SPACING_12;
+	width: $SPACING_12;
 }
 
 // 7. Badge target peg
@@ -113,7 +113,7 @@
 	color: $LIME;
 	text-transform: none;
 	border-radius: $BORDER_RADIUS_24;
-	margin-top: $PX_8;
+	margin-top: $SPACING_8;
 }
 
 // 8. Badge health status
@@ -121,7 +121,7 @@
 .badge--healthy,
 .badge--unhealthy {
 	background-color: $DARK_GREY;
-	border: $PX_1 solid $TRANSPARENT;
+	border: $SPACING_1 solid $TRANSPARENT;
 	border-radius: $BORDER_RADIUS_8;
 }
 .badge--average {
@@ -146,18 +146,18 @@
 	color: $LIGHT_GREY;
 }
 // 9. Badge responsive
-@media screen and (max-width: $PX_1440) {
+@media screen and (max-width: $SPACING_1440) {
 	.badge {
 		font-size: $BODY_TEXT_XS;
-		line-height: $PX_18;
+		line-height: $SPACING_18;
 	}
 	.badge--high-risk,
 	.badge--medium-risk,
 	.badge--low-risk {
-		padding: $PX_4 $PX_8;
+		padding: $SPACING_4 $SPACING_8;
 		border-radius: $BORDER_RADIUS_8;
 		font-size: $BODY_TEXT_XXS;
-		margin-left: $PX_8;
+		margin-left: $SPACING_8;
 	}
 }
 

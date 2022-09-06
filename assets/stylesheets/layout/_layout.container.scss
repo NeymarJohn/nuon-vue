@@ -9,11 +9,11 @@
 	margin: 0 auto;
 }
 .l-container--md {
-	padding: $PX_72 $PX_100 0;
+	padding: $SPACING_72 $SPACING_100 0;
 }
 .l-container--sm {
-	max-width: $PX_650;
-	padding: $PX_32 0;
+	max-width: $SPACING_650;
+	padding: $SPACING_32 0;
 }
 .l-container--error {
 	height: 100%;
@@ -24,35 +24,35 @@
 }
 .l-container--error h1 {
 	font-size: $HEADING_ONE_LG;
-	line-height: $PX_120;
+	line-height: $SPACING_120;
 }
 
 // 2. Container responsive
-@media screen and (max-width: $PX_1440) {
+@media screen and (max-width: $SPACING_1440) {
 	.l-container--md {
-		padding: $PX_72 $PX_80 0;
+		padding: $SPACING_72 $SPACING_80 0;
 	}
 	.l-container--sm {
-		max-width: $PX_660;
+		max-width: $SPACING_660;
 	}
 	.l-container--error h1 {
 		font-size: $HEADING_ONE_LG_1440;
 	}
 }
-@media screen and (max-width: $PX_990) {
+@media screen and (max-width: $SPACING_990) {
 	.l-container--md {
-		padding: $PX_48 $PX_50 0;
+		padding: $SPACING_48 $SPACING_50 0;
 	}
 	.l-container--sm {
-		padding: $PX_48 $PX_50 0;
+		padding: $SPACING_48 $SPACING_50 0;
 		max-width: inherit;
 	}
 }
-@media screen and (max-width: $PX_480) {
+@media screen and (max-width: $SPACING_480) {
 	.l-container--md {
-		padding: $PX_48 $PX_24 0;
+		padding: $SPACING_48 $SPACING_24 0;
 	}
 	.l-container--sm {
-		padding: $PX_36 $PX_24 0;
+		padding: $SPACING_36 $SPACING_24 0;
 	}
 }

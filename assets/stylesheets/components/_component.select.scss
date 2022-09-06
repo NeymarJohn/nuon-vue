@@ -6,9 +6,9 @@
 // 1. Select default
 .select {
 	position: relative;
-	max-width: $PX_300;
+	max-width: $SPACING_300;
 	width: 100%;
-	height: $PX_80;
+	height: $SPACING_80;
 	z-index: 1;
 }
 .select.inline {
@@ -16,7 +16,7 @@
 	align-items: center;
 }
 .select.inline label {
-	padding: 0 $PX_10;
+	padding: 0 $SPACING_10;
 	margin-bottom: 0;
 }
 .select,
@@ -25,8 +25,8 @@
 }
 .select label {
 	display: block;
-	margin-bottom: $PX_4;
-	line-height: $PX_28;
+	margin-bottom: $SPACING_4;
+	line-height: $SPACING_28;
 	color: $LIGHT_GREY;
 }
 .select.active .select__selected {
@@ -37,7 +37,7 @@
 }
 .select__button {
 	position: relative;
-	min-width: $PX_200;
+	min-width: $SPACING_200;
 }
 .select__selected {
 	transition: $TRANSITION_ALL;
@@ -45,26 +45,26 @@
 	justify-content: space-between;
 	flex-direction: row;
 	align-items: center;
-	padding: $PX_12 $PX_24;
+	padding: $SPACING_12 $SPACING_24;
 	background: $MEDIUM_LIGHT_GREY;
 	border-radius: $BORDER_RADIUS_8;
 	color: $LIGHT_GREY;
 	font-size: $BODY_TEXT;
-	line-height: $PX_24;
+	line-height: $SPACING_24;
 }
 .select__selected svg path {
 	transition: $TRANSITION_ALL;
 	fill: $LIGHT_GREY;
 }
 .select__selected svg {
-	margin-left: $PX_16;
+	margin-left: $SPACING_16;
 }
 .select__options {
 	background: $MEDIUM_LIGHT_GREY;
 	visibility: hidden;
 	border-radius: $BORDER_RADIUS_8;
 	box-shadow: $BOX_SHADOW_SELECT;
-	margin-top: $PX_20;
+	margin-top: $SPACING_20;
 	position: absolute;
 	width: 100%;
 }
@@ -76,10 +76,10 @@
 	flex-direction: row;
 	align-items: center;
 	justify-content: space-between;
-	padding: $PX_12 $PX_24;
+	padding: $SPACING_12 $SPACING_24;
 	transition: background-color 0.3s ease, color 0.3s ease;
 	font-size: $BODY_TEXT;
-	line-height: $PX_24;
+	line-height: $SPACING_24;
 	color: $WHITE;
 }
 .select__option:hover,
@@ -94,12 +94,12 @@
 	stroke: $DARK_GREY;
 }
 .select__option:first-child:hover {
-	border-top-left-radius: $PX_8;
-	border-top-right-radius: $PX_8;
+	border-top-left-radius: $SPACING_8;
+	border-top-right-radius: $SPACING_8;
 }
 .select__option:last-child:hover {
-	border-bottom-left-radius: $PX_8;
-	border-bottom-right-radius: $PX_8;
+	border-bottom-left-radius: $SPACING_8;
+	border-bottom-right-radius: $SPACING_8;
 }
 .select__option:last-child {
 	border-bottom: 0;
@@ -109,13 +109,13 @@
 }
 
 // 2. Select responsive
-@media screen and (max-width: $PX_1440) {
+@media screen and (max-width: $SPACING_1440) {
 	.select label {
 		font-size: $BODY_TEXT_SM;
-		line-height: $PX_26;
+		line-height: $SPACING_26;
 	}
 }
-@media screen and (max-width: $PX_480) {
+@media screen and (max-width: $SPACING_480) {
 	.select {
 		max-width: 100%;
 	}

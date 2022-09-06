@@ -11,26 +11,26 @@
 }
 .l-balance {
 	flex-direction: row;
-	margin-bottom: $PX_48;
+	margin-bottom: $SPACING_48;
 }
 .l-balance__chart,
 .l-balance__control {
 	background-color: $MEDIUM_LIGHT_GREY;
 	border-radius: $BORDER_RADIUS_16;
-	padding: $PX_32;
+	padding: $SPACING_32;
 	width: 50%;
 }
 .l-balance__chart label,
 .l-balance__control label {
 	font-size: $BODY_TEXT;
 	color: $LIGHT_GREY;
-	padding: $PX_2 $PX_12 $PX_2 0;
+	padding: $SPACING_2 $SPACING_12 $SPACING_2 0;
 }
 .l-balance__control {
-	margin-right: $PX_24;
+	margin-right: $SPACING_24;
 }
 .l-balance__control h3 {
-	margin-bottom: $PX_24;
+	margin-bottom: $SPACING_24;
 }
 .l-balance__toggle {
 	flex-direction: column;
@@ -43,9 +43,9 @@
 }
 .l-balance__toggle li {
 	justify-content: space-between;
-	padding: $PX_32;
+	padding: $SPACING_32;
 	background-color: $HIGHLIGHT_GREY;
-	border-bottom: $PX_1 solid $MEDIUM_LIGHT_GREY;
+	border-bottom: $SPACING_1 solid $MEDIUM_LIGHT_GREY;
 }
 .l-balance__toggle li:first-child {
 	border-top-left-radius: $BORDER_RADIUS_16;
@@ -62,16 +62,16 @@
 .l-balance__toggle .btn {
 	display: flex;
 	align-items: center;
-	min-height: $PX_32;
+	min-height: $SPACING_32;
 }
 .l-balance__toggle .btn:hover {
 	transform: none;
 	background-color: $MEDIUM_LIGHT_GREY;
-	padding: $PX_8 $PX_16;
+	padding: $SPACING_8 $SPACING_16;
 }
 .l-balance__toggle .btn:hover span {
-	width: $PX_66;
-	max-width: $PX_66;
+	width: $SPACING_66;
+	max-width: $SPACING_66;
 }
 .l-balance__toggle .btn span {
 	max-width: 0;
@@ -79,8 +79,8 @@
 	overflow: hidden;
 	color: $LIGHT_GREY;
 	transition: max-width 0.3s ease-in-out;
-	margin-left: $PX_8;
-	font-size: $PX_12;
+	margin-left: $SPACING_8;
+	font-size: $SPACING_12;
 }
 .l-balance__toggle__value {
 	display: flex;
@@ -88,6 +88,6 @@
 	align-items: center;
 }
 .l-balance__toggle__value sub {
-	margin-left: $PX_4;
-	bottom: -$PX_1;
+	margin-left: $SPACING_4;
+	bottom: -$SPACING_1;
 }

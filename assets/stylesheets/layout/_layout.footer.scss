@@ -7,7 +7,7 @@
 .l-footer {
 	display: flex;
 	flex-direction: column;
-	padding: 0 $PX_32;
+	padding: 0 $SPACING_32;
 }
 .l-footer .block-number {
 	display: flex;
@@ -19,19 +19,19 @@
 .l-footer .app-info {
 	display: flex;
 	flex-direction: column;
-	padding-bottom: $PX_48;
+	padding-bottom: $SPACING_48;
 }
 .l-footer .app-info p,
 .l-footer .app-info a {
 	color: $WHITE;
 	margin-bottom: 0;
 	font-size: $BODY_TEXT_XS;
-	line-height: $PX_24;
+	line-height: $SPACING_24;
 }
 
 // 2. Footer responsive
-@media screen and (max-width: $PX_1440) {
+@media screen and (max-width: $SPACING_1440) {
 	.l-footer .app-info {
-		padding-bottom: $PX_21;
+		padding-bottom: $SPACING_21;
 	}
 }

@@ -15,13 +15,13 @@
 	align-items: center;
 	font-size: $BODY_TEXT;
 	color: $LIGHT_GREY;
-	margin-bottom: $PX_4;
-	line-height: $PX_30;
+	margin-bottom: $SPACING_4;
+	line-height: $SPACING_30;
 }
 .data-card h3 {
 	font-size: $HEADING_ONE;
-	margin-bottom: $PX_14;
-	line-height: $PX_48;
+	margin-bottom: $SPACING_14;
+	line-height: $SPACING_48;
 	display: flex;
 	flex-direction: row;
 	align-items: flex-start;
@@ -42,15 +42,15 @@
 	margin-bottom: 0;
 }
 .data-card .countdown__block:last-child h3 {
-	min-width: $PX_55;
+	min-width: $SPACING_55;
 	margin-right: 0;
 }
 .data-card .countdown__block p {
 	color: $LIME;
 }
 .data-card p {
-	margin-bottom: $PX_4;
-	line-height: $PX_30;
+	margin-bottom: $SPACING_4;
+	line-height: $SPACING_30;
 	color: $LIGHT_GREY;
 }
 .data-card p:last-child {
@@ -59,7 +59,7 @@
 .data-card sup {
 	position: relative;
 	font-size: $BODY_TEXT_SM;
-	top: $PX_5;
+	top: $SPACING_5;
 }
 .data-card--start {
 	align-items: flex-start;
@@ -70,31 +70,31 @@
 }
 .data-card--end h3 {
 	font-size: $HEADING_THREE;
-	line-height: $PX_45;
+	line-height: $SPACING_45;
 	margin-bottom: 0;
 }
 .data-card--end h3 sup {
-	font-size: $PX_14;
-	line-height: $PX_20;
-	margin-left: $PX_10;
+	font-size: $SPACING_14;
+	line-height: $SPACING_20;
+	margin-left: $SPACING_10;
 }
 
 // 2. Data card responsive
-@media screen and (max-width: $PX_1440) {
+@media screen and (max-width: $SPACING_1440) {
 	.data-card label {
 		font-size: $BODY_TEXT_SM;
-		line-height: $PX_30;
+		line-height: $SPACING_30;
 	}
 	.data-card h3,
 	.data-card .countdown__block h3 {
 		font-size: $HEADING_ONE_1440;
-		margin-bottom: $PX_4;
+		margin-bottom: $SPACING_4;
 	}
 	.data-card .modal--collateral-table h4 {
 		font-size: $HEADING_FOUR_1440;
 	}
 }
-@media screen and (max-width: $PX_990) {
+@media screen and (max-width: $SPACING_990) {
 	.data-card--end,
 	.data-card--end .btn {
 		align-items: flex-start;

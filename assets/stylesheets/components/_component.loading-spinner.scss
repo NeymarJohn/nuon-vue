@@ -6,17 +6,17 @@
 .loading-spinner {
 	display: block;
 	position: relative;
-	width: $PX_80;
-	height: $PX_80;
-	margin: $PX_32 auto;
+	width: $SPACING_80;
+	height: $SPACING_80;
+	margin: $SPACING_32 auto;
 }
 .loading-spinner div {
 	box-sizing: border-box;
 	display: block;
 	position: absolute;
-	width: $PX_83;
-	height: $PX_83;
-	border: $PX_1 solid $LIME;
+	width: $SPACING_83;
+	height: $SPACING_83;
+	border: $SPACING_1 solid $LIME;
 	border-radius: $BORDER_RADIUS_CIRCLE;
 	animation: loading-spinner 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
 	border-color: $LIME transparent transparent transparent;
