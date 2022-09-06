@@ -7,7 +7,7 @@
 
 // 1. Transaction summary default
 .transaction-summary__container {
-	padding: $SPACING_24;
+	padding: $PX_24;
 	background: $MEDIUM_GREY;
 	border-radius: $BORDER_RADIUS_8;
 	position: relative;
@@ -16,12 +16,12 @@
 	margin-bottom: 0 !important;
 }
 .transaction-summary {
-	margin-bottom: $SPACING_24;
+	margin-bottom: $PX_24;
 }
 .transaction-summary label {
 	display: block;
-	font-size: $SPACING_14;
-	line-height: $SPACING_20;
+	font-size: $PX_14;
+	line-height: $PX_20;
 	color: $LIGHT_GREY;
 	margin-bottom: 0;
 }
@@ -29,19 +29,19 @@
 	color: $WHITE;
 }
 .transaction-summary img {
-	height: $SPACING_56;
-	width: $SPACING_56;
+	height: $PX_56;
+	width: $PX_56;
 	border-radius: $BORDER_RADIUS_CIRCLE;
-	margin-right: $SPACING_16;
+	margin-right: $PX_16;
 }
 .transaction-summary p {
-	line-height: $SPACING_28;
+	line-height: $PX_28;
 	font-size: $BODY_TEXT;
 	color: $WHITE;
 	margin-bottom: 0;
 }
 .transaction-summary .svg-arrow-down {
-	margin: $SPACING_24 $SPACING_10;
+	margin: $PX_24 $PX_10;
 }
 
 // 2. Transaction summary swap
@@ -59,7 +59,7 @@
 }
 
 // 3. Transaction summary responsive
-@media screen and (max-width: $SPACING_480) {
+@media screen and (max-width: $PX_480) {
 	.transaction-summary--swap {
 		padding: 0;
 	}
@@ -67,6 +67,6 @@
 
 // 4. Transaction summary CHub
 .transaction-summary--chub {
-	padding: $SPACING_32;
-	margin-bottom: $SPACING_48;
+	padding: $PX_32;
+	margin-bottom: $PX_48;
 }

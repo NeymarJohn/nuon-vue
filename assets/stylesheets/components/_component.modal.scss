@@ -17,7 +17,7 @@
 	overflow: hidden;
 	z-index: 2;
 	background-color: $DARK_GREY_RGBA;
-	backdrop-filter: blur($SPACING_8);
+	backdrop-filter: blur($PX_8);
 }
 .modal,
 .modal__overlay {
@@ -37,8 +37,8 @@
 	margin: 0;
 	background-color: $DARK_GREY;
 	box-shadow: $BOX_SHADOW_MODAL;
-	padding: $SPACING_62 $SPACING_40;
-	width: $SPACING_650;
+	padding: $PX_62 $PX_40;
+	width: $PX_650;
 	overflow: hidden auto;
 	align-self: center;
 	max-height: 80vh;
@@ -51,11 +51,11 @@
 	flex-direction: row;
 	justify-content: space-between;
 	align-items: flex-start;
-	margin-bottom: $SPACING_24;
+	margin-bottom: $PX_24;
 }
 .modal__header p {
 	font-size: $BODY_TEXT;
-	line-height: $SPACING_24;
+	line-height: $PX_24;
 	color: $LIGHT_GREY;
 	margin-bottom: 0;
 }
@@ -72,9 +72,9 @@
 	min-height: 85vh;
 }
 .modal__info--lower {
-	border: $SPACING_1 solid $MEDIUM_LIGHT_GREY;
+	border: $PX_1 solid $MEDIUM_LIGHT_GREY;
 	border-radius: $BORDER_RADIUS_8;
-	padding: $SPACING_16 $SPACING_32;
+	padding: $PX_16 $PX_32;
 }
 .modal__info--lower p {
 	margin-bottom: 0;
@@ -112,13 +112,13 @@
 	flex-direction: column;
 }
 .modal__confirm h5 {
-	margin-bottom: $SPACING_12;
+	margin-bottom: $PX_12;
 	color: $DARK_GREY;
 }
 .modal__confirm--panel {
-	padding: $SPACING_32;
+	padding: $PX_32;
 	border-radius: $BORDER_RADIUS_16;
-	margin-bottom: $SPACING_48;
+	margin-bottom: $PX_48;
 	background: $MEDIUM_LIGHT_GREY;
 }
 .modal__confirm--row,
@@ -129,18 +129,18 @@
 }
 .modal__confirm--row {
 	justify-content: space-between;
-	margin-bottom: $SPACING_8;
+	margin-bottom: $PX_8;
 }
 .modal__confirm--row:last-child,
 .modal__confirm--row p {
 	margin-bottom: 0;
 }
 .modal__confirm--row p {
-	line-height: $SPACING_28;
+	line-height: $PX_28;
 	color: $WHITE;
 }
 .modal__confirm--buttons .btn:first-child {
-	margin-right: $SPACING_16;
+	margin-right: $PX_16;
 	background: $LIME;
 	color: $LIME;
 }
@@ -150,19 +150,19 @@
 
 // 5. Modal connect
 .modal--connect .modal__container {
-	width: $SPACING_425;
-	padding: $SPACING_64 $SPACING_32;
+	width: $PX_425;
+	padding: $PX_64 $PX_32;
 }
 .modal--connect .modal__header {
-	margin-bottom: $SPACING_40;
+	margin-bottom: $PX_40;
 }
 
 // 6. Modal hub overview
 .modal--hub-overview .modal__container {
-	width: $SPACING_870;
+	width: $PX_870;
 }
 .modal--hub-overview .modal__container sup {
-	top: -$SPACING_20;
+	top: -$PX_20;
 }
 
 // 7. Modal states
@@ -183,21 +183,21 @@
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-	margin-bottom: $SPACING_12;
+	margin-bottom: $PX_12;
 }
 
 // 8. Modal responsive
-@media screen and (max-width: $SPACING_1440) {
+@media screen and (max-width: $PX_1440) {
 	.modal--collateral-table .modal__container,
 	.modal--hub-overview .modal__container {
-		width: $SPACING_660;
-		padding: $SPACING_48 $SPACING_32;
+		width: $PX_660;
+		padding: $PX_48 $PX_32;
 	}
 	.modal--hub-overview .modal__container sup {
-		top: -$SPACING_15;
+		top: -$PX_15;
 	}
 }
-@media screen and (max-width: $SPACING_990) {
+@media screen and (max-width: $PX_990) {
 	.modal--hub-overview .modal__container,
 	.modal__container {
 		position: absolute;
@@ -209,7 +209,7 @@
 		max-height: 100%;
 		width: 100%;
 		height: 100%;
-		padding: $SPACING_16;
+		padding: $PX_16;
 		border: 0;
 	}
 	.modal-fade-enter,

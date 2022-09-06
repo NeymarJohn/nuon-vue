@@ -8,7 +8,7 @@
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-	margin-bottom: $SPACING_8;
+	margin-bottom: $PX_8;
 }
 .page-title .tooltip--icon path {
 	fill: $WHITE;
@@ -19,28 +19,28 @@
 	color: $LIGHT_GREY;
 }
 .page-title h4 {
-	margin-bottom: $SPACING_10;
+	margin-bottom: $PX_10;
 }
 .page-title h6 {
 	font-size: $BODY_TEXT_SM;
-	line-height: $SPACING_24;
+	line-height: $PX_24;
 	margin: 0;
 }
 .page-title p {
 	font-size: $BODY_TEXT;
-	line-height: $SPACING_24;
+	line-height: $PX_24;
 	margin-bottom: 0;
 	color: $LIGHT_GREY;
 }
 
 // 2. Page title responsive
-@media screen and (max-width: $SPACING_1440) {
+@media screen and (max-width: $PX_1440) {
 	.page-title h4 {
-		margin-bottom: $SPACING_2;
+		margin-bottom: $PX_2;
 	}
 }
-@media screen and (max-width: $SPACING_480) {
+@media screen and (max-width: $PX_480) {
 	.page-title {
-		margin-bottom: $SPACING_16;
+		margin-bottom: $PX_16;
 	}
 }

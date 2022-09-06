@@ -5,8 +5,8 @@
 // 1. Countdown default
 .countdown label {
 	color: $LIGHT_GREY;
-	font-size: $SPACING_14;
-	line-height: $SPACING_20;
+	font-size: $PX_14;
+	line-height: $PX_20;
 }
 .countdown h3 {
 	font-size: $HEADING_THREE;
@@ -19,18 +19,18 @@
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-	margin-right: $SPACING_4;
+	margin-right: $PX_4;
 }
 .countdown__block:last-child {
 	margin-right: 0;
 }
 .countdown__block h3 {
-	margin-right: $SPACING_4;
+	margin-right: $PX_4;
 }
 .countdown__block p {
 	text-transform: uppercase;
 	background: $DARK_GREY;
-	padding: 0 $SPACING_6;
+	padding: 0 $PX_6;
 	border-radius: $BORDER_RADIUS_4;
 	margin-bottom: 0;
 }
@@ -38,6 +38,6 @@
 	font-family: $FONT_BODY;
 	background: $DARK_GREY;
 	border-radius: $BORDER_RADIUS_4;
-	padding: 0 $SPACING_6;
-	margin: 0 $SPACING_8;
+	padding: 0 $PX_6;
+	margin: 0 $PX_8;
 }

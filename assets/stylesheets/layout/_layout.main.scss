@@ -6,16 +6,16 @@
 // 1. Main default
 .l-main {
 	flex: 1;
-	margin-left: $SPACING_300;
+	margin-left: $PX_300;
 }
 
 // 2. Main responsive
-@media screen and (max-width: $SPACING_1440) {
+@media screen and (max-width: $PX_1440) {
 	.l-main {
-		margin-left: $SPACING_265;
+		margin-left: $PX_265;
 	}
 }
-@media screen and (max-width: $SPACING_990) {
+@media screen and (max-width: $PX_990) {
 	.l-main {
 		margin-left: 0;
 	}

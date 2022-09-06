@@ -97,14 +97,14 @@
 }
 .l-flex.border-row > div:not(:first-child){
 	border-left: solid 1px #575757;
-	padding-left: $SPACING_32;
+	padding-left: $PX_32;
 }
 .l-flex.border-column > div:not(:first-child){
 	border-top: solid 1px #575757;
-	padding-top: $SPACING_32;
+	padding-top: $PX_32;
 }
 // 4. Flex responsive
-@media screen and (max-width: $SPACING_990) {
+@media screen and (max-width: $PX_990) {
 	.l-flex--column-reverse-md {
 		flex-direction: column-reverse;
 	}
@@ -119,7 +119,7 @@
 		flex-direction: column;
 	}
 }
-@media screen and (max-width: $SPACING_480) {
+@media screen and (max-width: $PX_480) {
 	.l-flex--column-sm {
 		flex-direction: column;
 	}

@@ -6,7 +6,7 @@
 // 1. Borrow card default
 .borrow-card,
 .borrow-card__asset {
-	padding: $SPACING_24;
+	padding: $PX_24;
 }
 .borrow-card__asset,
 .borrow-card__info {
@@ -22,9 +22,9 @@
 .borrow-card {
 	background: $MEDIUM_LIGHT_GREY;
 	border-radius: $BORDER_RADIUS_16;
-	width: calc(33.3% - $SPACING_16);
-	margin-right: $SPACING_24;
-	margin-bottom: $SPACING_24;
+	width: calc(33.3% - $PX_16);
+	margin-right: $PX_24;
+	margin-bottom: $PX_24;
 }
 .borrow-card:nth-child(3n) {
 	margin-right: 0;
@@ -32,28 +32,28 @@
 .borrow-card__asset {
 	background: $DARK_GREY;
 	border-radius: $BORDER_RADIUS_8;
-	margin-bottom: $SPACING_16;
+	margin-bottom: $PX_16;
 }
 .borrow-card__image {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	margin-right: $SPACING_24;
+	margin-right: $PX_24;
 }
 .borrow-card__image img {
-	margin-bottom: $SPACING_4;
+	margin-bottom: $PX_4;
 }
 .borrow-card__text {
 	flex: 1;
 }
 .borrow-card__text p {
-	margin-bottom: $SPACING_4;
+	margin-bottom: $PX_4;
 }
 .borrow-card__text h5 {
 	color: $LIME;
 }
 .borrow-card__info {
-	margin-bottom: $SPACING_8;
+	margin-bottom: $PX_8;
 }
 .borrow-card__info p {
 	color: $LIGHT_GREY;
@@ -61,54 +61,54 @@
 .borrow-card .btn {
 	text-align: center;
 	width: 100%;
-	line-height: $SPACING_18;
+	line-height: $PX_18;
 }
 
 // 2. Borrow card responsive
-@media screen and (max-width: $SPACING_1440) {
+@media screen and (max-width: $PX_1440) {
 	.borrow-card {
-		margin-bottom: $SPACING_12;
-		margin-right: $SPACING_12;
-		width: calc(33.3% - $SPACING_8);
+		margin-bottom: $PX_12;
+		margin-right: $PX_12;
+		width: calc(33.3% - $PX_8);
 	}
 	.borrow-card__asset {
-		padding: $SPACING_32;
+		padding: $PX_32;
 	}
 	.borrow-card__image {
-		margin-right: $SPACING_28;
+		margin-right: $PX_28;
 	}
 	.borrow-card__image img {
-		margin-bottom: $SPACING_12;
-		height: $SPACING_56;
-		width: $SPACING_56;
+		margin-bottom: $PX_12;
+		height: $PX_56;
+		width: $PX_56;
 	}
 }
-@media screen and (max-width: $SPACING_990) {
+@media screen and (max-width: $PX_990) {
 	.borrow-card {
-		padding: $SPACING_16;
+		padding: $PX_16;
 	}
 	.borrow-card__asset {
-		padding: $SPACING_16;
+		padding: $PX_16;
 	}
 	.borrow-card__image {
-		margin-right: $SPACING_16;
+		margin-right: $PX_16;
 	}
 	.borrow-card__image img {
-		height: $SPACING_48;
-		width: $SPACING_48;
+		height: $PX_48;
+		width: $PX_48;
 	}
 }
-@media screen and (max-width: $SPACING_480) {
+@media screen and (max-width: $PX_480) {
 	.borrow-card {
 		width: 100%;
 		margin-right: 0;
-		padding: $SPACING_32;
+		padding: $PX_32;
 	}
 	.borrow-card__image {
-		margin-right: $SPACING_26;
+		margin-right: $PX_26;
 	}
 	.borrow-card__image img {
-		height: $SPACING_36;
-		width: $SPACING_36;
+		height: $PX_36;
+		width: $PX_36;
 	}
 }

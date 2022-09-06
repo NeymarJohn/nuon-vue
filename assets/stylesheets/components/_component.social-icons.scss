@@ -7,10 +7,10 @@
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-	margin-bottom: $SPACING_16;
+	margin-bottom: $PX_16;
 }
 .social-icons li {
-	margin-right: $SPACING_30;
+	margin-right: $PX_30;
 }
 .social-icons li:last-child {
 	margin-right: 0;

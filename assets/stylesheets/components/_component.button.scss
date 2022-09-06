@@ -23,7 +23,7 @@
 	transition: $TRANSITION_ALL;
 	background: $LIME;
 	color: $DARK_GREY;
-	border: $SPACING_1 solid $LIME;
+	border: $PX_1 solid $LIME;
 	cursor: pointer;
 	outline: 0;
 }
@@ -46,66 +46,66 @@ a.btn:hover,
 // 2. Button sizes
 .btn--xs {
 	font-size: $BODY_TEXT_XS;
-	line-height: $SPACING_16;
-	height: $SPACING_40;
+	line-height: $PX_16;
+	height: $PX_40;
 	border-radius: $BORDER_RADIUS_4;
-	padding: $SPACING_8 $SPACING_24;
+	padding: $PX_8 $PX_24;
 	background: $LIME;
 	color: $DARK_GREY;
 }
 .btn--sm {
 	font-size: $BODY_TEXT;
-	line-height: $SPACING_16;
-	height: $SPACING_40;
+	line-height: $PX_16;
+	height: $PX_40;
 	border-radius: $BORDER_RADIUS_4;
-	padding: $SPACING_8 $SPACING_24;
+	padding: $PX_8 $PX_24;
 	background: $LIME;
 	color: $DARK_GREY;
 }
 .btn--md {
-	height: $SPACING_42;
-	padding: $SPACING_8 $SPACING_64;
-	font-size: $SPACING_14;
+	height: $PX_42;
+	padding: $PX_8 $PX_64;
+	font-size: $PX_14;
 }
 .btn--lg {
-	height: $SPACING_56;
-	padding: $SPACING_16;
+	height: $PX_56;
+	padding: $PX_16;
 }
-@media screen and (max-width: $SPACING_1440) {
+@media screen and (max-width: $PX_1440) {
 	.btn--md,
 	.btn--lg {
 		font-size: $HEADING_FIVE_1440;
-		line-height: $SPACING_18;
+		line-height: $PX_18;
 	}
 	.btn--md {
-		height: $SPACING_40;
-		padding: $SPACING_10 $SPACING_24;
+		height: $PX_40;
+		padding: $PX_10 $PX_24;
 	}
 	.btn--lg {
-		height: $SPACING_48;
-		padding: $SPACING_16 $SPACING_24;
+		height: $PX_48;
+		padding: $PX_16 $PX_24;
 	}
 }
-@media screen and (max-width: $SPACING_990) {
+@media screen and (max-width: $PX_990) {
 	.btn--md,
 	.btn--lg {
 		font-size: $HEADING_FIVE_990;
-		line-height: $SPACING_12;
+		line-height: $PX_12;
 	}
 	.btn--md {
-		height: $SPACING_38;
+		height: $PX_38;
 	}
 	.btn--lg {
-		height: $SPACING_44;
+		height: $PX_44;
 	}
 }
-@media screen and (max-width: $SPACING_480) {
+@media screen and (max-width: $PX_480) {
 	.btn--md,
 	.btn--lg {
 		font-size: $HEADING_FIVE_480;
-		line-height: $SPACING_14;
-		padding: $SPACING_12;
-		height: $SPACING_42;
+		line-height: $PX_14;
+		padding: $PX_12;
+		height: $PX_42;
 	}
 }
 
@@ -128,18 +128,18 @@ a.btn:hover,
 .btn[disabled].btn--approved {
 	position: relative;
 	background: $TRANSPARENT;
-	border: $SPACING_1 solid $SUCCESS;
+	border: $PX_1 solid $SUCCESS;
 	color: $SUCCESS;
 	opacity: 1;
 }
 .btn[disabled].btn--approved span {
-	margin-right: $SPACING_26;
+	margin-right: $PX_26;
 }
 .btn[disabled].btn--approved:after {
 	content: url("data:image/svg+xml,%3Csvg width='20' height='14' viewBox='0 0 20 14' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M19.0455 0.954505C19.4848 1.39384 19.4848 2.10616 19.0455 2.5455L8.5455 13.0455C8.10616 13.4848 7.39384 13.4848 6.9545 13.0455L0.954505 7.0455C0.515165 6.60616 0.515165 5.89385 0.954505 5.4545C1.39384 5.01517 2.10616 5.01517 2.5455 5.4545L7.75 10.659L17.4545 0.954505C17.8938 0.515165 18.6062 0.515165 19.0455 0.954505Z' fill='%2380FF4A'/%3E%3C/svg%3E%0A");
 	position: absolute;
 	top: 50%;
-	right: $SPACING_24;
+	right: $PX_24;
 	transform: translate(0%, -50%);
 	line-height: 0;
 }
@@ -148,12 +148,12 @@ a.btn:hover,
 .btn--swap {
 	background: $LIME;
 	border-radius: $BORDER_RADIUS_CIRCLE;
-	border: $SPACING_2 solid $DARK_GREY;
+	border: $PX_2 solid $DARK_GREY;
 	padding: 0;
-	margin: -$SPACING_20 auto;
+	margin: -$PX_20 auto;
 	z-index: 2;
-	width: $SPACING_48;
-	height: $SPACING_48;
+	width: $PX_48;
+	height: $PX_48;
 	position: relative;
 }
 .btn--swap svg {
@@ -172,22 +172,22 @@ a.btn:hover,
 .btn--swap.btn[disabled] svg path {
 	fill: $DARK_GREY;
 }
-@media screen and (max-width: $SPACING_480) {
+@media screen and (max-width: $PX_480) {
 	.btn--swap {
-		height: $SPACING_48;
-		width: $SPACING_48;
+		height: $PX_48;
+		width: $PX_48;
 	}
 	.btn--swap img {
-		height: $SPACING_35;
-		width: $SPACING_35;
-		padding: $SPACING_6;
+		height: $PX_35;
+		width: $PX_35;
+		padding: $PX_6;
 	}
 }
 
 // 6. Button link
 .btn--link {
 	font-size: $HEADING_FIVE;
-	line-height: $SPACING_24;
+	line-height: $PX_24;
 	background: $TRANSPARENT;
 	color: $WHITE;
 	padding: 0;
@@ -196,10 +196,10 @@ a.btn:hover,
 .btn--link:after {
 	content: "";
 	position: absolute;
-	height: $SPACING_1;
+	height: $PX_1;
 	left: 0;
 	right: 0;
-	bottom: $SPACING_1;
+	bottom: $PX_1;
 	background: $WHITE;
 	transition: $TRANSITION_ALL;
 }
@@ -211,22 +211,22 @@ a.btn:hover,
 .btn--link:hover:after {
 	background: $LIME;
 }
-@media screen and (max-width: $SPACING_1440) {
+@media screen and (max-width: $PX_1440) {
 	.btn--link {
 		font-size: $HEADING_FIVE_1440;
-		line-height: $SPACING_26;
+		line-height: $PX_26;
 	}
 }
-@media screen and (max-width: $SPACING_990) {
+@media screen and (max-width: $PX_990) {
 	.btn--link {
 		font-size: $HEADING_FIVE_990;
-		line-height: $SPACING_18;
+		line-height: $PX_18;
 	}
 }
-@media screen and (max-width: $SPACING_480) {
+@media screen and (max-width: $PX_480) {
 	.btn--link {
 		font-size: $HEADING_FIVE_480;
-		line-height: $SPACING_24;
+		line-height: $PX_24;
 	}
 }
 
@@ -251,7 +251,7 @@ a.btn:hover,
 	fill: $LIME;
 }
 .btn--user svg {
-	margin-right: $SPACING_8;
+	margin-right: $PX_8;
 }
 .btn--user svg path {
 	transition: $TRANSITION_ALL;
@@ -274,8 +274,8 @@ a.btn:hover,
 	border-radius: $BORDER_RADIUS_CIRCLE;
 	border: none;
 	z-index: 2;
-	width: $SPACING_36;
-	height: $SPACING_36;
+	width: $PX_36;
+	height: $PX_36;
 	display: flex;
 	align-items: center;
 	justify-content: center;

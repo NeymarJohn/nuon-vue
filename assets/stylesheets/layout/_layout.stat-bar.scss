@@ -5,8 +5,8 @@
 // 1. Stat bar default
 .l-stat-bar {
 	display: grid;
-	grid-gap: $SPACING_16;
-	padding: $SPACING_16 $SPACING_40;
+	grid-gap: $PX_16;
+	padding: $PX_16 $PX_40;
 	background: $LIGHT_GREY;
 }
 .l-stat-bar--3 {

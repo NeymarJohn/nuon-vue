@@ -9,7 +9,7 @@
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-	margin-bottom: $SPACING_16;
+	margin-bottom: $PX_16;
 }
 .radio-button,
 input[type="radio"] {
@@ -20,18 +20,18 @@ input[type="radio"] {
 	background-color: $WHITE;
 	margin: 0;
 	color: $LIME;
-	width: $SPACING_18;
-	height: $SPACING_18;
-	border: $SPACING_1 solid $SUCCESS;
+	width: $PX_18;
+	height: $PX_18;
+	border: $PX_1 solid $SUCCESS;
 	border-radius: $BORDER_RADIUS_CIRCLE;
 	display: grid;
 	place-content: center;
-	margin-right: $SPACING_12;
+	margin-right: $PX_12;
 }
 input[type="radio"]::before {
 	content: "";
-	width: $SPACING_10;
-	height: $SPACING_10;
+	width: $PX_10;
+	height: $PX_10;
 	border-radius: $BORDER_RADIUS_CIRCLE;
 	transform: scale(0);
 	transition: 120ms transform ease-in-out;
@@ -47,16 +47,16 @@ label[disabled]input[type="radio"] {
 label[disabled] {
 	color: $WHITE;
 	font-size: $HEADING_FIVE;
-	line-height: $SPACING_24;
+	line-height: $PX_24;
 }
 label[disabled]input[type="radio"] {
 	background-color: $WHITE;
 }
 
 // 2. Radio button responsive
-@media screen and (max-width: $SPACING_1440) {
+@media screen and (max-width: $PX_1440) {
 	.radio-button {
 		font-size: $BODY_TEXT_SM;
-		margin-bottom: $SPACING_18;
+		margin-bottom: $PX_18;
 	}
 }
