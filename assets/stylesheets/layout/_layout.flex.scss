@@ -95,7 +95,14 @@
 	flex-direction: column;
 	justify-content: space-between;
 }
-
+.l-flex.border-row > div:not(:first-child){
+	border-left: solid 1px #575757;
+	padding-left: $SPACING_32;
+}
+.l-flex.border-column > div:not(:first-child){
+	border-top: solid 1px #575757;
+	padding-top: $SPACING_32;
+}
 // 4. Flex responsive
 @media screen and (max-width: $SPACING_990) {
 	.l-flex--column-reverse-md {

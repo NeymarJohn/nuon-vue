@@ -1,5 +1,5 @@
 <template>
-	<div :class="`l-flex l-flex--${ direction }`" @click="clicked($event)">
+	<div :class="`l-flex l-flex--${ direction } border-${ border }`" @click="clicked($event)">
 		<slot />
 	</div>
 </template>
@@ -11,6 +11,10 @@ export default {
 		direction: {
 			type: String,
 			default: "row",
+		},
+		border: {
+			type: String,
+			default: "none",
 		},
 	},
 	methods: {
