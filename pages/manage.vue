@@ -14,18 +14,15 @@
 						<template #left>
 							<TheTabs margin="0" size="full">
 								<TheTab title="Mint">
-									<InputManage/>
+									<InputManageNuon action="Mint"/>
 								</TheTab>
-								<TheTab title="Redeem">
+								<TheTab title="Burn">
+									<InputManageNuon action="Burn"/>
 								</TheTab>
 							</TheTabs>
 						</template>
 						<template #right>
-							<CurrencyCard class="u-mb-32" label="Locked Collateral" :value="myStake" :change="getDollarValue(myStake, tokenPrices.nuMINT)" currency="nuMINT" />
-							<CurrencyCard label="My Collateralization Ratio" :percent="votingPower" />
-							<CurrencyCard label="Liquidation Price" :value="tokenPrices.nuMINT" />
-							<CurrencyCard label="Liquidation Ratio" :value="totalStaked" currency="nuMINT" />
-							<CurrencyCard label="Liquidation Position" :value="totalStaked" currency="nuMINT" />
+							<ManageSummary />
 						</template>
 					</LayoutAction>
 				</TheTab>
@@ -34,17 +31,15 @@
 						<template #left>
 							<TheTabs margin="0" size="full">
 								<TheTab title="Deposite">
+									<InputManageCollateral action="deposite" currrent-tab="collateral"/>
 								</TheTab>
 								<TheTab title="Withdraw">
+									<InputManageCollateral action="withdraw" currrent-tab="collateral"/>
 								</TheTab>
 							</TheTabs>
 						</template>
 						<template #right>
-							<CurrencyCard class="u-mb-32" label="Locked Collateral" :value="myStake" :change="getDollarValue(myStake, tokenPrices.nuMINT)" currency="nuMINT" />
-							<CurrencyCard label="My Collateralization Ratio" :percent="votingPower" />
-							<CurrencyCard label="Liquidation Price" :value="tokenPrices.nuMINT" />
-							<CurrencyCard label="Liquidation Ratio" :value="totalStaked" currency="nuMINT" />
-							<CurrencyCard label="Liquidation Position" :value="totalStaked" currency="nuMINT" />
+							<ManageSummary />
 						</template>
 					</LayoutAction>
 				</TheTab>
@@ -53,17 +48,15 @@
 						<template #left>
 							<TheTabs margin="0" size="full">
 								<TheTab title="Add">
+									<InputManageCollateral action="add" currrent-tab="liquidity"/>
 								</TheTab>
 								<TheTab title="Remove">
+									<InputManageCollateral action="remove" currrent-tab="liquidity"/>
 								</TheTab>
 							</TheTabs>
 						</template>
 						<template #right>
-							<CurrencyCard class="u-mb-32" label="Locked Collateral" :value="myStake" :change="getDollarValue(myStake, tokenPrices.nuMINT)" currency="nuMINT" />
-							<CurrencyCard label="My Collateralization Ratio" :percent="votingPower" />
-							<CurrencyCard label="Liquidation Price" :value="tokenPrices.nuMINT" />
-							<CurrencyCard label="Liquidation Ratio" :value="totalStaked" currency="nuMINT" />
-							<CurrencyCard label="Liquidation Position" :value="totalStaked" currency="nuMINT" />
+							<ManageSummary />
 						</template>
 					</LayoutAction>
 				</TheTab>
