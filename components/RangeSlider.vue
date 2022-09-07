@@ -1,13 +1,22 @@
 <template>
 	<div class="range-slider">
-		<div class="range-slider__labels u-mb-8">
-			<p>High Risk</p>
-			<p>Low Risk</p>
+		<div class="range-slider__header">
+			<label for="rangeInput">Input your ratio here</label>
+			<div class="range-slider__addon">
+				<input id="rangeInput" v-model="selectedValue" type="number" :min="min" :max="max" :disabled="sliderDisabled" :class="selectedCollateralRatio < 300 ? selectedCollateralRatio < 200 ? 'u-is-warning' : 'u-is-caution' : 'u-is-success'" @change="handleRangeChange" />
+				<span :class="sliderDisabled ? 'is-disabled' : '' || selectedCollateralRatio < 300 ? selectedCollateralRatio < 200 ? 'u-is-warning' : 'u-is-caution' : 'u-is-success'">%</span>
+			</div>
 		</div>
-		<input ref="rangeSlider" v-model="selectedValue" type="range" :min="min" :max="max" :disabled="sliderDisabled" class="range-slider__input" @change="handleRangeChange">
-		<div class="range-slider__labels u-mt-8">
-			<p>{{ min }}%</p>
-			<p>1000%</p>
+		<div class="range-slider__wrapper">
+			<div class="range-slider__labels u-mb-8">
+				<p>High Risk</p>
+				<p>Low Risk</p>
+			</div>
+			<input ref="rangeSlider" v-model="selectedValue" type="range" :min="min" :max="max" :disabled="sliderDisabled" class="range-slider__input" @change="handleRangeChange">
+			<div class="range-slider__labels u-mt-8">
+				<p>{{ min }}%</p>
+				<p>1000%</p>
+			</div>
 		</div>
 	</div>
 </template>

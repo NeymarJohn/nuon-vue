@@ -4,10 +4,58 @@
 
 // 1. Range slider default
 .range-slider {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 	width: 100%;
+}
+.range-slider__header {
+	max-width: $PX_175;
+	margin-bottom: $PX_21;
+}
+.range-slider__header label {
+	display: block;
+	color: $LIGHT_GREY;
+	font-size: $PX_14;
+	line-height: $PX_20;
+	margin-bottom: $PX_8;
+	text-align: center;
+}
+.range-slider__addon,
+.range-slider__addon input {
+	background-color: $MEDIUM_GREY;
+	color: $LIME;
+	font-size: $HEADING_THREE;
+	line-height: $PX_45;
+}
+.range-slider__addon {
+	position: relative;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	border-radius: $BORDER_RADIUS_48;
+	padding: $PX_16 $PX_32;
+}
+.range-slider__addon:after {
+	content: "";
+	position: absolute;
+	left: 50%;
+	top: 100%;
+	transform: translate(-50%, 0);
+	border-left: $PX_15 solid transparent;
+	border-right: $PX_15 solid transparent;
+	border-top: $PX_15 solid $MEDIUM_GREY;
+}
+.range-slider__addon input {
+	padding: 0;
+	text-align: right;
+}
+.range-slider__wrapper {
 	background-color: $MEDIUM_GREY;
 	border-radius: $BORDER_RADIUS_8;
 	padding: $PX_16 $PX_24;
+	width: 100%;
 }
 .range-slider__labels {
 	display: flex;
@@ -50,4 +98,13 @@ input[type="range"]::-moz-range-thumb {
 	cursor: ew-resize;
 	box-shadow: $BOX_SHADOW_CONTAINER;
 	transition: $TRANSITION_ALL;
+}
+.range-slider__addon input[disabled],
+.range-slider__addon .is-disabled,
+.range-slider__input[disabled] {
+	cursor: not-allowed;
+	opacity: 0.5;
+}
+.range-slider__addon .is-disabled {
+	color: $SUCCESS;
 }
