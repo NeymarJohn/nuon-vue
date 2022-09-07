@@ -3,7 +3,7 @@
 		<div class="range-slider__header">
 			<label for="rangeInput">Input your ratio here</label>
 			<div class="range-slider__addon">
-				<input id="rangeInput" v-model="selectedValue" type="number" :min="min" :max="max" :disabled="sliderDisabled" :class="selectedCollateralRatio < 300 ? selectedCollateralRatio < 200 ? 'u-is-warning' : 'u-is-caution' : 'u-is-success'" @change="handleRangeChange" />
+				<input id="rangeInput" v-model="selectedValue" type="number" :min="min" :max="max" :disabled="sliderDisabled" :class="selectedCollateralRatio < 300 ? selectedCollateralRatio < 200 ? 'u-is-warning' : 'u-is-caution' : 'u-is-success'"  />
 				<span :class="sliderDisabled ? 'is-disabled' : '' || selectedCollateralRatio < 300 ? selectedCollateralRatio < 200 ? 'u-is-warning' : 'u-is-caution' : 'u-is-success'">%</span>
 			</div>
 		</div>
@@ -12,7 +12,7 @@
 				<p>High Risk</p>
 				<p>Low Risk</p>
 			</div>
-			<input ref="rangeSlider" v-model="selectedValue" type="range" :min="min" :max="max" :disabled="sliderDisabled" class="range-slider__input" @change="handleRangeChange">
+			<input ref="rangeSlider" v-model="selectedValue" type="range" :min="min" :max="max" :disabled="sliderDisabled" class="range-slider__input" >
 			<div class="range-slider__labels u-mt-8">
 				<p>{{ min }}%</p>
 				<p>1000%</p>
@@ -49,7 +49,13 @@ export default {
 	},
 	watch: {
 		selectedValue(newValue) {
-			if (newValue) this.emitChange(newValue);
+			if (newValue) {
+				this.emitChange(newValue);
+				this.handleRangeChange(newValue);
+			} else {
+				this.emitChange(0);
+				this.handleRangeChange(0);
+			}
 		},
 		selectedCollateralRatio(newValue, oldValue) {
 			if (oldValue === "null" && newValue) {
@@ -61,12 +67,15 @@ export default {
 		emitChange(e) {
 			this.$emit("emit-change", e);
 		},
-		handleRangeChange() {
+		handleRangeChange(value) {
 			const target = this.$refs.rangeSlider;
 			const min = target.min;
 			const max = target.max;
-			const val = target.value;
-			target.style.backgroundSize = (val - min) * 100 / (max - min) + "% 100%";
+			let currentPosition = value - min;
+			if (currentPosition < 0) {
+				currentPosition = 0;
+			}
+			target.style.backgroundSize = currentPosition * 100 / (max - min) + "% 100%";
 		}
 	}
 };

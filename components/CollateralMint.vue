@@ -42,7 +42,7 @@
 					</TheButton>
 				</div>
 				<div v-else class="collateral__body">
-					<RangeSlider :min="`${sliderMin}`" :max="'1000'" :slider-disabled="!inputValue || isMoreThanBalance" :selected-collateral-ratio="`${selectedCollateralRatio}`" @emit-change="sliderChanged" />
+					<RangeSlider :min="`${sliderMin}`" :max="'1000'" :slider-disabled="!inputValue || isMoreThanBalance" :selected-collateral-ratio="`${selectedCollateralRatio}`" @emit-change="debouncedSliderChanged" />
 				</div>
 			</div>
 			<TransactionSummary v-if="inputValue > 0" :values="summary" />
@@ -57,6 +57,7 @@
 </template>
 
 <script>
+import debounce from "lodash.debounce";
 import { fromWei, toWei } from "~/utils/bnTools";
 import TooltipIcon from "@/assets/images/svg/svg-tooltip.svg";
 const DEFAULT_BASIC_RATIO = 300;
@@ -215,6 +216,9 @@ export default {
 				this.failureToast(null, e, "An error occurred");
 			}
 		},
+		debouncedSliderChanged: debounce(function(e) {
+			this.sliderChanged(e); 
+		}, 500),
 		sliderChanged(e) {
 			this.selectedCollateralRatio = e;
 		},
