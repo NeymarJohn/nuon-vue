@@ -11,7 +11,7 @@
 					@selected-token="selectInputToken">
 					<InputMax v-model="inputValue" :maximum="tokenBalances[input.token]" @click="inputMaxBalance" />
 					<LayoutFlex direction="row-justify-end">
-						<p class="u-mb-0 u-font-size-14">~ ${{ getPrice(inputValue, collateralPrice) | toFixed | numberWithCommas }}</p>
+						<p class="u-mb-0 u-font-size-14">~ ${{ getDollarValue(inputValue, collateralPrice) | toFixed | numberWithCommas }}</p>
 					</LayoutFlex>
 				</MintAccordion>
 				<p v-if="isMoreThanBalance" class="u-is-warning l-flex--align-self-end">Insufficient balance</p>
@@ -28,7 +28,7 @@
 							<h5>NUON</h5>
 						</div>
 					</div>
-					<h3>{{numberWithCommas(estimatedMintedNuonValue)}}<sup>NUON</sup></h3>
+					<h3>{{estimatedMintedNuonValue | toFixed | numberWithCommas}}<sup>NUON</sup></h3>
 				</div>
 			</div>
 			<div class="collateral">
@@ -80,12 +80,10 @@ export default {
 		return {
 			isVisible: false,
 			selectedCollateralRatio: 300,
-			collateralPrice: 0,
 			inputValue: null,
 			estimatedMintedNuonValue: "0",
 			isApproving: false,
 			minting: false,
-			sliderMin: "0",
 			estimatedExtraRequiredCollateral: "0",
 			input: {
 				value: "",
@@ -117,12 +115,12 @@ export default {
 			return [
 				{
 					title: "Estimated total NUON minted",
-					val: this.numberWithCommas(this.estimatedMintedNuonValue | this.toFixed),
+					val: this.numberWithCommas((Number(this.estimatedMintedNuonValue).toFixed(2))),
 					currency: "NUON",
 				},
 				{
 					title: "Estimated extra required collateral",
-					val: this.numberWithCommas(this.estimatedExtraRequiredCollateral | this.toFixed),
+					val: this.numberWithCommas(Number(this.estimatedExtraRequiredCollateral).toFixed(2)),
 					currency: this.input.token,
 				},
 				{
@@ -132,7 +130,7 @@ export default {
 				},
 				{
 					title: "Liquidation price",
-					val: this.numberWithCommas(this.liquidationPrice | this.toFixed),
+					val: this.numberWithCommas(Number(this.liquidationPrice).toFixed(2)),
 					currency: "USD",
 				},
 				{
@@ -166,12 +164,18 @@ export default {
 			if (parseFloat(this.selectedCollateralRatio) === this.sliderMin) return this.collateralPrice * 0.99;
 
 			const targetPeg = this.$store.state.collateralVaultStore.targetPeg;
-			const mintedNuon = this.estimatedMintedNuonValue;
+			const mintedNuon = Number(this.estimatedMintedNuonValue);
 			const nounMinBacking = targetPeg * this.sliderMin / 100;
-			return nounMinBacking * mintedNuon / this.inputValue;
+			return nounMinBacking * mintedNuon / Number(this.inputValue);
 		},
 		currentCollateralToken() {
 			return this.$store.state.collateralVaultStore.currentCollateralToken;
+		},
+		collateralPrice() {
+			return this.tokenPrices[this.input.token];
+		},
+		sliderMin() {
+			return this.$store.state.collateralVaultStore.globalRatio[this.currentlySelectedCollateral];
 		}
 	},
 	watch: {
@@ -196,15 +200,10 @@ export default {
 		this.initialize();
 	},
 	methods: {
-		async initialize() {
+		initialize() {
 			if (!this.isConnectedWallet) return;
 			try {
-				const chubAddress = this.$store.getters["addressStore/collateralHubs"][this.$store.state.collateralVaultStore.currentCollateralToken];
-				const min = await this.$store.getters["collateralVaultStore/getGlobalCR"](chubAddress);
-				this.sliderMin = Math.floor(fromWei(min)) + 10;
 				this.selectedCollateralRatio = this.sliderMin;
-				const collateralPrice = await this.$store.getters["collateralVaultStore/getCollateralPrice"]();
-				this.collateralPrice = fromWei(collateralPrice);
 			} catch (e) {
 				this.failureToast(null, e, "An error occurred");
 			}
@@ -225,7 +224,10 @@ export default {
 				});
 		},
 		async getEstimatedMintedNuon() {
-			if (!this.inputValue) return;
+			if (!this.inputValue){
+				this.estimatedMintedNuonValue = 0;
+				return;
+			}
 			if (this.isLTEMinimumDepositAmount) return;
 
 			const currentRatio = this.selectedCollateralRatio;

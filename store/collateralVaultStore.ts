@@ -39,7 +39,8 @@ type StateType = {
 	collateralRatio: any,
 	targetPeg: number,
 	collateralPrices: any,
-	lpValueOfUser: any
+	lpValueOfUser: any,
+	globalRatio: any,
 }
 export const state = (): StateType => ({
 	allowance: {
@@ -74,6 +75,7 @@ export const state = (): StateType => ({
 	collateralRatio: {...DEFAULVALUES}, // {WETH: 0 USDT: 0} collateral ratio for all collateral tokens for user
 	collateralPrices:{...DEFAULVALUES}, // {WETH: 0 USDT: 0} collateral price for all collateral tokens
 	lpValueOfUser: {...DEFAULVALUES}, // {WETH: 0 USDT: 0} collateral price for all collateral tokens
+	globalRatio: {...DEFAULVALUES}
 });
 
 export type BoardroomState = ReturnType<typeof state>;
@@ -135,6 +137,9 @@ export const mutations: MutationTree<BoardroomState> = {
 	},
 	setLpValueOfUser(state, {token, value}) {
 		state.lpValueOfUser = {...state.lpValueOfUser, [token]: value};
+	},
+	setGlobalRatio(state, {token, value}) {
+		state.globalRatio = {...state.globalRatio, [token]: value};
 	}
 };
 
@@ -303,6 +308,9 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 		const lpValueOfUser = fromWei(await chubContract.methods.getLPValueOfUser(accountAddress).call(), ctx.rootState.erc20Store.decimals[token]);
 		ctx.commit("setLpValueOfUser", {token, value: Number(lpValueOfUser)});
 
+		// Update globalRatio 
+		const globalRatio = fromWei(await ctx.getters.nuonControllerContract.methods.getCollateralRatioInPercent(addr).call());
+		ctx.commit("setGlobalRatio", {token, value: Number(globalRatio)});
 	},
 	async getTargetPeg(ctx) {
 		const result = await ctx.getters.getTruflationPeg();
