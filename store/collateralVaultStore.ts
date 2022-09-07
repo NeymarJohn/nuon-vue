@@ -291,6 +291,8 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 	},
 	async updateCollateralTokenStatus(ctx: any, token: string) {
 		const chubContract = ctx.getters.getCollateralHubContract(token);
+		const chubContractAddress = ctx.rootGetters["addressStore/collateralHubs"][token];
+
 		const accountAddress = ctx.rootState.web3Store.account;
 
 		// Update minted Nuon
@@ -310,7 +312,7 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 		ctx.commit("setLpValueOfUser", {token, value: Number(lpValueOfUser)});
 
 		// Update globalRatio 
-		const globalRatio = fromWei(await ctx.getters.nuonControllerContract.methods.getCollateralRatioInPercent(addr).call());
+		const globalRatio = fromWei(await ctx.getters.nuonControllerContract.methods.getCollateralRatioInPercent(chubContractAddress).call());
 		ctx.commit("setGlobalRatio", {token, value: Number(globalRatio)});
 	},
 	async getTargetPeg(ctx) {
