@@ -28,7 +28,7 @@
 							<h5>NUON</h5>
 						</div>
 					</div>
-					<h3>{{numberWithCommas(estimatedMintedNuonValue | toFixed)}}<sup>NUON</sup></h3>
+					<h3>{{numberWithCommas(estimatedMintedNuonValue)}}<sup>NUON</sup></h3>
 				</div>
 			</div>
 			<div class="collateral">
@@ -43,16 +43,6 @@
 				</div>
 				<div v-else class="collateral__body">
 					<RangeSlider :min="`${sliderMin}`" :max="'1000'" :slider-disabled="!inputValue || isMoreThanBalance" :selected-collateral-ratio="`${selectedCollateralRatio}`" @emit-change="sliderChanged" />
-					<LayoutFlex direction="row-space-between">
-						<div class="range-slider__value">
-							<h5>{{ sliderMin }}%</h5>
-							<p>Increased Risk</p>
-						</div>
-						<div class="range-slider__value">
-							<h5>1000%</h5>
-							<p>Decreased Risk</p>
-						</div>
-					</LayoutFlex>
 				</div>
 			</div>
 			<TransactionSummary v-if="inputValue > 0" :values="summary" />
@@ -127,7 +117,7 @@ export default {
 				},
 				{
 					title: "Liquidation price",
-					val: this.liquidationPrice | this.toFixed,
+					val: this.numberWithCommas(this.liquidationPrice | this.toFixed),
 					currency: "USD",
 				},
 				{

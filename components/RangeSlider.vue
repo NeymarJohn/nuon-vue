@@ -1,6 +1,14 @@
 <template>
 	<div class="range-slider">
-		<input v-model="selectedValue" type="range" :min="min" :max="max" :disabled="sliderDisabled" class="range-slider__input">
+		<div class="range-slider__labels u-mb-8">
+			<p>High Risk</p>
+			<p>Low Risk</p>
+		</div>
+		<input ref="rangeSlider" v-model="selectedValue" type="range" :min="min" :max="max" :disabled="sliderDisabled" class="range-slider__input" @change="handleRangeChange">
+		<div class="range-slider__labels u-mt-8">
+			<p>{{ min }}%</p>
+			<p>1000%</p>
+		</div>
 	</div>
 </template>
 
@@ -43,6 +51,13 @@ export default {
 	methods: {
 		emitChange(e) {
 			this.$emit("emit-change", e);
+		},
+		handleRangeChange() {
+			const target = this.$refs.rangeSlider;
+			const min = target.min;
+			const max = target.max;
+			const val = target.value;
+			target.style.backgroundSize = (val - min) * 100 / (max - min) + "% 100%";
 		}
 	}
 };

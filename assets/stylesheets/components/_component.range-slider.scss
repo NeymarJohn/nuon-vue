@@ -1,61 +1,53 @@
 /* #COMPONENT - RANGE SLIDER
 		1. Range slider default
-		2. Range slider responsive
 */
 
 // 1. Range slider default
 .range-slider {
 	width: 100%;
+	background-color: $MEDIUM_GREY;
+	border-radius: $BORDER_RADIUS_8;
+	padding: $PX_16 $PX_24;
 }
-.range-slider__input {
-	appearance: none;
+.range-slider__labels {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+}
+.range-slider__labels p {
+	color: $LIGHT_GREY;
+	font-size: $PX_14;
+	line-height: $PX_20;
+	margin-bottom: 0;
+}
+input[type="range"] {
+	-webkit-appearance: none;
 	width: 100%;
 	height: $PX_8;
-	border-radius: $BORDER_RADIUS_8;
-	opacity: 0.7;
+	background: $DISABLED_GREY;
+	border-radius: $PX_24;
+	background-image: linear-gradient(#b7b7b7, #b7b7b7);
+	background-size: 0% 100%;
+	background-repeat: no-repeat;
+}
+input[type="range"]::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	height: $PX_18;
+	width: $PX_18;
+	border-radius: 50%;
+	background: $LIME;
+	cursor: ew-resize;
+	box-shadow: $BOX_SHADOW_CONTAINER;
 	transition: $TRANSITION_ALL;
-	margin-bottom: $PX_20;
-	background: $WHITE;
 }
-.range-slider__input:disabled,
-.range-slider__input:disabled:hover {
-	opacity: 0.5;
-	cursor: not-allowed;
-}
-.range-slider__input:hover {
-	opacity: 1;
-}
-.range-slider__input:disabled::-webkit-slider-thumb,
-.range-slider__input:disabled::-moz-range-thumb {
-	cursor: not-allowed;
-}
-.range-slider__input::-webkit-slider-thumb {
-	appearance: none;
-	width: $PX_32;
-	height: $PX_32;
-	border-radius: $BORDER_RADIUS_CIRCLE;
+input[type="range"]::-moz-range-thumb {
+	-webkit-appearance: none;
+	height: $PX_18;
+	width: $PX_18;
+	border-radius: 50%;
 	background: $LIME;
-	cursor: pointer;
-}
-.range-slider__input::-moz-range-thumb {
-	width: $PX_32;
-	height: $PX_32;
-	border-radius: $BORDER_RADIUS_CIRCLE;
-	background: $LIME;
-	cursor: pointer;
-}
-.range-slider__value h5 {
-	margin-bottom: $PX_16;
-}
-.range-slider__value:last-child {
-	text-align: right;
-}
-
-// 2. Range slider responsive
-@media screen and (max-width: $PX_480) {
-	.range-slider__input::-webkit-slider-thumb,
-	.range-slider__input::-moz-range-thumb {
-		width: $PX_24;
-		height: $PX_24;
-	}
+	cursor: ew-resize;
+	box-shadow: $BOX_SHADOW_CONTAINER;
+	transition: $TRANSITION_ALL;
 }
