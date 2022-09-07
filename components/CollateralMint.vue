@@ -108,7 +108,7 @@ export default {
 				{
 					title: "Estimated extra required collateral",
 					val: this.numberWithCommas(this.estimatedExtraRequiredCollateral | this.toFixed),
-					currency: "WETH",
+					currency: this.input.token,
 				},
 				{
 					title: "Collateral ratio",
