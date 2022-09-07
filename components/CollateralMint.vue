@@ -40,9 +40,6 @@
 					<TheButton v-for="(ratio, index) in ratios" :key="ratio.index" :class="{'is-active': (index === selectedRatio)}" :title="`Click to select ${ratio.label.toLowerCase()}`" @click="selectRatio(index)">
 						{{ ratio.value }}% <span>{{ ratio.label }}</span>
 					</TheButton>
-					<!-- <TheButton title="Click to select high risk" @click="selectedCollateralRatio = 200">200% <span>High Risk</span></TheButton>
-					<TheButton title="Click to select medium risk" @click="selectedCollateralRatio = 300">300% <span>Medium Risk</span></TheButton>
-					<TheButton title="Click to select low risk" @click="selectedCollateralRatio = 400">400% <span>Low Risk</span></TheButton> -->
 				</div>
 				<div v-else class="collateral__body">
 					<RangeSlider :min="`${sliderMin}`" :max="'1000'" :slider-disabled="!inputValue || isMoreThanBalance" :selected-collateral-ratio="`${selectedCollateralRatio}`" @emit-change="sliderChanged" />
@@ -51,7 +48,7 @@
 			<TransactionSummary v-if="inputValue > 0" :values="summary" />
 			<TheButton
 				title="Click to mint"
-				:disabled="minting"
+				:disabled="inputValue <= 0"
 				@click="mint">
 				Mint
 			</TheButton>
