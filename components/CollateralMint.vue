@@ -201,6 +201,7 @@ export default {
 				this.selectedCollateralRatio = this.sliderMin;
 			} else {
 				this.selectedCollateralRatio = DEFAULT_BASIC_RATIO;
+				this.selectedRatio = 1;
 			}
 		}
 	},
