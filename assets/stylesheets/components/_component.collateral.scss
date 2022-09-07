@@ -53,10 +53,29 @@
 	min-height: $PX_100;
 }
 .collateral__body .btn span {
+	transition: $TRANSITION_ALL;
 	color: $LIGHT_GREY;
 	font-size: $PX_14;
 	line-height: $PX_20;
 }
 .collateral__body .btn:last-child {
 	margin-right: 0;
+}
+.collateral__body .btn.is-active {
+	background-color: $DISABLED_GREY;
+}
+.collateral__body .btn.is-active:nth-child(1),
+.collateral__body .btn.is-active:nth-child(1) span {
+	color: $ERROR;
+	border-color: $ERROR;
+}
+.collateral__body .btn.is-active:nth-child(2),
+.collateral__body .btn.is-active:nth-child(2) span {
+	color: $WARNING;
+	border-color: $WARNING;
+}
+.collateral__body .btn.is-active:nth-child(3),
+.collateral__body .btn.is-active:nth-child(3) span {
+	color: $SUCCESS;
+	border-color: $SUCCESS;
 }
