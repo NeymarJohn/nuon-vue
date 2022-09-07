@@ -203,7 +203,7 @@ export default {
 		initialize() {
 			if (!this.isConnectedWallet) return;
 			try {
-				this.selectedCollateralRatio = this.sliderMin;
+				this.selectedCollateralRatio = 300;
 			} catch (e) {
 				this.failureToast(null, e, "An error occurred");
 			}
