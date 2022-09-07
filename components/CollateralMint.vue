@@ -59,7 +59,7 @@
 <script>
 import { fromWei, toWei } from "~/utils/bnTools";
 import TooltipIcon from "@/assets/images/svg/svg-tooltip.svg";
-
+const DEFAULT_BASIC_RATIO = 300;
 export default {
 	name: "CollateralMint",
 	components: {
@@ -79,7 +79,7 @@ export default {
 	data() {
 		return {
 			isVisible: false,
-			selectedCollateralRatio: 300,
+			selectedCollateralRatio: DEFAULT_BASIC_RATIO,
 			inputValue: null,
 			estimatedMintedNuonValue: "0",
 			isApproving: false,
@@ -125,7 +125,7 @@ export default {
 				},
 				{
 					title: "Collateral ratio",
-					val: this.selectedCollateralRatio,
+					val: this.numberWithCommas(Number(this.selectedCollateralRatio).toFixed(2)),
 					currency: "%",
 				},
 				{
@@ -175,7 +175,7 @@ export default {
 			return this.tokenPrices[this.input.token];
 		},
 		sliderMin() {
-			return this.$store.state.collateralVaultStore.globalRatio[this.currentlySelectedCollateral];
+			return Math.floor(this.$store.state.collateralVaultStore.globalRatio[this.currentlySelectedCollateral]) + 10;
 		}
 	},
 	watch: {
@@ -194,6 +194,13 @@ export default {
 		currentCollateralToken() {
 			this.$store.dispatch("collateralVaultStore/updateStatus");
 			this.initialize();
+		},
+		isVisible(newValue) {
+			if (newValue) {
+				this.selectedCollateralRatio = this.sliderMin;
+			} else {
+				this.selectedCollateralRatio = DEFAULT_BASIC_RATIO;
+			}
 		}
 	},
 	mounted() {
@@ -203,7 +210,7 @@ export default {
 		initialize() {
 			if (!this.isConnectedWallet) return;
 			try {
-				this.selectedCollateralRatio = 300;
+				this.selectedCollateralRatio = DEFAULT_BASIC_RATIO;
 			} catch (e) {
 				this.failureToast(null, e, "An error occurred");
 			}
