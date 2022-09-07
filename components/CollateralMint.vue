@@ -4,12 +4,12 @@
 			<div class="swap__container u-mb-8">
 				<SwapBalance
 					label="Deposit"
-					:token="input.token" />
+					:token="selectedCollateral" />
 				<MintAccordion
-					:disabled-tokens="[input.token, 'BTC', 'BUSD', 'AVAX']"
-					:default-token="input.token"
+					:disabled-tokens="[selectedCollateral, 'BTC', 'BUSD', 'AVAX']"
+					:default-token="selectedCollateral"
 					@selected-token="selectInputToken">
-					<InputMax v-model="inputValue" :maximum="tokenBalances[input.token]" @click="inputMaxBalance" />
+					<InputMax v-model="inputValue" :maximum="tokenBalances[selectedCollateral]" @click="inputMaxBalance" />
 					<LayoutFlex direction="row-justify-end">
 						<p class="u-mb-0 u-font-size-14">~ ${{ getDollarValue(inputValue, collateralPrice) | toFixed | numberWithCommas }}</p>
 					</LayoutFlex>
@@ -67,10 +67,6 @@ export default {
 		TooltipIcon
 	},
 	props: {
-		currentlySelectedCollateral: {
-			type: String,
-			required: true
-		},
 		minimumDepositAmount: {
 			type: Number,
 			required: true,
@@ -86,14 +82,7 @@ export default {
 			isApproving: false,
 			minting: false,
 			estimatedExtraRequiredCollateral: "0",
-			input: {
-				value: "",
-				token: "WETH"
-			},
-			output: {
-				value: "",
-				token: ""
-			},
+			selectedCollateral: "WETH",
 			ratios: [
 				{
 					label: "High Risk",
@@ -122,7 +111,7 @@ export default {
 				{
 					title: "Estimated extra required collateral",
 					val: this.numberWithCommas(Number(this.estimatedExtraRequiredCollateral).toFixed(2)),
-					currency: this.input.token,
+					currency: this.selectedCollateral,
 				},
 				{
 					title: "Collateral ratio",
@@ -148,13 +137,13 @@ export default {
 			return  parseFloat(this.inputValue) > this.tokenBalance;
 		},
 		tokenBalance() {
-			return this.$store.state.erc20Store.balance[this.currentlySelectedCollateral];
+			return this.$store.state.erc20Store.balance[this.selectedCollateral];
 		},
 		mintFee() {
 			return parseFloat(this.$store.state.collateralVaultStore.mintingFee) * 100;
 		},
 		decimals() {
-			return this.$store.state.erc20Store.decimals[this.currentlySelectedCollateral];
+			return this.$store.state.erc20Store.decimals[this.selectedCollateral];
 		},
 		isLTEMinimumDepositAmount() {
 			return parseFloat(this.inputValue) <= this.minimumDepositAmount;
@@ -169,14 +158,11 @@ export default {
 			const nounMinBacking = targetPeg * this.sliderMin / 100;
 			return nounMinBacking * mintedNuon / Number(this.inputValue);
 		},
-		currentCollateralToken() {
-			return this.$store.state.collateralVaultStore.currentCollateralToken;
-		},
 		collateralPrice() {
-			return this.tokenPrices[this.input.token];
+			return this.tokenPrices[this.selectedCollateral];
 		},
 		sliderMin() {
-			return Math.floor(this.$store.state.collateralVaultStore.globalRatio[this.currentlySelectedCollateral]) + 10;
+			return Math.floor(this.$store.state.collateralVaultStore.globalRatio[this.selectedCollateral]) + 10;
 		}
 	},
 	watch: {
@@ -187,14 +173,6 @@ export default {
 			if (newValue) {
 				this.getEstimatedMintedNuon();
 			}
-		},
-		currentlySelectedCollateral() {
-			this.$store.dispatch("collateralVaultStore/updateStatus");
-			this.initialize();
-		},
-		currentCollateralToken() {
-			this.$store.dispatch("collateralVaultStore/updateStatus");
-			this.initialize();
 		},
 		isVisible(newValue) {
 			if (newValue) {
@@ -223,18 +201,6 @@ export default {
 		sliderChanged(e) {
 			this.selectedCollateralRatio = e;
 		},
-		approveTokens() {
-			this.isApproving = true;
-			this.$store.dispatch("collateralVaultStore/approveToken",
-				{
-					tokenSymbol: this.currentlySelectedCollateral,
-					onConfirm: () => { },
-					onReject: () => { },
-					onCallback: () => {
-						this.isApproving = false;
-					}
-				});
-		},
 		async getEstimatedMintedNuon() {
 			if (!this.inputValue){
 				this.estimatedMintedNuonValue = 0;
@@ -247,13 +213,13 @@ export default {
 			const inputValueWithDecimals = toWei(this.inputValue, this.decimals);
 			let ans = {0: 0, 3: 0};
 			try {
-				ans = await this.$store.getters["collateralVaultStore/getEstimateMintedNUONAmount"](inputValueWithDecimals, collateralRatio);
+				ans = await this.$store.getters["collateralVaultStore/getEstimateMintedNUONAmount"](this.selectedCollateral, inputValueWithDecimals, collateralRatio);
 			} catch(e) {
 				const message = this.getRPCErrorMessage(e);
 				this.failureToast(null, message || e, "An error occurred");
 			} finally {
 				this.estimatedMintedNuonValue = fromWei(ans[0]);
-				this.estimatedExtraRequiredCollateral = fromWei(ans[3], this.$store.state.erc20Store.decimals[this.currentlySelectedCollateral]);
+				this.estimatedExtraRequiredCollateral = fromWei(ans[3], this.$store.state.erc20Store.decimals[this.selectedCollateral]);
 			}
 		},
 		async mint() {
@@ -264,6 +230,7 @@ export default {
 			try {
 				await this.$store.dispatch("collateralVaultStore/mintNuon",
 					{
+						collateralToken: this.selectedCollateral,
 						collateralRatio: `${collateralRatioToWei}`,
 						collateralAmount: amount,
 						onConfirm: (_confNumber, receipt, _latestBlockHash) => {
@@ -286,7 +253,7 @@ export default {
 			this.inputValue = this.twoDecimalPlaces(this.tokenBalance);
 		},
 		selectInputToken(token) {
-			this.input.token = token.symbol;
+			this.selectedCollateral = token.symbol;
 		},
 		selectOutputToken(token) {
 			this.output.token = token.symbol;

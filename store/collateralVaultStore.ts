@@ -256,12 +256,15 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 			dispatch("getTargetPeg");
 		},1000);
 	},
-	async mintNuon(ctx: any, {collateralRatio, collateralAmount, onTxHash, onConfirm, onReject}) {
+	async mintNuon(ctx: any, {collateralToken, collateralRatio, collateralAmount, onTxHash, onConfirm, onReject}) {
+		const chubContract = ctx.getters.getCollateralHubContract(collateralToken);
+
 		const accountAddress = ctx.rootState.web3Store.account;
 		const payload: {from: string, value?: string} = {from: accountAddress};
 		const args: string[] = [collateralRatio, collateralAmount];
 
-		return await ctx.getters.collateralHubContract.methods.mint.apply(null, args)
+		console.log("collateralToken", collateralToken);
+		return await chubContract.methods.mint.apply(null, args)
 			.send(payload)
 			.on("transactionHash", (txHash: string) => {
 				if (onTxHash) onTxHash(txHash);
@@ -287,9 +290,7 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 		ctx.commit("setCollateralToken", token);
 	},
 	async updateCollateralTokenStatus(ctx: any, token: string) {
-		const addr = ctx.rootGetters["addressStore/collateralHubs"][token];
-		const abi = ctx.state.abis[token];
-		const chubContract =  new ctx.getters.web3Instance.eth.Contract(abi, addr);
+		const chubContract = ctx.getters.getCollateralHubContract(token);
 		const accountAddress = ctx.rootState.web3Store.account;
 
 		// Update minted Nuon
@@ -341,6 +342,12 @@ export const getters: GetterTree<BoardroomState, Web3State> = {
 		const addr = rootGetters["addressStore/collateralHubs"][state.currentCollateralToken];
 		const abi = state.abis[state.currentCollateralToken];
 		return new _getters.web3Instance.eth.Contract(abi, addr);
+	},
+	getCollateralHubContract: (state: any, getters: any, _store: any, rootGetters: any) => (collateralToken:string) => {
+		const addr = rootGetters["addressStore/collateralHubs"][collateralToken];
+		const abi = state.abis[collateralToken];
+		const chubContract = new getters.web3Instance.eth.Contract(abi, addr);
+		return chubContract;
 	},
 	boardroomContract: (_state: any, _getters: any, _store: any, rootGetters) => {
 		const addr = rootGetters["addressStore/addresses"].boardroom;
@@ -413,8 +420,9 @@ export const getters: GetterTree<BoardroomState, Web3State> = {
 	getUserSupposedCollateralsValue: (_state: any, getters: any) => async (userAddress: string) => {
 		return await getters.collateralHubContract.methods.getUserSupposedCollateralsValue(userAddress).call();
 	},
-	getEstimateMintedNUONAmount: (_state: any, getters: any) => async (collateralAmount: number, _collateralRatio: number) => {
-		return await getters.collateralHubContract.methods.estimateMintedNUONAmount(collateralAmount, _collateralRatio).call();
+	getEstimateMintedNUONAmount: (_state: any, getters: any) => async (token: string, collateralAmount: number, _collateralRatio: number) => {
+		const collateralHubContract = getters.getCollateralHubContract(token);
+		return await collateralHubContract.methods.estimateMintedNUONAmount(collateralAmount, _collateralRatio).call();
 	},
 	getCollateralPrice: (_state: any, getters: any) => async () => {
 		return await getters.collateralHubContract.methods.getCollateralPrice().call();
