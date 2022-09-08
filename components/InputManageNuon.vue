@@ -8,8 +8,8 @@
 				:disabled-tokens="[selectedCollateral, 'BTC', 'BUSD', 'AVAX']"
 				:default-token="selectedCollateral"
 				@selected-token="selectCollateral">
-				<h3>{{lockedCallateral | numberWithCommas | toFixed}}<sup>{{selectedCollateral}}</sup></h3>
-				<p class="u-mb-0 u-font-size-14">~ $0.00</p>
+				<h3>{{lockedCallateral | toFixed | numberWithCommas}}<sup>{{selectedCollateral}}</sup></h3>
+				<p class="u-mb-0 u-font-size-14">~ ${{getDollarValue(lockedCallateral,tokenPrices[selectedCollateral]) | toFixed | numberWithCommas}}</p>
 			</MintAccordion>
 		</div>
 		<div class="swap__container u-mb-10">
@@ -75,7 +75,7 @@ export default {
 			if (this.action === "Deposit") {
 				 // this.estimatedAmount = user cratio after deposit, collateral user will receive after deposit, user collateral amount after deposit
 				summary.push({title: "New Collateral Amount", val: this.estimatedAmount[2]});
-			} else if (this.action === "Burn") {
+			} else if (this.action === "Redeem") {
 				// this.estimatedAmount = user cratio after burn, burned nuons, total amount of nuon left after burn
 				summary.push({title: "New NUON Amount", val: this.estimatedAmount[2]});
 			} else if (this.action === "Mint") {
@@ -116,7 +116,7 @@ export default {
 	methods: {
 		async getEstimatedAmounts() {
 			let method;
-			if (this.action === "Burn") {
+			if (this.action === "Redeem") {
 				method = "burnNUONEstimation";
 			} else if (this.action === "Mint") {
 				method = "mintWithoutDepositEstimation";
@@ -166,7 +166,7 @@ export default {
 				this.error = "";
 				this.activeStep = "loading";
 				let methodName = "";
-				if (this.action === "Burn") {
+				if (this.action === "Redeem") {
 					methodName = "burnNUON";
 				} else if (this.action === "Mint") {
 					methodName = "mintWithoutDeposit";
