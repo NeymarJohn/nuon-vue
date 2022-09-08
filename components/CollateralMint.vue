@@ -14,8 +14,8 @@
 						<p class="u-mb-0 u-font-size-14">~ ${{ getDollarValue(inputValue, collateralPrice) | toFixed | numberWithCommas }}</p>
 					</LayoutFlex>
 				</MintAccordion>
-				<p v-if="isMoreThanBalance" class="u-is-warning l-flex--align-self-end">Insufficient balance</p>
-				<p v-if="isLTEMinimumDepositAmount" class="u-is-warning l-flex--align-self-end">Please deposit more than {{ minimumDepositAmount }}</p>
+				<p v-if="isMoreThanBalance" class="u-is-warning">Insufficient balance</p>
+				<p v-if="isLTEMinimumDepositAmount" class="u-is-warning">Please deposit more than {{ minimumDepositAmount }}</p>
 			</div>
 			<div class="swap__container u-mb-24">
 				<div class="swap__balance">
@@ -23,7 +23,7 @@
 				</div>
 				<div class="swap__wrapper">
 					<div class="swap__return">
-						<img src="~/assets/images/borrow/NUON.png" alt="NUON logo">
+						<NuonLogo />
 						<div class="swap__token">
 							<h5>NUON</h5>
 						</div>
@@ -62,11 +62,14 @@
 import debounce from "lodash.debounce";
 import { fromWei, toWei } from "~/utils/bnTools";
 import TooltipIcon from "@/assets/images/svg/svg-tooltip.svg";
+import NuonLogo from "@/assets/images/logo/logo-numint.svg";
 const DEFAULT_BASIC_RATIO = 300;
+
 export default {
 	name: "CollateralMint",
 	components: {
-		TooltipIcon
+		TooltipIcon,
+		NuonLogo
 	},
 	props: {
 		minimumDepositAmount: {

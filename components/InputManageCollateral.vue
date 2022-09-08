@@ -65,39 +65,20 @@ export default {
 		};
 	},
 	computed: {
-		explaination() {
-			if (this.action === "Deposit") {
-				return `Deposit ${this.currentlySelectedCollateral} without minting NUON`;
-			} else if (this.action === "Burn") {
-				return `Redeem NUON without getting back ${this.currentlySelectedCollateral}`;
-			} else if (this.action === "Mint") {
-				return `Mint NUON without depositing more ${this.currentlySelectedCollateral}`;
-			} else if (this.action === "Add Liquidity") {
-				return `Add ${this.currentlySelectedCollateral} to your current liquidity position`;
-			} else if (this.action === "Remove Liquidity") {
-				return `Remove ${this.currentlySelectedCollateral} from your current liquidity position`;
-			} else {
-				return `Withdraw ${this.currentlySelectedCollateral} without redeeming NUON`;
-			}
-		},
 		nuonAllowance() {
 			return !!parseFloat(this.$store.state.collateralVaultStore.allowance.NUON);
 		},
 		summary() {
 			const summary = [{title: "New Collateral Ratio", val: `${parseFloat(this.estimatedAmount[0]).toFixed(0)}%`}];
 			if (this.action === "Deposit") {
-				 // this.estimatedAmount = user cratio after deposit, collateral user will receive after deposit, user collateral amount after deposit
 				summary.push({title: "New Collateral Amount", val: this.estimatedAmount[2]});
 			} else if (this.action === "Burn") {
-				// this.estimatedAmount = user cratio after burn, burned nuons, total amount of nuon left after burn
 				summary.push({title: "New NUON Amount", val: this.estimatedAmount[2]});
 			} else if (this.action === "Mint") {
-				// this.estimatedAmount = user cratio after mint, amount of nuon minted, user total nuon after mint
 				summary.push({title: "NUON Minted Amount", val: this.estimatedAmount[1]});
 				summary.push({title: `Extra ${this.currentlySelectedCollateral} Required`, val: this.estimatedAmount[3]});
 				summary.push({title: "New NUON Balance", val: this.estimatedAmount[2]});
 			} else {
-				// this.estimatedAmount = user cratio after redeem, amount redeemed , collaterals left after redeem
 				summary.push({title: "New Collateral Amount", val: this.estimatedAmount[2]});
 			}
 			const lastIdx = summary.length - 1;
@@ -199,41 +180,6 @@ export default {
 		inputMaxBalance() {
 			
 		},
-		async actionClicked(arg) {
-			this.error = "";
-			this.inputModel = "";
-			this.action = arg;
-			this.activeStep = 2;
-			this.isSubmitDisabled();
-			const postfix = this.actionIsMintOrBurn ? "NUON" : "Collateral";
-			let titleStr = `${arg} ${postfix}`;
-			if (this.action.includes("Liquidity")) titleStr = this.action;
-			this.$emit("action-changed", {title: titleStr, subtitle: this.explaination});
-
-			if (this.action === "Remove Liquidity") {
-				const decimals = this.currentlySelectedCollateral === "WETH" ? 5 : 18;
-				this.shareAmount = parseFloat(fromWei(await this.$store.getters["collateralVaultStore/viewUserVaultSharesAmount"](this.connectedAccount))).toFixed(decimals);
-			}
-		},
-		approveNUON() {
-			this.isApproving = true;
-			this.$store.dispatch("collateralVaultStore/approveToken",
-				{
-					tokenSymbol: "NUON",
-					onConfirm: () => { },
-					onReject: () => { },
-					onCallback: () => {
-						this.isApproving = false;
-					}
-				}
-			);
-		},
-		backClicked() {
-			this.activeStep = 1;
-			this.action = "";
-			this.estimatedAmount =  {0: 0, 1: 0, 2: 0, 3: 0};
-			this.$emit("action-changed", {title: "", subtitle: ""});
-		},
 		async submit() {
 			try {
 				this.error = "";
@@ -275,7 +221,6 @@ export default {
 		selectCollateral(token) {
 			this.selectedCollateral = token.symbol;
 		},
-
 	}
 };
 </script>

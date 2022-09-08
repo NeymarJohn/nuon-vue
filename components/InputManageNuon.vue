@@ -18,7 +18,7 @@
 			</div>
 			<div class="input-wrapper">
 				<div class="input-token">
-					<NuMintLogo />
+					<NuonLogo />
 					<h5>NUON</h5>
 				</div>
 				<InputMax v-model="value" :maximum="availableAmount()" @click="inputMaxBalance" />
@@ -35,12 +35,12 @@
 </template>
 <script>
 import { fromWei, toWei } from "~/utils/bnTools";
-import NuMintLogo from "@/assets/images/logo/logo-numint.svg";
+import NuonLogo from "@/assets/images/logo/logo-numint.svg";
 
 export default {
 	name: "InputManageNuon",
 	components: {
-		NuMintLogo,
+		NuonLogo,
 	},
 	props: {
 		action: {
