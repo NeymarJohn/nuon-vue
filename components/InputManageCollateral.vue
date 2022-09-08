@@ -28,25 +28,12 @@ import { fromWei, toWei } from "~/utils/bnTools";
 export default {
 	name: "InputManageCollateral",
 	props: {
-		currentlySelectedCollateral: {
-			type: String,
-			required: true
-		},
-		userMintedAmount: {
-			type: Number,
-			required: false,
-			default: 0
-		},
 		minimumDepositAmount: {
 			type: Number,
 			required: true,
 			default: 0
 		},
 		action: {
-			type: String,
-			required: true
-		},
-		currrentTab: {
 			type: String,
 			required: true
 		},
@@ -76,23 +63,23 @@ export default {
 				summary.push({title: "New NUON Amount", val: this.estimatedAmount[2]});
 			} else if (this.action === "Mint") {
 				summary.push({title: "NUON Minted Amount", val: this.estimatedAmount[1]});
-				summary.push({title: `Extra ${this.currentlySelectedCollateral} Required`, val: this.estimatedAmount[3]});
+				summary.push({title: `Extra ${this.selectedCollateral} Required`, val: this.estimatedAmount[3]});
 				summary.push({title: "New NUON Balance", val: this.estimatedAmount[2]});
 			} else {
 				summary.push({title: "New Collateral Amount", val: this.estimatedAmount[2]});
 			}
 			const lastIdx = summary.length - 1;
-			summary[lastIdx].val = `${parseFloat(summary[lastIdx].val).toFixed(2)} ${this.actionIsMintOrBurn ? "NUON" : this.currentlySelectedCollateral}`;
+			summary[lastIdx].val = `${parseFloat(summary[lastIdx].val).toFixed(2)} ${this.actionIsMintOrBurn ? "NUON" : this.selectedCollateral}`;
 			return summary;
 		},
 		decimals() {
-			return this.$store.state.erc20Store.decimals[this.currentlySelectedCollateral];
+			return this.$store.state.erc20Store.decimals[this.selectedCollateral];
 		},
 		actionIsMintOrBurn() {
 			return ["Mint", "Burn"].includes(this.action);
 		},
 		tokenBalance() {
-			return this.$store.state.erc20Store.balance[this.currentlySelectedCollateral];
+			return this.$store.state.erc20Store.balance[this.selectedCollateral];
 		},
 		isMoreThanBalance() {
 			return parseFloat(this.inputModel) > this.tokenBalance;
@@ -128,7 +115,7 @@ export default {
 			} else if (this.action === "Add Liquidity") {
 				if (this.isMoreThanBalance) {
 					this.submitDisabled = true;
-					this.error = `You don't have enough ${this.currentlySelectedCollateral}`;
+					this.error = `You don't have enough ${this.selectedCollateral}`;
 					return;
 				}
 			}
@@ -211,7 +198,7 @@ export default {
 			if (this.action === "Deposit") {
 				return this.tokenBalance || 0;
 			} else if (this.action === "Withdraw") {
-				return this.$store.state.collateralVaultStore.lockedAmount[this.currentlySelectedCollateral];
+				return this.$store.state.collateralVaultStore.lockedAmount[this.selectedCollateral];
 			}
 		},
 		selectCollateral(token) {

@@ -161,7 +161,7 @@ export default {
 				}
 			);
 		},
-		async submit() {
+		submit() {
 			try {
 				this.error = "";
 				this.activeStep = "loading";
@@ -172,9 +172,18 @@ export default {
 					methodName = "mintWithoutDeposit";
 				}
 				const amount = toWei(this.value);
-				const resp = await this.$store.getters[`collateralVaultStore/${methodName}`](amount, this.connectedAccount);
-				this.$store.dispatch("collateralVaultStore/updateStatus");
-				this.successToast(null, "Transaction Succeeded", resp.transactionHash);
+				this.$store.dispatch(`collateralVaultStore/${methodName}`, {
+					collateral: this.selectedCollateral,
+					collateralAmount: amount,
+					onConfirm: (_confNumber, receipt, _latestBlockHash) => {
+						this.successToast(null, "Transaction Succeeded", receipt.transactionHash);
+						this.$store.dispatch("collateralVaultStore/updateStatus");
+						this.$store.dispatch("erc20Store/initializeBalance", {address: this.connectedAccount});
+					},
+					onReject: (err) => {
+						this.failureToast(null, err, "Transaction failed");
+					}
+				});
 			} catch (e) {
 				this.failureToast(null, e, "Transaction Failed");
 			} finally {

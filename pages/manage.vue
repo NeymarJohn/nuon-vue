@@ -4,11 +4,11 @@
 			<LayoutFlex direction="row-center-space-between" class="u-mb-48 u-pb-32 u-bb-medium-light-grey">
 				<PageTitle>
 					<h4>Manage</h4>
-					<h1>Manage NUON</h1>
+					<h1>Manage {{sections[currentSection]}}</h1>
 				</PageTitle>
 				<PriceIndicator />
 			</LayoutFlex>
-			<TheTabs margin="24" size="govern" color="transparent">
+			<TheTabs margin="24" size="govern" color="transparent" @tab-changed="tabChanged">
 				<TheTab title="Nuon">
 					<LayoutAction type="tabs">
 						<template #left>
@@ -31,10 +31,10 @@
 						<template #left>
 							<TheTabs margin="0" size="full">
 								<TheTab title="Deposit">
-									<InputManageCollateral action="Deposit" currrent-tab="collateral"/>
+									<InputManageCollateral action="Deposit" currrent-tab="collateral" :minimum-deposit-amount="0"/>
 								</TheTab>
 								<TheTab title="Withdraw">
-									<InputManageCollateral action="Withdraw" currrent-tab="collateral"/>
+									<InputManageCollateral action="Withdraw" currrent-tab="collateral" :minimum-deposit-amount="0"/>
 								</TheTab>
 							</TheTabs>
 						</template>
@@ -48,10 +48,10 @@
 						<template #left>
 							<TheTabs margin="0" size="full">
 								<TheTab title="Add">
-									<InputManageCollateral action="Add" currrent-tab="liquidity"/>
+									<InputManageCollateral action="Add" currrent-tab="liquidity" :minimum-deposit-amount="0"/>
 								</TheTab>
 								<TheTab title="Remove">
-									<InputManageCollateral action="Remove" currrent-tab="liquidity"/>
+									<InputManageCollateral action="Remove" currrent-tab="liquidity" :minimum-deposit-amount="0"/>
 								</TheTab>
 							</TheTabs>
 						</template>
@@ -71,7 +71,9 @@ export default {
 	data () {
 		return {
 			mobileView: false,
-			selectedCollateral: "WETH"
+			selectedCollateral: "WETH",
+			currentSection: 0,
+			sections: ["NUON", "Collateral", "Liquidity"]
 			// To be implemented after mint is finished.
 			// tourCallbacks: {
 			// 	onSkip: () => this.setCookie("skip_collateral_hub_tour"),
@@ -93,7 +95,7 @@ export default {
 	},
 	methods: {
 		tabChanged(e) {
-			this.currentlySelectedCollateral = e.selectedValue;
+			this.currentSection = e;
 		},
 		onChangeCollateral(collateral) {
 			this.selectedCollateral = collateral;

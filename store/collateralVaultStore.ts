@@ -263,7 +263,6 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 		const payload: {from: string, value?: string} = {from: accountAddress};
 		const args: string[] = [collateralRatio, collateralAmount];
 
-		console.log("collateralToken", collateralToken);
 		return await chubContract.methods.mint.apply(null, args)
 			.send(payload)
 			.on("transactionHash", (txHash: string) => {
@@ -332,7 +331,37 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 			prices[collateralToken] = Number(price);
 		}
 		ctx.commit("setCollateralPrices",{...prices});
-	}
+	},
+	async mintWithoutDeposit(ctx: any, {collateral, collateralAmount,  onTxHash, onConfirm, onReject }) {
+		const chubContract = ctx.getters.getCollateralHubContract(collateral);
+		const accountAddress = ctx.rootState.web3Store.account;
+		return await chubContract.methods.mintWithoutDeposit.apply(null, [collateralAmount])
+			.send( {from: accountAddress})
+			.on("transactionHash", (txHash: string) => {
+				if (onTxHash) onTxHash(txHash);
+			})
+			.on("confirmation", (confNumber: any, _receipt: any, _latestBlockHash: any) => {
+				if (onConfirm && confNumber === 0) onConfirm(confNumber, _receipt, _latestBlockHash);
+			})
+			.on("error", (err: any) => {
+				if (onReject) onReject(err);
+			});
+	},
+	async burnNUON(ctx: any, {collateral, nuonAmount, onTxHash, onConfirm, onReject}) {
+		const chubContract = ctx.getters.getCollateralHubContract(collateral);
+		const accountAddress = ctx.rootState.web3Store.account;
+		return await chubContract.methods.burnNUON.apply(null, [nuonAmount])
+			.send({from: accountAddress})
+			.on("transactionHash", (txHash: string) => {
+				if (onTxHash) onTxHash(txHash);
+			})
+			.on("confirmation", (confNumber: any, _receipt: any, _latestBlockHash: any) => {
+				if (onConfirm && confNumber === 0) onConfirm(confNumber, _receipt, _latestBlockHash);
+			})
+			.on("error", (err: any) => {
+				if (onReject) onReject(err);
+			});
+	},
 };
 
 export const getters: GetterTree<BoardroomState, Web3State> = {
@@ -456,14 +485,8 @@ export const getters: GetterTree<BoardroomState, Web3State> = {
 	depositWithoutMint: (_state: any, getters: any) => async (collateralAmount: number, userAddress: string) => {
 		return await getters.collateralHubContract.methods.depositWithoutMint(collateralAmount).send({from: userAddress});
 	},
-	mintWithoutDeposit: (_state: any, getters: any) => async (collateralAmount: number, userAddress: string) => {
-		return await getters.collateralHubContract.methods.mintWithoutDeposit(collateralAmount).send({from: userAddress});
-	},
 	redeemWithoutNuon: (_state: any, getters: any) => async (collateralAmount: number, userAddress: string) => {
 		return await getters.collateralHubContract.methods.redeemWithoutNuon(collateralAmount).send({from: userAddress});
-	},
-	burnNUON: (_state: any, getters: any) => async (nuonAmount: number, userAddress: string) => {
-		return await getters.collateralHubContract.methods.burnNUON(nuonAmount).send({from: userAddress});
 	},
 	depositWithoutMintEstimation: (_state: any, getters: any) => async (collateralAmount: number, userAddress: string) => {
 		return await getters.collateralHubContract.methods._depositWithoutMintEstimation(collateralAmount, userAddress).call();
