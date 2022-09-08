@@ -193,6 +193,7 @@ export default {
 		},
 		selectCollateral(token) {
 			this.selectedCollateral = token.symbol;
+			this.$emit("changeCollateral", token);
 		},
 		inputChanged() {
 			this.error = "";
