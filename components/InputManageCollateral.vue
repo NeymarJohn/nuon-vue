@@ -187,15 +187,11 @@ export default {
 				let methodName = "addLiquidityForUser";
 				if (this.action === "Deposit") {
 					methodName = "depositWithoutMint";
-				} else if (this.action === "Burn") {
-					methodName = "burnNUON";
-				} else if (this.action === "Mint") {
-					methodName = "mintWithoutDeposit";
 				} else if (this.action === "Withdraw") {
 					methodName = "redeemWithoutNuon";
 				} else if (this.action === "Remove Liquidity") {
 					methodName = "removeLiquidityForUser";
-				}
+				} 
 
 				const amount = toWei(this.inputModel, this.actionIsMintOrBurn ? 18 : this.decimals);
 
