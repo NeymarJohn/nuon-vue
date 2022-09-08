@@ -16,8 +16,8 @@
 								<TheTab title="Mint">
 									<InputManageNuon action="Mint"/>
 								</TheTab>
-								<TheTab title="Burn">
-									<InputManageNuon action="Burn"/>
+								<TheTab title="Redeem">
+									<InputManageNuon action="Redeem"/>
 								</TheTab>
 							</TheTabs>
 						</template>
@@ -30,11 +30,11 @@
 					<LayoutAction type="tabs">
 						<template #left>
 							<TheTabs margin="0" size="full">
-								<TheTab title="Deposite">
-									<InputManageCollateral action="deposite" currrent-tab="collateral"/>
+								<TheTab title="Deposit">
+									<InputManageCollateral action="Deposit" currrent-tab="collateral"/>
 								</TheTab>
 								<TheTab title="Withdraw">
-									<InputManageCollateral action="withdraw" currrent-tab="collateral"/>
+									<InputManageCollateral action="Withdraw" currrent-tab="collateral"/>
 								</TheTab>
 							</TheTabs>
 						</template>
@@ -48,10 +48,10 @@
 						<template #left>
 							<TheTabs margin="0" size="full">
 								<TheTab title="Add">
-									<InputManageCollateral action="add" currrent-tab="liquidity"/>
+									<InputManageCollateral action="Add" currrent-tab="liquidity"/>
 								</TheTab>
 								<TheTab title="Remove">
-									<InputManageCollateral action="remove" currrent-tab="liquidity"/>
+									<InputManageCollateral action="Remove" currrent-tab="liquidity"/>
 								</TheTab>
 							</TheTabs>
 						</template>

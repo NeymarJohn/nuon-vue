@@ -2,23 +2,23 @@
 	<div class="input-manage-container">
 		<div class="swap__container u-mb-24">
 			<div class="swap__balance">
-				<label class="u-text-capitalize">{{action}}</label>
+				<label>{{action}}</label>
 			</div>
 			<MintAccordion
 				:disabled-tokens="[selectedCollateral, 'BTC', 'BUSD', 'AVAX']"
 				:default-token="selectedCollateral"
-				@selected-token="selectCollateral">					
+				@selected-token="selectCollateral">
 				<InputMax v-model="inputModel" :maximum="availableAmount()" @click="inputMaxBalance" />
 				<LayoutFlex direction="row-justify-end">
-					<p>xxx</p>
+					<p class="u-mb-0 u-font-size-14">~ $0.00</p>
 				</LayoutFlex>
 			</MintAccordion>
 		</div>
 		<LayoutFlex direction="row-justify-end">
 			<TheButton
-				title="Click to submit"
+				:title="`Click to ${action}`"
 				:disabled="submitDisabled"
-				@click="submit">Submit</TheButton>
+				@click="submit">{{action}}</TheButton>
 		</LayoutFlex>
 	</div>
 </template>

@@ -46,12 +46,14 @@
 				</div>
 			</div>
 			<TransactionSummary v-if="inputValue > 0" :values="summary" />
-			<TheButton
-				title="Click to mint"
-				:disabled="inputValue <= 0"
-				@click="mint">
-				Mint
-			</TheButton>
+			<LayoutFlex direction="row-justify-end">
+				<TheButton
+					title="Click to mint"
+					:disabled="inputValue <= 0"
+					@click="mint">
+					Mint
+				</TheButton>
+			</LayoutFlex>
 		</div>
 	</LayoutContainer>
 </template>

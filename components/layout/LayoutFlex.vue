@@ -1,5 +1,5 @@
 <template>
-	<div :class="`l-flex l-flex--${ direction } border-${ border }`" @click="clicked($event)">
+	<div :class="`l-flex l-flex--${ direction } l-flex--border-${ border }`" @click="clicked($event)">
 		<slot />
 	</div>
 </template>

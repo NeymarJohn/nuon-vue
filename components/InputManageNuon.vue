@@ -1,48 +1,47 @@
 <template>
-	<div class="input-manage-container">
-		<div  :class="action === 'Mint'?'input-manage-reverse':''">
-			<div class="swap__container u-mb-10">
-				<div class="swap__balance">
-					<label>{{action}}</label>
-				</div>
-				<div class="swap__wrapper">
-					<div class="swap__return">
-						<img src="~/assets/images/borrow/NUON.png" alt="NUON logo">
-						<div class="swap__token">
-							<h5>NUON</h5>
-						</div>
-					</div>
-					<InputMax v-model="value" :maximum="availableAmount()" @click="inputMaxBalance" />
-				</div>
+	<div>
+		<div class="swap__container u-mb-10">
+			<div class="swap__balance">
+				<label>Select Collateral</label>
 			</div>
-			<div class="swap__container u-mb-10">
-				<div class="swap__balance">
-					<label>Select Collateral</label>
+			<MintAccordion
+				:disabled-tokens="[selectedCollateral, 'BTC', 'BUSD', 'AVAX']"
+				:default-token="selectedCollateral"
+				@selected-token="selectCollateral">
+				<h3>{{lockedCallateral | numberWithCommas | toFixed}}<sup>{{selectedCollateral}}</sup></h3>
+				<p class="u-mb-0 u-font-size-14">~ $0.00</p>
+			</MintAccordion>
+		</div>
+		<div class="swap__container u-mb-10">
+			<div class="swap__balance">
+				<label>{{action}}</label>
+			</div>
+			<div class="input-wrapper">
+				<div class="input-token">
+					<NuMintLogo />
+					<h5>NUON</h5>
 				</div>
-				<MintAccordion
-					:disabled-tokens="[selectedCollateral, 'BTC', 'BUSD', 'AVAX']"
-					:default-token="selectedCollateral"
-					@selected-token="selectCollateral">
-					<LayoutFlex direction="row-justify-end">
-						<h3>{{lockedCallateral | numberWithCommas | toFixed}}<sup>{{selectedCollateral}}</sup></h3>
-					</LayoutFlex>
-				</MintAccordion>
+				<InputMax v-model="value" :maximum="availableAmount()" @click="inputMaxBalance" />
 			</div>
 		</div>
 		<LayoutFlex direction="row-justify-end">
 			<TheButton
 				class="u-mt-24"
-				title="Click to submit"
+				:title="`Click to ${action}`"
 				:disabled="submitDisabled"
-				@click="submit">Submit</TheButton>
+				@click="submit">{{action}}</TheButton>
 		</LayoutFlex>
 	</div>
 </template>
 <script>
 import { fromWei, toWei } from "~/utils/bnTools";
+import NuMintLogo from "@/assets/images/logo/logo-numint.svg";
 
 export default {
 	name: "InputManageNuon",
+	components: {
+		NuMintLogo,
+	},
 	props: {
 		action: {
 			type: String,
@@ -67,21 +66,6 @@ export default {
 				return true;
 			}
 			return false;
-		},
-		explaination() {
-			if (this.action === "Deposit") {
-				return `Deposit ${this.selectedCollateral} without minting NUON`;
-			} else if (this.action === "Burn") {
-				return `Redeem NUON without getting back ${this.selectedCollateral}`;
-			} else if (this.action === "Mint") {
-				return `Mint NUON without depositing more ${this.selectedCollateral}`;
-			} else if (this.action === "Add Liquidity") {
-				return `Add ${this.selectedCollateral} to your current liquidity position`;
-			} else if (this.action === "Remove Liquidity") {
-				return `Remove ${this.selectedCollateral} from your current liquidity position`;
-			} else {
-				return `Withdraw ${this.selectedCollateral} without redeeming NUON`;
-			}
 		},
 		nuonAllowance() {
 			return !!parseFloat(this.$store.state.collateralVaultStore.allowance.NUON);
@@ -136,7 +120,7 @@ export default {
 				method = "burnNUONEstimation";
 			} else if (this.action === "Mint") {
 				method = "mintWithoutDepositEstimation";
-			} 
+			}
 			const amount = toWei(this.value);
 
 			let resp = {0: 0, 1: 0, 2: 0};
@@ -164,21 +148,6 @@ export default {
 		inputMaxBalance() {
 			
 		},
-		async actionClicked(arg) {
-			this.error = "";
-			this.value = "";
-			this.activeStep = 2;
-			this.isSubmitDisabled();
-			const postfix = this.actionIsMintOrBurn ? "NUON" : "Collateral";
-			let titleStr = `${arg} ${postfix}`;
-			if (this.action.includes("Liquidity")) titleStr = this.action;
-			this.$emit("action-changed", {title: titleStr, subtitle: this.explaination});
-
-			if (this.action === "Remove Liquidity") {
-				const decimals = this.selectedCollateral === "WETH" ? 5 : 18;
-				this.shareAmount = parseFloat(fromWei(await this.$store.getters["collateralVaultStore/viewUserVaultSharesAmount"](this.connectedAccount))).toFixed(decimals);
-			}
-		},
 		approveNUON() {
 			this.isApproving = true;
 			this.$store.dispatch("collateralVaultStore/approveToken",
@@ -192,12 +161,6 @@ export default {
 				}
 			);
 		},
-		backClicked() {
-			this.activeStep = 1;
-			this.action = "";
-			this.estimatedAmount =  {0: 0, 1: 0, 2: 0, 3: 0};
-			this.$emit("action-changed", {title: "", subtitle: ""});
-		},
 		async submit() {
 			try {
 				this.error = "";
@@ -207,7 +170,7 @@ export default {
 					methodName = "burnNUON";
 				} else if (this.action === "Mint") {
 					methodName = "mintWithoutDeposit";
-				} 
+				}
 				const amount = toWei(this.value);
 				const resp = await this.$store.getters[`collateralVaultStore/${methodName}`](amount, this.connectedAccount);
 				this.$store.dispatch("collateralVaultStore/updateStatus");

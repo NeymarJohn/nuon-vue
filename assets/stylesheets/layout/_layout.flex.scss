@@ -95,12 +95,12 @@
 	flex-direction: column;
 	justify-content: space-between;
 }
-.l-flex.border-row > div:not(:first-child){
-	border-left: solid 1px #575757;
-	padding-left: $PX_32;
+.l-flex--border-row > div:not(:first-child) {
+	border-left: $PX_1 solid $HIGHLIGHT_LIGHT_GREY;
+	padding-left: $PX_40;
 }
-.l-flex.border-column > div:not(:first-child){
-	border-top: solid 1px #575757;
+.l-flex--border-column > div:not(:first-child) {
+	border-top: $PX_1 solid $HIGHLIGHT_LIGHT_GREY;
 	padding-top: $PX_32;
 }
 // 4. Flex responsive
