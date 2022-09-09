@@ -332,10 +332,10 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 		}
 		ctx.commit("setCollateralPrices",{...prices});
 	},
-	async mintWithoutDeposit(ctx: any, {collateral, collateralAmount,  onTxHash, onConfirm, onReject }) {
+	async mintWithoutDeposit(ctx: any, {collateral, amount,  onTxHash, onConfirm, onReject }) {
 		const chubContract = ctx.getters.getCollateralHubContract(collateral);
 		const accountAddress = ctx.rootState.web3Store.account;
-		return await chubContract.methods.mintWithoutDeposit.apply(null, [collateralAmount])
+		return await chubContract.methods.mintWithoutDeposit.apply(null, [amount])
 			.send( {from: accountAddress})
 			.on("transactionHash", (txHash: string) => {
 				if (onTxHash) onTxHash(txHash);
@@ -347,10 +347,10 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 				if (onReject) onReject(err);
 			});
 	},
-	async burnNUON(ctx: any, {collateral, nuonAmount, onTxHash, onConfirm, onReject}) {
+	async burnNUON(ctx: any, {collateral, amount, onTxHash, onConfirm, onReject}) {
 		const chubContract = ctx.getters.getCollateralHubContract(collateral);
 		const accountAddress = ctx.rootState.web3Store.account;
-		return await chubContract.methods.burnNUON.apply(null, [nuonAmount])
+		return await chubContract.methods.burnNUON.apply(null, [amount])
 			.send({from: accountAddress})
 			.on("transactionHash", (txHash: string) => {
 				if (onTxHash) onTxHash(txHash);

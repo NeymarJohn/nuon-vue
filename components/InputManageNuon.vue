@@ -174,7 +174,7 @@ export default {
 				const amount = toWei(this.value);
 				this.$store.dispatch(`collateralVaultStore/${methodName}`, {
 					collateral: this.selectedCollateral,
-					collateralAmount: amount,
+					amount,
 					onConfirm: (_confNumber, receipt, _latestBlockHash) => {
 						this.successToast(null, "Transaction Succeeded", receipt.transactionHash);
 						this.$store.dispatch("collateralVaultStore/updateStatus");
