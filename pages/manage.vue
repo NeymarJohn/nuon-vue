@@ -14,10 +14,10 @@
 						<template #left>
 							<TheTabs margin="0" size="full">
 								<TheTab title="Mint">
-									<InputManageNuon action="Mint" @changeCollateral="onChangeCollateral"/>
+									<InputManageNuon action="Mint" :default-collateral="selectedCollateral" @changeCollateral="onChangeCollateral" />
 								</TheTab>
 								<TheTab title="Redeem">
-									<InputManageNuon action="Redeem" @changeCollateral="onChangeCollateral"/>
+									<InputManageNuon action="Redeem" :default-collateral="selectedCollateral" @changeCollateral="onChangeCollateral"/>
 								</TheTab>
 							</TheTabs>
 						</template>
@@ -98,7 +98,7 @@ export default {
 			this.currentSection = e;
 		},
 		onChangeCollateral(collateral) {
-			this.selectedCollateral = collateral;
+			this.selectedCollateral = collateral.symbol;
 		},
 		async initialize() {
 			await this.$store.dispatch("collateralVaultStore/updateStatus");

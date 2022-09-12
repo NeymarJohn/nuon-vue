@@ -6,7 +6,7 @@
 			</div>
 			<MintAccordion
 				:disabled-tokens="[selectedCollateral, 'BTC', 'BUSD', 'AVAX']"
-				:default-token="selectedCollateral"
+				:default-token="defaultCollateral"
 				@selected-token="selectCollateral">
 				<h3>{{lockedCallateral | toFixed | numberWithCommas}}<sup>{{selectedCollateral}}</sup></h3>
 				<p class="u-mb-0 u-font-size-14">~ ${{getDollarValue(lockedCallateral,tokenPrices[selectedCollateral]) | toFixed | numberWithCommas}}</p>
@@ -47,6 +47,10 @@ export default {
 			type: String,
 			required: true
 		},
+		defaultCollateral: {
+			type: String,
+			required: true
+		}
 	},
 	data() {
 		return {
@@ -112,6 +116,9 @@ export default {
 		userMintedAmount() {
 			return this.$store.state.collateralVaultStore.mintedAmount[this.selectedCollateral];
 		}
+	},
+	mounted () {
+		this.selectedCollateral = this.defaultCollateral;
 	},
 	methods: {
 		async getEstimatedAmounts() {
@@ -208,6 +215,9 @@ export default {
 			this.error = "";
 			this.getEstimatedAmounts();
 		},
-	}
+		beforeMount () {
+			this.selectedCollateral = this.defaultCollateral;
+		},
+	},
 };
 </script>

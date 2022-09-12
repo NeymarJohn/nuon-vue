@@ -10,7 +10,7 @@
 				@selected-token="selectCollateral">
 				<InputMax v-model="inputModel" :maximum="availableAmount()" @click="inputMaxBalance" />
 				<LayoutFlex direction="row-justify-end">
-					<p class="u-mb-0 u-font-size-14">~ $0.00</p>
+					<p class="u-mb-0 u-font-size-14">~ ${{ getDollarValue(inputModel, collateralPrice) | toFixed | numberWithCommas }}</p>
 				</LayoutFlex>
 			</MintAccordion>
 		</div>
@@ -86,6 +86,9 @@ export default {
 		},
 		nuonBalance() {
 			return this.$store.state.erc20Store.balance.NUON;
+		},
+		collateralPrice() {
+			return this.tokenPrices[this.selectedCollateral];
 		}
 	},
 	methods: {
@@ -100,13 +103,7 @@ export default {
 				return;
 			}
 
-			if (this.action === "Burn") {
-				if (parseFloat(this.inputModel) > this.userMintedAmount) {
-					this.submitDisabled = true;
-					this.error = "You cannot burn more NUON than you have.";
-					return;
-				}
-			} else if (this.action === "Deposit") {
+			if (this.action === "Deposit") {
 				if (parseFloat(this.inputModel) <= this.minimumDepositAmount) {
 					this.submitDisabled = true;
 					this.error = `Please deposit more than ${this.minimumDepositAmount}`;
