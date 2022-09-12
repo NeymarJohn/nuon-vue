@@ -1,14 +1,22 @@
 <template>
 	<div class="input-manage-container">
 		<div class="swap__container u-mb-24">
-			<div class="swap__balance">
-				<label>{{action}}</label>
-			</div>
+			<LayoutFlex direction="row-center-space-between swap__balance">
+				<label>{{ action }}</label>
+				<ComponentLoader component="label" :loaded="tokenBalances[selectedCollateral] !== '0'">
+					<label v-if="action === 'Deposit'">Balance:
+						<span>{{ tokenBalances[selectedCollateral] | formatLongNumber }}</span>
+					</label>
+					<label v-else-if="action === 'Withdraw'">Locked amount:
+						<span>{{ lockedAmount | formatLongNumber }}</span>
+					</label>
+				</ComponentLoader>
+			</LayoutFlex>
 			<MintAccordion
 				:disabled-tokens="[selectedCollateral, 'BTC', 'BUSD', 'AVAX']"
 				:default-token="selectedCollateral"
 				@selected-token="selectCollateral">
-				<InputMax v-model="inputModel" :maximum="availableAmount()" @click="inputMaxBalance" />
+				<InputMax v-model="inputModel" :maximum="availableAmount()"/>
 				<LayoutFlex direction="row-justify-end">
 					<p class="u-mb-0 u-font-size-14">~ ${{ getDollarValue(inputModel, collateralPrice) | toFixed | numberWithCommas }}</p>
 				</LayoutFlex>
@@ -17,7 +25,7 @@
 		<LayoutFlex direction="row-justify-end">
 			<TheButton
 				:title="`Click to ${action}`"
-				:disabled="submitDisabled"
+				:disabled="isSubmitDisabled"
 				@click="submit">{{action}}</TheButton>
 		</LayoutFlex>
 	</div>
@@ -79,7 +87,7 @@ export default {
 			return ["Mint", "Burn"].includes(this.action);
 		},
 		tokenBalance() {
-			return this.$store.state.erc20Store.balance[this.selectedCollateral];
+			return this.tokenBalances[this.selectedCollateral];
 		},
 		isMoreThanBalance() {
 			return parseFloat(this.inputModel) > this.tokenBalance;
@@ -89,36 +97,22 @@ export default {
 		},
 		collateralPrice() {
 			return this.tokenPrices[this.selectedCollateral];
-		}
-	},
-	methods: {
+		},
+		lockedAmount() {
+			return this.$store.state.collateralVaultStore.lockedAmount[this.selectedCollateral];
+		},
 		isSubmitDisabled() {
 			if (!parseFloat(this.inputModel)) {
-				this.submitDisabled = true;
-				return;
+				return true;
 			}
-
 			if (!this.connectedAccount) {
-				this.submitDisabled = true;
-				return;
+				return true;
 			}
-
-			if (this.action === "Deposit") {
-				if (parseFloat(this.inputModel) <= this.minimumDepositAmount) {
-					this.submitDisabled = true;
-					this.error = `Please deposit more than ${this.minimumDepositAmount}`;
-					return;
-				}
-			} else if (this.action === "Add Liquidity") {
-				if (this.isMoreThanBalance) {
-					this.submitDisabled = true;
-					this.error = `You don't have enough ${this.selectedCollateral}`;
-					return;
-				}
-			}
-
-			this.submitDisabled = false;
+			return false;
 		},
+	},
+	methods: {
+
 		async getEstimatedAmounts() {
 			let method;
 			if (this.action === "Deposit") {
@@ -158,11 +152,7 @@ export default {
 		inputChanged() {
 			this.error = "";
 			this.submitDisabled = false;
-			this.isSubmitDisabled();
 			if (!this.action.includes("Liquidity")) this.getEstimatedAmounts();
-		},
-		inputMaxBalance() {
-			
 		},
 		async submit() {
 			try {
@@ -189,9 +179,6 @@ export default {
 			}
 		},
 		availableAmount() {
-			if (this.actionIsMintOrBurn) {
-				return this.nuonBalance;
-			}
 			if (this.action === "Deposit") {
 				return this.tokenBalance || 0;
 			} else if (this.action === "Withdraw") {

@@ -46,6 +46,10 @@ export default {
 	},
 	methods: {
 		clicked ($event) {
+			if (this.maximum) {
+				this.content = this.maximum;
+				this.$emit("input", this.content);
+			}
 			this.$emit("click", $event);
 		},
 		handleInput (e) {
