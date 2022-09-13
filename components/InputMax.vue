@@ -2,6 +2,7 @@
 	<div class="input">
 		<div class="input__container">
 			<input
+				ref="inputFocus"
 				placeholder="0.0"
 				type="number"
 				min="0"
@@ -43,6 +44,9 @@ export default {
 		value(newValue) {
 			this.content = newValue;
 		}
+	},
+	mounted () {
+		this.$nextTick(() => this.$refs.inputFocus.focus());
 	},
 	methods: {
 		clicked ($event) {
