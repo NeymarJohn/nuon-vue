@@ -24,6 +24,8 @@
 							<p class="u-mb-0 u-font-size-14">~ ${{ getPrice(input.token, input.value) | toFixed | numberWithCommas }}</p>
 						</LayoutFlex>
 					</SwapAccordion>
+					<p v-if="isMoreThanEqualMinimumAndLessThanBalance" class="u-font-size-14 u-is-success u-mb-0">Ready To Swap</p>
+					<p v-if="isMoreThanBalance" class="u-font-size-14 u-is-warning u-mb-0">Insufficient Balance</p>
 				</div>
 				<TheButton
 					size="swap"
@@ -116,7 +118,7 @@
 					v-else
 					size="lg"
 					title="Click to swap"
-					:disabled="disabledSwap"
+					:disabled="isSwapDisabled"
 					@click="swap">Swap</TheButton>
 			</div>
 		</LayoutContainer>
@@ -165,8 +167,8 @@ export default {
 		tokens() {
 			return this.$store.state.addressStore.tokens;
 		},
-		disabledSwap() {
-			if (this.loadingPrice || !this.input.value || !this.output.value || !this.output.token || this.maxSlippage > 10) return true;
+		isSwapDisabled() {
+			if (this.loadingPrice || !this.input.value || !this.output.value || !this.output.token || this.maxSlippage > 10 || this.isMoreThanBalance) return true;
 			return false;
 		},
 		swapPrice() {
@@ -180,7 +182,10 @@ export default {
 		},
 		isMoreThanBalance() {
 			return parseFloat(this.input.value) > parseFloat(this.tokenBalances[this.input.token]);
-		}
+		},
+		isMoreThanEqualMinimumAndLessThanBalance() {
+			return parseFloat(this.input.value) > 0 && parseFloat(this.input.value) <= parseFloat(this.tokenBalances[this.input.token]);
+		},
 	},
 	mounted () {
 		const routeQuery = this.$route.query;
