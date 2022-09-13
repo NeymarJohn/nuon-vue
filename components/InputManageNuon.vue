@@ -77,7 +77,7 @@ export default {
 	},
 	computed: {
 		isSubmitDisabled() {
-			if (!this.value || (this.action === "burn" && parseFloat(this.value) > this.userMintedAmount)) {
+			if (!this.value || (this.action === "burn" && parseFloat(this.value) > this.userMintedAmount) || this.isMoreThanBalance) {
 				return true;
 			}
 			return false;
