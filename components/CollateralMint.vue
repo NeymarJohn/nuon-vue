@@ -60,10 +60,10 @@
 
 <script>
 import debounce from "lodash.debounce";
+import { DEFAULT_BASIC_RATIO } from "../constants/web3";
 import { fromWei, toWei } from "~/utils/bnTools";
 import TooltipIcon from "@/assets/images/svg/svg-tooltip.svg";
 import NuonLogo from "@/assets/images/logo/logo-numint.svg";
-const DEFAULT_BASIC_RATIO = 300;
 
 export default {
 	name: "CollateralMint",

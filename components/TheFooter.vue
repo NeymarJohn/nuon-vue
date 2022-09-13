@@ -36,7 +36,7 @@ import DiscordIcon from "@/assets/images/svg/svg-discord.svg";
 import MediumIcon from "@/assets/images/svg/svg-medium.svg";
 import TelegramIcon from "@/assets/images/svg/svg-telegram.svg";
 import TwitterIcon from "@/assets/images/svg/svg-twitter.svg";
-import { chainData } from "~/constants/web3";
+import { CHAIN_DATA } from "~/constants/web3";
 
 export default {
 	name: "TheFooter",
@@ -54,11 +54,11 @@ export default {
 	},
 	computed: {
 		blockNumber() {
-			return this.$store.state.web3Store.blockNumber; 
+			return this.$store.state.web3Store.blockNumber;
 		},
 		explorerLink() {
-			if (!chainData[this.$store.state.web3Store.chainId]) return "";
-			return chainData[this.$store.state.web3Store.chainId].explorerLink;
+			if (!CHAIN_DATA[this.$store.state.web3Store.chainId]) return "";
+			return CHAIN_DATA[this.$store.state.web3Store.chainId].explorerLink;
 		}
 	},
 };

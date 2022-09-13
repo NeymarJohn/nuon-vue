@@ -81,7 +81,7 @@ export const tokenAddresses = {
 	[nuMINT.symbol]: NUMINT_ADDRESS
 };
 
-export const chainData = {
+export const ADDRESS_CHAIN_DATA = {
 	31010: {
 		boardroom: BOARDROOM_ADDRESS,
 		router: ROUTER_ADDRESS,

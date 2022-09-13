@@ -1,5 +1,4 @@
-
-export const chainData = {
+export const CHAIN_DATA = {
 	4: {
 		name: "Rinkeby",
 		provider: "https://rinkeby.infura.io/v3/950e2e1f336a4e3bade855464f024942",
@@ -13,5 +12,6 @@ export const chainData = {
 		explorerLink: "http://13.251.9.172:4000",
 	}
 };
-export const wallets = ["metamask", "walletconnect"];
-export const networks = [4, 31010];
+export const WALLETS = ["metamask", "walletconnect"];
+export const NETWORKS = [4, 31010];
+export const DEFAULT_BASIC_RATIO = 300;

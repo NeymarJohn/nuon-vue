@@ -23,7 +23,7 @@ input:not([type="range"]) {
 }
 input::placeholder,
 textarea::placeholder {
-	color: $LIGHT_GREY;
+	color: $HIGHLIGHT_LIGHT_GREY;
 	font-size: $PX_14;
 }
 textarea:focus,
@@ -55,6 +55,11 @@ textarea {
 	border: $PX_1 solid $HIGHLIGHT_LIGHT_GREY;
 	border-radius: $BORDER_RADIUS_8;
 	margin-bottom: $PX_8;
+	transition: $TRANSITION_ALL;
+}
+.input:focus-within {
+	border: $PX_1 solid $LIME;
+	background-color: $DISABLED_GREY;
 }
 .input input {
 	color: $WHITE;

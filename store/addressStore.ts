@@ -1,9 +1,9 @@
 import { GetterTree } from "vuex";
 import { Web3State } from "./web3Store";
-import { chainData } from "~/constants/addresses";
+import { ADDRESS_CHAIN_DATA } from "~/constants/addresses";
 
 export const state = () => ({
-	addr: chainData,
+	addr: ADDRESS_CHAIN_DATA,
 });
 
 export type ContractState = ReturnType<typeof state>

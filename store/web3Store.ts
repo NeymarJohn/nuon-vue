@@ -1,12 +1,12 @@
 import { GetterTree, ActionTree, MutationTree } from "vuex";
 import Web3 from "web3";
 import WalletConnectProvider from "@walletconnect/web3-provider";
-import { chainData, networks, wallets } from "~/constants/web3";
+import { CHAIN_DATA, NETWORKS, WALLETS } from "~/constants/web3";
 
 declare let window: any;
 declare let ethereum: any;
 
-const [Metamask, Walletconnect] = wallets;
+const [Metamask, Walletconnect] = WALLETS;
 const WALLET_CONNECTED = "nuon_wallet_connected";
 const LAST_CHAIN_ID = "nuon_last_connected_chain";
 const WALLET_TYPE = "nuon_wallet_type";
@@ -22,13 +22,14 @@ type Web3StoreType = {
 	connectedWallet: any,
 	blockNumber: string | null
 }
+
 export const state = ():Web3StoreType => ({
 	instance: null,
 	balance: 0,
 	account: "",
 	error: null,
 	chainId: null,
-	chains: chainData,
+	chains: CHAIN_DATA,
 	connectedWallet: null,
 	blockNumber: null
 });
@@ -165,7 +166,7 @@ export const actions: ActionTree<Web3State, Web3State> = {
 			const chainId = Web3.utils.hexToNumber(await window.ethereum.request({ method: "eth_chainId" }));
 			const web3 = new Web3(Web3.givenProvider);
 			// check if network is valid
-			if(!networks.includes(chainId)){
+			if(!NETWORKS.includes(chainId)){
 				commit("modalStore/setModalInfo",{name: "alertModal", info: {title:"Wrong Network", message: "You are using a wrong network, please change to HYDRO.", cta: "switch-network"}}, {root: true});
 				commit("modalStore/setModalVisibility", {name: "alertModal", visibility: true}, {root:true});
 				return;
