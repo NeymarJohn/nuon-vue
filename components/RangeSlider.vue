@@ -4,7 +4,7 @@
 			<label for="rangeInput">Input your ratio here</label>
 			<div class="range-slider__addon">
 				<input id="rangeInput" v-model="selectedValue" type="number" :min="min" :max="max" :disabled="sliderDisabled" :class="selectedCollateralRatio < 300 ? selectedCollateralRatio < 200 ? 'u-is-warning' : 'u-is-caution' : 'u-is-success'"  />
-				<span :class="sliderDisabled ? 'is-disabled' : '' || selectedCollateralRatio < 300 ? selectedCollateralRatio < 200 ? 'u-is-warning' : 'u-is-caution' : 'u-is-success'">%</span>
+				<span :class="sliderDisabled ? 'is-disabled' : null || selectedCollateralRatio < 300 ? selectedCollateralRatio < 200 ? 'u-is-warning' : 'u-is-caution' : 'u-is-success'">%</span>
 			</div>
 		</div>
 		<div class="range-slider__wrapper">
