@@ -36,7 +36,7 @@
 				class="u-mt-24"
 				:title="`Click to ${action}`"
 				:disabled="submitDisabled"
-				@click="submit">{{action}}</TheButton>
+				@click="submit">{{action === 'Burn' ? 'Redeem' : 'Mint'}}</TheButton>
 		</LayoutFlex>
 	</div>
 </template>
