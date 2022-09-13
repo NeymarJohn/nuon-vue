@@ -14,8 +14,9 @@
 						<p class="u-mb-0 u-font-size-14">~ ${{ getDollarValue(inputValue, collateralPrice) | toFixed | numberWithCommas }}</p>
 					</LayoutFlex>
 				</MintAccordion>
-				<p v-if="isMoreThanBalance" class="u-is-warning">Insufficient balance</p>
-				<p v-if="isLTEMinimumDepositAmount" class="u-is-warning">Please deposit more than {{ minimumDepositAmount }}</p>
+				<p v-if="isMoreThanEqualMinimum && isLessThanEqualBalance" class="u-font-size-14 u-is-success u-mb-0">Ready To Mint</p>
+				<p v-if="isMoreThanBalance" class="u-font-size-14 u-is-warning u-mb-0">Insufficient Balance</p>
+				<p v-if="isLTEMinimumDepositAmount" class="u-font-size-14 u-is-warning u-mb-0">Please Deposit More Than {{ minimumDepositAmount }} {{ selectedCollateral }}</p>
 			</div>
 			<div class="swap__container u-mb-24">
 				<div class="swap__balance">
@@ -49,7 +50,7 @@
 			<LayoutFlex direction="row-justify-end">
 				<TheButton
 					title="Click to mint"
-					:disabled="inputValue <= 0"
+					:disabled="isMintDisabled"
 					@click="mint">
 					Mint
 				</TheButton>
@@ -135,11 +136,17 @@ export default {
 				},
 			];
 		},
-		disabledMint() {
+		isMintDisabled() {
 			return !parseFloat(this.inputValue) || this.isMoreThanBalance || !this.connectedAccount || this.isLTEMinimumDepositAmount;
 		},
+		isMoreThanEqualMinimum() {
+			return this.inputValue >= this.isLTEMinimumDepositAmount;
+		},
 		isMoreThanBalance() {
-			return  parseFloat(this.inputValue) > this.tokenBalance;
+			return parseFloat(this.inputValue) > this.tokenBalance;
+		},
+		isLessThanEqualBalance() {
+			return parseFloat(this.inputValue) <= this.tokenBalance;
 		},
 		tokenBalance() {
 			return this.$store.state.erc20Store.balance[this.selectedCollateral];
@@ -201,7 +208,7 @@ export default {
 			}
 		},
 		debouncedSliderChanged: debounce(function(e) {
-			this.sliderChanged(e); 
+			this.sliderChanged(e);
 		}, 500),
 		sliderChanged(e) {
 			this.selectedCollateralRatio = e;

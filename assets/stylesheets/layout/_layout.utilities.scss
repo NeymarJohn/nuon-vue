@@ -442,13 +442,8 @@
 }
 
 // 24. Font size
+.u-text-feedback,
 .u-font-size-14 {
 	font-size: $PX_14 !important;
 	line-height: $PX_20 !important;
-}
-@media screen and (max-width: $PX_1440) {
-	.u-font-size-h2-1440 {
-		font-size: $HEADING_TWO_990 !important;
-		line-height: $PX_32 !important;
-	}
 }
