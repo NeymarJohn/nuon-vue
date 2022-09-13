@@ -40,11 +40,14 @@
 			<p v-if="errors.date" class="u-is-warning">{{ errors.date }}</p>
 			<p class="u-mb-0">Voting will be closed 7 days after your chosen start date.</p>
 		</div>
-		<TheButton
-			type="submit"
-			size="md"
-			title="Click to publish proposal"
-			:disabled="!isConnectedWallet">Publish</TheButton>
+		<LayoutFlex direction="row-justify-end">
+			<TheButton
+				type="submit"
+				class="u-min-width-200"
+				size="md"
+				title="Click to publish proposal"
+				:disabled="!isConnectedWallet || !proposal.title || !proposal.startDate">Publish</TheButton>
+		</LayoutFlex>
 	</form>
 </template>
 

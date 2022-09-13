@@ -1,6 +1,6 @@
 <template>
 	<div class="input-manage-container">
-		<div class="swap__container u-mb-24">
+		<div class="swap__container">
 			<LayoutFlex direction="row-center-space-between swap__balance">
 				<label>{{ action }}</label>
 				<ComponentLoader component="label" :loaded="tokenBalances[selectedCollateral] !== '0'">
@@ -30,6 +30,7 @@
 		</div>
 		<LayoutFlex direction="row-justify-end">
 			<TheButton
+				class="u-mt-24 u-min-width-200"
 				:title="`Click to ${action}`"
 				:disabled="isSubmitDisabled"
 				@click="submit">{{action}}</TheButton>

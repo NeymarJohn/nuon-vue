@@ -9,7 +9,7 @@
 				<div class="input-token">
 					<BusdLogo v-if="action==='claim'" />
 					<NuMintLogo v-else/>
-					<h5 v-if="action==='claim'" >BUSD</h5>
+					<h5 v-if="action==='claim'">BUSD</h5>
 					<h5 v-else>nuMINT</h5>
 				</div>
 				<InputMax v-model="inputValue" :maximum="maximum" @click="inputMaxBalance" />
@@ -21,20 +21,14 @@
 		</div>
 		<ClaimWithdraw v-if="action==='withdraw'"/>
 		<TransactionSummary v-if="inputValue > 0" :values="summary" />
-		<!-- <TransactionSummary
-			v-if="inputValue > 0 && inputValue != maximum"
-			:values="partialSummary" /> -->
-		<TheButton
-			v-if="!isApproved"
-			size="md"
-			title="Click to stake"
-			@click="approveToken">Approve</TheButton>
-		<TheButton
-			v-else
-			size="md"
-			:disabled="isDisabled()"
-			title="Click to stake"
-			@click="submitTransaction"><span class="u-text-capitalize"> {{action}}</span></TheButton>
+		<LayoutFlex direction="row-justify-end">
+			<TheButton
+				class="u-min-width-200"
+				size="md"
+				title="Click to stake"
+				:disabled="isDisabled()"
+				@click="submitTransaction"><span class="u-text-capitalize"> {{action}}</span></TheButton>
+		</LayoutFlex>
 	</div>
 </template>
 
@@ -42,7 +36,6 @@
 import { fromWei } from "~/utils/bnTools";
 import BusdLogo from "@/assets/images/logo/logo-busd.svg";
 import NuMintLogo from "@/assets/images/logo/logo-numint.svg";
-import { nuMINT } from "~/constants/tokens";
 
 export default {
 	name: "InputStake",
@@ -91,25 +84,6 @@ export default {
 		totalReceived() {
 			return (this.inputValue + this.myRewards - this.feePrice) * this.tokenPrices.nuMINT;
 		},
-		partialSummary() {
-			return [
-				{
-					title: "Amount",
-					val: this.numberWithCommas(parseFloat(this.inputValue).toFixed(2)),
-					currency: "nuMINT",
-					dollar: this.numberWithCommas(this.getDollarValue(this.inputValue, this.tokenPrices.nuMINT).toFixed(2)),
-				},
-				{
-					title: "Fee",
-					val: `${this.claimFee}%`,
-					dollar: this.numberWithCommas(this.getDollarValue(this.feePrice, this.tokenPrices.nuMINT).toFixed(2))
-				},
-				{
-					title: "Total",
-					val: `$${this.numberWithCommas(this.totalReceived.toFixed(2))}`,
-				}
-			];
-		},
 		summary() {
 			return [
 				{
@@ -127,9 +101,6 @@ export default {
 					currency: "nuMINT",
 				}
 			];
-		},
-		isApproved() {
-			return this.$store.getters["boardroomStore/checkApprovedToken"](nuMINT.symbol);
 		},
 	},
 	mounted() {
@@ -187,21 +158,6 @@ export default {
 		},
 		inputMaxBalance() {
 			this.inputValue = this.maximum;
-		},
-		approveToken() {
-			this.activeStep = "approving";
-			this.$store.dispatch("boardroomStore/approveToken",
-				{
-					tokenSymbol: nuMINT.symbol,
-					onConfirm:  () => {
-						this.successToast(() => "You have confirmed approving token");
-					},
-					onReject: () => {
-					},
-					onCallback: () => {
-						this.successToast(() => "You have approved nuMINT for goven");
-					}
-				});
 		},
 	}
 };

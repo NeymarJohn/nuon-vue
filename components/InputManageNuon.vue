@@ -33,9 +33,9 @@
 		</div>
 		<LayoutFlex direction="row-justify-end">
 			<TheButton
-				class="u-mt-24"
+				class="u-mt-24 u-min-width-200"
 				:title="`Click to ${action}`"
-				:disabled="submitDisabled"
+				:disabled="isSubmitDisabled"
 				@click="submit">{{action === 'Burn' ? 'Redeem' : 'Mint'}}</TheButton>
 		</LayoutFlex>
 	</div>
@@ -74,7 +74,7 @@ export default {
 		};
 	},
 	computed: {
-		submitDisabled() {
+		isSubmitDisabled() {
 			if (!this.value || (this.action === "burn" && parseFloat(this.value) > this.userMintedAmount)) {
 				return true;
 			}
@@ -146,7 +146,7 @@ export default {
 			} catch (e) {
 				const mintLiquidationMsg = "This will liquidate you";
 				if (e.message.includes(mintLiquidationMsg)) {
-					this.submitDisabled = true;
+					this.isSubmitDisabled = true;
 					this.error = mintLiquidationMsg;
 				}
 			} finally {
