@@ -7,7 +7,13 @@
 					<label v-if="action === 'Deposit'">Balance:
 						<span>{{ tokenBalances[selectedCollateral] | formatLongNumber }}</span>
 					</label>
-					<label v-else-if="action === 'Withdraw'">Locked amount:
+					<label v-else-if="action === 'Withdraw'">Balance:
+						<span>{{ lockedAmount | formatLongNumber }}</span>
+					</label>
+					<label v-else-if="action === 'Add'">Balance:
+						<span>{{ lockedAmount | formatLongNumber }}</span>
+					</label>
+					<label v-else-if="action === 'Remove'">Balance:
 						<span>{{ lockedAmount | formatLongNumber }}</span>
 					</label>
 				</ComponentLoader>
@@ -48,10 +54,8 @@ export default {
 	},
 	data() {
 		return {
-			activeStep: 1,
 			depositInput: "",
 			inputModel: "",
-			isApproving: false,
 			error: "",
 			submitDisabled: true,
 			estimatedAmount: {0: 0, 1: 0, 2: 0, 3: 0},
@@ -92,9 +96,6 @@ export default {
 		isMoreThanBalance() {
 			return parseFloat(this.inputModel) > this.tokenBalance;
 		},
-		nuonBalance() {
-			return this.$store.state.erc20Store.balance.NUON;
-		},
 		collateralPrice() {
 			return this.tokenPrices[this.selectedCollateral];
 		},
@@ -112,7 +113,6 @@ export default {
 		},
 	},
 	methods: {
-
 		async getEstimatedAmounts() {
 			let method;
 			if (this.action === "Deposit") {
@@ -157,7 +157,6 @@ export default {
 		async submit() {
 			try {
 				this.error = "";
-				this.activeStep = "loading";
 				let methodName = "addLiquidityForUser";
 				if (this.action === "Deposit") {
 					methodName = "depositWithoutMint";
@@ -165,7 +164,7 @@ export default {
 					methodName = "redeemWithoutNuon";
 				} else if (this.action === "Remove Liquidity") {
 					methodName = "removeLiquidityForUser";
-				} 
+				}
 
 				const amount = toWei(this.inputModel, this.actionIsMintOrBurn ? 18 : this.decimals);
 
@@ -174,8 +173,6 @@ export default {
 				this.successToast(null, "Transaction Succeeded", resp.transactionHash);
 			} catch (e) {
 				this.failureToast(null, e, "Transaction Failed");
-			} finally {
-				this.activeStep = 2;
 			}
 		},
 		availableAmount() {
