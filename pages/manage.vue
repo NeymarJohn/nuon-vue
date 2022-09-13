@@ -14,10 +14,16 @@
 						<template #left>
 							<TheTabs margin="0" size="full">
 								<TheTab title="Mint">
-									<InputManageNuon action="Mint" :default-collateral="selectedCollateral" @changeCollateral="onChangeCollateral" />
+									<InputManageNuon
+										user-action="Spend"
+										action="Mint"
+										:default-collateral="selectedCollateral" @changeCollateral="onChangeCollateral" />
 								</TheTab>
 								<TheTab title="Redeem">
-									<InputManageNuon action="Redeem" :default-collateral="selectedCollateral" @changeCollateral="onChangeCollateral"/>
+									<InputManageNuon
+										user-action="Receive"
+										action="Burn"
+										:default-collateral="selectedCollateral" @changeCollateral="onChangeCollateral"/>
 								</TheTab>
 							</TheTabs>
 						</template>

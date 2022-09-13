@@ -1,33 +1,35 @@
 <template>
 	<div>
-		<div class="swap__container u-mb-10">
-			<SwapBalance
-				label="Spend"
-				:token="lockedCallateral" />
-			<MintAccordion
-				:disabled-tokens="[selectedCollateral, 'BTC', 'BUSD', 'AVAX']"
-				:default-token="defaultCollateral"
-				@selected-token="selectCollateral">
-				<InputMax v-model="value" :maximum="lockedCallateral" @click="inputMaxBalance" />
-				<LayoutFlex direction="row-justify-end">
-					<p class="u-mb-0 u-font-size-14">~ ${{getDollarValue(lockedCallateral,tokenPrices[selectedCollateral]) | toFixed | numberWithCommas}}</p>
-				</LayoutFlex>
-			</MintAccordion>
-		</div>
-		<div class="swap__container u-mb-10">
-			<div class="swap__balance">
-				<label>{{action}}</label>
+		<div :class="userAction === 'Receive' ? 'l-flex l-flex--column-reverse' : '' ">
+			<div class="swap__container" :class="action === 'Mint' ? 'u-mb-10' : null">
+				<SwapBalance
+					:label="userAction"
+					:token="lockedCallateral" />
+				<MintAccordion
+					:disabled-tokens="[selectedCollateral, 'BTC', 'BUSD', 'AVAX']"
+					:default-token="defaultCollateral"
+					@selected-token="selectCollateral">
+					<InputMax v-model="value" :maximum="lockedCallateral" @click="inputMaxBalance" />
+					<LayoutFlex direction="row-justify-end">
+						<p class="u-mb-0 u-font-size-14">~ ${{getDollarValue(lockedCallateral,tokenPrices[selectedCollateral]) | toFixed | numberWithCommas}}</p>
+					</LayoutFlex>
+				</MintAccordion>
 			</div>
-			<div class="input-wrapper">
-				<div class="input-token">
-					<NuonLogo />
-					<h5>NUON</h5>
+			<div class="swap__container" :class="userAction === 'Receive' ? 'u-mb-10' : null">
+				<SwapBalance
+					:label="action"
+					:token="lockedCallateral" />
+				<div class="input-wrapper">
+					<div class="input-token">
+						<NuonLogo />
+						<h5>NUON</h5>
+					</div>
+					<InputMax v-model="value" :maximum="availableAmount()" @click="inputMaxBalance" />
 				</div>
-				<InputMax v-model="value" :maximum="availableAmount()" @click="inputMaxBalance" />
+				<LayoutFlex direction="row-justify-end">
+					<p class="u-mb-0 u-font-size-14 u-color-light-grey">~ ${{0 | toFixed | numberWithCommas}}</p>
+				</LayoutFlex>
 			</div>
-			<LayoutFlex direction="row-justify-end">
-				<p class="u-mb-0 u-font-size-14 u-color-light-grey">~ ${{0 | toFixed | numberWithCommas}}</p>
-			</LayoutFlex>
 		</div>
 		<LayoutFlex direction="row-justify-end">
 			<TheButton
@@ -52,6 +54,10 @@ export default {
 			type: String,
 			required: true
 		},
+		userAction: {
+			type: String,
+			required: true
+		},
 		defaultCollateral: {
 			type: String,
 			required: true
@@ -59,10 +65,8 @@ export default {
 	},
 	data() {
 		return {
-			activeStep: 1,
 			depositInput: "",
 			value: "",
-			isApproving: false,
 			error: "",
 			estimatedAmount: {0: 0, 1: 0, 2: 0, 3: 0},
 			shareAmount: "",
@@ -76,15 +80,12 @@ export default {
 			}
 			return false;
 		},
-		nuonAllowance() {
-			return !!parseFloat(this.$store.state.collateralVaultStore.allowance.NUON);
-		},
 		summary() {
 			const summary = [{title: "New Collateral Ratio", val: `${parseFloat(this.estimatedAmount[0]).toFixed(0)}%`}];
 			if (this.action === "Deposit") {
 				 // this.estimatedAmount = user cratio after deposit, collateral user will receive after deposit, user collateral amount after deposit
 				summary.push({title: "New Collateral Amount", val: this.estimatedAmount[2]});
-			} else if (this.action === "Redeem") {
+			} else if (this.action === "Burn") {
 				// this.estimatedAmount = user cratio after burn, burned nuons, total amount of nuon left after burn
 				summary.push({title: "New NUON Amount", val: this.estimatedAmount[2]});
 			} else if (this.action === "Mint") {
@@ -128,7 +129,7 @@ export default {
 	methods: {
 		async getEstimatedAmounts() {
 			let method;
-			if (this.action === "Redeem") {
+			if (this.action === "Burn") {
 				method = "burnNUONEstimation";
 			} else if (this.action === "Mint") {
 				method = "mintWithoutDepositEstimation";
@@ -163,9 +164,8 @@ export default {
 		submit() {
 			try {
 				this.error = "";
-				this.activeStep = "loading";
 				let methodName = "";
-				if (this.action === "Redeem") {
+				if (this.action === "Burn") {
 					methodName = "burnNUON";
 				} else if (this.action === "Mint") {
 					methodName = "mintWithoutDeposit";
@@ -185,8 +185,6 @@ export default {
 				});
 			} catch (e) {
 				this.failureToast(null, e, "Transaction Failed");
-			} finally {
-				this.activeStep = 2;
 			}
 		},
 		availableAmount() {
