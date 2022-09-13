@@ -107,6 +107,15 @@
 .transaction-table--history .transaction-table__cell:nth-child(4) {
 	width: 20%;
 }
+.transaction-table--history .transaction-table__cell--marked {
+	background-color: $MEDIUM_GREY;
+	padding: $PX_4 $PX_8;
+	border-radius: $BORDER_RADIUS_4;
+	margin-right: $PX_8;
+}
+.transaction-table--history .transaction-table__cell--marked:last-child {
+	margin-left: $PX_8;
+}
 
 // 4. Transaction table responsive
 @media screen and (max-width: $PX_1440) {

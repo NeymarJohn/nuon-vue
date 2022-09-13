@@ -33,22 +33,22 @@
 					<template v-else-if="obj.id === 'transactionType'">
 						<template v-if="tableData === 'collateral'">
 							<template v-if="row[obj.id] === 'Deposit'">
-								<span  class="transaction-table__cell_marked">{{row[obj.id]}}</span>
+								<span  class="transaction-table__cell--marked">{{row[obj.id]}}</span>
 								<span>{{` ${row.depositToken.symbol}`}}</span>
-								<span  class="transaction-table__cell_marked">Without Nuon</span>
+								<span  class="transaction-table__cell--marked">Without Nuon</span>
 							</template>
 							<template v-else-if="row[obj.id] === 'Burned'">
-								<span  class="transaction-table__cell_marked">{{row[obj.id]}}</span>
+								<span  class="transaction-table__cell--marked">{{row[obj.id]}}</span>
 								<span>Nuon</span>
 							</template>
 							<template v-else-if="row[obj.id] === 'Mint' && !Number(row.input) ">
-								<span  class="transaction-table__cell_marked">{{row[obj.id]}}</span>
+								<span  class="transaction-table__cell--marked">{{row[obj.id]}}</span>
 								<span>Nuon</span>
-								<span  class="transaction-table__cell_marked">Without Deposit</span>
+								<span  class="transaction-table__cell--marked">Without Depositing</span>
 							</template>
 							<template v-else>
-								<span  class="transaction-table__cell_marked">{{row[obj.id]}}</span> Nuon
-								<span  class="transaction-table__cell_marked">By {{row[obj.id] === 'Mint' ? 'Deposit' : 'Withdraw'}}</span>
+								<span  class="transaction-table__cell--marked">{{row[obj.id]}}</span> Nuon
+								<span  class="transaction-table__cell--marked">By {{row[obj.id] === 'Minting' ? 'Depositing' : 'Withdrawing'}}</span>
 								<span>{{` ${row.depositToken.symbol}`}}</span>
 							</template>
 						</template>
