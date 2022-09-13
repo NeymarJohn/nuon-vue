@@ -29,6 +29,8 @@
 				<LayoutFlex direction="row-justify-end">
 					<p class="u-mb-0 u-font-size-14 u-color-light-grey">~ ${{0 | toFixed | numberWithCommas}}</p>
 				</LayoutFlex>
+				<p v-if="isMoreThanEqualMinimumAndLessThanBalance" class="u-font-size-14 u-is-success u-mb-0">Ready To {{ action }}</p>
+				<p v-if="isMoreThanBalance" class="u-font-size-14 u-is-warning u-mb-0">Insufficient Balance</p>
 			</div>
 		</div>
 		<LayoutFlex direction="row-justify-end">
@@ -79,6 +81,9 @@ export default {
 				return true;
 			}
 			return false;
+		},
+		isMoreThanEqualMinimumAndLessThanBalance() {
+			return parseFloat(this.value) > 0 && parseFloat(this.value) <= this.tokenBalance;
 		},
 		summary() {
 			const summary = [{title: "New Collateral Ratio", val: `${parseFloat(this.estimatedAmount[0]).toFixed(0)}%`}];

@@ -27,6 +27,8 @@
 					<p class="u-mb-0 u-font-size-14">~ ${{ getDollarValue(inputModel, collateralPrice) | toFixed | numberWithCommas }}</p>
 				</LayoutFlex>
 			</MintAccordion>
+			<p v-if="isMoreThanEqualMinimumAndLessThanBalance" class="u-font-size-14 u-is-success u-mb-0">Ready To {{ action }}</p>
+			<p v-if="isMoreThanBalance" class="u-font-size-14 u-is-warning u-mb-0">Insufficient Balance</p>
 		</div>
 		<LayoutFlex direction="row-justify-end">
 			<TheButton
@@ -96,6 +98,9 @@ export default {
 		},
 		isMoreThanBalance() {
 			return parseFloat(this.inputModel) > this.tokenBalance;
+		},
+		isMoreThanEqualMinimumAndLessThanBalance() {
+			return parseFloat(this.inputModel) > 0 && parseFloat(this.inputModel) <= this.tokenBalance;
 		},
 		collateralPrice() {
 			return this.tokenPrices[this.selectedCollateral];
