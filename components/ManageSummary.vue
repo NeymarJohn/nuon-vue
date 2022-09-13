@@ -8,7 +8,7 @@
 		<LayoutFlex border="row">
 			<CurrencyCard label="Liquidation Price" :value="liquidationPrice" symbol="$" />
 			<CurrencyCard label="Liquidation Ratio" :value="globalRatio" currency="%" />
-			<CurrencyCard label="Liquidity Position" :value="liquidationPosition" currency="%" />
+			<CurrencyCard label="Liquidity Position" :value="getDollarValue(lpAmountOfUser, tokenPrices[collateral])" symbol="$" />
 		</LayoutFlex>
 	</LayoutFlex>
 </template>
@@ -48,6 +48,9 @@ export default {
 		},
 		liquidationPosition() {
 			return this.$store.state.collateralVaultStore.collateralRatio[this.collateral];
+		},
+		lpAmountOfUser() {
+			return this.$store.state.collateralVaultStore.lpValueOfUser[this.collateral];
 		}
 	},
 };
