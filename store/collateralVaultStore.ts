@@ -362,6 +362,21 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 				if (onReject) onReject(err);
 			});
 	},
+	async callManageMethods(ctx: any, {collateral, method, amount, onTxHash, onConfirm, onReject}) {
+		const chubContract = ctx.getters.getCollateralHubContract(collateral);
+		const accountAddress = ctx.rootState.web3Store.account;
+		return await chubContract.methods[method].apply(null, [amount])
+			.send({from: accountAddress})
+			.on("transactionHash", (txHash: string) => {
+				if (onTxHash) onTxHash(txHash);
+			})
+			.on("confirmation", (confNumber: any, _receipt: any, _latestBlockHash: any) => {
+				if (onConfirm && confNumber === 0) onConfirm(confNumber, _receipt, _latestBlockHash);
+			})
+			.on("error", (err: any) => {
+				if (onReject) onReject(err);
+			});
+	},
 };
 
 export const getters: GetterTree<BoardroomState, Web3State> = {
@@ -482,20 +497,17 @@ export const getters: GetterTree<BoardroomState, Web3State> = {
 	getCollateralUsed: (_state: any, getters: any) => async () => {
 		return await getters.collateralHubContract.methods.collateralUsed().call();
 	},
-	depositWithoutMint: (_state: any, getters: any) => async (collateralAmount: number, userAddress: string) => {
-		return await getters.collateralHubContract.methods.depositWithoutMint(collateralAmount).send({from: userAddress});
-	},
-	redeemWithoutNuon: (_state: any, getters: any) => async (collateralAmount: number, userAddress: string) => {
-		return await getters.collateralHubContract.methods.redeemWithoutNuon(collateralAmount).send({from: userAddress});
-	},
-	depositWithoutMintEstimation: (_state: any, getters: any) => async (collateralAmount: number, userAddress: string) => {
-		return await getters.collateralHubContract.methods._depositWithoutMintEstimation(collateralAmount, userAddress).call();
+
+	depositWithoutMintEstimation: (_state: any, getters: any) => async (token:string, collateralAmount: number, userAddress: string) => {
+		const collateralHubContract = getters.getCollateralHubContract(token);
+		return await collateralHubContract.methods._depositWithoutMintEstimation(collateralAmount, userAddress).call();
 	},
 	mintWithoutDepositEstimation: (_state: any, getters: any) => async (collateralAmount: number, userAddress: string) => {
 		return await getters.collateralHubContract.methods._mintWithoutDepositEstimation(collateralAmount, userAddress).call();
 	},
-	redeemWithoutNuonEstimation: (_state: any, getters: any) => async (collateralAmount: number, userAddress: string) => {
-		return await getters.collateralHubContract.methods._redeemWithoutNuonEstimation(collateralAmount, userAddress).call();
+	redeemWithoutNuonEstimation: (_state: any, getters: any) => async (token: string, collateralAmount: number, userAddress: string) => {
+		const collateralHubContract = getters.getCollateralHubContract(token);
+		return await collateralHubContract.methods._redeemWithoutNuonEstimation(collateralAmount, userAddress).call();
 	},
 	burnNUONEstimation: (_state: any, getters: any) => async (nuonAmount: number, userAddress: string) => {
 		return await getters.collateralHubContract.methods._burnNUONEstimation(nuonAmount, userAddress).call();
@@ -512,12 +524,7 @@ export const getters: GetterTree<BoardroomState, Web3State> = {
 	getUserLiquidityCoverage: (_state: any, getters: any) => async (extraAmount: number, userAddress: string) => { // a percentage that gives the user liq coverage, need to be compared with liquidityCheck
 		return await getters.collateralHubContract.methods.getUserLiquidityCoverage(userAddress, extraAmount).call();
 	},
-	addLiquidityForUser: (_state: any, getters: any) => async (collateralAmount: number, userAddress: string) => {
-		return await getters.collateralHubContract.methods.addLiquidityForUser(collateralAmount).send({from: userAddress});
-	},
-	removeLiquidityForUser: (_state: any, getters: any) => async (collateralAmount: number, userAddress: string) => {
-		return await getters.collateralHubContract.methods.removeLiquidityForUser(collateralAmount).send({from: userAddress});
-	},
+
 	viewUserVaultSharesAmount: (_state: any, getters: any) => async (userAddress: string) => {
 		return await getters.collateralHubContract.methods.viewUserVaultSharesAmount(userAddress).call();
 	},

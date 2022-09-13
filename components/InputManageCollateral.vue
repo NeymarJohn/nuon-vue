@@ -22,7 +22,7 @@
 				:disabled-tokens="[selectedCollateral, 'BTC', 'BUSD', 'AVAX']"
 				:default-token="selectedCollateral"
 				@selected-token="selectCollateral">
-				<InputMax v-model="inputModel" :maximum="availableAmount()"/>
+				<InputMax v-model="inputModel" :maximum="availableAmount()" @input="inputChanged"/>
 				<LayoutFlex direction="row-justify-end">
 					<p class="u-mb-0 u-font-size-14">~ ${{ getDollarValue(inputModel, collateralPrice) | toFixed | numberWithCommas }}</p>
 				</LayoutFlex>
@@ -30,6 +30,7 @@
 			<p v-if="isMoreThanEqualMinimumAndLessThanBalance" class="u-font-size-14 u-is-success u-mb-0">Ready To {{ action }}</p>
 			<p v-if="isMoreThanBalance" class="u-font-size-14 u-is-warning u-mb-0">Insufficient Balance</p>
 		</div>
+		<TransactionSummary v-if="inputModel > 0" class="u-mt-24" :values="summary" />
 		<LayoutFlex direction="row-justify-end">
 			<TheButton
 				class="u-mt-24 u-min-width-200"
@@ -71,20 +72,16 @@ export default {
 			return !!parseFloat(this.$store.state.collateralVaultStore.allowance.NUON);
 		},
 		summary() {
-			const summary = [{title: "New Collateral Ratio", val: `${parseFloat(this.estimatedAmount[0]).toFixed(0)}%`}];
+			const summary = [{title: "New Collateral Ratio", val: this.estimatedAmount[0], currency: "%"}];
 			if (this.action === "Deposit") {
-				summary.push({title: "New Collateral Amount", val: this.estimatedAmount[2]});
-			} else if (this.action === "Burn") {
-				summary.push({title: "New NUON Amount", val: this.estimatedAmount[2]});
-			} else if (this.action === "Mint") {
-				summary.push({title: "NUON Minted Amount", val: this.estimatedAmount[1]});
-				summary.push({title: `Extra ${this.selectedCollateral} Required`, val: this.estimatedAmount[3]});
-				summary.push({title: "New NUON Balance", val: this.estimatedAmount[2]});
+				 // this.estimatedAmount = user cratio after deposit, collateral user will receive after deposit, user collateral amount after deposit
+				summary.push({title: "New Collateral Amount", val: this.estimatedAmount[2] / this.tokenPrices[this.selectedCollateral], currency: this.selectedCollateral});
 			} else {
-				summary.push({title: "New Collateral Amount", val: this.estimatedAmount[2]});
+				// this.estimatedAmount = user cratio after redeem, amount redeemed , collaterals left after redeem
+				summary.push({title: "New Collateral Amount", val: this.estimatedAmount[2],currency: this.selectedCollateral});
 			}
 			const lastIdx = summary.length - 1;
-			summary[lastIdx].val = `${parseFloat(summary[lastIdx].val).toFixed(2)} ${this.actionIsMintOrBurn ? "NUON" : this.selectedCollateral}`;
+			summary[lastIdx].val = `${parseFloat(summary[lastIdx].val).toFixed(2)} ${this.actionIsMintOrBurn ? "NUON" : this.currentlySelectedCollateral}`;
 			return summary;
 		},
 		decimals() {
@@ -120,23 +117,14 @@ export default {
 			let method;
 			if (this.action === "Deposit") {
 				method = "depositWithoutMintEstimation";
-			} else if (this.action === "Burn") {
-				method = "burnNUONEstimation";
-			} else if (this.action === "Mint") {
-				method = "mintWithoutDepositEstimation";
 			} else {
 				method = "redeemWithoutNuonEstimation";
 			}
 
-			const amount = toWei(this.inputModel, this.actionIsMintOrBurn ? 18 : this.decimals);
-
+			const amount = toWei(this.inputModel, this.decimals);
 			let resp = {0: 0, 1: 0, 2: 0};
-			let resp2 = {1: 0};
 			try {
-				resp = await this.$store.getters[`collateralVaultStore/${method}`](amount, this.connectedAccount);
-				if (this.action === "Mint") {
-					resp2 = await this.$store.getters["collateralVaultStore/mintLiquidityHelper"](resp[1]);
-				}
+				resp = await this.$store.getters[`collateralVaultStore/${method}`](this.selectedCollateral, amount, this.connectedAccount);
 			} catch (e) {
 				const mintLiquidationMsg = "This will liquidate you";
 				if (e.message.includes(mintLiquidationMsg)) {
@@ -145,11 +133,8 @@ export default {
 				}
 			} finally {
 				this.$set(this.estimatedAmount, 0, fromWei(resp[0]));
-				this.$set(this.estimatedAmount, 1, fromWei(resp[1], this.actionIsMintOrBurn ? 18 : this.decimals));
+				this.$set(this.estimatedAmount, 1, fromWei(resp[1], this.decimals));
 				this.$set(this.estimatedAmount, 2, fromWei(resp[2]));
-				if (this.action === "Mint") {
-					this.$set(this.estimatedAmount, 3, parseFloat(fromWei(resp2[0], this.decimals)).toFixed(2));
-				}
 			}
 		},
 		inputChanged() {
@@ -157,7 +142,7 @@ export default {
 			this.submitDisabled = false;
 			if (!this.action.includes("Liquidity")) this.getEstimatedAmounts();
 		},
-		async submit() {
+		submit() {
 			try {
 				this.error = "";
 				let methodName = "addLiquidityForUser";
@@ -171,9 +156,19 @@ export default {
 
 				const amount = toWei(this.inputModel, this.actionIsMintOrBurn ? 18 : this.decimals);
 
-				const resp = await this.$store.getters[`collateralVaultStore/${methodName}`](amount, this.connectedAccount);
-				this.$store.dispatch("collateralVaultStore/updateStatus");
-				this.successToast(null, "Transaction Succeeded", resp.transactionHash);
+				this.$store.dispatch("collateralVaultStore/callManageMethods", {
+					collateral: this.selectedCollateral,
+					method: methodName,
+					amount,
+					onConfirm: (_confNumber, receipt, _latestBlockHash) => {
+						this.successToast(null, "Transaction Succeeded", receipt.transactionHash);
+						this.$store.dispatch("collateralVaultStore/updateStatus");
+						this.$store.dispatch("erc20Store/initializeBalance", {address: this.connectedAccount});
+					},
+					onReject: (err) => {
+						this.failureToast(null, err, "Transaction failed");
+					}
+				});
 			} catch (e) {
 				this.failureToast(null, e, "Transaction Failed");
 			}
@@ -187,6 +182,7 @@ export default {
 		},
 		selectCollateral(token) {
 			this.selectedCollateral = token.symbol;
+			this.getEstimatedAmounts();
 		},
 	}
 };
