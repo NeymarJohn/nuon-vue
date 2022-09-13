@@ -1,15 +1,17 @@
 <template>
 	<div>
 		<div class="swap__container u-mb-10">
-			<div class="swap__balance">
-				<label>Select Collateral</label>
-			</div>
+			<SwapBalance
+				label="Spend"
+				:token="lockedCallateral" />
 			<MintAccordion
 				:disabled-tokens="[selectedCollateral, 'BTC', 'BUSD', 'AVAX']"
 				:default-token="defaultCollateral"
 				@selected-token="selectCollateral">
-				<h3>{{lockedCallateral | toFixed | numberWithCommas}}<sup>{{selectedCollateral}}</sup></h3>
-				<p class="u-mb-0 u-font-size-14">~ ${{getDollarValue(lockedCallateral,tokenPrices[selectedCollateral]) | toFixed | numberWithCommas}}</p>
+				<InputMax v-model="value" :maximum="lockedCallateral" @click="inputMaxBalance" />
+				<LayoutFlex direction="row-justify-end">
+					<p class="u-mb-0 u-font-size-14">~ ${{getDollarValue(lockedCallateral,tokenPrices[selectedCollateral]) | toFixed | numberWithCommas}}</p>
+				</LayoutFlex>
 			</MintAccordion>
 		</div>
 		<div class="swap__container u-mb-10">
@@ -23,6 +25,9 @@
 				</div>
 				<InputMax v-model="value" :maximum="availableAmount()" @click="inputMaxBalance" />
 			</div>
+			<LayoutFlex direction="row-justify-end">
+				<p class="u-mb-0 u-font-size-14 u-color-light-grey">~ ${{0 | toFixed | numberWithCommas}}</p>
+			</LayoutFlex>
 		</div>
 		<LayoutFlex direction="row-justify-end">
 			<TheButton
@@ -154,19 +159,6 @@ export default {
 		},
 		inputMaxBalance() {
 			
-		},
-		approveNUON() {
-			this.isApproving = true;
-			this.$store.dispatch("collateralVaultStore/approveToken",
-				{
-					tokenSymbol: "NUON",
-					onConfirm: () => { },
-					onReject: () => { },
-					onCallback: () => {
-						this.isApproving = false;
-					}
-				}
-			);
 		},
 		submit() {
 			try {
