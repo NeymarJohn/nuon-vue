@@ -106,7 +106,10 @@ export default {
 			return this.$store.state.collateralVaultStore.lockedAmount[this.selectedCollateral];
 		},
 		isSubmitDisabled() {
-			if (!parseFloat(this.inputModel || !this.connectedAccount || this.isMoreThanBalance)) {
+			if (!parseFloat(this.inputModel || !this.connectedAccount)) {
+				return true;
+			}
+			if (this.isMoreThanBalance) {
 				return true;
 			}
 			return false;
