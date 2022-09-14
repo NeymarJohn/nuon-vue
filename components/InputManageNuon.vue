@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<div :class="userAction === 'Receive' ? 'l-flex l-flex--column-reverse' : '' ">
+		<div :class="action === 'Burn' ? 'l-flex l-flex--column-reverse u-mb-24' : 'u-mb-24' ">
 			<div class="swap__container" :class="action === 'Mint' ? 'u-mb-10' : null">
 				<SwapBalance
 					label="Spend"
@@ -10,15 +10,19 @@
 					:disabled-tokens="['BTC', 'BUSD', 'AVAX']"
 					:default-token="defaultCollateral"
 					@selected-token="selectCollateral">
-					<InputMax v-model="spendValue" :maximum="lockedCallateral" @input="handleChangeCollateral"/>
-					<LayoutFlex direction="row-justify-end">
-						<p class="u-mb-0 u-font-size-14">~ ${{getDollarValue(spendValue,tokenPrices[selectedCollateral]) | toFixed | numberWithCommas}}</p>
-					</LayoutFlex>
+					<template #input>
+						<InputMax v-model="spendValue" :maximum="lockedCallateral" auto-focus @input="handleChangeCollateral" />
+					</template>
+					<template #messages>
+						<LayoutFlex direction="row-justify-end">
+							<p class="u-mb-0 u-font-size-14 u-color-light-grey">~ ${{getDollarValue(spendValue,tokenPrices[selectedCollateral]) | toFixed | numberWithCommas}}</p>
+						</LayoutFlex>
+					</template>
 				</MintAccordion>
 			</div>
-			<div class="swap__container" :class="userAction === 'Receive' ? 'u-mb-10' : null">
+			<div class="swap__container" :class="action === 'Burn' ? 'u-mb-10' : null">
 				<SwapBalance
-					label="Mint"
+					:label="action"
 					:token="lockedCallateral"
 					:balance="userMintedAmount" />
 				<div class="input-wrapper">
@@ -26,22 +30,24 @@
 						<NuonLogo />
 						<h5>NUON</h5>
 					</div>
-					<InputMax  v-model="mintValue" :maximum="availableAmount()" :hidden-max-button="action==='Mint'" @input="inputChanged"/>
+					<InputMax  v-model="mintValue" :maximum="userMintedAmount" :hidden-max-button="action==='Mint'" @input="inputChanged"/>
 				</div>
-				<LayoutFlex direction="row-justify-end">
-					<p class="u-mb-0 u-font-size-14 u-color-light-grey">~ ${{getDollarValue(mintValue, tokenPrices.NUON) | toFixed | numberWithCommas}}</p>
+				<LayoutFlex direction="row-center-space-between">
+					<div>
+						<p v-if="isMoreThanEqualMinimumAndLessThanBalance" class="u-font-size-14 u-is-success u-mb-0">Ready To {{ action }}</p>
+						<p v-if="isMoreThanBalance" class="u-font-size-14 u-is-warning u-mb-0">Insufficient Balance</p>
+					</div>
+					<p class="u-mb-0 u-font-size-14 u-color-light-grey">~ ${{getDollarValue(mintValue,tokenPrices.NUON) | toFixed | numberWithCommas}}</p>
 				</LayoutFlex>
-				<p v-if="isMoreThanEqualMinimumAndLessThanBalance" class="u-font-size-14 u-is-success u-mb-0">Ready To {{ action }}</p>
-				<p v-if="isMoreThanBalance" class="u-font-size-14 u-is-warning u-mb-0">Insufficient Balance</p>
 			</div>
 		</div>
 		<TransactionSummary v-if="mintValue > 0" class="u-mt-24" :values="summary" />
 		<LayoutFlex direction="row-justify-end">
 			<TheButton
-				class="u-mt-24 u-min-width-200"
+				class="u-min-width-200"
 				:title="`Click to ${action}`"
 				:disabled="isSubmitDisabled"
-				@click="submit">{{action === 'Burn' ? 'Redeem' : 'Mint'}}</TheButton>
+				@click="submit">{{action}}</TheButton>
 		</LayoutFlex>
 	</div>
 </template>
@@ -209,7 +215,6 @@ export default {
 		},
 		handleChangeCollateral () {
 			this.mintValue = (this.spendValue * this.tokenPrices[this.selectedCollateral] / this.tokenPrices.NUON).toFixed(4);
-			this.inputChanged();
 		}
 	},
 };

@@ -38,6 +38,10 @@ export default {
 		hiddenMaxButton: {
 			type: Boolean,
 			default: false
+		},
+		autoFocus: {
+			type: Boolean,
+			default: false
 		}
 	},
 	data() {
@@ -51,12 +55,14 @@ export default {
 		}
 	},
 	mounted () {
-		this.$nextTick(() => this.$refs.inputFocus.focus());
+		if (this.autoFocus) {
+			this.$nextTick(() => this.$refs.inputFocus.focus());
+		}
 	},
 	methods: {
 		clicked ($event) {
 			if (this.maximum) {
-				this.content = this.maximum;
+				this.content = Number(this.maximum).toFixed(2);
 				this.$emit("input", this.content);
 			}
 			this.$emit("click", $event);
