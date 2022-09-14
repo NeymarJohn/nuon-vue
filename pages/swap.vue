@@ -14,7 +14,8 @@
 				<div class="swap__container">
 					<SwapBalance
 						label="Spend"
-						:token="input.token" />
+						:token="input.token"
+						:balance="tokenBalances[input.token]" />
 					<SwapAccordion
 						:disabled-tokens="[output.token]"
 						:default-token="input.token"

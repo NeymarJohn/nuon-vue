@@ -46,15 +46,14 @@ import { fromWei, toWei } from "~/utils/bnTools";
 export default {
 	name: "InputManageCollateral",
 	props: {
-		minimumDepositAmount: {
-			type: Number,
-			required: true,
-			default: 0
-		},
 		action: {
 			type: String,
 			required: true
 		},
+		currentTab: {
+			type: String,
+			required: true
+		}
 	},
 	data() {
 		return {
@@ -74,7 +73,6 @@ export default {
 		summary() {
 			const summary = [{title: "New Collateral Ratio", val: this.estimatedAmount[0], currency: "%"}];
 			if (this.action === "Deposit") {
-				 // this.estimatedAmount = user cratio after deposit, collateral user will receive after deposit, user collateral amount after deposit
 				summary.push({title: "New Collateral Amount", val: this.estimatedAmount[2] / this.tokenPrices[this.selectedCollateral], currency: this.selectedCollateral});
 			} else {
 				// this.estimatedAmount = user cratio after redeem, amount redeemed , collaterals left after redeem

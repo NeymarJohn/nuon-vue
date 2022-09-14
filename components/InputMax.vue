@@ -14,6 +14,7 @@
 				:value="content"
 				@input="handleInput" />
 			<TheButton
+				v-if="!hiddenMaxButton"
 				:disabled="isMaxInputDisabled(maximum)"
 				size="sm"
 				title="Click to input your max balance"
@@ -33,6 +34,10 @@ export default {
 		value: {
 			type: [String, Number],
 			default: ""
+		},
+		hiddenMaxButton: {
+			type: Boolean,
+			default: false
 		}
 	},
 	data() {
