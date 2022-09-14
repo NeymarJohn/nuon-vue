@@ -7,7 +7,7 @@
 					:token="selectedCollateral" 
 					:balance="lockedCallateral"/>
 				<MintAccordion
-					:disabled-tokens="[selectedCollateral, 'BTC', 'BUSD', 'AVAX']"
+					:disabled-tokens="['BTC', 'BUSD', 'AVAX']"
 					:default-token="defaultCollateral"
 					@selected-token="selectCollateral">
 					<InputMax v-model="spendValue" :maximum="lockedCallateral" @input="handleChangeCollateral"/>
@@ -125,9 +125,6 @@ export default {
 		userMintedAmount() {
 			return this.$store.state.collateralVaultStore.mintedAmount[this.selectedCollateral];
 		}
-	},
-	mounted () {
-		this.selectedCollateral = this.defaultCollateral;
 	},
 	methods: {
 		async getEstimatedAmounts() {

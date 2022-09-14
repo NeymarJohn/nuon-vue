@@ -20,7 +20,7 @@
 			</LayoutFlex>
 			<MintAccordion
 				:disabled-tokens="[selectedCollateral, 'BTC', 'BUSD', 'AVAX']"
-				:default-token="selectedCollateral"
+				:default-token="defaultCollateral"
 				@selected-token="selectCollateral">
 				<InputMax v-model="inputModel" :maximum="availableAmount()" @input="inputChanged"/>
 				<LayoutFlex direction="row-justify-end">
@@ -51,6 +51,10 @@ export default {
 			required: true
 		},
 		currentTab: {
+			type: String,
+			required: true
+		},
+		defaultCollateral: {
 			type: String,
 			required: true
 		}
@@ -109,6 +113,9 @@ export default {
 			}
 			return false;
 		},
+	},
+	beforeMount () {
+		this.selectedCollateral = this.defaultCollateral;
 	},
 	methods: {
 		async getEstimatedAmounts() {
@@ -181,7 +188,8 @@ export default {
 		selectCollateral(token) {
 			this.selectedCollateral = token.symbol;
 			this.getEstimatedAmounts();
+			this.$emit("changeCollateral", token);
 		},
-	}
+	},
 };
 </script>

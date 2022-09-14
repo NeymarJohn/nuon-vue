@@ -107,10 +107,12 @@ export default {
 			}
 		}
 	},
-	mounted() {
+	beforeMount( ) {
 		if (this.defaultToken) {
 			this.setSelectedToken(this.defaultToken);
 		}
+	},
+	mounted() {
 		this.$store.commit("rootStore/setIsLoaded", true);
 		window.addEventListener("click", (e) => {
 			if (!this.$el.contains(e.target)){
@@ -134,6 +136,7 @@ export default {
 			this.selected = {...defaultToken};
 		},
 		isDisabled(token) {
+			if (token === this.selected.symbol) return true;
 			return this.disabledTokens.includes(token);
 		}
 	},
