@@ -22,13 +22,19 @@
 				:disabled-tokens="[selectedCollateral, 'BTC', 'BUSD', 'AVAX']"
 				:default-token="selectedCollateral"
 				@selected-token="selectCollateral">
-				<InputMax v-model="inputModel" :maximum="availableAmount()" @input="inputChanged"/>
-				<LayoutFlex direction="row-justify-end">
-					<p class="u-mb-0 u-font-size-14">~ ${{ getDollarValue(inputModel, collateralPrice) | toFixed | numberWithCommas }}</p>
-				</LayoutFlex>
+				<template #input>
+					<InputMax v-model="inputModel" :maximum="availableAmount()" @input="inputChanged"/>
+				</template>
+				<template #messages>
+					<LayoutFlex direction="row-center-space-between">
+						<div>
+							<p v-if="isMoreThanEqualMinimumAndLessThanBalance" class="u-font-size-14 u-is-success u-mb-0">Ready To {{ action }}</p>
+							<p v-if="isMoreThanBalance" class="u-font-size-14 u-is-warning u-mb-0">Insufficient Balance</p>
+						</div>
+						<p class="u-mb-0 u-font-size-14 u-color-light-grey">~ ${{ getDollarValue(inputModel, collateralPrice) | toFixed | numberWithCommas }}</p>
+					</LayoutFlex>
+				</template>
 			</MintAccordion>
-			<p v-if="isMoreThanEqualMinimumAndLessThanBalance" class="u-font-size-14 u-is-success u-mb-0">Ready To {{ action }}</p>
-			<p v-if="isMoreThanBalance" class="u-font-size-14 u-is-warning u-mb-0">Insufficient Balance</p>
 		</div>
 		<TransactionSummary v-if="inputModel > 0 && !isMoreThanBalance" class="u-mt-24" :values="summary" />
 		<LayoutFlex direction="row-justify-end">
