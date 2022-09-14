@@ -206,7 +206,7 @@ export default {
 		},
 		inputChanged() {
 			this.error = "";
-			this.spendValue = (this.mintValue * this.tokenPrices.NUON/ this.tokenPrices[this.selectedCollateral]).toFixed(4);
+			this.spendValue = (this.mintValue * this.tokenPrices.NUON/ this.tokenPrices[this.selectedCollateral]).toFixed(2);
 
 			this.getEstimatedAmounts();
 		},
@@ -214,7 +214,7 @@ export default {
 			this.selectedCollateral = this.defaultCollateral;
 		},
 		handleChangeCollateral () {
-			this.mintValue = (this.spendValue * this.tokenPrices[this.selectedCollateral] / this.tokenPrices.NUON).toFixed(4);
+			this.mintValue = (this.spendValue * this.tokenPrices[this.selectedCollateral] / this.tokenPrices.NUON).toFixed(2);
 		}
 	},
 };
