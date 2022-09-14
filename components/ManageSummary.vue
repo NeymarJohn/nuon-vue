@@ -1,25 +1,30 @@
 <template>
 	<LayoutFlex direction="column" class="u-full-width" border="column">
 		<LayoutFlex border="row">
-			<CurrencyCard class="u-mb-32" label="Locked Collateral" :value="lockedCollateral" :currency="collateral" />
-			<CurrencyCard class="u-mb-32" label="NUON Minted" :value="mintedNuon" currency="NUON" />
-			<CurrencyCard class="u-mb-32" label="Collateralization Ratio" :percent="collateralRatio" />
+			<CurrencyCard class="u-mb-32" label="Locked Collateral" :value="lockedCollateral" :currency="collateral" :badge="lockedCollateralAfter" :badge-currency="collateral" />
+			<CurrencyCard class="u-mb-32" label="NUON Minted" :value="mintedNuon" currency="NUON" :badge="lockedCollateralAfter" badge-currency="NUON" badge-color="green" />
+			<CurrencyCard class="u-mb-32" label="Collateralization Ratio" :percent="collateralRatio" :badge="lockedCollateralAfter" badge-currency="%" badge-color="green" />
 		</LayoutFlex>
 		<LayoutFlex border="row">
-			<CurrencyCard label="Liquidation Price" :value="liquidationPrice" symbol="$" />
-			<CurrencyCard label="Liquidation Ratio" :value="globalRatio" currency="%" />
-			<CurrencyCard label="Liquidity Position" :value="getDollarValue(lpAmountOfUser, tokenPrices[collateral])" symbol="$" />
+			<CurrencyCard label="Liquidation Price" :value="liquidationPrice" symbol="$" :badge="lockedCollateralAfter" badge-currency="USD" badge-color="green" />
+			<CurrencyCard label="Liquidation Ratio" :value="globalRatio" currency="%" :badge="lockedCollateralAfter" badge-currency="%" badge-color="green" />
+			<CurrencyCard label="Liquidity Position" :value="getDollarValue(lpAmountOfUser, tokenPrices[collateral])" symbol="$" :badge="lockedCollateralAfter" badge-currency="USD" badge-color="green" />
 		</LayoutFlex>
 	</LayoutFlex>
 </template>
 <script>
 export default {
-	name: "InputManageCollateral",
+	name: "ManageSummary",
 	props: {
 		collateral: {
 			type: String,
 			required: true,
 		},
+	},
+	data() {
+		return {
+			lockedCollateralAfter: 5.47
+		};
 	},
 	computed: {
 		lockedCollateral() {

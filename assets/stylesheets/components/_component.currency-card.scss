@@ -3,6 +3,11 @@
 */
 
 // 1. Currency card default
+.currency-card {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+}
 .currency-card label,
 .currency-card h5 {
 	color: $LIGHT_GREY;

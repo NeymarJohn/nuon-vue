@@ -45,7 +45,7 @@
 							</TheTabs>
 						</template>
 						<template #right>
-							<ManageSummary :collateral="selectedCollateral"/>
+							<ManageSummary :collateral="selectedCollateral" />
 						</template>
 					</LayoutAction>
 				</TheTab>
