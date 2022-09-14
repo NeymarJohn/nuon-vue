@@ -14,24 +14,19 @@
 				<div class="swap__container">
 					<SwapBalance
 						label="Spend"
-						:token="input.token" />
+						:token="input.token"
+						:balance="tokenBalances[input.token]" />
 					<SwapAccordion
 						:disabled-tokens="[output.token]"
 						:default-token="input.token"
 						@selected-token="selectInputToken">
-						<template #input>
-							<InputMax v-model="input.value" :maximum="tokenBalances[input.token]" @click="inputMaxBalance" />
-						</template>
-						<template #messages>
-							<LayoutFlex direction="row-center-space-between">
-								<div>
-									<p v-if="isMoreThanEqualMinimumAndLessThanBalance" class="u-font-size-14 u-is-success u-mb-0">Ready To Swap</p>
-									<p v-if="isMoreThanBalance" class="u-font-size-14 u-is-warning u-mb-0">Insufficient Balance</p>
-								</div>
-								<p class="u-mb-0 u-font-size-14 u-color-light-grey">~ ${{ getPrice(input.token, input.value) | toFixed | numberWithCommas }}</p>
-							</LayoutFlex>
-						</template>
+						<InputMax v-model="input.value" :maximum="tokenBalances[input.token]" @click="inputMaxBalance" />
+						<LayoutFlex direction="row-justify-end">
+							<p class="u-mb-0 u-font-size-14">~ ${{ getPrice(input.token, input.value) | toFixed | numberWithCommas }}</p>
+						</LayoutFlex>
 					</SwapAccordion>
+					<p v-if="isMoreThanEqualMinimumAndLessThanBalance" class="u-font-size-14 u-is-success u-mb-0">Ready To Swap</p>
+					<p v-if="isMoreThanBalance" class="u-font-size-14 u-is-warning u-mb-0">Insufficient Balance</p>
 				</div>
 				<TheButton
 					size="swap"
@@ -47,28 +42,24 @@
 						:disabled-tokens="[input.token]"
 						:default-token="output.token"
 						@selected-token="selectOutputToken">
-						<template #input>
-							<div class="input">
-								<div class="input__container">
-									<input
-										v-model="output.value"
-										placeholder="0.00"
-										type="number"
-										min="0"
-										max="79"
-										autocomplete="off"
-										autocorrect="off"
-										spellcheck="false"
-										inputmode="decimal"
-										@keyup="onInputKeyUp('output')" />
-								</div>
+						<div class="input">
+							<div class="input__container">
+								<input
+									v-model="output.value"
+									placeholder="0.00"
+									type="number"
+									min="0"
+									max="79"
+									autocomplete="off"
+									autocorrect="off"
+									spellcheck="false"
+									inputmode="decimal"
+									@keyup="onInputKeyUp('output')" />
 							</div>
-						</template>
-						<template #messages>
-							<LayoutFlex direction="row-justify-end">
-								<p class="u-mb-0 u-font-size-14 u-color-light-grey">~ ${{ numberWithCommas(getPrice(output.token, output.value).toFixed(2))}}</p>
-							</LayoutFlex>
-						</template>
+						</div>
+						<LayoutFlex direction="row-justify-end">
+							<p class="u-mb-0 u-font-size-14">~ ${{ numberWithCommas(getPrice(output.token, output.value).toFixed(2))}}</p>
+						</LayoutFlex>
 					</SwapAccordion>
 				</div>
 				<div class="swap__slippage u-mb-24">

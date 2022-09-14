@@ -25,10 +25,9 @@
 				<ChevronUpIcon v-else />
 			</LayoutFlex>
 			<DataCard align="end">
-				<slot name="input" />
+				<slot />
 			</DataCard>
 		</LayoutFlex>
-		<slot name="messages" />
 		<div class="accordion__body">
 			<div class="accordion__filter">
 				<input ref="searchtoken" v-model="search" type="text" placeholder="Search for your token" autocomplete="off">

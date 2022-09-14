@@ -9,20 +9,14 @@
 					:disabled-tokens="[selectedCollateral, 'BTC', 'BUSD', 'AVAX']"
 					:default-token="selectedCollateral"
 					@selected-token="selectInputToken">
-					<template #input>
-						<InputMax v-model="inputValue" :maximum="tokenBalances[selectedCollateral]" @click="inputMaxBalance" />
-					</template>
-					<template #messages>
-						<LayoutFlex direction="row-center-space-between">
-							<div>
-								<p v-if="isMoreThanEqualMinimum && isLessThanEqualBalance" class="u-font-size-14 u-is-success u-mb-0">Ready To Mint</p>
-								<p v-if="isMoreThanBalance" class="u-font-size-14 u-is-warning u-mb-0">Insufficient Balance</p>
-								<p v-if="isLTEMinimumDepositAmount" class="u-font-size-14 u-is-warning u-mb-0">Please Deposit More Than {{ minimumDepositAmount }} {{ selectedCollateral }}</p>
-							</div>
-							<p class="u-mb-0 u-font-size-14 u-color-light-grey">~ ${{ getDollarValue(inputValue, collateralPrice) | toFixed | numberWithCommas }}</p>
-						</LayoutFlex>
-					</template>
+					<InputMax v-model="inputValue" :maximum="tokenBalances[selectedCollateral]" @click="inputMaxBalance" />
+					<LayoutFlex direction="row-justify-end">
+						<p class="u-mb-0 u-font-size-14">~ ${{ getDollarValue(inputValue, collateralPrice) | toFixed | numberWithCommas }}</p>
+					</LayoutFlex>
 				</MintAccordion>
+				<p v-if="isMoreThanEqualMinimum && isLessThanEqualBalance" class="u-font-size-14 u-is-success u-mb-0">Ready To Mint</p>
+				<p v-if="isMoreThanBalance" class="u-font-size-14 u-is-warning u-mb-0">Insufficient Balance</p>
+				<p v-if="isLTEMinimumDepositAmount" class="u-font-size-14 u-is-warning u-mb-0">Please Deposit More Than {{ minimumDepositAmount }} {{ selectedCollateral }}</p>
 			</div>
 			<div class="swap__container u-mb-24">
 				<div class="swap__balance">

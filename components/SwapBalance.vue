@@ -3,7 +3,7 @@
 		<label>{{ label }}</label>
 		<ComponentLoader component="label" :loaded="tokenBalances[token] !== '0'">
 			<label>Balance:
-				<span>{{ tokenBalances[token] | formatLongNumber }}</span>
+				<span>{{ balance | formatLongNumber }}</span>
 			</label>
 		</ComponentLoader>
 	</LayoutFlex>
@@ -19,6 +19,10 @@ export default {
 		},
 		token: {
 			type: String,
+			required: true
+		},
+		balance: {
+			type: [String, Number],
 			required: true
 		}
 	},

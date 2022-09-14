@@ -1,47 +1,44 @@
 <template>
 	<div>
-		<div :class="userAction === 'Receive' ? 'l-flex l-flex--column-reverse u-mb-24' : 'u-mb-24' ">
+		<div :class="userAction === 'Receive' ? 'l-flex l-flex--column-reverse' : '' ">
 			<div class="swap__container" :class="action === 'Mint' ? 'u-mb-10' : null">
 				<SwapBalance
-					:label="userAction"
-					:token="lockedCallateral" />
+					label="Spend"
+					:token="selectedCollateral" 
+					:balance="lockedCallateral"/>
 				<MintAccordion
 					:disabled-tokens="[selectedCollateral, 'BTC', 'BUSD', 'AVAX']"
 					:default-token="defaultCollateral"
 					@selected-token="selectCollateral">
-					<template #input>
-						<InputMax v-model="value" :maximum="lockedCallateral" @click="inputMaxBalance" />
-					</template>
-					<template #messages>
-						<LayoutFlex direction="row-justify-end">
-							<p class="u-mb-0 u-font-size-14 u-color-light-grey">~ ${{getDollarValue(lockedCallateral,tokenPrices[selectedCollateral]) | toFixed | numberWithCommas}}</p>
-						</LayoutFlex>
-					</template>
+					<InputMax v-model="spendValue" :maximum="lockedCallateral" @input="handleChangeCollateral"/>
+					<LayoutFlex direction="row-justify-end">
+						<p class="u-mb-0 u-font-size-14">~ ${{getDollarValue(spendValue,tokenPrices[selectedCollateral]) | toFixed | numberWithCommas}}</p>
+					</LayoutFlex>
 				</MintAccordion>
 			</div>
 			<div class="swap__container" :class="userAction === 'Receive' ? 'u-mb-10' : null">
 				<SwapBalance
-					:label="action"
-					:token="lockedCallateral" />
+					label="Mint"
+					:token="lockedCallateral"
+					:balance="userMintedAmount" />
 				<div class="input-wrapper">
 					<div class="input-token">
 						<NuonLogo />
 						<h5>NUON</h5>
 					</div>
-					<InputMax v-model="value" :maximum="availableAmount()" @click="inputMaxBalance" />
+					<InputMax  v-model="mintValue" :maximum="availableAmount()" :hidden-max-button="action==='Mint'" @input="inputChanged"/>
 				</div>
-				<LayoutFlex direction="row-center-space-between">
-					<div>
-						<p v-if="isMoreThanEqualMinimumAndLessThanBalance" class="u-font-size-14 u-is-success u-mb-0">Ready To {{ action }}</p>
-						<p v-if="isMoreThanBalance" class="u-font-size-14 u-is-warning u-mb-0">Insufficient Balance</p>
-					</div>
-					<p class="u-mb-0 u-font-size-14 u-color-light-grey">~ ${{0 | toFixed | numberWithCommas}}</p>
+				<LayoutFlex direction="row-justify-end">
+					<p class="u-mb-0 u-font-size-14 u-color-light-grey">~ ${{getDollarValue(mintValue, tokenPrices.NUON) | toFixed | numberWithCommas}}</p>
 				</LayoutFlex>
+				<p v-if="isMoreThanEqualMinimumAndLessThanBalance" class="u-font-size-14 u-is-success u-mb-0">Ready To {{ action }}</p>
+				<p v-if="isMoreThanBalance" class="u-font-size-14 u-is-warning u-mb-0">Insufficient Balance</p>
 			</div>
 		</div>
+		<TransactionSummary v-if="mintValue > 0" class="u-mt-24" :values="summary" />
 		<LayoutFlex direction="row-justify-end">
 			<TheButton
-				class="u-min-width-200"
+				class="u-mt-24 u-min-width-200"
 				:title="`Click to ${action}`"
 				:disabled="isSubmitDisabled"
 				@click="submit">{{action === 'Burn' ? 'Redeem' : 'Mint'}}</TheButton>
@@ -74,7 +71,8 @@ export default {
 	data() {
 		return {
 			depositInput: "",
-			value: "",
+			mintValue: "",
+			spendValue: "",
 			error: "",
 			estimatedAmount: {0: 0, 1: 0, 2: 0, 3: 0},
 			shareAmount: "",
@@ -83,20 +81,17 @@ export default {
 	},
 	computed: {
 		isSubmitDisabled() {
-			if (!this.value || (this.action === "burn" && parseFloat(this.value) > this.userMintedAmount) || this.isMoreThanBalance) {
+			if (!this.mintValue || (this.action === "burn" && parseFloat(this.mintValue) > this.userMintedAmount) || this.isMoreThanBalance) {
 				return true;
 			}
 			return false;
 		},
 		isMoreThanEqualMinimumAndLessThanBalance() {
-			return parseFloat(this.value) > 0 && parseFloat(this.value) <= this.tokenBalance;
+			return parseFloat(this.mintValue) > 0 && parseFloat(this.mintValue) <= this.tokenBalance;
 		},
 		summary() {
 			const summary = [{title: "New Collateral Ratio", val: `${parseFloat(this.estimatedAmount[0]).toFixed(0)}%`}];
-			if (this.action === "Deposit") {
-				 // this.estimatedAmount = user cratio after deposit, collateral user will receive after deposit, user collateral amount after deposit
-				summary.push({title: "New Collateral Amount", val: this.estimatedAmount[2]});
-			} else if (this.action === "Burn") {
+			if (this.action === "Burn") {
 				// this.estimatedAmount = user cratio after burn, burned nuons, total amount of nuon left after burn
 				summary.push({title: "New NUON Amount", val: this.estimatedAmount[2]});
 			} else if (this.action === "Mint") {
@@ -104,9 +99,6 @@ export default {
 				summary.push({title: "NUON Minted Amount", val: this.estimatedAmount[1]});
 				summary.push({title: `Extra ${this.selectedCollateral} Required`, val: this.estimatedAmount[3]});
 				summary.push({title: "New NUON Balance", val: this.estimatedAmount[2]});
-			} else {
-				// this.estimatedAmount = user cratio after redeem, amount redeemed , collaterals left after redeem
-				summary.push({title: "New Collateral Amount", val: this.estimatedAmount[2]});
 			}
 			const lastIdx = summary.length - 1;
 			summary[lastIdx].val = `${parseFloat(summary[lastIdx].val).toFixed(2)} ${this.actionIsMintOrBurn ? "NUON" : this.selectedCollateral}`;
@@ -122,7 +114,7 @@ export default {
 			return this.$store.state.erc20Store.balance[this.selectedCollateral];
 		},
 		isMoreThanBalance() {
-			return parseFloat(this.value) > this.tokenBalance;
+			return parseFloat(this.mintValue) > this.tokenBalance;
 		},
 		nuonBalance() {
 			return this.$store.state.erc20Store.balance.NUON;
@@ -145,7 +137,7 @@ export default {
 			} else if (this.action === "Mint") {
 				method = "mintWithoutDepositEstimation";
 			}
-			const amount = toWei(this.value);
+			const amount = toWei(this.mintValue);
 
 			let resp = {0: 0, 1: 0, 2: 0};
 			let resp2 = {1: 0};
@@ -162,15 +154,12 @@ export default {
 				}
 			} finally {
 				this.$set(this.estimatedAmount, 0, fromWei(resp[0]));
-				this.$set(this.estimatedAmount, 1, fromWei(resp[1], this.actionIsMintOrBurn ? 18 : this.decimals));
+				this.$set(this.estimatedAmount, 1, fromWei(resp[1]));
 				this.$set(this.estimatedAmount, 2, fromWei(resp[2]));
 				if (this.action === "Mint") {
 					this.$set(this.estimatedAmount, 3, parseFloat(fromWei(resp2[0], this.decimals)).toFixed(2));
 				}
 			}
-		},
-		inputMaxBalance() {
-			
 		},
 		submit() {
 			try {
@@ -181,7 +170,7 @@ export default {
 				} else if (this.action === "Mint") {
 					methodName = "mintWithoutDeposit";
 				}
-				const amount = toWei(this.value);
+				const amount = toWei(this.mintValue);
 				this.$store.dispatch(`collateralVaultStore/${methodName}`, {
 					collateral: this.selectedCollateral,
 					amount,
@@ -214,11 +203,17 @@ export default {
 		},
 		inputChanged() {
 			this.error = "";
+			this.spendValue = (this.mintValue * this.tokenPrices.NUON/ this.tokenPrices[this.selectedCollateral]).toFixed(4);
+
 			this.getEstimatedAmounts();
 		},
 		beforeMount () {
 			this.selectedCollateral = this.defaultCollateral;
 		},
+		handleChangeCollateral () {
+			this.mintValue = (this.spendValue * this.tokenPrices[this.selectedCollateral] / this.tokenPrices.NUON).toFixed(4);
+			this.inputChanged();
+		}
 	},
 };
 </script>

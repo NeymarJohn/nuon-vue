@@ -1,6 +1,6 @@
 <template>
 	<div class="input-manage-container">
-		<div class="swap__container u-mb-24">
+		<div class="swap__container">
 			<LayoutFlex direction="row-center-space-between swap__balance">
 				<label>{{ action }}</label>
 				<ComponentLoader component="label" :loaded="tokenBalances[selectedCollateral] !== '0'">
@@ -22,24 +22,18 @@
 				:disabled-tokens="[selectedCollateral, 'BTC', 'BUSD', 'AVAX']"
 				:default-token="selectedCollateral"
 				@selected-token="selectCollateral">
-				<template #input>
-					<InputMax v-model="inputModel" :maximum="availableAmount()" @input="inputChanged"/>
-				</template>
-				<template #messages>
-					<LayoutFlex direction="row-center-space-between">
-						<div>
-							<p v-if="isMoreThanEqualMinimumAndLessThanBalance" class="u-font-size-14 u-is-success u-mb-0">Ready To {{ action }}</p>
-							<p v-if="isMoreThanBalance" class="u-font-size-14 u-is-warning u-mb-0">Insufficient Balance</p>
-						</div>
-						<p class="u-mb-0 u-font-size-14 u-color-light-grey">~ ${{ getDollarValue(inputModel, collateralPrice) | toFixed | numberWithCommas }}</p>
-					</LayoutFlex>
-				</template>
+				<InputMax v-model="inputModel" :maximum="availableAmount()" @input="inputChanged"/>
+				<LayoutFlex direction="row-justify-end">
+					<p class="u-mb-0 u-font-size-14">~ ${{ getDollarValue(inputModel, collateralPrice) | toFixed | numberWithCommas }}</p>
+				</LayoutFlex>
 			</MintAccordion>
+			<p v-if="isMoreThanEqualMinimumAndLessThanBalance" class="u-font-size-14 u-is-success u-mb-0">Ready To {{ action }}</p>
+			<p v-if="isMoreThanBalance" class="u-font-size-14 u-is-warning u-mb-0">Insufficient Balance</p>
 		</div>
-		<TransactionSummary v-if="inputModel > 0 && !isMoreThanBalance" class="u-mt-24" :values="summary" />
+		<TransactionSummary v-if="inputModel > 0" class="u-mt-24" :values="summary" />
 		<LayoutFlex direction="row-justify-end">
 			<TheButton
-				class="u-min-width-200"
+				class="u-mt-24 u-min-width-200"
 				:title="`Click to ${action}`"
 				:disabled="isSubmitDisabled"
 				@click="submit">{{action}}</TheButton>
@@ -52,15 +46,14 @@ import { fromWei, toWei } from "~/utils/bnTools";
 export default {
 	name: "InputManageCollateral",
 	props: {
-		minimumDepositAmount: {
-			type: Number,
-			required: true,
-			default: 0
-		},
 		action: {
 			type: String,
 			required: true
 		},
+		currentTab: {
+			type: String,
+			required: true
+		}
 	},
 	data() {
 		return {
@@ -80,7 +73,6 @@ export default {
 		summary() {
 			const summary = [{title: "New Collateral Ratio", val: this.estimatedAmount[0], currency: "%"}];
 			if (this.action === "Deposit") {
-				 // this.estimatedAmount = user cratio after deposit, collateral user will receive after deposit, user collateral amount after deposit
 				summary.push({title: "New Collateral Amount", val: this.estimatedAmount[2] / this.tokenPrices[this.selectedCollateral], currency: this.selectedCollateral});
 			} else {
 				// this.estimatedAmount = user cratio after redeem, amount redeemed , collaterals left after redeem
@@ -112,10 +104,7 @@ export default {
 			return this.$store.state.collateralVaultStore.lockedAmount[this.selectedCollateral];
 		},
 		isSubmitDisabled() {
-			if (!parseFloat(this.inputModel || !this.connectedAccount)) {
-				return true;
-			}
-			if (this.isMoreThanBalance) {
+			if (!parseFloat(this.inputModel || !this.connectedAccount || this.isMoreThanBalance)) {
 				return true;
 			}
 			return false;
