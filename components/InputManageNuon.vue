@@ -3,14 +3,13 @@
 		<div :class="userAction === 'Receive' ? 'l-flex l-flex--column-reverse' : '' ">
 			<div class="swap__container" :class="action === 'Mint' ? 'u-mb-10' : null">
 				<SwapBalance
-					label="Spend"
-					:token="selectedCollateral" 
-					:balance="lockedCallateral"/>
+					:label="userAction"
+					:token="lockedCallateral" />
 				<MintAccordion
 					:disabled-tokens="[selectedCollateral, 'BTC', 'BUSD', 'AVAX']"
 					:default-token="defaultCollateral"
 					@selected-token="selectCollateral">
-					<InputMax v-model="spendValue" :maximum="lockedCallateral"/>
+					<InputMax v-model="value" :maximum="lockedCallateral" @click="inputMaxBalance" />
 					<LayoutFlex direction="row-justify-end">
 						<p class="u-mb-0 u-font-size-14">~ ${{getDollarValue(lockedCallateral,tokenPrices[selectedCollateral]) | toFixed | numberWithCommas}}</p>
 					</LayoutFlex>
@@ -18,18 +17,17 @@
 			</div>
 			<div class="swap__container" :class="userAction === 'Receive' ? 'u-mb-10' : null">
 				<SwapBalance
-					label="Mint"
-					:token="lockedCallateral"
-					:balance="userMintedAmount" />
+					:label="action"
+					:token="lockedCallateral" />
 				<div class="input-wrapper">
 					<div class="input-token">
 						<NuonLogo />
 						<h5>NUON</h5>
 					</div>
-					<InputMax  v-model="mintValue" :maximum="availableAmount()" :hidden-max-button="action==='Mint'"/>
+					<InputMax v-model="value" :maximum="availableAmount()" @click="inputMaxBalance" />
 				</div>
 				<LayoutFlex direction="row-justify-end">
-					<p class="u-mb-0 u-font-size-14 u-color-light-grey">~ ${{getDollarValue(mintValue, tokenPrices.NUON) | toFixed | numberWithCommas}}</p>
+					<p class="u-mb-0 u-font-size-14 u-color-light-grey">~ ${{0 | toFixed | numberWithCommas}}</p>
 				</LayoutFlex>
 				<p v-if="isMoreThanEqualMinimumAndLessThanBalance" class="u-font-size-14 u-is-success u-mb-0">Ready To {{ action }}</p>
 				<p v-if="isMoreThanBalance" class="u-font-size-14 u-is-warning u-mb-0">Insufficient Balance</p>
@@ -70,8 +68,7 @@ export default {
 	data() {
 		return {
 			depositInput: "",
-			mintValue: "",
-			spendValue: "",
+			value: "",
 			error: "",
 			estimatedAmount: {0: 0, 1: 0, 2: 0, 3: 0},
 			shareAmount: "",
@@ -80,13 +77,13 @@ export default {
 	},
 	computed: {
 		isSubmitDisabled() {
-			if (!this.mintValue || (this.action === "burn" && parseFloat(this.mintValue) > this.userMintedAmount) || this.isMoreThanBalance) {
+			if (!this.value || (this.action === "burn" && parseFloat(this.value) > this.userMintedAmount) || this.isMoreThanBalance) {
 				return true;
 			}
 			return false;
 		},
 		isMoreThanEqualMinimumAndLessThanBalance() {
-			return parseFloat(this.mintValue) > 0 && parseFloat(this.mintValue) <= this.tokenBalance;
+			return parseFloat(this.value) > 0 && parseFloat(this.value) <= this.tokenBalance;
 		},
 		summary() {
 			const summary = [{title: "New Collateral Ratio", val: `${parseFloat(this.estimatedAmount[0]).toFixed(0)}%`}];
@@ -119,7 +116,7 @@ export default {
 			return this.$store.state.erc20Store.balance[this.selectedCollateral];
 		},
 		isMoreThanBalance() {
-			return parseFloat(this.mintValue) > this.tokenBalance;
+			return parseFloat(this.value) > this.tokenBalance;
 		},
 		nuonBalance() {
 			return this.$store.state.erc20Store.balance.NUON;
@@ -142,7 +139,7 @@ export default {
 			} else if (this.action === "Mint") {
 				method = "mintWithoutDepositEstimation";
 			}
-			const amount = toWei(this.mintValue);
+			const amount = toWei(this.value);
 
 			let resp = {0: 0, 1: 0, 2: 0};
 			let resp2 = {1: 0};
@@ -166,6 +163,9 @@ export default {
 				}
 			}
 		},
+		inputMaxBalance() {
+			
+		},
 		submit() {
 			try {
 				this.error = "";
@@ -175,7 +175,7 @@ export default {
 				} else if (this.action === "Mint") {
 					methodName = "mintWithoutDeposit";
 				}
-				const amount = toWei(this.mintValue);
+				const amount = toWei(this.value);
 				this.$store.dispatch(`collateralVaultStore/${methodName}`, {
 					collateral: this.selectedCollateral,
 					amount,

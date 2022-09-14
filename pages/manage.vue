@@ -37,11 +37,10 @@
 						<template #left>
 							<TheTabs margin="0" size="full">
 								<TheTab title="Deposit">
-									<InputManageCollateral 
-										action="Deposit" :default-collateral="selectedCollateral" @changeCollateral="onChangeCollateral" />
+									<InputManageCollateral action="Deposit" currrent-tab="collateral" :minimum-deposit-amount="0"/>
 								</TheTab>
 								<TheTab title="Withdraw">
-									<InputManageCollateral action="Withdraw" :default-collateral="selectedCollateral" @changeCollateral="onChangeCollateral"/>
+									<InputManageCollateral action="Withdraw" currrent-tab="collateral" :minimum-deposit-amount="0"/>
 								</TheTab>
 							</TheTabs>
 						</template>
@@ -55,10 +54,10 @@
 						<template #left>
 							<TheTabs margin="0" size="full">
 								<TheTab title="Add">
-									<InputManageCollateral action="Add" :default-collateral="selectedCollateral" @changeCollateral="onChangeCollateral"/>
+									<InputManageCollateral action="Add" currrent-tab="liquidity" :minimum-deposit-amount="0"/>
 								</TheTab>
 								<TheTab title="Remove">
-									<InputManageCollateral action="Remove" :default-collateral="selectedCollateral" @changeCollateral="onChangeCollateral"/>
+									<InputManageCollateral action="Remove" currrent-tab="liquidity" :minimum-deposit-amount="0"/>
 								</TheTab>
 							</TheTabs>
 						</template>
