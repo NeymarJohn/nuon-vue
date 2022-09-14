@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<div :class="userAction === 'Receive' ? 'l-flex l-flex--column-reverse' : '' ">
+		<div :class="userAction === 'Receive' ? 'l-flex l-flex--column-reverse u-mb-24' : 'u-mb-24' ">
 			<div class="swap__container" :class="action === 'Mint' ? 'u-mb-10' : null">
 				<SwapBalance
 					:label="userAction"
@@ -41,7 +41,7 @@
 		</div>
 		<LayoutFlex direction="row-justify-end">
 			<TheButton
-				class="u-mt-24 u-min-width-200"
+				class="u-min-width-200"
 				:title="`Click to ${action}`"
 				:disabled="isSubmitDisabled"
 				@click="submit">{{action === 'Burn' ? 'Redeem' : 'Mint'}}</TheButton>
