@@ -2,36 +2,51 @@
 		1. Toast default
 		2. Toast success
 		3. Toast failure
-		4. Toast responsive
 */
 
 // 1. Toast default
 .toast {
 	position: fixed;
-	top: $PX_32;
-	right: $PX_32;
-	border-radius: $BORDER_RADIUS_16;
+	top: $PX_82;
+	right: $PX_100;
+	border-radius: $BORDER_RADIUS_8;
 	z-index: 4;
-	padding: $PX_32;
+	padding: $PX_24;
 	min-width: $PX_425;
 	background: $DARK_GREY;
 }
-.toast__header {
+.toast__header,
+.toast__header span {
 	display: flex;
 	flex-direction: row;
-	justify-content: space-between;
 	align-items: center;
-	margin-bottom: $PX_12;
 }
-.toast__header p {
-	font-size: $BODY_TEXT;
-	line-height: $PX_30;
+.toast__header {
+	margin-bottom: $PX_8;
+	justify-content: space-between;
+}
+.toast__header span svg {
+	margin-right: $PX_16;
+}
+.toast__header h4 {
+	font-size: $PX_18;
+	line-height: $PX_22;
+	font-weight: 500;
 	margin-bottom: 0;
+	text-transform: capitalize;
 }
-.toast__header svg path {
-	stroke: $WHITE;
+.toast__body {
+	padding-left: $PX_40;
 }
+.toast__body p,
 .toast__body a {
+	color: $LIGHT_GREY;
+	font-size: $PX_14;
+	line-height: $PX_20;
+	margin-bottom: 0;
+	transition: $TRANSITION_ALL;
+}
+.toast__body a:hover {
 	color: $WHITE;
 }
 .toast-slide-enter-active {
@@ -47,28 +62,11 @@
 }
 
 // 2. Toast success
-.toast--success p,
 .toast--success h4 {
 	color: $SUCCESS;
 }
 
 // 3. Toast failure
-.toast--failure p,
 .toast--failure h4 {
 	color: $ERROR;
-}
-
-// 4. Toast responsive
-@media screen and (max-width: $PX_1440) {
-	.toast {
-		padding: $PX_24;
-		min-width: $PX_325;
-	}
-	.toast__header {
-		margin-bottom: $PX_8;
-	}
-	.toast__header p {
-		font-size: $BODY_TEXT_SM;
-		line-height: $PX_21;
-	}
 }

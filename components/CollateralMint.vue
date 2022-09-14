@@ -247,7 +247,7 @@ export default {
 						collateralAmount: amount,
 						onConfirm: (_confNumber, receipt, _latestBlockHash) => {
 							this.$store.commit("collateralVaultStore/setUserJustMinted", true);
-							this.successToast(null, `You've successfully minted ${parseFloat(this.estimatedMintedNuonValue).toFixed(2)} NUON`, receipt.transactionHash);
+							this.successToast(null, `You successfully minted ${parseFloat(this.estimatedMintedNuonValue).toFixed(2)} NUON`, receipt.transactionHash);
 							this.$store.dispatch("erc20Store/initializeBalance", {address: this.connectedAccount});
 						},
 						onReject: (err) => {

@@ -2,7 +2,10 @@
 	<Transition name="toast-slide">
 		<div :class="`toast toast--${kind}`">
 			<div class="toast__header">
-				<p>{{ title ? title : `Transaction ${kind}` }}</p>
+				<span>
+					<SuccessIcon v-if="kind === 'success'" />
+					<h4>{{ title ? title : `Transaction ${kind}` }}</h4>
+				</span>
 				<TheButton
 					title="Click to close toast"
 					size="icon"
@@ -12,8 +15,8 @@
 				</TheButton>
 			</div>
 			<div class="toast__body">
-				<h4 v-if="message">{{ message }}</h4>
-				<a v-if="txHash" :href="$config[$config.NODE_ENV].blockExplorerUrl + 'tx/' + txHash" target="_blank" rel="noopener noreferrer" class="btn btn--link" title="Click to view transaction on the block explorer">View transaction on block explorer</a>
+				<p v-if="message">{{ message }}.</p>
+				<a v-if="txHash" :href="$config[$config.NODE_ENV].blockExplorerUrl + 'tx/' + txHash" target="_blank" rel="noopener noreferrer" title="Click to view transaction on the block explorer">View transaction on block explorer</a>
 			</div>
 		</div>
 	</Transition>
@@ -21,11 +24,13 @@
 
 <script>
 import CloseIcon from "@/assets/images/svg/svg-close.svg";
+import SuccessIcon from "@/assets/images/svg/svg-success.svg";
 
 export default {
 	name: "TheToast",
 	components: {
 		CloseIcon,
+		SuccessIcon
 	},
 	props: {
 		kind: {

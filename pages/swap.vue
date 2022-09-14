@@ -279,7 +279,7 @@ export default {
 				}
 			)
 				.then((receipt) => {
-					this.successToast(null, "You've successfully swapped", receipt.transactionHash);
+					this.successToast(null, "You successfully swapped", receipt.transactionHash);
 					this.initialize();
 				})
 				.catch((e) => {
