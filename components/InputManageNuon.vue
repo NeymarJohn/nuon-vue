@@ -23,7 +23,7 @@
 			<div class="swap__container" :class="action === 'Burn' ? 'u-mb-10' : null">
 				<SwapBalance
 					:label="action"
-					:token="lockedCallateral"
+					token="NUON"
 					:balance="userMintedAmount" />
 				<div class="input-wrapper">
 					<div class="input-token">
@@ -62,10 +62,6 @@ export default {
 	},
 	props: {
 		action: {
-			type: String,
-			required: true
-		},
-		userAction: {
 			type: String,
 			required: true
 		},
@@ -145,9 +141,9 @@ export default {
 			let resp = {0: 0, 1: 0, 2: 0};
 			let resp2 = {1: 0};
 			try {
-				resp = await this.$store.getters[`collateralVaultStore/${method}`](amount, this.connectedAccount);
+				resp = await this.$store.getters[`collateralVaultStore/${method}`](this.selectedCollateral, amount, this.connectedAccount);
 				if (this.action === "Mint") {
-					resp2 = await this.$store.getters["collateralVaultStore/mintLiquidityHelper"](resp[1]);
+					resp2 = await this.$store.getters["collateralVaultStore/mintLiquidityHelper"](this.selectedCollateral, resp[1]);
 				}
 			} catch (e) {
 				const mintLiquidationMsg = "This will liquidate you";
@@ -215,6 +211,7 @@ export default {
 		},
 		handleChangeCollateral () {
 			this.mintValue = (this.spendValue * this.tokenPrices[this.selectedCollateral] / this.tokenPrices.NUON).toFixed(2);
+			this.getEstimatedAmounts();
 		}
 	},
 };

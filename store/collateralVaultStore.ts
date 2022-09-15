@@ -502,18 +502,21 @@ export const getters: GetterTree<BoardroomState, Web3State> = {
 		const collateralHubContract = getters.getCollateralHubContract(token);
 		return await collateralHubContract.methods._depositWithoutMintEstimation(collateralAmount, userAddress).call();
 	},
-	mintWithoutDepositEstimation: (_state: any, getters: any) => async (collateralAmount: number, userAddress: string) => {
-		return await getters.collateralHubContract.methods._mintWithoutDepositEstimation(collateralAmount, userAddress).call();
+	mintWithoutDepositEstimation: (_state: any, getters: any) => async (token: string, collateralAmount: number, userAddress: string) => {
+		const collateralHubContract = getters.getCollateralHubContract(token);
+		return await collateralHubContract.methods._mintWithoutDepositEstimation(collateralAmount, userAddress).call();
 	},
 	redeemWithoutNuonEstimation: (_state: any, getters: any) => async (token: string, collateralAmount: number, userAddress: string) => {
 		const collateralHubContract = getters.getCollateralHubContract(token);
 		return await collateralHubContract.methods._redeemWithoutNuonEstimation(collateralAmount, userAddress).call();
 	},
-	burnNUONEstimation: (_state: any, getters: any) => async (nuonAmount: number, userAddress: string) => {
-		return await getters.collateralHubContract.methods._burnNUONEstimation(nuonAmount, userAddress).call();
+	burnNUONEstimation: (_state: any, getters: any) => async (token:string, nuonAmount: number, userAddress: string) => {
+		const collateralHubContract = getters.getCollateralHubContract(token);
+		return await collateralHubContract.methods._burnNUONEstimation(nuonAmount, userAddress).call();
 	},
-	mintLiquidityHelper: (_state: any, getters: any) => async (nuonAmount: number) => { // returns how much extra collateral is needed or will be added for an operation, already integrate in estimateNuon minted amount
-		return await getters.collateralHubContract.methods.mintLiquidityHelper(nuonAmount).call();
+	mintLiquidityHelper: (_state: any, getters: any) => async (token:string, nuonAmount: number) => { // returns how much extra collateral is needed or will be added for an operation, already integrate in estimateNuon minted amount
+		const collateralHubContract = getters.getCollateralHubContract(token);
+		return await collateralHubContract.methods.mintLiquidityHelper(nuonAmount).call();
 	},
 	redeemLiquidityHelper: (_state: any, getters: any) => async (nuonAmount: number, userAddress: string) => { // returns how much lp will be sent to a user, used only for burnNUON
 		return await getters.collateralHubContract.methods.redeemLiquidityHelper(nuonAmount, userAddress).call();
