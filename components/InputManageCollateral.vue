@@ -23,7 +23,7 @@
 				:default-token="defaultCollateral"
 				@selected-token="selectCollateral">
 				<template #input>
-					<InputMax v-model="inputModel" :maximum="availableAmount()" @input="inputChanged"/>
+					<InputMax v-model="inputModel" :maximum="availableAmount()" @input="debouncedInputChange"/>
 				</template>
 				<template #messages>
 					<LayoutFlex direction="row-center-space-between">
@@ -47,6 +47,7 @@
 	</div>
 </template>
 <script>
+import debounce from "lodash.debounce";
 import { fromWei, toWei } from "~/utils/bnTools";
 
 export default {
@@ -58,7 +59,8 @@ export default {
 		},
 		currentTab: {
 			type: String,
-			required: true
+			required: true,
+			default:""
 		},
 		defaultCollateral: {
 			type: String,
@@ -84,7 +86,7 @@ export default {
 			const summary = [{title: "New Collateral Ratio", val: this.estimatedAmount[0], currency: "%"}];
 			if (this.action === "Deposit") {
 				summary.push({title: "New Collateral Amount", val: this.estimatedAmount[2] / this.tokenPrices[this.selectedCollateral], currency: this.selectedCollateral});
-			} else {
+			} else if (this.action === "Withdraw") {
 				// this.estimatedAmount = user cratio after redeem, amount redeemed , collaterals left after redeem
 				summary.push({title: "New Collateral Amount", val: this.estimatedAmount[2],currency: this.selectedCollateral});
 			}
@@ -131,8 +133,10 @@ export default {
 			let method;
 			if (this.action === "Deposit") {
 				method = "depositWithoutMintEstimation";
-			} else {
+			} else if (this.action === "Withdraw"){
 				method = "redeemWithoutNuonEstimation";
+			} else {
+				return;
 			}
 
 			const amount = toWei(this.inputModel, this.decimals);
@@ -148,13 +152,16 @@ export default {
 			} finally {
 				this.$set(this.estimatedAmount, 0, fromWei(resp[0]));
 				this.$set(this.estimatedAmount, 1, fromWei(resp[1], this.decimals));
-				this.$set(this.estimatedAmount, 2, fromWei(resp[2]));
+				this.$set(this.estimatedAmount, 2, fromWei(resp[2], this.decimals));
 			}
 		},
+		debouncedInputChange: debounce(function() {
+			this.inputChanged();
+		}, 500),
 		inputChanged() {
 			this.error = "";
 			this.submitDisabled = false;
-			if (!this.action.includes("Liquidity")) this.getEstimatedAmounts();
+			if (!["Add", "Remove"].includes(this.action)) this.getEstimatedAmounts();
 		},
 		submit() {
 			try {
