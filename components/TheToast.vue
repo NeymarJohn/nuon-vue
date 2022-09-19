@@ -4,7 +4,6 @@
 			<div class="toast__header">
 				<span>
 					<SuccessIcon v-if="kind === 'success'" />
-					<ErrorIcon v-if="kind === 'failure'" />
 					<h4>{{ title ? title : `Transaction ${kind}` }}</h4>
 				</span>
 				<TheButton
@@ -26,14 +25,12 @@
 <script>
 import CloseIcon from "@/assets/images/svg/svg-close.svg";
 import SuccessIcon from "@/assets/images/svg/svg-success.svg";
-import ErrorIcon from "@/assets/images/svg/svg-error.svg";
 
 export default {
 	name: "TheToast",
 	components: {
 		CloseIcon,
-		SuccessIcon,
-		ErrorIcon
+		SuccessIcon
 	},
 	props: {
 		kind: {

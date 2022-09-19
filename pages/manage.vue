@@ -35,7 +35,7 @@
 						<template #left>
 							<TheTabs margin="0" size="full">
 								<TheTab title="Deposit">
-									<InputManageCollateral
+									<InputManageCollateral 
 										action="Deposit" :default-collateral="selectedCollateral" @changeCollateral="onChangeCollateral" />
 								</TheTab>
 								<TheTab title="Withdraw">

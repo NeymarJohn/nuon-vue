@@ -2,16 +2,20 @@
 	<div>
 		<div :class="action === 'Burn' ? 'l-flex l-flex--column-reverse u-mb-24' : 'u-mb-24' ">
 			<div class="swap__container" :class="action === 'Mint' ? 'u-mb-10' : null">
-				<SwapBalance
-					label="Spend"
-					:token="selectedCollateral" 
-					:balance="lockedCallateral"/>
+				<LayoutFlex direction="row-center-space-between swap__balance">
+					<label>{{action === 'Mint' ? 'Spend' : 'Receive'}}</label>
+					<ComponentLoader v-if="action==='Mint'" component="label" :loaded="true">
+						<label>Balance:
+							<span>{{ tokenBalances[selectedCollateral] | formatLongNumber }}</span>
+						</label>
+					</ComponentLoader>
+				</LayoutFlex>
 				<MintAccordion
 					:disabled-tokens="['BTC', 'BUSD', 'AVAX']"
 					:default-token="defaultCollateral"
 					@selected-token="selectCollateral">
 					<template #input>
-						<InputMax v-model="spendValue" :maximum="lockedCallateral" auto-focus @input="handleChangeCollateral" />
+						<InputMax v-model="spendValue" :maximum="tokenBalances[selectedCollateral]" :hidden-max-button="action==='Burn'" :auto-focus="action==='Mint'" @input="handleChangeCollateral" />
 					</template>
 					<template #messages>
 						<LayoutFlex direction="row-justify-end">
@@ -21,16 +25,20 @@
 				</MintAccordion>
 			</div>
 			<div class="swap__container" :class="action === 'Burn' ? 'u-mb-10' : null">
-				<SwapBalance
-					:label="action"
-					token="NUON"
-					:balance="userMintedAmount" />
+				<LayoutFlex direction="row-center-space-between swap__balance">
+					<label>{{action}}</label>
+					<ComponentLoader v-if="action==='Burn'" component="label" :loaded="Number(userMintedAmount) !== 0">
+						<label>Minted Amount:
+							<span>{{ userMintedAmount | formatLongNumber }}</span>
+						</label>
+					</ComponentLoader>
+				</LayoutFlex>
 				<div class="input-wrapper">
 					<div class="input-token">
 						<NuonLogo />
 						<h5>NUON</h5>
 					</div>
-					<InputMax  v-model="mintValue" :maximum="userMintedAmount" :hidden-max-button="action==='Mint'" @input="inputChanged"/>
+					<InputMax  v-model="mintValue" :maximum="userMintedAmount" :hidden-max-button="action==='Mint'" :auto-focus="action==='Burn'" @input="inputChanged"/>
 				</div>
 				<LayoutFlex direction="row-center-space-between">
 					<div>
@@ -41,7 +49,7 @@
 				</LayoutFlex>
 			</div>
 		</div>
-		<TransactionSummary v-if="mintValue > 0 && !isMoreThanBalance" class="u-mt-24" :values="summary" />
+		<TransactionSummary v-if="mintValue > 0" class="u-mt-24" :values="summary" />
 		<LayoutFlex direction="row-justify-end">
 			<TheButton
 				class="u-min-width-200"

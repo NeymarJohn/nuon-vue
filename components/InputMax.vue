@@ -6,6 +6,7 @@
 				placeholder="0.0"
 				type="number"
 				min="0"
+				max="79"
 				autocomplete="off"
 				autocorrect="off"
 				spellcheck="false"

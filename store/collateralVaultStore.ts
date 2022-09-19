@@ -534,4 +534,29 @@ export const getters: GetterTree<BoardroomState, Web3State> = {
 	getPPFS: (_state: any, getters: any) => async () => {
 		return await getters.vaultRelayerContract.methods.getPPFS().call();
 	},
+	getEstimationData:(_state: any, getters: any, rootState: any) => async (action: string, selectedCollateral: string, value: number) => {
+		const estimationData = {};
+		const accountAddress = rootState.web3Store.account;
+
+		let method;
+		if (action === "Burn") {
+			method = "burnNUONEstimation";
+		} else if (action === "Mint") {
+			method = "mintWithoutDepositEstimation";
+		}
+		const amount = toWei(value);
+
+		let resp = {0: 0, 1: 0, 2: 0};
+		let resp2 = {1: 0};
+		try {
+			resp = await getters[`${method}`](selectedCollateral, amount, accountAddress);
+			if (action === "Mint") {
+				resp2 = await getters[`${method}`](selectedCollateral, resp[1]);
+			}
+		} catch (e: any) {
+		} finally {
+			// estimationData[""] = "";
+		}
+		return estimationData;
+	}	
 };
