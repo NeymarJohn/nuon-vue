@@ -41,7 +41,7 @@
 				</LayoutFlex>
 			</div>
 		</div>
-		<TransactionSummary v-if="mintValue > 0" class="u-mt-24" :values="summary" />
+		<TransactionSummary v-if="mintValue > 0 && !isMoreThanBalance" class="u-mt-24" :values="summary" />
 		<LayoutFlex direction="row-justify-end">
 			<TheButton
 				class="u-min-width-200"
