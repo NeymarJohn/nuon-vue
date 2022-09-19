@@ -49,7 +49,7 @@
 				</LayoutFlex>
 			</div>
 		</div>
-		<TransactionSummary v-if="mintValue > 0" class="u-mt-24" :values="summary" />
+		<TransactionSummary v-if="mintValue > 0 && !isMoreThanBalance" class="u-mt-24" :values="summary" />
 		<LayoutFlex direction="row-justify-end">
 			<TheButton
 				class="u-min-width-200"
@@ -167,6 +167,12 @@ export default {
 					this.$set(this.estimatedAmount, 3, parseFloat(fromWei(resp2[0], this.decimals)).toFixed(2));
 				}
 			}
+			this.$store.dispatch("collateralVaultStore/calcEstimation", {
+				action: this.action, 
+				selectedCollateral: 
+				this.selectedCollateral, 
+				value: this.mintValue
+			});
 		},
 		submit() {
 			try {

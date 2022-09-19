@@ -41,6 +41,7 @@ type StateType = {
 	collateralPrices: any,
 	lpValueOfUser: any,
 	globalRatio: any,
+	estimation: any
 }
 export const state = (): StateType => ({
 	allowance: {
@@ -75,7 +76,8 @@ export const state = (): StateType => ({
 	collateralRatio: {...DEFAULVALUES}, // {WETH: 0 USDT: 0} collateral ratio for all collateral tokens for user
 	collateralPrices:{...DEFAULVALUES}, // {WETH: 0 USDT: 0} collateral price for all collateral tokens
 	lpValueOfUser: {...DEFAULVALUES}, // {WETH: 0 USDT: 0} collateral price for all collateral tokens
-	globalRatio: {...DEFAULVALUES}
+	globalRatio: {...DEFAULVALUES},
+	estimation: {}
 });
 
 export type BoardroomState = ReturnType<typeof state>;
@@ -140,6 +142,9 @@ export const mutations: MutationTree<BoardroomState> = {
 	},
 	setGlobalRatio(state, {token, value}) {
 		state.globalRatio = {...state.globalRatio, [token]: value};
+	},
+	setEstimation(state, payload) {
+		state.estimation = payload;
 	}
 };
 
@@ -377,6 +382,34 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 				if (onReject) onReject(err);
 			});
 	},
+	async calcEstimation(ctx:any, {action, selectedCollateral, value}){
+		const estimationData:any = {};
+		const accountAddress = ctx.rootState.web3Store.account;
+
+		let method;
+		if (action === "Burn") {
+			method = "burnNUONEstimation";
+		} else if (action === "Mint") {
+			method = "mintWithoutDepositEstimation";
+		}
+		const amount = toWei(value);
+
+		let resp: any = {};
+		let resp2 = {1: 0};
+		try {
+			resp = await ctx.getters[`${method}`](selectedCollateral, amount, accountAddress);
+			if (action === "Mint") {
+				resp2 = await ctx.getters.mintLiquidityHelper(selectedCollateral, resp[1]);
+			}
+			
+		} catch (e: any) {
+		} finally {
+			estimationData.lockedCollateral = 0;
+			estimationData.mintedNuon = fromWei(resp[2]);
+			estimationData.collateralRatio = fromWei(resp[0]);
+		}
+		ctx.commit("setEstimation", estimationData);
+	}	
 };
 
 export const getters: GetterTree<BoardroomState, Web3State> = {
@@ -534,29 +567,5 @@ export const getters: GetterTree<BoardroomState, Web3State> = {
 	getPPFS: (_state: any, getters: any) => async () => {
 		return await getters.vaultRelayerContract.methods.getPPFS().call();
 	},
-	getEstimationData:(_state: any, getters: any, rootState: any) => async (action: string, selectedCollateral: string, value: number) => {
-		const estimationData = {};
-		const accountAddress = rootState.web3Store.account;
 
-		let method;
-		if (action === "Burn") {
-			method = "burnNUONEstimation";
-		} else if (action === "Mint") {
-			method = "mintWithoutDepositEstimation";
-		}
-		const amount = toWei(value);
-
-		let resp = {0: 0, 1: 0, 2: 0};
-		let resp2 = {1: 0};
-		try {
-			resp = await getters[`${method}`](selectedCollateral, amount, accountAddress);
-			if (action === "Mint") {
-				resp2 = await getters[`${method}`](selectedCollateral, resp[1]);
-			}
-		} catch (e: any) {
-		} finally {
-			// estimationData[""] = "";
-		}
-		return estimationData;
-	}	
 };

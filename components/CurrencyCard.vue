@@ -4,7 +4,7 @@
 		<h3 v-if="value">{{ symbol }}{{ value | toFixed | numberWithCommas}}<sup>{{ currency }}</sup></h3>
 		<h3 v-else>{{ percent | toFixed | numberWithCommas }}<sup>%</sup></h3>
 		<h5 v-if="change">${{ change | toFixed | numberWithCommas }}</h5>
-		<TheBadge v-if="badge" :color="`collateral badge--collateral-${badgeColor}`">{{ badge }} {{ badgeCurrency }} after</TheBadge>
+		<TheBadge v-if="badge" :color="`collateral badge--collateral-${badgeColor}`">{{ badge | toFixed | numberWithCommas}} {{ badgeCurrency }} after</TheBadge>
 	</div>
 </template>
 

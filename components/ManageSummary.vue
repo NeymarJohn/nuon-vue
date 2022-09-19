@@ -25,10 +25,13 @@ export default {
 	data() {
 		return {
 			lockedCollateralAfter: 5.47,
-			estimation: { }
+			// estimation: { }
 		};
 	},
 	computed: {
+		estimation() {
+			return this.$store.state.collateralVaultStore.estimation;
+		},
 		lockedCollateral() {
 			return this.$store.state.collateralVaultStore.lockedAmount[this.collateral]; 
 		},
