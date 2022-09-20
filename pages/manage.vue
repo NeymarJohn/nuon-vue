@@ -16,12 +16,14 @@
 								<TheTab title="Mint">
 									<InputManageCollateral
 										action="Mint"
-										:default-collateral="selectedCollateral" @changeCollateral="onChangeCollateral" />
+										:default-collateral="selectedCollateral"
+										@changeCollateral="onChangeCollateral" />
 								</TheTab>
 								<TheTab title="Burn">
 									<InputManageCollateral
 										action="Burn"
-										:default-collateral="selectedCollateral" @changeCollateral="onChangeCollateral" />
+										:default-collateral="selectedCollateral"
+										@changeCollateral="onChangeCollateral" />
 								</TheTab>
 							</TheTabs>
 						</template>
@@ -37,12 +39,14 @@
 								<TheTab title="Deposit">
 									<InputManageCollateral
 										action="Deposit"
-										:default-collateral="selectedCollateral" @changeCollateral="onChangeCollateral" />
+										:default-collateral="selectedCollateral"
+										@changeCollateral="onChangeCollateral" />
 								</TheTab>
 								<TheTab title="Withdraw">
 									<InputManageCollateral
 										action="Withdraw"
-										:default-collateral="selectedCollateral" @changeCollateral="onChangeCollateral" />
+										:default-collateral="selectedCollateral"
+										@changeCollateral="onChangeCollateral" />
 								</TheTab>
 							</TheTabs>
 						</template>
@@ -58,12 +62,14 @@
 								<TheTab title="Add">
 									<InputManageCollateral
 										action="Add"
-										:default-collateral="selectedCollateral" @changeCollateral="onChangeCollateral" />
+										:default-collateral="selectedCollateral"
+										@changeCollateral="onChangeCollateral" />
 								</TheTab>
 								<TheTab title="Remove">
 									<InputManageCollateral
 										action="Remove"
-										:default-collateral="selectedCollateral" @changeCollateral="onChangeCollateral" />
+										:default-collateral="selectedCollateral"
+										@changeCollateral="onChangeCollateral" />
 								</TheTab>
 							</TheTabs>
 						</template>
