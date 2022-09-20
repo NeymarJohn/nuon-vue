@@ -96,10 +96,9 @@ export default {
 	},
 	head () {
 		return {
-			title: "Collateral Hub | NUON"
+			title: "Manage | NUON"
 		};
 	},
-
 	mounted() {
 		this.initialize();
 		this.mobileView = this.isMobile();
