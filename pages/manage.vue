@@ -14,19 +14,19 @@
 						<template #left>
 							<TheTabs margin="0" size="full">
 								<TheTab title="Mint">
-									<InputManageNuon
+									<InputManageCollateral
 										action="Mint"
 										:default-collateral="selectedCollateral" @changeCollateral="onChangeCollateral" />
 								</TheTab>
 								<TheTab title="Burn">
-									<InputManageNuon
+									<InputManageCollateral
 										action="Burn"
-										:default-collateral="selectedCollateral" @changeCollateral="onChangeCollateral"/>
+										:default-collateral="selectedCollateral" @changeCollateral="onChangeCollateral" />
 								</TheTab>
 							</TheTabs>
 						</template>
 						<template #right>
-							<ManageSummary :collateral="selectedCollateral"/>
+							<ManageSummary :collateral="selectedCollateral" />
 						</template>
 					</LayoutAction>
 				</TheTab>
@@ -36,10 +36,13 @@
 							<TheTabs margin="0" size="full">
 								<TheTab title="Deposit">
 									<InputManageCollateral
-										action="Deposit" :default-collateral="selectedCollateral" @changeCollateral="onChangeCollateral" />
+										action="Deposit"
+										:default-collateral="selectedCollateral" @changeCollateral="onChangeCollateral" />
 								</TheTab>
 								<TheTab title="Withdraw">
-									<InputManageCollateral action="Withdraw" :default-collateral="selectedCollateral" @changeCollateral="onChangeCollateral"/>
+									<InputManageCollateral
+										action="Withdraw"
+										:default-collateral="selectedCollateral" @changeCollateral="onChangeCollateral" />
 								</TheTab>
 							</TheTabs>
 						</template>
@@ -53,10 +56,14 @@
 						<template #left>
 							<TheTabs margin="0" size="full">
 								<TheTab title="Add">
-									<InputManageCollateral action="Add" :default-collateral="selectedCollateral" @changeCollateral="onChangeCollateral"/>
+									<InputManageCollateral
+										action="Add"
+										:default-collateral="selectedCollateral" @changeCollateral="onChangeCollateral" />
 								</TheTab>
 								<TheTab title="Remove">
-									<InputManageCollateral action="Remove" :default-collateral="selectedCollateral" @changeCollateral="onChangeCollateral"/>
+									<InputManageCollateral
+										action="Remove"
+										:default-collateral="selectedCollateral" @changeCollateral="onChangeCollateral" />
 								</TheTab>
 							</TheTabs>
 						</template>
