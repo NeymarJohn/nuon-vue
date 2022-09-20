@@ -10,7 +10,7 @@
 			</LayoutFlex>
 			<TheTabs margin="24" size="govern" color="transparent" @tab-changed="tabChanged">
 				<TheTab title="Nuon">
-					<LayoutAction type="tabs">
+					<LayoutAction type="tabs" class="u-mb-48">
 						<template #left>
 							<TheTabs margin="0" size="full">
 								<TheTab title="Mint">
@@ -31,7 +31,7 @@
 					</LayoutAction>
 				</TheTab>
 				<TheTab title="Collateral">
-					<LayoutAction type="tabs">
+					<LayoutAction type="tabs" class="u-mb-48">
 						<template #left>
 							<TheTabs margin="0" size="full">
 								<TheTab title="Deposit">
@@ -49,7 +49,7 @@
 					</LayoutAction>
 				</TheTab>
 				<TheTab title="Liquidity">
-					<LayoutAction type="tabs">
+					<LayoutAction type="tabs" class="u-mb-48">
 						<template #left>
 							<TheTabs margin="0" size="full">
 								<TheTab title="Add">
