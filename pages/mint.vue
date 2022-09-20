@@ -8,7 +8,16 @@
 				</PageTitle>
 				<PriceIndicator />
 			</LayoutFlex>
-			<CollateralMint :minimum-deposit-amount="0"  />
+			<LayoutMint>
+				<TheTabs margin="0" size="full">
+					<TheTab title="Mint">
+						<CollateralMint :minimum-deposit-amount="0"  />
+					</TheTab>
+					<TheTab title="Redeem">
+						<CollateralRedeem currently-selected-collateral="WETH"/>
+					</TheTab>
+				</TheTabs>
+			</LayoutMint>
 		</LayoutContainer>
 	</div>
 </template>

@@ -1,0 +1,26 @@
+/* #LAYOUT - MAIN
+		1. Main default
+*/
+
+// 1. Main default
+.l-mint {
+	padding: 0;
+	background-color: $DARK_GREY;
+	border-radius: $BORDER_RADIUS_16;
+	@extend .l-container;
+	@extend .l-container--sm;
+	margin-bottom: $PX_48;
+}
+.l-mint .tabs__header {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	border-top-left-radius: $PX_16;
+	border-top-right-radius: $PX_16;
+}
+.l-mint .tabs__header li.is-active {
+	background-color: $TRANSPARENT;
+}
+.l-mint .tabs__header li.is-active h5 {
+	color: $LIME;
+}

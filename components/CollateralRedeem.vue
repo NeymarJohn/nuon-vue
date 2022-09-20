@@ -1,72 +1,70 @@
 <template>
-	<TheStepper :active-step="activeStep" :steps="['Input', 'Confirm']">
-		<template #step-one>
-			<DataCard class="u-full-width u-mb-48">
-				<LayoutFlex direction="row-space-between" class="u-full-width">
-					<p>Amount of NUON</p>
-					<p>Available balance: {{ (mintedAmount || 0) | formatLongNumber }}</p>
-				</LayoutFlex>
-				<InputMax v-model="inputValue" :maximum="mintedAmount" @click="inputMaxBalance" />
-				<h5 v-if="inputValue" class="u-mb-0 l-flex--align-self-end">~ ${{ numberWithCommas(getDollarValue(inputValue, nuonPrice).toFixed(2)) }}</h5>
-				<p v-if="readyToRepay" class="u-is-success l-flex--align-self-end">Ready to repay</p>
-				<p v-if="amountMoreThanUserMinted" class="u-is-warning l-flex--align-self-end">Insufficient balance.</p>
-			</DataCard>
-			<DataCard class="u-full-width">
-				<p>Estimated {{ currentlySelectedCollateral }} Redeemed</p>
-				<h4 class="collateral-estimate">{{ estimatedWithdrawnNuonValue | toFixed | numberWithCommas }}<sup>{{ currentlySelectedCollateral }}</sup></h4>
-			</DataCard>
-			<div class="toggle__transaction">
-				<TheButton
-					:disabled="isApproved || isApproving"
-					:class="isApproved"
-					title="Click to approve"
-					size="approved"
-					class="u-min-width-185"
-					@click="approveTokens">
-					<span v-if="isApproved">Verified</span>
-					<span v-else-if="isApproving">Approving...</span>
-					<span v-else>Approve</span>
-				</TheButton>
-				<TheButton
-					class="u-full-width"
-					title="Click to deposit"
-					:disabled="isNextDisabled"
-					@click="activeStep = 2">Next</TheButton>
+	<div class="swap">
+		<div class="swap__container u-mb-8">
+			<SwapBalance
+				label="Receive"
+				:token="selectedCollateral" />
+			<MintAccordion
+				:disabled-tokens="[currentlySelectedCollateral, 'BTC', 'BUSD', 'AVAX']"
+				:default-token="currentlySelectedCollateral"
+				@selected-token="selectInputToken">
+			</MintAccordion>
+		</div>
+		<div class="swap__container u-mb-24">
+			<LayoutFlex direction="row-center-space-between swap__balance">
+				<label>Burn</label>
+				<ComponentLoader component="label" :loaded="Number(mintedAmount) !== 0">
+					<label>Balance:
+						<span>{{ mintedAmount | formatLongNumber }}</span>
+					</label>
+				</ComponentLoader>
+			</LayoutFlex>
+			<div class="input-wrapper">
+				<div class="input-token">
+					<NuonLogo />
+					<h5>NUON</h5>
+				</div>
+				<InputMax v-model="inputValue" :maximum="mintedAmount" @input="inputMaxBalance" />
 			</div>
-		</template>
-		<template #step-two>
-			<TransactionSummaryChub
-				:convert-from-amount="`${inputValue}`"
-				convert-from-title="Repay"
-				:convert-to-amount="estimatedWithdrawnNuonValue"
-				convert-to-title="Redeem"
-				:from-token="'NUON'"
-				:to-token="currentlySelectedCollateral"
-				:fee="redeemFee"
-			/>
-			<div class="toggle__transaction">
-				<TheButton
-					title="Click to go back"
-					class="btn--back"
-					@click="activeStep = 1">Back</TheButton>
-				<TheButton
-					class="u-full-width"
-					title="Click to confirm"
-					:disabled="withdrawing"
-					@click="withdraw">
-					<span v-if="withdrawing">Withdrawing...</span>
-					<span v-else>Withdraw</span>
-				</TheButton>
-			</div>
-		</template>
-	</TheStepper>
+			<LayoutFlex direction="row-center-space-between">
+				<div>
+					<p v-if="readyToRedeem" class="u-font-size-14 u-is-success u-mb-0">Ready To Redeem</p>
+					<p v-if="amountMoreThanUserMinted" class="u-font-size-14 u-is-warning u-mb-0">Insufficient Balance</p>
+				</div>
+				<p class="u-mb-0 u-font-size-14 u-color-light-grey">~ ${{ numberWithCommas(getDollarValue(inputValue, nuonPrice).toFixed(2)) }}</p>
+			</LayoutFlex>
+		</div>
+		<DataCard class="u-full-width">
+			<p>Estimated {{ currentlySelectedCollateral }} Redeemed</p>
+			<h4 class="collateral-estimate">{{ estimatedWithdrawnNuonValue | toFixed | numberWithCommas }}<sup>{{ currentlySelectedCollateral }}</sup></h4>
+		</DataCard>
+		<TransactionSummaryChub
+			:convert-from-amount="`${inputValue}`"
+			convert-from-title="Repay"
+			:convert-to-amount="estimatedWithdrawnNuonValue"
+			convert-to-title="Redeem"
+			:from-token="'NUON'"
+			:to-token="currentlySelectedCollateral"
+			:fee="redeemFee"
+		/>
+		<TheButton
+			class="u-full-width"
+			title="Click to redeem"
+			@click="redeem">
+			Redeem
+		</TheButton>
+	</div>
 </template>
 
 <script>
 import { fromWei, toWei } from "~/utils/bnTools";
+import NuonLogo from "@/assets/images/logo/logo-numint.svg";
 
 export default {
 	name: "CollateralRedeem",
+	components: {
+		NuonLogo,
+	},
 	props: {
 		currentlySelectedCollateral: {
 			type: String,
@@ -76,21 +74,12 @@ export default {
 	data() {
 		return {
 			nuonPrice: 0,
-			activeStep: 1,
 			estimatedWithdrawnNuonValue: 0,
-			withdrawing: false,
 			inputValue: null,
-			isApproving: false,
 		};
 	},
 	computed: {
-		isApproved() {
-			return !!parseFloat(this.$store.state.collateralVaultStore.allowance.NUON);
-		},
-		isNextDisabled() {
-			return !this.isApproved || !parseFloat(this.inputValue) || parseFloat(this.inputValue) > parseFloat(this.mintedAmount) || !this.connectedAccount;
-		},
-		readyToRepay() {
+		readyToRedeem() {
 			return !!parseFloat(this.inputValue) && parseFloat(this.inputValue) <= parseFloat(this.mintedAmount);
 		},
 		amountMoreThanUserMinted() {
@@ -144,21 +133,7 @@ export default {
 			}
 
 		},
-		approveTokens() {
-			this.isApproving = true;
-			this.$store.dispatch("collateralVaultStore/approveToken",
-				{
-					tokenSymbol: "NUON",
-					onConfirm: () => { },
-					onReject: () => { },
-					onCallback: () => {
-						this.isApproving = false;
-					}
-				});
-		},
-		async withdraw() {
-			this.activeStep = "loading";
-			this.withdrawing = true;
+		async redeem() {
 			const nuonAmount = toWei(this.inputValue, this.$store.state.erc20Store.decimals.NUON);
 
 			try {
@@ -175,10 +150,6 @@ export default {
 			} catch(e) {
 				const message = this.getRPCErrorMessage(e);
 				this.failureToast(null, message || e, "Transaction failed");
-			}
-			finally {
-				this.withdrawing = false;
-				this.activeStep = 1;
 			}
 		},
 		inputMaxBalance() {

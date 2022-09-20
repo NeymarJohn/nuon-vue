@@ -1,68 +1,66 @@
 <template>
-	<LayoutContainer size="sm" class="u-pt-0">
-		<div class="swap">
-			<div class="swap__container u-mb-8">
-				<SwapBalance
-					label="Deposit"
-					:token="selectedCollateral" />
-				<MintAccordion
-					:disabled-tokens="[selectedCollateral, 'BTC', 'BUSD', 'AVAX']"
-					:default-token="selectedCollateral"
-					@selected-token="selectInputToken">
-					<template #input>
-						<InputMax v-model="inputValue" :maximum="tokenBalances[selectedCollateral]" @click="inputMaxBalance" />
-					</template>
-					<template #messages>
-						<LayoutFlex direction="row-center-space-between">
-							<div>
-								<p v-if="isMoreThanEqualMinimum && isLessThanEqualBalance" class="u-font-size-14 u-is-success u-mb-0">Ready To Mint</p>
-								<p v-if="isMoreThanBalance" class="u-font-size-14 u-is-warning u-mb-0">Insufficient Balance</p>
-								<p v-if="isLTEMinimumDepositAmount" class="u-font-size-14 u-is-warning u-mb-0">Please Deposit More Than {{ minimumDepositAmount }} {{ selectedCollateral }}</p>
-							</div>
-							<p class="u-mb-0 u-font-size-14 u-color-light-grey">~ ${{ getDollarValue(inputValue, collateralPrice) | toFixed | numberWithCommas }}</p>
-						</LayoutFlex>
-					</template>
-				</MintAccordion>
-			</div>
-			<div class="swap__container u-mb-24">
-				<div class="swap__balance">
-					<label>Mint</label>
-				</div>
-				<div class="swap__wrapper">
-					<div class="swap__return">
-						<NuonLogo />
-						<div class="swap__token">
-							<h5>NUON</h5>
+	<div class="swap">
+		<div class="swap__container u-mb-8">
+			<SwapBalance
+				label="Deposit"
+				:token="selectedCollateral" />
+			<MintAccordion
+				:disabled-tokens="[selectedCollateral, 'BTC', 'BUSD', 'AVAX']"
+				:default-token="selectedCollateral"
+				@selected-token="selectInputToken">
+				<template #input>
+					<InputMax v-model="inputValue" :maximum="tokenBalances[selectedCollateral]" @click="inputMaxBalance" />
+				</template>
+				<template #messages>
+					<LayoutFlex direction="row-center-space-between">
+						<div>
+							<p v-if="isMoreThanEqualMinimum && isLessThanEqualBalance" class="u-font-size-14 u-is-success u-mb-0">Ready To Mint</p>
+							<p v-if="isMoreThanBalance" class="u-font-size-14 u-is-warning u-mb-0">Insufficient Balance</p>
+							<p v-if="isLTEMinimumDepositAmount" class="u-font-size-14 u-is-warning u-mb-0">Please Deposit More Than {{ minimumDepositAmount }} {{ selectedCollateral }}</p>
 						</div>
-					</div>
-					<h3>{{estimatedMintedNuonValue | toFixed | numberWithCommas}}<sup>NUON</sup></h3>
-				</div>
-			</div>
-			<div class="collateral">
-				<div class="collateral__header">
-					<p>Set your Collateral Ratio<TooltipIcon v-tooltip="'Enter content here'" /></p>
-					<TheButton size="link" title="Click to view advanced options" @click="isVisible = !isVisible">{{ isVisible ? "Basic" : "Advanced" }}</TheButton>
-				</div>
-				<div v-if="isVisible !== true" class="collateral__body">
-					<TheButton v-for="(ratio, index) in ratios" :key="ratio.index" :class="{'is-active': (index === selectedRatio)}" :title="`Click to select ${ratio.label.toLowerCase()}`" @click="selectRatio(index)">
-						{{ ratio.value }}% <span>{{ ratio.label }}</span>
-					</TheButton>
-				</div>
-				<div v-else class="collateral__body">
-					<RangeSlider :min="`${sliderMin}`" :max="'1000'" :slider-disabled="!inputValue || isMoreThanBalance" :selected-collateral-ratio="`${selectedCollateralRatio}`" @emit-change="debouncedSliderChanged" />
-				</div>
-			</div>
-			<TransactionSummary v-if="inputValue > 0" :values="summary" />
-			<LayoutFlex direction="row-justify-end">
-				<TheButton
-					title="Click to mint"
-					:disabled="isMintDisabled"
-					@click="mint">
-					Mint
-				</TheButton>
-			</LayoutFlex>
+						<p class="u-mb-0 u-font-size-14 u-color-light-grey">~ ${{ getDollarValue(inputValue, collateralPrice) | toFixed | numberWithCommas }}</p>
+					</LayoutFlex>
+				</template>
+			</MintAccordion>
 		</div>
-	</LayoutContainer>
+		<div class="swap__container u-mb-24">
+			<div class="swap__balance">
+				<label>Mint</label>
+			</div>
+			<div class="swap__wrapper">
+				<div class="swap__return">
+					<NuonLogo />
+					<div class="swap__token">
+						<h5>NUON</h5>
+					</div>
+				</div>
+				<h3>{{estimatedMintedNuonValue | toFixed | numberWithCommas}}<sup>NUON</sup></h3>
+			</div>
+		</div>
+		<div class="collateral">
+			<div class="collateral__header">
+				<p>Set your Collateral Ratio<TooltipIcon v-tooltip="'Enter content here'" /></p>
+				<TheButton size="link" title="Click to view advanced options" @click="isVisible = !isVisible">{{ isVisible ? "Basic" : "Advanced" }}</TheButton>
+			</div>
+			<div v-if="isVisible !== true" class="collateral__body">
+				<TheButton v-for="(ratio, index) in ratios" :key="ratio.index" :class="{'is-active': (index === selectedRatio)}" :title="`Click to select ${ratio.label.toLowerCase()}`" @click="selectRatio(index)">
+					{{ ratio.value }}% <span>{{ ratio.label }}</span>
+				</TheButton>
+			</div>
+			<div v-else class="collateral__body">
+				<RangeSlider :min="`${sliderMin}`" :max="'1000'" :slider-disabled="!inputValue || isMoreThanBalance" :selected-collateral-ratio="`${selectedCollateralRatio}`" @emit-change="debouncedSliderChanged" />
+			</div>
+		</div>
+		<TransactionSummary v-if="inputValue > 0" :values="summary" />
+		<LayoutFlex direction="row-justify-end">
+			<TheButton
+				title="Click to mint"
+				:disabled="isMintDisabled"
+				@click="mint">
+				Mint
+			</TheButton>
+		</LayoutFlex>
+	</div>
 </template>
 
 <script>
