@@ -1,7 +1,7 @@
 <template>
 	<div :class="`tabs tabs--${size} tabs--${color}`">
 		<ul :class="`tabs__header u-mb-${margin}`">
-			<li v-for="(tab, index) in tabs" :key="tab.index" :class="{'is-active': (index === selectedIndex)}" :title="`Click to view ${tab.title.toLowerCase()} transactions`" @click="selectTab(index)">
+			<li v-for="(tab, index) in tabs" :key="tab.index" :class="{'is-active': (index === selectedIndex)}" :title="`Click to view ${tab.title.toLowerCase()}`" @click="selectTab(index)">
 				<h5>{{ tab.title }}</h5>
 			</li>
 		</ul>
