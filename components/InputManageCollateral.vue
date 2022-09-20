@@ -48,8 +48,7 @@
 				class="u-min-width-200"
 				:title="`Click to ${action}`"
 				:disabled="isSubmitDisabled"
-				:loading="isLoading"
-				@click="approveAndSubmit">{{action}}</TheButton>
+				@click="submit">{{action}}</TheButton>
 		</LayoutFlex>
 	</div>
 </template>
@@ -76,8 +75,7 @@ export default {
 			error: "",
 			submitDisabled: true,
 			estimatedAmount: {0: 0, 1: 0, 2: 0, 3: 0},
-			selectedCollateral: "WETH",
-			isLoading: false
+			selectedCollateral: "WETH"
 		};
 	},
 	computed: {
@@ -188,9 +186,6 @@ export default {
 		inputChanged() {
 			if (!["Add", "Remove"].includes(this.action)) this.getEstimatedAmounts();
 		},
-		approveAndSubmit() {
-			this.submit();
-		},
 		submit() {
 			try {
 				let methodName = "addLiquidityForUser";
@@ -201,8 +196,8 @@ export default {
 				if (this.action === "Remove Liquidity") methodName = "removeLiquidityForUser";
 
 				const amount = toWei(this.inputModel, this.actionIsMintOrBurn ? 18 : this.decimals);
-				this.isLoading = true;
-				this.$store.dispatch("collateralVaultStore/callManageMethods", {
+
+				this.$store.dispatch(`collateralVaultStore/${methodName}`, {
 					collateral: this.selectedCollateral,
 					method: methodName,
 					amount,
@@ -213,10 +208,6 @@ export default {
 					},
 					onReject: (err) => {
 						this.failureToast(null, err, "Transaction Failed");
-						this.isLoading = false;
-					},
-					onTxHash: () => {
-						this.isLoading = false;
 					}
 				});
 			} catch (err) {
