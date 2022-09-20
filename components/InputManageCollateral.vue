@@ -155,13 +155,13 @@ export default {
 
 			const amount = toWei(this.inputModel, this.decimals);
 
-			let resp = { 0: 0, 1: 0, 2: 0 };
-			let resp2 = {1: 0};
+			let response = { 0: 0, 1: 0, 2: 0 };
+			let responseMint = {1: 0};
 
 			try {
-				resp = await this.$store.getters[`collateralVaultStore/${method}`](this.selectedCollateral, amount, this.connectedAccount);
+				response = await this.$store.getters[`collateralVaultStore/${method}`](this.selectedCollateral, amount, this.connectedAccount);
 				if (this.action === "Mint") {
-					resp2 = await this.$store.getters["collateralVaultStore/mintLiquidityHelper"](this.selectedCollateral, resp[1]);
+					responseMint = await this.$store.getters["collateralVaultStore/mintLiquidityHelper"](this.selectedCollateral, response[1]);
 				}
 			} catch (err) {
 				const mintLiquidationMsg = "This will liquidate you";
@@ -170,11 +170,11 @@ export default {
 					this.error = mintLiquidationMsg;
 				}
 			} finally {
-				this.$set(this.estimatedAmount, 0, fromWei(resp[0]));
-				this.$set(this.estimatedAmount, 1, fromWei(resp[1], this.decimals));
-				this.$set(this.estimatedAmount, 2, fromWei(resp[2], this.decimals));
+				this.$set(this.estimatedAmount, 0, fromWei(response[0]));
+				this.$set(this.estimatedAmount, 1, fromWei(response[1], this.decimals));
+				this.$set(this.estimatedAmount, 2, fromWei(response[2], this.decimals));
 				if (this.action === "Mint") {
-					this.$set(this.estimatedAmount, 3, parseFloat(fromWei(resp2[0], this.decimals)).toFixed(2));
+					this.$set(this.estimatedAmount, 3, parseFloat(fromWei(responseMint[0], this.decimals)).toFixed(2));
 				}
 			}
 			this.$store.dispatch("collateralVaultStore/calcEstimation", {
