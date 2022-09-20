@@ -1,53 +1,35 @@
 <template>
 	<div>
-		<div :class="action === 'Burn' ? 'l-flex l-flex--column-reverse u-mb-24' : 'u-mb-24' ">
-			<div class="swap__container" :class="action === 'Mint' ? 'u-mb-10' : null">
-				<LayoutFlex direction="row-center-space-between swap__balance">
-					<label>{{action === 'Mint' ? 'Spend' : 'Receive'}}</label>
-					<ComponentLoader v-if="action==='Mint'" component="label" :loaded="true">
-						<label>Balance:
-							<span>{{ tokenBalances[selectedCollateral] | formatLongNumber }}</span>
-						</label>
-					</ComponentLoader>
-				</LayoutFlex>
-				<MintAccordion
-					:disabled-tokens="['BTC', 'BUSD', 'AVAX']"
-					:default-token="defaultCollateral"
-					@selected-token="selectCollateral">
-					<template #input>
-						<InputMax v-model="spendValue" :maximum="tokenBalances[selectedCollateral]" :hidden-max-button="action==='Burn'" :auto-focus="action==='Mint'" @input="handleChangeCollateral" />
-					</template>
-					<template #messages>
-						<LayoutFlex direction="row-justify-end">
-							<p class="u-mb-0 u-font-size-14 u-color-light-grey">~ ${{getDollarValue(spendValue,tokenPrices[selectedCollateral]) | toFixed | numberWithCommas}}</p>
-						</LayoutFlex>
-					</template>
-				</MintAccordion>
-			</div>
-			<div class="swap__container" :class="action === 'Burn' ? 'u-mb-10' : null">
-				<LayoutFlex direction="row-center-space-between swap__balance">
-					<label>{{action}}</label>
-					<ComponentLoader v-if="action==='Burn'" component="label" :loaded="Number(userMintedAmount) !== 0">
-						<label>Minted Amount:
-							<span>{{ userMintedAmount | formatLongNumber }}</span>
-						</label>
-					</ComponentLoader>
-				</LayoutFlex>
-				<div class="input-wrapper">
-					<div class="input-token">
-						<NuonLogo />
-						<h5>NUON</h5>
-					</div>
-					<InputMax  v-model="mintValue" :maximum="userMintedAmount" :hidden-max-button="action==='Mint'" :auto-focus="action==='Burn'" @input="inputChanged"/>
+		<div class="swap__container u-mb-8">
+			<MintAccordion
+				:disabled-tokens="['BTC', 'BUSD', 'AVAX']"
+				:default-token="defaultCollateral"
+				@selected-token="selectCollateral">
+			</MintAccordion>
+		</div>
+		<div class="swap__container u-mb-24">
+			<LayoutFlex direction="row-center-space-between swap__balance">
+				<label>{{action}}</label>
+				<ComponentLoader component="label" :loaded="Number(userMintedAmount) !== 0" class="u-height-20">
+					<label>Balance:
+						<span>{{ userMintedAmount | formatLongNumber }}</span>
+					</label>
+				</ComponentLoader>
+			</LayoutFlex>
+			<div class="input-wrapper">
+				<div class="input-token">
+					<NuonLogo />
+					<h5>NUON</h5>
 				</div>
-				<LayoutFlex direction="row-center-space-between">
-					<div>
-						<p v-if="isMoreThanEqualMinimumAndLessThanBalance" class="u-font-size-14 u-is-success u-mb-0">Ready To {{ action }}</p>
-						<p v-if="isMoreThanBalance" class="u-font-size-14 u-is-warning u-mb-0">Insufficient Balance</p>
-					</div>
-					<p class="u-mb-0 u-font-size-14 u-color-light-grey">~ ${{getDollarValue(mintValue,tokenPrices.NUON) | toFixed | numberWithCommas}}</p>
-				</LayoutFlex>
+				<InputMax v-model="mintValue" :maximum="userMintedAmount" :hidden-max-button="action==='Mint'" @input="inputChanged"/>
 			</div>
+			<LayoutFlex direction="row-center-space-between">
+				<div>
+					<p v-if="isMoreThanEqualMinimumAndLessThanBalance" class="u-font-size-14 u-is-success u-mb-0">Ready To {{ action }}</p>
+					<p v-if="isMoreThanBalance" class="u-font-size-14 u-is-warning u-mb-0">Insufficient Balance</p>
+				</div>
+				<p class="u-mb-0 u-font-size-14 u-color-light-grey">~ ${{getDollarValue(mintValue,tokenPrices.NUON) | toFixed | numberWithCommas}}</p>
+			</LayoutFlex>
 		</div>
 		<TransactionSummary v-if="mintValue > 0 && !isMoreThanBalance" class="u-mt-24" :values="summary" />
 		<LayoutFlex direction="row-justify-end">
@@ -100,7 +82,10 @@ export default {
 			return parseFloat(this.mintValue) > 0 && parseFloat(this.mintValue) <= this.tokenBalance;
 		},
 		summary() {
-			const summary = [{title: "New Collateral Ratio", val: `${parseFloat(this.estimatedAmount[0]).toFixed(0)}%`}];
+			const summary = [{
+				title: "New Collateral Ratio",
+				val: `${parseFloat(this.estimatedAmount[0])}`
+			}];
 			if (this.action === "Burn") {
 				// this.estimatedAmount = user cratio after burn, burned nuons, total amount of nuon left after burn
 				summary.push({title: "New NUON Amount", val: this.estimatedAmount[2]});
@@ -168,9 +153,9 @@ export default {
 				}
 			}
 			this.$store.dispatch("collateralVaultStore/calcEstimation", {
-				action: this.action, 
-				selectedCollateral: 
-				this.selectedCollateral, 
+				action: this.action,
+				selectedCollateral:
+				this.selectedCollateral,
 				value: this.mintValue
 			});
 		},

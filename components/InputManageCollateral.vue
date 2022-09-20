@@ -3,7 +3,7 @@
 		<div class="swap__container u-mb-24">
 			<LayoutFlex direction="row-center-space-between swap__balance">
 				<label>{{ action }}</label>
-				<ComponentLoader component="label" :loaded="tokenBalances[selectedCollateral] !== '0'">
+				<ComponentLoader component="label" :loaded="tokenBalances[selectedCollateral] !== '0'" class="u-height-20">
 					<label v-if="action === 'Deposit'">Balance:
 						<span>{{ tokenBalances[selectedCollateral] | formatLongNumber }}</span>
 					</label>

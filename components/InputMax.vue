@@ -38,10 +38,6 @@ export default {
 			type: Boolean,
 			default: false
 		},
-		autoFocus: {
-			type: Boolean,
-			default: false
-		}
 	},
 	data() {
 		return {
@@ -54,9 +50,7 @@ export default {
 		}
 	},
 	mounted () {
-		if (this.autoFocus) {
-			this.$nextTick(() => this.$refs.inputFocus.focus());
-		}
+		this.$nextTick(() => this.$refs.inputFocus.focus());
 	},
 	methods: {
 		clicked ($event) {

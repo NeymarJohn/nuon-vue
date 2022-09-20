@@ -37,8 +37,8 @@ export default {
 			default: 0
 		},
 		badge: {
-			type: Number,
-			default: 0
+			type: String,
+			default: ""
 		},
 		badgeCurrency: {
 			type: String,
