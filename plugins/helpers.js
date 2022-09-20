@@ -267,6 +267,9 @@ Vue.mixin({
 		},
 		getValueWithBN(amount, price) {
 			return new BigNumber(amount).times(price).toString();
-		}
+		},
+		handleTabChanged(x) {
+			this.currentSection = x;
+		},
 	},
 });

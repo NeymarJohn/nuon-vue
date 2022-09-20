@@ -8,7 +8,7 @@
 				</PageTitle>
 				<PriceIndicator />
 			</LayoutFlex>
-			<TheTabs margin="24" size="govern" color="transparent" @tab-changed="tabChanged">
+			<TheTabs margin="24" size="govern" color="transparent" @tab-changed="handleTabChanged">
 				<TheTab title="Nuon">
 					<LayoutAction type="tabs" class="u-mb-48">
 						<template #left>
@@ -105,9 +105,6 @@ export default {
 		// if (!$cookies.get("skip_collateral_hub_tour")) this.$tours.collateralHubTour.start();
 	},
 	methods: {
-		tabChanged(e) {
-			this.currentSection = e;
-		},
 		onChangeCollateral(collateral) {
 			this.selectedCollateral = collateral.symbol;
 		},

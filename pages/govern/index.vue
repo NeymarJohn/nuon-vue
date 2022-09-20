@@ -8,7 +8,7 @@
 				</PageTitle>
 				<PriceIndicator />
 			</LayoutFlex>
-			<TheTabs margin="24" size="govern" color="transparent" @tab-changed="tabChanged">
+			<TheTabs margin="24" size="govern" color="transparent" @tab-changed="handleTabChanged">
 				<TheTab title="Stake">
 					<LayoutAction type="tabs">
 						<template #left>
@@ -201,9 +201,6 @@ export default {
 		this.getData();
 	},
 	methods: {
-		tabChanged(e) {
-			this.currentSection = e;
-		},
 		async getProposalsFromSnapshot(page) {
 			if (this.reachedEnd) return;
 			try {
