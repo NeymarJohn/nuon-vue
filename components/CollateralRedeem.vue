@@ -3,12 +3,11 @@
 		<div class="swap__container u-mb-8">
 			<SwapBalance
 				label="Redeem"
-				:token="selectedCollateral"
-				:balance="tokenBalances[selectedCollateral]" />
+				:token="selectedCollateral" />
 			<MintAccordion
-				:disabled-tokens="['BTC', 'BUSD', 'AVAX']"
-				:default-token="selectedCollateral"
-				@selected-token="selectCollateralToken">
+				:disabled-tokens="[currentlySelectedCollateral, 'BTC', 'BUSD', 'AVAX']"
+				:default-token="currentlySelectedCollateral"
+				@selected-token="selectInputToken">
 			</MintAccordion>
 		</div>
 		<div class="swap__container u-mb-24">
@@ -25,14 +24,14 @@
 					<NuonLogo />
 					<h5>NUON</h5>
 				</div>
-				<InputMax v-model="inputValue" :maximum="mintedAmount" />
+				<InputMax v-model="inputValue" :maximum="mintedAmount" @input="inputMaxBalance" />
 			</div>
 			<LayoutFlex direction="row-center-space-between">
 				<div>
 					<p v-if="readyToRedeem" class="u-font-size-14 u-is-success u-mb-0">Ready To Redeem</p>
 					<p v-if="isMoreThanBalance" class="u-font-size-14 u-is-warning u-mb-0">Insufficient Balance</p>
 				</div>
-				<p class="u-mb-0 u-font-size-14 u-color-light-grey">~ ${{ getDollarValue(inputValue, tokenPrices.NUON) | toFixed | numberWithCommas }}</p>
+				<p class="u-mb-0 u-font-size-14 u-color-light-grey">~ ${{ numberWithCommas(getDollarValue(inputValue, nuonPrice).toFixed(2)) }}</p>
 			</LayoutFlex>
 		</div>
 		<TransactionSummary v-if="inputValue > 0 && !isMoreThanBalance" :values="summary" />
@@ -40,7 +39,7 @@
 			<TheButton
 				title="Click to mint"
 				:disabled="isRedeemDisabled"
-				@click="approveAndRedeem">
+				@click="redeem">
 				Redeem
 			</TheButton>
 		</LayoutFlex>
@@ -50,19 +49,24 @@
 <script>
 import { fromWei, toWei } from "~/utils/bnTools";
 import NuonLogo from "@/assets/images/logo/logo-numint.svg";
-import { NUON } from "~/constants/tokens";
 
 export default {
 	name: "CollateralRedeem",
 	components: {
 		NuonLogo,
 	},
+	props: {
+		currentlySelectedCollateral: {
+			type: String,
+			required: true
+		}
+	},
 	data() {
 		return {
+			nuonPrice: 0,
 			estimatedWithdrawnNuonValue: 0,
 			inputValue: null,
-			mintFee: 5,
-			selectedCollateral: "WETH"
+			mintFee: 5
 		};
 	},
 	computed: {
@@ -78,16 +82,16 @@ export default {
 					val: this.estimatedWithdrawnNuonValue,
 					currency: this.selectedCollateral,
 				},
-				// {
-				// 	title: "Collateral ratio",
-				// 	val: this.numberWithCommas(Number(this.selectedCollateralRatio).toFixed(2)),
-				// 	currency: "%",
-				// },
-				// {
-				// 	title: "Liquidation price",
-				// 	val: this.numberWithCommas(Number(this.liquidationPrice).toFixed(2)),
-				// 	currency: "USD",
-				// },
+				{
+					title: "Collateral ratio",
+					val: this.numberWithCommas(Number(this.selectedCollateralRatio).toFixed(2)),
+					currency: "%",
+				},
+				{
+					title: "Liquidation price",
+					val: this.numberWithCommas(Number(this.liquidationPrice).toFixed(2)),
+					currency: "USD",
+				},
 				{
 					title: "Fee",
 					val: this.mintFee,
@@ -108,14 +112,15 @@ export default {
 			return parseFloat(this.$store.state.collateralVaultStore.redeemFee) * 100;
 		},
 		mintedAmount() {
-			return this.$store.state.collateralVaultStore.mintedAmount[this.selectedCollateral];
+			const currentCollateralToken = this.$store.state.collateralVaultStore.currentCollateralToken;
+			return this.$store.state.collateralVaultStore.mintedAmount[currentCollateralToken];
 		}
 	},
 	watch: {
 		async inputValue() {
 			let result = {0: 0};
 			const nuonRaisedToDecimals = this.$store.state.erc20Store.decimals.NUON;
-			const redeemedTokenRaisedToDecimals =  this.$store.state.erc20Store.decimals[this.selectedCollateral];
+			const redeemedTokenRaisedToDecimals =  this.$store.state.erc20Store.decimals[this.currentlySelectedCollateral];
 			try {
 				const amount = toWei(this.inputValue, nuonRaisedToDecimals);
 				result = await this.$store.getters["collateralVaultStore/getEstimateCollateralsOut"](this.connectedAccount, amount);
@@ -128,32 +133,40 @@ export default {
 				this.estimatedWithdrawnNuonValue = fromWei(result[0], redeemedTokenRaisedToDecimals);
 			}
 		},
+		currentlySelectedCollateral() {
+			this.$store.dispatch("erc20Store/initializeBalance", {address: this.connectedAccount});
+			this.initialize();
+		},
+		connectedAccount() {
+			this.initialize();
+		}
+	},
+	mounted () {
+		this.initialize();
 	},
 	methods: {
-		async approveAndRedeem() {
-			if (this.isApproved) {
-				this.redeem();
-			} else {
-				await this.$store.dispatch("collateralVaultStore/approveToken",
-					{
-						tokenSymbol: NUON.symbol,
-						onCallback: () => {
-							this.redeem();
-						}
-					});}
+		async initialize() {
+			if (this.connectedAccount) {
+				try {
+					const nuonPrice = await this.$store.getters["collateralVaultStore/getNuonPrice"]();
+					this.nuonPrice = fromWei(nuonPrice);
+				} catch(e) {
+					this.failureToast(null, e, "An error occurred");
+				}
+			}
+
 		},
 		async redeem() {
 			const nuonAmount = toWei(this.inputValue, this.$store.state.erc20Store.decimals.NUON);
+
 			try {
 				await this.$store.dispatch("collateralVaultStore/redeem",
 					{
-						collateralToken: this.selectedCollateral,
 						nuonAmount,
 						onConfirm: (_confNumber, receipt, _latestBlockHash) => {
 							this.$store.commit("collateralVaultStore/setUserJustMinted", true);
 							this.successToast(null, "Redeem successful", receipt.transactionHash);
 							this.$store.dispatch("erc20Store/initializeBalance", {address: this.connectedAccount});
-							this.$store.dispatch("collateralVaultStore/updateStatus");
 						},
 						onReject: null
 					});
@@ -162,9 +175,9 @@ export default {
 				this.failureToast(null, message || e, "Transaction failed");
 			}
 		},
-		selectCollateralToken(token) {
-			this.selectedCollateral = token.symbol;
-		},
+		inputMaxBalance() {
+			this.inputValue = this.twoDecimalPlaces(this.mintedAmount);
+		}
 	}
 };
 </script>

@@ -9,7 +9,7 @@ import nuonControllerAbi from "./abi/nuon_controller.json";
 import truflationAbi from "./abi/truflation.json";
 import boardroomAbi from "./abi/boardroom.json";
 import { fromWei, toWei } from "~/utils/bnTools";
-import { collateralTokens, nuMINT } from "~/constants/tokens";
+import { collateralTokens } from "~/constants/tokens";
 
 const DEFAULVALUES = {
 	WETH: 0,
@@ -161,13 +161,7 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 		const getNuMintAllowance = fromWei(await ctx.rootGetters["erc20Store/nuMint"].methods.allowance(address, collateralHubAddress).call());
 		const getUSDTAllowance = fromWei(await ctx.rootGetters["erc20Store/usdt"].methods.allowance(address, collateralHubAddress).call());
 		const getWETHAllownace = fromWei(await ctx.rootGetters["erc20Store/weth"].methods.allowance(address, collateralHubAddress).call());
-		ctx.commit("setAllowance", 
-			{
-				[nuMINT.symbol]: Number(getNuMintAllowance), 
-				NUON: Number(getNuonAllowance), 
-				USDT: Number(getUSDTAllowance), 
-				WETH: Number(getWETHAllownace)
-			});
+		ctx.commit("setAllowance", {HX: getNuMintAllowance, NUON: getNuonAllowance, USDT: getUSDTAllowance, WETH: getWETHAllownace});
 	},
 	approveToken(ctx: any, {tokenSymbol,  onConfirm, onReject, onCallback}): void {
 		const contractAddress = ctx.rootGetters["addressStore/collateralHubs"][ctx.state.currentCollateralToken];
@@ -269,6 +263,7 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 	},
 	async mintNuon(ctx: any, {collateralToken, collateralRatio, collateralAmount, onTxHash, onConfirm, onReject}) {
 		const chubContract = ctx.getters.getCollateralHubContract(collateralToken);
+
 		const accountAddress = ctx.rootState.web3Store.account;
 		const payload: {from: string, value?: string} = {from: accountAddress};
 		const args: string[] = [collateralRatio, collateralAmount];
@@ -285,10 +280,9 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 				if (onReject) onReject(err);
 			});
 	},
-	async redeem(ctx: any, {collateralToken, nuonAmount, onConfirm, onReject}) {
-		const chubContract = ctx.getters.getCollateralHubContract(collateralToken);
+	async redeem(ctx: any, {nuonAmount, onConfirm, onReject}) {
 		const accountAddress = ctx.rootState.web3Store.account;
-		return await chubContract.methods.redeem(nuonAmount).send({from: accountAddress})
+		return await ctx.getters.collateralHubContract.methods.redeem(nuonAmount).send({from: accountAddress})
 			.on("confirmation", (confNumber: any, _receipt: any, _latestBlockHash: any) => {
 				if (onConfirm && confNumber === 0) onConfirm(confNumber, _receipt, _latestBlockHash);
 			})
@@ -343,36 +337,21 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 		}
 		ctx.commit("setCollateralPrices",{...prices});
 	},
-	async mintWithoutDeposit(ctx: any, {collateral, amount,  onTxHash, onConfirm, onReject }) {
-		const chubContract = ctx.getters.getCollateralHubContract(collateral);
-		const accountAddress = ctx.rootState.web3Store.account;
-		return await chubContract.methods.mintWithoutDeposit.apply(null, [amount])
-			.send( {from: accountAddress})
-			.on("transactionHash", (txHash: string) => {
-				if (onTxHash) onTxHash(txHash);
-			})
-			.on("confirmation", (confNumber: any, _receipt: any, _latestBlockHash: any) => {
-				if (onConfirm && confNumber === 0) onConfirm(confNumber, _receipt, _latestBlockHash);
-			})
-			.on("error", (err: any) => {
-				if (onReject) onReject(err);
-			});
-	},
-	async burnNUON(ctx: any, {collateral, amount, onTxHash, onConfirm, onReject}) {
-		const chubContract = ctx.getters.getCollateralHubContract(collateral);
-		const accountAddress = ctx.rootState.web3Store.account;
-		return await chubContract.methods.burnNUON.apply(null, [amount])
-			.send({from: accountAddress})
-			.on("transactionHash", (txHash: string) => {
-				if (onTxHash) onTxHash(txHash);
-			})
-			.on("confirmation", (confNumber: any, _receipt: any, _latestBlockHash: any) => {
-				if (onConfirm && confNumber === 0) onConfirm(confNumber, _receipt, _latestBlockHash);
-			})
-			.on("error", (err: any) => {
-				if (onReject) onReject(err);
-			});
-	},
+
+	// Methods for collateral management
+	/**
+	 * 
+	 * @param ctx 
+	 * @param {collateral, method, amount, onTxHash, onConfirm, onReject} 
+	 * @returns 
+	 * 
+	 * method:  burnNUON | 
+	 * 					mintWithoutDeposit | 
+	 * 					depositWithoutMint | 
+	 * 					redeemWithoutNuon | 
+	 * 					addLiquidityForUser | 
+	 * 					removeLiquidityForUser
+	 */
 	async callManageMethods(ctx: any, {collateral, method, amount, onTxHash, onConfirm, onReject}) {
 		const chubContract = ctx.getters.getCollateralHubContract(collateral);
 		const accountAddress = ctx.rootState.web3Store.account;
@@ -397,18 +376,9 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 			method = "burnNUONEstimation";
 		} else if (action === "Mint") {
 			method = "mintWithoutDepositEstimation";
-		} else if (action === "Deposit") {
-			method = "depositWithoutMintEstimation";
-		} else if (action === "Withdraw"){
-			method = "redeemWithoutNuonEstimation";
-		} else {
-			return;
 		}
 		const amount = toWei(value);
-		let decimals = ctx.rootState.erc20Store.decimals[selectedCollateral];
-		if (action === "Mint" || action === "Burn") {
-			decimals = 18;
-		}
+
 		let resp: any = {};
 		let resp2 = {1: 0};
 		try {
@@ -419,8 +389,7 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 			
 		} catch (e: any) {
 		} finally {
-			console.log("resp", resp);
-			estimationData.lockedCollateral = fromWei(resp[1], decimals);
+			estimationData.lockedCollateral = 0;
 			estimationData.mintedNuon = fromWei(resp[2]);
 			estimationData.collateralRatio = fromWei(resp[0]);
 		}

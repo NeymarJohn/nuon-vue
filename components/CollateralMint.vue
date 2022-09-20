@@ -3,10 +3,9 @@
 		<div class="swap__container u-mb-8">
 			<SwapBalance
 				label="Deposit"
-				:token="selectedCollateral"
-				:balance="tokenBalances[selectedCollateral]" />
+				:token="selectedCollateral" />
 			<MintAccordion
-				:disabled-tokens="['BTC', 'BUSD', 'AVAX']"
+				:disabled-tokens="[selectedCollateral, 'BTC', 'BUSD', 'AVAX']"
 				:default-token="selectedCollateral"
 				@selected-token="selectInputToken">
 				<template #input>
@@ -57,7 +56,7 @@
 			<TheButton
 				title="Click to mint"
 				:disabled="isMintDisabled"
-				@click="approveAndMint">
+				@click="mint">
 				Mint
 			</TheButton>
 		</LayoutFlex>
@@ -116,22 +115,22 @@ export default {
 			return [
 				{
 					title: "Estimated total NUON minted",
-					val: this.estimatedMintedNuonValue,
+					val: this.numberWithCommas((Number(this.estimatedMintedNuonValue).toFixed(2))),
 					currency: "NUON",
 				},
 				{
 					title: "Estimated extra required collateral",
-					val: this.estimatedExtraRequiredCollateral,
+					val: this.numberWithCommas(Number(this.estimatedExtraRequiredCollateral).toFixed(2)),
 					currency: this.selectedCollateral,
 				},
 				{
 					title: "Collateral ratio",
-					val: this.selectedCollateralRatio,
+					val: this.numberWithCommas(Number(this.selectedCollateralRatio).toFixed(2)),
 					currency: "%",
 				},
 				{
 					title: "Liquidation price",
-					val: this.liquidationPrice,
+					val: this.numberWithCommas(Number(this.liquidationPrice).toFixed(2)),
 					currency: "USD",
 				},
 				{
@@ -180,11 +179,7 @@ export default {
 		},
 		sliderMin() {
 			return Math.floor(this.$store.state.collateralVaultStore.globalRatio[this.selectedCollateral]) + 10;
-		},
-		isApproved() {
-			const allowance = this.$store.state.collateralVaultStore.allowance;
-			return allowance[this.selectedCollateral] > 0;
-		},
+		}
 	},
 	watch: {
 		inputValue() {
@@ -243,18 +238,6 @@ export default {
 				this.estimatedExtraRequiredCollateral = fromWei(ans[3], this.$store.state.erc20Store.decimals[this.selectedCollateral]);
 			}
 		},
-		async approveAndMint() {
-			if (this.isApproved) {
-				this.mint();
-			} else {
-				await this.$store.dispatch("collateralVaultStore/approveToken",
-					{
-						tokenSymbol: this.selectedCollateral,
-						onCallback: () => {
-							this.mint();
-						}
-					});}
-		},
 		async mint() {
 			this.minting = true;
 			const amount = toWei(this.inputValue, this.decimals);
@@ -270,7 +253,6 @@ export default {
 							this.$store.commit("collateralVaultStore/setUserJustMinted", true);
 							this.successToast(null, `You successfully minted ${parseFloat(this.estimatedMintedNuonValue).toFixed(2)} NUON`, receipt.transactionHash);
 							this.$store.dispatch("erc20Store/initializeBalance", {address: this.connectedAccount});
-							this.$store.dispatch("collateralVaultStore/updateStatus");
 						},
 						onReject: (err) => {
 							this.failureToast(null, err, "Transaction failed");
