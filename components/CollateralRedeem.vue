@@ -29,30 +29,20 @@
 			<LayoutFlex direction="row-center-space-between">
 				<div>
 					<p v-if="readyToRedeem" class="u-font-size-14 u-is-success u-mb-0">Ready To Redeem</p>
-					<p v-if="amountMoreThanUserMinted" class="u-font-size-14 u-is-warning u-mb-0">Insufficient Balance</p>
+					<p v-if="isMoreThanBalance" class="u-font-size-14 u-is-warning u-mb-0">Insufficient Balance</p>
 				</div>
 				<p class="u-mb-0 u-font-size-14 u-color-light-grey">~ ${{ numberWithCommas(getDollarValue(inputValue, nuonPrice).toFixed(2)) }}</p>
 			</LayoutFlex>
 		</div>
-		<DataCard class="u-full-width">
-			<p>Estimated {{ currentlySelectedCollateral }} Redeemed</p>
-			<h4 class="collateral-estimate">{{ estimatedWithdrawnNuonValue | toFixed | numberWithCommas }}<sup>{{ currentlySelectedCollateral }}</sup></h4>
-		</DataCard>
-		<TransactionSummaryChub
-			:convert-from-amount="`${inputValue}`"
-			convert-from-title="Repay"
-			:convert-to-amount="estimatedWithdrawnNuonValue"
-			convert-to-title="Redeem"
-			:from-token="'NUON'"
-			:to-token="currentlySelectedCollateral"
-			:fee="redeemFee"
-		/>
-		<TheButton
-			class="u-full-width"
-			title="Click to redeem"
-			@click="redeem">
-			Redeem
-		</TheButton>
+		<TransactionSummary v-if="inputValue > 0 && !isMoreThanBalance" :values="summary" />
+		<LayoutFlex direction="row-justify-end">
+			<TheButton
+				title="Click to mint"
+				:disabled="isRedeemDisabled"
+				@click="redeem">
+				Redeem
+			</TheButton>
+		</LayoutFlex>
 	</div>
 </template>
 
@@ -76,13 +66,46 @@ export default {
 			nuonPrice: 0,
 			estimatedWithdrawnNuonValue: 0,
 			inputValue: null,
+			mintFee: 5
 		};
 	},
 	computed: {
+		summary() {
+			return [
+				{
+					title: "NUON repaid",
+					val: this.inputValue,
+					currency: "NUON",
+				},
+				{
+					title: `Estimated ${this.selectedCollateral} redeemed`,
+					val: this.estimatedWithdrawnNuonValue,
+					currency: this.selectedCollateral,
+				},
+				{
+					title: "Collateral ratio",
+					val: this.numberWithCommas(Number(this.selectedCollateralRatio).toFixed(2)),
+					currency: "%",
+				},
+				{
+					title: "Liquidation price",
+					val: this.numberWithCommas(Number(this.liquidationPrice).toFixed(2)),
+					currency: "USD",
+				},
+				{
+					title: "Fee",
+					val: this.mintFee,
+					currency: "%",
+				},
+			];
+		},
+		isRedeemDisabled() {
+			return !parseFloat(this.inputValue) || this.isMoreThanBalance || !this.connectedAccount;
+		},
 		readyToRedeem() {
 			return !!parseFloat(this.inputValue) && parseFloat(this.inputValue) <= parseFloat(this.mintedAmount);
 		},
-		amountMoreThanUserMinted() {
+		isMoreThanBalance() {
 			return parseFloat(this.inputValue) > parseFloat(this.mintedAmount);
 		},
 		redeemFee() {
@@ -102,7 +125,7 @@ export default {
 				const amount = toWei(this.inputValue, nuonRaisedToDecimals);
 				result = await this.$store.getters["collateralVaultStore/getEstimateCollateralsOut"](this.connectedAccount, amount);
 			} catch (e) {
-				if (!this.amountMoreThanUserMinted) {
+				if (!this.isMoreThanBalance) {
 					const message = this.getRPCErrorMessage(e);
 					this.failureToast(null, message, "Transaction failed");
 				}

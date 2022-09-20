@@ -51,7 +51,7 @@
 				<RangeSlider :min="`${sliderMin}`" :max="'1000'" :slider-disabled="!inputValue || isMoreThanBalance" :selected-collateral-ratio="`${selectedCollateralRatio}`" @emit-change="debouncedSliderChanged" />
 			</div>
 		</div>
-		<TransactionSummary v-if="inputValue > 0" :values="summary" />
+		<TransactionSummary v-if="inputValue > 0 && !isMoreThanBalance" :values="summary" />
 		<LayoutFlex direction="row-justify-end">
 			<TheButton
 				title="Click to mint"
