@@ -58,7 +58,7 @@ export default {
 	},
 	head () {
 		return {
-			title: "Ecosystem Overview | NUON",
+			title: "Analytics | NUON",
 			script: [
 				{ src: "https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js" },
 			]

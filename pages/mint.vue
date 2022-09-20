@@ -33,7 +33,7 @@ export default {
 	},
 	head () {
 		return {
-			title: "Collateral Hub | NUON"
+			title: "Mint | NUON"
 		};
 	},
 	watch: {
