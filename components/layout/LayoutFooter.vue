@@ -1,7 +1,7 @@
 <template>
 	<div class="l-footer">
 		<slot />
-		<AlertModal/>
+		<AlertModal />
 		<ConnectWalletModal />
 	</div>
 </template>
