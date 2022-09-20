@@ -2,7 +2,7 @@
 	<div class="swap">
 		<div class="swap__container u-mb-8">
 			<SwapBalance
-				label="Receive"
+				label="Redeem"
 				:token="selectedCollateral" />
 			<MintAccordion
 				:disabled-tokens="[currentlySelectedCollateral, 'BTC', 'BUSD', 'AVAX']"
