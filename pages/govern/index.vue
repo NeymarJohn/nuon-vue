@@ -4,11 +4,11 @@
 			<LayoutFlex direction="row-center-space-between" class="u-mb-48 u-pb-32 u-bb-medium-light-grey">
 				<PageTitle>
 					<h4>Govern</h4>
-					<h1>{{ sections[currentSection ]}}</h1>
+					<h1>Proposals</h1>
 				</PageTitle>
 				<PriceIndicator />
 			</LayoutFlex>
-			<TheTabs margin="24" size="govern" color="transparent" @tab-changed="handleTabChanged">
+			<TheTabs margin="24" size="govern" color="transparent">
 				<TheTab title="Stake">
 					<LayoutAction type="tabs">
 						<template #left>
@@ -134,8 +134,6 @@ export default {
 				price: 0,
 				balance: 0
 			},
-			currentSection: 0,
-			sections: ["Stake", "Claim", "Vote", "Add Proposal"],
 			minimumStake: 100,
 			// To be implemented after govern is finished.
 			// tourCallbacks: {

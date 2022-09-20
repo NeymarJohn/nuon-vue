@@ -4,12 +4,12 @@
 			<LayoutFlex direction="row-center-space-between" class="u-mb-48 u-pb-32 u-bb-medium-light-grey">
 				<PageTitle>
 					<h4>Mint</h4>
-					<h1>{{ sections[currentSection ]}} NUON</h1>
+					<h1>Mint NUON</h1>
 				</PageTitle>
 				<PriceIndicator />
 			</LayoutFlex>
 			<LayoutMint>
-				<TheTabs margin="0" size="full" @tab-changed="handleTabChanged">
+				<TheTabs margin="0" size="full">
 					<TheTab title="Mint">
 						<CollateralMint :minimum-deposit-amount="0"  />
 					</TheTab>
@@ -25,15 +25,9 @@
 <script>
 export default {
 	name: "Mint",
-	data () {
-		return {
-			currentSection: 0,
-			sections: ["Mint", "Redeem"],
-		};
-	},
 	head () {
 		return {
-			title: "Mint | NUON"
+			title: "Collateral Hub | NUON"
 		};
 	},
 	watch: {

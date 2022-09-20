@@ -8,27 +8,25 @@
 				</PageTitle>
 				<PriceIndicator />
 			</LayoutFlex>
-			<TheTabs margin="24" size="govern" color="transparent" @tab-changed="handleTabChanged">
+			<TheTabs margin="24" size="govern" color="transparent" @tab-changed="tabChanged">
 				<TheTab title="Nuon">
 					<LayoutAction type="tabs" class="u-mb-48">
 						<template #left>
 							<TheTabs margin="0" size="full">
 								<TheTab title="Mint">
-									<InputManageCollateral
+									<InputManageNuon
 										action="Mint"
-										:default-collateral="selectedCollateral"
-										@changeCollateral="onChangeCollateral" />
+										:default-collateral="selectedCollateral" @changeCollateral="onChangeCollateral" />
 								</TheTab>
 								<TheTab title="Burn">
-									<InputManageCollateral
+									<InputManageNuon
 										action="Burn"
-										:default-collateral="selectedCollateral"
-										@changeCollateral="onChangeCollateral" />
+										:default-collateral="selectedCollateral" @changeCollateral="onChangeCollateral"/>
 								</TheTab>
 							</TheTabs>
 						</template>
 						<template #right>
-							<ManageSummary :collateral="selectedCollateral" />
+							<ManageSummary :collateral="selectedCollateral"/>
 						</template>
 					</LayoutAction>
 				</TheTab>
@@ -38,15 +36,10 @@
 							<TheTabs margin="0" size="full">
 								<TheTab title="Deposit">
 									<InputManageCollateral
-										action="Deposit"
-										:default-collateral="selectedCollateral"
-										@changeCollateral="onChangeCollateral" />
+										action="Deposit" :default-collateral="selectedCollateral" @changeCollateral="onChangeCollateral" />
 								</TheTab>
 								<TheTab title="Withdraw">
-									<InputManageCollateral
-										action="Withdraw"
-										:default-collateral="selectedCollateral"
-										@changeCollateral="onChangeCollateral" />
+									<InputManageCollateral action="Withdraw" :default-collateral="selectedCollateral" @changeCollateral="onChangeCollateral"/>
 								</TheTab>
 							</TheTabs>
 						</template>
@@ -60,16 +53,10 @@
 						<template #left>
 							<TheTabs margin="0" size="full">
 								<TheTab title="Add">
-									<InputManageCollateral
-										action="Add"
-										:default-collateral="selectedCollateral"
-										@changeCollateral="onChangeCollateral" />
+									<InputManageCollateral action="Add" :default-collateral="selectedCollateral" @changeCollateral="onChangeCollateral"/>
 								</TheTab>
 								<TheTab title="Remove">
-									<InputManageCollateral
-										action="Remove"
-										:default-collateral="selectedCollateral"
-										@changeCollateral="onChangeCollateral" />
+									<InputManageCollateral action="Remove" :default-collateral="selectedCollateral" @changeCollateral="onChangeCollateral"/>
 								</TheTab>
 							</TheTabs>
 						</template>
@@ -102,15 +89,19 @@ export default {
 	},
 	head () {
 		return {
-			title: "Manage | NUON"
+			title: "Collateral Hub | NUON"
 		};
 	},
+
 	mounted() {
 		this.initialize();
 		this.mobileView = this.isMobile();
 		// if (!$cookies.get("skip_collateral_hub_tour")) this.$tours.collateralHubTour.start();
 	},
 	methods: {
+		tabChanged(e) {
+			this.currentSection = e;
+		},
 		onChangeCollateral(collateral) {
 			this.selectedCollateral = collateral.symbol;
 		},
