@@ -19,8 +19,7 @@ export default {
 			dateStr: "",
 			chartOptions: {
 				width: "100%",
-				labels: ["nuMINT", "TNode", "Osmosis", "ANC", "Others"],
-				colors: ["#FFC165", "#65B5FF", "#65FFED", "#E965FF", "#C4C4C4"],
+				colors: ["#FFFFFF", "#4F9877"],
 				chart: {
 					type: "donut",
 					foreColor: "#B7B7B7"

@@ -5,6 +5,7 @@
 				label="Redeem"
 				:token="selectedCollateral" />
 			<MintAccordion
+				class="accordion--redeem"
 				:disabled-tokens="[currentlySelectedCollateral, 'BTC', 'BUSD', 'AVAX']"
 				:default-token="currentlySelectedCollateral"
 				@selected-token="selectInputToken">

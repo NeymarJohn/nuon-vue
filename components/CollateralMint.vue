@@ -213,7 +213,7 @@ export default {
 		},
 		debouncedSliderChanged: debounce(function(e) {
 			this.sliderChanged(e);
-		}, 500),
+		}, 0),
 		sliderChanged(e) {
 			this.selectedCollateralRatio = e;
 		},

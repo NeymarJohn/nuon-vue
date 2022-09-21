@@ -1,5 +1,6 @@
 /* #COMPONENT - ACCORDION
 		1. Accordion default
+		2. Accordion redeem
 */
 
 // 1. Accordion default
@@ -111,4 +112,9 @@
 	color: $WHITE;
 	padding: $PX_16;
 	font-size: $PX_14;
+}
+
+// 2. Accordion redeem
+.accordion--redeem .accordion__body {
+	top: $PX_69;
 }
