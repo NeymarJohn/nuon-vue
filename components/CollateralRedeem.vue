@@ -9,6 +9,9 @@
 				:disabled-tokens="['BTC', 'BUSD', 'AVAX']"
 				:default-token="selectedCollateral"
 				@selected-token="selectCollateralToken">
+				<template #input>
+					<h3>{{estimatedWithdrawnValue | toFixed | numberWithCommas}}<sup>{{selectedCollateral}}</sup></h3>
+				</template>
 			</MintAccordion>
 		</div>
 		<div class="swap__container u-mb-24">
@@ -25,7 +28,7 @@
 					<NuonLogo />
 					<h5>NUON</h5>
 				</div>
-				<InputMax v-model="inputValue" :maximum="mintedAmount" />
+				<InputMax v-model="inputValue" :maximum="mintedAmount" @input="debouncedHandler"/>
 			</div>
 			<LayoutFlex direction="row-center-space-between">
 				<div>
@@ -48,6 +51,7 @@
 </template>
 
 <script>
+import debounce from "lodash.debounce";
 import { fromWei, toWei } from "~/utils/bnTools";
 import NuonLogo from "@/assets/images/logo/logo-numint.svg";
 import { NUON } from "~/constants/tokens";
@@ -59,7 +63,7 @@ export default {
 	},
 	data() {
 		return {
-			estimatedWithdrawnNuonValue: 0,
+			estimatedWithdrawnValue: 0,
 			inputValue: null,
 			mintFee: 5,
 			selectedCollateral: "WETH"
@@ -75,7 +79,7 @@ export default {
 				},
 				{
 					title: `Estimated ${this.selectedCollateral} redeemed`,
-					val: this.estimatedWithdrawnNuonValue,
+					val: this.estimatedWithdrawnValue,
 					currency: this.selectedCollateral,
 				},
 				{
@@ -101,25 +105,26 @@ export default {
 			return this.$store.state.collateralVaultStore.mintedAmount[this.selectedCollateral];
 		}
 	},
-	watch: {
-		async inputValue() {
+	methods: {
+		debouncedHandler: debounce(function(e) {
+			this.changeInputValue(e);
+		}, 0),
+		async changeInputValue() {
 			let result = {0: 0};
 			const nuonRaisedToDecimals = this.$store.state.erc20Store.decimals.NUON;
 			const redeemedTokenRaisedToDecimals =  this.$store.state.erc20Store.decimals[this.selectedCollateral];
 			try {
 				const amount = toWei(this.inputValue, nuonRaisedToDecimals);
-				result = await this.$store.getters["collateralVaultStore/getEstimateCollateralsOut"](this.connectedAccount, amount);
+				result = await this.$store.getters["collateralVaultStore/getEstimateCollateralsOut"](this.connectedAccount, this.selectedCollateral, amount);
 			} catch (e) {
 				if (!this.isMoreThanBalance) {
 					const message = this.getRPCErrorMessage(e);
 					this.failureToast(null, message, "Transaction failed");
 				}
 			} finally {
-				this.estimatedWithdrawnNuonValue = fromWei(result[0], redeemedTokenRaisedToDecimals);
+				this.estimatedWithdrawnValue = fromWei(result[0], redeemedTokenRaisedToDecimals);
 			}
 		},
-	},
-	methods: {
 		async approveAndRedeem() {
 			if (this.isApproved) {
 				this.redeem();

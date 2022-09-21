@@ -518,8 +518,9 @@ export const getters: GetterTree<BoardroomState, Web3State> = {
 	getCollateralPrice: (_state: any, getters: any) => async () => {
 		return await getters.collateralHubContract.methods.getCollateralPrice().call();
 	},
-	getEstimateCollateralsOut: (_state: any, getters: any) => async (_userAddress: string, nuonAmount: number) => {
-		return await getters.collateralHubContract.methods.estimateCollateralsOut(_userAddress, nuonAmount).call();
+	getEstimateCollateralsOut: (_state: any, getters: any) => async (_userAddress: string, collateralToken: string, nuonAmount: number) => {
+		const collateralHubContract = getters.getCollateralHubContract(collateralToken);
+		return await collateralHubContract.methods.estimateCollateralsOut(_userAddress, nuonAmount).call();
 	},
 	getCalcOverCollateralizedMintAmounts: (_state: any, getters: any) => async (collateralRatio: number, collateralPrice: number, collateralAmountD18: number) => {
 		return await getters.collateralHubContract.methods.calcOverCollateralizedMintAmounts(collateralRatio, collateralPrice, collateralAmountD18).call();

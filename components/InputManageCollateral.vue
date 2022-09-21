@@ -141,6 +141,9 @@ export default {
 			if (this.isMoreThanBalance) return true;
 			return false;
 		},
+		nuonAmount() {
+			return this.$store.state.collateralVaultStore.mintedAmount[this.selectedCollateral];
+		}
 	},
 	beforeMount () {
 		this.selectedCollateral = this.defaultCollateral;
@@ -215,7 +218,7 @@ export default {
 			}
 		},
 		availableAmount() {
-			if (this.actionIsMintOrBurn) return this.nuonBalance;
+			if (this.actionIsMintOrBurn) return this.nuonAmount;
 			if (this.action === "Deposit") return this.tokenBalance || 0;
 			if (this.action === "Withdraw") return this.lockedAmount || 0;
 			if (this.action === "Mint") this.spendValue = (this.mintValue * this.tokenPrices.NUON / this.tokenPrices[this.selectedCollateral]).toFixed(2);
