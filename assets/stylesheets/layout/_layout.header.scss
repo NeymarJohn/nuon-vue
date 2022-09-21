@@ -1,0 +1,14 @@
+/* #LAYOUT - HEADER
+		1. Header default
+*/
+
+// 1. Header default
+.l-header {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: $PX_48;
+	padding-bottom: $PX_32;
+	border-bottom: $PX_1 solid $MEDIUM_LIGHT_GREY;
+}

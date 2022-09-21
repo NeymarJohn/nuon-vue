@@ -1,12 +1,12 @@
 <template>
 	<LayoutContainer>
-		<LayoutFlex direction="row-center-space-between" class="u-mb-48 u-pb-32 u-bb-medium-light-grey">
+		<LayoutHeader>
 			<PageTitle>
 				<h4>Dashboard</h4>
 				<h1>My Portfolio</h1>
 			</PageTitle>
 			<PriceIndicator />
-		</LayoutFlex>
+		</LayoutHeader>
 		<h3 class="u-mb-24">Account Health</h3>
 		<div class="l-collateral l-collateral--distribution">
 			<TheLoader component="table"  class="l-collateral__donut">

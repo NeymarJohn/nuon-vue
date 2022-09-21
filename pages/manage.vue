@@ -1,86 +1,84 @@
 <template>
-	<div>
-		<LayoutContainer>
-			<LayoutFlex direction="row-center-space-between" class="u-mb-48 u-pb-32 u-bb-medium-light-grey">
-				<PageTitle>
-					<h4>Manage</h4>
-					<h1>Manage {{sections[currentSection]}}</h1>
-				</PageTitle>
-				<PriceIndicator />
-			</LayoutFlex>
-			<TheTabs margin="24" size="govern" color="transparent" @tab-changed="handleTabChanged">
-				<TheTab title="Nuon">
-					<LayoutAction type="tabs" class="u-mb-48">
-						<template #left>
-							<TheTabs margin="0" size="full">
-								<TheTab title="Mint">
-									<InputManageCollateral
-										action="Mint"
-										:default-collateral="selectedCollateral"
-										@changeCollateral="onChangeCollateral" />
-								</TheTab>
-								<TheTab title="Burn">
-									<InputManageCollateral
-										action="Burn"
-										:default-collateral="selectedCollateral"
-										@changeCollateral="onChangeCollateral" />
-								</TheTab>
-							</TheTabs>
-						</template>
-						<template #right>
-							<ManageSummary :collateral="selectedCollateral" />
-						</template>
-					</LayoutAction>
-				</TheTab>
-				<TheTab title="Collateral">
-					<LayoutAction type="tabs" class="u-mb-48">
-						<template #left>
-							<TheTabs margin="0" size="full">
-								<TheTab title="Deposit">
-									<InputManageCollateral
-										action="Deposit"
-										:default-collateral="selectedCollateral"
-										@changeCollateral="onChangeCollateral" />
-								</TheTab>
-								<TheTab title="Withdraw">
-									<InputManageCollateral
-										action="Withdraw"
-										:default-collateral="selectedCollateral"
-										@changeCollateral="onChangeCollateral" />
-								</TheTab>
-							</TheTabs>
-						</template>
-						<template #right>
-							<ManageSummary :collateral="selectedCollateral" />
-						</template>
-					</LayoutAction>
-				</TheTab>
-				<TheTab title="Liquidity">
-					<LayoutAction type="tabs" class="u-mb-48">
-						<template #left>
-							<TheTabs margin="0" size="full">
-								<TheTab title="Add">
-									<InputManageCollateral
-										action="Add"
-										:default-collateral="selectedCollateral"
-										@changeCollateral="onChangeCollateral" />
-								</TheTab>
-								<TheTab title="Remove">
-									<InputManageCollateral
-										action="Remove"
-										:default-collateral="selectedCollateral"
-										@changeCollateral="onChangeCollateral" />
-								</TheTab>
-							</TheTabs>
-						</template>
-						<template #right>
-							<ManageSummary :collateral="selectedCollateral"/>
-						</template>
-					</LayoutAction>
-				</TheTab>
-			</TheTabs>
-		</LayoutContainer>
-	</div>
+	<LayoutContainer>
+		<LayoutHeader>
+			<PageTitle>
+				<h4>Manage</h4>
+				<h1>Manage {{sections[currentSection]}}</h1>
+			</PageTitle>
+			<PriceIndicator />
+		</LayoutHeader>
+		<TheTabs margin="24" size="govern" color="transparent" @tab-changed="handleTabChanged">
+			<TheTab title="Nuon">
+				<LayoutAction type="tabs" class="u-mb-48">
+					<template #left>
+						<TheTabs margin="0" size="full">
+							<TheTab title="Mint">
+								<InputManageCollateral
+									action="Mint"
+									:default-collateral="selectedCollateral"
+									@changeCollateral="onChangeCollateral" />
+							</TheTab>
+							<TheTab title="Burn">
+								<InputManageCollateral
+									action="Burn"
+									:default-collateral="selectedCollateral"
+									@changeCollateral="onChangeCollateral" />
+							</TheTab>
+						</TheTabs>
+					</template>
+					<template #right>
+						<ManageSummary :collateral="selectedCollateral" />
+					</template>
+				</LayoutAction>
+			</TheTab>
+			<TheTab title="Collateral">
+				<LayoutAction type="tabs" class="u-mb-48">
+					<template #left>
+						<TheTabs margin="0" size="full">
+							<TheTab title="Deposit">
+								<InputManageCollateral
+									action="Deposit"
+									:default-collateral="selectedCollateral"
+									@changeCollateral="onChangeCollateral" />
+							</TheTab>
+							<TheTab title="Withdraw">
+								<InputManageCollateral
+									action="Withdraw"
+									:default-collateral="selectedCollateral"
+									@changeCollateral="onChangeCollateral" />
+							</TheTab>
+						</TheTabs>
+					</template>
+					<template #right>
+						<ManageSummary :collateral="selectedCollateral" />
+					</template>
+				</LayoutAction>
+			</TheTab>
+			<TheTab title="Liquidity">
+				<LayoutAction type="tabs" class="u-mb-48">
+					<template #left>
+						<TheTabs margin="0" size="full">
+							<TheTab title="Add">
+								<InputManageCollateral
+									action="Add"
+									:default-collateral="selectedCollateral"
+									@changeCollateral="onChangeCollateral" />
+							</TheTab>
+							<TheTab title="Remove">
+								<InputManageCollateral
+									action="Remove"
+									:default-collateral="selectedCollateral"
+									@changeCollateral="onChangeCollateral" />
+							</TheTab>
+						</TheTabs>
+					</template>
+					<template #right>
+						<ManageSummary :collateral="selectedCollateral"/>
+					</template>
+				</LayoutAction>
+			</TheTab>
+		</TheTabs>
+	</LayoutContainer>
 </template>
 
 <script>

@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<h2 class="u-mb-24">Collateral Hub Overview</h2>
+		<h3 class="u-mb-24">Collateral Overview</h3>
 		<LayoutFlex direction="column" class="l-chart l-chart--vault-overview">
 			<ComponentLoader component="collateral-hub-chart-tabs" :loaded="isLoadedData">
 				<TheTabs size="thin" color="light" margin="24" @tab-changed="handleTabChanged">

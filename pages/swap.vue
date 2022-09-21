@@ -1,13 +1,13 @@
 <template>
 	<div>
 		<LayoutContainer>
-			<LayoutFlex direction="row-center-space-between" class="u-mb-48 u-pb-32 u-bb-medium-light-grey">
+			<LayoutHeader>
 				<PageTitle>
 					<h4>Swap</h4>
 					<h1>Token Exchange</h1>
 				</PageTitle>
 				<PriceIndicator />
-			</LayoutFlex>
+			</LayoutHeader>
 		</LayoutContainer>
 		<LayoutContainer size="sm" class="u-pt-0">
 			<div class="swap">

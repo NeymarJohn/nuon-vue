@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<h2 class="u-mb-24">Token Price</h2>
+		<h3 class="u-mb-24">Token Price</h3>
 		<div class="l-chart l-chart--token-price">
 			<TheTabs margin="24" @tab-changed="handleTabChanged">
 				<TheTab title="nuMINT" />

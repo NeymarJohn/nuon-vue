@@ -1,56 +1,55 @@
 <template>
-	<div>
-		<LayoutContainer>
+	<LayoutContainer>
+		<LayoutHeader>
 			<PageTitle>
 				<h4>Farms</h4>
 				<h1>Stake LP Tokens to Earn</h1>
 			</PageTitle>
-		</LayoutContainer>
-		<LayoutContainer class="u-pt-lg-48 u-pt-sm-24">
-			<LayoutFlex class="u-mb-32 u-mb-lg-24 l-flex--column-start-sm" direction="row-end-space-between">
-				<div class="farms-toggle">
-					<TheButton
-						title="Click to view card view"
-						size="icon"
-						:class="{ active: isCardView }"
-						@click="toggleCardView">
-						<CardViewIcon />
-					</TheButton>
-					<TheButton
-						title="Click to view table view"
-						size="icon"
-						:class="{ active: isTableView }"
-						@click="toggleTableView">
-						<TableViewIcon />
-					</TheButton>
+			<PriceIndicator />
+		</LayoutHeader>
+		<LayoutFlex class="u-mb-32 u-mb-lg-24 l-flex--column-start-sm" direction="row-end-space-between">
+			<div class="farms-toggle">
+				<TheButton
+					title="Click to view card view"
+					size="icon"
+					:class="{ active: isCardView }"
+					@click="toggleCardView">
+					<CardViewIcon />
+				</TheButton>
+				<TheButton
+					title="Click to view table view"
+					size="icon"
+					:class="{ active: isTableView }"
+					@click="toggleTableView">
+					<TableViewIcon />
+				</TheButton>
+			</div>
+			<div class="farms-filter">
+				<TheSelect
+					:options="['Hot', 'APR', 'Multiplier', 'Earned', 'Liquidity', 'Latest']"
+					:default="'Hot'"
+					label="Sort by"
+					@filter-select="onFilterChange" />
+				<div class="farms-search">
+					<input v-model="search" type="text" placeholder="Search Farms" autocomplete="off">
 				</div>
-				<div class="farms-filter">
-					<TheSelect
-						:options="['Hot', 'APR', 'Multiplier', 'Earned', 'Liquidity', 'Latest']"
-						:default="'Hot'"
-						label="Sort by"
-						@filter-select="onFilterChange" />
-					<div class="farms-search">
-						<input v-model="search" type="text" placeholder="Search Farms" autocomplete="off">
-					</div>
-				</div>
-			</LayoutFlex>
-			<LayoutFlex
-				:direction="!isTableView && 'row-wrap-start'"
-				:class="[isTableView && 'l-flex--column-wrap']">
-				<component
-					:is="isTableView ? 'FarmTable' : 'FarmCard'"
-					v-for="(item, idx) in searchedFarms.slice(0, 10 * page)"
-					:key="idx"
-					:item="item"
-					:idx="idx"
-					:view-more="viewMoreArray[idx]"
-					@viewMoreClicked="handleViewMore"
-				/>
-				<div v-observe-visibility="handleScroll"></div>
-			</LayoutFlex>
-		</LayoutContainer>
-	</div>
+			</div>
+		</LayoutFlex>
+		<LayoutFlex
+			:direction="!isTableView && 'row-wrap-start'"
+			:class="[isTableView && 'l-flex--column-wrap']">
+			<component
+				:is="isTableView ? 'FarmTable' : 'FarmCard'"
+				v-for="(item, idx) in searchedFarms.slice(0, 10 * page)"
+				:key="idx"
+				:item="item"
+				:idx="idx"
+				:view-more="viewMoreArray[idx]"
+				@viewMoreClicked="handleViewMore"
+			/>
+			<div v-observe-visibility="handleScroll"></div>
+		</LayoutFlex>
+	</LayoutContainer>
 </template>
 
 <script>
