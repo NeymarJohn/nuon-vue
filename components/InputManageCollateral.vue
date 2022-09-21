@@ -8,7 +8,7 @@
 						<span>{{ lockedAmount | formatLongNumber }}</span>
 					</label>
 					<label v-if="action === 'Burn'">Balance:
-						<span>{{ lockedAmount | formatLongNumber }}</span>
+						<span>{{ nuonAmount | formatLongNumber }}</span>
 					</label>
 					<label v-else-if="action === 'Deposit'">Balance:
 						<span>{{ tokenBalances[selectedCollateral] | formatLongNumber }}</span>
@@ -17,10 +17,10 @@
 						<span>{{ lockedAmount | formatLongNumber }}</span>
 					</label>
 					<label v-else-if="action === 'Add'">Balance:
-						<span>{{ lockedAmount | formatLongNumber }}</span>
+						<span>{{ tokenBalance | formatLongNumber }}</span>
 					</label>
-					<label v-else-if="action === 'Remove'">Balance:
-						<span>{{ lockedAmount | formatLongNumber }}</span>
+					<label v-else-if="action === 'Remove'">User Liquidity:
+						<span>{{ sharesAmount | formatLongNumber }}</span>
 					</label>
 				</ComponentLoader>
 			</LayoutFlex>
@@ -48,7 +48,8 @@
 				class="u-min-width-200"
 				:title="`Click to ${action}`"
 				:disabled="isSubmitDisabled"
-				@click="submit">{{action}}</TheButton>
+				:loading="isLoading"
+				@click="approveAndSubmit">{{action}}</TheButton>
 		</LayoutFlex>
 	</div>
 </template>
@@ -75,7 +76,8 @@ export default {
 			error: "",
 			submitDisabled: true,
 			estimatedAmount: {0: 0, 1: 0, 2: 0, 3: 0},
-			selectedCollateral: "WETH"
+			selectedCollateral: "WETH",
+			isLoading: false
 		};
 	},
 	computed: {
@@ -125,7 +127,7 @@ export default {
 			return this.tokenBalances[this.selectedCollateral];
 		},
 		isMoreThanBalance() {
-			return parseFloat(this.inputModel) > this.tokenBalance;
+			return parseFloat(this.inputModel) > this.availableAmount();
 		},
 		isMoreThanEqualMinimumAndLessThanBalance() {
 			return parseFloat(this.inputModel) > 0 && parseFloat(this.inputModel) <= this.tokenBalance;
@@ -143,6 +145,9 @@ export default {
 		},
 		nuonAmount() {
 			return this.$store.state.collateralVaultStore.mintedAmount[this.selectedCollateral];
+		},
+		sharesAmount() {
+			return this.$store.state.collateralVaultStore.userVaultShares[this.selectedCollateral];
 		}
 	},
 	beforeMount () {
@@ -163,6 +168,7 @@ export default {
 
 			try {
 				response = await this.$store.getters[`collateralVaultStore/${method}`](this.selectedCollateral, amount, this.connectedAccount);
+				console.log("response",response);
 				if (this.action === "Mint") responseMint = await this.$store.getters["collateralVaultStore/mintLiquidityHelper"](this.selectedCollateral, response[1]);
 			} catch (err) {
 				const mintLiquidationMsg = "This will liquidate you";
@@ -178,9 +184,8 @@ export default {
 			}
 			this.$store.dispatch("collateralVaultStore/calcEstimation", {
 				action: this.action,
-				selectedCollateral:
-				this.selectedCollateral,
-				value: this.mintValue
+				selectedCollateral: this.selectedCollateral,
+				value: this.inputModel
 			});
 		},
 		debouncedInputChange: debounce(function() {
@@ -189,6 +194,9 @@ export default {
 		inputChanged() {
 			if (!["Add", "Remove"].includes(this.action)) this.getEstimatedAmounts();
 		},
+		approveAndSubmit() {
+			this.submit();
+		},
 		submit() {
 			try {
 				let methodName = "addLiquidityForUser";
@@ -196,11 +204,11 @@ export default {
 				if (this.action === "Mint") methodName = "mintWithoutDeposit";
 				if (this.action === "Deposit") methodName = "depositWithoutMint";
 				if (this.action === "Withdraw") methodName = "redeemWithoutNuon";
-				if (this.action === "Remove Liquidity") methodName = "removeLiquidityForUser";
+				if (this.action === "Remove") methodName = "removeLiquidityForUser";
 
 				const amount = toWei(this.inputModel, this.actionIsMintOrBurn ? 18 : this.decimals);
-
-				this.$store.dispatch(`collateralVaultStore/${methodName}`, {
+				this.isLoading = true;
+				this.$store.dispatch("collateralVaultStore/callManageMethods", {
 					collateral: this.selectedCollateral,
 					method: methodName,
 					amount,
@@ -211,6 +219,10 @@ export default {
 					},
 					onReject: (err) => {
 						this.failureToast(null, err, "Transaction Failed");
+						this.isLoading = false;
+					},
+					onTxHash: () => {
+						this.isLoading = false;
 					}
 				});
 			} catch (err) {
@@ -221,7 +233,9 @@ export default {
 			if (this.actionIsMintOrBurn) return this.nuonAmount;
 			if (this.action === "Deposit") return this.tokenBalance || 0;
 			if (this.action === "Withdraw") return this.lockedAmount || 0;
-			if (this.action === "Mint") this.spendValue = (this.mintValue * this.tokenPrices.NUON / this.tokenPrices[this.selectedCollateral]).toFixed(2);
+			if (this.action === "Add") return this.tokenBalance;
+			if (this.action === "Remove") return this.sharesAmount;
+			if (this.action === "Mint") this.spendValue = (this.inputModel * this.tokenPrices.NUON / this.tokenPrices[this.selectedCollateral]).toFixed(2);
 		},
 		selectCollateral(token) {
 			this.selectedCollateral = token.symbol;

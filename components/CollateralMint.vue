@@ -133,6 +133,9 @@ export default {
 				},
 			];
 		},
+		isMoreThanEqualMinimum() {
+			return this.inputValue >= this.isLTEMinimumDepositAmount;
+		},
 		isMintDisabled() {
 			return !parseFloat(this.inputValue) || this.isMoreThanBalance || !this.connectedAccount;
 		},

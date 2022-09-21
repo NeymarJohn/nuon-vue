@@ -41,7 +41,8 @@ type StateType = {
 	collateralPrices: any,
 	lpValueOfUser: any,
 	globalRatio: any,
-	estimation: any
+	estimation: any,
+	userVaultShares: any
 }
 export const state = (): StateType => ({
 	allowance: {
@@ -77,6 +78,7 @@ export const state = (): StateType => ({
 	collateralPrices:{...DEFAULVALUES}, // {WETH: 0 USDT: 0} collateral price for all collateral tokens
 	lpValueOfUser: {...DEFAULVALUES}, // {WETH: 0 USDT: 0} collateral price for all collateral tokens
 	globalRatio: {...DEFAULVALUES},
+	userVaultShares: {...DEFAULVALUES},
 	estimation: {}
 });
 
@@ -139,6 +141,9 @@ export const mutations: MutationTree<BoardroomState> = {
 	},
 	setLpValueOfUser(state, {token, value}) {
 		state.lpValueOfUser = {...state.lpValueOfUser, [token]: value};
+	},
+	setUserVaultShares(state, {token, value}) {
+		state.userVaultShares = {...state.userVaultShares, [token]: value};
 	},
 	setGlobalRatio(state, {token, value}) {
 		state.globalRatio = {...state.globalRatio, [token]: value};
@@ -320,6 +325,10 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 		// Update globalRatio 
 		const globalRatio = fromWei(await ctx.getters.nuonControllerContract.methods.getCollateralRatioInPercent(chubContractAddress).call());
 		ctx.commit("setGlobalRatio", {token, value: Number(globalRatio)});
+
+		// Update shared amount
+		const sharesAmount = fromWei(await chubContract.methods.viewUserVaultSharesAmount(accountAddress).call(), ctx.rootState.erc20Store.decimals[token]);
+		ctx.commit("setUserVaultShares", {token, value: Number(sharesAmount)});
 	},
 	async getTargetPeg(ctx) {
 		const result = await ctx.getters.getTruflationPeg();
@@ -339,36 +348,21 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 		}
 		ctx.commit("setCollateralPrices",{...prices});
 	},
-	async mintWithoutDeposit(ctx: any, {collateral, amount,  onTxHash, onConfirm, onReject }) {
-		const chubContract = ctx.getters.getCollateralHubContract(collateral);
-		const accountAddress = ctx.rootState.web3Store.account;
-		return await chubContract.methods.mintWithoutDeposit.apply(null, [amount])
-			.send( {from: accountAddress})
-			.on("transactionHash", (txHash: string) => {
-				if (onTxHash) onTxHash(txHash);
-			})
-			.on("confirmation", (confNumber: any, _receipt: any, _latestBlockHash: any) => {
-				if (onConfirm && confNumber === 0) onConfirm(confNumber, _receipt, _latestBlockHash);
-			})
-			.on("error", (err: any) => {
-				if (onReject) onReject(err);
-			});
-	},
-	async burnNUON(ctx: any, {collateral, amount, onTxHash, onConfirm, onReject}) {
-		const chubContract = ctx.getters.getCollateralHubContract(collateral);
-		const accountAddress = ctx.rootState.web3Store.account;
-		return await chubContract.methods.burnNUON.apply(null, [amount])
-			.send({from: accountAddress})
-			.on("transactionHash", (txHash: string) => {
-				if (onTxHash) onTxHash(txHash);
-			})
-			.on("confirmation", (confNumber: any, _receipt: any, _latestBlockHash: any) => {
-				if (onConfirm && confNumber === 0) onConfirm(confNumber, _receipt, _latestBlockHash);
-			})
-			.on("error", (err: any) => {
-				if (onReject) onReject(err);
-			});
-	},
+
+	// Methods for collateral management
+	/**
+	 * 
+	 * @param ctx 
+	 * @param {collateral, method, amount, onTxHash, onConfirm, onReject} 
+	 * @returns 
+	 * 
+	 * method:  burnNUON | 
+	 * 					mintWithoutDeposit | 
+	 * 					depositWithoutMint | 
+	 * 					redeemWithoutNuon | 
+	 * 					addLiquidityForUser | 
+	 * 					removeLiquidityForUser
+	 */
 	async callManageMethods(ctx: any, {collateral, method, amount, onTxHash, onConfirm, onReject}) {
 		const chubContract = ctx.getters.getCollateralHubContract(collateral);
 		const accountAddress = ctx.rootState.web3Store.account;
@@ -412,13 +406,26 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 			if (action === "Mint") {
 				resp2 = await ctx.getters.mintLiquidityHelper(selectedCollateral, resp[1]);
 			}
-			
 		} catch (e: any) {
 		} finally {
-			estimationData.lockedCollateral = fromWei(resp[1], decimals);
-			estimationData.mintedNuon = fromWei(resp[2]);
-			estimationData.collateralRatio = fromWei(resp[0]);
-			estimationData.liquidationPrice = fromWei(resp2[1]);
+			if (action === "Mint" || action === "Burn") {
+				estimationData.lockedCollateral = ctx.state.lockedAmount[selectedCollateral];
+				estimationData.mintedNuon = fromWei(resp[2]);
+				estimationData.collateralRatio = fromWei(resp[0]);
+				estimationData.liquidationPrice = fromWei(resp2[1]);
+				estimationData.liquidationRatio = ctx.state.globalRatio[selectedCollateral];
+				estimationData.liquidationPosition = ctx.state.lpValueOfUser[selectedCollateral];
+			}
+			if (action === "Deposit" || action === "Withdraw") {
+				const collateralPrice = ctx.rootState.tokenStore.price[selectedCollateral];
+				estimationData.lockedCollateral = Number(fromWei(resp[2], decimals)) / collateralPrice;
+				estimationData.mintedNuon = ctx.state.mintedAmount[selectedCollateral] ;
+				estimationData.collateralRatio = fromWei(resp[0]);
+				estimationData.liquidationPrice = fromWei(resp2[1]);
+				estimationData.liquidationRatio = ctx.state.globalRatio[selectedCollateral];
+				estimationData.liquidationPosition = ctx.state.lpValueOfUser[selectedCollateral];
+			}
+
 		}
 		ctx.commit("setEstimation", estimationData);
 	}	
@@ -537,8 +544,9 @@ export const getters: GetterTree<BoardroomState, Web3State> = {
 	getCollateralRatioInPercent: (_state: any, getters: any) => async () => {
 		return await getters.nuonControllerContract.methods.getCollateralRatioInPercent().call();
 	},
-	getCollateralUsed: (_state: any, getters: any) => async () => {
-		return await getters.collateralHubContract.methods.collateralUsed().call();
+	getCollateralUsed: (_state: any, getters: any) => async (token:string) => {
+		const collateralHubContract = getters.getCollateralHubContract(token);
+		return await collateralHubContract.methods.collateralUsed().call();
 	},
 
 	depositWithoutMintEstimation: (_state: any, getters: any) => async (token:string, collateralAmount: number, userAddress: string) => {
@@ -561,18 +569,22 @@ export const getters: GetterTree<BoardroomState, Web3State> = {
 		const collateralHubContract = getters.getCollateralHubContract(token);
 		return await collateralHubContract.methods.mintLiquidityHelper(nuonAmount).call();
 	},
-	redeemLiquidityHelper: (_state: any, getters: any) => async (nuonAmount: number, userAddress: string) => { // returns how much lp will be sent to a user, used only for burnNUON
-		return await getters.collateralHubContract.methods.redeemLiquidityHelper(nuonAmount, userAddress).call();
+	redeemLiquidityHelper: (_state: any, getters: any) => async (token:string, nuonAmount: number, userAddress: string) => { // returns how much lp will be sent to a user, used only for burnNUON
+		const collateralHubContract = getters.getCollateralHubContract(token);
+		return await collateralHubContract.redeemLiquidityHelper(nuonAmount, userAddress).call();
 	},
-	getLPValueOfUser: (_state: any, getters: any) => async (userAddress: string) => { // gives back the LP value IN COLLATERALS of the user
-		return await getters.collateralHubContract.methods.getLPValueOfUser(userAddress).call();
+	getLPValueOfUser: (_state: any, getters: any) => async (token:string,userAddress: string) => { // gives back the LP value IN COLLATERALS of the user
+		const collateralHubContract = getters.getCollateralHubContract(token);
+		return await collateralHubContract.methods.getLPValueOfUser(userAddress).call();
 	},
-	getUserLiquidityCoverage: (_state: any, getters: any) => async (extraAmount: number, userAddress: string) => { // a percentage that gives the user liq coverage, need to be compared with liquidityCheck
-		return await getters.collateralHubContract.methods.getUserLiquidityCoverage(userAddress, extraAmount).call();
+	getUserLiquidityCoverage: (_state: any, getters: any) => async (token:string, extraAmount: number, userAddress: string) => { // a percentage that gives the user liq coverage, need to be compared with liquidityCheck
+		const collateralHubContract = getters.getCollateralHubContract(token);
+		return await collateralHubContract.methods.getUserLiquidityCoverage(userAddress, extraAmount).call();
 	},
 
-	viewUserVaultSharesAmount: (_state: any, getters: any) => async (userAddress: string) => {
-		return await getters.collateralHubContract.methods.viewUserVaultSharesAmount(userAddress).call();
+	viewUserVaultSharesAmount: (_state: any, getters: any) => async (token:string, userAddress: string) => {
+		const collateralHubContract = getters.getCollateralHubContract(token);
+		return await collateralHubContract.methods.viewUserVaultSharesAmount(userAddress).call();
 	},
 	getPPFS: (_state: any, getters: any) => async () => {
 		return await getters.vaultRelayerContract.methods.getPPFS().call();
