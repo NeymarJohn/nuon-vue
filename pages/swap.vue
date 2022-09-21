@@ -21,7 +21,7 @@
 						:default-token="input.token"
 						@selected-token="selectInputToken">
 						<template #input>
-							<InputMax v-model="input.value" :maximum="tokenBalances[input.token]" @click="inputMaxBalance" />
+							<InputMax v-model="input.value" :maximum="tokenBalances[input.token]"/>
 						</template>
 						<template #messages>
 							<LayoutFlex direction="row-center-space-between">

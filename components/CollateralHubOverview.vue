@@ -66,13 +66,6 @@ export default {
 	},
 	mounted () {
 		this.loadingData = true;
-		// console.log("this.mock", this.mockDayData);
-		// const stakedValue = await this.$store.getters["collateralVaultStore/getAmountsStakedInVault"]();
-		// const collateralPRice = await this.$store.getters["collateralVaultStore/getCollateralPrice"]();
-		// const finalTVL =  Number(fromWei(stakedValue)) * Number(fromWei(collateralPRice));
-		// this.mockDayData[this.mockDayData.length-1].value = finalTVL;
-		// this.mockMonthData[this.mockMonthData.length-1].value =finalTVL;
-		// this.mockWeekData[this.mockWeekData.length-1].value =finalTVL;
 		getCollateralTVLDayData().then((res) => {
 			let data = res.data.data.collateralDayDatas;
 
