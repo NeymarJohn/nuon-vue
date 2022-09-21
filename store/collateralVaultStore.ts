@@ -9,7 +9,7 @@ import nuonControllerAbi from "./abi/nuon_controller.json";
 import truflationAbi from "./abi/truflation.json";
 import boardroomAbi from "./abi/boardroom.json";
 import { fromWei, toWei } from "~/utils/bnTools";
-import { collateralTokens, nuMINT } from "~/constants/tokens";
+import { collateralTokens } from "~/constants/tokens";
 
 const DEFAULVALUES = {
 	WETH: 0,
