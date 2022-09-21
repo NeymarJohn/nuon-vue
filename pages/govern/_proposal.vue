@@ -124,36 +124,32 @@
 					subtitle="Are you sure you want to cast this vote? This action cannot be undone."
 					:class="modalStatus"
 					@close-modal="setModalVisibility('voteModal', false)">
-					<TheStepper :active-step="activeStep" :stepper="false">
-						<template #step-one>
-							<div class="modal__confirm">
-								<div class="modal__confirm--panel">
-									<div class="modal__confirm--row">
-										<p>Choice</p>
-										<p>{{ details.choices && details.choices[vote] }}</p>
-									</div>
-									<div class="modal__confirm--row">
-										<p>Block number</p>
-										<p>{{ details.snapshot }}</p>
-									</div>
-									<div class="modal__confirm--row">
-										<p>Your voting power</p>
-										<p>{{ numberWithCommas(votingPower.toFixed(2)) }}%</p>
-									</div>
-								</div>
-								<div class="modal__confirm--buttons">
-									<TheButton
-										size="lg"
-										title="Click to cancel"
-										@click="setModalVisibility('voteModal', false)">Cancel</TheButton>
-									<TheButton
-										size="lg"
-										title="Click to submit vote"
-										@click="submitVote">Submit Vote</TheButton>
-								</div>
+					<div class="modal__confirm">
+						<div class="modal__confirm--panel">
+							<div class="modal__confirm--row">
+								<p>Choice</p>
+								<p>{{ details.choices && details.choices[vote] }}</p>
 							</div>
-						</template>
-					</TheStepper>
+							<div class="modal__confirm--row">
+								<p>Block number</p>
+								<p>{{ details.snapshot }}</p>
+							</div>
+							<div class="modal__confirm--row">
+								<p>Your voting power</p>
+								<p>{{ numberWithCommas(votingPower.toFixed(2)) }}%</p>
+							</div>
+						</div>
+						<div class="modal__confirm--buttons">
+							<TheButton
+								size="lg"
+								title="Click to cancel"
+								@click="setModalVisibility('voteModal', false)">Cancel</TheButton>
+							<TheButton
+								size="lg"
+								title="Click to submit vote"
+								@click="submitVote">Submit Vote</TheButton>
+						</div>
+					</div>
 				</TheModal>
 			</ThePanel>
 		</LayoutGridSidePanel>

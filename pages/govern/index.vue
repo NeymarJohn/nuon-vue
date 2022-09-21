@@ -31,7 +31,6 @@
 			<TheTab title="Claim">
 				<LayoutAction>
 					<template #left>
-						<!-- <InputClaim :token="myRewards" /> -->
 						<InputStake :maximum="myRewards" action="claim" />
 					</template>
 					<template #right>

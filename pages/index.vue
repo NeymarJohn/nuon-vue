@@ -9,7 +9,7 @@
 		</LayoutHeader>
 		<h3 class="u-mb-24">Account Health</h3>
 		<div class="l-collateral l-collateral--distribution">
-			<TheLoader component="table"  class="l-collateral__donut">
+			<TheLoader component="table" class="l-collateral__donut">
 				<label>Collateral Distribution</label>
 				<DonutChartCollateral :chart-data="collateralDonutChartData" />
 			</TheLoader>

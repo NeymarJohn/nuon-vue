@@ -1,6 +1,7 @@
 /* #COMPONENT - INPUT
 		1. Input default
-		2. Input responsive
+		2. Input govern
+		3. Input responsive
 */
 
 // 1. Input default
@@ -84,7 +85,33 @@ textarea {
 	line-height: $PX_24;
 }
 
-// 2. Input responsive
+// 2. Input govern
+.input-govern__wrapper {
+	background-color: $MEDIUM_GREY;
+	border-radius: $BORDER_RADIUS_8;
+	padding: $PX_24;
+	margin-bottom: $PX_24;
+}
+.input-govern .input {
+	margin-bottom: 0;
+}
+.input-govern__title {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	margin-bottom: $PX_16;
+}
+.input-govern__title label,
+.input-govern__message p {
+	color: $LIGHT_GREY;
+	font-size: $PX_14;
+	line-height: $PX_20;
+}
+.input-govern__message p {
+	margin-bottom: $PX_24;
+}
+
+// 3. Input responsive
 @media screen and (max-width: $PX_480) {
 	input {
 		font-size: $HEADING_FIVE_480;
