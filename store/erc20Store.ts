@@ -9,11 +9,11 @@ import { fromWei } from "~/utils/bnTools";
 
 type StateType = {
 	balance: {
-		NUON: string,
-		nuMINT: string,
-		ETH: string,
-		USDT: string,
-		WETH: string
+		NUON: string | null,
+		nuMINT: string | null,
+		ETH: string | null,
+		USDT: string | null,
+		WETH: string | null
 	},
 	decimals: {
 		NUON: number,
@@ -32,11 +32,11 @@ type StateType = {
  */
 export const state = (): StateType => ({
 	balance: {
-		NUON: "0",
-		nuMINT: "0",
-		ETH: "0",
-		USDT: "0",
-		WETH: "0"
+		NUON: null,
+		nuMINT: null,
+		ETH: null,
+		USDT: null,
+		WETH: null
 	},
 	decimals: {
 		NUON: 18,
@@ -153,19 +153,19 @@ export const getters: GetterTree<Erc20State, Web3State> = {
 	getNuonInfo: (state: any) => state.nuon,
 
 	nuMintBalance: (state: StateType, _getters: any) => {
-		return parseFloat(state.balance.nuMINT);
+		return parseFloat(state.balance.nuMINT || "0");
 	},
 
 	nuonBalance: (state: StateType, _getters: any) => {
-		return parseFloat(state.balance.NUON);
+		return parseFloat(state.balance.NUON || "0");
 	},
 
 	tokenBalance: (state: StateType) => {
-		const nuMintBalance = parseFloat(state.balance.nuMINT);
-		const nuonBalance = parseFloat(state.balance.NUON);
-		const usdtBalance = parseFloat(state.balance.USDT);
-		const ethBalance = parseFloat(state.balance.ETH);
-		const wethBalance = parseFloat(state.balance.WETH);
+		const nuMintBalance = parseFloat(state.balance.nuMINT || "0");
+		const nuonBalance = parseFloat(state.balance.NUON || "0");
+		const usdtBalance = parseFloat(state.balance.USDT || "0");
+		const ethBalance = parseFloat(state.balance.ETH || "0");
+		const wethBalance = parseFloat(state.balance.WETH || "0");
 
 		return {
 			NUON: nuonBalance,

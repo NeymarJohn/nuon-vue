@@ -22,8 +22,8 @@
 					</template>
 					<template #right>
 						<CurrencyCard class="u-mb-32" label="My Stake" :value="myStake" :change="getDollarValue(myStake, tokenPrices.nuMINT)" currency="nuMINT" />
-						<CurrencyCard label="My Voting Power" :percent="votingPower" />
-						<CurrencyCard label="nuMINT Price" :value="tokenPrices.nuMINT" />
+						<CurrencyCard label="My Voting Power" :value="votingPower" currency="%"/>
+						<CurrencyCard label="nuMINT Price" :value="tokenPrices.nuMINT" symbol="$"/>
 						<CurrencyCard label="Total Staked" :value="totalStaked" currency="nuMINT" />
 					</template>
 				</LayoutAction>
@@ -96,7 +96,7 @@
 					</template>
 					<template #right>
 						<CurrencyCard label="Minimum Stake Required" :value="minimumStake" currency="nuMINT" />
-						<CurrencyCard label="Voting Power" :percent="votingPower" />
+						<CurrencyCard label="Voting Power" :value="votingPower" currency="%" />
 					</template>
 				</LayoutAction>
 			</TheTab>

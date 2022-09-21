@@ -27,7 +27,7 @@
 				size="md"
 				title="Click to stake"
 				:disabled="isDisabled()"
-				@click="submitTransaction"><span class="u-text-capitalize"> {{action}}</span></TheButton>
+				@click="approveAndSubmit"><span class="u-text-capitalize"> {{action}}</span></TheButton>
 		</LayoutFlex>
 	</div>
 </template>
@@ -36,6 +36,7 @@
 import { fromWei } from "~/utils/bnTools";
 import BusdLogo from "@/assets/images/logo/logo-busd.svg";
 import NuMintLogo from "@/assets/images/logo/logo-numint.svg";
+import { nuMINT } from "~/constants/tokens";
 
 export default {
 	name: "InputStake",
@@ -87,15 +88,6 @@ export default {
 		summary() {
 			return [
 				{
-					title: "Amount",
-					val: this.numberWithCommas(this.inputValue),
-					currency: "nuMINT",
-				},
-				{
-					title: "Fee",
-					val: `-${this.numberWithCommas(this.feeToken.toFixed(2))}nuMINT (${this.claimFee} %)`,
-				},
-				{
 					title: "Total",
 					val: this.numberWithCommas((parseFloat(this.inputValue) - this.feeToken).toFixed(2)) ,
 					currency: "nuMINT",
@@ -109,8 +101,30 @@ export default {
 		});
 	},
 	methods: {
+		isApproved(tokenName) {
+			if (!tokenName) return true;
+			const allowance = this.$store.state.boardroomStore.allowance;
+			return allowance[tokenName] > 0;
+		},
 		isDisabled () {
-			if (this.inputValue <= 0 || this.isMoreThanBalance || !this.isApproved) return true;
+			if (this.inputValue <= 0 || this.isMoreThanBalance) return true;
+		},
+		approveAndSubmit() {
+			if (!this.isApproved(nuMINT.symbol)) {
+				this.$store.dispatch("boardroomStore/approveToken",
+					{
+						tokenName: nuMINT.symbol,
+						onConfirm: () =>{
+						},
+						onReject: () => {
+						},
+						onCallback: () => {
+							this.submitTransaction();
+						}
+					});
+			} else {
+				this.submitTransaction();
+			}
 		},
 		submitTransaction() {
 			if (this.account !== "") {

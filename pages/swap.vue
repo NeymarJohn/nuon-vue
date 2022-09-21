@@ -21,7 +21,7 @@
 						:default-token="input.token"
 						@selected-token="selectInputToken">
 						<template #input>
-							<InputMax v-model="input.value" :maximum="tokenBalances[input.token]"/>
+							<InputMax v-model="input.value" :maximum="tokenBalances[input.token]" @input="onInputKeyUp('input')"/>
 						</template>
 						<template #messages>
 							<LayoutFlex direction="row-center-space-between">
@@ -128,7 +128,7 @@
 					size="lg"
 					title="Click to swap"
 					:disabled="isSwapDisabled"
-					@click="swap">Swap</TheButton>
+					@click="approveAndSwap">Swap</TheButton>
 			</div>
 		</LayoutContainer>
 	</div>
@@ -212,6 +212,7 @@ export default {
 		},
 		selectInputToken(token) {
 			this.input.token = token.symbol;
+			this.input.value = "";
 			this.calculate();
 		},
 		selectOutputToken(token) {
@@ -330,6 +331,23 @@ export default {
 		connectWallet() {
 			this.$store.commit("modalStore/setModalVisibility", {name: "connectWalletModal", visibility: true});
 		},
+		approveAndSwap() {
+			if (!this.isApproved(this.input.token)) {
+				this.$store.dispatch("swapStore/approveToken",
+					{
+						tokenName: this.input.token,
+						onConfirm: () =>{
+						},
+						onReject: () => {
+						},
+						onCallback: () => {
+							this.swap();
+						}
+					});
+			} else {
+				this.swap();
+			}
+		},
 		swap() {
 			if (this.changedValue === "input") {
 				this.swapForInput();
@@ -362,18 +380,6 @@ export default {
 			if (!tokenName) return true;
 			const allowance = this.$store.state.swapStore.allowance;
 			return allowance[tokenName] > 0;
-		},
-		approveToken(tokenName) {
-			this.$store.dispatch("swapStore/approveToken",
-				{
-					tokenName,
-					onConfirm: () =>{
-					},
-					onReject: () => {
-					},
-					onCallback: () => {
-					}
-				});
 		},
 		refreshPrice() {
 			this.calculate();
