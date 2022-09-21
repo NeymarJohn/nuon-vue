@@ -528,9 +528,6 @@ export const getters: GetterTree<BoardroomState, Web3State> = {
 	getCalcOverCollateralizedRedeemAmounts: (_state: any, getters: any) => async (collateralRatio: number, collateralPrice: number, nuonAmount: number, multiplier: number) => {
 		return await getters.collateralHubContract.methods.calcOverCollateralizedRedeemAmounts(collateralRatio, collateralPrice, nuonAmount, multiplier).call();
 	},
-	getMinimumDepositAmount: (_state: any, getters: any) => async () => {
-		return await getters.collateralHubContract.methods.minimumDepositAmount().call();
-	},
 	getMaxCRatio: (_state: any, getters: any) => async (chubAddress: string) => {
 		return await getters.nuonControllerContract.methods.getMaxCratio(chubAddress).call();
 	},

@@ -17,7 +17,6 @@
 						<div>
 							<p v-if="isMoreThanEqualMinimum && isLessThanEqualBalance" class="u-font-size-14 u-is-success u-mb-0">Ready To Mint</p>
 							<p v-if="isMoreThanBalance" class="u-font-size-14 u-is-warning u-mb-0">Insufficient Balance</p>
-							<p v-if="isLTEMinimumDepositAmount" class="u-font-size-14 u-is-warning u-mb-0">Please Deposit More Than {{ minimumDepositAmount }} {{ selectedCollateral }}</p>
 						</div>
 						<p class="u-mb-0 u-font-size-14 u-color-light-grey">~ ${{ getDollarValue(inputValue, collateralPrice) | toFixed | numberWithCommas }}</p>
 					</LayoutFlex>
@@ -77,13 +76,6 @@ export default {
 		TooltipIcon,
 		NuonLogo
 	},
-	props: {
-		minimumDepositAmount: {
-			type: Number,
-			required: true,
-			default: 0
-		}
-	},
 	data() {
 		return {
 			isVisible: false,
@@ -142,10 +134,7 @@ export default {
 			];
 		},
 		isMintDisabled() {
-			return !parseFloat(this.inputValue) || this.isMoreThanBalance || !this.connectedAccount || this.isLTEMinimumDepositAmount;
-		},
-		isMoreThanEqualMinimum() {
-			return this.inputValue >= this.isLTEMinimumDepositAmount;
+			return !parseFloat(this.inputValue) || this.isMoreThanBalance || !this.connectedAccount;
 		},
 		isMoreThanBalance() {
 			return parseFloat(this.inputValue) > this.tokenBalance;
@@ -161,9 +150,6 @@ export default {
 		},
 		decimals() {
 			return this.$store.state.erc20Store.decimals[this.selectedCollateral];
-		},
-		isLTEMinimumDepositAmount() {
-			return parseFloat(this.inputValue) <= this.minimumDepositAmount;
 		},
 		liquidationPrice() {
 			if (!Number(this.inputValue)) return 0;
@@ -228,7 +214,6 @@ export default {
 				this.estimatedMintedNuonValue = 0;
 				return;
 			}
-			if (this.isLTEMinimumDepositAmount) return;
 
 			const currentRatio = this.selectedCollateralRatio;
 			const collateralRatio = `${(10 ** 18) / (currentRatio / 100)}`;
@@ -290,7 +275,7 @@ export default {
 		},
 		selectInputToken(token) {
 			this.selectedCollateral = token.symbol;
-			this.$store.dispatch("collateralVaultStore/getAllowance", this.selectedCollateral);
+			this.initialize();
 		},
 		selectOutputToken(token) {
 			this.output.token = token.symbol;
