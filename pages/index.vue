@@ -31,12 +31,20 @@
 		</div>
 		<div class="l-collateral">
 			<div class="l-collateral__toggle">
-				<div class="l-collateral__toggle-btn" :class="{'is-active': selectedCollateralToggleBtn === 0}" @click="handleCollaterlToggleBtn(0)">
+				<div
+					class="l-collateral__toggle-btn"
+					:class="{'is-active': selectedCollateralToggleBtn === 0}"
+					@click="handleCollateralToggle(0)">
 					<label>
 						<TheDot color="blue" />
 						Locked Collateral
 						<ComponentLoader component="badge u-ml-8" :loaded="collateralRatioArr.length > 0">
-							<TheBadge v-if="!isNaN(getChangePercent('collateralTokens', collateralRatioArr, true))" class="u-ml-8" :color="getPercentChangeBadgeClass('collateralTokens', collateralRatioArr, true)">{{ getUserTVLSign }}{{ Math.abs(getChangePercent('collateralTokens', collateralRatioArr, true)) }}%</TheBadge>
+							<TheBadge
+								v-if="!isNaN(getChangePercent('collateralTokens', collateralRatioArr, true))"
+								class="u-ml-8"
+								:color="getPercentChangeBadgeClass('collateralTokens', collateralRatioArr, true)">
+								{{ getUserTVLSign }}{{ Math.abs(getChangePercent('collateralTokens', collateralRatioArr, true)) }}%
+							</TheBadge>
 						</ComponentLoader>
 					</label>
 					<ComponentLoader component="h3" :loaded="balanceLoaded">
@@ -44,12 +52,20 @@
 						<h3 v-else>${{ totalValue | toFixed | numberWithCommas }}</h3>
 					</ComponentLoader>
 				</div>
-				<div class="l-collateral__toggle-btn" :class="{'is-active': selectedCollateralToggleBtn === 1}" @click="handleCollaterlToggleBtn(1)">
+				<div
+					class="l-collateral__toggle-btn"
+					:class="{'is-active': selectedCollateralToggleBtn === 1}"
+					@click="handleCollateralToggle(1)">
 					<label>
 						<TheDot color="lime" />
 						Total NUON Minted Value
 						<ComponentLoader component="badge u-ml-8" :loaded="collateralRatioArr.length > 0">
-							<TheBadge v-if="!isNaN(getChangePercent('mintedValue', collateralRatioArr, true))" class="u-ml-8" :color="getPercentChangeBadgeClass('mintedValue', collateralRatioArr, true)">{{ getUserMintedNuonSign }}{{ Math.abs(getChangePercent('mintedValue', collateralRatioArr, true)) }}%</TheBadge>
+							<TheBadge
+								v-if="!isNaN(getChangePercent('mintedValue', collateralRatioArr, true))"
+								class="u-ml-8"
+								:color="getPercentChangeBadgeClass('mintedValue', collateralRatioArr, true)">
+								{{ getUserMintedNuonSign }}{{ Math.abs(getChangePercent('mintedValue', collateralRatioArr, true)) }}%
+							</TheBadge>
 						</ComponentLoader>
 					</label>
 					<ComponentLoader component="h3" :loaded="balanceLoaded">
@@ -83,32 +99,6 @@
 		</div>
 		<AccountBalance :locked-amount="userTotalLockedCollateralAmount" />
 		<TransactionHistory />
-		<TheModal
-			v-show="isMintModalVisible"
-			title="Mint"
-			subtitle="Deposit collateral to mint NUON"
-			@close-modal="setModalVisibility('mintModal', false)">
-			<CollateralMint
-				:minimum-deposit-amount="minimumDepositAmount" :currently-selected-collateral="currentlySelectedCollateral" />
-		</TheModal>
-		<TheModal
-			v-show="isRedeemModalVisible"
-			title="Redeem"
-			subtitle="Burn NUON to redeem collateral"
-			@close-modal="setModalVisibility('redeemModal', false)">
-			<CollateralRedeem :currently-selected-collateral="currentlySelectedCollateral" />
-		</TheModal>
-		<TheModal
-			v-show="isAdjustPositionModalVisible"
-			:title="`Adjust Position${adjustModalPositionTitle && ': '}${adjustModalPositionTitle}`"
-			:subtitle="adjustModalPositionSubtitle || 'Manage your collateral'"
-			@close-modal="setModalVisibility('adjustPositionModal', false)">
-			<AdjustPosition
-				:minimum-deposit-amount="minimumDepositAmount"
-				:currently-selected-collateral="currentlySelectedCollateral"
-				:user-minted-amount="userMintedAmount"
-				@action-changed="setAdjustPositionModalTitle" />
-		</TheModal>
 		<!-- <v-tour name="myDashboardTour" :steps="steps" :callbacks="tourCallbacks"></v-tour> -->
 	</LayoutContainer>
 </template>
@@ -148,33 +138,26 @@ export default {
 			balanceLoaded: false,
 			selectedPeriod: 0,
 			graphSelectionDuraton: "",
-			currentlySelectedCollateral: "WETH",
 			actions:[
 				{
 					label: "Mint",
-					handler: (row) => {
-						this.setCurrentlySelectedCollateral(row.lockedCollateral);
-						this.setModalVisibility("mintModal", true);
+					handler: () => {
+						this.$nuxt.$options.router.push("/mint");
 					}
 				},
 				{
 					label: "Redeem",
-					handler: (row) =>  {
-						this.setCurrentlySelectedCollateral(row.lockedCollateral);
-						this.setModalVisibility("redeemModal", true);
+					handler: () =>  {
+						this.$nuxt.$options.router.push("/mint");
 					}
 				},
 				{
 					label: "Adjust",
-					handler: (row) =>  {
-						this.setCurrentlySelectedCollateral(row.lockedCollateral);
-						this.setModalVisibility("adjustPositionModal", true);
+					handler: () =>  {
+						this.$nuxt.$options.router.push("/manage");
 					}
 				}
 			],
-			minimumDepositAmount: 0,
-			adjustModalPositionTitle: "",
-			adjustModalPositionSubtitle: "",
 			userMintedAmount: null,
 			selectedCollateralToggleBtn: 0
 		};
@@ -309,15 +292,6 @@ export default {
 				}]
 			};
 		},
-		isMintModalVisible() {
-			return this.$store.state.modalStore.modalVisible.mintModal;
-		},
-		isRedeemModalVisible() {
-			return this.$store.state.modalStore.modalVisible.redeemModal;
-		},
-		isAdjustPositionModalVisible() {
-			return this.$store.state.modalStore.modalVisible.adjustPositionModal;
-		},
 	},
 	watch: {
 		connectedAccount(newValue) {
@@ -347,7 +321,6 @@ export default {
 					this.balanceLoaded = true;
 				}, 500);
 			}
-			this.getMinimumDepositAmount();
 		},
 		getDiffMinted() {
 			getUserTVLDayData({user: this.connectedAccount}).then(res => {
@@ -391,24 +364,7 @@ export default {
 		handleTabChanged(e) {
 			this.selectedPeriod = e;
 		},
-		setCurrentlySelectedCollateral(cToken) {
-			this.$store.commit("collateralVaultStore/setCollateralToken", cToken );
-			this.currentlySelectedCollateral = cToken;
-		},
-		setAdjustPositionModalTitle(obj) {
-			this.adjustModalPositionTitle = obj.title;
-			this.adjustModalPositionSubtitle = obj.subtitle;
-		},
-		async getMinimumDepositAmount() {
-			let result = 0;
-			try {
-				result = await this.$store.getters["collateralVaultStore/getMinimumDepositAmount"]() / (10 ** this.decimals);
-			} catch (e) {
-			} finally {
-				this.minimumDepositAmount = result;
-			}
-		},
-		handleCollaterlToggleBtn(selectedIndex) {
+		handleCollateralToggle(selectedIndex) {
 			this.selectedCollateralToggleBtn = selectedIndex;
 		}
 	}

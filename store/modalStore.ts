@@ -6,21 +6,12 @@ export const state = () => ({
 	modalError: "",
 	modalVisible: {
 		burnModal: false,
-		collateralModal: false,
-		depositCollateralModal: false,
-		claimModal: false,
 		voteModal: false,
 		proposalPublishModal: false,
-		withdrawCollateralModal: false,
-		claimResultModal: false,
 		alertModal: false,
 		connectWalletModal: false,
-		hubOverviewModal: false,
-		mintModal: false,
-		redeemModal: false,
 	},
 	modalInfo: {
-		claimResultModal: "",
 		alertModal: {
 			title: "",
 			message: "",

@@ -84,9 +84,7 @@
 				<div
 					v-if="actions.length > 0"
 					class="transaction-table__cell" role="cell">
-					<LayoutFlex direction="row-justify-end">
-						<TheDropdown :items="actions" @click="(action) => {action.handler(row)}" />
-					</LayoutFlex>
+					<TransactionTableButtons :items="actions" @click="(action) => {action.handler(row)}" />
 				</div>
 			</div>
 		</template>

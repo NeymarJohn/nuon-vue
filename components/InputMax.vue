@@ -55,7 +55,7 @@ export default {
 	methods: {
 		clicked ($event) {
 			if (this.maximum) {
-				this.content = Math.floor(Number(this.maximum) * 100) / 100;
+				this.content = Number(this.maximum).toFixed(2);
 				this.$emit("input", this.content);
 			}
 			this.$emit("click", $event);
