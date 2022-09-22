@@ -1,11 +1,13 @@
 <template>
 	<LayoutContainer>
-		<LayoutHeader>
+		<LayoutFlex direction="row-justify-end">
+			<PriceIndicator />
+		</LayoutFlex>
+		<LayoutHeader class="u-border">
 			<PageTitle>
 				<h4>Analytics</h4>
 				<h1>NUON Protocol Information</h1>
 			</PageTitle>
-			<PriceIndicator />
 		</LayoutHeader>
 		<CollateralHubOverview />
 		<TokenPrice />

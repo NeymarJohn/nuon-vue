@@ -1,12 +1,14 @@
 <template>
 	<div>
 		<LayoutContainer>
-			<LayoutHeader>
+			<LayoutFlex direction="row-justify-end">
+				<PriceIndicator />
+			</LayoutFlex>
+			<LayoutHeader class="u-border">
 				<PageTitle>
 					<h4>Swap</h4>
 					<h1>Token Exchange</h1>
 				</PageTitle>
-				<PriceIndicator />
 			</LayoutHeader>
 		</LayoutContainer>
 		<LayoutContainer size="sm" class="u-pt-0">

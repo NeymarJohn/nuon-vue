@@ -1,11 +1,13 @@
 <template>
 	<LayoutContainer>
-		<LayoutHeader>
+		<LayoutFlex direction="row-justify-end">
+			<PriceIndicator />
+		</LayoutFlex>
+		<LayoutHeader class="u-border">
 			<PageTitle>
 				<h4>Dashboard</h4>
 				<h1>My Portfolio</h1>
 			</PageTitle>
-			<PriceIndicator />
 		</LayoutHeader>
 		<h3 class="u-mb-24">Account Health</h3>
 		<div class="l-collateral l-collateral--distribution">
@@ -152,7 +154,7 @@ export default {
 					}
 				},
 				{
-					label: "Adjust",
+					label: "Manage",
 					handler: () =>  {
 						this.$nuxt.$options.router.push("/manage");
 					}

@@ -62,25 +62,11 @@
 .l-balance__toggle .btn {
 	display: flex;
 	align-items: center;
-	min-height: $PX_32;
+	padding: $PX_12;
 }
 .l-balance__toggle .btn:hover {
 	transform: none;
 	background-color: $MEDIUM_LIGHT_GREY;
-	padding: $PX_8 $PX_16;
-}
-.l-balance__toggle .btn:hover span {
-	width: $PX_66;
-	max-width: $PX_66;
-}
-.l-balance__toggle .btn span {
-	max-width: 0;
-	white-space: nowrap;
-	overflow: hidden;
-	color: $LIGHT_GREY;
-	transition: max-width 0.3s ease-in-out;
-	margin-left: $PX_8;
-	font-size: $PX_12;
 }
 .l-balance__toggle__value {
 	display: flex;
