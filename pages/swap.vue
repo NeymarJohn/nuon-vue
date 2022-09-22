@@ -1,14 +1,12 @@
 <template>
 	<div>
 		<LayoutContainer>
-			<LayoutFlex direction="row-justify-end">
-				<PriceIndicator />
-			</LayoutFlex>
-			<LayoutHeader class="u-border">
+			<LayoutHeader>
 				<PageTitle>
 					<h4>Swap</h4>
 					<h1>Token Exchange</h1>
 				</PageTitle>
+				<PriceIndicator />
 			</LayoutHeader>
 		</LayoutContainer>
 		<LayoutContainer size="sm" class="u-pt-0">
@@ -23,7 +21,7 @@
 						:default-token="input.token"
 						@selected-token="selectInputToken">
 						<template #input>
-							<InputMax v-model="input.value" :maximum="tokenBalances[input.token]" @input="onInputKeyUp('input')"/>
+							<InputMax v-model="input.value" :maximum="tokenBalances[input.token]"/>
 						</template>
 						<template #messages>
 							<LayoutFlex direction="row-center-space-between">
@@ -130,7 +128,7 @@
 					size="lg"
 					title="Click to swap"
 					:disabled="isSwapDisabled"
-					@click="approveAndSwap">Swap</TheButton>
+					@click="swap">Swap</TheButton>
 			</div>
 		</LayoutContainer>
 	</div>
@@ -214,7 +212,6 @@ export default {
 		},
 		selectInputToken(token) {
 			this.input.token = token.symbol;
-			this.input.value = "";
 			this.calculate();
 		},
 		selectOutputToken(token) {
@@ -292,8 +289,6 @@ export default {
 			)
 				.then((receipt) => {
 					this.successToast(null, "You successfully swapped", receipt.transactionHash);
-					this.$store.dispatch("erc20Store/getBalance", this.input.token);
-					this.$store.dispatch("erc20Store/getBalance", this.output.token);
 					this.initialize();
 				})
 				.catch((e) => {
@@ -314,11 +309,8 @@ export default {
 						this.initialize();
 					}
 				}
-			).then((receipt) => {
+			).then(() => {
 				this.initialize();
-				this.successToast(null, "You successfully swapped", receipt.transactionHash);
-				this.$store.dispatch("erc20Store/getBalance", this.input.token);
-				this.$store.dispatch("erc20Store/getBalance", this.output.token);
 			}).catch(() => {})
 				.finally(() => {});
 		},
@@ -337,23 +329,6 @@ export default {
 		},
 		connectWallet() {
 			this.$store.commit("modalStore/setModalVisibility", {name: "connectWalletModal", visibility: true});
-		},
-		approveAndSwap() {
-			if (!this.isApproved(this.input.token)) {
-				this.$store.dispatch("swapStore/approveToken",
-					{
-						tokenName: this.input.token,
-						onConfirm: () =>{
-						},
-						onReject: () => {
-						},
-						onCallback: () => {
-							this.swap();
-						}
-					});
-			} else {
-				this.swap();
-			}
 		},
 		swap() {
 			if (this.changedValue === "input") {
@@ -387,6 +362,18 @@ export default {
 			if (!tokenName) return true;
 			const allowance = this.$store.state.swapStore.allowance;
 			return allowance[tokenName] > 0;
+		},
+		approveToken(tokenName) {
+			this.$store.dispatch("swapStore/approveToken",
+				{
+					tokenName,
+					onConfirm: () =>{
+					},
+					onReject: () => {
+					},
+					onCallback: () => {
+					}
+				});
 		},
 		refreshPrice() {
 			this.calculate();

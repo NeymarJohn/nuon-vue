@@ -1,38 +1,30 @@
 <template>
 	<LayoutContainer>
-		<LayoutFlex direction="row-justify-end">
-			<PriceIndicator />
-		</LayoutFlex>
 		<LayoutHeader>
 			<PageTitle>
 				<h4>Govern</h4>
 				<h1>{{ sections[currentSection ]}}</h1>
 			</PageTitle>
+			<PriceIndicator />
 		</LayoutHeader>
-		<TheTabs margin="48 tabs__header-parent" size="govern" color="transparent">
+		<TheTabs margin="24" size="govern" color="transparent" @tab-changed="handleTabChanged">
 			<TheTab title="Stake">
 				<LayoutAction type="tabs">
 					<template #left>
-						<TheTabs margin="0" size="full" @tab-changed="handleTabChanged">
+						<TheTabs margin="0" size="full">
 							<TheTab title="Stake">
-								<InputStake :maximum="nuMintBalance" action="stake"  @change="handleChangeInput"/>
+								<InputStake :maximum="nuMintBalance" action="stake" />
 							</TheTab>
 							<TheTab title="Withdraw">
-								<InputStake :maximum="myStake" action="withdraw" @change="handleChangeInput"/>
+								<InputStake :maximum="myStake" action="withdraw"/>
 							</TheTab>
 						</TheTabs>
 					</template>
 					<template #right>
-						<CurrencyCard 
-							class="u-mb-32" 
-							label="My Stake" 
-							:value="myStake" 
-							currency="nuMINT"
-							:badge="myStateAfter"
-						/>
-						<CurrencyCard label="My Voting Power" :value="votingPower" currency="%" :badge="votingPowerAfter"/>
-						<CurrencyCard label="nuMINT Price" :value="tokenPrices.nuMINT" symbol="$"/>
-						<CurrencyCard label="Total Staked" :value="totalStaked" currency="nuMINT" :badge="totalStakedAfter" />
+						<CurrencyCard class="u-mb-32" label="My Stake" :value="myStake" :change="getDollarValue(myStake, tokenPrices.nuMINT)" currency="nuMINT" />
+						<CurrencyCard label="My Voting Power" :percent="votingPower" />
+						<CurrencyCard label="nuMINT Price" :value="tokenPrices.nuMINT" />
+						<CurrencyCard label="Total Staked" :value="totalStaked" currency="nuMINT" />
 					</template>
 				</LayoutAction>
 			</TheTab>
@@ -104,7 +96,7 @@
 					</template>
 					<template #right>
 						<CurrencyCard label="Minimum Stake Required" :value="minimumStake" currency="nuMINT" />
-						<CurrencyCard label="Voting Power" :value="votingPower" currency="%" />
+						<CurrencyCard label="Voting Power" :percent="votingPower" />
 					</template>
 				</LayoutAction>
 			</TheTab>
@@ -121,7 +113,6 @@ export default {
 	name: "TheGovern",
 	data() {
 		return {
-			currentValue: 0,
 			proposals: [],
 			apr: 134,
 			filterOption: "All",
@@ -160,25 +151,15 @@ export default {
 		myStake() {
 			return parseFloat(fromWei(this.$store.state.boardroomStore.stakedBalance));
 		},
-		myStateAfter() {
-			return parseFloat(fromWei(this.$store.state.boardroomStore.stakedBalance)) + Number(this.currentValue);
-		},
 		myRewards() {
 			return parseFloat(fromWei(this.$store.state.boardroomStore.earned));
 		},
 		totalStaked() {
 			return parseFloat(fromWei(this.$store.state.boardroomStore.totalSupply));
 		},
-		totalStakedAfter() {
-			return parseFloat(fromWei(this.$store.state.boardroomStore.totalSupply)) + Number(this.currentValue);
-		},
 		votingPower() {
 			if (!this.totalStaked) return 0;
 			return this.myStake / this.totalStaked * 100;
-		},
-		votingPowerAfter() {
-			if (!this.totalStakedAfter) return 0;
-			return this.myStateAfter / this.totalStakedAfter * 100;
 		},
 		filteredProposals() {
 			if (this.filterOption === "All") return this.proposals;
@@ -354,12 +335,6 @@ export default {
 		updateStatus() {
 			return this.$store.dispatch("boardroomStore/updateStatus");
 		},
-		handleChangeInput(e) {
-			this.currentValue = e.value;
-		},
-		handleTabChanged() {
-			this.currentValue = 0;
-		}
 	}
 };
 </script>

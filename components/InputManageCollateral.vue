@@ -4,23 +4,9 @@
 			<LayoutFlex direction="row-center-space-between swap__balance">
 				<label>{{ action }}</label>
 				<ComponentLoader component="label" :loaded="tokenBalances[selectedCollateral] !== '0'" class="u-height-20">
-					<label v-if="action === 'Mint'">Balance:
-						<span>{{ lockedAmount | formatLongNumber }}</span>
-					</label>
-					<label v-if="action === 'Burn'">Balance:
-						<span>{{ nuonAmount | formatLongNumber }}</span>
-					</label>
-					<label v-else-if="action === 'Deposit'">Balance:
-						<span>{{ tokenBalances[selectedCollateral] | formatLongNumber }}</span>
-					</label>
-					<label v-else-if="action === 'Withdraw'">Balance:
-						<span>{{ lockedAmount | formatLongNumber }}</span>
-					</label>
-					<label v-else-if="action === 'Add'">Balance:
-						<span>{{ tokenBalance | formatLongNumber }}</span>
-					</label>
-					<label v-else-if="action === 'Remove'">User Liquidity:
-						<span>{{ sharesAmount | formatLongNumber }}</span>
+					<label>
+						{{ action==="Remove"?'User Liquidity': 'Balance' }}:
+						<span>{{ availableAmount | formatLongNumber }}</span>
 					</label>
 				</ComponentLoader>
 			</LayoutFlex>
@@ -29,12 +15,11 @@
 				:default-token="defaultCollateral"
 				@selected-token="selectCollateral">
 				<template #input>
-					<InputMax v-model="inputModel" :maximum="availableAmount()" @input="debouncedInputChange"/>
+					<InputMax v-model="inputModel" :maximum="availableAmount" @input="debouncedInputChange"/>
 				</template>
 				<template #messages>
 					<LayoutFlex direction="row-center-space-between">
 						<div>
-							<p v-if="isMoreThanEqualMinimumAndLessThanBalance" class="u-font-size-14 u-is-success u-mb-0">Ready To {{ action }}</p>
 							<p v-if="isMoreThanBalance" class="u-font-size-14 u-is-warning u-mb-0">Insufficient Balance</p>
 						</div>
 						<p class="u-mb-0 u-font-size-14 u-color-light-grey">~ ${{ getDollarValue(inputModel, collateralPrice) | toFixed | numberWithCommas }}</p>
@@ -55,7 +40,7 @@
 </template>
 <script>
 import debounce from "lodash.debounce";
-import { fromWei, toWei } from "~/utils/bnTools";
+import { toWei } from "~/utils/bnTools";
 
 export default {
 	name: "InputManageCollateral",
@@ -81,40 +66,51 @@ export default {
 		};
 	},
 	computed: {
+		estimation() {
+			return this.$store.state.collateralVaultStore.estimation;
+		},
 		summary() {
 			const summary = [{
 				title: "New Collateral Ratio",
-				val: `${parseFloat(this.estimatedAmount[0])}`,
+				val: this.estimation.collateralRatio,
 				currency: "%"
 			}];
 			const lastId = summary.length - 1;
 			if (this.action === "Deposit") {
 				summary.push({
 					title: "New Collateral Amount",
-					val: this.estimatedAmount[2] / this.tokenPrices[this.selectedCollateral],
+					val: this.estimation.lockedCollateral,
 					currency: this.selectedCollateral
 				});
 			} else if (this.action === "Withdraw") {
 				summary.push({
 					title: "New Collateral Amount",
-					val: this.estimatedAmount[2],
+					val: this.estimation.lockedCollateral,
 					currency: this.selectedCollateral
 				});
 			} else if (this.action === "Mint") {
 				summary.push({
 					title: "NUON Minted Amount",
-					val: this.estimatedAmount[1]
+					val: this.inputModel
 				});
 				summary.push({
 					title: `Extra ${this.selectedCollateral} required`,
-					val: this.estimatedAmount[3]
+					val: this.estimation.extraRequiredCollateral
 				});
 				summary.push({
 					title: "New NUON Balance",
-					val: this.estimatedAmount[2]
+					val: this.estimation.mintedNuon
+				});
+			} else if (this.action === "Burn") {
+				summary.push({
+					title: "NUON Minted Amount",
+					val: this.inputModel
+				});
+				summary.push({
+					title: "New NUON Balance",
+					val: this.estimation.mintedNuon
 				});
 			}
-			summary[lastId].val = `${parseFloat(summary[lastId].val).toFixed(2)} ${this.actionIsMintOrBurn ? "NUON" : this.currentlySelectedCollateral}`;
 			return summary;
 		},
 		decimals() {
@@ -127,7 +123,7 @@ export default {
 			return this.tokenBalances[this.selectedCollateral];
 		},
 		isMoreThanBalance() {
-			return parseFloat(this.inputModel) > this.availableAmount();
+			return parseFloat(this.inputModel) > this.availableAmount;
 		},
 		isMoreThanEqualMinimumAndLessThanBalance() {
 			return parseFloat(this.inputModel) > 0 && parseFloat(this.inputModel) <= this.tokenBalance;
@@ -148,40 +144,48 @@ export default {
 		},
 		sharesAmount() {
 			return this.$store.state.collateralVaultStore.userVaultShares[this.selectedCollateral];
-		}
+		},
+		availableAmount() {
+			if (this.actionIsMintOrBurn) return this.nuonAmount;
+			if (this.action === "Deposit") return this.tokenBalance || 0;
+			if (this.action === "Withdraw") return this.lockedAmount || 0;
+			if (this.action === "Add") return this.tokenBalance;
+			if (this.action === "Remove") return this.sharesAmount;
+			return (this.inputModel * this.tokenPrices.NUON / this.tokenPrices[this.selectedCollateral]).toFixed(2);
+		},
 	},
 	beforeMount () {
 		this.selectedCollateral = this.defaultCollateral;
+		this.$store.commit("collateralVaultStore/setEstimation", {});
 	},
 	methods: {
-		async getEstimatedAmounts() {
-			let method;
-			if (this.action === "Burn") method = "burnNUONEstimation";
-			if (this.action === "Mint") method = "mintWithoutDepositEstimation";
-			if (this.action === "Deposit") method = "depositWithoutMintEstimation";
-			if (this.action === "Withdraw") method = "redeemWithoutNuonEstimation";
+		getEstimatedAmounts() {
+			// let method;
+			// if (this.action === "Burn") method = "burnNUONEstimation";
+			// if (this.action === "Mint") method = "mintWithoutDepositEstimation";
+			// if (this.action === "Deposit") method = "depositWithoutMintEstimation";
+			// if (this.action === "Withdraw") method = "redeemWithoutNuonEstimation";
 
-			const amount = toWei(this.inputModel, this.decimals);
+			// const amount = toWei(this.inputModel);
 
-			let response = { 0: 0, 1: 0, 2: 0 };
-			let responseMint = {1: 0};
+			// let response = { 0: 0, 1: 0, 2: 0 };
+			// let responseMint = {1: 0};
 
-			try {
-				response = await this.$store.getters[`collateralVaultStore/${method}`](this.selectedCollateral, amount, this.connectedAccount);
-				console.log("response",response);
-				if (this.action === "Mint") responseMint = await this.$store.getters["collateralVaultStore/mintLiquidityHelper"](this.selectedCollateral, response[1]);
-			} catch (err) {
-				const mintLiquidationMsg = "This will liquidate you";
-				if (err.message.includes(mintLiquidationMsg)) {
-					this.submitDisabled = true;
-					this.error = mintLiquidationMsg;
-				}
-			} finally {
-				this.$set(this.estimatedAmount, 0, fromWei(response[0]));
-				this.$set(this.estimatedAmount, 1, fromWei(response[1], this.decimals));
-				this.$set(this.estimatedAmount, 2, fromWei(response[2], this.decimals));
-				if (this.action === "Mint") this.$set(this.estimatedAmount, 3, parseFloat(fromWei(responseMint[0], this.decimals)).toFixed(2));
-			}
+			// try {
+			// 	response = await this.$store.getters[`collateralVaultStore/${method}`](this.selectedCollateral, amount, this.connectedAccount);
+			// 	if (this.action === "Mint") responseMint = await this.$store.getters["collateralVaultStore/mintLiquidityHelper"](this.selectedCollateral, response[1]);
+			// } catch (err) {
+			// 	const mintLiquidationMsg = "This will liquidate you";
+			// 	if (err.message.includes(mintLiquidationMsg)) {
+			// 		this.submitDisabled = true;
+			// 		this.error = mintLiquidationMsg;
+			// 	}
+			// } finally {
+			// 	this.$set(this.estimatedAmount, 0, fromWei(response[0]));
+			// 	this.$set(this.estimatedAmount, 1, fromWei(response[1], this.decimals));
+			// 	this.$set(this.estimatedAmount, 2, fromWei(response[2], this.decimals));
+			// 	if (this.action === "Mint") this.$set(this.estimatedAmount, 3, parseFloat(fromWei(responseMint[0], this.decimals)).toFixed(2));
+			// }
 			this.$store.dispatch("collateralVaultStore/calcEstimation", {
 				action: this.action,
 				selectedCollateral: this.selectedCollateral,
@@ -229,14 +233,7 @@ export default {
 				this.failureToast(null, err, "Transaction Failed");
 			}
 		},
-		availableAmount() {
-			if (this.actionIsMintOrBurn) return this.nuonAmount;
-			if (this.action === "Deposit") return this.tokenBalance || 0;
-			if (this.action === "Withdraw") return this.lockedAmount || 0;
-			if (this.action === "Add") return this.tokenBalance;
-			if (this.action === "Remove") return this.sharesAmount;
-			if (this.action === "Mint") this.spendValue = (this.inputModel * this.tokenPrices.NUON / this.tokenPrices[this.selectedCollateral]).toFixed(2);
-		},
+
 		selectCollateral(token) {
 			this.selectedCollateral = token.symbol;
 			this.getEstimatedAmounts();

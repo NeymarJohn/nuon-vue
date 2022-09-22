@@ -9,11 +9,11 @@ import { fromWei } from "~/utils/bnTools";
 
 type StateType = {
 	balance: {
-		NUON: string | null,
-		nuMINT: string | null,
-		ETH: string | null,
-		USDT: string | null,
-		WETH: string | null
+		NUON: string,
+		nuMINT: string,
+		ETH: string,
+		USDT: string,
+		WETH: string
 	},
 	decimals: {
 		NUON: number,
@@ -32,11 +32,11 @@ type StateType = {
  */
 export const state = (): StateType => ({
 	balance: {
-		NUON: null,
-		nuMINT: null,
-		ETH: null,
-		USDT: null,
-		WETH: null
+		NUON: "0",
+		nuMINT: "0",
+		ETH: "0",
+		USDT: "0",
+		WETH: "0"
 	},
 	decimals: {
 		NUON: 18,
@@ -56,9 +56,6 @@ export type Erc20State = ReturnType<typeof state>
 export const mutations: MutationTree<Erc20State> = {
 	setBalance(state, payload: any) {
 		state.balance = payload;
-	},
-	setTokenBalance(state, {token, balance}) {
-		state.balance = {...state.balance, [token]: balance};
 	},
 	setDecimals(state, payload: any) {
 		state.decimals = payload;
@@ -93,13 +90,6 @@ export const actions: ActionTree<Erc20State, Erc20State> = {
 			NUON: nuonSupply,
 			[nuMINT.symbol]: nuMintSupply
 		});
-	},
-
-	async getBalance(ctx: any, token) {
-		const tokenContract = ctx.getters.getContractBySymbol(token);
-		const accountAddress = ctx.rootGetters["web3Store/account"];
-		const balance = fromWei(await tokenContract.methods.balanceOf(accountAddress).call(), ctx.state.decimals[token]);
-		ctx.commit("setTokenBalance", {token, balance});
 	},
 
 	approveToken(ctx: any, {tokenSymbol, contractAddress, onConfirm, onReject}): void {
@@ -163,19 +153,19 @@ export const getters: GetterTree<Erc20State, Web3State> = {
 	getNuonInfo: (state: any) => state.nuon,
 
 	nuMintBalance: (state: StateType, _getters: any) => {
-		return parseFloat(state.balance.nuMINT || "0");
+		return parseFloat(state.balance.nuMINT);
 	},
 
 	nuonBalance: (state: StateType, _getters: any) => {
-		return parseFloat(state.balance.NUON || "0");
+		return parseFloat(state.balance.NUON);
 	},
 
 	tokenBalance: (state: StateType) => {
-		const nuMintBalance = parseFloat(state.balance.nuMINT || "0");
-		const nuonBalance = parseFloat(state.balance.NUON || "0");
-		const usdtBalance = parseFloat(state.balance.USDT || "0");
-		const ethBalance = parseFloat(state.balance.ETH || "0");
-		const wethBalance = parseFloat(state.balance.WETH || "0");
+		const nuMintBalance = parseFloat(state.balance.nuMINT);
+		const nuonBalance = parseFloat(state.balance.NUON);
+		const usdtBalance = parseFloat(state.balance.USDT);
+		const ethBalance = parseFloat(state.balance.ETH);
+		const wethBalance = parseFloat(state.balance.WETH);
 
 		return {
 			NUON: nuonBalance,

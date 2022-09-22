@@ -394,13 +394,13 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 		} else {
 			return;
 		}
-		const amount = toWei(value);
 		let decimals = ctx.rootState.erc20Store.decimals[selectedCollateral];
 		if (action === "Mint" || action === "Burn") {
 			decimals = 18;
 		}
+		const amount = toWei(value, decimals);
 		let resp: any = {};
-		let resp2: any  = {1: 0};
+		let resp2: any  = {};
 		try {
 			resp = await ctx.getters[`${method}`](selectedCollateral, amount, accountAddress);
 			if (action === "Mint") {
@@ -411,6 +411,7 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 			if (action === "Mint" || action === "Burn") {
 				estimationData.lockedCollateral = ctx.state.lockedAmount[selectedCollateral];
 				estimationData.mintedNuon = fromWei(resp[2]);
+				estimationData.extraRequiredCollateral = fromWei(resp2[0], decimals);
 				estimationData.collateralRatio = fromWei(resp[0]);
 				estimationData.liquidationPrice = fromWei(resp2[1]);
 				estimationData.liquidationRatio = ctx.state.globalRatio[selectedCollateral];
@@ -418,7 +419,11 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 			}
 			if (action === "Deposit" || action === "Withdraw") {
 				const collateralPrice = ctx.rootState.tokenStore.price[selectedCollateral];
-				estimationData.lockedCollateral = Number(fromWei(resp[2], decimals)) / collateralPrice;
+				if (action === "Deposit") {
+					estimationData.lockedCollateral = Number(fromWei(resp[2], 18)) / collateralPrice;
+				} else {
+					estimationData.lockedCollateral = Number(fromWei(resp[2], decimals));
+				}
 				estimationData.mintedNuon = ctx.state.mintedAmount[selectedCollateral] ;
 				estimationData.collateralRatio = fromWei(resp[0]);
 				estimationData.liquidationPrice = fromWei(resp2[1]);
