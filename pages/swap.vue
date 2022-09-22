@@ -1,14 +1,12 @@
 <template>
 	<div>
 		<LayoutContainer>
-			<LayoutFlex direction="row-justify-end">
-				<PriceIndicator />
-			</LayoutFlex>
-			<LayoutHeader class="u-border">
+			<LayoutHeader>
 				<PageTitle>
 					<h4>Swap</h4>
 					<h1>Token Exchange</h1>
 				</PageTitle>
+				<PriceIndicator />
 			</LayoutHeader>
 		</LayoutContainer>
 		<LayoutContainer size="sm" class="u-pt-0">
@@ -292,6 +290,8 @@ export default {
 			)
 				.then((receipt) => {
 					this.successToast(null, "You successfully swapped", receipt.transactionHash);
+					this.$store.dispatch("erc20Store/getBalance", this.input.token);
+					this.$store.dispatch("erc20Store/getBalance", this.output.token);
 					this.initialize();
 				})
 				.catch((e) => {
@@ -312,8 +312,11 @@ export default {
 						this.initialize();
 					}
 				}
-			).then(() => {
+			).then((receipt) => {
 				this.initialize();
+				this.successToast(null, "You successfully swapped", receipt.transactionHash);
+				this.$store.dispatch("erc20Store/getBalance", this.input.token);
+				this.$store.dispatch("erc20Store/getBalance", this.output.token);
 			}).catch(() => {})
 				.finally(() => {});
 		},
