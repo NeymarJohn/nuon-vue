@@ -152,7 +152,7 @@ export default {
 					}
 				},
 				{
-					label: "Adjust",
+					label: "Manage",
 					handler: () =>  {
 						this.$nuxt.$options.router.push("/manage");
 					}
