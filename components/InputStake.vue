@@ -12,7 +12,7 @@
 					<h5 v-if="action==='claim'">BUSD</h5>
 					<h5 v-else>nuMINT</h5>
 				</div>
-				<InputMax v-model="inputValue" :maximum="maximum" @click="inputMaxBalance" />
+				<InputMax v-model="inputValue" :maximum="maximum" @input="changeInputValue"/>
 			</div>
 		</div>
 		<p v-if="isMoreThanBalance" class="u-is-warning">Insufficient balance.</p>
@@ -130,6 +130,7 @@ export default {
 			if (this.account !== "") {
 				const handlerCompletion = () => {
 					this.inputValue = "";
+					this.changeInputValue();
 					this.$store.dispatch("boardroomStore/updateStatus");
 				};
 				if (this.action === "stake") {
@@ -170,9 +171,9 @@ export default {
 				}
 			}
 		},
-		inputMaxBalance() {
-			this.inputValue = this.maximum;
-		},
+		changeInputValue() {
+			this.$emit("change", {value:this.inputValue, action: this.action});
+		}
 	}
 };
 </script>
