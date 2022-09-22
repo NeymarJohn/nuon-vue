@@ -19,11 +19,9 @@
 						<TheButton size="icon" title="Click to show chart" @click="toggleShowChart('nuon')">
 							<template v-if="!activeCharts.includes('nuon')">
 								<LineChartIcon v-if="!activeCharts.includes('nuon')"/>
-								<span>Show Chart</span>
 							</template>
 							<template v-else>
 								<LineChartIconActive />
-								<span class="u-colour-lime">Hide Chart</span>
 							</template>
 						</TheButton>
 					</li>
@@ -38,11 +36,9 @@
 						<TheButton size="icon" title="Click to show chart" @click="toggleShowChart('nuMint')">
 							<template v-if="!activeCharts.includes('nuMint')">
 								<LineChartIcon />
-								<span>Show Chart</span>
 							</template>
 							<template v-else>
 								<LineChartIconActive />
-								<span class="u-colour-lime">Hide Chart</span>
 							</template>
 						</TheButton>
 					</li>
@@ -57,11 +53,9 @@
 						<TheButton size="icon" title="Click to show chart" @click="toggleShowChart('collateral')">
 							<template v-if="!activeCharts.includes('collateral')">
 								<LineChartIcon />
-								<span>Show Chart</span>
 							</template>
 							<template v-else>
 								<LineChartIconActive />
-								<span class="u-colour-lime">Hide Chart</span>
 							</template>
 						</TheButton>
 					</li>
@@ -76,11 +70,9 @@
 						<TheButton size="icon" title="Click to show chart" @click="toggleShowChart('boardroom')">
 							<template v-if="!activeCharts.includes('boardroom')">
 								<LineChartIcon />
-								<span>Show Chart</span>
 							</template>
 							<template v-else>
 								<LineChartIconActive />
-								<span class="u-colour-lime">Hide Chart</span>
 							</template>
 						</TheButton>
 					</li>

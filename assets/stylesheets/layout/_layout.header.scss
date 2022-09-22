@@ -8,6 +8,8 @@
 	flex-direction: row;
 	align-items: center;
 	justify-content: space-between;
+}
+.l-header.u-border {
 	margin-bottom: $PX_48;
 	padding-bottom: $PX_32;
 	border-bottom: $PX_1 solid $MEDIUM_LIGHT_GREY;

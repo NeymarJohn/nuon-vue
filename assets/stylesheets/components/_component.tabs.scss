@@ -118,6 +118,14 @@
 }
 
 // 5. Tabs govern
+.tabs--govern {
+	margin-top: -$PX_32;
+}
+.tabs--govern .tabs__header-parent {
+	margin-bottom: $PX_48;
+	padding-bottom: $PX_20;
+	border-bottom: $PX_1 solid $MEDIUM_LIGHT_GREY;
+}
 .tabs--govern .tabs__header {
 	display: flex;
 	flex-direction: row;

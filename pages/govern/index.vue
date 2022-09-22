@@ -1,13 +1,15 @@
 <template>
 	<LayoutContainer>
+		<LayoutFlex direction="row-justify-end">
+			<PriceIndicator />
+		</LayoutFlex>
 		<LayoutHeader>
 			<PageTitle>
 				<h4>Govern</h4>
 				<h1>{{ sections[currentSection ]}}</h1>
 			</PageTitle>
-			<PriceIndicator />
 		</LayoutHeader>
-		<TheTabs margin="24" size="govern" color="transparent" @tab-changed="handleTabChanged">
+		<TheTabs margin="48 tabs__header-parent" size="govern" color="transparent" @tab-changed="handleTabChanged">
 			<TheTab title="Stake">
 				<LayoutAction type="tabs">
 					<template #left>

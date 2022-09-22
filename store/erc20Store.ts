@@ -57,9 +57,6 @@ export const mutations: MutationTree<Erc20State> = {
 	setBalance(state, payload: any) {
 		state.balance = payload;
 	},
-	setTokenBalance(state, {token, balance}) {
-		state.balance = {...state.balance, [token]: balance};
-	},
 	setDecimals(state, payload: any) {
 		state.decimals = payload;
 	},
@@ -93,13 +90,6 @@ export const actions: ActionTree<Erc20State, Erc20State> = {
 			NUON: nuonSupply,
 			[nuMINT.symbol]: nuMintSupply
 		});
-	},
-
-	async getBalance(ctx: any, token) {
-		const tokenContract = ctx.getters.getContractBySymbol(token);
-		const accountAddress = ctx.rootGetters["web3Store/account"];
-		const balance = fromWei(await tokenContract.methods.balanceOf(accountAddress).call(), ctx.state.decimals[token]);
-		ctx.commit("setTokenBalance", {token, balance});
 	},
 
 	approveToken(ctx: any, {tokenSymbol, contractAddress, onConfirm, onReject}): void {
