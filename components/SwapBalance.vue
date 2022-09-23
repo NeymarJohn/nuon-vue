@@ -1,7 +1,7 @@
 <template>
 	<LayoutFlex direction="row-center-space-between swap__balance">
 		<label>{{ label }}</label>
-		<ComponentLoader component="label" :loaded="tokenBalances[token] !== '0'">
+		<ComponentLoader component="label" :loaded="tokenBalances[token] !== null">
 			<label>Balance:
 				<span>{{ balance | formatLongNumber }}</span>
 			</label>

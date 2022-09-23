@@ -51,14 +51,19 @@ export default {
 		// https://go.nuxtjs.dev/typescript
 		"@nuxt/typescript-build",
 		// https://typed-vuex.roe.dev/getting-started/getting-started-nuxt
-		"nuxt-typed-vuex"
+		"nuxt-typed-vuex",
 	],
 
 	// Modules: https://go.nuxtjs.dev/config-modules
 	modules: [
 		"@nuxtjs/axios",
-		"vue-social-sharing/nuxt"
+		"vue-social-sharing/nuxt",
+		"@nuxtjs/google-analytics"
 	],
+
+	googleAnalytics: {
+		id: "G-2676PDQLZB"
+	},
 
 	// Build Configuration: https://go.nuxtjs.dev/config-build
 	build: {
@@ -112,6 +117,9 @@ export default {
 			infuraId: "0b78809457cf4190a7919f375644dd9b",
 			bscscanUrl: "https://bscscan.com",
 			pancakeswapUrl: "https://pancakeswap.finance",
+		},
+		googleAnalytics: {
+			id: process.env.GOOGLE_ANALYTICS_ID
 		}
 	},
 	generate: {
