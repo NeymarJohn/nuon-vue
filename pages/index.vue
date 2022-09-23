@@ -130,7 +130,7 @@ export default {
 					header: {
 						title: "Get Started Minting Nuon",
 					},
-					content: "This walkthrough tour will show you all the steps needed to mint your own Nuon. This page showcases all of the important information related to your positions on the Nuon Protocol.",
+					content: "This walkthrough tour will show you all the steps needed to mint your own Nuon. <br><br>This page showcases all of the important information related to your positions on the Nuon Protocol.",
 					params: {
 						enableScrolling: false
 					}
@@ -144,7 +144,7 @@ export default {
 					header: {
 						title: "Price and Peg Information",
 					},
-					content: "At the top of each page, the Nuon price and Target Peg are prominently displayed, along with the Soft Peg Gap. This information makes it easy to spot arbitrage opportunities.",
+					content: "At the top of each page, the Nuon price and Target Peg are prominently displayed, along with the Soft Peg Gap. <br><br>This information makes it easy to spot arbitrage opportunities.",
 				},
 				{
 					target: "[data-v-step=\"4\"]",
@@ -165,7 +165,7 @@ export default {
 					header: {
 						title: "Account Balance and Total Collateral Value",
 					},
-					content: "This section shows your Nuon and nuMINT balances, as well as the amount of collateral you have locked in the protocol and nuMINT locked in the Boardroom. On the right is the total value of your locked collateral, and how it varies over time.",
+					content: "This section shows your Nuon and nuMINT balances, as well as the amount of collateral you have locked in the protocol and nuMINT locked in the Boardroom. <br><br>On the right is the total value of your locked collateral, and how it varies over time.",
 				},
 				{
 					target: "[data-v-step=\"7\"]",

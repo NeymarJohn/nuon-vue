@@ -7,6 +7,7 @@
 				:balance="tokenBalances[selectedCollateral]" />
 			<MintAccordion
 				:disabled-tokens="['BTC', 'BUSD', 'AVAX']"
+				data-v-step="2"
 				:default-token="selectedCollateral"
 				@selected-token="selectInputToken">
 				<template #input>
@@ -27,7 +28,7 @@
 			<div class="swap__balance">
 				<label>Mint</label>
 			</div>
-			<div class="swap__wrapper">
+			<div class="swap__wrapper" data-v-step="3">
 				<div class="swap__return">
 					<NuonLogo />
 					<div class="swap__token">
@@ -40,9 +41,9 @@
 		<div class="collateral">
 			<div class="collateral__header">
 				<p>Set your Collateral Ratio<TooltipIcon v-tooltip="'Enter content here'" /></p>
-				<TheButton size="link" title="Click to view advanced options" @click="isVisible = !isVisible">{{ isVisible ? "Basic" : "Advanced" }}</TheButton>
+				<TheButton size="link" title="Click to view advanced options" data-v-step="5" @click="isVisible = !isVisible">{{ isVisible ? "Basic" : "Advanced" }}</TheButton>
 			</div>
-			<div v-if="isVisible !== true" class="collateral__body">
+			<div v-if="isVisible !== true" class="collateral__body" data-v-step="4">
 				<TheButton v-for="(ratio, index) in ratios" :key="ratio.index" :class="{'is-active': (index === selectedRatio)}" :title="`Click to select ${ratio.label.toLowerCase()}`" @click="selectRatio(index)">
 					{{ ratio.value }}% <span>{{ ratio.label }}</span>
 				</TheButton>
@@ -60,6 +61,7 @@
 				Mint
 			</TheButton>
 		</LayoutFlex>
+		<v-tour name="mintTour" :steps="steps" :callbacks="callbacks"></v-tour>
 	</div>
 </template>
 
@@ -75,6 +77,16 @@ export default {
 	components: {
 		TooltipIcon,
 		NuonLogo
+	},
+	props: {
+		steps: {
+			type: Array,
+			required: true
+		},
+		callbacks: {
+			type: Object,
+			required: true
+		}
 	},
 	data() {
 		return {
