@@ -5,27 +5,27 @@
 // 1. Vue tour default
 .v-step {
 	background: $DARK_GREY !important;
-	border-radius: $BORDER_RADIUS_8 !important;
-	border: $PX_2 solid $LIME !important;
+	border-radius: 0px $BORDER_RADIUS_24 $BORDER_RADIUS_24 $BORDER_RADIUS_24 !important;
+	max-width: $PX_600 !important;
+	text-align: left !important;
+	box-shadow: 0px 0px 50px rgba(223, 255, 101, 0.3) !important;
+	padding: $PX_32 !important;
 }
 .v-step__header {
-	border-top-left-radius: $BORDER_RADIUS_8 !important;
-	border-top-right-radius: $BORDER_RADIUS_8 !important;
-	color: $WHITE !important;
-	padding: $PX_16 !important;
-	margin-bottom: 0 !important;
-}
-.v-step__header,
-.v-step__arrow--dark:before {
+	@extend h4;
 	background: $DARK_GREY !important;
+	color: $WHITE !important;
+	padding: 0 !important;
+	margin: 0 !important;
+	margin-bottom: $PX_12 !important;
 }
 .v-step__arrow:before {
-	border-top: $PX_2 solid $LIME !important;
-	border-left: $PX_2 solid $LIME !important;
-	top: -$PX_1 !important;
+	display: none !important;
 }
 .v-step__content {
 	text-align: left !important;
+	color: $LIGHT_GREY !important;
+	margin-bottom: $PX_32 !important;
 }
 .v-step__button {
 	transition: $TRANSITION_ALL !important;
@@ -42,4 +42,16 @@
 .v-step__button:hover {
 	border: $PX_1 solid $LIME !important;
 	color: $LIME !important;
+}
+.v-step__button-skip {
+	color: $HIGHLIGHT_LIGHT_GREY !important;
+	border: none !important;
+}
+.v-step__button-skip:hover {
+	border: none !important;
+}
+.v-step__buttons {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
 }
