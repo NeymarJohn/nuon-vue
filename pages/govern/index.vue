@@ -155,11 +155,12 @@ export default {
 		return {
 			title: "Govern | NUON",
 			meta: [
-				{
-					hid: "govern",
-					name: "description",
-					content: "NUON Govern"
-				}
+				{ hid: "govern", name: "description", content: "NUON Govern" },
+				{ hid: "og-type", property: "og:type", content: "website" },
+				{ hid: "og-title", property: "og:title", content: "Govern | NUON" },
+				{ hid: "og-desc", property: "og:description", content: "NUON Govern" },
+				{ hid: "og-image", property: "og:image", content: "https://nuon.fi/assets/img/opengraph-default.jpg" },
+				{ hid: "og-url", property: "og:url", content: "https://app.nuon.fi/govern" }
 			]
 		};
 	},

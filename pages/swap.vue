@@ -171,7 +171,15 @@ export default {
 	},
 	head () {
 		return {
-			title: "Swap | NUON"
+			title: "Swap | NUON",
+			meta: [
+				{ hid: "swap", name: "description", content: "NUON Swap" },
+				{ hid: "og-type", property: "og:type", content: "website" },
+				{ hid: "og-title", property: "og:title", content: "Swap | NUON" },
+				{ hid: "og-desc", property: "og:description", content: "NUON Swap" },
+				{ hid: "og-image", property: "og:image", content: "https://nuon.fi/assets/img/opengraph-default.jpg" },
+				{ hid: "og-url", property: "og:url", content: "https://app.nuon.fi/swap" }
+			]
 		};
 	},
 	computed: {

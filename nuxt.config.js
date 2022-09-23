@@ -26,9 +26,6 @@ export default {
 			{ rel: "mask-icon", href: "/safari-pinned-tab.svg", color: "#5bbad5" },
 			{ rel: "manifest", href: "/site.webmanifest" }
 		],
-		css: [
-			"~/assets/stylesheets/main"
-		]
 	},
 
 	// Global CSS: https://go.nuxtjs.dev/config-css

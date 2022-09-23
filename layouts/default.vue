@@ -13,3 +13,8 @@ export default {
 	layout: "default",
 };
 </script>
+
+<style lang="scss">
+@import "~/assets/stylesheets/main";
+</style>
+

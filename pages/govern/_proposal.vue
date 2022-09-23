@@ -238,11 +238,12 @@ export default {
 		return {
 			title: `${this.pageTitle} - Govern | NUON`,
 			meta: [
-				{
-					hid: "proposal",
-					name: "description",
-					content: `NUON ${this.pageTitle}`
-				}
+				{ hid: "proposal", name: "description", content: `NUON Govern ${this.pageTitle}` },
+				{ hid: "og-type", property: "og:type", content: "website" },
+				{ hid: "og-title", property: "og:title", content: "Govern | NUON" },
+				{ hid: "og-desc", property: "og:description", content: "NUON Govern" },
+				{ hid: "og-image", property: "og:image", content: "https://nuon.fi/assets/img/opengraph-default.jpg" },
+				{ hid: "og-url", property: "og:url", content: `https://app.nuon.fi/govern/${this.pageTitle}` }
 			]
 		};
 	},
