@@ -102,7 +102,14 @@ export default {
 	},
 	head () {
 		return {
-			title: "Manage | NUON"
+			title: "Manage | NUON",
+			meta: [
+				{
+					hid: "manage",
+					name: "description",
+					content: "NUON Manage"
+				}
+			]
 		};
 	},
 	mounted() {

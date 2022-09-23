@@ -14,7 +14,6 @@ export default {
 		meta: [
 			{ charset: "utf-8" },
 			{ name: "viewport", content: "width=device-width, initial-scale=1" },
-			{ hid: "description", name: "description", content: "" },
 			{ name: "format-detection", content: "telephone=no" },
 			{ name: "msapplication-TileColor", content: "#18181a" },
 			{ name: "theme-color", content: "#18181a" },
@@ -26,6 +25,9 @@ export default {
 			{ rel: "icon", type: "image/png", sizes: "16x16", href: "/favicon-16x16.png" },
 			{ rel: "mask-icon", href: "/safari-pinned-tab.svg", color: "#5bbad5" },
 			{ rel: "manifest", href: "/site.webmanifest" }
+		],
+		css: [
+			"~/assets/stylesheets/main"
 		]
 	},
 

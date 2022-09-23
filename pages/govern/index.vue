@@ -23,10 +23,10 @@
 						</TheTabs>
 					</template>
 					<template #right>
-						<CurrencyCard 
-							class="u-mb-32" 
-							label="My Stake" 
-							:value="myStake" 
+						<CurrencyCard
+							class="u-mb-32"
+							label="My Stake"
+							:value="myStake"
 							currency="nuMINT"
 							:badge="myStateAfter"
 						/>
@@ -153,7 +153,14 @@ export default {
 	},
 	head() {
 		return {
-			title: "Govern | NUON"
+			title: "Govern | NUON",
+			meta: [
+				{
+					hid: "govern",
+					name: "description",
+					content: "NUON Govern"
+				}
+			]
 		};
 	},
 	computed: {

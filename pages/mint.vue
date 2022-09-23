@@ -33,7 +33,14 @@ export default {
 	},
 	head () {
 		return {
-			title: "Mint | NUON"
+			title: "Mint | NUON",
+			meta: [
+				{
+					hid: "mint",
+					name: "description",
+					content: "NUON Mint"
+				}
+			]
 		};
 	},
 	watch: {

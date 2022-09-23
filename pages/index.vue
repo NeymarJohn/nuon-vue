@@ -166,7 +166,14 @@ export default {
 	},
 	head () {
 		return {
-			title: "Dashboard | NUON"
+			title: "Dashboard | NUON",
+			meta: [
+				{
+					hid: "dashboard",
+					name: "description",
+					content: "NUON Dashboard"
+				}
+			]
 		};
 	},
 	computed: {

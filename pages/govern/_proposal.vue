@@ -236,7 +236,14 @@ export default {
 	},
 	head() {
 		return {
-			title: `${this.pageTitle} - Govern | NUON`
+			title: `${this.pageTitle} - Govern | NUON`,
+			meta: [
+				{
+					hid: "proposal",
+					name: "description",
+					content: `NUON ${this.pageTitle}`
+				}
+			]
 		};
 	},
 	computed: {

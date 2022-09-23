@@ -79,7 +79,14 @@ export default {
 	},
 	head () {
 		return {
-			title: "Farms | NUON"
+			title: "Farms | NUON",
+			meta: [
+				{
+					hid: "farms",
+					name: "description",
+					content: "NUON Farms"
+				}
+			]
 		};
 	},
 	computed: {
