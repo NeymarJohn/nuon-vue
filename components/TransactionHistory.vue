@@ -27,12 +27,6 @@
 				:config="transactionConfig"
 				:loading="isLoading"
 				:table-data="selectedFilter" />
-			<TransactionCard
-				v-else
-				:data="tableData"
-				:loading="isLoading"
-				:config="transactionConfig"
-				:table-data="selectedFilter" />
 		</TheLoader>
 	</div>
 </template>

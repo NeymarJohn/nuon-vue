@@ -1,16 +1,16 @@
 <template>
 	<LayoutContainer>
 		<LayoutFlex direction="row-justify-end">
-			<PriceIndicator />
+			<PriceIndicator data-v-step="3" />
 		</LayoutFlex>
-		<LayoutHeader class="u-border">
+		<LayoutHeader class="u-border" data-v-step="1">
 			<PageTitle>
 				<h4>Dashboard</h4>
 				<h1>My Portfolio</h1>
 			</PageTitle>
 		</LayoutHeader>
 		<h3 class="u-mb-24">Account Health</h3>
-		<div class="l-collateral l-collateral--distribution">
+		<div class="l-collateral l-collateral--distribution" data-v-step="4">
 			<TheLoader component="table" class="l-collateral__donut">
 				<label>Collateral Distribution</label>
 				<DonutChartCollateral :chart-data="collateralDonutChartData" />
@@ -18,6 +18,7 @@
 			<TheLoader component="table" class="l-collateral__table">
 				<TransactionTable
 					v-if="!mobileView"
+					data-v-step="2"
 					size="collateral"
 					class="u-p-0"
 					aria="Collateral Hub transactions"
@@ -25,13 +26,9 @@
 					:config="configData"
 					:misc="miscConfig"
 					:actions="actions" />
-				<TransactionCard
-					v-else
-					:data="chubData"
-					:config="configData" />
 			</TheLoader>
 		</div>
-		<div class="l-collateral">
+		<div class="l-collateral" data-v-step="5">
 			<div class="l-collateral__toggle">
 				<div
 					class="l-collateral__toggle-btn"
@@ -99,9 +96,9 @@
 				</ComponentLoader>
 			</div>
 		</div>
-		<AccountBalance :locked-amount="userTotalLockedCollateralAmount" />
-		<TransactionHistory />
-		<!-- <v-tour name="myDashboardTour" :steps="steps" :callbacks="tourCallbacks"></v-tour> -->
+		<AccountBalance :locked-amount="userTotalLockedCollateralAmount" data-v-step="6" />
+		<TransactionHistory data-v-step="7" />
+		<v-tour name="myDashboardTour" :steps="steps" :callbacks="tourCallbacks"></v-tour>
 	</LayoutContainer>
 </template>
 
@@ -127,12 +124,62 @@ export default {
 					lockedCollateral: ["WETH", "USDT"]
 				},
 			},
-			// To be implemented after dashboard is finished.
-			// tourCallbacks: {
-			// 	onSkip: () => this.setCookie("skip_my_dashboard_tour"),
-			// 	onStop: () => this.setCookie("skip_my_dashboard_tour"),
-			// 	onFinish: () => this.setCookie("skip_my_dashboard_tour")
-			// },
+			steps: [
+				{
+					target: "[data-v-step=\"1\"]",
+					header: {
+						title: "Get Started Minting Nuon",
+					},
+					content: "This walkthrough tour will show you all the steps needed to mint your own Nuon. This page showcases all of the important information related to your positions on the Nuon Protocol.",
+					params: {
+						enableScrolling: false
+					}
+				},
+				{
+					target: "[data-v-step=\"2\"]",
+					content: "Click “Mint”, “Redeem” or “Manage” to instantly go to the appropriate page.",
+				},
+				{
+					target: "[data-v-step=\"3\"]",
+					header: {
+						title: "Price and Peg Information",
+					},
+					content: "At the top of each page, the Nuon price and Target Peg are prominently displayed, along with the Soft Peg Gap. This information makes it easy to spot arbitrage opportunities.",
+				},
+				{
+					target: "[data-v-step=\"4\"]",
+					header: {
+						title: "Account Health",
+					},
+					content: "This section gives you a broad overview of all your positions, showing the total value locked and collateralization ratio for each collateral asset.",
+				},
+				{
+					target: "[data-v-step=\"5\"]",
+					header: {
+						title: "Total Locked Collateral and Nuon",
+					},
+					content: "This section shows your total locked collateral and minted Nuon, and how much these values have changed over time.",
+				},
+				{
+					target: "[data-v-step=\"6\"]",
+					header: {
+						title: "Account Balance and Total Collateral Value",
+					},
+					content: "This section shows your Nuon and nuMINT balances, as well as the amount of collateral you have locked in the protocol and nuMINT locked in the Boardroom. On the right is the total value of your locked collateral, and how it varies over time.",
+				},
+				{
+					target: "[data-v-step=\"7\"]",
+					header: {
+						title: "Transaction History",
+					},
+					content: "You can also view your entire transaction history at the bottom of the screen.",
+				},
+			],
+			tourCallbacks: {
+				onSkip: () => this.setCookie("skip_my_dashboard_tour"),
+				onStop: () => this.setCookie("skip_my_dashboard_tour"),
+				onFinish: () => this.setCookie("skip_my_dashboard_tour")
+			},
 			mobileView: false,
 			collateralRatioArr: [],
 			graphSelectionTVL: "",
@@ -315,7 +362,7 @@ export default {
 		this.mobileView = this.isMobile();
 		this.initialize(this.collaterals);
 		this.handleMouseOverChart(-1);
-		// if (!$cookies.get("skip_my_dashboard_tour")) this.$tours.myDashboardTour.start();
+		if (!$cookies.get("skip_my_dashboard_tour")) this.$tours.myDashboardTour.start();
 	},
 	methods: {
 		async initialize(collaterals) {
