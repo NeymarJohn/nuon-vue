@@ -48,7 +48,7 @@
 							</template>
 							<template v-else>
 								<span  class="transaction-table__cell--marked">{{row[obj.id]}}</span> Nuon
-								<span  class="transaction-table__cell--marked">By {{row[obj.id] === 'Minting' ? 'Depositing' : 'Withdrawing'}}</span>
+								<span  class="transaction-table__cell--marked">By {{row[obj.id] === 'Mint' ? 'Depositing' : 'Withdrawing'}}</span>
 								<span>{{` ${row.depositToken.symbol}`}}</span>
 							</template>
 						</template>
