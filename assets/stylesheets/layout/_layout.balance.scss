@@ -1,5 +1,6 @@
 /* #LAYOUT - BALANCE
 		1. Balance default
+		2. Balance responsive
 */
 
 // 1. Balance default
@@ -76,4 +77,19 @@
 .l-balance__toggle__value sub {
 	margin-left: $PX_4;
 	bottom: -$PX_1;
+}
+
+// 2. Balance responsive
+@media screen and (max-width: $PX_990) {
+	.l-balance {
+		flex-direction: column;
+	}
+	.l-balance__control,
+	.l-balance__chart {
+		width: 100%;
+	}
+	.l-balance__control {
+		margin-right: 0;
+		margin-bottom: $PX_32;
+	}
 }

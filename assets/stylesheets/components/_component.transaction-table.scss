@@ -153,4 +153,12 @@
 	.transaction-table__cell {
 		padding: $PX_16 0;
 	}
+	.transaction-table--collateral .transaction-table__cell:nth-child(1),
+	.transaction-table--collateral .transaction-table__cell:nth-child(2),
+	.transaction-table--collateral .transaction-table__cell:nth-child(3) {
+		width: calc(100% / 3);
+	}
+	.transaction-table--collateral .transaction-table__cell:nth-child(4) {
+		display: none;
+	}
 }
