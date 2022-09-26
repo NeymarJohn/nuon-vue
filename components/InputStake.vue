@@ -16,6 +16,7 @@
 			</div>
 		</div>
 		<p v-if="isMoreThanBalance" class="u-is-warning">Insufficient balance.</p>
+		<p v-if="action === 'withdraw' && !canWithdraw" class="u-is-warning">You are not allowed withdrawing at this moment.</p>
 		<div v-if="action === 'withdraw' && inputValue === maximum" class="input-govern__message">
 			<p>Inputting maximum unstake amount will enable claim rewards at the same time when exiting staking.</p>
 		</div>
@@ -65,7 +66,16 @@ export default {
 	},
 	computed: {
 		isMoreThanBalance() {
+			if (this.action === "withdraw") {
+				return parseFloat(this.inputValue) > this.myStake; 
+			}
 			return parseFloat(this.inputValue) > this.nuMintBalance;
+		},
+		canWithdraw() {
+			return this.$store.state.boardroomStore.canWithdraw;
+		},
+		canClaim() {
+			return this.$store.state.boardroomStore.canClaimRewards;
 		},
 		nuMintBalance() {
 			return this.$store.getters["erc20Store/nuMintBalance"] || 0;
@@ -107,6 +117,8 @@ export default {
 			return allowance[tokenName] > 0;
 		},
 		isDisabled () {
+			if (this.action === "withdraw" && !this.canWithdraw) return true;
+			if (this.action === "claim" && !this.canClaim) return true; 
 			if (this.inputValue <= 0 || this.isMoreThanBalance) return true;
 		},
 		approveAndSubmit() {

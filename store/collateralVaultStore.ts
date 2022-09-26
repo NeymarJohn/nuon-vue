@@ -157,7 +157,7 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 	initialize(ctx: any) {
 		ctx.dispatch("updateStatus");
 	},
-	async getAllowance (ctx: any, collateralToken) {
+	async getAllowance (ctx: any) {
 		const address = ctx.rootGetters["web3Store/account"];
 		if (!address) return;
 		const collateralUSDT = ctx.rootGetters["addressStore/collateralHubs"][USDT.symbol];

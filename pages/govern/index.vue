@@ -15,10 +15,10 @@
 					<template #left>
 						<TheTabs margin="0" size="full" @tab-changed="handleTabChanged">
 							<TheTab title="Stake">
-								<InputStake :maximum="nuMintBalance" action="stake"  @change="handleChangeInput"/>
+								<InputStake :maximum="nuMintBalance" action="stake"  @change="handleStakeInput"/>
 							</TheTab>
 							<TheTab title="Withdraw">
-								<InputStake :maximum="myStake" action="withdraw" @change="handleChangeInput"/>
+								<InputStake :maximum="myStake" action="withdraw" @change="handleWithdrawInput"/>
 							</TheTab>
 						</TheTabs>
 					</template>
@@ -42,7 +42,8 @@
 							label="nuMINT Price" 
 							:value="tokenPrices.nuMINT" 
 							symbol="$"
-							:badge="tokenPrices.nuMINT"
+							:badge="currentValue?tokenPrices.nuMINT:0"
+							:badge-currency="'USD'" 
 							:badge-color="calcBadgeColor(tokenPrices.nuMINT,tokenPrices.nuMINT) "/>
 						<CurrencyCard 
 							label="Total Staked" 
@@ -187,6 +188,7 @@ export default {
 			return parseFloat(fromWei(this.$store.state.boardroomStore.stakedBalance));
 		},
 		myStateAfter() {
+			if (!this.currentValue) return 0;
 			return parseFloat(fromWei(this.$store.state.boardroomStore.stakedBalance)) + Number(this.currentValue);
 		},
 		myRewards() {
@@ -196,6 +198,7 @@ export default {
 			return parseFloat(fromWei(this.$store.state.boardroomStore.totalSupply));
 		},
 		totalStakedAfter() {
+			if (!this.currentValue) return 0;
 			return parseFloat(fromWei(this.$store.state.boardroomStore.totalSupply)) + Number(this.currentValue);
 		},
 		votingPower() {
@@ -203,6 +206,7 @@ export default {
 			return this.myStake / this.totalStaked * 100;
 		},
 		votingPowerAfter() {
+			if (!this.currentValue) return 0;
 			if (!this.totalStakedAfter) return 0;
 			return this.myStateAfter / this.totalStakedAfter * 100;
 		},
@@ -380,8 +384,11 @@ export default {
 		updateStatus() {
 			return this.$store.dispatch("boardroomStore/updateStatus");
 		},
-		handleChangeInput(e) {
+		handleStakeInput(e) {
 			this.currentValue = e.value;
+		},
+		handleWithdrawInput(e) {
+			this.currentValue = - e.value;
 		},
 		handleTabChanged() {
 			this.currentValue = 0;
