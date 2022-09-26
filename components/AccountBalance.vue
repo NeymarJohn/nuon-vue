@@ -13,7 +13,6 @@
 						<div class="l-balance__toggle__value">
 							<ComponentLoader component="account-balance" :loaded="balancesValue !== 0">
 								${{ getValueWithBN(tokenBalances.NUON, tokenPrices.NUON) | formatLongNumber }}
-								<sub class="badge--success--no_border" >+1.25%</sub>
 							</ComponentLoader>
 						</div>
 						<TheButton size="icon" title="Click to show chart" @click="toggleShowChart('nuon')">
@@ -30,7 +29,6 @@
 						<div class="l-balance__toggle__value">
 							<ComponentLoader component="account-balance" :loaded="balancesValue !== 0">
 								${{ getValueWithBN(tokenBalances.nuMINT, tokenPrices.nuMINT) | formatLongNumber }}
-								<sub class="badge--grey--no_border">0.00%</sub>
 							</ComponentLoader>
 						</div>
 						<TheButton size="icon" title="Click to show chart" @click="toggleShowChart('nuMint')">
@@ -47,7 +45,6 @@
 						<div class="l-balance__toggle__value">
 							<ComponentLoader component="account-balance" :loaded="balancesValue !== 0">
 								${{ totalLockedValue | toFixed | numberWithCommas }}
-								<sub class="badge--success--no_border">+1.25%</sub>
 							</ComponentLoader>
 						</div>
 						<TheButton size="icon" title="Click to show chart" @click="toggleShowChart('collateral')">
@@ -64,7 +61,6 @@
 						<div class="l-balance__toggle__value">
 							<ComponentLoader component="account-balance" :loaded="balancesValue !== 0">
 								${{ getValueWithBN(stakedBalance, tokenPrices.nuMINT) | formatLongNumber }}
-								<sub class="badge--error--no_border">-1.25%</sub>
 							</ComponentLoader>
 						</div>
 						<TheButton size="icon" title="Click to show chart" @click="toggleShowChart('boardroom')">
@@ -84,7 +80,6 @@
 						<LayoutFlex direction="row-center" class="l-flex--column-md">
 							<TheDot :color="selectedChart.color" />
 							<label>{{selectedChart.title}}</label>
-							<TheBadge color="price-down">-12%</TheBadge>
 						</LayoutFlex>
 						<ComponentLoader component="h3" :loaded="totalLockedValue !== 0 && balancesValue !== 0 && stakedBalance !== 0">
 							<h3>${{ graphSelectionTVL || totalUserAsset | formatLongNumber }}</h3>
