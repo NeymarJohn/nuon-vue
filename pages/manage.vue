@@ -15,13 +15,13 @@
 					<template #left>
 						<TheTabs margin="0" size="full">
 							<TheTab title="Mint">
-								<InputManageCollateral
+								<InputManageNuon
 									action="Mint"
 									:default-collateral="selectedCollateral"
 									@changeCollateral="onChangeCollateral" />
 							</TheTab>
 							<TheTab title="Burn">
-								<InputManageCollateral
+								<InputManageNuon
 									action="Burn"
 									:default-collateral="selectedCollateral"
 									@changeCollateral="onChangeCollateral" />
