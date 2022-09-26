@@ -57,12 +57,7 @@ export default {
 	modules: [
 		"@nuxtjs/axios",
 		"vue-social-sharing/nuxt",
-		"@nuxtjs/google-analytics"
 	],
-
-	googleAnalytics: {
-		id: "G-2676PDQLZB"
-	},
 
 	// Build Configuration: https://go.nuxtjs.dev/config-build
 	build: {
@@ -117,9 +112,6 @@ export default {
 			bscscanUrl: "https://bscscan.com",
 			pancakeswapUrl: "https://pancakeswap.finance",
 		},
-		googleAnalytics: {
-			id: process.env.GOOGLE_ANALYTICS_ID
-		}
 	},
 	generate: {
 		async routes() {
