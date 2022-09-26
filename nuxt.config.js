@@ -57,13 +57,7 @@ export default {
 	modules: [
 		"@nuxtjs/axios",
 		"vue-social-sharing/nuxt",
-		"@nuxtjs/gtm",
 	],
-
-	gtm: {
-		enabled: true,
-		id: "4087747237"
-	},
 
 	// Build Configuration: https://go.nuxtjs.dev/config-build
 	build: {
@@ -96,7 +90,8 @@ export default {
 		}
 	},
 	env: {
-		NODE_ENV: process.env.NODE_ENV
+		NODE_ENV: process.env.NODE_ENV,
+		GOOGLE_ENV: process.env.GOOGLE_ANALYTICS_ID
 	},
 	publicRuntimeConfig: {
 		NODE_ENV: process.env.NODE_ENV,
@@ -157,5 +152,5 @@ export default {
 				console.error(e);
 			}
 		}
-	}
+	},
 };
