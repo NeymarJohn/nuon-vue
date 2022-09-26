@@ -215,10 +215,10 @@ export default {
 		return {
 			title: "Dashboard | NUON",
 			meta: [
-				{ hid: "dashboard", name: "description", content: "NUON Dashboard" },
+				{ hid: "dashboard", name: "description", content: "Nuon is the first flatcoin — an overcollateralized, inflation-shielded stablecoin. Mint Nuon here on the Nuon Protocol." },
 				{ hid: "og-type", property: "og:type", content: "website" },
 				{ hid: "og-title", property: "og:title", content: "Dashboard | NUON" },
-				{ hid: "og-desc", property: "og:description", content: "NUON Dashboard" },
+				{ hid: "og-desc", property: "og:description", content: "Nuon is the first flatcoin — an overcollateralized, inflation-shielded stablecoin. Mint Nuon here on the Nuon Protocol." },
 				{ hid: "og-image", property: "og:image", content: "https://nuon.fi/assets/img/opengraph-default.jpg" },
 				{ hid: "og-url", property: "og:url", content: "https://app.nuon.fi/" },
 				{ hid: "twitter", property: "twitter:card", content: "summary_large_image" },

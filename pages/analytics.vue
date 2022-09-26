@@ -57,10 +57,10 @@ export default {
 				{ src: "https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js" },
 			],
 			meta: [
-				{ hid: "analytics", name: "description", content: "NUON Analytics" },
+				{ hid: "analytics", name: "description", content: "Detailed analytics reporting on the Nuon Protocol — home of the first flatcoin — an overcollateralized, inflation-shielded stablecoin." },
 				{ hid: "og-type", property: "og:type", content: "website" },
 				{ hid: "og-title", property: "og:title", content: "Analytics | NUON" },
-				{ hid: "og-desc", property: "og:description", content: "NUON Analytics" },
+				{ hid: "og-desc", property: "og:description", content: "Detailed analytics reporting on the Nuon Protocol — home of the first flatcoin — an overcollateralized, inflation-shielded stablecoin." },
 				{ hid: "og-image", property: "og:image", content: "https://nuon.fi/assets/img/opengraph-default.jpg" },
 				{ hid: "og-url", property: "og:url", content: "https://app.nuon.fi/analytics" },
 				{ hid: "twitter", property: "twitter:card", content: "summary_large_image" },

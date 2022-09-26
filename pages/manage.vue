@@ -120,10 +120,10 @@ export default {
 		return {
 			title: "Manage | NUON",
 			meta: [
-				{ hid: "manage", name: "description", content: "NUON Manage" },
+				{ hid: "manage", name: "description", content: "Manage collateral, Nuon flatcoins and liquidity pools on the Nuon Protocol to generate inflation-shielded yields." },
 				{ hid: "og-type", property: "og:type", content: "website" },
 				{ hid: "og-title", property: "og:title", content: "Manage | NUON" },
-				{ hid: "og-desc", property: "og:description", content: "NUON Manage" },
+				{ hid: "og-desc", property: "og:description", content: "Manage collateral, Nuon flatcoins and liquidity pools on the Nuon Protocol to generate inflation-shielded yields." },
 				{ hid: "og-image", property: "og:image", content: "https://nuon.fi/assets/img/opengraph-default.jpg" },
 				{ hid: "og-url", property: "og:url", content: "https://app.nuon.fi/manage" },
 				{ hid: "twitter", property: "twitter:card", content: "summary_large_image" },

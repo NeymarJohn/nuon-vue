@@ -75,10 +75,10 @@ export default {
 		return {
 			title: "Mint | NUON",
 			meta: [
-				{ hid: "mint", name: "description", content: "NUON Mint" },
+				{ hid: "mint", name: "description", content: "Deposit collateral and mint Nuon flatcoins on the Nuon Protocol. Nuon is the perfect inflation hedge, appreciating with inflation rates." },
 				{ hid: "og-type", property: "og:type", content: "website" },
 				{ hid: "og-title", property: "og:title", content: "Mint | NUON" },
-				{ hid: "og-desc", property: "og:description", content: "NUON Mint" },
+				{ hid: "og-desc", property: "og:description", content: "Deposit collateral and mint Nuon flatcoins on the Nuon Protocol. Nuon is the perfect inflation hedge, appreciating with inflation rates." },
 				{ hid: "og-image", property: "og:image", content: "https://nuon.fi/assets/img/opengraph-default.jpg" },
 				{ hid: "og-url", property: "og:url", content: "https://app.nuon.fi/mint" },
 				{ hid: "twitter", property: "twitter:card", content: "summary_large_image" },

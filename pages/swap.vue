@@ -173,10 +173,10 @@ export default {
 		return {
 			title: "Swap | NUON",
 			meta: [
-				{ hid: "swap", name: "description", content: "NUON Swap" },
+				{ hid: "swap", name: "description", content: "Swap your inflation-shielded Nuon flatcoins and nuMINT governance tokens for other crypto assets on the Nuon Protocol." },
 				{ hid: "og-type", property: "og:type", content: "website" },
 				{ hid: "og-title", property: "og:title", content: "Swap | NUON" },
-				{ hid: "og-desc", property: "og:description", content: "NUON Swap" },
+				{ hid: "og-desc", property: "og:description", content: "Swap your inflation-shielded Nuon flatcoins and nuMINT governance tokens for other crypto assets on the Nuon Protocol." },
 				{ hid: "og-image", property: "og:image", content: "https://nuon.fi/assets/img/opengraph-default.jpg" },
 				{ hid: "og-url", property: "og:url", content: "https://app.nuon.fi/swap" },
 				{ hid: "twitter", property: "twitter:card", content: "summary_large_image" },
