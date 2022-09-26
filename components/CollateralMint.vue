@@ -40,7 +40,7 @@
 		</div>
 		<div class="collateral">
 			<div class="collateral__header">
-				<p>Set your Collateral Ratio<TooltipIcon v-tooltip="'Enter content here'" /></p>
+				<p>Set your Collateral Ratio<TooltipIcon v-tooltip="'Choose a preset collateral ratio between 200-400%, or click ‘Advanced’ to enter a custom collateral ratio up to 1000%. This number represents the ratio between the amount of collateral you have locked and the amount of Nuon you have minted — keep it high to minimize risk of liquidation.'" /></p>
 				<TheButton size="link" title="Click to view advanced options" data-v-step="5" @click="isVisible = !isVisible">{{ isVisible ? "Basic" : "Advanced" }}</TheButton>
 			</div>
 			<div v-if="isVisible !== true" class="collateral__body" data-v-step="4">

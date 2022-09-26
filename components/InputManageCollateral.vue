@@ -70,11 +70,21 @@ export default {
 			return this.$store.state.collateralVaultStore.estimation;
 		},
 		summary() {
-			const summary = [{
-				title: "New Collateral Ratio",
-				val: this.estimation.collateralRatio,
-				currency: "%"
-			}];
+			const summary = [
+				{
+					title: "New Collateral Ratio",
+					val: this.estimation.collateralRatio,
+					currency: "%"
+				},
+				{
+					title: "New Liquidation Price",
+					val: this.estimation.liquidationPrice
+				},
+				{
+					title: "New Liquidity Position",
+					val: "-"
+				}
+			];
 			if (this.action === "Deposit") {
 				summary.push({
 					title: "New Collateral Amount",
