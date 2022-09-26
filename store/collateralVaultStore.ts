@@ -9,7 +9,7 @@ import nuonControllerAbi from "./abi/nuon_controller.json";
 import truflationAbi from "./abi/truflation.json";
 import boardroomAbi from "./abi/boardroom.json";
 import { fromWei, toWei } from "~/utils/bnTools";
-import { collateralTokens } from "~/constants/tokens";
+import { collateralTokens, USDT, WETH} from "~/constants/tokens";
 
 const DEFAULVALUES = {
 	WETH: 0,
@@ -160,13 +160,13 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 	async getAllowance (ctx: any, collateralToken) {
 		const address = ctx.rootGetters["web3Store/account"];
 		if (!address) return;
-		const collateralHubAddress = ctx.rootGetters["addressStore/collateralHubs"][collateralToken];
-		const getNuonAllowance = fromWei(await ctx.rootGetters["erc20Store/nuon"].methods.allowance(address, collateralHubAddress).call());
-		const getUSDTAllowance = fromWei(await ctx.rootGetters["erc20Store/usdt"].methods.allowance(address, collateralHubAddress).call());
-		const getWETHAllownace = fromWei(await ctx.rootGetters["erc20Store/weth"].methods.allowance(address, collateralHubAddress).call());
+		const collateralUSDT = ctx.rootGetters["addressStore/collateralHubs"][USDT.symbol];
+		const collateralNative = ctx.rootGetters["addressStore/collateralHubs"][WETH.symbol];
+		// const getNuonAllowance = fromWei(await ctx.rootGetters["erc20Store/nuon"].methods.allowance(address, collateralHubAddress).call());
+		const getUSDTAllowance = fromWei(await ctx.rootGetters["erc20Store/usdt"].methods.allowance(address, collateralUSDT).call());
+		const getWETHAllownace = fromWei(await ctx.rootGetters["erc20Store/weth"].methods.allowance(address, collateralNative).call());
 		ctx.commit("setAllowance", 
 			{
-				NUON: Number(getNuonAllowance), 
 				USDT: Number(getUSDTAllowance), 
 				WETH: Number(getWETHAllownace)
 			});
@@ -273,7 +273,6 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 		const accountAddress = ctx.rootState.web3Store.account;
 		const payload: {from: string, value?: string} = {from: accountAddress};
 		const args: string[] = [collateralRatio, collateralAmount];
-
 		return await chubContract.methods.mint.apply(null, args)
 			.send(payload)
 			.on("transactionHash", (txHash: string) => {
@@ -305,13 +304,13 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 		const chubContractAddress = ctx.rootGetters["addressStore/collateralHubs"][token];
 
 		const accountAddress = ctx.rootState.web3Store.account;
-
+		const decimals = ctx.rootState.erc20Store.decimals[token];
 		// Update minted Nuon
 		const mintedAmount = fromWei(await chubContract.methods.viewUserMintedAmount(accountAddress).call());
 		ctx.commit("setMintedAmount",  {token, amount: Number(mintedAmount)});
 
 		// update locked token amount
-		const lockedAmount = fromWei(await chubContract.methods.viewUserCollateralAmount(accountAddress).call(),ctx.rootState.erc20Store.decimals[token]);
+		const lockedAmount = fromWei(await chubContract.methods.viewUserCollateralAmount(accountAddress).call(),decimals);
 		ctx.commit("setLockedAmount",  {token, amount: Number(lockedAmount)});
 
 		// update collateral ratio
@@ -319,7 +318,7 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 		ctx.commit("setCollateralRatio",  {token, value: Number(collateralRatio)});
 
 		// Update getLPValueOfUser
-		const lpValueOfUser = fromWei(await chubContract.methods.getLPValueOfUser(accountAddress).call(), ctx.rootState.erc20Store.decimals[token]);
+		const lpValueOfUser = fromWei(await chubContract.methods.getLPValueOfUser(accountAddress).call(), decimals);
 		ctx.commit("setLpValueOfUser", {token, value: Number(lpValueOfUser)});
 
 		// Update globalRatio 
@@ -327,7 +326,7 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 		ctx.commit("setGlobalRatio", {token, value: Number(globalRatio)});
 
 		// Update shared amount
-		const sharesAmount = fromWei(await chubContract.methods.viewUserVaultSharesAmount(accountAddress).call(), ctx.rootState.erc20Store.decimals[token]);
+		const sharesAmount = fromWei(await chubContract.methods.viewUserVaultSharesAmount(accountAddress).call(), decimals);
 		ctx.commit("setUserVaultShares", {token, value: Number(sharesAmount)});
 	},
 	async getTargetPeg(ctx) {
@@ -413,7 +412,7 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 				estimationData.mintedNuon = fromWei(resp[2]);
 				estimationData.extraRequiredCollateral = fromWei(resp2[0], decimals);
 				estimationData.collateralRatio = fromWei(resp[0]);
-				estimationData.liquidationPrice = fromWei(resp2[1]);
+				
 				estimationData.liquidationRatio = ctx.state.globalRatio[selectedCollateral];
 				estimationData.liquidationPosition = ctx.state.lpValueOfUser[selectedCollateral];
 			}
@@ -429,6 +428,14 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 				estimationData.liquidationPrice = fromWei(resp2[1]);
 				estimationData.liquidationRatio = ctx.state.globalRatio[selectedCollateral];
 				estimationData.liquidationPosition = ctx.state.lpValueOfUser[selectedCollateral];
+			}
+			const targetPeg = ctx.state.targetPeg;
+			const mintedNuon = estimationData.mintedNuon;
+			const globalRatio = ctx.state.globalRatio[selectedCollateral];
+			const minimumCollateralRatio = Math.floor(globalRatio) + 10;
+			const nounMinBacking = targetPeg * minimumCollateralRatio / 100;
+			if (estimationData.lockedCollateral) {
+				estimationData.liquidationPrice= nounMinBacking * mintedNuon / estimationData.lockedCollateral;
 			}
 
 		}

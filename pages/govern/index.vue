@@ -29,10 +29,27 @@
 							:value="myStake"
 							currency="nuMINT"
 							:badge="myStateAfter"
+							:badge-color="calcBadgeColor(myStake,myStateAfter) "
 						/>
-						<CurrencyCard label="My Voting Power" :value="votingPower" currency="%" :badge="votingPowerAfter"/>
-						<CurrencyCard label="nuMINT Price" :value="tokenPrices.nuMINT" symbol="$"/>
-						<CurrencyCard label="Total Staked" :value="totalStaked" currency="nuMINT" :badge="totalStakedAfter" />
+						<CurrencyCard 
+							label="My Voting Power" 
+							:value="votingPower"
+							currency="%" 
+							:badge="votingPowerAfter"
+							:badge-color="calcBadgeColor(votingPower,votingPowerAfter) "
+						/>
+						<CurrencyCard 
+							label="nuMINT Price" 
+							:value="tokenPrices.nuMINT" 
+							symbol="$"
+							:badge="tokenPrices.nuMINT"
+							:badge-color="calcBadgeColor(tokenPrices.nuMINT,tokenPrices.nuMINT) "/>
+						<CurrencyCard 
+							label="Total Staked" 
+							:value="totalStaked" 
+							currency="nuMINT" 
+							:badge="totalStakedAfter" 
+							:badge-color="calcBadgeColor(totalStaked,totalStakedAfter) "/>
 					</template>
 				</LayoutAction>
 			</TheTab>
@@ -368,6 +385,10 @@ export default {
 		},
 		handleTabChanged() {
 			this.currentValue = 0;
+		},
+		calcBadgeColor(current, estimation) {
+			if (current !== estimation) return "green";
+			return "grey";
 		}
 	}
 };

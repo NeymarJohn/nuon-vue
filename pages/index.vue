@@ -99,26 +99,6 @@
 		<AccountBalance :locked-amount="userTotalLockedCollateralAmount" data-v-step="6" />
 		<TransactionHistory data-v-step="7" />
 		<v-tour name="myDashboardTour" :steps="steps" :callbacks="tourCallbacks"></v-tour>
-		<div v-if="mobileView" class="mobile-blocker">
-			<NuonLogo />
-			<div>
-				<h3>Coming soon to your mobile</h3>
-				<p>Please view on desktop.</p>
-			</div>
-			<div>
-				<h4>Follow Us</h4>
-				<div class="follow">
-					<a href="https://t.me/NuonFinance" target="_blank" rel="noopener noreferrer" title="Click to chat with us on Telegram"><TelegramIcon />
-					</a>
-					<a href="https://twitter.com/NuonFinance" target="_blank" rel="noopener noreferrer" title="Click to follow us on Twitter">
-						<TwitterIcon />
-					</a>
-					<a href="https://discord.com/invite/pWT49HTJJu" target="_blank" rel="noopener noreferrer" title="Click to follow us on Discord">
-						<DiscordIcon />
-					</a>
-				</div>
-			</div>
-		</div>
 	</LayoutContainer>
 </template>
 
@@ -126,19 +106,9 @@
 import dayjs from "dayjs";
 import { getUserTVLDayData } from "~/services/theGraph";
 import { NUON, USDT, WETH } from "~/constants/tokens";
-import NuonLogo from "@/assets/images/logo/logo-nuon.svg";
-import DiscordIcon from "@/assets/images/svg/svg-discord.svg";
-import TelegramIcon from "@/assets/images/svg/svg-telegram.svg";
-import TwitterIcon from "@/assets/images/svg/svg-twitter.svg";
 
 export default {
 	name: "TheDashboard",
-	components: {
-		NuonLogo,
-		DiscordIcon,
-		TelegramIcon,
-		TwitterIcon
-	},
 	data() {
 		return {
 			tvl: 0,
@@ -238,7 +208,7 @@ export default {
 				}
 			],
 			userMintedAmount: null,
-			selectedCollateralToggleBtn: 0,
+			selectedCollateralToggleBtn: 0
 		};
 	},
 	head () {

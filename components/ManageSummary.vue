@@ -1,14 +1,54 @@
 <template>
 	<LayoutFlex direction="column" class="u-full-width" border="column">
 		<LayoutFlex border="row">
-			<CurrencyCard class="u-mb-32" label="Locked Collateral" :value="lockedCollateral" :currency="collateral" :badge="estimation['lockedCollateral']" :badge-currency="collateral" />
-			<CurrencyCard class="u-mb-32" label="NUON Minted" :value="mintedNuon" currency="NUON" :badge="estimation['mintedNuon']" badge-currency="NUON" badge-color="green" />
-			<CurrencyCard class="u-mb-32" label="Collateralization Ratio" :value="collateralRatio" currency="%" :badge="estimation['collateralRatio']" badge-currency="%" badge-color="green" />
+			<CurrencyCard 
+				class="u-mb-32" 
+				label="Locked Collateral" 
+				:value="lockedCollateral" 
+				:currency="collateral" 
+				:badge="estimation['lockedCollateral']" 
+				:badge-currency="collateral" 
+				:badge-color="calcBadgeColor(lockedCollateral,estimation['lockedCollateral']) "
+			/>
+			<CurrencyCard 
+				class="u-mb-32" 
+				label="NUON Minted" 
+				:value="mintedNuon" 
+				currency="NUON" 
+				:badge="estimation['mintedNuon']" 
+				:badge-currency="'NUON'" 
+				:badge-color="calcBadgeColor(mintedNuon,estimation['mintedNuon'])" />
+			<CurrencyCard 
+				class="u-mb-32" 
+				label="Collateralization Ratio" 
+				:value="collateralRatio" 
+				currency="%" 
+				:badge="estimation['collateralRatio']" 
+				badge-currency="%" 
+				:badge-color="calcBadgeColor(collateralRatio,estimation['collateralRatio'])" />
 		</LayoutFlex>
 		<LayoutFlex border="row">
-			<CurrencyCard label="Liquidation Price" :value="liquidationPrice" symbol="$" :badge="estimation['liquidationPrice']" badge-currency="USD" badge-color="green" />
-			<CurrencyCard label="Liquidation Ratio" :value="globalRatio" currency="%" />
-			<CurrencyCard label="Liquidity Position" :value="getDollarValue(lpAmountOfUser, tokenPrices[collateral])" symbol="$" :badge="estimation['liquidationPrice']" badge-currency="USD" badge-color="green" />
+			<CurrencyCard 
+				label="Liquidation Price" 
+				:value="liquidationPrice" 
+				symbol="$" 
+				:badge="estimation['liquidationPrice']" 
+				badge-currency="USD" 
+				:badge-color="calcBadgeColor(liquidationPrice,estimation['liquidationPrice'])" />
+			<CurrencyCard 
+				label="Liquidation Ratio" 
+				:value="globalRatio" 
+				currency="%" 
+				:badge="estimation['liquidationRatio']"
+				badge-currency="%" 
+				:badge-color="calcBadgeColor(globalRatio,estimation['liquidationRatio'])" />
+			<CurrencyCard 
+				label="Liquidity Position" 
+				:value="getDollarValue(lpAmountOfUser, tokenPrices[collateral])" 
+				symbol="$" 
+				:badge="estimation['liquidationPrice']" 
+				badge-currency="USD" 
+				:badge-color="calcBadgeColor(getDollarValue(lpAmountOfUser, tokenPrices[collateral]),estimation['liquidationRatio'])" />
 		</LayoutFlex>
 	</LayoutFlex>
 </template>
@@ -60,6 +100,12 @@ export default {
 		},
 		lpAmountOfUser() {
 			return this.$store.state.collateralVaultStore.lpValueOfUser[this.collateral];
+		}
+	},
+	methods: {
+		calcBadgeColor(current, estimation) {
+			if (current !== estimation) return "green";
+			return "grey";
 		}
 	},
 };

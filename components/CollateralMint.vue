@@ -232,6 +232,7 @@ export default {
 
 			const currentRatio = this.selectedCollateralRatio;
 			const collateralRatio = `${(10 ** 18) / (currentRatio / 100)}`;
+
 			const inputValueWithDecimals = toWei(this.inputValue, this.decimals);
 			let ans = {0: 0, 3: 0};
 			try {
@@ -261,7 +262,6 @@ export default {
 			this.minting = true;
 			const amount = toWei(this.inputValue, this.decimals);
 			const collateralRatioToWei = 10 ** 18 / parseFloat(this.selectedCollateralRatio / 100);
-
 			try {
 				await this.$store.dispatch("collateralVaultStore/mintNuon",
 					{
@@ -290,7 +290,6 @@ export default {
 		},
 		selectInputToken(token) {
 			this.selectedCollateral = token.symbol;
-			this.initialize();
 		},
 		selectOutputToken(token) {
 			this.output.token = token.symbol;
