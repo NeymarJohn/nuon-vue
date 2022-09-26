@@ -7,7 +7,7 @@
 		</LayoutFlex>
 		<LayoutFlex border="row">
 			<CurrencyCard label="Liquidation Price" :value="liquidationPrice" symbol="$" :badge="estimation['liquidationPrice']" badge-currency="USD" badge-color="green" />
-			<CurrencyCard label="Liquidation Ratio" :value="globalRatio" currency="%" :badge="estimation['liquidationRatio']" badge-currency="%" badge-color="green" />
+			<CurrencyCard label="Liquidation Ratio" :value="globalRatio" currency="%" />
 			<CurrencyCard label="Liquidity Position" :value="getDollarValue(lpAmountOfUser, tokenPrices[collateral])" symbol="$" :badge="estimation['liquidationPrice']" badge-currency="USD" badge-color="green" />
 		</LayoutFlex>
 	</LayoutFlex>

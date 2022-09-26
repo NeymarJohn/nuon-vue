@@ -9,7 +9,7 @@
 .transaction-table {
 	background: $MEDIUM_LIGHT_GREY;
 	padding: $PX_32;
-	border-radius: $BORDER_RADIUS_8;
+	border-radius: $BORDER_RADIUS_16;
 }
 .transaction-table__row {
 	background-color: $HIGHLIGHT_GREY;
@@ -80,12 +80,18 @@
 	padding: $PX_24 $PX_24 $PX_24 $PX_12;
 }
 .transaction-table--collateral .transaction-table__cell .btn {
-	margin-right: $PX_12;
-	padding: $PX_8 $PX_10;
+	margin-right: $PX_8;
+	padding: $PX_8 $PX_24;
 	font-size: $PX_14;
 	line-height: $PX_16;
 	border-radius: $BORDER_RADIUS_24;
-	min-width: $PX_100;
+	color: $LIGHT_GREY;
+	background-color: $TRANSPARENT;
+	border: $PX_1 solid $MEDIUM_LIGHT_GREY;
+}
+.transaction-table--collateral .transaction-table__cell .btn:hover {
+	background-color: $LIME;
+	color: $DARK_GREY;
 }
 .transaction-table--collateral .transaction-table__cell .btn:last-child {
 	margin-right: 0;

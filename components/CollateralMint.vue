@@ -16,7 +16,7 @@
 				<template #messages>
 					<LayoutFlex direction="row-center-space-between">
 						<div>
-							<p v-if="isMoreThanEqualMinimum && isLessThanEqualBalance" class="u-font-size-14 u-is-success u-mb-0">Ready To Mint</p>
+							<p v-if="isMoreThanEqualMinimum || isLessThanEqualBalance && selectedCollateralRatio <= 1000" class="u-font-size-14 u-is-success u-mb-0">Ready To Mint</p>
 							<p v-if="isMoreThanBalance" class="u-font-size-14 u-is-warning u-mb-0">Insufficient Balance</p>
 						</div>
 						<p class="u-mb-0 u-font-size-14 u-color-light-grey">~ ${{ getDollarValue(inputValue, collateralPrice) | toFixed | numberWithCommas }}</p>
@@ -52,7 +52,7 @@
 				<RangeSlider :min="`${sliderMin}`" :max="'1000'" :slider-disabled="!inputValue || isMoreThanBalance" :selected-collateral-ratio="`${selectedCollateralRatio}`" @emit-change="debouncedSliderChanged" />
 			</div>
 		</div>
-		<TransactionSummary v-if="inputValue > 0 && !isMoreThanBalance" :values="summary" />
+		<TransactionSummary v-if="inputValue > 0 && !isMoreThanBalance && selectedCollateralRatio <= 1000" :values="summary" />
 		<LayoutFlex direction="row-justify-end">
 			<TheButton
 				title="Click to mint"
@@ -149,7 +149,7 @@ export default {
 			return this.inputValue >= this.isLTEMinimumDepositAmount;
 		},
 		isMintDisabled() {
-			return !parseFloat(this.inputValue) || this.isMoreThanBalance || !this.connectedAccount;
+			return !parseFloat(this.inputValue) || this.isMoreThanBalance || !this.connectedAccount || this.selectedCollateralRatio > 1000;
 		},
 		isMoreThanBalance() {
 			return parseFloat(this.inputValue) > this.tokenBalance;
