@@ -57,7 +57,13 @@ export default {
 	modules: [
 		"@nuxtjs/axios",
 		"vue-social-sharing/nuxt",
+		"@nuxtjs/gtm",
 	],
+
+	gtm: {
+		enabled: true,
+		id: "G-2676PDQLZB"
+	},
 
 	// Build Configuration: https://go.nuxtjs.dev/config-build
 	build: {
