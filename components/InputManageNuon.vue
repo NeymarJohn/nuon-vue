@@ -10,27 +10,28 @@
 				@selected-token="selectCollateral" />
 		</div>
 		<div class="swap__container u-mb-24">
-			<div class="swap__balance">
+			<LayoutFlex direction="row-center-space-between swap__balance">
 				<label>{{ action }}</label>
-			</div>
-			<div class="swap__wrapper">
-				<div class="swap__return">
-					<NuonLogo />
-					<div class="swap__token">
-						<h5>NUON</h5>
-					</div>
-				</div>
-				<div>
+			</LayoutFlex>
+			<div class="accordion">
+				<LayoutFlex direction="row-start-space-between">
+					<LayoutFlex direction="row-center accordion__header accordion__header--unclickable">
+						<NuonLogo />
+						<div class="accordion__token">
+							<h5>NUON</h5>
+						</div>
+					</LayoutFlex>
 					<DataCard align="end">
 						<InputMax v-model="inputModel" :maximum="availableAmount" hidden-max-button @input="debouncedInputChange" />
 					</DataCard>
-					<LayoutFlex direction="row-center-space-between">
-						<div>
-							<p v-if="isMoreThanBalance" class="u-font-size-14 u-is-warning u-mb-0">Insufficient Balance</p>
-						</div>
-						<p class="u-mb-0 u-font-size-14 u-color-light-grey">~ ${{ getDollarValue(inputModel, collateralPrice) | toFixed | numberWithCommas }}</p>
-					</LayoutFlex>
-				</div>
+				</LayoutFlex>
+				<LayoutFlex direction="row-center-space-between">
+					<div>
+						<p v-if="!isMoreThanBalance && isMoreThanZeroLessThanBalance" class="u-font-size-14 u-is-success u-mb-0">Ready To {{action}}</p>
+						<p v-if="isMoreThanBalance" class="u-font-size-14 u-is-warning u-mb-0">Insufficient Balance</p>
+					</div>
+					<p class="u-mb-0 u-font-size-14 u-color-light-grey">~ ${{ getDollarValue(inputModel, collateralPrice) | toFixed | numberWithCommas }}</p>
+				</LayoutFlex>
 			</div>
 		</div>
 		<TransactionSummary v-if="inputModel > 0 && !isMoreThanBalance" class="u-mt-24" :values="summary" />
@@ -144,8 +145,8 @@ export default {
 		isMoreThanBalance() {
 			return parseFloat(this.inputModel) > this.availableAmount;
 		},
-		isMoreThanEqualMinimumAndLessThanBalance() {
-			return parseFloat(this.inputModel) > 0 && parseFloat(this.inputModel) <= this.tokenBalance;
+		isMoreThanZeroLessThanBalance() {
+			return parseFloat(this.inputModel) <= this.availableAmount && parseFloat(this.inputModel) > 0;
 		},
 		collateralPrice() {
 			return this.tokenPrices[this.selectedCollateral];

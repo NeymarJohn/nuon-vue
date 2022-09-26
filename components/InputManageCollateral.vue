@@ -20,6 +20,7 @@
 				<template #messages>
 					<LayoutFlex direction="row-center-space-between">
 						<div>
+							<p v-if="!isMoreThanBalance && isMoreThanZeroLessThanBalance" class="u-font-size-14 u-is-success u-mb-0">Ready To {{action}}</p>
 							<p v-if="isMoreThanBalance" class="u-font-size-14 u-is-warning u-mb-0">Insufficient Balance</p>
 						</div>
 						<p class="u-mb-0 u-font-size-14 u-color-light-grey">~ ${{ getDollarValue(inputModel, collateralPrice) | toFixed | numberWithCommas }}</p>
@@ -134,8 +135,8 @@ export default {
 		isMoreThanBalance() {
 			return parseFloat(this.inputModel) > this.availableAmount;
 		},
-		isMoreThanEqualMinimumAndLessThanBalance() {
-			return parseFloat(this.inputModel) > 0 && parseFloat(this.inputModel) <= this.tokenBalance;
+		isMoreThanZeroLessThanBalance() {
+			return parseFloat(this.inputModel) <= this.availableAmount && parseFloat(this.inputModel) > 0;
 		},
 		collateralPrice() {
 			return this.tokenPrices[this.selectedCollateral];
