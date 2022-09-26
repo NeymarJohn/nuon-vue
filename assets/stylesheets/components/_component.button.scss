@@ -2,13 +2,11 @@
 		1. Button default
 		2. Button sizes
 		3. Button icon
-		4. Button approved
-		5. Button swap
-		6. Button link
-		7. Button approve
-		8. Button user
-		9. Button back
-		10. Button dropdown
+		4. Button swap
+		5. Button link
+		6. Button user
+		7. Button back
+		8. Button dropdown
 */
 
 // 1. Button default
@@ -124,27 +122,7 @@ a.btn:hover,
 	transform: rotate(180deg);
 }
 
-// 4. Button approved
-.btn[disabled].btn--approved {
-	position: relative;
-	background: $TRANSPARENT;
-	border: $PX_1 solid $SUCCESS;
-	color: $SUCCESS;
-	opacity: 1;
-}
-.btn[disabled].btn--approved span {
-	margin-right: $PX_26;
-}
-.btn[disabled].btn--approved:after {
-	content: url("data:image/svg+xml,%3Csvg width='20' height='14' viewBox='0 0 20 14' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M19.0455 0.954505C19.4848 1.39384 19.4848 2.10616 19.0455 2.5455L8.5455 13.0455C8.10616 13.4848 7.39384 13.4848 6.9545 13.0455L0.954505 7.0455C0.515165 6.60616 0.515165 5.89385 0.954505 5.4545C1.39384 5.01517 2.10616 5.01517 2.5455 5.4545L7.75 10.659L17.4545 0.954505C17.8938 0.515165 18.6062 0.515165 19.0455 0.954505Z' fill='%2380FF4A'/%3E%3C/svg%3E%0A");
-	position: absolute;
-	top: 50%;
-	right: $PX_24;
-	transform: translate(0%, -50%);
-	line-height: 0;
-}
-
-// 5. Button swap
+// 4. Button swap
 .btn--swap {
 	background: $LIME;
 	border-radius: $BORDER_RADIUS_CIRCLE;
@@ -184,7 +162,7 @@ a.btn:hover,
 	}
 }
 
-// 6. Button link
+// 5. Button link
 .btn--link {
 	font-size: $HEADING_FIVE;
 	line-height: $PX_24;
@@ -230,18 +208,7 @@ a.btn:hover,
 	}
 }
 
-// 7. Button approve
-.btn--approve {
-	@extend .btn--md;
-	border-color: $SUCCESS;
-	color: $SUCCESS;
-}
-.btn--approve:hover {
-	color: $DARK_GREY;
-	background: $SUCCESS;
-}
-
-// 8. Button user
+// 6. Button user
 .btn--user {
 	display: flex;
 	flex-direction: row;
@@ -258,7 +225,7 @@ a.btn:hover,
 	fill: $DARK_GREY;
 }
 
-// 9. Button back
+// 7. Button back
 .btn--back {
 	background: $TRANSPARENT;
 	color: $LIME;
@@ -268,7 +235,7 @@ a.btn:hover,
 	border-color: $DARK_GREY;
 }
 
-// 10. Dropdown
+// 8. Dropdown
 .btn--dropdown {
 	background: $MEDIUM_LIGHT_GREY;
 	border-radius: $BORDER_RADIUS_CIRCLE;

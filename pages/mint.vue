@@ -15,7 +15,7 @@
 					<CollateralMint :minimum-deposit-amount="0" :steps="steps" :callbacks="tourCallbacks" />
 				</TheTab>
 				<TheTab title="Redeem">
-					<CollateralRedeem currently-selected-collateral="WETH"/>
+					<CollateralRedeem currently-selected-collateral="WETH" />
 				</TheTab>
 			</TheTabs>
 		</LayoutMint>

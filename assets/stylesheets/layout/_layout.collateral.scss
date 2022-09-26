@@ -1,6 +1,7 @@
 /* #LAYOUT - COLLATERAL
 		1. Collateral default
 		2. Collateral distribution
+		3. Collateral responsive
 */
 
 // 1. Collateral default
@@ -50,4 +51,23 @@
 }
 .l-collateral__table {
 	width: 75%;
+}
+
+// 3. Collateral responsive
+@media screen and (max-width: $PX_990) {
+	.l-collateral {
+		flex-direction: column;
+	}
+	.l-collateral__donut,
+	.l-collateral__table,
+	.l-collateral__toggle,
+	.l-collateral__chart {
+		width: 100%;
+	}
+	.l-collateral__toggle {
+		margin-right: 0;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+	}
 }

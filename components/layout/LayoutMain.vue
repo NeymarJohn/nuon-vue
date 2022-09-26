@@ -1,9 +1,9 @@
 <template>
 	<main class="l-main">
 		<LayoutContainer class="u-display-desktop u-position-sticky">
-			<LayoutFlex direction="row-center-space-between">
-				<TheLogo />
+			<LayoutFlex direction="row-center">
 				<TheHamburger />
+				<TheLogo />
 			</LayoutFlex>
 		</LayoutContainer>
 		<TheToast

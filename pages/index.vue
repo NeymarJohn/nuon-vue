@@ -1,10 +1,10 @@
 <template>
 	<LayoutContainer>
-		<LayoutFlex direction="row-justify-end">
+		<LayoutFlex direction="row-justify-end l-flex--row-justfify-start-sm">
 			<PriceIndicator data-v-step="3" />
 		</LayoutFlex>
-		<LayoutHeader class="u-border" data-v-step="1">
-			<PageTitle>
+		<LayoutHeader class="u-border">
+			<PageTitle data-v-step="1">
 				<h4>Dashboard</h4>
 				<h1>My Portfolio</h1>
 			</PageTitle>
@@ -132,7 +132,7 @@ export default {
 					},
 					content: "This walkthrough tour will show you all the steps needed to mint your own Nuon. This page showcases all of the important information related to your positions on the Nuon Protocol.",
 					params: {
-						enableScrolling: false
+						enableScrolling: false,
 					}
 				},
 				{

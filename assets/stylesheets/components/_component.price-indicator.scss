@@ -1,5 +1,6 @@
 /* #COMPONENT - PRICE INDICATOR
 		1. Price indicator default
+		2. Price indicator responsive
 */
 
 // 1. Price indicator default
@@ -34,14 +35,21 @@
 	padding: $PX_4 $PX_8;
 	margin-left: $PX_16;
 }
-
 .price-indicator .healthy {
 	color: $SUCCESS;
 }
 .price-indicator .unhealthy {
 	color: $ERROR;
 }
-
 .price-indicator .average {
 	color: $WARNING;
+}
+
+// 2. Price indicator responsive
+@media screen and (max-width: $PX_990) {
+	.price-indicator {
+		flex-direction: row;
+		flex-wrap: wrap;
+		width: 100%;
+	}
 }

@@ -1,32 +1,38 @@
 <template>
 	<div class="input-manage-container">
 		<div class="swap__container u-mb-24">
-			<LayoutFlex direction="row-center-space-between swap__balance">
-				<label>{{ action }}</label>
-				<ComponentLoader component="label" :loaded="tokenBalances[selectedCollateral] !== '0'" class="u-height-20">
-					<label>
-						{{ action==="Remove"?'User Liquidity': 'Balance' }}:
-						<span>{{ availableAmount | formatLongNumber }}</span>
-					</label>
-				</ComponentLoader>
-			</LayoutFlex>
+			<div class="swap__balance">
+				<label>Select Contract</label>
+			</div>
 			<MintAccordion
 				:disabled-tokens="[selectedCollateral, 'BTC', 'BUSD', 'AVAX']"
 				:default-token="defaultCollateral"
-				@selected-token="selectCollateral">
-				<template #input>
-					<InputMax v-model="inputModel" :maximum="availableAmount" @input="debouncedInputChange"/>
-				</template>
-				<template #messages>
-					<LayoutFlex direction="row-center-space-between">
-						<div>
-							<p v-if="!isMoreThanBalance && isMoreThanZeroLessThanBalance" class="u-font-size-14 u-is-success u-mb-0">Ready To {{action}}</p>
-							<p v-if="isMoreThanBalance" class="u-font-size-14 u-is-warning u-mb-0">Insufficient Balance</p>
+				@selected-token="selectCollateral" />
+		</div>
+		<div class="swap__container u-mb-24">
+			<LayoutFlex direction="row-center-space-between swap__balance">
+				<label>{{ action }}</label>
+			</LayoutFlex>
+			<div class="accordion">
+				<LayoutFlex direction="row-start-space-between">
+					<LayoutFlex direction="row-center accordion__header accordion__header--unclickable">
+						<NuonLogo />
+						<div class="accordion__token">
+							<h5>NUON</h5>
 						</div>
-						<p class="u-mb-0 u-font-size-14 u-color-light-grey">~ ${{ getDollarValue(inputModel, collateralPrice) | toFixed | numberWithCommas }}</p>
 					</LayoutFlex>
-				</template>
-			</MintAccordion>
+					<DataCard align="end">
+						<InputMax v-model="inputModel" :maximum="availableAmount" hidden-max-button @input="debouncedInputChange" />
+					</DataCard>
+				</LayoutFlex>
+				<LayoutFlex direction="row-center-space-between">
+					<div>
+						<p v-if="!isMoreThanBalance && isMoreThanZeroLessThanBalance" class="u-font-size-14 u-is-success u-mb-0">Ready To {{action}}</p>
+						<p v-if="isMoreThanBalance" class="u-font-size-14 u-is-warning u-mb-0">Insufficient Balance</p>
+					</div>
+					<p class="u-mb-0 u-font-size-14 u-color-light-grey">~ ${{ getDollarValue(inputModel, collateralPrice) | toFixed | numberWithCommas }}</p>
+				</LayoutFlex>
+			</div>
 		</div>
 		<TransactionSummary v-if="inputModel > 0 && !isMoreThanBalance" class="u-mt-24" :values="summary" />
 		<LayoutFlex direction="row-justify-end">
@@ -42,9 +48,13 @@
 <script>
 import debounce from "lodash.debounce";
 import { toWei } from "~/utils/bnTools";
+import NuonLogo from "@/assets/images/logo/logo-numint.svg";
 
 export default {
-	name: "InputManageCollateral",
+	name: "InputManageNuon",
+	components: {
+		NuonLogo
+	},
 	props: {
 		action: {
 			type: String,

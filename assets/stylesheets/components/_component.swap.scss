@@ -75,6 +75,7 @@
 }
 .swap__wrapper {
 	justify-content: space-between;
+	align-items: flex-start;
 }
 .swap__wrapper h3 sup {
 	font-size: $PX_14;
@@ -91,19 +92,9 @@
 // 2. Swap responsive
 @media screen and (max-width: $PX_990) {
 	.swap {
-		margin-bottom: $PX_48;
-	}
-}
-@media screen and (max-width: $PX_480) {
-	.swap {
-		padding: $PX_48 $PX_32;
+		padding: $PX_24 $PX_16;
 	}
 	.swap__container {
-		padding: $PX_24;
-	}
-	.swap__output {
-		padding: $PX_24;
-		flex-direction: column;
-		align-items: flex-start;
+		padding: $PX_16;
 	}
 }

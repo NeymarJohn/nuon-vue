@@ -18,6 +18,7 @@
 				<p>1000%</p>
 			</div>
 		</div>
+		<p v-if="selectedCollateralRatio > 1000" class="u-text-left u-full-width u-mt-8 u-font-size-14 u-is-warning u-mb-0">Maximum collateral ratio is 1000%</p>
 	</div>
 </template>
 

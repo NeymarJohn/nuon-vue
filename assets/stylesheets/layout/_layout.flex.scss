@@ -121,6 +121,9 @@
 	.l-flex--column-md {
 		flex-direction: column;
 	}
+	.l-flex--row-justfify-start-sm {
+		justify-content: flex-start;
+	}
 }
 @media screen and (max-width: $PX_480) {
 	.l-flex--column-sm {
