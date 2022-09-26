@@ -22,7 +22,7 @@
 				</div>
 				<div>
 					<DataCard align="end">
-						<InputMax v-model="inputModel" :maximum="availableAmount" @input="debouncedInputChange"/>
+						<InputMax v-model="inputModel" :maximum="availableAmount" hidden-max-button @input="debouncedInputChange" />
 					</DataCard>
 					<LayoutFlex direction="row-center-space-between">
 						<div>
