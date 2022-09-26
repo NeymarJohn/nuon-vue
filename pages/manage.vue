@@ -4,7 +4,7 @@
 			<PriceIndicator />
 		</LayoutFlex>
 		<LayoutHeader>
-			<PageTitle data-v-step="1">
+			<PageTitle>
 				<h4>Manage</h4>
 				<h1>Manage {{sections[currentSection]}}</h1>
 			</PageTitle>
@@ -15,13 +15,13 @@
 					<template #left>
 						<TheTabs margin="0" size="full">
 							<TheTab title="Mint">
-								<InputManageNuon
+								<InputManageCollateral
 									action="Mint"
 									:default-collateral="selectedCollateral"
 									@changeCollateral="onChangeCollateral" />
 							</TheTab>
 							<TheTab title="Burn">
-								<InputManageNuon
+								<InputManageCollateral
 									action="Burn"
 									:default-collateral="selectedCollateral"
 									@changeCollateral="onChangeCollateral" />
@@ -29,7 +29,7 @@
 						</TheTabs>
 					</template>
 					<template #right>
-						<ManageSummary :collateral="selectedCollateral" data-v-step="2" />
+						<ManageSummary :collateral="selectedCollateral" />
 					</template>
 				</LayoutAction>
 			</TheTab>
@@ -80,7 +80,6 @@
 				</LayoutAction>
 			</TheTab>
 		</TheTabs>
-		<v-tour name="manageTour" :steps="steps" :callbacks="tourCallbacks"></v-tour>
 	</LayoutContainer>
 </template>
 
@@ -92,28 +91,13 @@ export default {
 			mobileView: false,
 			selectedCollateral: "WETH",
 			currentSection: 0,
-			sections: ["NUON", "Collateral", "Liquidity"],
-			steps: [
-				{
-					target: "[data-v-step=\"1\"]",
-					header: {
-						title: "Mint and Burn Nuon",
-					},
-					content: "You can conveniently manage your position on this screen without adding more collateral. Choose whether you want to mint more Nuon using the collateral you already have locked, or burn a portion of the Nuon you have minted.",
-					params: {
-						enableScrolling: false,
-					}
-				},
-				{
-					target: "[data-v-step=\"2\"]",
-					content: "Before clicking ‘Mint’, you can check the projected changes to your position, which will be highlighted in green. A transaction summary will also appear to the left.",
-				},
-			],
-			tourCallbacks: {
-				onSkip: () => this.setCookie("skip_manage_tour"),
-				onStop: () => this.setCookie("skip_manage_tour"),
-				onFinish: () => this.setCookie("skip_manage_tour")
-			},
+			sections: ["NUON", "Collateral", "Liquidity"]
+			// To be implemented after mint is finished.
+			// tourCallbacks: {
+			// 	onSkip: () => this.setCookie("skip_collateral_hub_tour"),
+			// 	onStop: () => this.setCookie("skip_collateral_hub_tour"),
+			// 	onFinish: () => this.setCookie("skip_collateral_hub_tour")
+			// },
 		};
 	},
 	head () {
@@ -133,7 +117,7 @@ export default {
 	mounted() {
 		this.initialize();
 		this.mobileView = this.isMobile();
-		if (!$cookies.get("skip_manage_tour")) this.$tours.manageTour.start();
+		// if (!$cookies.get("skip_collateral_hub_tour")) this.$tours.collateralHubTour.start();
 	},
 	methods: {
 		onChangeCollateral(collateral) {

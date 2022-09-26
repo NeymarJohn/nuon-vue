@@ -9,7 +9,7 @@
 .transaction-table {
 	background: $MEDIUM_LIGHT_GREY;
 	padding: $PX_32;
-	border-radius: $BORDER_RADIUS_16;
+	border-radius: $BORDER_RADIUS_8;
 }
 .transaction-table__row {
 	background-color: $HIGHLIGHT_GREY;
@@ -80,18 +80,12 @@
 	padding: $PX_24 $PX_24 $PX_24 $PX_12;
 }
 .transaction-table--collateral .transaction-table__cell .btn {
-	margin-right: $PX_8;
-	padding: $PX_8 $PX_24;
+	margin-right: $PX_12;
+	padding: $PX_8 $PX_10;
 	font-size: $PX_14;
 	line-height: $PX_16;
 	border-radius: $BORDER_RADIUS_24;
-	color: $LIGHT_GREY;
-	background-color: $TRANSPARENT;
-	border: $PX_1 solid $MEDIUM_LIGHT_GREY;
-}
-.transaction-table--collateral .transaction-table__cell .btn:hover {
-	background-color: $LIME;
-	color: $DARK_GREY;
+	min-width: $PX_100;
 }
 .transaction-table--collateral .transaction-table__cell .btn:last-child {
 	margin-right: 0;
@@ -152,13 +146,5 @@
 	}
 	.transaction-table__cell {
 		padding: $PX_16 0;
-	}
-	.transaction-table--collateral .transaction-table__cell:nth-child(1),
-	.transaction-table--collateral .transaction-table__cell:nth-child(2),
-	.transaction-table--collateral .transaction-table__cell:nth-child(3) {
-		width: calc(100% / 3);
-	}
-	.transaction-table--collateral .transaction-table__cell:nth-child(4) {
-		display: none;
 	}
 }

@@ -16,7 +16,7 @@
 				<template #messages>
 					<LayoutFlex direction="row-center-space-between">
 						<div>
-							<p v-if="isMoreThanEqualMinimum || isLessThanEqualBalance && selectedCollateralRatio <= 1000" class="u-font-size-14 u-is-success u-mb-0">Ready To Mint</p>
+							<p v-if="isMoreThanEqualMinimum && isLessThanEqualBalance" class="u-font-size-14 u-is-success u-mb-0">Ready To Mint</p>
 							<p v-if="isMoreThanBalance" class="u-font-size-14 u-is-warning u-mb-0">Insufficient Balance</p>
 						</div>
 						<p class="u-mb-0 u-font-size-14 u-color-light-grey">~ ${{ getDollarValue(inputValue, collateralPrice) | toFixed | numberWithCommas }}</p>
@@ -40,7 +40,7 @@
 		</div>
 		<div class="collateral">
 			<div class="collateral__header">
-				<p>Set your Collateral Ratio<TooltipIcon v-tooltip="'Choose a preset collateral ratio between 200-400%, or click ‘Advanced’ to enter a custom collateral ratio up to 1000%. This number represents the ratio between the amount of collateral you have locked and the amount of Nuon you have minted — keep it high to minimize risk of liquidation.'" /></p>
+				<p>Set your Collateral Ratio<TooltipIcon v-tooltip="'Enter content here'" /></p>
 				<TheButton size="link" title="Click to view advanced options" data-v-step="5" @click="isVisible = !isVisible">{{ isVisible ? "Basic" : "Advanced" }}</TheButton>
 			</div>
 			<div v-if="isVisible !== true" class="collateral__body" data-v-step="4">
@@ -52,7 +52,7 @@
 				<RangeSlider :min="`${sliderMin}`" :max="'1000'" :slider-disabled="!inputValue || isMoreThanBalance" :selected-collateral-ratio="`${selectedCollateralRatio}`" @emit-change="debouncedSliderChanged" />
 			</div>
 		</div>
-		<TransactionSummary v-if="inputValue > 0 && !isMoreThanBalance && selectedCollateralRatio <= 1000" :values="summary" />
+		<TransactionSummary v-if="inputValue > 0 && !isMoreThanBalance" :values="summary" />
 		<LayoutFlex direction="row-justify-end">
 			<TheButton
 				title="Click to mint"
@@ -149,7 +149,7 @@ export default {
 			return this.inputValue >= this.isLTEMinimumDepositAmount;
 		},
 		isMintDisabled() {
-			return !parseFloat(this.inputValue) || this.isMoreThanBalance || !this.connectedAccount || this.selectedCollateralRatio > 1000;
+			return !parseFloat(this.inputValue) || this.isMoreThanBalance || !this.connectedAccount;
 		},
 		isMoreThanBalance() {
 			return parseFloat(this.inputValue) > this.tokenBalance;
@@ -232,6 +232,7 @@ export default {
 
 			const currentRatio = this.selectedCollateralRatio;
 			const collateralRatio = `${(10 ** 18) / (currentRatio / 100)}`;
+
 			const inputValueWithDecimals = toWei(this.inputValue, this.decimals);
 			let ans = {0: 0, 3: 0};
 			try {
@@ -261,7 +262,6 @@ export default {
 			this.minting = true;
 			const amount = toWei(this.inputValue, this.decimals);
 			const collateralRatioToWei = 10 ** 18 / parseFloat(this.selectedCollateralRatio / 100);
-
 			try {
 				await this.$store.dispatch("collateralVaultStore/mintNuon",
 					{
@@ -290,7 +290,6 @@ export default {
 		},
 		selectInputToken(token) {
 			this.selectedCollateral = token.symbol;
-			this.initialize();
 		},
 		selectOutputToken(token) {
 			this.output.token = token.symbol;

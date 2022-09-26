@@ -4,21 +4,15 @@
 		3. Toast failure
 */
 
-$duration: 0.4s;
-$strokeHeight: 1px;
-$easeIn: cubic-bezier(0.2, 0.85, 0.45, 1);
-$easeCubic: cubic-bezier(0.6, 0, 0.2, 1);
-$easeOut: cubic-bezier(0.45, 0, 0.85, 2);
-
 // 1. Toast default
 .toast {
 	position: fixed;
-	top: $PX_136;
+	top: $PX_82;
 	right: $PX_100;
 	border-radius: $BORDER_RADIUS_8;
 	z-index: 4;
-	padding: $PX_32;
-	min-width: $PX_435;
+	padding: $PX_24;
+	min-width: $PX_425;
 	background: $DARK_GREY;
 }
 .toast__header,
@@ -52,46 +46,8 @@ $easeOut: cubic-bezier(0.45, 0, 0.85, 2);
 	margin-bottom: 0;
 	transition: $TRANSITION_ALL;
 }
-.toast__body a {
-	position: relative;
-	overflow: hidden;
+.toast__body a:hover {
 	color: $WHITE;
-	margin-top: $PX_16;
-	display: inline-block;
-
-	&:before,
-	&:after {
-		content: "";
-		position: absolute;
-		bottom: 0;
-		height: $strokeHeight;
-		width: 100%;
-		background: $WHITE;
-		pointer-events: none;
-		transition: transform $duration $easeCubic;
-	}
-
-	&:before {
-		left: 0;
-		transform-origin: left;
-		transform: scaleX(0);
-	}
-
-	&:after {
-		right: 0;
-		transform-origin: right;
-	}
-
-	&:hover {
-		&:before {
-			transform: scaleX(1);
-			transition-delay: calc($duration / 2);
-		}
-
-		&:after {
-			transform: scaleX(0);
-		}
-	}
 }
 .toast-slide-enter-active {
 	transition: $TRANSITION_ALL;

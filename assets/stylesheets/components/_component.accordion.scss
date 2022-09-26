@@ -54,17 +54,6 @@
 .accordion__header svg path {
 	fill: $WHITE;
 }
-.accordion__header--unclickable:hover {
-	background-color: $TRANSPARENT;
-	cursor: text;
-}
-.accordion__header--unclickable svg {
-	margin-left: 0;
-	margin-right: $PX_8;
-}
-.accordion__header--unclickable svg path {
-	fill: $LIME;
-}
 .accordion__token p {
 	color: $LIGHT_GREY;
 	margin-bottom: 0;

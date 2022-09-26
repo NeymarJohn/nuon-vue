@@ -19,7 +19,7 @@ export default {
 		}
 	},
 	watch: {
-		loading(newValue) {
+		loading(newValue, oldValue) {
 			console.log(newValue);
 		}
 	},

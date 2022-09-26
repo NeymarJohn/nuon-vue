@@ -20,7 +20,6 @@
 				<template #messages>
 					<LayoutFlex direction="row-center-space-between">
 						<div>
-							<p v-if="!isMoreThanBalance && isMoreThanZeroLessThanBalance" class="u-font-size-14 u-is-success u-mb-0">Ready To {{action}}</p>
 							<p v-if="isMoreThanBalance" class="u-font-size-14 u-is-warning u-mb-0">Insufficient Balance</p>
 						</div>
 						<p class="u-mb-0 u-font-size-14 u-color-light-grey">~ ${{ getDollarValue(inputModel, collateralPrice) | toFixed | numberWithCommas }}</p>
@@ -71,21 +70,12 @@ export default {
 			return this.$store.state.collateralVaultStore.estimation;
 		},
 		summary() {
-			const summary = [
-				{
-					title: "New Collateral Ratio",
-					val: this.estimation.collateralRatio,
-					currency: "%"
-				},
-				{
-					title: "New Liquidation Price",
-					val: this.estimation.liquidationPrice
-				},
-				{
-					title: "New Liquidity Position",
-					val: "-"
-				}
-			];
+			const summary = [{
+				title: "New Collateral Ratio",
+				val: this.estimation.collateralRatio,
+				currency: "%"
+			}];
+			const lastId = summary.length - 1;
 			if (this.action === "Deposit") {
 				summary.push({
 					title: "New Collateral Amount",
@@ -135,8 +125,8 @@ export default {
 		isMoreThanBalance() {
 			return parseFloat(this.inputModel) > this.availableAmount;
 		},
-		isMoreThanZeroLessThanBalance() {
-			return parseFloat(this.inputModel) <= this.availableAmount && parseFloat(this.inputModel) > 0;
+		isMoreThanEqualMinimumAndLessThanBalance() {
+			return parseFloat(this.inputModel) > 0 && parseFloat(this.inputModel) <= this.tokenBalance;
 		},
 		collateralPrice() {
 			return this.tokenPrices[this.selectedCollateral];

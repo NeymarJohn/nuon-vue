@@ -1,6 +1,20 @@
 <template>
 	<div class="swap">
 		<div class="swap__container u-mb-8">
+			<SwapBalance
+				label="Redeem"
+				:token="selectedCollateral"
+				:balance="tokenBalances[selectedCollateral]" />
+			<MintAccordion
+				:disabled-tokens="['BTC', 'BUSD', 'AVAX']"
+				:default-token="selectedCollateral"
+				@selected-token="selectCollateralToken">
+				<template #input>
+					<h3>{{estimatedWithdrawnValue | toFixed | numberWithCommas}}<sup>{{selectedCollateral}}</sup></h3>
+				</template>
+			</MintAccordion>
+		</div>
+		<div class="swap__container u-mb-24">
 			<LayoutFlex direction="row-center-space-between swap__balance">
 				<label>Burn</label>
 				<ComponentLoader component="label" :loaded="Number(mintedAmount) !== 0">
@@ -23,20 +37,6 @@
 				</div>
 				<p class="u-mb-0 u-font-size-14 u-color-light-grey">~ ${{ getDollarValue(inputValue, tokenPrices.NUON) | toFixed | numberWithCommas }}</p>
 			</LayoutFlex>
-		</div>
-		<div class="swap__container u-mb-24">
-			<SwapBalance
-				label="Redeem"
-				:token="selectedCollateral"
-				:balance="tokenBalances[selectedCollateral]" />
-			<MintAccordion
-				:disabled-tokens="['BTC', 'BUSD', 'AVAX']"
-				:default-token="selectedCollateral"
-				@selected-token="selectCollateralToken">
-				<template #input>
-					<h3>{{estimatedWithdrawnValue | toFixed | numberWithCommas}}<sup>{{selectedCollateral}}</sup></h3>
-				</template>
-			</MintAccordion>
 		</div>
 		<TransactionSummary v-if="inputValue > 0 && !isMoreThanBalance" :values="summary" />
 		<LayoutFlex direction="row-justify-end">
