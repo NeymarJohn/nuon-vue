@@ -50,7 +50,7 @@
 					<FarmIcon /> Farms
 				</NuxtLink>
 			</li>
-			<li>
+			<li v-tooltip="'Coming Soon'" class="link-disabled">
 				<NuxtLink
 					to="/analytics"
 					title="Click to visit Analytics"
