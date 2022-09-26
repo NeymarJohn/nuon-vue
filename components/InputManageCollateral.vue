@@ -75,7 +75,6 @@ export default {
 				val: this.estimation.collateralRatio,
 				currency: "%"
 			}];
-			const lastId = summary.length - 1;
 			if (this.action === "Deposit") {
 				summary.push({
 					title: "New Collateral Amount",
