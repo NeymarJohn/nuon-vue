@@ -5,6 +5,12 @@ export const CHAIN_DATA = {
 		chainId: 4,
 		explorerLink: "https://rinkeby.etherscan.io",
 	},
+	5: {
+		name: "Goerli",
+		provider: "https://goerli.infura.io/v3/",
+		chainId: 5,
+		explorerLink: "https://goerli.etherscan.io",
+	},
 	31010: {
 		name: "TK",
 		provider: "https://eth-private-testnet-poa.hydrogenx.tk/",
@@ -13,5 +19,5 @@ export const CHAIN_DATA = {
 	}
 };
 export const WALLETS = ["metamask", "walletconnect"];
-export const NETWORKS = [4, 31010];
+export const NETWORKS = [4, 5,  31010];
 export const DEFAULT_BASIC_RATIO = 300;

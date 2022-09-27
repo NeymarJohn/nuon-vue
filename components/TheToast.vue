@@ -17,7 +17,7 @@
 			</div>
 			<div class="toast__body">
 				<p v-if="message">{{ message }}.</p>
-				<a v-if="txHash" :href="$config[$config.NODE_ENV].blockExplorerUrl + 'tx/' + txHash" target="_blank" rel="noopener noreferrer" title="Click to view transaction on the block explorer">View transaction</a>
+				<a v-if="txHash" :href="`${explorerLink}/tx/${txHash}`" target="_blank" rel="noopener noreferrer" title="Click to view transaction on the block explorer">View transaction</a>
 			</div>
 		</div>
 	</Transition>
@@ -27,6 +27,7 @@
 import CloseIcon from "@/assets/images/svg/svg-close.svg";
 import SuccessIcon from "@/assets/images/svg/svg-success.svg";
 import ErrorIcon from "@/assets/images/svg/svg-error.svg";
+import { CHAIN_DATA } from "~/constants/web3";
 
 export default {
 	name: "TheToast",
@@ -58,6 +59,12 @@ export default {
 			type: String,
 			required: false,
 			default: ""
+		}
+	},
+	computed: {
+		explorerLink() {
+			if (!CHAIN_DATA[this.$store.state.web3Store.chainId]) return "";
+			return CHAIN_DATA[this.$store.state.web3Store.chainId].explorerLink;
 		}
 	},
 	methods: {

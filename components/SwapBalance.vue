@@ -22,7 +22,7 @@ export default {
 			required: true
 		},
 		balance: {
-			type: [String, Number],
+			type: [String, Number, Object],
 			required: true
 		}
 	},
