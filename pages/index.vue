@@ -46,8 +46,7 @@
 						</ComponentLoader>
 					</label>
 					<ComponentLoader component="h3" :loaded="balanceLoaded">
-						<h3 v-if="selectedCollateralToggleBtn === 0">${{ (graphSelectionTVL || totalValue) | toFixed | numberWithCommas }}</h3>
-						<h3 v-else>${{ totalValue | toFixed | numberWithCommas }}</h3>
+						<h3 >${{ (graphSelectionTVL || totalValue) | toFixed | numberWithCommas }}</h3>
 					</ComponentLoader>
 				</div>
 				<div
@@ -67,8 +66,7 @@
 						</ComponentLoader>
 					</label>
 					<ComponentLoader component="h3" :loaded="balanceLoaded">
-						<h3 v-if="selectedCollateralToggleBtn === 1">${{ (graphSelectionMintedNuon || totalMintedNuon) | toFixed | numberWithCommas }}</h3>
-						<h3 v-else>${{ totalMintedNuon | toFixed | numberWithCommas }}</h3>
+						<h3>${{ (graphSelectionMintedNuon || totalMintedNuon) | toFixed | numberWithCommas }}</h3>
 					</ComponentLoader>
 				</div>
 			</div>
