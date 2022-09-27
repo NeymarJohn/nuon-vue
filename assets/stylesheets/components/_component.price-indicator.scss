@@ -4,9 +4,6 @@
 */
 
 // 1. Price indicator default
-.price-indicator {
-	margin-bottom: 0;
-}
 .price-indicator,
 .price-indicator li,
 .price-indicator li div {
@@ -16,24 +13,28 @@
 }
 .price-indicator {
 	background-color: $DARK_GREY;
-	padding: $PX_16 $PX_32;
+	padding: $PX_8 $PX_16;
 	border-radius: $BORDER_RADIUS_16;
 	color: $LIGHT_GREY;
+	margin-bottom: 0;
+	font-size: $PX_12;
 }
 .price-indicator li {
-	margin-right: $PX_64;
+	margin-right: $PX_24;
 }
 .price-indicator li:last-child {
 	margin-right: 0;
 }
 .price-indicator span {
 	color: $LIME;
-	margin-left: $PX_16;
+	margin-left: $PX_4;
+	font-weight: 600;
 }
 .price-indicator .badge {
-	font-size: $PX_12;
-	padding: $PX_4 $PX_8;
-	margin-left: $PX_16;
+	font-size: $PX_10;
+	line-height: $PX_14;
+	padding: $PX_2 $PX_6;
+	margin-left: $PX_10;
 }
 .price-indicator .healthy {
 	color: $SUCCESS;
