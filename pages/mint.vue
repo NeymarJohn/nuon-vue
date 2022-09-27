@@ -5,7 +5,6 @@
 		</LayoutFlex>
 		<LayoutHeader class="u-border" data-v-step="1">
 			<PageTitle>
-				<h4>Mint</h4>
 				<h1>{{ sections[currentSection ]}} NUON</h1>
 			</PageTitle>
 		</LayoutHeader>

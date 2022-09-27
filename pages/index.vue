@@ -5,8 +5,7 @@
 		</LayoutFlex>
 		<LayoutHeader class="u-border">
 			<PageTitle data-v-step="1">
-				<h4>Dashboard</h4>
-				<h1>My Portfolio</h1>
+				<h1>Dashboard</h1>
 			</PageTitle>
 		</LayoutHeader>
 		<h3 class="u-mb-24">Account Health</h3>

@@ -5,8 +5,7 @@
 		</LayoutFlex>
 		<LayoutHeader>
 			<PageTitle>
-				<h4>Govern</h4>
-				<h1>{{ sections[currentSection ]}}</h1>
+				<h1>Govern</h1>
 			</PageTitle>
 		</LayoutHeader>
 		<TheTabs margin="48 tabs__header-parent" size="govern" color="transparent">
@@ -31,25 +30,25 @@
 							:badge="myStateAfter"
 							:badge-color="calcBadgeColor(myStake,myStateAfter) "
 						/>
-						<CurrencyCard 
-							label="My Voting Power" 
+						<CurrencyCard
+							label="My Voting Power"
 							:value="votingPower"
-							currency="%" 
+							currency="%"
 							:badge="votingPowerAfter"
 							:badge-color="calcBadgeColor(votingPower,votingPowerAfter) "
 						/>
-						<CurrencyCard 
-							label="nuMINT Price" 
-							:value="tokenPrices.nuMINT" 
+						<CurrencyCard
+							label="nuMINT Price"
+							:value="tokenPrices.nuMINT"
 							symbol="$"
 							:badge="currentValue?tokenPrices.nuMINT:0"
-							:badge-currency="'USD'" 
+							:badge-currency="'USD'"
 							:badge-color="calcBadgeColor(tokenPrices.nuMINT,tokenPrices.nuMINT) "/>
-						<CurrencyCard 
-							label="Total Staked" 
-							:value="totalStaked" 
-							currency="nuMINT" 
-							:badge="totalStakedAfter" 
+						<CurrencyCard
+							label="Total Staked"
+							:value="totalStaked"
+							currency="nuMINT"
+							:badge="totalStakedAfter"
 							:badge-color="calcBadgeColor(totalStaked,totalStakedAfter) "/>
 					</template>
 				</LayoutAction>
@@ -159,7 +158,6 @@ export default {
 				balance: 0
 			},
 			currentSection: 0,
-			sections: ["Stake", "Claim", "Vote", "Add Proposal"],
 			minimumStake: 100,
 			// To be implemented after govern is finished.
 			// tourCallbacks: {

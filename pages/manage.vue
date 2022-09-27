@@ -5,7 +5,6 @@
 		</LayoutFlex>
 		<LayoutHeader>
 			<PageTitle data-v-step="1">
-				<h4>Manage</h4>
 				<h1>Manage {{sections[currentSection]}}</h1>
 			</PageTitle>
 		</LayoutHeader>

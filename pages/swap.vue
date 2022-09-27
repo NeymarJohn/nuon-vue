@@ -6,8 +6,7 @@
 			</LayoutFlex>
 			<LayoutHeader class="u-border">
 				<PageTitle>
-					<h4>Swap</h4>
-					<h1>Token Exchange</h1>
+					<h1>Swap</h1>
 				</PageTitle>
 			</LayoutHeader>
 		</LayoutContainer>

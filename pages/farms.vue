@@ -2,8 +2,7 @@
 	<LayoutContainer>
 		<LayoutHeader>
 			<PageTitle>
-				<h4>Farms</h4>
-				<h1>Stake LP Tokens to Earn</h1>
+				<h1>Farms</h1>
 			</PageTitle>
 			<PriceIndicator />
 		</LayoutHeader>
