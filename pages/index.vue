@@ -66,7 +66,7 @@
 						</ComponentLoader>
 					</label>
 					<ComponentLoader component="h3" :loaded="balanceLoaded">
-						<h3>${{ (graphSelectionMintedNuon || totalMintedNuon) | toFixed | numberWithCommas }}</h3>
+						<h3>${{ (graphSelectionMintedNuon) | toFixed | numberWithCommas }}</h3>
 					</ComponentLoader>
 				</div>
 			</div>
@@ -331,7 +331,10 @@ export default {
 			return this.lockedValueChartData.xData || [];
 		},
 		yAxisData() {
-			return this.lockedValueChartData.yData || [];
+			if (this.selectedCollateralToggleBtn === 0)
+				return this.lockedValueChartData.yData0 || [];
+			else 
+				return this.lockedValueChartData.yData1 || [];
 		},
 		lockedValueChartData() {
 			const weeks = {};
@@ -347,11 +350,12 @@ export default {
 			if (this.selectedPeriod === 1) { // week
 				return {
 					xData: Object.keys(weeks).map(d => new Date(d).toLocaleDateString()).reverse(),
-					yData:[this.selectedCollateralToggleBtn === 0 ? {
+					yData0:[{
 						name: "My Total Value Locked",
 						data: Object.values(weeks).map(d => d.value).reverse(),
 						color: "#65b5ff"
-					}:{
+					}],
+					yData1:[{
 						name: "My Total Minted Value",
 						data: Object.values(weeks).map(d => d.mintedValue).reverse(),
 						color: "#dfff65"
@@ -360,11 +364,12 @@ export default {
 			if (this.selectedPeriod === 2) { // month
 				return {
 					xData: Object.keys(months).map(d => new Date(d).toLocaleDateString("default", { month: "short" })).reverse(),
-					yData:[this.selectedCollateralToggleBtn === 0 ? {
+					yData0: [{
 						name: "My Total Value Locked",
 						data: Object.values(months).map(d => d.value).reverse(),
 						color: "#65b5ff"
-					} : {
+					}], 
+					yData1: [{
 						name: "My Total Minted Value",
 						data: Object.values(months).map(d => d.mintedValue).reverse(),
 						color: "#dfff65"
@@ -373,11 +378,12 @@ export default {
 			};
 			return {
 				xData: this.collateralRatioArr.map(d => new Date(d.date * 1000).toLocaleDateString()).reverse(),
-				yData:[this.selectedCollateralToggleBtn === 0 ? {
+				yData0:[{
 					name: "My Total Value Locked",
 					data: this.collateralRatioArr.map(d => d.value).reverse(),
 					color: "#65b5ff"
-				} : {
+				}],
+				yData1:[{
 					name: "My Total Minted Value",
 					data: this.collateralRatioArr.map(d => d.mintedValue).reverse(),
 					color: "#dfff65"
@@ -391,6 +397,9 @@ export default {
 		},
 		yAxisData() {
 			this.handleMouseOverChart(-1);
+		},
+		lockedValueChartData() {
+			this.graphSelectionMintedNuon = this.lockedValueChartData.yData1[0].data[this.lockedValueChartData.yData1[0].data.length - 1];
 		}
 	},
 	mounted() {

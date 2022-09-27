@@ -5,7 +5,7 @@
 				<label>{{ action }}</label>
 				<ComponentLoader component="label" :loaded="tokenBalances[selectedCollateral] !== '0'" class="u-height-20">
 					<label>
-						{{ action==="Remove"?'User Liquidity': 'Balance' }}:
+						Balance
 						<span>{{ availableAmount | formatLongNumber }}</span>
 					</label>
 				</ComponentLoader>
@@ -160,7 +160,7 @@ export default {
 			if (this.action === "Deposit") return this.tokenBalance || 0;
 			if (this.action === "Withdraw") return this.lockedAmount || 0;
 			if (this.action === "Add") return this.tokenBalance;
-			if (this.action === "Remove") return this.sharesAmount;
+			if (this.action === "Remove") return this.tokenBalance;
 			return (this.inputModel * this.tokenPrices.NUON / this.tokenPrices[this.selectedCollateral]).toFixed(2);
 		},
 	},
