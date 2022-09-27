@@ -52,6 +52,7 @@
 			</li>
 			<li v-tooltip="'Coming Soon'" class="link-disabled">
 				<NuxtLink
+					event=""
 					to="/analytics"
 					title="Click to visit Analytics"
 					:class="{'active-link': isRouteActive('/analytics')}">
