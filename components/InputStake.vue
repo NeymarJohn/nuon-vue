@@ -5,7 +5,7 @@
 				<label class="u-text-capitalize">{{action}}</label>
 				<label>Balance: {{ numberWithCommas(maximum.toFixed(2)) }}</label>
 			</div>
-			<div class="input-wrapper">
+			<div class="input-wrapper u-mb-16">
 				<div class="input-token">
 					<BusdLogo v-if="action==='claim'" />
 					<NuMintLogo v-else/>
@@ -14,6 +14,9 @@
 				</div>
 				<InputMax v-model="inputValue" :maximum="maximum" @input="changeInputValue"/>
 			</div>
+			<LayoutFlex direction="row-justify-end ">
+				<p class="u-font-size-14 u-color-light-grey">~ ${{ getDollarValue(inputValue, tokenPrices.nuMINT) | toFixed | numberWithCommas }}</p>
+			</LayoutFlex>
 		</div>
 		<p v-if="isMoreThanBalance" class="u-is-warning">Insufficient balance.</p>
 		<p v-if="action === 'withdraw' && !canWithdraw" class="u-is-warning">You are not allowed withdrawing at this moment.</p>

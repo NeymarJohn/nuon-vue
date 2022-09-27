@@ -32,7 +32,14 @@
 </template>
 <script>
 import { BUSD, nuMINT, NUON } from "~/constants/tokens";
-import { getCollateralTransactionHistory, getSwapTransactionHistory, getStakingTransactionHistory, getRewardTransactionHistory } from "~/services/theGraph";
+import { 
+	setTheGraphUrl,  
+	getCollateralTransactionHistory, 
+	getSwapTransactionHistory, 
+	getStakingTransactionHistory, 
+	getRewardTransactionHistory 
+} from "~/services/theGraph";
+import { LAST_CHAIN_ID } from "~/store/web3Store";
 
 export default {
 	name: "TransactionHistory",
@@ -73,6 +80,7 @@ export default {
 		}
 	},
 	mounted () {
+		setTheGraphUrl(localStorage.getItem(LAST_CHAIN_ID));
 		this.searchTransactions();
 		this.mobileView = this.isMobile();
 	},

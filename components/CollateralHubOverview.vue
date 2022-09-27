@@ -35,11 +35,12 @@
 <script>
 import dayjs from "dayjs";
 import TooltipIcon from "@/assets/images/svg/svg-tooltip.svg";
-import { getCollateralTVLDayData } from "~/services/theGraph";
+import { setTheGraphUrl, getCollateralTVLDayData } from "~/services/theGraph";
 import { fromWei } from "~/utils/bnTools";
 import mockDayData from "@/assets/json/day-data.json";
 import mockMonthData from "@/assets/json/month-data.json";
 import mockWeekData from "@/assets/json/week-data.json";
+import { LAST_CHAIN_ID } from "~/store/web3Store";
 
 export default {
 	name: "CollateralHubOverview",
@@ -66,6 +67,7 @@ export default {
 	},
 	mounted () {
 		this.loadingData = true;
+		setTheGraphUrl(localStorage.getItem(LAST_CHAIN_ID));
 		getCollateralTVLDayData().then((res) => {
 			let data = res.data.data.collateralDayDatas;
 

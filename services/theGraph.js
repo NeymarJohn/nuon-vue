@@ -7,9 +7,14 @@ if (process.env.NODE_ENV === "development") {
 if (process.env.NODE_ENV === "staging") {
 	theGraphName ="staging-nuon";
 }
-const THE_GRAPH_URL = `https://graphiql-nuon.hydrogenx.live/subgraphs/name/${theGraphName}`;
-const UNISWAP_THE_GRAPH_URL = `https://graphiql-nuon.hydrogenx.live/subgraphs/name/${theGraphName}/uniswap`;
-
+let THE_GRAPH_URL = `https://graphiql-nuon.hydrogenx.live/subgraphs/name/${theGraphName}`;
+let UNISWAP_THE_GRAPH_URL = `https://graphiql-nuon.hydrogenx.live/subgraphs/name/${theGraphName}/uniswap`;
+export const setTheGraphUrl = (chainId) =>{
+	if (chainId === "5") { // if Goerli testnet is set
+		THE_GRAPH_URL ="https://api.thegraph.com/subgraphs/name/devvenus1202/nuon-goerli";
+		UNISWAP_THE_GRAPH_URL =`https://graphiql-nuon.hydrogenx.live/subgraphs/name/goerli/${theGraphName}}/uniswap`;
+	}
+};
 export const getCollateralTVLDayData = () => axios.post(THE_GRAPH_URL, {
 	query: `
 		query collateralDayDatas {

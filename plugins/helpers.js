@@ -262,8 +262,8 @@ Vue.mixin({
 			}
 			return xStr.slice(0, firstNonZeroNumIdx + 1);
 		},
-		setCookie(key) {
-			this.$cookies.set(key, "true");
+		setCookie(key, value) {
+			this.$cookies.set(key, value || "true");
 		},
 		getValueWithBN(amount, price) {
 			return new BigNumber(amount).times(price).toString();

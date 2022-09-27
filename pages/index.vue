@@ -125,13 +125,14 @@
 
 <script>
 import dayjs from "dayjs";
-import { getUserTVLDayData } from "~/services/theGraph";
+import { getUserTVLDayData, setTheGraphUrl } from "~/services/theGraph";
 import { NUON, USDT, WETH } from "~/constants/tokens";
 import NuonLogo from "@/assets/images/logo/logo-nuon-lg.svg";
 import DiscordIcon from "@/assets/images/svg/svg-discord-lg.svg";
 import MediumIcon from "@/assets/images/svg/svg-medium-lg.svg";
 import TelegramIcon from "@/assets/images/svg/svg-telegram-lg.svg";
 import TwitterIcon from "@/assets/images/svg/svg-twitter-lg.svg";
+import { LAST_CHAIN_ID } from "~/store/web3Store";
 
 export default {
 	name: "TheDashboard",
@@ -414,6 +415,7 @@ export default {
 			}
 		},
 		getDiffMinted() {
+			setTheGraphUrl(localStorage.getItem(LAST_CHAIN_ID));
 			getUserTVLDayData({user: this.connectedAccount}).then(res => {
 				this.collateralRatioArr = res.data.data.userTVLDayDatas;
 			}).catch((err) => {

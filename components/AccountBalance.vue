@@ -112,7 +112,8 @@ import { BigNumber } from "bignumber.js";
 import LineChartIcon from "@/assets/images/svg/svg-line-chart.svg";
 import LineChartIconActive from "@/assets/images/svg/svg-line-chart-active.svg";
 import { fromWei } from "~/utils/bnTools";
-import { getUserTVLDayData } from "~/services/theGraph";
+import { setTheGraphUrl, getUserTVLDayData } from "~/services/theGraph";
+import { LAST_CHAIN_ID } from "~/store/web3Store";
 
 export default {
 	name: "AccountBalance",
@@ -276,6 +277,7 @@ export default {
 		}
 	},
 	mounted () {
+		setTheGraphUrl(localStorage.getItem(LAST_CHAIN_ID));
 		this.getDiffMinted();
 	},
 	methods: {

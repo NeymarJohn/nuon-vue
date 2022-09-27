@@ -1,3 +1,4 @@
+import Vue from "vue";
 import { GetterTree, ActionTree, MutationTree } from "vuex";
 import Web3 from "web3";
 import WalletConnectProvider from "@walletconnect/web3-provider";
@@ -8,7 +9,7 @@ declare let ethereum: any;
 
 const [Metamask, Walletconnect] = WALLETS;
 const WALLET_CONNECTED = "nuon_wallet_connected";
-const LAST_CHAIN_ID = "nuon_last_connected_chain";
+export const LAST_CHAIN_ID = "nuon_last_connected_chain";
 const WALLET_TYPE = "nuon_wallet_type";
 export const DEFAULT_CHAIN_ID = parseInt(process.env.default_chain_id || "31010");
 
@@ -201,11 +202,13 @@ export const actions: ActionTree<Web3State, Web3State> = {
 			});
 			ethereum.on("chainChanged", () => {
 				dispatch("setChain");
+				window.location.reload();
 			});
 
 			// Put Storage Value
 			localStorage.setItem(WALLET_CONNECTED, "connected");
 			localStorage.setItem(LAST_CHAIN_ID, `${chainId}`);
+			Vue.$cookies.set(LAST_CHAIN_ID, chainId);
 		};
 	},
 };
