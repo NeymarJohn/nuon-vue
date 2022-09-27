@@ -140,7 +140,7 @@ export const ADDRESS_CHAIN_DATA = {
 		}
 	},
 	5: {
-		boardroom: "0x6a361e08b41851FDd5Bad92af79d1053aA0EbF52",
+		boardroom: "0x6cf68786856aF7fCBf87dCD1d08BCc322f97d4be",
 		router: "0xe6dc3c3D2f8fa19CB6464b3AD8a73d2C4d6143E4",
 		uniswapV2Factory: "0x4C25199c06C35F79BDd3D94b2e74a85C24788Bdf",
 		nuonController: "0x4608B250240be3f22eAE6Fc770bb362e8EB7Ef44",

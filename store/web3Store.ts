@@ -183,8 +183,8 @@ export const actions: ActionTree<Web3State, Web3State> = {
 			commit("setBlockNumber", blockNumber);
 			commit("rootStore/setIsLoaded", true, {root:true});
 			// Fetch Token Prices
-			dispatch("tokenStore/getTokenPrices",{}, {root:true});
-
+			dispatch("tokenStore/getTokenOraclePrices",{}, {root:true});
+			dispatch("tokenStore/getTokenSwapPrices",{}, {root:true});
 			//  Set Events
 			ethereum.on("accountsChanged", async (accounts: string[]) => {
 				if (accounts.length > 0) {

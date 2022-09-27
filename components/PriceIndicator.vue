@@ -1,8 +1,15 @@
 <template>
 	<ul class="price-indicator">
-		<li>NUON Price:
+		<li>NUON Price(Oracle):
+			<ComponentLoader component="nuon-price" :loaded="nuonOraclePrice !== 0 && targetPeg !== 0">
+				<span>${{ nuonOraclePrice | toFixed }}</span>
+				<TheBadge v-if="nuonOraclePrice > targetPeg">Above</TheBadge>
+				<TheBadge v-else-if="nuonOraclePrice < targetPeg">Below</TheBadge>
+			</ComponentLoader>
+		</li>
+		<li>NUON Price(Swap):
 			<ComponentLoader component="nuon-price" :loaded="nuonPrice !== 0 && targetPeg !== 0">
-				<span>${{ computedNuonPrice }}</span>
+				<span>${{ nuonPrice | toFixed}}</span>
 				<TheBadge v-if="nuonPrice > targetPeg">Above</TheBadge>
 				<TheBadge v-else-if="nuonPrice < targetPeg">Below</TheBadge>
 			</ComponentLoader>
@@ -29,6 +36,9 @@ export default {
 	computed: {
 		nuonPrice() {
 			return this.tokenPrices[NUON.symbol];
+		},
+		nuonOraclePrice() {
+			return this.$store.state.tokenStore.oraclePrice[NUON.symbol];
 		},
 		targetPeg() {
 			return this.$store.state.collateralVaultStore.targetPeg || 0;
