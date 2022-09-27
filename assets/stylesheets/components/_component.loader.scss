@@ -157,17 +157,17 @@
 .loader--nuon-price,
 .loader--target-peg,
 .loader--health-status {
-	height: $PX_31;
-	margin-left: $PX_16;
+	height: $PX_24;
+	margin-left: $PX_4;
 }
 .loader--nuon-price {
-	width: calc($PX_137 - $PX_16);
+	width: calc($PX_97 - $PX_4);
 }
 .loader--target-peg {
-	width: calc($PX_58 - $PX_16);
+	width: calc($PX_40 - $PX_4);
 }
 .loader--health-status {
-	width: calc($PX_81 - $PX_16);
+	width: calc($PX_56 - $PX_4);
 }
 
 // 16. Loader chart
