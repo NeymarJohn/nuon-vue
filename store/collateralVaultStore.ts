@@ -391,7 +391,7 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 		} else if (action === "Withdraw"){
 			method = "redeemWithoutNuonEstimation";
 		} else {
-			return;
+			method = "";
 		}
 		let decimals = ctx.rootState.erc20Store.decimals[selectedCollateral];
 		if (action === "Mint" || action === "Burn") {
@@ -426,6 +426,13 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 				estimationData.mintedNuon = ctx.state.mintedAmount[selectedCollateral] ;
 				estimationData.collateralRatio = fromWei(resp[0]);
 				estimationData.liquidationPrice = fromWei(resp2[1]);
+				estimationData.liquidationRatio = ctx.state.globalRatio[selectedCollateral];
+				estimationData.liquidationPosition = ctx.state.lpValueOfUser[selectedCollateral];
+			}
+			if (action === "Add" || action === "remove") {
+				estimationData.lockedCollateral = ctx.state.lockedAmount[selectedCollateral];
+				estimationData.mintedNuon = ctx.state.mintedAmount[selectedCollateral] ;
+				estimationData.collateralRatio = ctx.state.collateralRatio[selectedCollateral];
 				estimationData.liquidationRatio = ctx.state.globalRatio[selectedCollateral];
 				estimationData.liquidationPosition = ctx.state.lpValueOfUser[selectedCollateral];
 			}

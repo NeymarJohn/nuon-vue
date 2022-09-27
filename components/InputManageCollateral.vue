@@ -81,10 +81,10 @@ export default {
 					title: "New Liquidation Price",
 					val: this.estimation.liquidationPrice
 				},
-				{
-					title: "New Liquidity Position",
-					val: "-"
-				}
+				// {
+				// 	title: "New Liquidity Position",
+				// 	val: "-"
+				// }
 			];
 			if (this.action === "Deposit") {
 				summary.push({
@@ -206,7 +206,7 @@ export default {
 			this.inputChanged();
 		}, 500),
 		inputChanged() {
-			if (!["Add", "Remove"].includes(this.action)) this.getEstimatedAmounts();
+			this.getEstimatedAmounts();
 		},
 		approveAndSubmit() {
 			this.submit();

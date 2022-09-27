@@ -39,14 +39,12 @@
 				label="Liquidation Ratio" 
 				:value="globalRatio" 
 				currency="%" 
-				:badge="estimation['liquidationRatio']"
 				badge-currency="%" 
 				:badge-color="calcBadgeColor(globalRatio,estimation['liquidationRatio'])" />
 			<CurrencyCard 
 				label="Liquidity Position" 
 				:value="getDollarValue(lpAmountOfUser, tokenPrices[collateral])" 
 				symbol="$" 
-				:badge="estimation['liquidationPrice']" 
 				badge-currency="USD" 
 				:badge-color="calcBadgeColor(getDollarValue(lpAmountOfUser, tokenPrices[collateral]),estimation['liquidationRatio'])" />
 		</LayoutFlex>
