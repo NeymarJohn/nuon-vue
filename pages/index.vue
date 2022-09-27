@@ -99,6 +99,30 @@
 		<AccountBalance :locked-amount="userTotalLockedCollateralAmount" data-v-step="6" />
 		<TransactionHistory data-v-step="7" />
 		<v-tour name="myDashboardTour" :steps="steps" :callbacks="tourCallbacks"></v-tour>
+		<div v-if="mobileView" class="mobile-blocker">
+			<NuonLogo />
+			<div>
+				<h1>Coming Soon To Your Mobile.</h1>
+				<h4 class="u-text-right">Please View On Large Desktop.</h4>
+			</div>
+			<div class="tuned">
+				<h4>Stay Tuned.</h4>
+				<div class="follow">
+					<a href="https://twitter.com/NuonFinance" target="_blank" rel="noopener noreferrer" title="Click to follow us on Twitter">
+						<TwitterIcon />
+					</a>
+					<a href="https://t.me/NuonFinance" target="_blank" rel="noopener noreferrer" title="Click to chat with us on Telegram">
+						<TelegramIcon />
+					</a>
+					<a href="https://nuonfinance.medium.com/" target="_blank" rel="noopener noreferrer" title="Click to follow us on Medium">
+						<MediumIcon />
+					</a>
+					<a href="https://discord.com/invite/pWT49HTJJu" target="_blank" rel="noopener noreferrer" title="Click to follow us on Discord">
+						<DiscordIcon />
+					</a>
+				</div>
+			</div>
+		</div>
 	</LayoutContainer>
 </template>
 
@@ -106,9 +130,21 @@
 import dayjs from "dayjs";
 import { getUserTVLDayData } from "~/services/theGraph";
 import { NUON, USDT, WETH } from "~/constants/tokens";
+import NuonLogo from "@/assets/images/logo/logo-nuon-lg.svg";
+import DiscordIcon from "@/assets/images/svg/svg-discord-lg.svg";
+import MediumIcon from "@/assets/images/svg/svg-medium-lg.svg";
+import TelegramIcon from "@/assets/images/svg/svg-telegram-lg.svg";
+import TwitterIcon from "@/assets/images/svg/svg-twitter-lg.svg";
 
 export default {
 	name: "TheDashboard",
+	components: {
+		NuonLogo,
+		DiscordIcon,
+		MediumIcon,
+		TelegramIcon,
+		TwitterIcon
+	},
 	data() {
 		return {
 			tvl: 0,
@@ -208,7 +244,7 @@ export default {
 				}
 			],
 			userMintedAmount: null,
-			selectedCollateralToggleBtn: 0
+			selectedCollateralToggleBtn: 0,
 		};
 	},
 	head () {
