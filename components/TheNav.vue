@@ -130,12 +130,12 @@ export default {
 						if (!err) {
 							this.successToast(null, "TX executed", hash);
 						} else {
-							this.failureToast("❗Something went wrong while submitting your transaction:", err);
+							this.failureToast(null, err, "❗Something went wrong while submitting your transaction:");
 						}
 					});
 				}
 			} catch (err) {
-				this.failureToast(err);
+				this.failureToast(null, err);
 			}
 		}
 	}
