@@ -118,23 +118,24 @@ export default {
 					const contract = this.$store.getters["erc20Store/getContractBySymbol"](symbol);
 					await contract.methods.faucet().send({from: this.connectedAccount});
 				} else {
-					const web3 = this.$store.getters["web3Store/instance"]();
-					const nonce = await web3.eth.getTransactionCount("0x0e11924EE7DA81B3d9aBcc2339e562fc3747B3Bf", "latest");
-					const transaction = {
-						"from": "0x0e11924EE7DA81B3d9aBcc2339e562fc3747B3Bf",
-						"to": this.connectedAccount,
-						"value": web3.utils.toWei("1", "ether"),
-						"gas": 30000,
-						nonce: web3.utils.toHex(nonce)
-					};
-					const signedTx = await web3.eth.accounts.signTransaction(transaction, "35f63c4c46e1bc178153129b596caeb1efa8f25b25fb5b4e1b7d94a5344bbfe6");
-					web3.eth.sendSignedTransaction(signedTx.rawTransaction, (err, hash) => {
-						if (!err) {
-							this.successToast(null, "TX executed", hash);
-						} else {
-							this.failureToast(null, err, "❗Something went wrong while submitting your transaction:");
-						}
-					});
+					window.open("https://faucets.chain.link/", "_blank");
+					// const web3 = this.$store.getters["web3Store/instance"]();
+					// const nonce = await web3.eth.getTransactionCount("0x0e11924EE7DA81B3d9aBcc2339e562fc3747B3Bf", "latest");
+					// const transaction = {
+					// 	"from": "0x0e11924EE7DA81B3d9aBcc2339e562fc3747B3Bf",
+					// 	"to": this.connectedAccount,
+					// 	"value": web3.utils.toWei("1", "ether"),
+					// 	"gas": 30000,
+					// 	nonce: web3.utils.toHex(nonce)
+					// };
+					// const signedTx = await web3.eth.accounts.signTransaction(transaction, "35f63c4c46e1bc178153129b596caeb1efa8f25b25fb5b4e1b7d94a5344bbfe6");
+					// web3.eth.sendSignedTransaction(signedTx.rawTransaction, (err, hash) => {
+					// 	if (!err) {
+					// 		this.successToast(null, "TX executed", hash);
+					// 	} else {
+					// 		this.failureToast(null, err, "❗Something went wrong while submitting your transaction:");
+					// 	}
+					// });
 				}
 			} catch (err) {
 				this.failureToast(null, err);
