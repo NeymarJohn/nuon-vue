@@ -161,7 +161,7 @@ export default {
 			return this.$store.state.erc20Store.balance[this.selectedCollateral];
 		},
 		mintFee() {
-			return parseFloat(this.$store.state.collateralVaultStore.mintingFee) * 100;
+			return this.$store.state.collateralVaultStore.mintingFee[this.selectedCollateral];
 		},
 		decimals() {
 			return this.$store.state.erc20Store.decimals[this.selectedCollateral];

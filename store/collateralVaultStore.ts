@@ -25,8 +25,8 @@ type StateType = {
 	aprCollateral: number,
 	totalLockedCollateral: number,
 	allCollaterals: any,
-	mintingFee: 0,
-	redeemFee: number,
+	mintingFee: any,
+	redeemFee: any,
 	inflation: number,
 	dailyInflationRate: number,
 	userTVL: number,
@@ -56,8 +56,7 @@ export const state = (): StateType => ({
 	aprCollateral: 0,
 	totalLockedCollateral: 0,
 	allCollaterals: [],
-	mintingFee: 0,
-	redeemFee: 0,
+
 	inflation: 0,
 	dailyInflationRate: 0,
 	userTVL: 0,
@@ -79,7 +78,9 @@ export const state = (): StateType => ({
 	lpValueOfUser: {...DEFAULVALUES}, // {WETH: 0 USDT: 0} collateral price for all collateral tokens
 	globalRatio: {...DEFAULVALUES},
 	userVaultShares: {...DEFAULVALUES},
-	estimation: {}
+	estimation: {},
+	mintingFee: {...DEFAULVALUES},
+	redeemFee: {...DEFAULVALUES},
 });
 
 export type BoardroomState = ReturnType<typeof state>;
@@ -103,11 +104,11 @@ export const mutations: MutationTree<BoardroomState> = {
 	setTotalLockedCollateral(state, payload) {
 		state.totalLockedCollateral = payload;
 	},
-	setMintingFee(state, payload) {
-		state.mintingFee = payload;
+	setRedeemFee(state, {token, value}) {
+		state.redeemFee = {...state.mintingFee, [token]: value};
 	},
-	setRedeemFee(state, payload) {
-		state.redeemFee = payload;
+	setMintingFee(state, {token, value}) {
+		state.mintingFee = {...state.mintingFee, [token]: value};
 	},
 	setInflation(state, payload) {
 		state.inflation = payload;
@@ -247,17 +248,11 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 			ctx.commit("setLastSnapshot", {lastSnapshotIndex: lastSnapshot, rewardEarned: new BN(0), epochTimerStart: 0});
 		});
 	},
-	async updateStatus({state, dispatch, commit, getters, rootState, rootGetters}: {state: any, dispatch:any, commit:any, getters:any, rootState:any, rootGetters: any}) {
+	async updateStatus({dispatch, commit, getters, rootState}: {dispatch:any, commit:any, getters:any, rootState:any}) {
 		const accountAddress = rootState?.web3Store.account;
 		if (!accountAddress) return;
 		const myCollateralAmount = await getters.getUserCollateralAmount(accountAddress);
 		commit("setUserCollateralAmount", myCollateralAmount);
-
-		const chubAddr = rootGetters["addressStore/collateralHubs"][state.currentCollateralToken];
-		const mintingFee = await getters.getMintingFee(chubAddr);
-		commit("setMintingFee",  fromWei(mintingFee));
-		const redeemFee = await getters.getRedeemFee(chubAddr);
-		commit("setRedeemFee", fromWei(redeemFee));
 
 		for (let i = 0; i < collateralTokens.length; i ++ ) {
 			dispatch("updateCollateralTokenStatus", collateralTokens[i].symbol);
@@ -305,6 +300,15 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 
 		const accountAddress = ctx.rootState.web3Store.account;
 		const decimals = ctx.rootState.erc20Store.decimals[token];
+
+		// Get Mint and Redeem Fees
+		ctx.getters.getMintingFee(chubContractAddress).then((mintFee: string) => {
+			ctx.commit("setMintingFee", {token, value: Number(fromWei(mintFee))});
+		});
+		ctx.getters.getRedeemFee(chubContractAddress).then((redeemFee: string) => {
+			ctx.commit("setRedeemFee", {token, value: Number(fromWei(redeemFee))});
+		});
+
 		// Update minted Nuon
 		const mintedAmount = fromWei(await chubContract.methods.viewUserMintedAmount(accountAddress).call());
 		ctx.commit("setMintedAmount",  {token, amount: Number(mintedAmount)});
