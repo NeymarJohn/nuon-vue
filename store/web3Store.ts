@@ -168,7 +168,7 @@ export const actions: ActionTree<Web3State, Web3State> = {
 			const web3 = new Web3(Web3.givenProvider);
 			// check if network is valid
 			if(!NETWORKS.includes(chainId)){
-				commit("modalStore/setModalInfo",{name: "alertModal", info: {title:"Wrong Network", message: "You are using a wrong network, please change to HYDRO.", cta: "switch-network"}}, {root: true});
+				commit("modalStore/setModalInfo",{name: "alertModal", info: {title:"Wrong Network", message: "You are using a wrong network, please change to Goerli.", cta: "switch-network"}}, {root: true});
 				commit("modalStore/setModalVisibility", {name: "alertModal", visibility: true}, {root:true});
 				return;
 			}
