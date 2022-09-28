@@ -11,7 +11,7 @@ const [Metamask, Walletconnect] = WALLETS;
 const WALLET_CONNECTED = "nuon_wallet_connected";
 export const LAST_CHAIN_ID = "nuon_last_connected_chain";
 const WALLET_TYPE = "nuon_wallet_type";
-export const DEFAULT_CHAIN_ID = parseInt(process.env.default_chain_id || "31010");
+export const DEFAULT_CHAIN_ID = parseInt(process.env.default_chain_id || "5");
 
 type Web3StoreType = {
 	instance: any,

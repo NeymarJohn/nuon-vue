@@ -1,12 +1,12 @@
 [context.production.environment]
   NODE_ENV = "production"
-  default_chain_id = "31010"
+  default_chain_id = "5"
 [context.deploy-preview.environment]
   NODE_ENV = "staging"
-  default_chain_id = "31010"
+  default_chain_id = "5"
 [context.branch-deploy.environment]
   NODE_ENV = "development"
-  default_chain_id = "31010"
+  default_chain_id = "5"
 [context.dev.environment]
   NODE_ENV = "development"
-  default_chain_id = "31010"
+  default_chain_id = "5"
