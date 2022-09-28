@@ -14,12 +14,17 @@
 				</div>
 				<InputMax v-model="inputValue" :maximum="maximum" @input="changeInputValue"/>
 			</div>
-			<LayoutFlex direction="row-justify-end ">
-				<p class="u-font-size-14 u-color-light-grey">~ ${{ getDollarValue(inputValue, tokenPrices.nuMINT) | toFixed | numberWithCommas }}</p>
+			<LayoutFlex direction="row-center-space-between">
+				<div>
+					<p v-if="!isMoreThanBalance && inputValue > 0 && action !== 'withdraw'" class="u-font-size-14 u-is-success u-mb-0">
+						<span class="u-text-capitalize">Ready To {{action}}</span>
+					</p>
+					<p v-if="isMoreThanBalance && action !== 'withdraw'" class="u-font-size-14 u-is-warning u-mb-0">Insufficient Balance</p>
+					<p v-if="action === 'withdraw' && !canWithdraw" class="u-font-size-14 u-is-warning u-mb-0">You are not allowed to withdraw at the moment.</p>
+				</div>
+				<p class="u-mb-0 u-font-size-14 u-color-light-grey">~ ${{ getDollarValue(inputValue, tokenPrices.nuMINT) | toFixed | numberWithCommas }}</p>
 			</LayoutFlex>
 		</div>
-		<p v-if="isMoreThanBalance" class="u-is-warning">Insufficient balance.</p>
-		<p v-if="action === 'withdraw' && !canWithdraw" class="u-is-warning">You are not allowed withdrawing at this moment.</p>
 		<div v-if="action === 'withdraw' && inputValue === maximum" class="input-govern__message">
 			<p>Inputting maximum unstake amount will enable claim rewards at the same time when exiting staking.</p>
 		</div>
@@ -31,7 +36,9 @@
 				size="md"
 				title="Click to stake"
 				:disabled="isDisabled()"
-				@click="approveAndSubmit"><span class="u-text-capitalize"> {{action}}</span></TheButton>
+				@click="approveAndSubmit">
+				<span class="u-text-capitalize">{{action}}</span>
+			</TheButton>
 		</LayoutFlex>
 	</div>
 </template>
