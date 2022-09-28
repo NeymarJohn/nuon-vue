@@ -46,6 +46,7 @@
 					event=""
 					to="/farms"
 					title="Click to visit the Farms"
+					class="u-is-disabled"
 					:class="{'active-link': isRouteActive('/farms')}">
 					<FarmIcon /> Farms
 				</NuxtLink>
@@ -55,6 +56,7 @@
 					event=""
 					to="/analytics"
 					title="Click to visit Analytics"
+					class="u-is-disabled"
 					:class="{'active-link': isRouteActive('/analytics')}">
 					<AnalyticsIcon /> Analytics
 				</NuxtLink>

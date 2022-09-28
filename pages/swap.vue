@@ -1,13 +1,11 @@
 <template>
 	<div>
 		<LayoutContainer>
-			<LayoutFlex direction="row-justify-end">
-				<PriceIndicator />
-			</LayoutFlex>
-			<LayoutHeader class="u-border">
+			<LayoutHeader>
 				<PageTitle>
 					<h1>Swap</h1>
 				</PageTitle>
+				<PriceIndicator />
 			</LayoutHeader>
 		</LayoutContainer>
 		<LayoutContainer size="sm" class="u-pt-0">

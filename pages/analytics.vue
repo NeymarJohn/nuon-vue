@@ -1,12 +1,10 @@
 <template>
 	<LayoutContainer>
-		<LayoutFlex direction="row-justify-end">
-			<PriceIndicator />
-		</LayoutFlex>
-		<LayoutHeader class="u-border">
+		<LayoutHeader>
 			<PageTitle>
 				<h1>Analytics</h1>
 			</PageTitle>
+			<PriceIndicator />
 		</LayoutHeader>
 		<CollateralHubOverview />
 		<TokenPrice />

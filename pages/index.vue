@@ -1,12 +1,10 @@
 <template>
 	<LayoutContainer>
-		<LayoutFlex direction="row-justify-end l-flex--row-justfify-start-sm">
-			<PriceIndicator data-v-step="3" />
-		</LayoutFlex>
-		<LayoutHeader class="u-border">
+		<LayoutHeader>
 			<PageTitle data-v-step="1">
 				<h1>Dashboard</h1>
 			</PageTitle>
+			<PriceIndicator data-v-step="3" />
 		</LayoutHeader>
 		<h3 class="u-mb-24">Account Health</h3>
 		<div class="l-collateral l-collateral--distribution" data-v-step="4">

@@ -1,14 +1,12 @@
 <template>
 	<LayoutContainer>
-		<LayoutFlex direction="row-justify-end">
-			<PriceIndicator />
-		</LayoutFlex>
 		<LayoutHeader>
 			<PageTitle data-v-step="1">
 				<h1>Manage {{sections[currentSection]}}</h1>
 			</PageTitle>
+			<PriceIndicator />
 		</LayoutHeader>
-		<TheTabs margin="48 tabs__header-parent" size="govern" color="transparent" @tab-changed="handleTabChanged">
+		<TheTabs margin="24" size="govern" color="transparent" @tab-changed="handleTabChanged">
 			<TheTab title="Nuon">
 				<LayoutAction type="tabs" class="u-mb-48">
 					<template #left>

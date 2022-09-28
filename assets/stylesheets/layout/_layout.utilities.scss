@@ -23,6 +23,7 @@
 		22. Height
 		23. Text decoration
 		24. Font size
+		25. Disabled
 */
 
 // 1. Margin bottom
@@ -451,4 +452,9 @@
 .u-font-size-14 {
 	font-size: $PX_14 !important;
 	line-height: $PX_20 !important;
+}
+
+// 25. Disabled
+.u-is-disabled {
+	cursor: not-allowed;
 }

@@ -1,12 +1,10 @@
 <template>
 	<LayoutContainer>
-		<LayoutFlex direction="row-justify-end">
-			<PriceIndicator />
-		</LayoutFlex>
-		<LayoutHeader class="u-border" data-v-step="1">
+		<LayoutHeader data-v-step="1">
 			<PageTitle>
 				<h1>{{ sections[currentSection ]}} NUON</h1>
 			</PageTitle>
+			<PriceIndicator />
 		</LayoutHeader>
 		<LayoutMint>
 			<TheTabs margin="0" size="full" @tab-changed="handleTabChanged">
