@@ -1,13 +1,13 @@
 <template>
 	<ul class="price-indicator">
-		<li>NUON Price - Oracle:
+		<li>NUON Price(Oracle):
 			<ComponentLoader component="nuon-price" :loaded="nuonOraclePrice !== 0 && targetPeg !== 0">
 				<span>${{ nuonOraclePrice | toFixed }}</span>
 				<TheBadge v-if="nuonOraclePrice > targetPeg">Above</TheBadge>
 				<TheBadge v-else-if="nuonOraclePrice < targetPeg">Below</TheBadge>
 			</ComponentLoader>
 		</li>
-		<li>NUON Price - Swap:
+		<li>NUON Price(Swap):
 			<ComponentLoader component="nuon-price" :loaded="nuonPrice !== 0 && targetPeg !== 0">
 				<span>${{ nuonPrice | toFixed}}</span>
 				<TheBadge v-if="nuonPrice > targetPeg">Above</TheBadge>

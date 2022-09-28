@@ -65,7 +65,6 @@ export default {
 		return {
 			estimatedWithdrawnValue: 0,
 			inputValue: null,
-			mintFee: 5,
 			selectedCollateral: "WETH"
 		};
 	},
@@ -84,7 +83,7 @@ export default {
 				},
 				{
 					title: "Fee",
-					val: this.mintFee,
+					val: this.redeemFee,
 					currency: "%",
 				},
 			];
@@ -99,7 +98,7 @@ export default {
 			return parseFloat(this.inputValue) > parseFloat(this.mintedAmount);
 		},
 		redeemFee() {
-			return parseFloat(this.$store.state.collateralVaultStore.redeemFee) * 100;
+			return this.$store.state.collateralVaultStore.redeemFee[this.selectedCollateral];
 		},
 		mintedAmount() {
 			return this.$store.state.collateralVaultStore.mintedAmount[this.selectedCollateral];

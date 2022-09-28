@@ -17,7 +17,7 @@
 					<LayoutFlex direction="row-center-space-between">
 						<div>
 							<p v-if="isMoreThanEqualMinimum || isLessThanEqualBalance && selectedCollateralRatio <= 1000" class="u-font-size-14 u-is-success u-mb-0">Ready To Mint</p>
-							<p v-if="isMoreThanBalance || inputValue > totalFromWallet" class="u-font-size-14 u-is-warning u-mb-0">Insufficient Balance</p>
+							<p v-if="isMoreThanBalance" class="u-font-size-14 u-is-warning u-mb-0">Insufficient Balance</p>
 						</div>
 						<p class="u-mb-0 u-font-size-14 u-color-light-grey">~ ${{ getDollarValue(inputValue, collateralPrice) | toFixed | numberWithCommas }}</p>
 					</LayoutFlex>
@@ -53,7 +53,6 @@
 			</div>
 		</div>
 		<TransactionSummary v-if="inputValue > 0 && !isMoreThanBalance && selectedCollateralRatio <= 1000" :values="summary" />
-		<h4 v-if="inputValue > 0 && !isMoreThanBalance && selectedCollateralRatio <= 1000" class="u-mb-24 u-text-right">Total Amount: {{ totalFromWallet | toFixed | numberWithCommas }} {{ selectedCollateral }}</h4>
 		<LayoutFlex direction="row-justify-end">
 			<TheButton
 				title="Click to mint"
@@ -146,9 +145,6 @@ export default {
 				},
 			];
 		},
-		totalFromWallet() {
-			return Number(this.inputValue) + Number(this.estimatedExtraRequiredCollateral);
-		},
 		isMoreThanEqualMinimum() {
 			return this.inputValue >= this.isLTEMinimumDepositAmount;
 		},
@@ -165,7 +161,7 @@ export default {
 			return this.$store.state.erc20Store.balance[this.selectedCollateral];
 		},
 		mintFee() {
-			return parseFloat(this.$store.state.collateralVaultStore.mintingFee) * 100;
+			return this.$store.state.collateralVaultStore.mintingFee[this.selectedCollateral];
 		},
 		decimals() {
 			return this.$store.state.erc20Store.decimals[this.selectedCollateral];
