@@ -53,6 +53,7 @@
 			</div>
 		</div>
 		<TransactionSummary v-if="inputValue > 0 && !isMoreThanBalance && selectedCollateralRatio <= 1000" :values="summary" />
+		<h3 v-if="inputValue > 0 && !isMoreThanBalance && selectedCollateralRatio <= 1000" class="u-mb-24">Total amount: {{ totalFromWallet | toFixed | numberWithCommas }} {{ selectedCollateral }}</h3>
 		<LayoutFlex direction="row-justify-end">
 			<TheButton
 				title="Click to mint"
@@ -144,6 +145,9 @@ export default {
 					currency: "%",
 				},
 			];
+		},
+		totalFromWallet() {
+			return Number(this.inputValue) + Number(this.estimatedExtraRequiredCollateral);
 		},
 		isMoreThanEqualMinimum() {
 			return this.inputValue >= this.isLTEMinimumDepositAmount;
