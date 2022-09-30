@@ -94,7 +94,9 @@ export default {
 	},
 	methods: {
 		async initialize() {
+			this.$store.dispatch("collateralVaultStore/getAllowance", this.selectedCollateral);
 			await this.$store.dispatch("collateralVaultStore/updateStatus");
+
 		},
 	}
 };

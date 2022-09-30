@@ -213,7 +213,6 @@ export default {
 			if (!this.isConnectedWallet) return;
 			try {
 				this.selectedCollateralRatio = DEFAULT_BASIC_RATIO;
-				this.$store.dispatch("collateralVaultStore/getAllowance", this.selectedCollateral);
 			} catch (e) {
 				this.failureToast(null, e, "An error occurred");
 			}

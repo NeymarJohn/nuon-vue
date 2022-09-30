@@ -102,7 +102,11 @@ export default {
 		},
 		mintedAmount() {
 			return this.$store.state.collateralVaultStore.mintedAmount[this.selectedCollateral];
-		}
+		},		
+		isApproved() {
+			const allowance = this.$store.state.collateralVaultStore.allowance;
+			return allowance[this.selectedCollateral] > 0;
+		},
 	},
 	methods: {
 		debouncedHandler: debounce(function(e) {
