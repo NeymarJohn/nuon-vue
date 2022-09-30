@@ -311,11 +311,11 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 
 		// Update minted Nuon
 		const mintedAmount = fromWei(await chubContract.methods.viewUserMintedAmount(accountAddress).call());
-		ctx.commit("setMintedAmount",  {token, amount: Number(mintedAmount)});
+		ctx.commit("setMintedAmount",  {token, amount: mintedAmount});
 
 		// update locked token amount
 		const lockedAmount = fromWei(await chubContract.methods.viewUserCollateralAmount(accountAddress).call(),decimals);
-		ctx.commit("setLockedAmount",  {token, amount: Number(lockedAmount)});
+		ctx.commit("setLockedAmount",  {token, amount: lockedAmount});
 
 		// update collateral ratio
 		const collateralRatio = fromWei(await chubContract.methods.getUserCollateralRatioInPercent(accountAddress).call());
