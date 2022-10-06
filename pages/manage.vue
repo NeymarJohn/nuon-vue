@@ -88,6 +88,7 @@ export default {
 		return {
 			mobileView: false,
 			selectedCollateral: "WETH",
+			defaultAction: 0, // Default Selected Tab
 			currentSection: 0,
 			sections: ["NUON", "Collateral", "Liquidity"],
 			steps: [
@@ -131,6 +132,12 @@ export default {
 		this.initialize();
 		this.mobileView = this.isMobile();
 		if (!$cookies.get("skip_manage_tour")) this.$tours.manageTour.start();
+		if (this.$route.query.collateral) {
+			this.selectedCollateral = this.$route.query.collateral;
+		} 
+		if (this.$route.query.actoin) {
+			this.defaultAction = this.$route.query.action;
+		}
 	},
 	methods: {
 		onChangeCollateral(collateral) {

@@ -65,7 +65,7 @@ export default {
 		defaultCollateral: {
 			type: String,
 			required: true,
-			defaultValue: "WETH"
+			default: "WETH"
 		}
 	},
 	data() {
