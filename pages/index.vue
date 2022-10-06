@@ -222,20 +222,21 @@ export default {
 			actions:[
 				{
 					label: "Mint",
-					handler: () => {
-						this.$nuxt.$options.router.push("/mint");
+					handler: (row) => {
+						this.$nuxt.$options.router.push(`/mint?action=0&collateral=${row.lockedCollateral}`);
 					}
 				},
 				{
 					label: "Redeem",
-					handler: () =>  {
-						this.$nuxt.$options.router.push("/mint");
+					handler: (row) =>  {
+						this.$nuxt.$options.router.push(`/mint?action=1&collateral=${row.lockedCollateral}`);
+
 					}
 				},
 				{
 					label: "Manage",
-					handler: () =>  {
-						this.$nuxt.$options.router.push("/manage");
+					handler: (row) =>  {
+						this.$nuxt.$options.router.push(`/manage?collateral=${row.lockedCollateral}`);
 					}
 				}
 			],
