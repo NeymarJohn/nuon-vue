@@ -5,7 +5,9 @@
 				<label>{{ action }}</label>
 				<ComponentLoader component="label" :loaded="tokenBalances[selectedCollateral] !== '0'" class="u-height-20">
 					<label>
-						Balance
+						<span v-if="action==='Deposit'">Wallet Balance:</span>
+						<span v-else-if="action==='Withdraw'">Locked Collateral:</span>
+						<span v-else>Balance:</span>
 						<span>{{ availableAmount | formatLongNumber }}</span>
 					</label>
 				</ComponentLoader>
