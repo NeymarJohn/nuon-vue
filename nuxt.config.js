@@ -57,7 +57,33 @@ export default {
 	modules: [
 		"@nuxtjs/axios",
 		"vue-social-sharing/nuxt",
+		"@nuxtjs/gtm"
 	],
+
+	// Goot Tag Manger Settings
+	gtm: {
+		id: "GTM-PVHFSDX",
+
+		layer: "dataLayer",
+		variables: {},
+		
+		enabled: true,
+		debug: false,
+		pageTracking: true,
+		pageViewEventName: "nuxtRoute",
+
+		autoInit: true,
+		respectDoNotTrack: true,
+
+		scriptId: "gtm-script",
+		scriptDefer: false,
+		scriptURL: "https://www.googletagmanager.com/gtm.js",
+		crossOrigin: false,
+
+		noscript: true,
+		noscriptId: "gtm-noscript",
+		noscriptURL: "https://www.googletagmanager.com/ns.html"
+	},
 
 	// Build Configuration: https://go.nuxtjs.dev/config-build
 	build: {
