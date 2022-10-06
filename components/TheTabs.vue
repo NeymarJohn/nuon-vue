@@ -25,10 +25,10 @@ export default {
 			type: String,
 			default: "48"
 		},
-		defaultSelectTab: {
-			type: Boolean,
+		defaultSelected: {
+			type: Number,
 			required: false,
-			default: true
+			default: 0
 		}
 	},
 	data() {
@@ -37,8 +37,13 @@ export default {
 			tabs: []
 		};
 	},
+	watch: {
+		defaultSelected(newValue) {
+			this.selectTab(newValue);
+		}
+	},
 	mounted() {
-		this.defaultSelectTab && this.selectTab(0);
+		this.selectTab(this.defaultSelected);
 	},
 	created() {
 		this.tabs = this.$children;
@@ -51,6 +56,6 @@ export default {
 				tab.isActive = (index === i);
 			});
 		}
-	}
+	},
 };
 </script>

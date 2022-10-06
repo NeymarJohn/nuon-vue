@@ -61,6 +61,13 @@ export default {
 	components: {
 		NuonLogo,
 	},
+	props: {
+		defaultCollateral: {
+			type: String,
+			required: true,
+			defaultValue: "WETH"
+		}
+	},
 	data() {
 		return {
 			estimatedWithdrawnValue: 0,
@@ -107,6 +114,11 @@ export default {
 			const allowance = this.$store.state.collateralVaultStore.allowance;
 			return allowance[this.selectedCollateral] > 0;
 		},
+	},
+	mounted () {
+		if (this.defaultCollateral) {
+			this.selectedCollateral = this.defaultCollateral;
+		};
 	},
 	methods: {
 		debouncedHandler: debounce(function(e) {

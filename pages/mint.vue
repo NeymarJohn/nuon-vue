@@ -7,12 +7,12 @@
 			<PriceIndicator />
 		</LayoutHeader>
 		<LayoutMint>
-			<TheTabs margin="0" size="full" @tab-changed="handleTabChanged">
+			<TheTabs margin="0" size="full" :default-selected="defaultAction" @tab-changed="handleTabChanged">
 				<TheTab title="Mint">
-					<CollateralMint :minimum-deposit-amount="0" :steps="steps" :callbacks="tourCallbacks" />
+					<CollateralMint :minimum-deposit-amount="0" :steps="steps" :callbacks="tourCallbacks" :default-collateral="selectedCollateral"/>
 				</TheTab>
 				<TheTab title="Redeem">
-					<CollateralRedeem currently-selected-collateral="WETH" />
+					<CollateralRedeem :default-collateral="selectedCollateral" />
 				</TheTab>
 			</TheTabs>
 		</LayoutMint>
@@ -27,6 +27,8 @@ export default {
 		return {
 			currentSection: 0,
 			sections: ["Mint", "Redeem"],
+			defaultAction: 0,  // From Url 
+			selectedCollateral: "WETH", // Updated from Url
 			steps: [
 				{
 					target: "[data-v-step=\"1\"]",
@@ -91,6 +93,12 @@ export default {
 		this.initialize();
 		this.mobileView = this.isMobile();
 		if (!$cookies.get("skip_mint_tour")) this.$tours.mintTour.start();
+		if (this.$route.query.action) {
+			this.defaultAction = Number(this.$route.query.action); // set as tab index
+		}
+		if (this.$route.query.collateral) {
+			this.selectedCollateral = this.$route.query.collateral;
+		}
 	},
 	methods: {
 		async initialize() {

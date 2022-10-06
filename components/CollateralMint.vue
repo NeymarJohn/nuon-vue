@@ -87,6 +87,11 @@ export default {
 		callbacks: {
 			type: Object,
 			required: true
+		},
+		defaultCollateral: {
+			type: String,
+			required: true,
+			defaultValue: "WETH"
 		}
 	},
 	data() {
@@ -207,10 +212,13 @@ export default {
 				this.selectedCollateralRatio = DEFAULT_BASIC_RATIO;
 				this.selectedRatio = 1;
 			}
-		}
+		},
 	},
 	mounted() {
 		this.initialize();
+		if (this.defaultCollateral) {
+			this.selectedCollateral = this.defaultCollateral;
+		}
 	},
 	methods: {
 		initialize() {
