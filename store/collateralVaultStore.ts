@@ -366,10 +366,10 @@ export const actions: ActionTree<BoardroomState, BoardroomState> = {
 	 * 					addLiquidityForUser | 
 	 * 					removeLiquidityForUser
 	 */
-	async callManageMethods(ctx: any, {collateral, method, amount, onTxHash, onConfirm, onReject}) {
+	callManageMethods(ctx: any, {collateral, method, amount, onTxHash, onConfirm, onReject}) {
 		const chubContract = ctx.getters.getCollateralHubContract(collateral);
 		const accountAddress = ctx.rootState.web3Store.account;
-		return await chubContract.methods[method].apply(null, [amount])
+		return chubContract.methods[method].apply(null, [amount])
 			.send({from: accountAddress})
 			.on("transactionHash", (txHash: string) => {
 				if (onTxHash) onTxHash(txHash);

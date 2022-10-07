@@ -43,6 +43,7 @@
 			<TheButton
 				title="Click to mint"
 				:disabled="isRedeemDisabled"
+				:loading = "redeeming"
 				@click="approveAndRedeem">
 				Redeem
 			</TheButton>
@@ -72,7 +73,8 @@ export default {
 		return {
 			estimatedWithdrawnValue: 0,
 			inputValue: null,
-			selectedCollateral: "WETH"
+			selectedCollateral: "WETH",
+			redeeming: false
 		};
 	},
 	computed: {
@@ -144,6 +146,7 @@ export default {
 			if (this.isApproved) {
 				this.redeem();
 			} else {
+				this.redeeming = true;
 				await this.$store.dispatch("collateralVaultStore/approveToken",
 					{
 						tokenSymbol: NUON.symbol,
@@ -151,10 +154,13 @@ export default {
 						onCallback: () => {
 							this.redeem();
 						}
-					});}
+					});
+				this.redeeming = false;
+			}
 		},
 		async redeem() {
 			const nuonAmount = toWei(this.inputValue, this.$store.state.erc20Store.decimals.NUON);
+			this.redeeming = true;
 			try {
 				await this.$store.dispatch("collateralVaultStore/redeem",
 					{
@@ -171,7 +177,9 @@ export default {
 			} catch(e) {
 				const message = this.getRPCErrorMessage(e);
 				this.failureToast(null, message || e, "Transaction failed");
-			}
+			} finally {
+				this.redeeming = false;
+			}	
 		},
 		selectCollateralToken(token) {
 			this.selectedCollateral = token.symbol;

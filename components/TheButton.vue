@@ -1,7 +1,7 @@
 <template>
-	<button :class="`btn btn--${ size }`" type="button" @click="clicked($event)">
+	<button :class="`btn btn--${ size }`" type="button" :disabled="loading" @click="clicked($event)">
 		<slot v-if="!loading" />
-		<label v-else >Loading...</label>
+		<div v-else class="spin-loader" ></div>
 	</button>
 </template>
 

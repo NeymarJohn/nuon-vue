@@ -219,11 +219,13 @@ export default {
 						this.isLoading = false;
 					},
 					onTxHash: () => {
-						this.isLoading = false;
 					}
+				}).then(() => {
+					this.isLoading = false;
 				});
 			} catch (err) {
 				this.failureToast(null, err, "Transaction Failed");
+				this.isLoading = false;
 			}
 		},
 

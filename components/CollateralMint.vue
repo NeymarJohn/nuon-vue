@@ -58,6 +58,7 @@
 			<TheButton
 				title="Click to mint"
 				:disabled="isMintDisabled"
+				:loading="minting"
 				@click="approveAndMint">
 				Mint
 			</TheButton>
@@ -260,11 +261,13 @@ export default {
 			if (this.isApproved) {
 				this.mint();
 			} else {
+				this.minting = true;
 				await this.$store.dispatch("collateralVaultStore/approveToken",
 					{
 						tokenSymbol: this.selectedCollateral,
 						collateralToken: this.selectedCollateral,
 						onCallback: () => {
+							this.minting = false;
 							this.mint();
 						}
 					});}

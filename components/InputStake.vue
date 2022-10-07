@@ -36,6 +36,7 @@
 				size="md"
 				title="Click to stake"
 				:disabled="isDisabled()"
+				:loading="staking"
 				@click="approveAndSubmit">
 				<span class="u-text-capitalize">{{action}}</span>
 			</TheButton>
@@ -68,6 +69,7 @@ export default {
 	data () {
 		return {
 			inputValue: null,
+			staking: false,
 			price: {
 				nuMINT: 0
 			},
@@ -150,10 +152,16 @@ export default {
 		},
 		submitTransaction() {
 			if (this.account !== "") {
+				this.staking = true;
 				const handlerCompletion = () => {
 					this.inputValue = "";
 					this.changeInputValue();
+					this.staking = false;
 					this.$store.dispatch("boardroomStore/updateStatus");
+				};
+				const handleError = (err) => {
+					this.staking = false;
+					this.failureToast(() => err);
 				};
 				if (this.action === "stake") {
 					this.$store.dispatch("boardroomStore/stake", {
@@ -162,7 +170,9 @@ export default {
 							this.successToast(() => `You have staked ${this.inputValue} nuMINT`, receipt.transactionHash);
 							this.$emit("close-modal");
 						},
-						onError: (err) => this.failureToast(() => err),
+						onError: (err) => {
+							handleError(err);
+						},
 						onComplete: () => {
 							handlerCompletion();
 						}
@@ -174,7 +184,9 @@ export default {
 							this.successToast(() => `You have withdraw ${this.inputValue} nuMINT`, receipt.transactionHash);
 							this.$emit("close-modal");
 						},
-						onError: (err) => this.failureToast(() => err),
+						onError: (err) => {
+							handleError(err);
+						},
 						onComplete: () => {
 							handlerCompletion();
 						}
@@ -185,7 +197,9 @@ export default {
 							this.successToast(() => "You have claimed your reward", receipt.transactionHash);
 							this.$emit("close-modal");
 						},
-						onError: (err) => this.failureToast(() => err),
+						onError: (err) => {
+							handleError(err);
+						},
 						onComplete: () => {
 							handlerCompletion();
 						}

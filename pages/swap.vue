@@ -127,6 +127,7 @@
 					size="lg"
 					title="Click to swap"
 					:disabled="isSwapDisabled"
+					:loading="swapping"
 					@click="approveAndSwap">Swap</TheButton>
 			</div>
 		</LayoutContainer>
@@ -163,7 +164,8 @@ export default {
 			maxSlippage: 0.5,
 			isInputRate: true,
 			reserves: {},
-			isLoadingPriceImpact: false
+			isLoadingPriceImpact: false,
+			swapping: false
 		};
 	},
 	head () {
@@ -283,6 +285,7 @@ export default {
 			});
 		},
 		swapForInput() {
+			this.swapping = true;
 			this.$store.dispatch(
 				"swapStore/swapExactTokensForTokens",
 				{
@@ -305,9 +308,12 @@ export default {
 				.catch((e) => {
 					this.failureToast(null, e, "Transaction Failed");
 				})
-				.finally(() => {});
+				.finally(() => {
+					this.swapping = false;
+				});
 		},
 		swapForOutput() {
+			this.swapping = true;
 			this.$store.dispatch(
 				"swapStore/swapTokensForExactTokens",
 				{
@@ -326,7 +332,9 @@ export default {
 				this.$store.dispatch("erc20Store/getBalance", this.input.token);
 				this.$store.dispatch("erc20Store/getBalance", this.output.token);
 			}).catch(() => {})
-				.finally(() => {});
+				.finally(() => {
+					this.swapping = false;
+				});
 		},
 		calcuatePriceImpact() {
 			if (!this.input.token || !this.output.token) return;
