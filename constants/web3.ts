@@ -1,13 +1,13 @@
 export const CHAIN_DATA = {
-	4: {
-		name: "Rinkeby",
-		provider: "https://rinkeby.infura.io/v3/950e2e1f336a4e3bade855464f024942",
-		chainId: 4,
-		explorerLink: "https://rinkeby.etherscan.io",
+	1: {
+		name: "Ethereum Mainnet",
+		provider: "https://mainnet.infura.io/v3/1ab1aff8d8fc45e09d68150fcf0e63bb",
+		chainId: 1,
+		explorerLink: "https://etherscan.io",
 	},
 	5: {
 		name: "Goerli",
-		provider: "https://goerli.infura.io/v3/",
+		provider: "https://goerli.infura.io/v3/1ab1aff8d8fc45e09d68150fcf0e63bb",
 		chainId: 5,
 		explorerLink: "https://goerli.etherscan.io",
 	},

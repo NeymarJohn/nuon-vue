@@ -46,7 +46,8 @@
 				class="u-min-width-200"
 				size="md"
 				title="Click to publish proposal"
-				:disabled="!isConnectedWallet || !proposal.title || !proposal.startDate">Publish</TheButton>
+				:disabled="!isConnectedWallet || !proposal.title || !proposal.startDate"
+				@click="publishProposal">Publish</TheButton>
 		</LayoutFlex>
 	</form>
 </template>
@@ -112,7 +113,7 @@ export default {
 		},
 		async publishProposal() {
 			this.activeStep = "loading";
-			const web3 = new Web3(new Web3.providers.HttpProvider("https://eth-rinkeby.alchemyapi.io/v2/tNNOqUaCiby8YE9se1dFThx5rjgh13V_"));
+			const web3 = new Web3(new Web3.providers.HttpProvider("https://eth-goerli.alchemyapi.io/v2/tNNOqUaCiby8YE9se1dFThx5rjgh13V_"));
 			const provider = new Web3Provider(window.ethereum);
 			const [account] = await provider.listAccounts();
 			const client = new snapshot.Client712("https://hub.snapshot.org");
@@ -128,7 +129,7 @@ export default {
 					start: Math.floor((this.proposal.startDate.getTime()) / 1000),
 					end: Math.floor((this.proposal.startDate.getTime() + (3600000 * 24 * 7)) / 1000),
 					snapshot: latestBlockNumber,
-					network: "4",
+					network: "5",
 					strategies: JSON.stringify({}),
 					plugins: JSON.stringify({}),
 					metadata: JSON.stringify({})
