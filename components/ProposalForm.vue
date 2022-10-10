@@ -59,6 +59,7 @@ import snapshot from "@snapshot-labs/snapshot.js";
 import DatePicker from "vue2-datepicker";
 import { fromWei } from "~/utils/bnTools";
 import "vue2-datepicker/index.css";
+import { CHAIN_DATA } from "~/constants/web3";
 
 export default {
 	name: "ProposalForm",
@@ -113,10 +114,15 @@ export default {
 		},
 		async publishProposal() {
 			this.activeStep = "loading";
-			const web3 = new Web3(new Web3.providers.HttpProvider("https://eth-goerli.alchemyapi.io/v2/tNNOqUaCiby8YE9se1dFThx5rjgh13V_"));
+			const networkId = this.$store.state.web3Store.chainId;
+			const networkUrl = CHAIN_DATA[networkId].provider;
+			const web3 = new Web3(new Web3.providers.HttpProvider(networkUrl));
+			console.log("window.ethereum",window.ethereum);
+			console.log("web3",web3);
 			const provider = new Web3Provider(window.ethereum);
 			const [account] = await provider.listAccounts();
-			const client = new snapshot.Client712("https://hub.snapshot.org");
+			// const client = new snapshot.Client712("https://hub.snapshot.org");
+			const client = new snapshot.Client712("https://testnet.snapshot.org");
 			const latestBlockNumber = await web3.eth.getBlockNumber();
 
 			try {
@@ -129,7 +135,7 @@ export default {
 					start: Math.floor((this.proposal.startDate.getTime()) / 1000),
 					end: Math.floor((this.proposal.startDate.getTime() + (3600000 * 24 * 7)) / 1000),
 					snapshot: latestBlockNumber,
-					network: "5",
+					network: `${networkId}`,
 					strategies: JSON.stringify({}),
 					plugins: JSON.stringify({}),
 					metadata: JSON.stringify({})
