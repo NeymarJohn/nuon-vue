@@ -141,11 +141,13 @@
 						</div>
 						<div class="modal__confirm--buttons">
 							<TheButton
-								size="lg"
+								size="md"
+								type="outline"
 								title="Click to cancel"
 								@click="setModalVisibility('voteModal', false)">Cancel</TheButton>
 							<TheButton
-								size="lg"
+								size="md"
+								type="solid"
 								title="Click to submit vote"
 								@click="submitVote">Submit Vote</TheButton>
 						</div>

@@ -1,5 +1,5 @@
 <template>
-	<button :class="`btn btn--${ size }`" type="button" :disabled="loading" @click="clicked($event)">
+	<button :class="`btn btn--${ size } ${type}`" type="button" :disabled="loading" @click="clicked($event)">
 		<slot v-if="!loading" />
 		<div v-else class="spin-loader" ></div>
 	</button>
@@ -12,6 +12,10 @@ export default {
 		size: {
 			type: String,
 			default: "md",
+		},
+		type: {
+			type: String,
+			default: "solid",
 		},
 		loading: {
 			type: Boolean,
