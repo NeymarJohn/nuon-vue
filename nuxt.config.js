@@ -62,7 +62,7 @@ export default {
 
 	// Goot Tag Manger Settings
 	gtm: {
-		id: "GTM-PVHFSDX",
+		id: "GTM-P4HBXLR",
 
 		layer: "dataLayer",
 		variables: {},
@@ -155,7 +155,7 @@ export default {
 									first: 20000,
 									skip: $numberToSkip,
 									where: {
-										space_in: ["calon.eth"]
+										space_in: ["testnuon.eth"]
 									}
 								) {
 									id

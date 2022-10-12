@@ -99,6 +99,7 @@ export default {
 		if (this.$route.query.collateral) {
 			this.selectedCollateral = this.$route.query.collateral;
 		}
+		this.$gtm.push({ event: "visited", name: "Mint"  });
 	},
 	methods: {
 		async initialize() {

@@ -406,6 +406,7 @@ export default {
 		this.initialize(this.collaterals);
 		this.handleMouseOverChart(-1);
 		if (!$cookies.get("skip_my_dashboard_tour")) this.$tours.myDashboardTour.start();
+		this.$gtm.push({ event: "visited", name: "Dashboard"  });
 	},
 	methods: {
 		async initialize(collaterals) {

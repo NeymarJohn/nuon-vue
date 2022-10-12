@@ -318,7 +318,7 @@ export default {
 
 			try {
 				await client.vote(provider, account, {
-					space: "calon.eth",
+					space: "testnuon.eth",
 					proposal: this.$route.params.proposal,
 					type: "single-choice",
 					choice: this.vote + 1,

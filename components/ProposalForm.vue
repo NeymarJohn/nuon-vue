@@ -117,17 +117,14 @@ export default {
 			const networkId = this.$store.state.web3Store.chainId;
 			const networkUrl = CHAIN_DATA[networkId].provider;
 			const web3 = new Web3(new Web3.providers.HttpProvider(networkUrl));
-			console.log("window.ethereum",window.ethereum);
-			console.log("web3",web3);
 			const provider = new Web3Provider(window.ethereum);
 			const [account] = await provider.listAccounts();
-			// const client = new snapshot.Client712("https://hub.snapshot.org");
-			const client = new snapshot.Client712("https://testnet.snapshot.org");
+			const client = new snapshot.Client712("https://hub.snapshot.org");
 			const latestBlockNumber = await web3.eth.getBlockNumber();
 
 			try {
 				await client.proposal(provider, account, {
-					space: "calon.eth",
+					space: "testnuon.eth",
 					type: "single-choice",
 					title: this.proposal.title,
 					body: this.proposal.description,
@@ -142,7 +139,7 @@ export default {
 				});
 
 				this.successToast(null, "Your Proposal has been created");
-				this.$router.push({path: "/boardroom"});
+				this.$router.push({path: "/govern"});
 			} catch (e) {
 				this.failureToast(null, e);
 			} finally {

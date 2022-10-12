@@ -254,7 +254,7 @@ export default {
 								first: 10,
 								skip: $numberToSkip,
 								where: {
-									space_in: ["calon.eth"]
+									space_in: ["testnuon.eth"]
 								},
 								orderBy: "created",
 								orderDirection: desc
@@ -283,7 +283,11 @@ export default {
 				if (proposals.status === 200) {
 					const proposalData = proposals.data.data.proposals;
 					if (proposalData.length === 0) this.reachedEnd = true;
-					this.proposals.push(...proposalData);
+					if (page === 0) {
+						this.proposals = proposalData;
+					} else {
+						this.proposals.push(...proposalData);
+					}
 				}
 			} catch (e) {
 				const err = e.message ? e.message : e.response.data;
@@ -306,7 +310,7 @@ export default {
 									first: 20000,
 									skip: $numberToSkip,
 									where: {
-										space_in: ["calon.eth"]
+										space_in: ["testnuon.eth"]
 									}
 								) {
 									id
@@ -345,7 +349,7 @@ export default {
 									first: 20000,
 									skip: $numberToSkip,
 									where: {
-										space_in: ["calon.eth"]
+										space_in: ["testnuon.eth"]
 									}
 								) {
 									id

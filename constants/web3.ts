@@ -19,5 +19,5 @@ export const CHAIN_DATA = {
 	}
 };
 export const WALLETS = ["metamask", "walletconnect"];
-export const NETWORKS = [1, 5, 31010];
+export const NETWORKS = [5, 31010];
 export const DEFAULT_BASIC_RATIO = 300;
