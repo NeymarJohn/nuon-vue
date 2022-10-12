@@ -161,13 +161,13 @@ export default {
 				};
 				const handleError = (err) => {
 					this.staking = false;
-					this.failureToast(() => err);
+					this.failureToast(null, err);
 				};
 				if (this.action === "stake") {
 					this.$store.dispatch("boardroomStore/stake", {
 						amount: this.inputValue,
 						onConfirm: (_confNumber, receipt, _latestBlockHash) => {
-							this.successToast(() => `You have staked ${this.inputValue} nuMINT`, receipt.transactionHash);
+							this.successToast(null, `You have staked ${this.inputValue} nuMINT`, receipt.transactionHash);
 							this.$emit("close-modal");
 						},
 						onError: (err) => {
@@ -181,7 +181,7 @@ export default {
 					this.$store.dispatch("boardroomStore/withdraw", {
 						amount: this.inputValue,
 						onConfirm: (_confNumber, receipt, _latestBlockHash) => {
-							this.successToast(() => `You have withdraw ${this.inputValue} nuMINT`, receipt.transactionHash);
+							this.successToast(null, `You have withdraw ${this.inputValue} nuMINT`, receipt.transactionHash);
 							this.$emit("close-modal");
 						},
 						onError: (err) => {
@@ -194,7 +194,7 @@ export default {
 				} else if (this.action === "claim") {
 					this.$store.dispatch("boardroomStore/claimReward", {
 						onConfirm: (_confNumber, receipt, _latestBlockHash) => {
-							this.successToast(() => "You have claimed your reward", receipt.transactionHash);
+							this.successToast(null, "You have claimed your reward", receipt.transactionHash);
 							this.$emit("close-modal");
 						},
 						onError: (err) => {
