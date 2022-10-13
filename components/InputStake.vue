@@ -181,7 +181,7 @@ export default {
 					this.$store.dispatch("boardroomStore/withdraw", {
 						amount: this.inputValue,
 						onConfirm: (_confNumber, receipt, _latestBlockHash) => {
-							this.successToast(null, `You have withdraw ${this.inputValue} nuMINT`, receipt.transactionHash);
+							this.successToast(null, `You have withdrawn ${this.inputValue} nuMINT`, receipt.transactionHash);
 							this.$emit("close-modal");
 						},
 						onError: (err) => {

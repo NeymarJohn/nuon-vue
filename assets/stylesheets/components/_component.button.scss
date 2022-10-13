@@ -7,6 +7,8 @@
 		6. Button user
 		7. Button back
 		8. Button dropdown
+		9. Button loading
+		10. Button outline
 */
 
 // 1. Button default
@@ -235,7 +237,7 @@ a.btn:hover,
 	border-color: $DARK_GREY;
 }
 
-// 8. Dropdown
+// 8. Button dropdown
 .btn--dropdown {
 	background: $MEDIUM_LIGHT_GREY;
 	border-radius: $BORDER_RADIUS_CIRCLE;
@@ -248,22 +250,28 @@ a.btn:hover,
 	justify-content: center;
 }
 
-// 9. Loader
-.btn .spin-loader {
-	border: 2px solid $MEDIUM_GREY; /* Light grey */
-	border-top: 2px solid $LIGHT_LIME; /* Blue */
+// 9. Button loading
+.btn--loading {
+	border: $PX_2 solid $MEDIUM_GREY; /* Light grey */
+	border-top: $PX_2 solid $LIGHT_LIME; /* Blue */
 	border-radius: 50%;
-	width: 20px;
-	height: 20px;
+	width: $PX_20;
+	height: $PX_20;
 	animation: spin 2s linear infinite;
 	background-color: transparent;
 	margin: auto;
 }
 @keyframes spin {
-	0% { transform: rotate(0deg); }
-	100% { transform: rotate(360deg); }
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
 }
-.btn.outline {
+
+// 10. Button outline
+.btn--outline {
 	background-color: $TRANSPARENT !important;
 	color: $LIME;
 }
