@@ -41,37 +41,18 @@
 					<SwapIcon /> Swap
 				</NuxtLink>
 			</li>
-			<li v-tooltip="'Coming Soon'" class="link-disabled">
-				<NuxtLink
-					event=""
-					to="/farms"
-					title="Click to visit the Farms"
-					class="u-is-disabled"
-					:class="{'active-link': isRouteActive('/farms')}">
-					<FarmIcon /> Farms
-				</NuxtLink>
-			</li>
-			<li v-tooltip="'Coming Soon'" class="link-disabled">
-				<NuxtLink
-					event=""
-					to="/analytics"
-					title="Click to visit Analytics"
-					class="u-is-disabled"
-					:class="{'active-link': isRouteActive('/analytics')}">
-					<AnalyticsIcon /> Analytics
-				</NuxtLink>
-			</li>
 			<a href="https://whitepaper.nuon.fi/" title="Click to visit the documentation" target="_blank" rel="noopener noreferrer"><DocumentationIcon /> Docs <ExternalLinkIcon class="u-mr-0 u-ml-8" /></a>
 		</ul>
+		<h5>Faucets</h5>
 		<ul class="faucet">
 			<li @click="getMockToken('ETH')">
-				<NuxtLink to="" title="Click to get ETH">ETH</NuxtLink>
+				<NuxtLink class="btn btn--sm" to="" title="Click to get ETH">Get ETH</NuxtLink>
 			</li>
 			<li @click="getMockToken('WETH')">
-				<NuxtLink to="" title="Click to get WETH">WETH</NuxtLink>
+				<NuxtLink class="btn btn--sm" to="" title="Click to get WETH">Get WETH</NuxtLink>
 			</li>
 			<li @click="getMockToken('USDT')">
-				<NuxtLink to="" title="Click to get USDT">USDT</NuxtLink>
+				<NuxtLink class="btn btn--sm" to="" title="Click to get USDT">Get USDT</NuxtLink>
 			</li>
 		</ul>
 	</div>
@@ -83,8 +64,6 @@ import MintIcon from "@/assets/images/svg/svg-menu-mint.svg";
 import ManageIcon from "@/assets/images/svg/svg-menu-manage.svg";
 import GovernIcon from "@/assets/images/svg/svg-menu-govern.svg";
 import SwapIcon from "@/assets/images/svg/svg-menu-swap.svg";
-import FarmIcon from "@/assets/images/svg/svg-menu-farm.svg";
-import AnalyticsIcon from "@/assets/images/svg/svg-menu-analytics.svg";
 import DocumentationIcon from "@/assets/images/svg/svg-menu-documentation.svg";
 import ExternalLinkIcon from "@/assets/images/svg/svg-external-link.svg";
 
@@ -96,8 +75,6 @@ export default {
 		ManageIcon,
 		GovernIcon,
 		SwapIcon,
-		FarmIcon,
-		AnalyticsIcon,
 		DocumentationIcon,
 		ExternalLinkIcon,
 	},
