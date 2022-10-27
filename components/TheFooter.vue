@@ -1,5 +1,12 @@
 <template>
 	<LayoutFooter>
+		<div class="faucet">
+			Get Faucet: 
+			<a @click="getMockToken('ETH')">
+				<img :src="require(`~/assets/images/borrow/WETH.png`)" alt="WETH logo" /></a>
+			<a @click="getMockToken('USDT')">
+				<img :src="require(`~/assets/images/borrow/USDT.png`)" alt="USDT logo" /></a>
+		</div>
 		<TheWallet />
 		<ul class="social-icons">
 			<li>
@@ -59,6 +66,20 @@ export default {
 		explorerLink() {
 			if (!CHAIN_DATA[this.$store.state.web3Store.chainId]) return "";
 			return CHAIN_DATA[this.$store.state.web3Store.chainId].explorerLink;
+		}
+	},
+	methods: {
+		async getMockToken(symbol) {
+			try {
+				if (symbol !== "ETH") {
+					const contract = this.$store.getters["erc20Store/getContractBySymbol"](symbol);
+					await contract.methods.faucet().send({from: this.connectedAccount});
+				} else {
+					window.open("https://faucets.chain.link/", "_blank");
+				}
+			} catch (err) {
+				this.failureToast(null, err);
+			}
 		}
 	},
 };

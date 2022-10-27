@@ -1,5 +1,5 @@
 <template>
-	<LayoutContainer>
+	<LayoutContainer v-if="connectedAccount">
 		<LayoutHeader data-v-step="1">
 			<PageTitle>
 				<h1>{{ sections[currentSection ]}} NUON</h1>
@@ -18,6 +18,7 @@
 		</LayoutMint>
 		<v-tour name="mintTour" :steps="steps" :callbacks="tourCallbacks"></v-tour>
 	</LayoutContainer>
+	<Welcome v-else/>
 </template>
 
 <script>
@@ -90,8 +91,9 @@ export default {
 		},
 	},
 	mounted() {
-		this.initialize();
 		this.mobileView = this.isMobile();
+		if (!this.connectedAccount) return;
+		this.initialize();
 		if (!$cookies.get("skip_mint_tour")) this.$tours.mintTour.start();
 		if (this.$route.query.action) {
 			this.defaultAction = Number(this.$route.query.action); // set as tab index

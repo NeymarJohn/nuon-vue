@@ -1,5 +1,5 @@
 <template>
-	<LayoutContainer>
+	<LayoutContainer v-if="connectedAccount">
 		<LayoutHeader>
 			<PageTitle data-v-step="1">
 				<h1>Dashboard</h1>
@@ -34,7 +34,7 @@
 					<label>
 						<TheDot color="blue" />
 						Locked Collateral
-						<ComponentLoader component="badge u-ml-8" :loaded="collateralRatioArr.length > 0">
+						<ComponentLoader component="badge u-ml-8" :loaded="collateralRatioArr">
 							<TheBadge
 								v-if="!isNaN(getChangePercent('collateralTokens', collateralRatioArr, true))"
 								class="u-ml-8"
@@ -54,7 +54,7 @@
 					<label>
 						<TheDot color="lime" />
 						Total NUON Minted Value
-						<ComponentLoader component="badge u-ml-8" :loaded="collateralRatioArr.length > 0">
+						<ComponentLoader component="badge u-ml-8" :loaded="collateralRatioArr">
 							<TheBadge
 								v-if="!isNaN(getChangePercent('mintedValue', collateralRatioArr, true))"
 								class="u-ml-8"
@@ -64,21 +64,21 @@
 						</ComponentLoader>
 					</label>
 					<ComponentLoader component="h3" :loaded="balanceLoaded">
-						<h3>${{ (graphSelectionMintedNuon) | toFixed | numberWithCommas }}</h3>
+						<h3>${{ (graphSelectionMintedNuon || 0) | toFixed | numberWithCommas }}</h3>
 					</ComponentLoader>
 				</div>
 			</div>
 			<div class="l-collateral__chart">
 				<LayoutFlex direction="row-justify-end">
-					<ComponentLoader component="tab u-mb-24" :loaded="xAxisData.length > 0">
+					<ComponentLoader component="tab u-mb-24" :loaded="!!xAxisData">
 						<TheTabs size="thin" color="dark" margin="24" @tab-changed="handleTabChanged">
 							<TheTab v-for="(period, periodIdx) in periods" :key="periodIdx" :title="period" />
 						</TheTabs>
 					</ComponentLoader>
 				</LayoutFlex>
-				<ComponentLoader component="chart u-mt-16" :loaded="xAxisData.length > 0">
+				<ComponentLoader component="chart u-mt-16" :loaded="!!xAxisData">
 					<LineChart
-						:key="`${selectedPeriod}_${selectedCollateralToggleBtn}`"
+						:key="`${selectedPeriod}_${selectedCollateralToggleBtn}_${xAxisData.length}`"
 						:x-axis-labels="xAxisData"
 						:y-axis-options="{
 							showYAxis: false,
@@ -119,6 +119,7 @@
 			</div>
 		</div>
 	</LayoutContainer>
+	<Welcome v-else />
 </template>
 
 <script>
@@ -213,7 +214,7 @@ export default {
 				onFinish: () => this.setCookie("skip_my_dashboard_tour")
 			},
 			mobileView: false,
-			collateralRatioArr: [],
+			collateralRatioArr: null,
 			graphSelectionTVL: "",
 			graphSelectionMintedNuon: "",
 			balanceLoaded: false,
@@ -327,7 +328,7 @@ export default {
 			return changePercent > 0 ? "+ " : "- ";
 		},
 		xAxisData() {
-			return this.lockedValueChartData.xData || [];
+			return this.lockedValueChartData.xData;
 		},
 		yAxisData() {
 			if (this.selectedCollateralToggleBtn === 0)
@@ -338,7 +339,11 @@ export default {
 		lockedValueChartData() {
 			const weeks = {};
 			const months = {};
-
+			if (!this.collateralRatioArr) return {
+				xData: [],
+				yData0:[],
+				yData1:[]
+			};
 			this.collateralRatioArr.forEach(item => {
 				const currentDate = dayjs(new Date(item.date * 1000));
 				if (!weeks[currentDate.startOf("week").format("YYYY-MM-DD")])
@@ -359,7 +364,8 @@ export default {
 						data: Object.values(weeks).map(d => d.mintedValue).reverse(),
 						color: "#dfff65"
 					}]
-				};}
+				};
+			}
 			if (this.selectedPeriod === 2) { // month
 				return {
 					xData: Object.keys(months).map(d => new Date(d).toLocaleDateString("default", { month: "short" })).reverse(),
@@ -403,6 +409,7 @@ export default {
 	},
 	mounted() {
 		this.mobileView = this.isMobile();
+		if (!this.connectedAccount) return;  
 		this.initialize(this.collaterals);
 		this.handleMouseOverChart(-1);
 		if (!$cookies.get("skip_my_dashboard_tour")) this.$tours.myDashboardTour.start();
@@ -429,6 +436,7 @@ export default {
 				this.collateralRatioArr = res.data.data.userTVLDayDatas;
 			}).catch((err) => {
 				this.failureToast(() => {}, err, "An error occurred");
+				this.collateralRatioArr = [];
 			}).finally(() => {
 				const storageKey = `NUON-user_collateral_history_${this.connectedAccount}`;
 				if (this.collateralRatioArr.length === 0) {

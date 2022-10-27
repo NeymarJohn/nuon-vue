@@ -15,24 +15,7 @@
 	margin-bottom: 0;
 	padding: 0 $PX_24;
 }
-.faucet {
-	display: flex;
-	flex-direction: row;
-	padding: 0 $PX_40;
-	justify-content: space-between;
-	margin-top: $PX_16;
-	margin-bottom: $PX_16;
-	gap: $PX_10;
-}
-.faucet a {
-	font-size: $PX_12;
-	color: $DARK_GREY;
-	display: block;
-	text-align: center;
-	line-height: $PX_14;
-	max-height: $PX_24;
-	padding: $PX_4;
-}
+
 .nav li {
 	margin-bottom: $PX_16;
 }

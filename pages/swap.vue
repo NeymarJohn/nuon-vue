@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div v-if="connectedAccount">
 		<LayoutContainer>
 			<LayoutHeader>
 				<PageTitle>
@@ -132,6 +132,7 @@
 			</div>
 		</LayoutContainer>
 	</div>
+	<Welcome v-else/>
 </template>
 
 <script>

@@ -43,18 +43,6 @@
 			</li>
 			<a href="https://whitepaper.nuon.fi/" title="Click to visit the documentation" target="_blank" rel="noopener noreferrer"><DocumentationIcon /> Docs <ExternalLinkIcon class="u-mr-0 u-ml-8" /></a>
 		</ul>
-		<h5>Faucets</h5>
-		<ul class="faucet">
-			<li @click="getMockToken('ETH')">
-				<NuxtLink class="btn btn--sm" to="" title="Click to get ETH">Get ETH</NuxtLink>
-			</li>
-			<li @click="getMockToken('WETH')">
-				<NuxtLink class="btn btn--sm" to="" title="Click to get WETH">Get WETH</NuxtLink>
-			</li>
-			<li @click="getMockToken('USDT')">
-				<NuxtLink class="btn btn--sm" to="" title="Click to get USDT">Get USDT</NuxtLink>
-			</li>
-		</ul>
 	</div>
 </template>
 

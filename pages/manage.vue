@@ -1,5 +1,5 @@
 <template>
-	<LayoutContainer>
+	<LayoutContainer v-if="connectedAccount">
 		<LayoutHeader>
 			<PageTitle data-v-step="1">
 				<h1>Manage {{sections[currentSection]}}</h1>
@@ -79,9 +79,11 @@
 		</TheTabs>
 		<v-tour name="manageTour" :steps="steps" :callbacks="tourCallbacks"></v-tour>
 	</LayoutContainer>
+	<Welcome v-else/>
 </template>
 
 <script>
+
 export default {
 	name: "Manage",
 	data () {

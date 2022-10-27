@@ -1,5 +1,5 @@
 <template>
-	<LayoutContainer>
+	<LayoutContainer v-if="connectedAccount">
 		<LayoutHeader>
 			<PageTitle>
 				<h1>Govern</h1>
@@ -125,6 +125,7 @@
 			</TheTab>
 		</TheTabs>
 	</LayoutContainer>
+	<Welcome v-else />
 </template>
 
 <script>

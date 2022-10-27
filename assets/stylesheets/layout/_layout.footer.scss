@@ -35,3 +35,26 @@
 		padding-bottom: $PX_21;
 	}
 }
+.faucet {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	margin-top: $PX_16;
+	margin-bottom: $PX_16;
+	gap: $PX_10;
+	background: #000000;
+	border: 1px solid #DFFF65;
+	border-radius: 32px;
+	padding: $PX_12 $PX_20;
+}
+.faucet a {
+	font-size: $PX_12;
+	color: $DARK_GREY;
+	display: block;
+	text-align: center;
+	line-height: $PX_14;
+	max-height: $PX_24;
+}
+.faucet a img {
+	width: $PX_24;
+}

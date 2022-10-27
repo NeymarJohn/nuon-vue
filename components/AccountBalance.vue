@@ -86,15 +86,15 @@
 						</ComponentLoader>
 						<label>{{graphSelectionDuraton}}</label>
 					</div>
-					<ComponentLoader component="tab u-mb-24" :loaded="xAxisData.length > 0">
+					<ComponentLoader component="tab u-mb-24" :loaded="!!xAxisData">
 						<TheTabs size="thin" color="dark" margin="24" @tab-changed="handleTabChanged">
 							<TheTab v-for="(period, periodIdx) in periods" :key="periodIdx" :title="period" />
 						</TheTabs>
 					</ComponentLoader>
 				</LayoutFlex>
-				<ComponentLoader component="chart u-mt-16" :loaded="xAxisData.length > 0">
+				<ComponentLoader component="chart u-mt-16" :loaded="!!xAxisData">
 					<LineChart
-						:key="`${selectedPeriod}-${activeCharts[0]}`"
+						:key="`${selectedPeriod}-${activeCharts[0]}-${xAxisData.length}`"
 						class="u-mt-16"
 						:x-axis-labels="xAxisData"
 						:y-axis-options="{showYAxis: false, opposite: false, labels: {formatter: (val) => {}}}"
@@ -235,7 +235,7 @@ export default {
 			};
 		},
 		xAxisData() {
-			return this.lockedValueChartData.xData || [];
+			return this.lockedValueChartData.xData ;
 		},
 		yAxisData() {
 			return this.lockedValueChartData.yData || [];
